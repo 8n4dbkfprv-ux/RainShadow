@@ -42,8 +42,8 @@ final class PortraitBarNode: SKNode {
     private var utilityArt: [Utility: SKSpriteNode] = [:]
     private let stubCaption = SKLabelNode(fontNamed: UITheme.Font.typewriter)
 
-    private var displayedHealth = 0
-    private var displayedMaximumHealth = 0
+    private(set) var displayedHealth = 0
+    private(set) var displayedMaximumHealth = 0
     private var pressedUtility: Utility?
     private var pressIsInside = false
     private var currentLayout = HUDChromeLayout.rightRailLayout(for: CGSize(width: 1_280, height: 800))
@@ -79,6 +79,18 @@ final class PortraitBarNode: SKNode {
             x: -geometry.plateSize.width / 2 - 12,
             y: -geometry.plateSize.height / 2 + geometry.plateSize.height * 0.12
         )
+    }
+
+    private(set) var isBearForm = false
+    func setBearForm(_ bear: Bool) {
+        guard bear != isBearForm else { return }
+        let name = bear ? "bear_portrait_guardian" : "dialogue_portrait_harlan_voss_v01"
+        guard let texture = GameArt.texture(named: name) else {
+            assertionFailure("Missing form portrait: \(name)"); return
+        }
+        texture.filteringMode = .linear
+        portrait.texture = texture
+        isBearForm = bear
     }
 
     func setHealth(current: Int, maximum: Int, animated: Bool = true) {
@@ -182,7 +194,8 @@ final class PortraitBarNode: SKNode {
                 width: HUDChromeLayout.RightRail.railWidth,
                 height: HUDChromeLayout.RightRail.plateHeight
             )
-            // Plate draws over the portrait so the painted rim frames the photo.
+            // The leather replacement is opaque; portrait content must sit above it.
+            railPlate.name = "hud.party-rail-background"
             railPlate.zPosition = 4
             addChild(railPlate)
         }
@@ -190,7 +203,7 @@ final class PortraitBarNode: SKNode {
 
     private func buildPortraitCell() {
         portraitRoot.name = "hud.detective-portrait"
-        portraitRoot.zPosition = 1
+        portraitRoot.zPosition = 5
         addChild(portraitRoot)
 
         // Solid well fills the painted hole so transparent chrome never shows the room.
@@ -221,11 +234,11 @@ final class PortraitBarNode: SKNode {
             label.fontSize = 13
             label.horizontalAlignmentMode = .left
             label.verticalAlignmentMode = .top
-            label.zPosition = 6
+            label.zPosition = 9
             addChild(label)
         }
         healthShadow.fontColor = SKColor(white: 0, alpha: 0.92)
-        healthShadow.zPosition = 5
+        healthShadow.zPosition = 8
         healthLabel.fontColor = SKColor(white: 0.96, alpha: 1)
     }
 

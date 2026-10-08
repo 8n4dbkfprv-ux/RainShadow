@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanTripHelmet",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "226c867cdc2326e7e89fd62550f63c8dbd31093e99da1a7859da1b1faa47237a",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_00.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 16,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "09e66cf7a7825ac37ac5c976eb7a4c1e723ca1f55d5522881c9d3658f81db4b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_01.png",
+      "width": 20,
+      "height": 17,
+      "texture_px": [
+        20,
+        17
+      ],
+      "offset": 336,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "a64bf76a786b9e0137bf02168f8ee60bb77f5b7bc6f11f0deaf2767cf3be67ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_02.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 676,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "3202ee12f63ac9e8e5763f89fa7aecd73527dec00eadc169b28250003db8d2b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_03.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1036,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -35
+      ],
+      "sha256": "3285cb6989ca895a41078d479cd1799f7552d288e3a37bce02dec1fd68a06d00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_04.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1396,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -35
+      ],
+      "sha256": "5742323f3e5af7bc48d07c523484b81754e4bb59124e4369f433ed419adabc8f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_05.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1756,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -34
+      ],
+      "sha256": "5d054f8baf70e71899bcf9c7dd39573f3bb614d0fb0be4c7d89dd3bef208c974",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_06.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 2116,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -33
+      ],
+      "sha256": "4720a709546cae7395c67f2ca2a145559216aa1ec073abdfb1a298d0f7952cbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_07.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 2473,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -32
+      ],
+      "sha256": "346956b8c25320ce4cce901fd991406fca48fcf4f324ec59e26391cc52787342",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_08.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 2833,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -32
+      ],
+      "sha256": "e7a50dd4d5efa7a79bcd5be750c3f7ec7c448722d25a01d60e2f19b38954cacf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_09.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 3211,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        69,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -35
+      ],
+      "sha256": "2dc8263b44a26cb4051d814c293b4d8076f929965e412ded98c5c9c6e0ace7a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_10.png",
+      "width": 21,
+      "height": 15,
+      "texture_px": [
+        21,
+        15
+      ],
+      "offset": 3531,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "70e6b6bd4842baf4230dbacd327c17213a7bef663bdd4e3242c814f634218989",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_11.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 3846,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "38d3068f13ca0d1685524eca79d47912fdce42111f2b877a093e370f2495a7bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_12.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 4166,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        68,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -35
+      ],
+      "sha256": "b28e5c55a851fbc385c9bf56642ce18d53fdf301220fd893ee161819d065da10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_13.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 4526,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "c7c65b175c596a75f759c908b174ef680a5c18ebe6c9047d21b6c8f30dc81f02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_14.png",
+      "width": 20,
+      "height": 17,
+      "texture_px": [
+        20,
+        17
+      ],
+      "offset": 4904,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "fa008b515f1464e34f4b7b766290698a611d4fd117db1f29e0fb79c0158236d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_s_15.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 5244,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "09e66cf7a7825ac37ac5c976eb7a4c1e723ca1f55d5522881c9d3658f81db4b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5564,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "e0ece620f26c58bf622de161a18433fca4b230b78fdd0b6586798c3b9714d8ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_01.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5925,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "fd7ff17987e5fadefc929545fbfbb6e91ded0f728ec39c679154eaaa2b820cb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_02.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 6286,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        69,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "170097d504ff0e68b935eb3a686c8ffbf24eccb35e597b3e28030d09015e662f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_03.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 6592,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        69,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -37
+      ],
+      "sha256": "5157f2c0158fc59234ce5f71985cc999d1597d7f1110994ba1a3802cd1011da4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_04.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 6952,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "fcf8bda384024b41c746a55d1bd781888ac359a228ef86e8e9d6e8158eef2020",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_05.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 7294,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "bd7132938bf9701a54e73255527526a34f3ad848a5a9f54104435ec73d28e266",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_06.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 7636,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "b91bf3535a785ae1ace57aafd5feaa75e345cbd1afb9bd7611b1c1f7a2a3ce55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_07.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 7960,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -33
+      ],
+      "sha256": "eba0b2d9e33ac6c5b56cfc227e5e1daad183ec263281dad78c1d48c664c07912",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_08.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 8321,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -33
+      ],
+      "sha256": "a9df0eb804cd83171eba3f5c8902212d3e1562223363bae4f37518ab665a0f97",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_09.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 8701,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        68,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -33
+      ],
+      "sha256": "cb797d30bf4454c4d44b37694d298d850d4c2b04d3d7563a56f11cca819f87eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_10.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 9081,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -35
+      ],
+      "sha256": "1a7cde0ec48f4b902f664bbfe6dacac0831bca6c3b8284f54a3947c641174f7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_11.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 9423,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "5f9b006aed5db585a38318491a1e6ac1f3ba48dc40efb3c3a98bcd2843bbd57d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_12.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 9784,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "c3a3ea99bc3905f58d8db4981cdbeaa393d69940710ba3090e551017fe33feed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_13.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 10145,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "daa03bbb3e8e2efacd6b9f3074e72e04ebfd7b4f91cae2240c0ac2e8e5f20a34",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_14.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 10468,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "dbbee17a9b4280d4715e78d08252bb1e34c0b55e813b1e2b513d913538db2685",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ssw_15.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 10829,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "e0ece620f26c58bf622de161a18433fca4b230b78fdd0b6586798c3b9714d8ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_00.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 11190,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "c59ea1a07c5c872b24e35df4c6de4a6ec8d596f6af8c09000aec6c3cc14674af",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_01.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 11526,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "2be5a58a745ba7786cb83a308920247e7b2ecc52d6e6e09acd464945d40a1f78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 11862,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "c761eca97c78122411e6b9080e5e39f1173f160c8fdb26c70158e4193836f812",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_03.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 12182,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "abaf8c997f7fe32923a44c5746f18d45f790d18c8d7235267e9481b2d44016b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_04.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 12518,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "c04065713706b64606aae642335f648af473e6d02ef0c07372ad5f27e474edd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_05.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 12854,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        69,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -37
+      ],
+      "sha256": "c71ca7d5eabaa2a6dcd6c9b52bd3cd654271f5c83ab5e675c1c8114ff7357144",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_06.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 13190,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        69,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -36
+      ],
+      "sha256": "469e5d5d0df8e7ecd8d06bf4252a93bf30e478ebe250b57cf6fad04383aac010",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_07.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 13490,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -35
+      ],
+      "sha256": "956f2e564c884d94d64af19d777a528616f8e315f9732247b975c58af0413dda",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_08.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 13810,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -34
+      ],
+      "sha256": "18cffdac466d469d26ced48444da1f4497cd252b135006713be89015424b11cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_09.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 14130,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        69,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -36
+      ],
+      "sha256": "3bdf6fba13d5f6a6fee07fd87eb093df1331410480443ee48738f68d74d219e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_10.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 14434,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        70,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "7c846fa1c4485ba886f0121bf81692d93a1bb67781c619ada1cdfe3a580951a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_11.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 14734,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "81e1e6daa8e39c3dda721b4897a8c088ac84103630bcb32832d675428d60e8d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_12.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 15049,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "d3f023b9912e3f359b953d4517e916b66483bf1dedb4138081bd02be4c33fa22",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_13.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 15349,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "339b4a15edf4fe80fc943045cf878eb053f960f03947a2158bba1df6413d4391",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_14.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 15664,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "9f661ea5aa44a68f4d33a71c0c60fd581175c6d07446bfa73d1f8261e30a75bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sw_15.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 16000,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "c59ea1a07c5c872b24e35df4c6de4a6ec8d596f6af8c09000aec6c3cc14674af",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 16336,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "81183afd1cd11a7367639b0a580b52df514925f356c410822eb8319930a199eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_01.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 16693,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "062acf57af289cccf25c2555eb34f71062ee664ca8737a5ebe2523f93363b086",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_02.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17050,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "869ca4bed321fa5a43c1dfe96ac31d76dd2038680a665de1652aa81d4cfe4908",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_03.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17407,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "003185b7ce89fc8ad43ca35a571a91eeb0215e76f758f32732d19f9c0c052822",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_04.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17764,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "e4fe83e19ee10a308e55f7781a62cd3c0c5e2bdc57450f9d7f6c4bc55a774354",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_05.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 18121,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "d79ba924f17333a98c63290d32bc3cecb071e3f2eb4014cf9c2bde5e9f532aa3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_06.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 18481,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "75f1280d3a7036169a6ba895d68dc5e2d1bffa67a95da8aaa2dd9ca9de3bfa20",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 18838,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -37
+      ],
+      "sha256": "3fb8518ff038635719d3e5a9c381605424d4cb62e7e8f72ad62b6d9590c909d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_08.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 19195,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "1bc066007a8e4b798ca2d7b3884b2548f7332b663bb623434f8502db9c4c8474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_09.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 19515,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "5dd6cf1d0fa736104c3d0bef61e839a04ac44bc912735a9b15ba798a2ce426ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 19835,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "6ebc215942b04fe18c85fa68b5cbf25200909a5ea3230b83d6520530c2daf770",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_11.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 20192,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        69,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "861010238450770d75ab2cbbfd91538794f1148d42a6630fe70432b2af78b945",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_12.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 20515,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "8ba903445ad3373cd7a44554a8551a12af99a0790cd9101ae070e2d3f73390f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_13.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 20889,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        69,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -40
+      ],
+      "sha256": "0b3141f5d45e6d009dcb1b7bdda55832929738c0acda70cfcfc5c325d3ba2bec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_14.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 21246,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "7ded7f721e5b3a039f6fbf283859c00bb4967c903e6e658e93788243660bb3a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wsw_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 21586,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "81183afd1cd11a7367639b0a580b52df514925f356c410822eb8319930a199eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_00.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 21943,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "ec0d98186d8e9f9dddbad9311aac1bb893608d39d23ebd0f496ed8bd59559c6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_01.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 22321,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        71,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -41
+      ],
+      "sha256": "927df78f881d0d8326cd0cb0f4a5b434a812fc1d55fd370bc32b0a460fa6991a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_02.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 22695,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "b59519d9d5435e49f8cfab77843c03093da717efe215872b2709aa5f21d76ae8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_03.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 23086,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "abb3fd34565039b383ecd84d021359c57f430c48b783f64a99dadb4e95009d0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_04.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 23494,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "41ec72ac6caec756b0529bed3248d692fea4ee76f544db98bfd9059718984174",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_05.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 23908,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -37
+      ],
+      "sha256": "e8b0e2e4b1e292c56d59110735af32ef9697172ba3887f9ed8517c0ac63ad38a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 24322,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "c2ab0397ba481836721eddc8977a5df78bb363541d9c45371b9bfb2d0467f8b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_07.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 24713,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "eb8b875adb79a23cfa6cfdabfd8b73e68e394cd56ce9ef54ebdee83ddc0f15b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 25087,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "ea19f5b1dc97be453e7fc51599aa99405b0988b5bc773711f002fcac86e4fa54",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 25447,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        67,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -37
+      ],
+      "sha256": "607748d633e5797954ae81a6ea454fa2f62ae38dcbbf22078ef71223a09e9d13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_10.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 25825,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "b9ffe15a2db3b57b27a5599253d15a25245a0c48de6f7840cc73afc93a5b1d74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 26203,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "c93242ab3ed818015b34bb579bf6bd068f5595230cecdd7e155952faf3fe6968",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_12.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 26560,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "5a85a9624d6212c74ad8363f4166b766104ab05e57add60ca4c8b636345e9128",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_13.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 26938,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "b12a956d3ef599fb5256f378ed696f4e4a5ec1e2673cee164ed37d3fde0f48a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_14.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 27295,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "686d0d94bbd30df1add1c7ccd4ccf98a7e5894b2f6897997b5834eb3b3fdfcdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_w_15.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 27652,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "ec0d98186d8e9f9dddbad9311aac1bb893608d39d23ebd0f496ed8bd59559c6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_00.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 28030,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "8d42bb3e07a21a0c0bdb257d352f43ac7be07d7da3e72a5a333e1bac6fdcbfb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 28438,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "8290909b348030d9808c59681214b75e1d037b84e8b65e03407e57a17a34dd6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_02.png",
+      "width": 16,
+      "height": 25,
+      "texture_px": [
+        16,
+        25
+      ],
+      "offset": 28829,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "2b5fd4b7c926e6b197c65ace78582b65887b6468c1f396a706c7f3d4f300a8a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_03.png",
+      "width": 17,
+      "height": 25,
+      "texture_px": [
+        17,
+        25
+      ],
+      "offset": 29229,
+      "length": 425,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "09a0188c4f7eae1bd531b67330b94c830db9d7d9e5c38c402096b97ad230ec9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_04.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 29654,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "55b92c501751fcba45ffde7ed646d398841afeb8da9a25d60ee2943592801508",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_05.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 30062,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "598c8da905719047b24d70c265b12eca72f9e4396b1d2ddce7c3a931c65012ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_06.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 30470,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "7f858bd1030e365f3ebae95a0ff04acda3944f3ce15be05a45c286b0e01c7b48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_07.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 30878,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        68,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "55aa5adeb15b8323aa59faabcdde03f4a4d656ceeb87a044e032f4d0b2311b15",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_08.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 31310,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "8c1035a24cd04dc9c559670c365ac3a546a18233e6387c20a1c4f6349918fbcb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 31667,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "8afd07898661e22ff5c4b8ecbab60df98ca620fa79072203cc83ebdde72824e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_10.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 32024,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -38
+      ],
+      "sha256": "6ac527d90e98a92f902e0d1f04d1e2757b8357ca0a1976c352e7d3bf7ff82926",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_11.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 32398,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "9f7e41134301ec9ec94277821bb445d8988e325c71f15e929ca8598f94a1475a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_12.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 32772,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "ec06b1cbf433705e21d33bdcadf175f1adb88d7dbb73048d44ca99e3ece1a71b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_13.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 33163,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "3f0466ddda05cf4173cfd6d07b8b32834b7032be93d5dabccf66961b7e5288ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_14.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 33577,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "00679ebfbd1f998dc38b5d021e21ca091aaa50e5f9c21e171eea01e7f8c6fbf6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_wnw_15.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 33968,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "8d42bb3e07a21a0c0bdb257d352f43ac7be07d7da3e72a5a333e1bac6fdcbfb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_00.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 34376,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_01.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 34744,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "cbce6fcfcd2a7f510f89c79e84e8250cb375d669cb743c373150b22d1a77eaff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_02.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 35128,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "1d28720f7f54d1a7419c8aa24bc38d09c0e9ec2576ae4673b9d3fa2e12a2d08f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_03.png",
+      "width": 15,
+      "height": 23,
+      "texture_px": [
+        15,
+        23
+      ],
+      "offset": 35496,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "95595e09d31890e895332b6c382cf760645fb44ed8fddc944b9be7def7f86c54",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 35841,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "969f2bb805aeaf4f09c397701d3d4d1a032209f704e4b3d7417c335edbda7608",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_05.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 36209,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "2c8facd521e574602dbd832a32db9799c0e2378612cb49b3117008de40d95b10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 36593,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "29675ad884ed772b563de03feac97caa65c85b25bc5a699cf7b63de39336d25b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 36961,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "69ff56b306754babbf07b80ca61264d8c31762b1ca05ecb0c4e4adba168f24c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_08.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 37329,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "21f8548d8f601630f0d994612a74b0db041db961d00b8417913a87cc7973e968",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_09.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 37703,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        70,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "d12d765ecc6376fd8e642a572819e5a98760e5ab75f11d3f09ee1d0dfc510fbe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_10.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 38094,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7dff1b268bbc58886576b3f4322f6e187cd56ce7df1912145214da135ea20c1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_11.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 38468,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "eb1ea66eeff17dad78d48eabec66488facfc448f87451a2f03b65c3cd6dcf63d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_12.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 38859,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d1f3392e137ce583e286d5657d6c8f739fa263124d141d0460a444f8dcb1d14d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_13.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 39227,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "ebb20c2aa6fafbf5b0fe548c1cb85631532a1fa60354f633154f1bf256ee14f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_14.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 39635,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "d0e09548cb69dc387b056866c961a7a069e642176668f5ec22e4bf287c0be548",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nw_15.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 40003,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "25a13f9cb18106a49e23ae992f8464b7ec65c54f07fd38fe217dda5e98f1d1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_00.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 40371,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "0e0dc8be58a558b047cc3ab88f539226d96abbc4a2a05da0ea7d107fadb8062f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_01.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 40789,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "f0c336612468426718ce1571ad06c87027ce4757e7a1caa7fe3eb36ae6068abc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_02.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 41207,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "a6591eb6e7eaedf4b9c909eac93d21b05b4f213dbbbfd73eb8ba1779dd1f0eed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_03.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 41627,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "76b509df12ea6ca1a31b64bafb56994aca443a407ef13b9686c8aecfe2bc9396",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_04.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 42047,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "9eff954d2edc99391e180b93008f64c6d2e43e5f7ecf9c410cc5ffb85e2a23db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_05.png",
+      "width": 20,
+      "height": 22,
+      "texture_px": [
+        20,
+        22
+      ],
+      "offset": 42446,
+      "length": 440,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "fe0a7663512a33f40403fe0ca84aed718fbee9ab6ed953ccedf90362c862ad8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_06.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 42886,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "19fb070a4bf67544d70f44061b135fae31bb5e134845d47a2d16779beae50d7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_07.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 43304,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "87f6059a3ea44680b4cd1bafea253842bebaa97f5cea4822280c8ff4fa63763c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 43722,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "75a54a69877b1ef602c7a9d58aa2932726d684f380cf1d5175713655b352b14c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 44118,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "873aa5d1f4f018057afbda4d4f3e58235a7dda1954515b7ff4a6c9d50685479e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_10.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 44496,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "028b9a7f9dbc47fb0f0ef6740c452ef4782f9974e933af1df2d6cf35282f0a1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_11.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 44914,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "6cffcfab4272f6a64df091bef18f45eaf60eff20e887448e729f390c0d8e0508",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_12.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 45310,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "9f0ead2a37b2fe1869fd978480e4e91404a0863dac3d30879471e313fa34f53d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_13.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 45709,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "750d071fb871103a12016a90e1ba8ed1bae599385d3afc6f51ccd2e88fd1139b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_14.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 46105,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e37a1b70687ad66039771062a7d3bd9e243a8c8a7698065574970f215f969ac7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nnw_15.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 46523,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "0e0dc8be58a558b047cc3ab88f539226d96abbc4a2a05da0ea7d107fadb8062f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_00.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 46941,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "926db6207e19887c10ccb4443d7fa55ed9148b66817504b7bfeb645c66dc10ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_01.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 47341,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "b008c4125e2734821fcdf07b2fb4918f852f3f69ff62346180e70421e02af75d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_02.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 47741,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "13cda13c4bb27935deaff933a0f4d4a4d9f3797353fba6a2523593e6deccce8e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 48141,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "bc58b151a34939ba70e538697b0ab70164982e561c48600ca66369919067e5d0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_04.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 48541,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "929325db751fc298c9927f4fb12d0d04b31457944ba8c385e3c7ec7b9b080aaf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_05.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 48961,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "c4ab32a56554aa0a046f544821dac99fedd6cf02e54c2148e72bc72a8a54e017",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_06.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 49381,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "e0dce11ff53fdce77325ffae8a18281c8ac03de5be045bdf29ab919790632343",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_07.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 49822,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "610dae57b7b5c1bee84549d6caa1c036b922671e4321b04754376de75dc90712",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_08.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 50242,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        71,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "c3c5494d193204d553c8369510b33896f3634ce3e32d132cf1dbe91fb83f9613",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_09.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 50683,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "40947733fcb89fd43a9c6483ace3eb16197899af18f282f111ebcc0f98e46ce5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_10.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 51083,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -35
+      ],
+      "sha256": "21b211cc02b2aff6b26abc6257a7adb58ec4be018507d9c635f83e6bc5a4f76a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_11.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 51524,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "551486b5db922c057de7e65a0958132c95c2fc9dc856ab4a0ff96c78780bb80a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_12.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 51924,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "ba0c164315424bd29d865232d73da818e40ce037b2a14c2f34ea32774b74ec28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_13.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 52344,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "4b903a0809701c393535e888bd67e485155326e7dfad7c32f40148ec6618e570",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_14.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 52744,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "caf100d7c0a885bd0a19a6ef5ced98778c529583ef86b282776a118928c5886f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_n_15.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 53185,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "926db6207e19887c10ccb4443d7fa55ed9148b66817504b7bfeb645c66dc10ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 53585,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "0d039d2d15527f01a4706255acf47939f149bee1f668a891230dd154d16cd7f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_01.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 53984,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "6ee6ffaa839dbac492d58442befd8e67af2265e778827b26d27fa7e924b85e03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_02.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 54402,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "d065c7e12a3d9033e535456a5dc04ecd49faaea8de9e460366b7812465b50879",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 54798,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -32
+      ],
+      "sha256": "5ac003572e434b6754ffcfd47d95e19a12ffa7df1583328e5011f2d3036be62b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 55194,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "02dccea756f04c6c8424379302f9772f6c81e898630d39442b7c1169a3683317",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_05.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 55590,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "278553199d7b3aee3c6b89c4b24e9715ac155295642676a1194f30efd0edbd55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_06.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 55968,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "8d067aa1506c841bc6127582b8a5469d83ad11b5a17525b23aed7ad6e09e82bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_07.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 56364,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "36b93399ce71b03e8ca5480421669add532bce5f4b9b41d5fc1fc18721ba3d89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_08.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 56763,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "1f78087cf4fc05bdee2849b972724f67dcf9bc77154d83e83ee1300d6c1066c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_09.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 57183,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "81d68ba743b8a2a7fc71754f91ba8cf74103157e5dfdfb68e8447e50ea00852c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_10.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 57582,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "36999b8a26114a95621d7de746eb703b69130c2f7c1fa10fa6e89e26b8438c17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_11.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 58000,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "ef3f09a6e1d2e9006176de3faec226d5a6a6be237c7232aabc8fdc83634a2bdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_12.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 58420,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "da5aaacb4182e880dfc76bb357ef95cadc479b49fc7b33fc252d89fb1f8b1372",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_13.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 58838,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "e3e7e5cb8fe96da276ea020de63f4eae18220b210a5b1183446a410e52389df0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_14.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 59256,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "866a5d46b5477c269d1d79b4cc74136487d26d8dc2cad084b6b51659cbb5af51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_nne_15.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 59674,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "0d039d2d15527f01a4706255acf47939f149bee1f668a891230dd154d16cd7f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_00.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 60073,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "3bb16188bf003c2084469739509eac06963e3c5128609e6eda8a4237f705b341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_01.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 60457,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "3d022aa1dd7a471a84300da48932c8fd708ca44fe690504b123bec9a06fe1fea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_02.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 60825,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "b31df025a8f9b4243a74f9b682eab919c54fcdc04a3b25d22b0552a23c5007b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_03.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 61199,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "1310ac5202c66a3c62dcd73bb73cd74186354d4202db9c1a4c69a62779ee93d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 61573,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "905d132e208be8b1e48158622d47f10caf8b0ee771cb01c1fac91e3fc8f4ade5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 61941,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "2107f42338cc813b648795ce971847c7629d9cc8ea8330951c272f031bce8045",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 62315,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "388fa23a8fcb9ad6554ac7f34d9955edd6cd5a5b085761acc2b2c8c3290939ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_07.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 62683,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "f3d1eff3bcc2adf8c6d3eb97999e1490401eb0383aaec78ea7e6385f59518548",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_08.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 63067,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "aa82c3573cf403ffabd84112281310662b1fc6f61b077c260c01027392191935",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_09.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 63451,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "02a48006f8c9dfa56aa040a4d6bfce6405307a63113082e8bfda38d489d9d2e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_10.png",
+      "width": 15,
+      "height": 23,
+      "texture_px": [
+        15,
+        23
+      ],
+      "offset": 63819,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "cf169c1a57b5ff4e82e938cdd2fe371dc404e58caad59367f0a042676fcef211",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_11.png",
+      "width": 15,
+      "height": 24,
+      "texture_px": [
+        15,
+        24
+      ],
+      "offset": 64164,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -33
+      ],
+      "sha256": "0920a5b3723187d489f5c8044c4d3f8697fa6f8989b10143ca95dae5e5befa7d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_12.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 64524,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "7049459db91646f0f1448542fc7641be0167adf523fc0a5596c6642058ded44a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_13.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 64892,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "408ebc75d4904c9f565a2a2cb6eadcbb2cd6b174dc51c5739f61330be700504d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_14.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 65276,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "e4131f1511f25c89c15dc057b63b366fcd91a78858705f1ef5174a231c98292f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ne_15.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 65644,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "3bb16188bf003c2084469739509eac06963e3c5128609e6eda8a4237f705b341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_00.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 66028,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "80a52d8cfdfb357fc251e8d9ce5eba56cbc5a0ab9075b1102637f1c78dc805a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 66419,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "a4ebd60cdf1748e895b742c81e6eb3d2a93e68cd5eab02d14058fa37d71f3f8b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_02.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 66810,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "a0dbe3c147691f7ba09e8d3163ad3d53c65c0c82d77b3a55f82c102bd0e4b189",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_03.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 67184,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "49900b07a41a9f9c1c39d4885e30bce34ae4a17a8e50c2148fb06dfaaafc979f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_04.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 67558,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "01abca4e5f0fc0aca51e1b535526458e5f4d07094af2a85ec491544aff7da59e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 67932,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "3c76e959b87446096fd9165852cb38ff6ebc39cb96243e4bd496775f5d6294d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 68306,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "f3aed84a25f20890e2dfcf735c5462c69679f55c2d9a2f86e1f0d4b557ec486d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_07.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 68697,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "c46d054e0fecb67e31f41bce73e1a833c9ed2e7ebfd2df9ed2d5a40f1c26507d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_08.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 69105,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "66d7c28b4c2bf4d590d027db2de09f87903e395df62face0cd75579c5d9e1292",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_09.png",
+      "width": 16,
+      "height": 25,
+      "texture_px": [
+        16,
+        25
+      ],
+      "offset": 69513,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -33
+      ],
+      "sha256": "89f84cee0e83bbf2df3bbba8166b0cec90f4668ba7367abd52a5c542b166ae93",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_10.png",
+      "width": 16,
+      "height": 25,
+      "texture_px": [
+        16,
+        25
+      ],
+      "offset": 69913,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -33
+      ],
+      "sha256": "30392c605bdf9b81286f2a488faca087548b44d9bed81a0d063f9dc488170a17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_11.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 70313,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "695957ee0797b860e2d7524b45cbb67e3b860447943abac66a6648194410433b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_12.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 70721,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "36eec95484a5166164849d3f8e06ad7075f506dfc40fd48f7864773ecee1e414",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_13.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 71129,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "66fb57a073b3866599033a230f61cd14576c2514b964dfa45c0fb4d5d7a3d39a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_14.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 71543,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "ab43bb2e0f084a2cb4a2ad6e39e21f8a322ca51c069d1a0ea98fafa57270648c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ene_15.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 71934,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "80a52d8cfdfb357fc251e8d9ce5eba56cbc5a0ab9075b1102637f1c78dc805a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 72325,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "bf802181b671c492f279267ab325bb223500ac5c94d501bfb902406a52d7efdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 72682,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -37
+      ],
+      "sha256": "259aac6b45f22b323f691c30ec98e3b32098d2b03e38ebafc40d85e54cf0501c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_02.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 73022,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "04f347eec1f999e8bc3da753522b04f91ae267c37190281a4458e5120bda1900",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_03.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 73379,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "d58fae7551bead02878c58b1352debf72f866e31c7e648aee362c324d36a3632",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_04.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 73736,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "cf1f9c9ea6abbbb1cdccbfa4c9f61b5cfd2370bda88164139d056863e1b04c42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 74110,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "d5c6b9cda1a43b4240bde4d8644373de81856af10b1c4365b4b94c24bd8e75d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_06.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 74484,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        75,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "3fe8d9c380a6ef2c5a8aa05aa509ec1e8ed0369e6df42c1a1e660d5082fc5f26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_07.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 74841,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        76,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "80f6da803b40c314caa883de3b133a27272c99c91960602e5e8a486af68e9d02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_08.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 75215,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        76,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "96f60502db9c0afe05555cd1a36749b9f8634d6db304f71cdfe4952287b42429",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_09.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 75629,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -33
+      ],
+      "sha256": "fe850889e2afb9b183a71f345fc13cb4a289de338811fd1ade5e18c7aeae8bce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_10.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 76061,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "979f0d825d71cdac36e66ed599087663483dc31030c6e475e7c9fc96a33a5bca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_11.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 76475,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "6c3fd772c075447045309c4ac2a11cfa63acaa8485532c5b2d5ecb2fad3b8728",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_12.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 76866,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "871afb567e9f8abfcf2d7ead0cf3057ee2ee09cffe458c7f288fc4ffa12b2149",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_13.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 77262,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "7e1b0f5730c6ba45f0fc0b00d8c18f30daede47347801e1d97686c5ae29d588d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_14.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 77636,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d5504e7cb6bbe9fdee259f2adb90208bc9141a42b980f52aa4d3a33587e36b50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_e_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 78010,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "bf802181b671c492f279267ab325bb223500ac5c94d501bfb902406a52d7efdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 78367,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "18d283474fd8b64a06dc3e00a0fa975e4a139bb8fc464bcd2b8ada3c21ad2902",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_01.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 78724,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "0384f03f41252b5f333efa0c3838cdbb5f47a71fb52ccf5b062821f4d0de6750",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_02.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 79047,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        71,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -35
+      ],
+      "sha256": "de6bd5cdd3dbdf66ae08cf107cc721e67a30b61d67e20286a30178905d335a33",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_03.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 79351,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -34
+      ],
+      "sha256": "0ff6f56505f024df7d436c8b3c95fc3a7630840844e290c4dcc0f4c8abc4e791",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_04.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 79671,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "5cb7afa665dc28a783df426b5ef3b0c061e259dfc404a3fd119ffc748824a744",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_05.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 80007,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "4d975e8ee9b6e04778dd86e569d1dcd189f0434f4bdb265ad3d927dc02a12817",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_06.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 80364,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "7a42b75b6cb720c801b85f27848887cd928cfb130e2d50f666f54f0b36fa2cc7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_07.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 80700,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        75,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "8e2ef510b7f2aeab579be94d0adba1d9de6a55be3724387249415196009f6a87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 81006,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        75,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "be7634c2e31f3694c0de5de787adf10ad8708a690e3ee0b24e043e7a74c5eab7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 81366,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        75,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "9b6a949c66a48e2408b58789b3cd0ec633c0b9ccc9524f676fb45595716dd39b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 81723,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        74,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "727de1c912ba97d938cf4aa93739592ad2b2a13b8b6fb90775bba4ccd921df80",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 82080,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "5ba14c778299f57bf410425618aa816990eac2af4088d3de2a6554b05a50ebb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_12.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 82437,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "c44683d357225e35c0f69d59846ba8ac14b40fc066eea51c9e393da4b7e882ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_13.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 82794,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        72,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "9fee04823b3e7d934c6104ef3450e319156991673a564b06ce36d769f638ec38",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_14.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 83168,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "c8e61c3feecc3b9834bdb3fbbf2e68a96b36e21ba25e759d4cbdcf97faa5d1e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_ese_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 83525,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "18d283474fd8b64a06dc3e00a0fa975e4a139bb8fc464bcd2b8ada3c21ad2902",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_00.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 83882,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_01.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 84212,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "aad906317d2daf2dae0ef5e48f3fcc898a36ae2ea7f4df783121509876fe8385",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 84532,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "9e38230405bfbbc01cdd3544c738de8f7eaec7cd8579fe6e8a23e3d7fc911ef4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_03.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 84852,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -35
+      ],
+      "sha256": "8215ceae3117bbee29f34ec39b4e66ad9ed263ac707dfef760b5ea88f5614dad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_04.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 85172,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -34
+      ],
+      "sha256": "6f462e1987365d21ff33d247a1699b4cd33fd67b0c7e3312e41b881dade67029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_05.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 85508,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -34
+      ],
+      "sha256": "f08467505b01f27563efdf3b6e702292c2ae1e5a8fe37162fb07fe727c61744c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_06.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 85828,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "b842cc82c02d0f7704701d6500ab557f7dbd94eccfd8c2450ee0e15245bf5da4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_07.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 86128,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        74,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "c00b782ee183a33dad7643f1e08e1f4ee287edf9a2ee8061b68d84213e896815",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_08.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 86443,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "083eac3fcbee59438753bf196414cd23e0274080e29e12a7863d7e574be4d5f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 86779,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "29d46aa5daeac018512e4b854de5f73dde611bd68be95e7f4e867e7381ab8b83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 87136,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "c76352a62f53313c51254c272726973a49b3a1af2fb8ef41f8aedea2b56e0aec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_11.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 87493,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "5f7b79abe6b45827493b3ec63316980ed083e7a9afbcefd2741db0ded28b5e67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_12.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 87829,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "a4f61d31edd895a757c1d839c5a0b69bb1202787f4bf331d382b84bf8c9f78e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_13.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 88149,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        71,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "d771197d204a0358d5604153e43063167dc1f628ab773e5867e6d5b49236959d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_14.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 88469,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "cd5673d2d071228b5b67c21f9e1da334d27d91743e2ad2b5b61d873be80f379c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_se_15.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 88805,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 89135,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "4a0f7f504dd444ac9ce14e81e4dd0ac377ce4d902f2cfa256d3eda384f1a4ec7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_01.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 89496,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "74c42ea4c853cca848bfb6838d7b300962dd435d5f5bd7b4127844431d95360a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_02.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 89857,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "62b28fbc8ce7aaaaf197e0a4047a71c7e89a3219647860726df0bc0afa25a64a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_03.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 90180,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -36
+      ],
+      "sha256": "ad45373e3b72e2df65d80c70edcf89b72e3c383e8373596800da9e2de6e94dcf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_04.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 90522,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -34
+      ],
+      "sha256": "56951084bd8a1f68e18234d37297d9237d517a4f420f6cda6b1ac5c4c543aec5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_05.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 90883,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        68,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -34
+      ],
+      "sha256": "32075bb6a4f3d1556ec42a6d45572b3a23c2af995d04afb918f3b9d98bf9a1b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_06.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 91243,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        69,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -35
+      ],
+      "sha256": "28662b43e2a69a4032e8979d9134da1ff475ac1d0a661170c58f5ccb295bdf8e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_07.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 91566,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        70,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -32
+      ],
+      "sha256": "77dcbc4c33bb366b38b41854ca41ffffa2465e5cda5fefe078831fd6f7dc1859",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 91946,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        71,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -32
+      ],
+      "sha256": "886558ac43f6954b19281e1909fdb9ea3f3910033d31d58744aa08afd8e1478f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_09.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 92306,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        71,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -33
+      ],
+      "sha256": "8bf1144ff3d8caa7f5e40e0293c2640abf3c856c9feb7f1ef67c1033d69da309",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_10.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 92666,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -34
+      ],
+      "sha256": "d1df252699f8c866fd1400742979a04dd655ecd7c54e3edae7bb94c2c7845f41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_11.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 93027,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        70,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "9ec0d52c19e14eacc9593e6f26976659834cc4e679b5a354ee3100f6aa117c38",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_12.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 93351,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        69,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -35
+      ],
+      "sha256": "4c47efe343d80a1431087d6509dfec77e1a6a1a2f8bcfc8eef15edf2ffc993d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_13.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 93712,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        69,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -37
+      ],
+      "sha256": "95409449b5f21f80ee9f52bcd2b2a61717a275d774b5ad309367c91f23fe245e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_14.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 94054,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "a1744d7a274eea930798496683eed26086a3c1a3b51db22eaf159c63638c03ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripHelmet.atlas",
+      "name": "trip_sse_15.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 94396,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "4a0f7f504dd444ac9ce14e81e4dd0ac377ce4d902f2cfa256d3eda384f1a4ec7",
+      "empty": false
+    }
+  ],
+  "source_authority": "TripOct08/Trip_Authored.blend"
+}

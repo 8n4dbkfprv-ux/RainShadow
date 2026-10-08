@@ -13,13 +13,13 @@ final class MeleeAttackPresentation {
     private(set) var elapsed: TimeInterval = 0
     var impactPresented = false
     var dodgePresented = false
-    var isSneakAttack: Bool { StealthAnimationSet.usesAttack(result) }
+    var isSneakAttack: Bool { (result.maneuver != .tripAttack && StealthAnimationSet.usesAttack(result)) }
     var impactTime: TimeInterval { isSneakAttack ? StealthAnimationSet.stabImpact : WeaponTechniqueMotion.meleeImpact(result.maneuver) }
     var finished: Bool { elapsed >= (isSneakAttack ? StealthAnimationSet.stabDuration : WeaponTechniqueMotion.meleeDuration(result.maneuver)) }
 
     init(before: TacticalCombat, result: TacticalCombat.Strike, target: Combatant,
          actor: CharacterAppearanceNode, barrelDestruction: BarrelDestruction? = nil) {
-        swingTrail = !StealthAnimationSet.usesAttack(result) && actor.definition.appearance.equipment.contains { $0.item == .lanternShortsword }
+        swingTrail = !(result.maneuver != .tripAttack && StealthAnimationSet.usesAttack(result)) && actor.definition.appearance.equipment.contains { $0.item == .lanternShortsword }
             ? MeleeSwingTrail() : nil
         self.barrelDestruction = barrelDestruction
         self.before = before; self.result = result; self.target = target; self.actor = actor

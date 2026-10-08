@@ -46,9 +46,10 @@ struct CombatBudget: Codable, Equatable {
 /// RainShadow weapon techniques, not additional TemplePlus/D20 rules.
 /// Every technique has one use per actor per encounter, including on a miss.
 enum CombatManeuver: String, Codable, CaseIterable {
-    case powerStrike, feintingCut, aimedShot, pinningShot
+    case powerStrike, feintingCut, aimedShot, pinningShot, tripAttack
     var title: String {
         switch self {
+        case .tripAttack: "Trip attack"
         case .powerStrike: "Power strike"
         case .feintingCut: "Feinting cut"
         case .aimedShot: "Aimed shot"
@@ -60,6 +61,7 @@ enum CombatManeuver: String, Codable, CaseIterable {
     var accuracy: Int { self == .powerStrike ? -3 : self == .aimedShot ? 4 : 0 }
     var detail: String {
         switch self {
+        case .tripAttack: "Half damage; hit knocks a standing human Prone until their turn • standard action"
         case .powerStrike: "−3 accuracy, +3 damage • standard action"
         case .feintingCut: "Half damage; hit gives −3 accuracy through target's next turn • standard action"
         case .aimedShot: "+4 accuracy • full turn, before moving"
@@ -71,9 +73,11 @@ enum CombatManeuver: String, Codable, CaseIterable {
 struct CombatConditions: Codable, Equatable {
     var weakened = false
     var slowed = false
+    var prone: Bool? = nil
     var attackAdvantage: Bool? = nil
     var attackDisadvantage: Bool? = nil
-    var label: String { [weakened ? "Weakened" : nil, slowed ? "Slowed" : nil].compactMap { $0 }.joined(separator: " · ") }
+    var goadedBy: String? = nil
+    var label: String { [prone == true ? "Prone" : nil, weakened ? "Weakened" : nil, slowed ? "Slowed" : nil, goadedBy != nil ? "Goaded" : nil].compactMap { $0 }.joined(separator: " · ") }
 }
 
 struct Combatant: Codable, Equatable {
@@ -106,8 +110,11 @@ struct Combatant: Codable, Equatable {
     var hideUsed: Bool? = nil
     var lastSeenPosition: CGPoint? = nil
     var combatFacing: Int? = nil
+    var shoveProfile: ShoveProfile? = nil
+    var shoveSpent: Bool? = nil
     var sneakDamageDice: Int { sneakDice ?? (player ? 1 : 0) }
     var conscious: Bool { hp > 0 }
+    var isProne: Bool { conscious && conditions?.prone == true }
 }
 
 /// Actions resolve atomically before presentation. Checkpoints therefore resume
@@ -177,6 +184,8 @@ struct TacticalCombat: Codable, Equatable {
             && $0.hp >= 0 && $0.hp <= $0.maximumHP && $0.speed.isFinite && $0.speed >= 0
             && Set($0.usedManeuvers ?? []).count == ($0.usedManeuvers ?? []).count
             && ($0.burningTurns.map { (1...2).contains($0) } ?? true)
+            && ($0.shoveProfile?.isValid ?? true)
+            && ($0.conditions?.goadedBy == nil || ($0.conditions?.goadedBy == Self.playerID && !$0.player && isBear))
             && (0...6).contains($0.sneakDamageDice)
             && ($0.combatFacing.map { (0..<16).contains($0) } ?? true)
             && ($0.lastSeenPosition.map { $0.x.isFinite && $0.y.isFinite } ?? true)
@@ -226,9 +235,75 @@ struct TacticalCombat: Codable, Equatable {
         } while !current.conscious
         actors[turn].defending = false
         actors[turn].hideUsed = nil
+        actors[turn].shoveSpent = nil
         budget = CombatBudget()
+        if current.isProne {
+            // RainShadow adaptation: standing buys the first movement segment and
+            // spends half of it; the standard action and remaining movement survive.
+            let speed = movementSpeed(for: current)
+            if speed > 0 { _ = budget.move(distance: speed / 2, speed: speed) }
+            actors[turn].conditions?.prone = nil
+            note("\(current.name) gets up, spending half their movement.")
+        }
         note("\(current.name)'s turn.")
         return true
+    }
+    var canShove: Bool { outcome == nil && current.conscious && current.shoveSpent != true && !(current.player && isBear) }
+    func physique(of actor: Combatant) -> ShoveProfile {
+        actor.player && isBear ? .bear : actor.shoveProfile ?? (actor.player ? .voss : actor.rangedWeapon == .bow ? .lookout : .crew)
+    }
+    func shoveProblem(target id: String, clearLine: Bool, destination: CGPoint) -> String? {
+        guard canShove else { return current.player && isBear ? "Shove requires human form." : "Shove bonus action is spent this turn." }
+        guard let target = actors.first(where: { $0.id == id && $0.conscious }), id != current.id else { return "Choose another standing character." }
+        guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach else { return "Move within melee reach to shove." }
+        guard !target.isProne else { return "The target is already on the ground." }
+        guard clearLine else { return "The target is blocked." }
+        let source = physique(of: current), victim = physique(of: target)
+        guard Double(source.strength) * 12 >= victim.weight else { return "Too heavy to shove." }
+        let travel = CombatNavigation.distance(target.position, destination)
+        let dx = destination.x - target.position.x, dy = (destination.y - target.position.y) / 0.75
+        let ax = target.position.x - current.position.x, ay = (target.position.y - current.position.y) / 0.75
+        guard destination.x.isFinite, destination.y.isFinite, travel >= 2,
+              travel <= ShoveRules.distance(attacker: source, target: victim) + 1,
+              dx * ax + dy * ay > 0, abs(dx * ay - dy * ax) <= hypot(ax, ay) else { return "No room to push: the landing path is blocked." }
+        return nil
+    }
+    func shovePreview(target id: String, clearLine: Bool, destination: CGPoint) -> ShovePreview? {
+        guard shoveProblem(target: id, clearLine: clearLine, destination: destination) == nil,
+              let target = actors.first(where: { $0.id == id }) else { return nil }
+        let source = physique(of: current), victim = physique(of: target)
+        let dc = 10 + max(victim.athletics, victim.acrobatics)
+        let advantage = current.hidden == true
+        return ShovePreview(destination: destination,
+            chance: target.player == current.player ? 100 : ShoveRules.chance(bonus: source.athletics, dc: dc, advantage: advantage),
+            dc: dc, bonus: source.athletics, advantage: advantage)
+    }
+    struct Shove: Equatable {
+        let attacker: String
+        let target: String
+        let roll: Int
+        let secondRoll: Int?
+        let succeeded: Bool
+        let preview: ShovePreview
+        let displacement: Displacement?
+    }
+    /// Resolve and save the destination before presentation. Invalid targeting is
+    /// inert; a resisted shove consumes the bonus action but never the normal attack.
+    mutating func shove(target id: String, clearLine: Bool, destination: CGPoint) -> Shove? {
+        guard let preview = shovePreview(target: id, clearLine: clearLine, destination: destination),
+              let index = actors.firstIndex(where: { $0.id == id }) else { return nil }
+        let attacker = current, target = actors[index]
+        let allied = target.player == attacker.player
+        let first = allied ? 0 : roll(20)
+        let second = preview.advantage && !allied ? roll(20) : nil
+        let success = allied || max(first, second ?? first) + preview.bonus >= preview.dc
+        actors[turn].shoveSpent = true
+        face(attacker.id, toward: target.position)
+        reveal(attacker.id); reveal(target.id)
+        if success { actors[index].position = destination }
+        note("\(attacker.name) shoves \(target.name): \(allied ? "willing target" : "\(max(first, second ?? first)) + \(preview.bonus) vs \(preview.dc)") — \(success ? "pushed" : "resisted") (bonus action).")
+        return Shove(attacker: attacker.id, target: id, roll: first, secondRoll: second, succeeded: success, preview: preview,
+            displacement: success ? .init(id: id, from: target.position, to: destination) : nil)
     }
     var canExtinguish: Bool { outcome == nil && current.isBurning && budget.canAttack }
     @discardableResult mutating func extinguish() -> Bool {
@@ -280,7 +355,35 @@ struct TacticalCombat: Codable, Equatable {
         bearForm?.turnsRemaining = 0
         bearForm?.temporaryHP = 0
         bearForm?.activationTurn = false
+        for i in actors.indices { actors[i].conditions?.goadedBy = nil }
         note("Voss returns to human form. Bear Form is spent for this encounter.")
+    }
+    var canGoadingRoar: Bool { isPlayerTurn && isBear && bearForm?.roarSpent != true && budget.canAttack }
+    func roarTargets(clearLine: (Combatant, Combatant) -> Bool) -> [Combatant] {
+        guard isPlayerTurn, isBear else { return [] }
+        return actors.filter { !$0.player && $0.conscious && $0.hidden != true
+            && CombatNavigation.distance(current.position, $0.position) <= BearFormRules.roarRadius
+            && clearLine(current, $0) }
+    }
+    /// RainShadow adaptation: guaranteed goad, one use per transformation,
+    /// through each victim's next turn. Reverting releases all affected enemies.
+    mutating func goadingRoar(clearLine: (Combatant, Combatant) -> Bool) -> [String]? {
+        guard canGoadingRoar else { return nil }
+        let targets = roarTargets(clearLine: clearLine)
+        guard !targets.isEmpty, budget.spend(2) else { return nil }
+        bearForm?.roarSpent = true
+        let source = current.id
+        for target in targets {
+            let i = actors.firstIndex { $0.id == target.id }!
+            if actors[i].conditions == nil { actors[i].conditions = CombatConditions() }
+            actors[i].conditions?.goadedBy = source
+        }
+        note("Goading Roar: \(targets.map(\.name).joined(separator: ", ")) must focus on the bear through their next turn.")
+        return targets.map(\.id)
+    }
+    func goadingTarget(for actor: Combatant) -> Combatant? {
+        guard isBear, let id = actor.conditions?.goadedBy else { return nil }
+        return actors.first { $0.id == id && $0.conscious }
     }
     struct Strike: Equatable {
         let attacker: String
@@ -310,7 +413,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     /// A physical strike spills the contents without igniting them.
     mutating func breakBarrel(_ id: String, clearLine: Bool) -> Bool {
-        guard outcome == nil, clearLine,
+        guard outcome == nil, clearLine, goadingTarget(for: current) == nil,
               let index = barrels?.firstIndex(where: { $0.id == id && !$0.isBroken }),
               CombatNavigation.distance(current.position, barrels![index].position) <= Self.meleeReach,
               budget.spend(2) else { return false }
@@ -341,7 +444,7 @@ struct TacticalCombat: Codable, Equatable {
     /// shot and every blast/chain line against the shared terrain raster.
     mutating func igniteBarrel(_ id: String, clearShot: Bool,
                                visible: (CGPoint, CGPoint) -> Bool) -> [BarrelExplosion]? {
-        guard outcome == nil, !isBear || !current.player,
+        guard outcome == nil, !isBear || !current.player, goadingTarget(for: current) == nil,
               current.rangedWeapon == .bow,
               let barrel = liveBarrels.first(where: { $0.id == id }), clearShot,
               CombatNavigation.distance(current.position, barrel.position) <= BowAttackRules.range,
@@ -431,11 +534,13 @@ struct TacticalCombat: Codable, Equatable {
         note("\(actors[i].name) is revealed.")
     }
     /// Opposing advantage/disadvantage sources cancel, regardless of their count.
-    func attackEdge(ranged: Bool, allyLine: (Combatant, Combatant) -> Bool) -> Int {
-        let advantage = current.hidden == true || current.conditions?.attackAdvantage == true
-        let threatened = ranged && actors.contains { $0.conscious && $0.player != current.player
+    func attackEdge(ranged: Bool, target: Combatant? = nil, allyLine: (Combatant, Combatant) -> Bool) -> Int {
+        let nearProne = target.map { $0.isProne && CombatNavigation.distance(current.position, $0.position) <= Self.meleeReach } ?? false
+        let farProne = target.map { $0.isProne && CombatNavigation.distance(current.position, $0.position) > Self.meleeReach } ?? false
+        let advantage = current.hidden == true || current.conditions?.attackAdvantage == true || nearProne
+        let threatened = ranged && actors.contains { $0.conscious && !$0.isProne && $0.player != current.player
             && CombatNavigation.distance($0.position, current.position) <= Self.meleeReach && allyLine($0, current) }
-        let disadvantage = current.conditions?.attackDisadvantage == true || threatened
+        let disadvantage = current.conditions?.attackDisadvantage == true || threatened || farProne
         return advantage == disadvantage ? 0 : advantage ? 1 : -1
     }
     func sneakAttackReason(target: Combatant, ranged: Bool, hasSword: Bool, clearLine: Bool,
@@ -449,9 +554,9 @@ struct TacticalCombat: Codable, Equatable {
         guard clearLine else { return "The target is blocked by terrain." }
         let distance = CombatNavigation.distance(current.position, target.position)
         guard ranged ? (distance > Self.meleeReach && distance <= BowAttackRules.range) : distance <= Self.meleeReach else { return "Move into weapon range." }
-        let edge = attackEdge(ranged: ranged, allyLine: allyLine)
+        let edge = attackEdge(ranged: ranged, target: target, allyLine: allyLine)
         guard edge >= 0 else { return "Disadvantage prevents Sneak Attack." }
-        let ally = actors.contains { $0.id != current.id && $0.player == current.player && $0.conscious
+        let ally = actors.contains { $0.id != current.id && $0.player == current.player && $0.conscious && !$0.isProne
             && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach && allyLine($0, target) }
         guard edge > 0 || ally else { return "Gain advantage by hiding, or have an ally beside the target." }
         guard budget.canAttack else { return "No standard action remains." }
@@ -485,6 +590,11 @@ struct TacticalCombat: Codable, Equatable {
                canUse(.pinningShot) { return .pinningShot }
         } else {
             if target.hp > current.damageMax, chance >= 0.8, canUse(.powerStrike, hasSword: hasSword) { return .powerStrike }
+            if target.hp > current.damageMax, !target.isProne, !(target.player && isBear),
+               target.damageMax >= 4,
+               actors.contains(where: { $0.id != current.id && $0.player == current.player && $0.conscious && !$0.isProne
+                   && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach }),
+               canUse(.tripAttack, hasSword: hasSword) { return .tripAttack }
             if target.hp > current.damageMax, target.conditions?.weakened != true,
                target.damageMax >= 3, canUse(.feintingCut, hasSword: hasSword) { return .feintingCut }
         }
@@ -503,6 +613,7 @@ struct TacticalCombat: Codable, Equatable {
         guard outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
               actors[target].conscious, actors[target].hidden != true, actors[target].player != current.player,
               clearLine,
+              maneuver != .tripAttack || (!actors[target].isProne && !(actors[target].player && isBear)),
               !requireSneakAttack || sneakAttackReason(target: actors[target], ranged: ranged,
                   hasSword: hasSword, clearLine: clearLine, allyLine: allyLine) == nil,
               maneuver.map({ $0.ranged == ranged && canUse($0, hasSword: hasSword) }) ?? true,
@@ -513,7 +624,7 @@ struct TacticalCombat: Codable, Equatable {
         if let maneuver {
             actors[turn].usedManeuvers = (actors[turn].usedManeuvers ?? []) + [maneuver]
         }
-        let edge = attackEdge(ranged: ranged, allyLine: allyLine)
+        let edge = attackEdge(ranged: ranged, target: actors[target], allyLine: allyLine)
         var attackRolls = [roll(20)]
         if edge != 0 { attackRolls.append(roll(20)) }
         let die = edge > 0 ? attackRolls.max()! : edge < 0 ? attackRolls.min()! : attackRolls[0]
@@ -528,7 +639,7 @@ struct TacticalCombat: Codable, Equatable {
         var damage = hit ? minimum + roll(maximum - minimum + 1) - 1 : 0
         if hit {
             if maneuver == .powerStrike { damage += 3 }
-            if maneuver == .feintingCut || maneuver == .pinningShot { damage = max(1, damage / 2) }
+            if maneuver == .feintingCut || maneuver == .pinningShot || maneuver == .tripAttack { damage = max(1, damage / 2) }
         }
         var sneakDamage = 0
         if hit && sneakEligible {
@@ -545,6 +656,12 @@ struct TacticalCombat: Codable, Equatable {
         }
         actors[target].hp = max(0, actors[target].hp - injury)
         if hit && actors[target].conscious {
+            if maneuver == .tripAttack {
+                if actors[target].conditions == nil { actors[target].conditions = CombatConditions() }
+                actors[target].conditions?.prone = true
+                actors[target].defending = false
+                note("\(actors[target].name) is Prone until their turn; nearby attacks have advantage.")
+            }
             if maneuver == .feintingCut {
                 if actors[target].conditions == nil { actors[target].conditions = CombatConditions() }
                 actors[target].conditions?.weakened = true
@@ -623,7 +740,7 @@ enum CombatNavigation {
     /// Forced movement stays on the shared raster and stops at the first obstruction.
     /// Temporary endpoint stamps keep chained pushes from overlapping survivors.
     static func knockbackDestination(in map: NavigationMap, actor: Combatant, awayFrom source: CGPoint,
-        actors: [Combatant], destroyedBarrels: [String], bear: Bool = false) -> CGPoint {
+        actors: [Combatant], destroyedBarrels: [String], bear: Bool = false, maximumDistance: Double = CombatBarrel.pushDistance) -> CGPoint {
         let ids = Set(actors.map(\.id) + destroyedBarrels)
         let originals = ids.compactMap { map.occupancy.actors[$0] }
         ids.forEach { map.occupancy.unregister(id: $0) }
@@ -646,7 +763,7 @@ enum CombatNavigation {
         let size = bear ? BearFormRules.circleSize : map.circleSize
         let startCell = map.searchMap.cell(for: actor.position)
         var end = actor.position
-        for step in stride(from: 2.0, through: CombatBarrel.pushDistance, by: 2) {
+        for step in stride(from: 2.0, through: min(CombatBarrel.pushDistance, max(0, maximumDistance)), by: 2) {
             let point = CGPoint(x: actor.position.x + direction.x * step,
                                 y: actor.position.y + direction.y * step * 0.75).rounded
             guard map.searchMap.blockedInRadiusTile(at: point, size: size).contains(.passable),

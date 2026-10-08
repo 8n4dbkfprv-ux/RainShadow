@@ -1,0 +1,6388 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanDefeatSword",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "f1b084ad1350d982f7cc36da3e53e1052d69a5d9e8b4d8ea9c6e2763830507f7",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_00.png",
+      "width": 4,
+      "height": 26,
+      "texture_px": [
+        4,
+        26
+      ],
+      "offset": 16,
+      "length": 104,
+      "trim_origin_top_left_px": [
+        58,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -1
+      ],
+      "sha256": "aee11ff452a6fa2e989c1484b92f2781ab432755ff91400c277adf2b27f646cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_00.png",
+      "width": 6,
+      "height": 21,
+      "texture_px": [
+        6,
+        21
+      ],
+      "offset": 120,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        56,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -12
+      ],
+      "sha256": "b140752b4c46693d6d58653e8cc6e59338551cfe787997c7508d1cdfd7968b96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_00.png",
+      "width": 15,
+      "height": 23,
+      "texture_px": [
+        15,
+        23
+      ],
+      "offset": 246,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        52,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -15
+      ],
+      "sha256": "c44516c8ccb520968fa02556649f62d621c1c7f5fdaee74879d3a6d1611b44a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_00.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 591,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        53,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -23
+      ],
+      "sha256": "f4fe7858cd9bfb4579c0eaad53e4f640b8eda47124a033fcbb20df1a604279e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_00.png",
+      "width": 15,
+      "height": 8,
+      "texture_px": [
+        15,
+        8
+      ],
+      "offset": 914,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        58,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -30
+      ],
+      "sha256": "e8402a07e05ecde360c3aa1c224cd96fedbd77dea94b065c6bae5bb4e09e6900",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_00.png",
+      "width": 8,
+      "height": 3,
+      "texture_px": [
+        8,
+        3
+      ],
+      "offset": 1034,
+      "length": 24,
+      "trim_origin_top_left_px": [
+        66,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -35
+      ],
+      "sha256": "342da5ecceb6b78424d7750133edfc89e0f6faae3755a8982e4d7a2d828422fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_00.png",
+      "width": 4,
+      "height": 3,
+      "texture_px": [
+        4,
+        3
+      ],
+      "offset": 1058,
+      "length": 12,
+      "trim_origin_top_left_px": [
+        92,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -34
+      ],
+      "sha256": "9fed554854384dd8dd9a775e9264d3433c4c2836532f31189047da07ea8f424c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_00.png",
+      "width": 4,
+      "height": 3,
+      "texture_px": [
+        4,
+        3
+      ],
+      "offset": 1070,
+      "length": 12,
+      "trim_origin_top_left_px": [
+        96,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -30
+      ],
+      "sha256": "1c75a50a8d95c3e8656c0ec2a5a83a03f7d3f78abb63f5462de284f3cbe1c34a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_00.png",
+      "width": 4,
+      "height": 9,
+      "texture_px": [
+        4,
+        9
+      ],
+      "offset": 1082,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        98,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -24
+      ],
+      "sha256": "5aba27ddc6f85dd67737c45fdc86c5029391a13c74ef3fc21358342cdc9d85f1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_00.png",
+      "width": 7,
+      "height": 10,
+      "texture_px": [
+        7,
+        10
+      ],
+      "offset": 1118,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        98,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -17
+      ],
+      "sha256": "8caa526659c96ff2c8fd7f741c121a0e84dca9ef5e4dfce01f90415db61ee2c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_00.png",
+      "width": 16,
+      "height": 7,
+      "texture_px": [
+        16,
+        7
+      ],
+      "offset": 1188,
+      "length": 112,
+      "trim_origin_top_left_px": [
+        93,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -12
+      ],
+      "sha256": "32f5b1336e318e79f967e517929bbc7a3fe38652c3de75bea6dba3d58f1708c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_00.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 1300,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        86,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -8
+      ],
+      "sha256": "e4206a00a8cca2190dbba239e7633b7a4ceb3e5e1d3ca6f66f869953bc209ef3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_00.png",
+      "width": 24,
+      "height": 8,
+      "texture_px": [
+        24,
+        8
+      ],
+      "offset": 1426,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        78,
+        89
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -3
+      ],
+      "sha256": "b2a135c23519e4260afe5f6d20d2375492b1ca31eccffe536bc7b1dafe32d91b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_00.png",
+      "width": 24,
+      "height": 16,
+      "texture_px": [
+        24,
+        16
+      ],
+      "offset": 1618,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        70,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        3
+      ],
+      "sha256": "100463913d2a76f327285409b1f7164e986af0fab36f06d63f3b8972a74bc523",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 2002,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        64,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        5
+      ],
+      "sha256": "af0077b5aff6852ad5eeab48a399e8906a849271d2defcf366f63f8e767d152a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_00.png",
+      "width": 12,
+      "height": 25,
+      "texture_px": [
+        12,
+        25
+      ],
+      "offset": 2401,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        60,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        4
+      ],
+      "sha256": "a9f7c8f8679cd617d4531b7bfb543c7edefedc93cb18a5f91f41e6e95e5e41e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_01.png",
+      "width": 9,
+      "height": 21,
+      "texture_px": [
+        9,
+        21
+      ],
+      "offset": 2701,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        56,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -6
+      ],
+      "sha256": "c6455139331e61a81ec2566c6cafb41fcd2a488e9ca4b55366840342624c8983",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_01.png",
+      "width": 4,
+      "height": 18,
+      "texture_px": [
+        4,
+        18
+      ],
+      "offset": 2890,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        56,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -15
+      ],
+      "sha256": "cb03f6941e40a86e08d220dffb14b43d9c9d02076186e3e6eb9b0f206e274937",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_01.png",
+      "width": 13,
+      "height": 18,
+      "texture_px": [
+        13,
+        18
+      ],
+      "offset": 2962,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        51,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -21
+      ],
+      "sha256": "34ea07482fa59380e14a6aa2be3856ab33c20b01d1603333ca52da4c6d27458b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_01.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 3196,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        49,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -28
+      ],
+      "sha256": "1450025c53489f79adec96753d45b5ced873fe23ddad3d0d022516f7f78884fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_01.png",
+      "width": 23,
+      "height": 7,
+      "texture_px": [
+        23,
+        7
+      ],
+      "offset": 3526,
+      "length": 161,
+      "trim_origin_top_left_px": [
+        53,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -37
+      ],
+      "sha256": "b09f0b8e25e8bdc71bf22259741b6e7bdfb36c06bbd78f9b08aa7d2d2d562f7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_01.png",
+      "width": 17,
+      "height": 3,
+      "texture_px": [
+        17,
+        3
+      ],
+      "offset": 3687,
+      "length": 51,
+      "trim_origin_top_left_px": [
+        61,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -42
+      ],
+      "sha256": "8b87c1703e602a7b17e43ce9459aab92347747891b00f6f66efdeb5d77d88130",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_01.png",
+      "width": 6,
+      "height": 3,
+      "texture_px": [
+        6,
+        3
+      ],
+      "offset": 3738,
+      "length": 18,
+      "trim_origin_top_left_px": [
+        73,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -45
+      ],
+      "sha256": "8be6f242c4759ad7aa4131269437d51c6600788f5b93cd0250fc8c69da7ea35b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_01.png",
+      "width": 14,
+      "height": 13,
+      "texture_px": [
+        14,
+        13
+      ],
+      "offset": 3756,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        87,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -33
+      ],
+      "sha256": "3bb991e4fb178768380456551263c6a8ee25e7510a2e0ee8a3bd6300e519e6e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_01.png",
+      "width": 7,
+      "height": 18,
+      "texture_px": [
+        7,
+        18
+      ],
+      "offset": 3938,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        96,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -26
+      ],
+      "sha256": "ed5568646d8f887c1da0f98bb21132d1467a473f71ce0dfa5ffbfe11e16a34b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_01.png",
+      "width": 5,
+      "height": 19,
+      "texture_px": [
+        5,
+        19
+      ],
+      "offset": 4064,
+      "length": 95,
+      "trim_origin_top_left_px": [
+        100,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        -20
+      ],
+      "sha256": "12d261c01c8068a828791df868b046d278ed777a13f4f7bc2270b2663cce71ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_01.png",
+      "width": 14,
+      "height": 18,
+      "texture_px": [
+        14,
+        18
+      ],
+      "offset": 4159,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        96,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -14
+      ],
+      "sha256": "5812051d4a4f5a6e5644dfe1e504a038a8fdf8c7ac053baf986b774f9a1d20a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_01.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 4411,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        89,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "20f27dabe720304f5a75d11329cdcf79ff8d2351101c3e498cc2c944ebb806bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_01.png",
+      "width": 26,
+      "height": 7,
+      "texture_px": [
+        26,
+        7
+      ],
+      "offset": 4697,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        81,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -8
+      ],
+      "sha256": "32d1dc2f85990c4c7c3817a2b5d50bc0ccc59da3b451adc0ad99e28e7cd58c14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_01.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 4879,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        72,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -7
+      ],
+      "sha256": "4dd01dc211afec2d351e1cbeadbbe3c96910f6c8ba9af8b18431b6fd060b211a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_01.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 5041,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        64,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -3
+      ],
+      "sha256": "00bbd1f756670bd5657df628a6f42663aa6be990110fe8329bfaa15b9ceb7cbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_01.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 5329,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        59,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -2
+      ],
+      "sha256": "02e1647616b7dc8c8e6c9f1bb2ec34016fef494850302d8c88f43685555d77e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_02.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 5635,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        55,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -20
+      ],
+      "sha256": "92bdc8418cc37043de3d8be1fde137ccc15c2e9abc6750c3abbcce377d07b13e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_02.png",
+      "width": 6,
+      "height": 11,
+      "texture_px": [
+        6,
+        11
+      ],
+      "offset": 5761,
+      "length": 66,
+      "trim_origin_top_left_px": [
+        55,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -24
+      ],
+      "sha256": "e13f5234a02c6922275e4329c01aa52d8b318439cdf16ee0496e4a5348d34348",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_02.png",
+      "width": 7,
+      "height": 11,
+      "texture_px": [
+        7,
+        11
+      ],
+      "offset": 5827,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        55,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -31
+      ],
+      "sha256": "faa49c6b9e72b0c12f70a68e7738d908913d013a4a0fa2468a26de8daa34f154",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_02.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 5904,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        54,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -38
+      ],
+      "sha256": "c87ad53d49f9fd98e216122907fc54583fe0de3459bafd2a171480b6b7312e2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_02.png",
+      "width": 19,
+      "height": 3,
+      "texture_px": [
+        19,
+        3
+      ],
+      "offset": 6030,
+      "length": 57,
+      "trim_origin_top_left_px": [
+        58,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -46
+      ],
+      "sha256": "d86f2857cd2578655f1faef26b6c5c38b1fcfa0bee709a9f4324dfcbd96ed6c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_02.png",
+      "width": 22,
+      "height": 5,
+      "texture_px": [
+        22,
+        5
+      ],
+      "offset": 6087,
+      "length": 110,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -47
+      ],
+      "sha256": "0c0c2e869418a19895b6ad30cbf91405721ffd55f002ec754bb5ed8b7963418c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_02.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 6197,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -44
+      ],
+      "sha256": "b655fbffcee20326e6e08151924ac1abb556b5f1fc1779b4d67c829ad2660f7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_02.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 6473,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        84,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -39
+      ],
+      "sha256": "13357611b0815563a94b238cfdc8a07f78e3e9dadcd14b5972b712a9509a2edb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_02.png",
+      "width": 14,
+      "height": 23,
+      "texture_px": [
+        14,
+        23
+      ],
+      "offset": 6761,
+      "length": 322,
+      "trim_origin_top_left_px": [
+        91,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -32
+      ],
+      "sha256": "49745627c7940cc7c70b78feedb02fc88d3cbecc267aa2f8c4f7fce27ef7c836",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_02.png",
+      "width": 6,
+      "height": 26,
+      "texture_px": [
+        6,
+        26
+      ],
+      "offset": 7083,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        99,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -25
+      ],
+      "sha256": "1213c651a6f50dd48c2007af162f8e9f5a56e8008d22ff1a866a5a85876419a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_02.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 7239,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        98,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -18
+      ],
+      "sha256": "f67e37354507c2437e925138c95cb6a51be388aa1a29c303a9bcf7b67534934f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_02.png",
+      "width": 14,
+      "height": 24,
+      "texture_px": [
+        14,
+        24
+      ],
+      "offset": 7428,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        92,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -13
+      ],
+      "sha256": "88a289752af1498d8099096d723dc7f6748915f7f7b817fd987f999c4c20b6dd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_02.png",
+      "width": 21,
+      "height": 19,
+      "texture_px": [
+        21,
+        19
+      ],
+      "offset": 7764,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        83,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "b6abd2283e020feee23144896c3e8c836e4eb43f117a86c931733038d58e62d0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_02.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 8163,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        73,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -11
+      ],
+      "sha256": "ad1c5a54d935a81cb23e5cfc77cb5e4e84053e73195ce8365423fc01ee2c4e6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_02.png",
+      "width": 26,
+      "height": 7,
+      "texture_px": [
+        26,
+        7
+      ],
+      "offset": 8488,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        64,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13
+      ],
+      "sha256": "e96a34a0e252ffc4842acdcacfcf21f229f121dafa1febe5c65be4d79bde795a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_02.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 8670,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        58,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -17
+      ],
+      "sha256": "eae8eff44e04f6080ecd469529c18689f8bd17ba91af811505d463f85f4a3958",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_03.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 8796,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        54,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -25
+      ],
+      "sha256": "f0dd63aa597fccd8ad80f492d663e8612726697d789ec144832a41aa237bb548",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_03.png",
+      "width": 9,
+      "height": 8,
+      "texture_px": [
+        9,
+        8
+      ],
+      "offset": 8904,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        55,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -29
+      ],
+      "sha256": "3c0030f3ba1d5233171de8f340100cb97b1946e181bb6d7b75411f5adb9f11dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_03.png",
+      "width": 6,
+      "height": 8,
+      "texture_px": [
+        6,
+        8
+      ],
+      "offset": 8976,
+      "length": 48,
+      "trim_origin_top_left_px": [
+        57,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -35
+      ],
+      "sha256": "cf27c78186541f3c5f9bff139de8c648a509d552ba30cbcb673c4b015606b662",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_03.png",
+      "width": 10,
+      "height": 7,
+      "texture_px": [
+        10,
+        7
+      ],
+      "offset": 9024,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        58,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -41
+      ],
+      "sha256": "28fa0b8a3aad45d7cb666e445c4675b58fde586e96c8f6b266ed9712284709bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_03.png",
+      "width": 17,
+      "height": 4,
+      "texture_px": [
+        17,
+        4
+      ],
+      "offset": 9094,
+      "length": 68,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -47
+      ],
+      "sha256": "e7324b9005a1e1aac77f6f85674bf4eb828effc9cbdfc4e05c258f0f3d597fbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_03.png",
+      "width": 22,
+      "height": 5,
+      "texture_px": [
+        22,
+        5
+      ],
+      "offset": 9162,
+      "length": 110,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -48
+      ],
+      "sha256": "effc98b815df86a24d4115a247270da173a713b5e8cd8fac05dfd626349a2a11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_03.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 9272,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -45
+      ],
+      "sha256": "6f2ef6889a5e075d4fabdaedf1416341d57445f9c440c3fd69935179387e543f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_03.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 9525,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        81,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -40
+      ],
+      "sha256": "07d9968c0118d49cb67c4b2d4f9045dc1ec5fb878b85f68e9907f878590b4ad8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_03.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 9882,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        88,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -33
+      ],
+      "sha256": "54ab4682651c3405021879b68cbd4a14ed99b42c40a5b91be5520ac3eaaba102",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_03.png",
+      "width": 9,
+      "height": 26,
+      "texture_px": [
+        9,
+        26
+      ],
+      "offset": 10290,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        96,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -26
+      ],
+      "sha256": "832602825f2feca878568b11a757028b7e5893a6de60bf982cbccbb5e8f1e45f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_03.png",
+      "width": 6,
+      "height": 27,
+      "texture_px": [
+        6,
+        27
+      ],
+      "offset": 10524,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        97,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -20
+      ],
+      "sha256": "1cc0d3832c84a7459c35b0e55fd987a93ad6d6eb8a45b23fd27820dae31d6453",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_03.png",
+      "width": 11,
+      "height": 26,
+      "texture_px": [
+        11,
+        26
+      ],
+      "offset": 10686,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        92,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -15
+      ],
+      "sha256": "af375e6043a330a0d3e22b64ca451d3e635d1e3ea92b11d410f72311f57d48bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_03.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 10972,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        83,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -12
+      ],
+      "sha256": "309b697040f0ea424ad5faf97068b29e2daec512ff97754f45a6a1eac27b1071",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_03.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 11386,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -12
+      ],
+      "sha256": "7ee9b032e106293a898bc4357c96b2f222ec0cb30ad06e4b437b134efa4a6eb5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_03.png",
+      "width": 25,
+      "height": 11,
+      "texture_px": [
+        25,
+        11
+      ],
+      "offset": 11777,
+      "length": 275,
+      "trim_origin_top_left_px": [
+        64,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -15
+      ],
+      "sha256": "505eb120295726537b6e813a0660171a141360a6a8650641225b75061d8fdc90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_03.png",
+      "width": 22,
+      "height": 6,
+      "texture_px": [
+        22,
+        6
+      ],
+      "offset": 12052,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        58,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -19
+      ],
+      "sha256": "aecd0a060ca3cf392ed913f7fc2becbfc5bb5226884a104649949663ae49d66b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_04.png",
+      "width": 18,
+      "height": 5,
+      "texture_px": [
+        18,
+        5
+      ],
+      "offset": 12184,
+      "length": 90,
+      "trim_origin_top_left_px": [
+        55,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -25
+      ],
+      "sha256": "370cb541a20e54d682145eb8dc715ecdf5a8b0fddc5fe350ebcad5ff2f44dfe4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_04.png",
+      "width": 13,
+      "height": 6,
+      "texture_px": [
+        13,
+        6
+      ],
+      "offset": 12274,
+      "length": 78,
+      "trim_origin_top_left_px": [
+        55,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -30
+      ],
+      "sha256": "92effbd7ea28be456fc6a8f0d9706d011640944cf2d2a4e773b82f67a5649981",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_04.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 12352,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        58,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -35
+      ],
+      "sha256": "0821e88d9419ead94d778adde826b9036c77af2f9793cd4e1cd06d8bb60b0f72",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_04.png",
+      "width": 8,
+      "height": 7,
+      "texture_px": [
+        8,
+        7
+      ],
+      "offset": 12394,
+      "length": 56,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -40
+      ],
+      "sha256": "44b8f881ee6662918949c6b6f358573b1e03c322b13bcfe4d4e0e9317929815f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_04.png",
+      "width": 15,
+      "height": 5,
+      "texture_px": [
+        15,
+        5
+      ],
+      "offset": 12450,
+      "length": 75,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -45
+      ],
+      "sha256": "7d240bc797d2b9e16d79f8f1dd8b0acae51d2a6ca4cf606d0c88eb2811ce2b0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_04.png",
+      "width": 20,
+      "height": 5,
+      "texture_px": [
+        20,
+        5
+      ],
+      "offset": 12525,
+      "length": 100,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -46
+      ],
+      "sha256": "520c2a2a5d6d6ac09826dedb984c5bfa1398e1b3689ba2a9f9902703e56076c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_04.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 12625,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        73,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -44
+      ],
+      "sha256": "7d8c4362f6895b3f9155a5031f9c08ac764c1521d4ccd6df29ae844fc4b05ea0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_04.png",
+      "width": 23,
+      "height": 15,
+      "texture_px": [
+        23,
+        15
+      ],
+      "offset": 12832,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        79,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -39
+      ],
+      "sha256": "905c94dc45fce4e4439ab4bca8a68f3ac19eaf20f91eea08d9e87ad0e3a00085",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_04.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 13177,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        86,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -32
+      ],
+      "sha256": "d6bcac72ff9e2ef7dd82f111ad608d134d6ce0ec312a21909486bb5140eed927",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_04.png",
+      "width": 13,
+      "height": 26,
+      "texture_px": [
+        13,
+        26
+      ],
+      "offset": 13576,
+      "length": 338,
+      "trim_origin_top_left_px": [
+        92,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -25
+      ],
+      "sha256": "3c7c9ed966c62552e9844b3cdfb7e2c68881d57a5bda77ab11e61e7bb4a100e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_04.png",
+      "width": 6,
+      "height": 27,
+      "texture_px": [
+        6,
+        27
+      ],
+      "offset": 13914,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        96,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -19
+      ],
+      "sha256": "6983df6293c1f019484fd2b25666ffad0da31ae75b5272e4ee43763058fde8da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_04.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 14076,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        91,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -14
+      ],
+      "sha256": "7a90d29f1b391e4ca9360548d36be0750b1cca0dd430e316318d5406ab298f60",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_04.png",
+      "width": 14,
+      "height": 25,
+      "texture_px": [
+        14,
+        25
+      ],
+      "offset": 14265,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        83,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "6bd33513a2be80e09caf5a4604fbbdc35a02e6b3723b721c6ebd71b02ba44c7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_04.png",
+      "width": 20,
+      "height": 19,
+      "texture_px": [
+        20,
+        19
+      ],
+      "offset": 14615,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        73,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -12
+      ],
+      "sha256": "491fb0c796e384085e8ca34dfdd75dc8501a16ed3370dc01db66b7782321137a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_04.png",
+      "width": 23,
+      "height": 13,
+      "texture_px": [
+        23,
+        13
+      ],
+      "offset": 14995,
+      "length": 299,
+      "trim_origin_top_left_px": [
+        64,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -15
+      ],
+      "sha256": "e15f4785877673def0e32073a35c5e9aadd4728e49e8c93cd256aadc270c0db5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_04.png",
+      "width": 22,
+      "height": 8,
+      "texture_px": [
+        22,
+        8
+      ],
+      "offset": 15294,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        58,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -19
+      ],
+      "sha256": "4ca7a8881f90d8c0c2a01605456c7a011a08dbfb57803515448aa458de915846",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_05.png",
+      "width": 20,
+      "height": 4,
+      "texture_px": [
+        20,
+        4
+      ],
+      "offset": 15470,
+      "length": 80,
+      "trim_origin_top_left_px": [
+        55,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -25
+      ],
+      "sha256": "d34e498acf8090d60447e2048432ffc7aac08bd15ed5c6179074ea18ddaf8d4e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_05.png",
+      "width": 14,
+      "height": 3,
+      "texture_px": [
+        14,
+        3
+      ],
+      "offset": 15550,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        56,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -31
+      ],
+      "sha256": "a36a83109c8edb6c48b72ff84516704bc655d42f06f6a33ccff1d383b7c0df9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_05.png",
+      "width": 9,
+      "height": 7,
+      "texture_px": [
+        9,
+        7
+      ],
+      "offset": 15592,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        59,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -34
+      ],
+      "sha256": "1b7ff43b13606c6f0150ae2310438dfd54eadfaca5011e513a0bc980287fbdf2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_05.png",
+      "width": 7,
+      "height": 8,
+      "texture_px": [
+        7,
+        8
+      ],
+      "offset": 15655,
+      "length": 56,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "8aab1b751eb4b3fb626875f7f40e5c8134ff58048e7e5c7751a86d5e6296a8c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_05.png",
+      "width": 11,
+      "height": 7,
+      "texture_px": [
+        11,
+        7
+      ],
+      "offset": 15711,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -41
+      ],
+      "sha256": "a1649c40143d2fc5fc831eb1f5d7c6d9b1717ac0075fa81c6ca89c92d43e9ae2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_05.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 15788,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -43
+      ],
+      "sha256": "8255cd01f8a99e0fc09c9a276b1a8ac069de190e69394e2c09639afd84f57626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_05.png",
+      "width": 22,
+      "height": 7,
+      "texture_px": [
+        22,
+        7
+      ],
+      "offset": 15896,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        74,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -41
+      ],
+      "sha256": "ac73ab402dbc37fb80f9195f3462edcb733b4f44083115a12faaa36a670fbc1a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_05.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 16050,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        78,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -37
+      ],
+      "sha256": "d8608db9235a04e8fd7f19a530873f82d80eb3672a7e1764de1409f895f861b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_05.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 16338,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        84,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -30
+      ],
+      "sha256": "f1e4db83f767ce2756d18c19c9ca5056e11149a1a162f7c6f2e6247734278cae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_05.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 16716,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        88,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -23
+      ],
+      "sha256": "5c3d644d5b431ef151829cdf41586a2624c067e98dfdb34a06dc3db3bd4b269c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_05.png",
+      "width": 10,
+      "height": 27,
+      "texture_px": [
+        10,
+        27
+      ],
+      "offset": 17100,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        91,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -17
+      ],
+      "sha256": "9918a8e3b8e158370d776f0597b378ba6c3e2343f76526f2b2f7b563e397ea7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_05.png",
+      "width": 6,
+      "height": 28,
+      "texture_px": [
+        6,
+        28
+      ],
+      "offset": 17370,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        89,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -12
+      ],
+      "sha256": "9d2f9e89dca6a50e67cb3305839b1d6cf5678cf57aa9ea83dc67a3b33cd0ead8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_05.png",
+      "width": 11,
+      "height": 26,
+      "texture_px": [
+        11,
+        26
+      ],
+      "offset": 17538,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        82,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "5128577d1f2f7808c6ef799326a8d99d9a8eee1e395843170cca66202a261f91",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_05.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 17824,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        73,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -10
+      ],
+      "sha256": "2825d90aa19cefd13d6d93cef992acf7f56815bb4db75d3eababdc11ccb5b931",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_05.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 18238,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        64,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13
+      ],
+      "sha256": "0c3fd8d7a57a8d0254f1ae2d9758f358406cbe313435f059c7b54116cb17035c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_05.png",
+      "width": 22,
+      "height": 10,
+      "texture_px": [
+        22,
+        10
+      ],
+      "offset": 18612,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        58,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -19
+      ],
+      "sha256": "6696b9393dc14c4b65dd75377b01907653622212e64b9a5088787be225ff1b23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_06.png",
+      "width": 21,
+      "height": 4,
+      "texture_px": [
+        21,
+        4
+      ],
+      "offset": 18832,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        55,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -24
+      ],
+      "sha256": "ff06aefc7ef58e8507bc172783b163dc84a2e090df4ecaaf9281275af5533770",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_06.png",
+      "width": 14,
+      "height": 4,
+      "texture_px": [
+        14,
+        4
+      ],
+      "offset": 18916,
+      "length": 56,
+      "trim_origin_top_left_px": [
+        56,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -29
+      ],
+      "sha256": "950f024ff76b057a32d1e4607d814456350c3f1e20efb50c38583da2f94ad33e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_06.png",
+      "width": 9,
+      "height": 7,
+      "texture_px": [
+        9,
+        7
+      ],
+      "offset": 18972,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        60,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -32
+      ],
+      "sha256": "983ca4acbd33089a808168c36a39d1b5ccf673dfb79edfac04c40b58717fe45a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_06.png",
+      "width": 6,
+      "height": 8,
+      "texture_px": [
+        6,
+        8
+      ],
+      "offset": 19035,
+      "length": 48,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -36
+      ],
+      "sha256": "8b3fb51b49a11da11c2e663e8a491fd0e8a9038e4f038d7e6e51c8e596783284",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_06.png",
+      "width": 10,
+      "height": 7,
+      "texture_px": [
+        10,
+        7
+      ],
+      "offset": 19083,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "4d2cad1d550308f26f5a66d242248dd4751dcc2255b281eca724a2e7ab039e91",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_06.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 19153,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "e50d6abc0b4a4ef8d01de27f8e658c00c98ac62a2867a2ad25aea0ef964dd5b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_06.png",
+      "width": 22,
+      "height": 7,
+      "texture_px": [
+        22,
+        7
+      ],
+      "offset": 19261,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        74,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "72fb7a818722b714580f883f5d3876fbc4e16b8c99be65192935e7d5e28b12f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_06.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 19415,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        79,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -34
+      ],
+      "sha256": "1769c93c5aaf03abf22b68179376d0a19f212c456c55dc360b6513cd122bdfd6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_06.png",
+      "width": 22,
+      "height": 18,
+      "texture_px": [
+        22,
+        18
+      ],
+      "offset": 19691,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        83,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -28
+      ],
+      "sha256": "75d8fa38432fd1fa59582c2d9d8e965efbcb438fff0877f32b75c96ef1d878a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_06.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 20087,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        87,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -21
+      ],
+      "sha256": "24d161da65e48e3001f4e9d7d4610d25dbe87628d620eaee39b48fb4be4f061e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_06.png",
+      "width": 9,
+      "height": 26,
+      "texture_px": [
+        9,
+        26
+      ],
+      "offset": 20495,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        91,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -15
+      ],
+      "sha256": "7b50a22fe35f844197073e3cd7db423631725b4851f59e8be0e7b4d54c13de08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_06.png",
+      "width": 6,
+      "height": 28,
+      "texture_px": [
+        6,
+        28
+      ],
+      "offset": 20729,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        89,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "ea350c07c0ad988be05eb21d2c0b98e3230b7e79095a43f9b2669d6fd1ccae8f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_06.png",
+      "width": 10,
+      "height": 26,
+      "texture_px": [
+        10,
+        26
+      ],
+      "offset": 20897,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        82,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -8
+      ],
+      "sha256": "0f1160e233e80198c0675ed504e9343166ddc4e0f09bb6b350fb5c001c548227",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_06.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 21157,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        73,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -9
+      ],
+      "sha256": "c566cd5d1a4e139cf145d31ae68d84504e9ed2a3377dbd808cf381fe90448f67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_06.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 21531,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        64,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "c4d815cde1d3d189e25b79dfa3f4860b42accaa8b989381ab28baccfd91fd8a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_06.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 21867,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        58,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -17
+      ],
+      "sha256": "7edd07c5075b87e28793f22eeb2f5812837a43a9691368be476b2be339fc0950",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_07.png",
+      "width": 20,
+      "height": 5,
+      "texture_px": [
+        20,
+        5
+      ],
+      "offset": 22120,
+      "length": 100,
+      "trim_origin_top_left_px": [
+        55,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -23
+      ],
+      "sha256": "0c516726ecab4dfe0582b1981d90782b4bf1048f30a98f8a5cdfcb288005141a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_07.png",
+      "width": 14,
+      "height": 3,
+      "texture_px": [
+        14,
+        3
+      ],
+      "offset": 22220,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        56,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -29
+      ],
+      "sha256": "5f9174bcb330f8ff73403b40d4925363239b783dfc65083eac2ce9feeb4c60a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_07.png",
+      "width": 9,
+      "height": 7,
+      "texture_px": [
+        9,
+        7
+      ],
+      "offset": 22262,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        60,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -32
+      ],
+      "sha256": "5ea0f5a2236bb8fc03bca21cc7bfc89100fd1b31c3370936fc9f7fb22de076c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_07.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22325,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -36
+      ],
+      "sha256": "b15a14796c5d57475d0c8152a4586b47a87c69e7c4be25920bf2165ef1b9ba32",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_07.png",
+      "width": 10,
+      "height": 7,
+      "texture_px": [
+        10,
+        7
+      ],
+      "offset": 22367,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "fecb27119f0a7fef88b519320c04844d3d1da24bf71c1a23ab5b5583b73d376b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_07.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 22437,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "d3b9cafdf19df54db66023df1c8bbb6b3cf43743bb1ef236b91d3c3a4863895d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_07.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 22545,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -38
+      ],
+      "sha256": "8802ff0b1fb0b5f3daa0f9c2f45f5d08a1533684f3bd115fd42ba1d3f2b8da01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_07.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 22713,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        79,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -34
+      ],
+      "sha256": "a2d05114865293986cf2a8a4cc4edcbab4a762d876a9da2bcd30cb16aa91546f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_07.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 22989,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        84,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -28
+      ],
+      "sha256": "ae7f9748118ffc0bb9fb95c532cbea9f02133f4d983703fa04e927197fe1efbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 23367,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        88,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -21
+      ],
+      "sha256": "2831ea76bd89bc84107c685c3ad3f0f7abfac75cb27d12445cb43897f0ba276d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_07.png",
+      "width": 9,
+      "height": 27,
+      "texture_px": [
+        9,
+        27
+      ],
+      "offset": 23735,
+      "length": 243,
+      "trim_origin_top_left_px": [
+        91,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -14
+      ],
+      "sha256": "3014940d52c0ebafd5a46c2b52f92dc2d99f0fd2b9fc065008887be2d955a5aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_07.png",
+      "width": 6,
+      "height": 28,
+      "texture_px": [
+        6,
+        28
+      ],
+      "offset": 23978,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        89,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "5ab0c5b015b4cd76f94c417a236f31d724d86b12f577119427ff7edde7029215",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_07.png",
+      "width": 10,
+      "height": 25,
+      "texture_px": [
+        10,
+        25
+      ],
+      "offset": 24146,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        82,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -8
+      ],
+      "sha256": "a0043114416b86744362546f1556cab4c06aa41d64f38e47bf4a0eb74bf498cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_07.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 24396,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -8
+      ],
+      "sha256": "7813238986b0c24fc03b12e78a7a97d52f8a0ee820280f5aed2863cc8aa3aa29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_07.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 24787,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        64,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "08f2f2b0889968823edb01b250f9dc08b937c59d4242dc244f81396fbd12cc7f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_07.png",
+      "width": 22,
+      "height": 10,
+      "texture_px": [
+        22,
+        10
+      ],
+      "offset": 25144,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        58,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -17
+      ],
+      "sha256": "5300b8b1e6beee6c981636f188bde4438b6e66c4dfebc98e67880f80e3318ce7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_08.png",
+      "width": 19,
+      "height": 6,
+      "texture_px": [
+        19,
+        6
+      ],
+      "offset": 25364,
+      "length": 114,
+      "trim_origin_top_left_px": [
+        55,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -24
+      ],
+      "sha256": "d86118d7a7643b35f3a6682fa004c769b065e51b2cee3705ed348159cd809942",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_08.png",
+      "width": 14,
+      "height": 2,
+      "texture_px": [
+        14,
+        2
+      ],
+      "offset": 25478,
+      "length": 28,
+      "trim_origin_top_left_px": [
+        56,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -31
+      ],
+      "sha256": "d7444330a3e3d5a6aa4d37a6dd0bb5ef97a6b76300d294ab3abdf62ed00d6159",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_08.png",
+      "width": 9,
+      "height": 5,
+      "texture_px": [
+        9,
+        5
+      ],
+      "offset": 25506,
+      "length": 45,
+      "trim_origin_top_left_px": [
+        61,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -34
+      ],
+      "sha256": "071ef5eaa8fbc2f2946563805ca60ae3955fde824792f1fcd5290a18921b1694",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_08.png",
+      "width": 6,
+      "height": 6,
+      "texture_px": [
+        6,
+        6
+      ],
+      "offset": 25551,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -37
+      ],
+      "sha256": "623e359a3df7b42a82e95269fb1bc6b9f03e068f4c191317777b48370280360e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_08.png",
+      "width": 9,
+      "height": 6,
+      "texture_px": [
+        9,
+        6
+      ],
+      "offset": 25587,
+      "length": 54,
+      "trim_origin_top_left_px": [
+        71,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "7e55b52fde21cb11e2dd31f87bd1dfc2ad4bb79bfb69b67c8242b9dd6c4b1740",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_08.png",
+      "width": 16,
+      "height": 6,
+      "texture_px": [
+        16,
+        6
+      ],
+      "offset": 25641,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        73,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -40
+      ],
+      "sha256": "a2ade68af19faaa4b13bc07b714163bb4ff783ace0fe163b3a359662ca30343e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_08.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 25737,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        76,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -37
+      ],
+      "sha256": "d320754f42c21a7dad1eb8cbae35015a3b4d3d700a4922517c0e21dcfe94b277",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_08.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 25884,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        80,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -33
+      ],
+      "sha256": "fa1d36fd8340cfa12d7194e4a703d54406e0e2d63e7be73f92813c6372a8d5d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_08.png",
+      "width": 22,
+      "height": 18,
+      "texture_px": [
+        22,
+        18
+      ],
+      "offset": 26160,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        83,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -26
+      ],
+      "sha256": "7d83752937ac6586bacebd37dac6cfc3efd1d1d44b0af99c651cf1e5305aa657",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_08.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 26556,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        87,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -19
+      ],
+      "sha256": "5113f40ae46c98153bf1e0e7d55565035a6eb6c0a5c9c4faefb3828b267b61b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_08.png",
+      "width": 10,
+      "height": 27,
+      "texture_px": [
+        10,
+        27
+      ],
+      "offset": 26947,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        89,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -13
+      ],
+      "sha256": "8d92375eb909d159dce58a59a2a6f9b204b5bc0433c60809708ecd5f0fb79461",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_08.png",
+      "width": 6,
+      "height": 28,
+      "texture_px": [
+        6,
+        28
+      ],
+      "offset": 27217,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        87,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -9
+      ],
+      "sha256": "3fb3ac6d851357cf4e459b34a07663985256f170dfe815339cdb355a514306c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_08.png",
+      "width": 10,
+      "height": 27,
+      "texture_px": [
+        10,
+        27
+      ],
+      "offset": 27385,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        80,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -7
+      ],
+      "sha256": "39da2010395d2c3ec959433561ef728ab0fdfd6a718220cffe07471bfa984a11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_08.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 27655,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        71,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "393b9f8aadd5280a177571e0bc3f6dd2a366481eb4ce76d48dbc5f8fd0d0a536",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_08.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 28023,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        63,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "05d3483cb26df915e443a608e798076eb04d247935996499be1a55c58142a051",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_08.png",
+      "width": 21,
+      "height": 11,
+      "texture_px": [
+        21,
+        11
+      ],
+      "offset": 28401,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        57,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -17
+      ],
+      "sha256": "cf0f47101757407c12b6c24cd6f1e975194cac959b1ef998643912df8ad68e69",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_09.png",
+      "width": 17,
+      "height": 7,
+      "texture_px": [
+        17,
+        7
+      ],
+      "offset": 28632,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        55,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -26
+      ],
+      "sha256": "b37098c83c763640b71f0b9ad09ff303b97be1121310c4e02fd0cb738a3ad8f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_09.png",
+      "width": 16,
+      "height": 3,
+      "texture_px": [
+        16,
+        3
+      ],
+      "offset": 28751,
+      "length": 48,
+      "trim_origin_top_left_px": [
+        58,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -33
+      ],
+      "sha256": "13c5958ee700a30782defe615a8b6cff5b3cddc27cda4d33f514f58958323988",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_09.png",
+      "width": 9,
+      "height": 3,
+      "texture_px": [
+        9,
+        3
+      ],
+      "offset": 28799,
+      "length": 27,
+      "trim_origin_top_left_px": [
+        64,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "72f394517c27b32017883547af246768d4d27eabc7f30193a78d235bac5edaf8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_09.png",
+      "width": 6,
+      "height": 6,
+      "texture_px": [
+        6,
+        6
+      ],
+      "offset": 28826,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        71,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "e9f7370dd1a9bf45357457c5942e43aff1017dbefabc274f70f10b99a5f32ef7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_09.png",
+      "width": 8,
+      "height": 6,
+      "texture_px": [
+        8,
+        6
+      ],
+      "offset": 28862,
+      "length": 48,
+      "trim_origin_top_left_px": [
+        77,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -39
+      ],
+      "sha256": "7bcdeb53695a29ff326142499f2379cf279fd98693e6333fa663669104d670b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_09.png",
+      "width": 15,
+      "height": 7,
+      "texture_px": [
+        15,
+        7
+      ],
+      "offset": 28910,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        79,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -37
+      ],
+      "sha256": "6c29879c4e33472cce5314dd4be677d7b88ca63b62ebe0b8f13747070d5f7569",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_09.png",
+      "width": 20,
+      "height": 7,
+      "texture_px": [
+        20,
+        7
+      ],
+      "offset": 29015,
+      "length": 140,
+      "trim_origin_top_left_px": [
+        81,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -33
+      ],
+      "sha256": "ac549e885b09b67ac6933313d0a972d07f7d30c241f1c22ef8c957264ff506ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_09.png",
+      "width": 22,
+      "height": 11,
+      "texture_px": [
+        22,
+        11
+      ],
+      "offset": 29155,
+      "length": 242,
+      "trim_origin_top_left_px": [
+        83,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -28
+      ],
+      "sha256": "a9f2406f12a79620b6452659c522d9287a719ede71e964099da7e957d8b4b956",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_09.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 29397,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        84,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -21
+      ],
+      "sha256": "db80273781e0bd6cc1658f33a8e3fefd7f9065d6d912e6188b64e3cea4cc3be6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_09.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 29771,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        85,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -15
+      ],
+      "sha256": "9afd0fa7f176a6c68a4853dd5dad9f18491266f6995b60170b616624108f3082",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_09.png",
+      "width": 12,
+      "height": 26,
+      "texture_px": [
+        12,
+        26
+      ],
+      "offset": 30145,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        84,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -9
+      ],
+      "sha256": "27640c165a5902120ee55f89e3cc47faa99d99a9e93987bf033107f5b2134277",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_09.png",
+      "width": 6,
+      "height": 27,
+      "texture_px": [
+        6,
+        27
+      ],
+      "offset": 30457,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        83,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -6
+      ],
+      "sha256": "a5ed2bb1138430b85159f1849387a40aafa26bf0883361489e7a66c1b2eda06c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_09.png",
+      "width": 8,
+      "height": 27,
+      "texture_px": [
+        8,
+        27
+      ],
+      "offset": 30619,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        75,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -6
+      ],
+      "sha256": "31b01a4d581c31ceb5e18f0837831745ec419e74f5ddada59f05900fe138c0c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_09.png",
+      "width": 14,
+      "height": 24,
+      "texture_px": [
+        14,
+        24
+      ],
+      "offset": 30835,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        67,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "1391309cf972d85d0b4ae59027b525027c09b6ee7c5d36c94b3d9bd67065e0a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_09.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 31171,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        59,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -12
+      ],
+      "sha256": "679ff39b46dfffadcfd0fd6707027e151876c778de2ae5fae899a7fd70044858",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_09.png",
+      "width": 17,
+      "height": 11,
+      "texture_px": [
+        17,
+        11
+      ],
+      "offset": 31551,
+      "length": 187,
+      "trim_origin_top_left_px": [
+        55,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -19
+      ],
+      "sha256": "3c615739cac3b3ae2906b8f11df9f54a98b9ec88d8b8e491ba7a000910704764",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_10.png",
+      "width": 19,
+      "height": 11,
+      "texture_px": [
+        19,
+        11
+      ],
+      "offset": 31738,
+      "length": 209,
+      "trim_origin_top_left_px": [
+        54,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -28
+      ],
+      "sha256": "f99230218238b2cdbf7c4f6b59192712124c577899859000394685d74d564da8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_10.png",
+      "width": 18,
+      "height": 7,
+      "texture_px": [
+        18,
+        7
+      ],
+      "offset": 31947,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        59,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -34
+      ],
+      "sha256": "8fd369b225de197f477f597e6a3e1e8625273e33f0a082cfe2ba79ecee0ffcb6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_10.png",
+      "width": 11,
+      "height": 3,
+      "texture_px": [
+        11,
+        3
+      ],
+      "offset": 32073,
+      "length": 33,
+      "trim_origin_top_left_px": [
+        68,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "6bc8f339110c708f3a27cb5cde98306c116eca4a8f2603287bb5956e480a61b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_10.png",
+      "width": 6,
+      "height": 4,
+      "texture_px": [
+        6,
+        4
+      ],
+      "offset": 32106,
+      "length": 24,
+      "trim_origin_top_left_px": [
+        77,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -40
+      ],
+      "sha256": "da39c5d143831fab0406a0e22319541113a8a394ec8b807f86eedc27cda0716d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_10.png",
+      "width": 5,
+      "height": 5,
+      "texture_px": [
+        5,
+        5
+      ],
+      "offset": 32130,
+      "length": 25,
+      "trim_origin_top_left_px": [
+        86,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -38
+      ],
+      "sha256": "5c234aa8fa76289a69849c61ffe726571d80e05e0c5f837716db3c06f6dc0e4a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_10.png",
+      "width": 11,
+      "height": 6,
+      "texture_px": [
+        11,
+        6
+      ],
+      "offset": 32155,
+      "length": 66,
+      "trim_origin_top_left_px": [
+        88,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -34
+      ],
+      "sha256": "6626cd7acb3abffbb5b627e414a9fff623100cd1d666d71ce0035038226f0bf9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_10.png",
+      "width": 17,
+      "height": 7,
+      "texture_px": [
+        17,
+        7
+      ],
+      "offset": 32221,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        88,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -28
+      ],
+      "sha256": "8630bf6785837a05466ecaa1cbb12f5567d149f212f09269898b539316de681b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_10.png",
+      "width": 19,
+      "height": 11,
+      "texture_px": [
+        19,
+        11
+      ],
+      "offset": 32340,
+      "length": 209,
+      "trim_origin_top_left_px": [
+        88,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -22
+      ],
+      "sha256": "fb4098c9e3816b11983da3b79a0fa310103011fc77b3bf660674f89c6cb8d167",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_10.png",
+      "width": 20,
+      "height": 17,
+      "texture_px": [
+        20,
+        17
+      ],
+      "offset": 32549,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        86,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -14
+      ],
+      "sha256": "54ad5ba8f1018c62da0572d4c47873bbc07ce19a0a297699a5079a9a7a1451b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 32889,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        83,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -8
+      ],
+      "sha256": "d8e3607835083b4beed02ddd61bb5a525fc17fa5ef841cc3b2fd1f3470d66059",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_10.png",
+      "width": 12,
+      "height": 25,
+      "texture_px": [
+        12,
+        25
+      ],
+      "offset": 33246,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        80,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -3
+      ],
+      "sha256": "0ca8612c5629bbb08eb3d6becfb640124e7c75d67932c8f7802f6e0ea5069067",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_10.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 33546,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        76,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -2
+      ],
+      "sha256": "23033bb6362822e3b729da6ee19bfd1bac28c33c7941eaf10b17d6e731f1b3b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_10.png",
+      "width": 5,
+      "height": 27,
+      "texture_px": [
+        5,
+        27
+      ],
+      "offset": 33735,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        69,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -3
+      ],
+      "sha256": "e61195529a431135c2fcae3a98230422cf7494d1d8e6bb2e4944438d72c7b479",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_10.png",
+      "width": 11,
+      "height": 24,
+      "texture_px": [
+        11,
+        24
+      ],
+      "offset": 33870,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        61,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -7
+      ],
+      "sha256": "ad51b8d81cce9fa52d77b546a8881fc1d1444c340e9e2d33a5b5e284bbb328cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_10.png",
+      "width": 14,
+      "height": 18,
+      "texture_px": [
+        14,
+        18
+      ],
+      "offset": 34134,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        55,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -13
+      ],
+      "sha256": "aa2b51ab8925e254b520f4652f73572dc37e9c0f048f22f6454e7f1d6233b994",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_10.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 34386,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        53,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -20
+      ],
+      "sha256": "230fd3b0323803d576719981685b8a9ad9dd84230ecf0e05b6d347829f246511",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_11.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 34674,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        54,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -28
+      ],
+      "sha256": "77e0e12c4a9abf3e77b7c1d9c6c7810c6c47ab6ff20b0e34c84ad77b88a32018",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_11.png",
+      "width": 16,
+      "height": 11,
+      "texture_px": [
+        16,
+        11
+      ],
+      "offset": 34930,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -35
+      ],
+      "sha256": "fe8cc8db27f35dc0daa7f1ec8f77c1b679e6043802101e55ff4b1f2d0c0600bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_11.png",
+      "width": 13,
+      "height": 7,
+      "texture_px": [
+        13,
+        7
+      ],
+      "offset": 35106,
+      "length": 91,
+      "trim_origin_top_left_px": [
+        71,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "d345c520daf439cd07fcc5a2d0a23cbc687ec5997feb866c7d57fdf9fe6d2be9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_11.png",
+      "width": 7,
+      "height": 5,
+      "texture_px": [
+        7,
+        5
+      ],
+      "offset": 35197,
+      "length": 35,
+      "trim_origin_top_left_px": [
+        83,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -39
+      ],
+      "sha256": "5976c3403b577ab55eedf9aeb0085d4a15518733050a97799ca91ef51d3c3c7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_11.png",
+      "width": 4,
+      "height": 6,
+      "texture_px": [
+        4,
+        6
+      ],
+      "offset": 35232,
+      "length": 24,
+      "trim_origin_top_left_px": [
+        93,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -35
+      ],
+      "sha256": "8a4cddafd0be4291fe22125c68e6029b49dfa42599981986181b838ee62553ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_11.png",
+      "width": 7,
+      "height": 7,
+      "texture_px": [
+        7,
+        7
+      ],
+      "offset": 35256,
+      "length": 49,
+      "trim_origin_top_left_px": [
+        97,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -29
+      ],
+      "sha256": "e8351a9c02bfa584914d9cbb4d0da0a5a0a58944bf8023615bd7ed9f1a72ca6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_11.png",
+      "width": 12,
+      "height": 9,
+      "texture_px": [
+        12,
+        9
+      ],
+      "offset": 35305,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        97,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -22
+      ],
+      "sha256": "b0ff03de4f69c25648b84467695262d1cde6a588de2332b3f6592991b6ca20d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_11.png",
+      "width": 16,
+      "height": 12,
+      "texture_px": [
+        16,
+        12
+      ],
+      "offset": 35413,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        94,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -14
+      ],
+      "sha256": "3bbc26ca1586461515668c03266c2db3a4b3f58db4d4f36094e76fd984b64344",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_11.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 35605,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        90,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -6
+      ],
+      "sha256": "d9e850fc670eed31b5d22e1764423c1dfcc0ba20c0f1953930e9543595665522",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_11.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 35861,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        83,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        0
+      ],
+      "sha256": "ce985a80f1d1df91ea18f6717781ef419ea42560c18e3882b03f675060557032",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_11.png",
+      "width": 12,
+      "height": 24,
+      "texture_px": [
+        12,
+        24
+      ],
+      "offset": 36181,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        76,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        4
+      ],
+      "sha256": "dbd7ea57eeaa2ca6162fb6a317c0c8b16da0337a262713bff0118f3e56687794",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_11.png",
+      "width": 8,
+      "height": 26,
+      "texture_px": [
+        8,
+        26
+      ],
+      "offset": 36469,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        70,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        4
+      ],
+      "sha256": "182eabe040ca538327939c825b8c8add86647eab865345654567298c964e53c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_11.png",
+      "width": 4,
+      "height": 27,
+      "texture_px": [
+        4,
+        27
+      ],
+      "offset": 36677,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        63,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        2
+      ],
+      "sha256": "e6cd599b3cf4c538b29c62a135c64ba2dfcb9fb12939b3c4c98b478624cf013c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_11.png",
+      "width": 7,
+      "height": 25,
+      "texture_px": [
+        7,
+        25
+      ],
+      "offset": 36785,
+      "length": 175,
+      "trim_origin_top_left_px": [
+        56,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -4
+      ],
+      "sha256": "7b194099a7afdb4eb5c6f0f0b5bb46d88cbffa5fb9b7d08e0b8ab8ceeddaa0f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_11.png",
+      "width": 11,
+      "height": 22,
+      "texture_px": [
+        11,
+        22
+      ],
+      "offset": 36960,
+      "length": 242,
+      "trim_origin_top_left_px": [
+        51,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -12
+      ],
+      "sha256": "e3d907e89d614ecfe0122d7f851135a35b70e699606c293458b228783c694354",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_11.png",
+      "width": 14,
+      "height": 18,
+      "texture_px": [
+        14,
+        18
+      ],
+      "offset": 37202,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        50,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -20
+      ],
+      "sha256": "1881adbd5688e778f3d20ccdce3faaa6a3b667b92dd08408b95c9cc8f2a3d1a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_12.png",
+      "width": 12,
+      "height": 21,
+      "texture_px": [
+        12,
+        21
+      ],
+      "offset": 37454,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        53,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -27
+      ],
+      "sha256": "919a6e3ffd1d1be1ffb5f222ae9109f3a06ae473a73098112decdc325d9ffd42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_12.png",
+      "width": 12,
+      "height": 17,
+      "texture_px": [
+        12,
+        17
+      ],
+      "offset": 37706,
+      "length": 204,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -35
+      ],
+      "sha256": "c9f9b3519a0f92a00c9e3d21a01810871233b5782070c988855e0824c49e821a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_12.png",
+      "width": 12,
+      "height": 13,
+      "texture_px": [
+        12,
+        13
+      ],
+      "offset": 37910,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        74,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "fd8a85f191a7c2aee1f3411a4c54c0008d603b49962e3a783a099685004616f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_12.png",
+      "width": 10,
+      "height": 12,
+      "texture_px": [
+        10,
+        12
+      ],
+      "offset": 38066,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        87,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -36
+      ],
+      "sha256": "93a1cfe623e68d9051e38cbc650430de53acc38500b8494abae374508e6f20bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_12.png",
+      "width": 6,
+      "height": 10,
+      "texture_px": [
+        6,
+        10
+      ],
+      "offset": 38186,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        98,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -32
+      ],
+      "sha256": "10ff257ba467ec6c201c3c6bfc2f2e2caf5c5ab810f1f685d16cbb99a2739103",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_12.png",
+      "width": 3,
+      "height": 9,
+      "texture_px": [
+        3,
+        9
+      ],
+      "offset": 38246,
+      "length": 27,
+      "trim_origin_top_left_px": [
+        106,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -26,
+        -24
+      ],
+      "sha256": "bb6149d62ab848dab35e06235b3b7545baa5e808c48dd4c8428c53fd7739df55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_12.png",
+      "width": 4,
+      "height": 10,
+      "texture_px": [
+        4,
+        10
+      ],
+      "offset": 38273,
+      "length": 40,
+      "trim_origin_top_left_px": [
+        108,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        -16
+      ],
+      "sha256": "9e0eeb79564ece4fd7e85eccb0545d06a7f05b215af2962608c406d488750eac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_12.png",
+      "width": 9,
+      "height": 11,
+      "texture_px": [
+        9,
+        11
+      ],
+      "offset": 38313,
+      "length": 99,
+      "trim_origin_top_left_px": [
+        103,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -23,
+        -7
+      ],
+      "sha256": "0901412ff56ca1b305a1e372fb0a49b7774368b6055a5460576d76cb5eeea9be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_12.png",
+      "width": 12,
+      "height": 13,
+      "texture_px": [
+        12,
+        13
+      ],
+      "offset": 38412,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        95,
+        88
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        1
+      ],
+      "sha256": "20d6ba119e2399a0deb25d5e1942189fc93f1da74087b58f7bd2fe1083e51df8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_12.png",
+      "width": 13,
+      "height": 17,
+      "texture_px": [
+        13,
+        17
+      ],
+      "offset": 38568,
+      "length": 221,
+      "trim_origin_top_left_px": [
+        85,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        8
+      ],
+      "sha256": "d738ab6f292797bf7fb28cdc5056086f869e4c44451d5fb75b7dd8f243be07c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_12.png",
+      "width": 12,
+      "height": 20,
+      "texture_px": [
+        12,
+        20
+      ],
+      "offset": 38789,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        74,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        11
+      ],
+      "sha256": "04890275138c4bac4839cacaa13644431a521fe4c2b24470b676cc7b2cc20537",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_12.png",
+      "width": 11,
+      "height": 22,
+      "texture_px": [
+        11,
+        22
+      ],
+      "offset": 39029,
+      "length": 242,
+      "trim_origin_top_left_px": [
+        63,
+        88
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "3a334bb58a744b7f4a81cdfa66b610e5add8f7ee2ed120015eba75fc2692a294",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_12.png",
+      "width": 6,
+      "height": 22,
+      "texture_px": [
+        6,
+        22
+      ],
+      "offset": 39271,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        56,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        6
+      ],
+      "sha256": "a246a16d0091076152a6872dc3f4538f5679577192f838ca292bc5d5415edc90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_12.png",
+      "width": 3,
+      "height": 24,
+      "texture_px": [
+        3,
+        24
+      ],
+      "offset": 39403,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        51,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        0
+      ],
+      "sha256": "6efcb6ba1aaec5cbb6734282677295b2b88c0020d56f9541b660ed712ed7cc26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_12.png",
+      "width": 4,
+      "height": 24,
+      "texture_px": [
+        4,
+        24
+      ],
+      "offset": 39475,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        48,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -9
+      ],
+      "sha256": "088dbcf7f34ea0ac449cb67e3ea906769072a88b2bfa412acb29f9d91690ead2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_12.png",
+      "width": 8,
+      "height": 23,
+      "texture_px": [
+        8,
+        23
+      ],
+      "offset": 39571,
+      "length": 184,
+      "trim_origin_top_left_px": [
+        48,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -18
+      ],
+      "sha256": "7c1132711953249da89b874fd0c646278ec1ca55abc9cf81aacddcb163a89023",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_13.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 39755,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        52,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -23
+      ],
+      "sha256": "ed4245e9e812ad0490997a035d171e35d4a8094277ec8dba2bbadd9acddb3a21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_13.png",
+      "width": 10,
+      "height": 20,
+      "texture_px": [
+        10,
+        20
+      ],
+      "offset": 39944,
+      "length": 200,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -34
+      ],
+      "sha256": "f892f0920a75c831f5d07d907a3eec84be1e5f224277336a6e21a1ceebfe4fef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_13.png",
+      "width": 13,
+      "height": 19,
+      "texture_px": [
+        13,
+        19
+      ],
+      "offset": 40144,
+      "length": 247,
+      "trim_origin_top_left_px": [
+        76,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "fd1e55e2c2f4ead9bade10d7b8f146398f717efc7dd2cb287cd121ce8691c8a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_13.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 40391,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        89,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -33
+      ],
+      "sha256": "23e5c26b375dd17097e3de92735c20cda51e4ba09c6ed4627ee7cf5dfb04463f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_13.png",
+      "width": 16,
+      "height": 14,
+      "texture_px": [
+        16,
+        14
+      ],
+      "offset": 40646,
+      "length": 224,
+      "trim_origin_top_left_px": [
+        99,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -27
+      ],
+      "sha256": "a785715c73c2e2e5239548cf4a2dd22bbc85374153aef111d37b165364cca786",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_13.png",
+      "width": 14,
+      "height": 10,
+      "texture_px": [
+        14,
+        10
+      ],
+      "offset": 40870,
+      "length": 140,
+      "trim_origin_top_left_px": [
+        107,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        -20
+      ],
+      "sha256": "80561a77e41d577b9c399396c6a16f7f4f11fe5d36d4a5dd94788fb68adea497",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_13.png",
+      "width": 9,
+      "height": 7,
+      "texture_px": [
+        9,
+        7
+      ],
+      "offset": 41010,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        111,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -31,
+        -10
+      ],
+      "sha256": "8a9820fce4ef223a3f053e3edd36785906a5a84b83bc02fe4a81217917521f82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_13.png",
+      "width": 6,
+      "height": 5,
+      "texture_px": [
+        6,
+        5
+      ],
+      "offset": 41073,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        109,
+        94
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -29,
+        -1
+      ],
+      "sha256": "2b6bc34f0373db84fa51a4f9913707198083ac62d4098a78ea4ad9d15d75eb31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_13.png",
+      "width": 6,
+      "height": 5,
+      "texture_px": [
+        6,
+        5
+      ],
+      "offset": 41103,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        102,
+        102
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        7
+      ],
+      "sha256": "3d6d478d24d66615217f41e6fbbf139b93045b61eb971b2ce04d949bd5185838",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_13.png",
+      "width": 9,
+      "height": 6,
+      "texture_px": [
+        9,
+        6
+      ],
+      "offset": 41133,
+      "length": 54,
+      "trim_origin_top_left_px": [
+        88,
+        107
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        13
+      ],
+      "sha256": "15663dc2745dc60b977a984498531a900f8dbc7f270e34e3b5f559c63af42543",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_13.png",
+      "width": 13,
+      "height": 9,
+      "texture_px": [
+        13,
+        9
+      ],
+      "offset": 41187,
+      "length": 117,
+      "trim_origin_top_left_px": [
+        72,
+        107
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        16
+      ],
+      "sha256": "5135f122627bb00af8657c11e43588309d17062a94dd12a55bae7fcb216af0c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_13.png",
+      "width": 14,
+      "height": 11,
+      "texture_px": [
+        14,
+        11
+      ],
+      "offset": 41304,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        59,
+        104
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "f852b00a656f0c0c55b3c3ed18596e586a708f575b293ec330bda31439fb84ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_13.png",
+      "width": 13,
+      "height": 15,
+      "texture_px": [
+        13,
+        15
+      ],
+      "offset": 41458,
+      "length": 195,
+      "trim_origin_top_left_px": [
+        48,
+        96
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11
+      ],
+      "sha256": "a33ec68224d1aaf5edd0a808cee530ed5153a1a0b63da239159853a61a318a69",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_13.png",
+      "width": 13,
+      "height": 21,
+      "texture_px": [
+        13,
+        21
+      ],
+      "offset": 41653,
+      "length": 273,
+      "trim_origin_top_left_px": [
+        40,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        4
+      ],
+      "sha256": "ac589c1956eac101581802a1fb55eafaacbf1d7980db4e8a2167b040f7a2b39e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_13.png",
+      "width": 10,
+      "height": 25,
+      "texture_px": [
+        10,
+        25
+      ],
+      "offset": 41926,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        39,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -5
+      ],
+      "sha256": "8e3633f322b81f3955ab201ce38a71756722f0acd8d9bbd723ce9edf62b8a553",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_13.png",
+      "width": 6,
+      "height": 27,
+      "texture_px": [
+        6,
+        27
+      ],
+      "offset": 42176,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        45,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -14
+      ],
+      "sha256": "94f943eb2b936a5474ed8bd358ead03231a24275cc20567b57ec46193780804d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_14.png",
+      "width": 5,
+      "height": 27,
+      "texture_px": [
+        5,
+        27
+      ],
+      "offset": 42338,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        51,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -18
+      ],
+      "sha256": "7615180b5ac3b18fbc7a8be1c2a2c17c126e66a97ce28f8790bf6b5cbc2e2ae5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_14.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 42473,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -24
+      ],
+      "sha256": "0b0844537a614cb45d4c73260f5748f19c27ff35ca1254997d2e079932229a3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_14.png",
+      "width": 11,
+      "height": 20,
+      "texture_px": [
+        11,
+        20
+      ],
+      "offset": 42662,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        78,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -31
+      ],
+      "sha256": "36e1351fe772b808bb9ec2f50adf4cb342e718d47334d4207da7c97da5e5b47a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_14.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 42882,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        90,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -29
+      ],
+      "sha256": "ce991d37d5e0549627e9ec237f838a9529ceb692f4838935b22a16c9f8dbbd47",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_14.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 43171,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        99,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -24
+      ],
+      "sha256": "d2776f2723ec389b0b6c2d3a512e0fb64100675ff79c186dc80410a62db348b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_14.png",
+      "width": 23,
+      "height": 8,
+      "texture_px": [
+        23,
+        8
+      ],
+      "offset": 43435,
+      "length": 184,
+      "trim_origin_top_left_px": [
+        105,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -25,
+        -15
+      ],
+      "sha256": "f65819d9fd0efb6a90866dcbe781a307563036abe11abf665dce068c7095060c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_14.png",
+      "width": 20,
+      "height": 5,
+      "texture_px": [
+        20,
+        5
+      ],
+      "offset": 43619,
+      "length": 100,
+      "trim_origin_top_left_px": [
+        109,
+        89
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -29,
+        -6
+      ],
+      "sha256": "b295299637b65fb6b95448530b4f462e5fc6984ec2991b42a4fdc58a99ccea48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_14.png",
+      "width": 13,
+      "height": 7,
+      "texture_px": [
+        13,
+        7
+      ],
+      "offset": 43719,
+      "length": 91,
+      "trim_origin_top_left_px": [
+        109,
+        99
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -29,
+        6
+      ],
+      "sha256": "33ffe74435b1a6818385d4005f9b998ae6f61e9e34248ae67918e4d2722efff9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_14.png",
+      "width": 7,
+      "height": 9,
+      "texture_px": [
+        7,
+        9
+      ],
+      "offset": 43810,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        102,
+        107
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        16
+      ],
+      "sha256": "edd863273e48190ecfbf9edbecc7844cdfb854335d7514b06ff5ef1f71a82214",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_14.png",
+      "width": 8,
+      "height": 9,
+      "texture_px": [
+        8,
+        9
+      ],
+      "offset": 43873,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        90,
+        113
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        22
+      ],
+      "sha256": "2fc8ab96a51cb38580bf4cc32737b9441a330939815ec5984b73ef1f23f50f02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_14.png",
+      "width": 15,
+      "height": 6,
+      "texture_px": [
+        15,
+        6
+      ],
+      "offset": 43945,
+      "length": 90,
+      "trim_origin_top_left_px": [
+        71,
+        116
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        22
+      ],
+      "sha256": "2393fc2a0d82c5b3363515ab6c13a384f6c84f8b8112fab8cf624103e2cad9fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_14.png",
+      "width": 21,
+      "height": 4,
+      "texture_px": [
+        21,
+        4
+      ],
+      "offset": 44035,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        53,
+        115
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        19
+      ],
+      "sha256": "68dd24175f3b47e702aee1c6292263ad29dd00b2d47f5f6bd853eb58c5573411",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_14.png",
+      "width": 24,
+      "height": 8,
+      "texture_px": [
+        24,
+        8
+      ],
+      "offset": 44119,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        39,
+        106
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        14
+      ],
+      "sha256": "171490e275c912b8708c575f5b997d937dbdc9cd48b97ae91a8376203757913b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_14.png",
+      "width": 23,
+      "height": 15,
+      "texture_px": [
+        23,
+        15
+      ],
+      "offset": 44311,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        32,
+        93
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        8
+      ],
+      "sha256": "c7d6ee2f00b7088771d5b1cd59ff48dc74354f1b26441c0ead1195df06efaf8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_14.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 44656,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        31,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -1
+      ],
+      "sha256": "d010077e21a58b04449be4b30ed4e6259191be8ca81c4cddee6cbba861a7df64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_14.png",
+      "width": 13,
+      "height": 25,
+      "texture_px": [
+        13,
+        25
+      ],
+      "offset": 45076,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        38,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -10
+      ],
+      "sha256": "828cd87427571b2b9762193d2b6cf229352856976c71574fd6e35899080476a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_15.png",
+      "width": 8,
+      "height": 24,
+      "texture_px": [
+        8,
+        24
+      ],
+      "offset": 45401,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        49,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -14
+      ],
+      "sha256": "c8f94e2060c09e3f2812ddd70c35fa6ae1cb31018af23c34f0749494c5192364",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_15.png",
+      "width": 5,
+      "height": 25,
+      "texture_px": [
+        5,
+        25
+      ],
+      "offset": 45593,
+      "length": 125,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -20
+      ],
+      "sha256": "cc32a3a6d12ef596895847a13452eb6b704f5d136af822ffccfc34053ecd3cac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_15.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 45718,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        73,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -24
+      ],
+      "sha256": "8783c93dd5a690a599f0b3a9dfdaef39bf143d6ac7fc4ba2ab6b7eeb589a1bb1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_15.png",
+      "width": 18,
+      "height": 15,
+      "texture_px": [
+        18,
+        15
+      ],
+      "offset": 46048,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        89,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -26
+      ],
+      "sha256": "b844f63c29afa0cf4ed13109ca5844f0a0a912b85f28f154954dfd6f9beda8a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_15.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 46318,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        98,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -21
+      ],
+      "sha256": "333d02809a0bda6069dab139b3622a2214f04bc5bd2760265c3fef7ce451ded7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_15.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 46525,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        104,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -24,
+        -13
+      ],
+      "sha256": "e101b574859de5a3ede7e47ae451f189519c2c7afa8b1cb03ecbbddb73a4d500",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_15.png",
+      "width": 23,
+      "height": 8,
+      "texture_px": [
+        23,
+        8
+      ],
+      "offset": 46681,
+      "length": 184,
+      "trim_origin_top_left_px": [
+        108,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        -1
+      ],
+      "sha256": "474ffbe8356dd4c9e728a0ae15190e9a4257110a6e7be5176a0bffe37475921b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_15.png",
+      "width": 18,
+      "height": 13,
+      "texture_px": [
+        18,
+        13
+      ],
+      "offset": 46865,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        107,
+        100
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        13
+      ],
+      "sha256": "3ede42b442bd1db4f05d02f8f89c447d6f210436187e80e69047ac4ee174c048",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_15.png",
+      "width": 9,
+      "height": 16,
+      "texture_px": [
+        9,
+        16
+      ],
+      "offset": 47099,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        102,
+        108
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        24
+      ],
+      "sha256": "c8eeeb4a72e870fb8df74e287a926625497cbf6ba38937853a14542b6b692d79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_15.png",
+      "width": 7,
+      "height": 15,
+      "texture_px": [
+        7,
+        15
+      ],
+      "offset": 47243,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        92,
+        115
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        30
+      ],
+      "sha256": "13315f9b2a001694ddbf8e9858076b11a2b0d71806241aa51de9f163474e02f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_15.png",
+      "width": 15,
+      "height": 14,
+      "texture_px": [
+        15,
+        14
+      ],
+      "offset": 47348,
+      "length": 210,
+      "trim_origin_top_left_px": [
+        72,
+        117
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        31
+      ],
+      "sha256": "d1302d04e023bac7ff94941a446f9b323748434b13cbc2e17c845afc2ebb1f97",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_15.png",
+      "width": 22,
+      "height": 9,
+      "texture_px": [
+        22,
+        9
+      ],
+      "offset": 47558,
+      "length": 198,
+      "trim_origin_top_left_px": [
+        54,
+        117
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26
+      ],
+      "sha256": "64f3f8b2d208c076bcb768fc2ad883292da7b911d0bf9d62b5a57038388b6d84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_15.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 47756,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        39,
+        112
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        18
+      ],
+      "sha256": "dc3e9c6078c5e0ffe0da6d833b04b92c6f689b5eb89fb2db8cf84cc7a3f9bce5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_15.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 47912,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        30,
+        102
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        10
+      ],
+      "sha256": "960e1a74c3f8fa27dfc63f77de152bd25fc3a622bb0dee96c43cac74a7bb1e4b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_15.png",
+      "width": 24,
+      "height": 15,
+      "texture_px": [
+        24,
+        15
+      ],
+      "offset": 48128,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        29,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        2
+      ],
+      "sha256": "043cf8f3d033585587211cff3bb0d79deb8b58382d1de7c1e5ef58dafcf1d245",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 48488,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        36,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -6
+      ],
+      "sha256": "a02f81cde667c9da423411c720bfd1285c3cc7e12d2ca64d3ae585428fc0109d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_16.png",
+      "width": 10,
+      "height": 22,
+      "texture_px": [
+        10,
+        22
+      ],
+      "offset": 48845,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        47,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -12
+      ],
+      "sha256": "abfb9a4ec392f51e74a4bb1250958229ad7f8fb33b18022590cccb564ea7cc68",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_16.png",
+      "width": 4,
+      "height": 22,
+      "texture_px": [
+        4,
+        22
+      ],
+      "offset": 49065,
+      "length": 88,
+      "trim_origin_top_left_px": [
+        62,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -18
+      ],
+      "sha256": "47794e1bda615b1592f6be9c6789a14a85adc4119f4592e49a9e829965bc756b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_16.png",
+      "width": 13,
+      "height": 20,
+      "texture_px": [
+        13,
+        20
+      ],
+      "offset": 49153,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        72,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -22
+      ],
+      "sha256": "37b8ff5d4a19c0558fb2901aa55fad4f2883a3ac9a5038d2b46841a5d98d85c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_16.png",
+      "width": 21,
+      "height": 15,
+      "texture_px": [
+        21,
+        15
+      ],
+      "offset": 49413,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        83,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -22
+      ],
+      "sha256": "47a1546c6fe92fa3e4371589463024c3dcb9d9f8dc2f9759c4055a35988766de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_16.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 49728,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        97,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -19
+      ],
+      "sha256": "10ffd90f68e17f23c3c7ac0b01a0be31949e5cc21ecf9776097b5a94839b7e0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_16.png",
+      "width": 25,
+      "height": 6,
+      "texture_px": [
+        25,
+        6
+      ],
+      "offset": 49935,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        104,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -24,
+        -12
+      ],
+      "sha256": "9c500b3f3ffbbb444d7d18721c785993b180e6c08a7cb7d3239edea245baeaec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_16.png",
+      "width": 24,
+      "height": 10,
+      "texture_px": [
+        24,
+        10
+      ],
+      "offset": 50085,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        107,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        1
+      ],
+      "sha256": "0df48fc019ffb55ec350a3d5c3c08a17ca866a865efe3199f908eedae9ef78fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_16.png",
+      "width": 18,
+      "height": 14,
+      "texture_px": [
+        18,
+        14
+      ],
+      "offset": 50325,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        108,
+        101
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        15
+      ],
+      "sha256": "6341d3b6f365666cc18be008d748d83767d005802de6d254490e600129bc151f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_16.png",
+      "width": 10,
+      "height": 18,
+      "texture_px": [
+        10,
+        18
+      ],
+      "offset": 50577,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        103,
+        109
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -23,
+        27
+      ],
+      "sha256": "9794d4e49e61ebbece50857ebc9ce44c1dd0fef5600e745def518354b9b8098b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_16.png",
+      "width": 7,
+      "height": 19,
+      "texture_px": [
+        7,
+        19
+      ],
+      "offset": 50757,
+      "length": 133,
+      "trim_origin_top_left_px": [
+        93,
+        115
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        34
+      ],
+      "sha256": "a92451d66faa871b0965f6d8cd56b1d3a7cb492f3673bbd6e2792692e103421c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_16.png",
+      "width": 13,
+      "height": 16,
+      "texture_px": [
+        13,
+        16
+      ],
+      "offset": 50890,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        75,
+        119
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        35
+      ],
+      "sha256": "335f9c3b21c37c8f5429f99c8447be451d1d4f825f9501eb0687ecccdb5fd0aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_16.png",
+      "width": 21,
+      "height": 13,
+      "texture_px": [
+        21,
+        13
+      ],
+      "offset": 51098,
+      "length": 273,
+      "trim_origin_top_left_px": [
+        56,
+        118
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        31
+      ],
+      "sha256": "d12f884bae7fdd70feeb34d83c44d603bb71129086dd5849f66875d8e94632cd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_16.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 51371,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        40,
+        114
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        21
+      ],
+      "sha256": "85f1785bf5c702b6b23a340a2239fb7068e610104ccd1e9d27c104da324dce53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_16.png",
+      "width": 28,
+      "height": 5,
+      "texture_px": [
+        28,
+        5
+      ],
+      "offset": 51560,
+      "length": 140,
+      "trim_origin_top_left_px": [
+        31,
+        107
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        12
+      ],
+      "sha256": "d4961e1b6190b19a703dfbe0eaad5e5e4af8692bda361f48695f8db612aab5dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_16.png",
+      "width": 25,
+      "height": 12,
+      "texture_px": [
+        25,
+        12
+      ],
+      "offset": 51700,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        29,
+        92
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        4
+      ],
+      "sha256": "5a48df83b30347e3c6ebd9db2433f446ff795a3b3e55727aeda1f25e47c38d31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_16.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 52000,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        35,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -4
+      ],
+      "sha256": "31368345499550ca5a0adcff0b068e77ac045b5cc12d92ca7f5a727b6d4ded88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_s_17.png",
+      "width": 11,
+      "height": 21,
+      "texture_px": [
+        11,
+        21
+      ],
+      "offset": 52342,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        46,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -11
+      ],
+      "sha256": "bdfd36a37a2059421f21835d7981a0c23f861bd8aa835aa806213df3a81a6e1f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ssw_17.png",
+      "width": 5,
+      "height": 22,
+      "texture_px": [
+        5,
+        22
+      ],
+      "offset": 52573,
+      "length": 110,
+      "trim_origin_top_left_px": [
+        60,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -17
+      ],
+      "sha256": "e368a5e33dbbd8ae7e92b777f4cf749de29ec4a8a227027120120ffa2217c9d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sw_17.png",
+      "width": 12,
+      "height": 20,
+      "texture_px": [
+        12,
+        20
+      ],
+      "offset": 52683,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        72,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -21
+      ],
+      "sha256": "e363c3bd363d78a71dab26bf89ef244ea016ddb2455e57f579b6624e98bdcc52",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wsw_17.png",
+      "width": 21,
+      "height": 15,
+      "texture_px": [
+        21,
+        15
+      ],
+      "offset": 52923,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        82,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -22
+      ],
+      "sha256": "890f82a7d84e01e555871c5679679ddbb764e50a3a3c9f7d3975bd72dc1d4441",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_w_17.png",
+      "width": 22,
+      "height": 9,
+      "texture_px": [
+        22,
+        9
+      ],
+      "offset": 53238,
+      "length": 198,
+      "trim_origin_top_left_px": [
+        97,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -19
+      ],
+      "sha256": "4de0c4edd29e337ec670089f7325e9ab78f97a35b298994af33c8035872e5c57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_wnw_17.png",
+      "width": 25,
+      "height": 6,
+      "texture_px": [
+        25,
+        6
+      ],
+      "offset": 53436,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        104,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -24,
+        -12
+      ],
+      "sha256": "c99cef53e5092d4f7270e616c1d0c12315675a65c99c23d94bc1fab4d7a9c4d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nw_17.png",
+      "width": 24,
+      "height": 10,
+      "texture_px": [
+        24,
+        10
+      ],
+      "offset": 53586,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        107,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        1
+      ],
+      "sha256": "3f35f134fcd9047d9fff6725fa38fdc51c31e1f91bb48bc5bf261b87d09b44f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nnw_17.png",
+      "width": 18,
+      "height": 14,
+      "texture_px": [
+        18,
+        14
+      ],
+      "offset": 53826,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        108,
+        101
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        15
+      ],
+      "sha256": "c7ed15db866c1447a317f0e53fdb934ab7fce596533dd55bd31674b3c2ec90d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_n_17.png",
+      "width": 11,
+      "height": 18,
+      "texture_px": [
+        11,
+        18
+      ],
+      "offset": 54078,
+      "length": 198,
+      "trim_origin_top_left_px": [
+        103,
+        109
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -23,
+        27
+      ],
+      "sha256": "26fe1b188f81c11f497bc4946e89acd85a4dcc900dde9d42983c10013f3e690a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_nne_17.png",
+      "width": 7,
+      "height": 19,
+      "texture_px": [
+        7,
+        19
+      ],
+      "offset": 54276,
+      "length": 133,
+      "trim_origin_top_left_px": [
+        93,
+        115
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        34
+      ],
+      "sha256": "ee5804d3ac701c4956aa08ddc4c2c8d210fa85773684f187cde71a3fbdfae82f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ne_17.png",
+      "width": 12,
+      "height": 17,
+      "texture_px": [
+        12,
+        17
+      ],
+      "offset": 54409,
+      "length": 204,
+      "trim_origin_top_left_px": [
+        76,
+        119
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        36
+      ],
+      "sha256": "94a5cd6bae15e25dcb2d8d595aaa64712c19d66dd7a43e86a2e37edd958db01d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ene_17.png",
+      "width": 21,
+      "height": 14,
+      "texture_px": [
+        21,
+        14
+      ],
+      "offset": 54613,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        57,
+        118
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        32
+      ],
+      "sha256": "20fc1e32613193de908def5ffa1a902d8c63061ac20089e02547f9567bdfb477",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_e_17.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 54907,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        41,
+        114
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        23
+      ],
+      "sha256": "2b337e6fea2a04c9693091f84151b3b6087c896f30b2d40d22f9ed9427a7eccd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_ese_17.png",
+      "width": 28,
+      "height": 5,
+      "texture_px": [
+        28,
+        5
+      ],
+      "offset": 55141,
+      "length": 140,
+      "trim_origin_top_left_px": [
+        31,
+        108
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        13
+      ],
+      "sha256": "bedce78566a1091259a80a4f64189ad339b51c5d9f84adae85df3607ec12129c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_se_17.png",
+      "width": 25,
+      "height": 10,
+      "texture_px": [
+        25,
+        10
+      ],
+      "offset": 55281,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        29,
+        94
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        4
+      ],
+      "sha256": "4a7811354834ccd129ffde2c30e396b798129a10a71078e167e5b4a09d3fe88e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatSword.atlas",
+      "name": "die_sse_17.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 55531,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        34,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -4
+      ],
+      "sha256": "761efef59dfd98da8aa14154a4c14095bd21648889f9b1e82fed07fb31f4d794",
+      "empty": false
+    }
+  ],
+  "source_authority": "DefeatOct08/Defeat_Authored.blend"
+}

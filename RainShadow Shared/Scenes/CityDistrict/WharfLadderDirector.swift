@@ -8,6 +8,7 @@ final class WharfLadderDirector {
     private var completion: (() -> Void)?
     private var resolving: WharfLadderStory.Encounter?
     private var walkingIntoRoom = false
+    private var fallenBodies: [CharacterAppearanceNode] = []
     private var crew: [CharacterAppearanceNode] = []
     private(set) var combatDirector: TacticalCombatDirector?
     var isCombatActive: Bool { combatDirector != nil }
@@ -144,6 +145,7 @@ final class WharfLadderDirector {
         scene.pause.clearPlayerPause()
         combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew) { [weak self] in
             guard let self else { return }
+            self.fallenBodies += self.combatDirector?.defeatNodes.values.map { $0 } ?? []
             self.combatDirector = nil
             self.showAftermath(encounter)
         }
@@ -185,6 +187,13 @@ final class WharfLadderDirector {
     }
 
     private func acknowledge(_ encounter: WharfLadderStory.Encounter) {
+        // These encounters are nonlethal. Voss recovers after the loss narration;
+        // defeated opponents remain on the floor for the lifetime of this area.
+        let playerBody = "combat.defeated." + TacticalCombat.playerID
+        for node in fallenBodies where node.name == playerBody { node.removeFromParent() }
+        fallenBodies.removeAll { $0.name == playerBody }
+        scene.detective.isHidden = false
+        scene.navigation.registerActor(id: TacticalCombat.playerID, kind: .player, at: scene.detective.position, radius: NavigationAgentProfile.detective.radius)
         scene.context.session.updateWharfStory { state, _ in WharfLadderStory.acknowledge(encounter, in: &state) }
     }
 
@@ -254,5 +263,9 @@ final class WharfLadderDirector {
             scene.applyActorCover(to: actor, at: actor.position)
         }
         combatDirector?.update(at: time)
+        for body in fallenBodies {
+            scene.applyAreaLighting(to: body); scene.updateDepth(of: body)
+            scene.applyActorCover(to: body, at: body.position)
+        }
     }
 }

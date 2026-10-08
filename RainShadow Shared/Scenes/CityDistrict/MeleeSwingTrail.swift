@@ -18,7 +18,7 @@ final class MeleeSwingTrail {
             sprite.isHidden = true; return
         }
         let head = min(Int(WeaponTechniqueMotion.trailEnd(maneuver)), phase)
-        let variant = maneuver == .powerStrike ? 1 : maneuver == .feintingCut ? 2 : 0
+        let variant = maneuver == .tripAttack ? 3 : maneuver == .powerStrike ? 1 : maneuver == .feintingCut ? 2 : 0
         let key = variant * 256 + facing.rawValue * 16 + head
         let texture: SKTexture
         if let cached = Self.textures[key] { texture = cached }

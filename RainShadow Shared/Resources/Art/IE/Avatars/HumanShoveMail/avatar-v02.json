@@ -1,0 +1,4276 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanShoveMail",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "976c1d1a7dc5a7974a4990e07582f221de6245c8ac1877494d310b579d627e82",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_00.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 16,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "323894d8b2828579426dd018b5e95a1164230822af8a3b2964a231b1224bf6ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_00.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 1024,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "0b9f070ae357ba44424c3579f15c38126d32c4f927a38e0181ee65cec0d5f3f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_00.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 2077,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "1a0a347ab5250e9376f00d7ee947a35f94106790cea245e3b5c63890ae110d74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_00.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 3052,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "68640c097e030b62fe5d97a502af8162aaadb4b7cd119037c20e12fc8613fec8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_00.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 3949,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "64cdf70fae25ee18a81487fd10afb230c8d54d0c67df5dcf072e35d76da52bfe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_00.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 4869,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "8a3e8a967790b227c6ecc629dc57ed1a0612bb040bf23092a949a05ed6051605",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_00.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 5909,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "5ab86213b7bf1113a646759c2e72152243e54d511f1bc2e70d8bed4e35f8b078",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 6962,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "f49047182865b69cb6b226a089d0188e1c56a83fba4cd07ebbc562336f5ad7cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_00.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 8026,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "c8012540d719cae169923ca67159049ebef9e769339ad2108f8d9ddce1bb9cd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 9062,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "2dc94df75748c5224f0458ced5c10edfa34a91035b4df7896d280af314fd91e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_00.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 10126,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "13a749b3757c9641c37ee9ca346f60f9bcfac50eb066ea6b26abdf4968617b3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_00.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 11140,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "225b5c9bd0f92a1e1753a7c5d0c0e4e1a465478b1e472cd6e7138f59ae849765",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_00.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 12060,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "e0921604761847523f2040e60296d38d91e89773a7012123b3c451edb9828fa0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_00.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 13020,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "b09dfd9dae14b0c25b091aea95a4bda7d0ea056d9ecb710dc7fa9fb7f185387e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_00.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 14034,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "6f6ea493fb5abe16cbef514ae7a8eb770e17c8904d90d3f3ba08e88e8a4f128a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 15087,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "48668a89ed5d20afb3b5eeb3184eb251bab5bdf36711e23083cf840224e944e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_01.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 16151,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "7698d0985b1c60a8a82904ef54c7cd3b65c09a54e9b41065cc7be78319a8d006",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_01.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 17224,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "3e0a5edb3fc27fb5c1223c95fa69b9dffc906e7d165a8f27723733bdea5ff616",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_01.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 18288,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "cbb97bf6a091de62bdfa6c295ea710c3075efb2b32df26201f0c4f0c0289612f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_01.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 19328,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "a6ae26d4cf786a64b7f9f613c30b0ecdb5c616c6e393fc6897b9ce34aa7f0afa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_01.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 20225,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "24084dd5887913c5d0c07695691209d71ead2037b119f283202f01be55cf3777",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_01.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 21225,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "343c4ec2fc404a0e2c73e910e1f24ce6a49bf60a085b5477f0b0f509da2ca25b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_01.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 22265,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "38be4860be6ec2e575c4ba95537a15fdc41dfc596c284d5d018e1eb82f12dfc7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_01.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 23291,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "cb165d202d2d5daf43d609f59eb4602f094deffcb21e97bd7d723f84aa802fe4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_01.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 24364,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "b5737a9ca6807d9141d9ce4b1074736f8d43f536b72da4e64b33ea1aefda88f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_01.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 25408,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "924975fd8e36b7d2003219d654a6f9ed3879f4f5a594978f5deab33215ee508c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_01.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 26444,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "e9c146c07ccec6f2e98c2e1bf1da970f012624bab39a85988d474f80500c9d28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_01.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 27497,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "c7845bd6a6e96932a36c0c7fd4d34437bd6fb3457e16e23c2c503ef8c4403812",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_01.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 28481,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "0e1f1a287c5fe47781e7fb2fbbc53f05ac72210fc9570d18879a7db5a69f0523",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_01.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 29506,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "25c29d99503cd725bbdf23d6a97f6e6ba04f5db2ebdfae5878369420f003e62f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_01.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 30520,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "f4e7f1900b1a9ea604a524bce1c1fa30f19cbb6e699f38258ee4cea0a84755d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_01.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 31627,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "fb0f62a72074e86bf782260e2e874213152a0eaa9f94472daa5882ae0ea8b258",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_02.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 32758,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "d62dbf8bb24bcc2b97829ddff52f1cd6adb6cd603833765229c33d96d08cf521",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_02.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 33802,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "c752841e9854f31bdd811f5606848b247dee4be5f9775ad5375a08ca4d6de4c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_02.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 34866,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "d094a190d973b55767f7aff5bd97401bb18a569fa9810dc5bf52a0a5102d9d2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_02.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 35880,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "ce1dd6fa725457bbb47f34b110faa1bb61133a128d4bc81b422d4a58758a1350",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_02.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 36816,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "23e2728a3453542a0f0d284d639b8b637cf830b228328291315c1bc0ff2e6cbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_02.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 37791,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "bfdd5f4553e43057f92947d4a25800da2bea679a292197560ab8bd7591548b18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_02.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 38844,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "ef3260f0c74cddc8a2a595d464ce16c407876e2df0a5d40daa910b6967ce09ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_02.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 39870,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "11410e1e7e3794e3d725a04d1065b422eae64f174263e75bdc7d2553fc832e54",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_02.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 40943,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "70a5365cd12908aa9e601b2be41c5cacae22d3d8adf7ead4da10d0ceefe91dbb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_02.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 41987,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -10
+      ],
+      "sha256": "517afcaddd162788085e783cbed01e25899201cef08e63b885443570ee8729f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_02.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 43060,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "c2a00d137fe9f5d67b92eefc84d1890241735c5fe9566ac94b7fa70968d26a2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_02.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 44113,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "74d203f4add8a4a85d23797e8f7b2dfb41fc6ebf69658d996e22286a470acebd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_02.png",
+      "width": 26,
+      "height": 42,
+      "texture_px": [
+        26,
+        42
+      ],
+      "offset": 45073,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "72ed0975489bd77e75c4665445939fe740d25a06d04953e560439249774383e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_02.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 46165,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "11ab2c2dbba7243d8889b56a361ac3f60e42608640ddb72662169fe17d83f7c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_02.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 47245,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "827ba6c61e35951cd4e2257d59b20cd609683313d0dd90768e96be24287c7047",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_02.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 48325,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "d75f1ae735f7ac6b324c0d421d6e9a8354b5a7e5f391e89234c47c42b0bca9ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_03.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 49427,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "d62dbf8bb24bcc2b97829ddff52f1cd6adb6cd603833765229c33d96d08cf521",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_03.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 50471,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "c752841e9854f31bdd811f5606848b247dee4be5f9775ad5375a08ca4d6de4c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_03.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 51535,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "d094a190d973b55767f7aff5bd97401bb18a569fa9810dc5bf52a0a5102d9d2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_03.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 52549,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "ce1dd6fa725457bbb47f34b110faa1bb61133a128d4bc81b422d4a58758a1350",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_03.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 53485,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "23e2728a3453542a0f0d284d639b8b637cf830b228328291315c1bc0ff2e6cbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_03.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 54460,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "bfdd5f4553e43057f92947d4a25800da2bea679a292197560ab8bd7591548b18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_03.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 55513,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "ef3260f0c74cddc8a2a595d464ce16c407876e2df0a5d40daa910b6967ce09ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_03.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 56539,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "11410e1e7e3794e3d725a04d1065b422eae64f174263e75bdc7d2553fc832e54",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_03.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 57612,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "70a5365cd12908aa9e601b2be41c5cacae22d3d8adf7ead4da10d0ceefe91dbb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_03.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 58656,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -10
+      ],
+      "sha256": "517afcaddd162788085e783cbed01e25899201cef08e63b885443570ee8729f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_03.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 59729,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "c2a00d137fe9f5d67b92eefc84d1890241735c5fe9566ac94b7fa70968d26a2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_03.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 60782,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "74d203f4add8a4a85d23797e8f7b2dfb41fc6ebf69658d996e22286a470acebd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_03.png",
+      "width": 26,
+      "height": 42,
+      "texture_px": [
+        26,
+        42
+      ],
+      "offset": 61742,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "72ed0975489bd77e75c4665445939fe740d25a06d04953e560439249774383e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_03.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 62834,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "11ab2c2dbba7243d8889b56a361ac3f60e42608640ddb72662169fe17d83f7c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_03.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 63914,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "827ba6c61e35951cd4e2257d59b20cd609683313d0dd90768e96be24287c7047",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_03.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 64994,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "d75f1ae735f7ac6b324c0d421d6e9a8354b5a7e5f391e89234c47c42b0bca9ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_04.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 66096,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "8d1cea045c912eb7d6c8f1feb90a530cc48d4756ba652f7abbbd212b48cc6dc4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_04.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 67104,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "397b2e12fe16df7948834591825edca9cae32f4118608bd5446ca50afb557af3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_04.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 68168,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "ed3752c25a2043ac4b3a9963925387cf7cd33b1888ba35a7343f8cdbb49726b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_04.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 69143,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "f00f6cfe29b7d2d870d0d982a1d557fb82a4059424f9ae4c22426c0dd690ade7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_04.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 70103,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "a427bf96b6c5d4566ca994dac8a2837cb116c594eeae08b7faffc91dd07e2ec0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_04.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 71103,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "4d2760e639c62943fad49a188198607fb460cea93298b933d865ccd1fec2488b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_04.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 72117,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "3dac36117441fb81b716233b490c12b8ac34924e1e87a1d19d942503c83c1730",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_04.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 73170,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "993ae17fdde60209ce1af8075ef2346e03ee7c5673730e3bdba4a263d19379c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_04.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 74206,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "7a12b1a2343f05184428bb2f80eece8883f122da7c54a895437abeb8ae26323c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_04.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 75214,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "a1e87edb64b6417fd9206349bf18fdfa37ebdde318896f92f6d948654b1e71c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_04.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 76278,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "5614936500ea81129ee3e33808c3817b192f0d73fd9740652017545d65224d5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_04.png",
+      "width": 23,
+      "height": 42,
+      "texture_px": [
+        23,
+        42
+      ],
+      "offset": 77278,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "b749a3141d17dca2b59bf09491906568731d022b8733636e65270ebb5cc40b87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_04.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 78244,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "38bec37b06d1b888bda2c3427f80f9504dc5bcf6faf1dd7922ce2cef5fb36e08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_04.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 79269,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "426dea485694663b6951e48cf8f212fc28ba6db60b64348664f1eb1ff469b8c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_04.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 80283,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "f0be737edd8447cb6c587fbdb07dd6cae0c55663f4d03c140beda0186398dfce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_04.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 81363,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        65,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "e829ed326f85178b79db9cd1c73520381d9bd8b8c1e5162772d2db43f2b0ebe5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_05.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 82399,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "9b3699680ed46d30ead567273c14c738c2e7a925d52779187b42d1d3ecd6c495",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_05.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 83407,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "2c7e3c3db2c13cc1bdd37bcd590b9583e2724edadb0b7f60a63feab3e6b3fc9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_05.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 84395,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "9839fd77d272803c5ba438fa4af4af91b0be0a7b8b8ffbd22b4c0e84f4d2185e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_05.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 85370,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "9b755dc901c84406e91e8e565745d52bc34afa8185711759b15dc7cddbc8a3c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_05.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 86290,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "d35bdb491ba983766791c01f1b4fa9773de467cf67e57bf9545967a2d7d009c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_05.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 87250,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "532f91725a2b686a8c26c2a18d4ca910b4e47f1ea07c33463ed6d9d779cc278a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_05.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 88264,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "c9f63e20c71e234946459f3e5a669f18517d92c5ce41cb2d07fa93cbfa431022",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_05.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 89278,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -14
+      ],
+      "sha256": "586285ff59bb96daaec18433c30f2aec7c855dd2f04383fcb7f9c6abad3802d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_05.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 90304,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "d0b1561b40a18fe9224591170f0f6a09da18555646441514b430aab3554fa62b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_05.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 91340,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        69,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "0920086023093993c944615846f4893a57469d108d773b6c336390de2f8726a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_05.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 92393,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        72,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -10
+      ],
+      "sha256": "c1a947db706a2f96a408da0d02bb56afab3e278ecd4fa2fec2f4fec1afe5a26d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_05.png",
+      "width": 23,
+      "height": 42,
+      "texture_px": [
+        23,
+        42
+      ],
+      "offset": 93418,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        73,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -9
+      ],
+      "sha256": "109849a8a0cba2f6b90e9d0d6c1f9eb4739680b1864d44553a0c0ebc15024270",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_05.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 94384,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        73,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -8
+      ],
+      "sha256": "c6792383d1c43f5375ad6d728d5c366b6bbabb51b23ace8abf5bd6e69b3f0b19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_05.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 95368,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        71,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "1c9a0908d76e06676841a49455d561f5f9ea847c274033dd8b67ef22f183ca4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_05.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 96382,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        69,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "dc253a3335e2966e8ce04696f2b07c426ffde7f27a3000c96b9b48a9ad449402",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_05.png",
+      "width": 27,
+      "height": 36,
+      "texture_px": [
+        27,
+        36
+      ],
+      "offset": 97370,
+      "length": 972,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "3f2227e6d18724b3a2db962a30bc4b62b3127224463df891498d2eae2b0bcbca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_06.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 98342,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "9b3699680ed46d30ead567273c14c738c2e7a925d52779187b42d1d3ecd6c495",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_06.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 99350,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "2c7e3c3db2c13cc1bdd37bcd590b9583e2724edadb0b7f60a63feab3e6b3fc9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_06.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 100338,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "9839fd77d272803c5ba438fa4af4af91b0be0a7b8b8ffbd22b4c0e84f4d2185e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_06.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 101313,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "9b755dc901c84406e91e8e565745d52bc34afa8185711759b15dc7cddbc8a3c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_06.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 102233,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "d35bdb491ba983766791c01f1b4fa9773de467cf67e57bf9545967a2d7d009c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_06.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 103193,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "532f91725a2b686a8c26c2a18d4ca910b4e47f1ea07c33463ed6d9d779cc278a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_06.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 104207,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "c9f63e20c71e234946459f3e5a669f18517d92c5ce41cb2d07fa93cbfa431022",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_06.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 105221,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -14
+      ],
+      "sha256": "586285ff59bb96daaec18433c30f2aec7c855dd2f04383fcb7f9c6abad3802d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_06.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 106247,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "d0b1561b40a18fe9224591170f0f6a09da18555646441514b430aab3554fa62b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_06.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 107283,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        69,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "0920086023093993c944615846f4893a57469d108d773b6c336390de2f8726a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_06.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 108336,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        72,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -10
+      ],
+      "sha256": "c1a947db706a2f96a408da0d02bb56afab3e278ecd4fa2fec2f4fec1afe5a26d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_06.png",
+      "width": 23,
+      "height": 42,
+      "texture_px": [
+        23,
+        42
+      ],
+      "offset": 109361,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        73,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -9
+      ],
+      "sha256": "109849a8a0cba2f6b90e9d0d6c1f9eb4739680b1864d44553a0c0ebc15024270",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_06.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 110327,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        73,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -8
+      ],
+      "sha256": "c6792383d1c43f5375ad6d728d5c366b6bbabb51b23ace8abf5bd6e69b3f0b19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_06.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 111311,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        71,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "1c9a0908d76e06676841a49455d561f5f9ea847c274033dd8b67ef22f183ca4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_06.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 112325,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        69,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "dc253a3335e2966e8ce04696f2b07c426ffde7f27a3000c96b9b48a9ad449402",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_06.png",
+      "width": 27,
+      "height": 36,
+      "texture_px": [
+        27,
+        36
+      ],
+      "offset": 113313,
+      "length": 972,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "3f2227e6d18724b3a2db962a30bc4b62b3127224463df891498d2eae2b0bcbca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_07.png",
+      "width": 27,
+      "height": 35,
+      "texture_px": [
+        27,
+        35
+      ],
+      "offset": 114285,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "1427d89e0c32f9faaae25dcb92e3d1a31f1420cb3c94ec55ea49b1d6faa18d1f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_07.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 115230,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "005edff14851b2ae5fadf3a96282a3f14f92b1882d061085969788baa846db85",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_07.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 116229,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "57fa688400eda5abeac657b474785792d8609942a812863dbbc4eb7f58096e29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_07.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 117165,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "90a478b51f2561425394aa863a9a5427f1bebbb0788097d69233bbd3f1806d26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_07.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 118085,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "12e33bbe1af0a04f8d57147aa698bc82a95fc16d70cd59d5de78d2ccf369268d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_07.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 119085,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "8941b45ee86167d20301deace4b64fc434c229c8513428b2b1d7dc667def4d8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_07.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 120099,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "8de46bb94858d394d1a219e05245cab71c731ce07f6c93123ed0f476ff9a0860",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_07.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 121152,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -14
+      ],
+      "sha256": "448b2a20106b852a34c17ec1635c4eb3f2d22c691a513133cc854657fb57e7c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_07.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 122188,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "c65e056335ef0855c517f77cc2655782707bb1381de80d35f8032877a05b3d4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_07.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 123224,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "edd7a5ac5ad73f1b60eb636eb16cba3005f12cc32373a75708dce15647a50eb4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_07.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 124250,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        72,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -10
+      ],
+      "sha256": "1c72dcfb976196c5fcf3cf1abf4331e246acf577bb730f1c3e2e3e2d470d8023",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_07.png",
+      "width": 23,
+      "height": 41,
+      "texture_px": [
+        23,
+        41
+      ],
+      "offset": 125234,
+      "length": 943,
+      "trim_origin_top_left_px": [
+        73,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -9
+      ],
+      "sha256": "264d99c4e05fbcfcf8ee8682a8f49c82bcb6c66965aa59320879225403b5089f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_07.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 126177,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        72,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "208f50a63052dcc6e490ffaebe40350e31f5a339ebd0ecb257772c91a4750767",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_07.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 127202,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "5fc23056acfa78aa5858d9d3cf70c8c30398230a03e56a1e129309327031fd82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_07.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 128216,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        68,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "11ac616a19e5473b2543015fba2a9d90d1c9b5b6088c8d57cdcbe42e75c4f99d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_07.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 129242,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        66,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -7
+      ],
+      "sha256": "8bb31a4d99dcb63496a3c64a445d00eb24ffa2b2f109bc8b776f3d54e84d7202",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_08.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 130250,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "bf381dc9603e730afe78056902b957805c6d93af1ad6e302d204e1cacab6c8c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_08.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 131258,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "6b6be6646bbbb607a1d543cd19b4785e6a8ecd328cded92fce1a6ef221eb31a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_08.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 132257,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "44d70f7d7074ddf2e94a8a96993113fdc824fa86975b04046c5683fc498d1e88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_08.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 133232,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "ed7d777bf24844fad9f1b6f8e009fca4386fd6b52390ce52aaef4295cb662c1c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_08.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 134152,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "e28d3be94af7284856406845bc3e7d2e992da93358aa94fd34beae9279fd400e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_08.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 135112,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "5e2e1a8c39af765d972e86464df300056af9f7556fc556b21ac7dd38d960678a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_08.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 136126,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "9abe9a975b70d440b59cc66a968ca843c966a8de4908a97a278e5ad29c6a7341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_08.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 137114,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "a32ea9d7784800d8ff8f9b39324febb0c5816cb16e90f6a70a5c1e81ec79c73f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_08.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 138140,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "6cb1d5711bee20d6ef84fcb56684fa95d824694e5bf48936eff796ecb73a6e86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_08.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 139213,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "115312aafb58daab35b6f61cc56fbe70a6afe281de9226fb69a3ab21bba5f2ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_08.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 140305,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "6c97a4db9d4096b73f324d89ece076438c3e66bc583b21a87f7a6c7ab080a90a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_08.png",
+      "width": 23,
+      "height": 41,
+      "texture_px": [
+        23,
+        41
+      ],
+      "offset": 141305,
+      "length": 943,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -9
+      ],
+      "sha256": "9948197016e92a97df9d69804ac1555d9835031dc8fc960648c1964a968aa59a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_08.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 142248,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "610fc728ccda8fd0efa107e247d251a41ce6b507f2379019b32c7d7b8a42231e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_08.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 143273,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "fff1efab0c5da7318f554e0ad40adb286f6f54ef55d397cdaa0d009966fb6470",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_08.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 144313,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "e189b31296a501e2a41bbce39cff5dfec7ecb0daf192c355d9127914644eea04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_08.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 145327,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -8
+      ],
+      "sha256": "f215ac30828d047c7364739f58a92a391f566b52b543e90c6c0fe75c45411b45",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 146363,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "9fb9ac0fd2ba52e98bbdcc43d5033e65f82246c4a31acb0a1fd7b6a69071afe0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_09.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 147399,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "7f80e15b2f6e6447c0a5551f523cb41c29851688ad0137d19afdc4442c7347e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_09.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 148463,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "bd89c01e2b81951137ce20a3435e9af9d35c7815d7d0a9beee3289efea303923",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_09.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 149477,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "5eaf448745120409c5ae62398e943e0a9d57eed1a8af997583fcb25938b14676",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_09.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 150397,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "817197e3bbb8604e199caaff427672cf87b8e32e4a5600d23d29dcee31cda829",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 151357,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "1be103f946630b6d499aeb106c6e1b8260b9b028bf93120408578cdd92b8717c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_09.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 152397,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "9fa0ccaaa45b8690e9087a8e37ea4fc16b1cfca7521d77345ca5a8a7cde98fa3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 153385,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "02e7fd00c37532de4915435e7a3603e8493667f4e0c50b20ca80b112279a0128",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 154421,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "2126bac889d29830de06cba9b88009822a5cb349b293cf6fa5652a6faa68b66e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_09.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 155457,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "6bd7f0aae23f52bce548afa5893f7fd5c2f03f7ea2d251f7bf6cf892c7db7e35",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 156521,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "a3053881454ddfbbe7cce6870cf7b9f6f302e604fa1180c75e686bc17baccc84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_09.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 157561,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "bc159d5fdc62396c8a2e68edb2b15d30cbff2782f7478489231f2f72b6b8bd37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_09.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 158481,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "d677769ff52af1fd25739a20b97358509445a7fa542e7bc53d0c90f796a549e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 159465,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "4bccfc56ebe8b409aeae6de5f78910fc6f66a1303f5f185bf97ff667d061ee0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 160505,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "41b25d6ba301f9b6224b50e37ccaf6f1726fccba90a11adcb7ee2409cedd39cd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 161545,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        65,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "92aaefd9c7c55ee6f0c82ff0c8196cc87f28d7fdb69d1926cbcfc488f78432e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 162581,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "83f6c1daffabb13ac85af8d8970c265519f35f907d0a745ab403b52ad3e7940f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 163617,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "89c06975b3e30300ef353c9ff4d8635cffe75c8283721e888415d35fbdaec89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 164681,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "2ff5c4d39cb9c5875bb2669697e53271bf2a1b50fb9102a5b476f3b260df142e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_10.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 165695,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "55447880fea18256c20a1673de366c05b6dfa93c9ef78e47db11dee5d676bed2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_10.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 166592,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "6a96e89dc540d2b298cb4229120c2231c27bc7dd5796c765f859f5c782022588",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_10.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 167552,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "137b0370be2a43b947df00add32ad9922f879158320a0193daf57334ae588977",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_10.png",
+      "width": 25,
+      "height": 38,
+      "texture_px": [
+        25,
+        38
+      ],
+      "offset": 168592,
+      "length": 950,
+      "trim_origin_top_left_px": [
+        69,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -13
+      ],
+      "sha256": "0f98e5eaf044d794ea005ef11c104903b663b96b72f4f8739f23fb63f34d4c29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 169542,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "39f58126c70d98e4e60b550054158980ba8ea97f76f5c12c9a6c683b63c7a19d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_10.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 170578,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "c591d356061b751b7fa2c6aa9adf573ebb74c6ea9f3d389237e5ba13952482ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 171586,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "8c847f78b69fbef658ad35440a727706778d9be659d6627e9ad08593249d5ab3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 172650,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "0ee4540c20057a763a20c668bfaafa17fdcea0ded091ba1eb444e8ebf231b74c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_10.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 173664,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "e2d3c0f53356eaaf542084e3f5e22eb327f1373cd72963421b0acf6618512b1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_10.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 174584,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "f348f72af763fc384ba1806f0928f7507eaae3e43368dbb1a1e585f4895bcef5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 175568,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "609fa6e28721d8937929301b08df1301c9ce061837f2dd35ffed80a1e263bd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 176582,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -9
+      ],
+      "sha256": "5df2225f991053e39fd0386dc74efa07beeb41a0e2b005f4b3be926646dc317e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 177596,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "ba61684dd580bb9567883ac9c5ad90198a8515d07a099f8aba701a4a7c5f38a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_s_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 178632,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "323894d8b2828579426dd018b5e95a1164230822af8a3b2964a231b1224bf6ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ssw_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 179640,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "0b9f070ae357ba44424c3579f15c38126d32c4f927a38e0181ee65cec0d5f3f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sw_11.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 180693,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "1a0a347ab5250e9376f00d7ee947a35f94106790cea245e3b5c63890ae110d74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wsw_11.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 181668,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "68640c097e030b62fe5d97a502af8162aaadb4b7cd119037c20e12fc8613fec8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_w_11.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 182565,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "64cdf70fae25ee18a81487fd10afb230c8d54d0c67df5dcf072e35d76da52bfe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_wnw_11.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 183485,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "8a3e8a967790b227c6ecc629dc57ed1a0612bb040bf23092a949a05ed6051605",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nw_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 184525,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "5ab86213b7bf1113a646759c2e72152243e54d511f1bc2e70d8bed4e35f8b078",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nnw_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 185578,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "f49047182865b69cb6b226a089d0188e1c56a83fba4cd07ebbc562336f5ad7cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_n_11.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 186642,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "c8012540d719cae169923ca67159049ebef9e769339ad2108f8d9ddce1bb9cd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_nne_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 187678,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "2dc94df75748c5224f0458ced5c10edfa34a91035b4df7896d280af314fd91e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ne_11.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 188742,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "13a749b3757c9641c37ee9ca346f60f9bcfac50eb066ea6b26abdf4968617b3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ene_11.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 189756,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "225b5c9bd0f92a1e1753a7c5d0c0e4e1a465478b1e472cd6e7138f59ae849765",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_e_11.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 190676,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "e0921604761847523f2040e60296d38d91e89773a7012123b3c451edb9828fa0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_ese_11.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 191636,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "b09dfd9dae14b0c25b091aea95a4bda7d0ea056d9ecb710dc7fa9fb7f185387e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_se_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 192650,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "6f6ea493fb5abe16cbef514ae7a8eb770e17c8904d90d3f3ba08e88e8a4f128a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShoveMail.atlas",
+      "name": "shove_sse_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 193703,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "48668a89ed5d20afb3b5eeb3184eb251bab5bdf36711e23083cf840224e944e6",
+      "empty": false
+    }
+  ],
+  "source_authority": "ShoveOct08/Shove_Authored.blend"
+}

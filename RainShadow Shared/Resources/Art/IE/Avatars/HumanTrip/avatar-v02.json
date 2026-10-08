@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanTrip",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "77c11c0dde5f230e64f7f880305f5d6499b40320bba82872cba83babf55bf10d",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": true,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_00.png",
+      "width": 38,
+      "height": 60,
+      "texture_px": [
+        38,
+        60
+      ],
+      "offset": 16,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "a338d07e57c671f793337b9d418f30c0c5297aadf919e6538d05bbf6dea08c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_01.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        38,
+        59
+      ],
+      "offset": 2296,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "de6595a6a2d6b2298763c8d08f6feee74859ca63cb8a0770bf1e0276629d74f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_02.png",
+      "width": 44,
+      "height": 58,
+      "texture_px": [
+        44,
+        58
+      ],
+      "offset": 4538,
+      "length": 2552,
+      "trim_origin_top_left_px": [
+        55,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        9
+      ],
+      "sha256": "2a0b58d33ed38ccb5b08fd0757b15c08f8001b4cbb508a51e5095e42e34b93d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_03.png",
+      "width": 46,
+      "height": 57,
+      "texture_px": [
+        46,
+        57
+      ],
+      "offset": 7090,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        54,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        9
+      ],
+      "sha256": "91f0ea447e75b3444ee31a0d030a359592cbe6a8b3e6d0c6b3b376877a485c89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_04.png",
+      "width": 45,
+      "height": 57,
+      "texture_px": [
+        45,
+        57
+      ],
+      "offset": 9712,
+      "length": 2565,
+      "trim_origin_top_left_px": [
+        55,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10
+      ],
+      "sha256": "0b7403e714abce9b82bf14accdb38345a16736634cf3fb3acfd92a904c6304f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_05.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 12277,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        58,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        11
+      ],
+      "sha256": "3343fd40a15e2a5eec13cf0d540177ece1f3d6f36269c09548e7f777a7dcbf86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_06.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 14671,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        60,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "22a2f09943bfc3f55fa456b24e43a407043835ad83e3b423ac7cb550becd6f3b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_07.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 16911,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        60,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "7cd30ec0b5d40d37c258819a03015a0eed9ffac784181b37a95988f4a7e583e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_08.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 19151,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        60,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "e19518f0f795ce7c28a0825789028f55404433440cb842478bedef4e9587893d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_09.png",
+      "width": 40,
+      "height": 57,
+      "texture_px": [
+        40,
+        57
+      ],
+      "offset": 21391,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        60,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "205ac4228ec449220881f1e3ebf3a1a5ebc589270461066578632cc10bdd2131",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_10.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 23671,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        60,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "6d99830fb7236db9e8ca4802c47a3e32f9a77972670165f28d270b520f6b062a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_11.png",
+      "width": 39,
+      "height": 56,
+      "texture_px": [
+        39,
+        56
+      ],
+      "offset": 25911,
+      "length": 2184,
+      "trim_origin_top_left_px": [
+        60,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "47f89e5583a38fb04f2a5c05a0db827b0f0162c70f3d5407c7daafa3b07051bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_12.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 28095,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "c4f99a3e58b90c07e885cb6c8f7166f3998184cebd8c5f3df5beb6434134ee73",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_13.png",
+      "width": 38,
+      "height": 58,
+      "texture_px": [
+        38,
+        58
+      ],
+      "offset": 30335,
+      "length": 2204,
+      "trim_origin_top_left_px": [
+        60,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "66ecdd333790fad403a5e6d1ec5fdd3f8592897b97a8ad9f12701eb09d6ab215",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_14.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        38,
+        59
+      ],
+      "offset": 32539,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "b05614eff807a00267a240d55cd2e75e9e11b743c5eb2d62b0c06c9f785ef8be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_s_15.png",
+      "width": 38,
+      "height": 60,
+      "texture_px": [
+        38,
+        60
+      ],
+      "offset": 34781,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "a338d07e57c671f793337b9d418f30c0c5297aadf919e6538d05bbf6dea08c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_00.png",
+      "width": 40,
+      "height": 61,
+      "texture_px": [
+        40,
+        61
+      ],
+      "offset": 37061,
+      "length": 2440,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "2468799b0607a6232323fc56fc53876e5d7e1770e557f8c6895cb43904a217ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_01.png",
+      "width": 39,
+      "height": 60,
+      "texture_px": [
+        39,
+        60
+      ],
+      "offset": 39501,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "400d4c614e73ea9b3ea356edcf847798bfac3a075a6298981a6bdcfc2998987b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_02.png",
+      "width": 42,
+      "height": 59,
+      "texture_px": [
+        42,
+        59
+      ],
+      "offset": 41841,
+      "length": 2478,
+      "trim_origin_top_left_px": [
+        58,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "16e51bda18dc11f2442d504278568cbc642c6060863abe97c95b85618bca2e15",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_03.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 44319,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        57,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        11
+      ],
+      "sha256": "4f8b1b7f5ddb347e86feb51cb56e1a072f4715fda645c21731fe9f98e8c9094c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_04.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 46899,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        56,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        11
+      ],
+      "sha256": "fc492cb5d373e78e040480510fbd578c487f9f05b807cca5bda8790439841f2d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_05.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 49495,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        56,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "1cd0fbe7a92b9f554efb57dd2980af777ca37b169d71596e32f37c73eb3dccf6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_06.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 52091,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        58,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "74df535ea117a44cc437483efe247f9419b23bf3b9374985cedbc5f85a660944",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_07.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 54527,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        59,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        13
+      ],
+      "sha256": "b89d06bdf4f1bc9c2fd9bdf6642026a6ed76582437f26ed9f8026991cccc832f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_08.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 56905,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        58,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        13
+      ],
+      "sha256": "01cb949c1e5e1536d98d5eb23ef6cbee548bef7e8f9c0fec0890e53761cb39c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_09.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 59341,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        58,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "4d5cca95b0b67e5c328bcf30463e6dfdd66eb2a9d84e025dc6f2e45d013bb4ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_10.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 61777,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "55ab73466a8081430ea72d921acef507c2b80fa8c21b1510d34d3dee8ec2d791",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_11.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 64155,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "2267cca740919e4d12b562f2ac31aadb88b3bdfcf11e2fc620afc51abc245741",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_12.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 66533,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "51d0f603e9d11ef1a8f2c68956e43f577857490ceb9590be848b1a93add27ed8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_13.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 68911,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "3a5d69dd6c4ed03e1806d02b02c7812e42d71ae71db4e5d6dc43dcd80eaaca5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_14.png",
+      "width": 40,
+      "height": 60,
+      "texture_px": [
+        40,
+        60
+      ],
+      "offset": 71271,
+      "length": 2400,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "45c541e9c779cfead5458bb6ed64216e606d3b2c40517530c6d532996fbbefd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ssw_15.png",
+      "width": 40,
+      "height": 61,
+      "texture_px": [
+        40,
+        61
+      ],
+      "offset": 73671,
+      "length": 2440,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "2468799b0607a6232323fc56fc53876e5d7e1770e557f8c6895cb43904a217ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_00.png",
+      "width": 36,
+      "height": 63,
+      "texture_px": [
+        36,
+        63
+      ],
+      "offset": 76111,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "694b76b55f8cbdd43e4227d27dd0de6622219e7c16618ebf099486774b21ca9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_01.png",
+      "width": 35,
+      "height": 62,
+      "texture_px": [
+        35,
+        62
+      ],
+      "offset": 78379,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "ad07b714dbfca4e5217ddec4774ef4c1cfeecd214fab4cacb089fa4121bc4ab5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_02.png",
+      "width": 35,
+      "height": 62,
+      "texture_px": [
+        35,
+        62
+      ],
+      "offset": 80549,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11
+      ],
+      "sha256": "c50eeb130c1d420a1500588e2a90e3db919594e165330fb6087c9c87ce7d14d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_03.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 82719,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "1ca9196d8dbd46e9a18bb1348c0a382ffc5dabe792551c1d7b984651d0bbc5b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_04.png",
+      "width": 41,
+      "height": 61,
+      "texture_px": [
+        41,
+        61
+      ],
+      "offset": 85254,
+      "length": 2501,
+      "trim_origin_top_left_px": [
+        58,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "7c2a93486ecf4ed24a57fcf40273064b6c50d2e46670e4a2a30da62b79a441b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_05.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 87755,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        56,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "33dc810381a66d088345d21102c9176435f07127d1bc2bd4318c097717c8be48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_06.png",
+      "width": 42,
+      "height": 61,
+      "texture_px": [
+        42,
+        61
+      ],
+      "offset": 90335,
+      "length": 2562,
+      "trim_origin_top_left_px": [
+        57,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        13
+      ],
+      "sha256": "7ab7cec8e6fef1ffb137c1c274244e6c45fe8331348d187a43467eee61e0c460",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_07.png",
+      "width": 42,
+      "height": 60,
+      "texture_px": [
+        42,
+        60
+      ],
+      "offset": 92897,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        57,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        13
+      ],
+      "sha256": "222d6d9d68819d0ea263c0e45f3ac4fa69ad753d5961342f5afa372515497ddd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_08.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 95417,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        13
+      ],
+      "sha256": "f74fc50a70073078404bf330b45b7585143aeac51054c45df9223016dab7f78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_09.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 97777,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "45fd7d1a856c4e20a32766e2cda1befa45e62dea8e983c03dd47ea7487602a09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_10.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        38,
+        59
+      ],
+      "offset": 100137,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        61,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "0090527fe0d53acb40a287fcf4b236ca7155723973f2662eb0e64e78496b56c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_11.png",
+      "width": 39,
+      "height": 59,
+      "texture_px": [
+        39,
+        59
+      ],
+      "offset": 102379,
+      "length": 2301,
+      "trim_origin_top_left_px": [
+        60,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "98c989087d231aa2d71d6a9b84dc34e97a688c12d273e3772ddb4a724ef27b9d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_12.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 104680,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "a19ed63d983a5bc807ef0688aa077ba76bf485ff2b5d929fa47b8ff9edbb91bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_13.png",
+      "width": 37,
+      "height": 61,
+      "texture_px": [
+        37,
+        61
+      ],
+      "offset": 106863,
+      "length": 2257,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "87979ffe97da3d853bdfe7a0848992414d5f21f287c0b54e2d00e19fd0df688f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_14.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 109120,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "27d8fdc3c109a55f444d988ab264a6bc50d7f656a1b52272bb665d905b2eb1d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sw_15.png",
+      "width": 36,
+      "height": 63,
+      "texture_px": [
+        36,
+        63
+      ],
+      "offset": 111352,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "694b76b55f8cbdd43e4227d27dd0de6622219e7c16618ebf099486774b21ca9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_00.png",
+      "width": 28,
+      "height": 66,
+      "texture_px": [
+        28,
+        66
+      ],
+      "offset": 113620,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        12
+      ],
+      "sha256": "dd9c62a0f71d9ec768a21a38e55b24efd4e3416c9d202c2a43211473f1a8ad53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_01.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 115468,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        69,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        12
+      ],
+      "sha256": "90f4c5cdf29cc108f6465986c20e6dbe5ec7c11b4a6c0ee34f016e63eb408ecf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_02.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 117223,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        69,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        12
+      ],
+      "sha256": "5471f3e75e06b7ce475a574b7bcf4da1aaf30b6468ed7cc48e192c740bd2c694",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_03.png",
+      "width": 32,
+      "height": 68,
+      "texture_px": [
+        32,
+        68
+      ],
+      "offset": 118978,
+      "length": 2176,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "f9d4bb3399f64ae0688169e311fcef79f9a2ed9e1a5fa280ef7dd1f956f203e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_04.png",
+      "width": 34,
+      "height": 64,
+      "texture_px": [
+        34,
+        64
+      ],
+      "offset": 121154,
+      "length": 2176,
+      "trim_origin_top_left_px": [
+        62,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "818674f85b2975f85fbbf5a2bf3b7da94dc74ccc0025ae3fb6a9d4c7d03711f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_05.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 123330,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "50f4c30b6ea6a22223146d6bc6a37e5047df7bf152bd43cc05427f6f33eb1549",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_06.png",
+      "width": 38,
+      "height": 61,
+      "texture_px": [
+        38,
+        61
+      ],
+      "offset": 125624,
+      "length": 2318,
+      "trim_origin_top_left_px": [
+        58,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "981e00d9f3c3943ff7cad71ddac929a8a1d2b36e44677baf9ba50b8c62d56a5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_07.png",
+      "width": 40,
+      "height": 61,
+      "texture_px": [
+        40,
+        61
+      ],
+      "offset": 127942,
+      "length": 2440,
+      "trim_origin_top_left_px": [
+        56,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "89642d58e2bdaacf8b91c781d9453ce271dc5284f8b724c440539ab882fc1228",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_08.png",
+      "width": 37,
+      "height": 60,
+      "texture_px": [
+        37,
+        60
+      ],
+      "offset": 130382,
+      "length": 2220,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "2fc45b97f7a7e0a0231d6c550f91f121485bd387620bbc45af88d1ed2a7eb8cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_09.png",
+      "width": 34,
+      "height": 60,
+      "texture_px": [
+        34,
+        60
+      ],
+      "offset": 132602,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "35255325433fd3765e89d416ddff5be1968cd93a1504f443055ac24e698c5c14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_10.png",
+      "width": 34,
+      "height": 61,
+      "texture_px": [
+        34,
+        61
+      ],
+      "offset": 134642,
+      "length": 2074,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "ed8c2c600b38dda7e5fc06719a2186bb87a0da3c10bf7b62e01638f073d08078",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_11.png",
+      "width": 32,
+      "height": 62,
+      "texture_px": [
+        32,
+        62
+      ],
+      "offset": 136716,
+      "length": 1984,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "541f36c20e7f85d0c8f062c3eb2b0a20c52965849d2bae30480980715d874279",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_12.png",
+      "width": 30,
+      "height": 62,
+      "texture_px": [
+        30,
+        62
+      ],
+      "offset": 138700,
+      "length": 1860,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        12
+      ],
+      "sha256": "9a863e5ec0c2169a787b580ed468dec716559de1280a565adcf6297a9d55a420",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_13.png",
+      "width": 29,
+      "height": 64,
+      "texture_px": [
+        29,
+        64
+      ],
+      "offset": 140560,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        12
+      ],
+      "sha256": "9f2df9d17b127a313ad8aa43656ba22ac429d2ee7b846b3e8146090717f21e69",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_14.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 142416,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        68,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        12
+      ],
+      "sha256": "a53c2898eb4de5e85a925b1d5f013fae2f5d38907f21dd9b67b039b9be522073",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wsw_15.png",
+      "width": 28,
+      "height": 66,
+      "texture_px": [
+        28,
+        66
+      ],
+      "offset": 144236,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        12
+      ],
+      "sha256": "dd9c62a0f71d9ec768a21a38e55b24efd4e3416c9d202c2a43211473f1a8ad53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_00.png",
+      "width": 21,
+      "height": 69,
+      "texture_px": [
+        21,
+        69
+      ],
+      "offset": 146084,
+      "length": 1449,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        14
+      ],
+      "sha256": "d10400b51b91fa5aedee132b7c8cadfbeb64eb258234d0bc643d36a75da4d999",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_01.png",
+      "width": 22,
+      "height": 68,
+      "texture_px": [
+        22,
+        68
+      ],
+      "offset": 147533,
+      "length": 1496,
+      "trim_origin_top_left_px": [
+        71,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        14
+      ],
+      "sha256": "75cc3327918ca86c49d023bd16db25bca2576ccf338435d9473025c62a797144",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_02.png",
+      "width": 26,
+      "height": 67,
+      "texture_px": [
+        26,
+        67
+      ],
+      "offset": 149029,
+      "length": 1742,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        14
+      ],
+      "sha256": "9d448442c579def0ed88d2c771e07b6bbdbcdf3eea5151bdeba854dd96a1fdc5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_03.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 150771,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        14
+      ],
+      "sha256": "fe7d8b6006b8abda7b277e05409a46264952102faebd3d65fbb75c65d792c531",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_04.png",
+      "width": 26,
+      "height": 68,
+      "texture_px": [
+        26,
+        68
+      ],
+      "offset": 152591,
+      "length": 1768,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        14
+      ],
+      "sha256": "3625f3274c205ab0b3c107f31860f42692d5abe6653e29ff8d75b2459a7c29a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_05.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 154359,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "ed74631a70090c207b5626a39fd1b5e30f5a97adb5952a3562f0c861dc737275",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_06.png",
+      "width": 31,
+      "height": 65,
+      "texture_px": [
+        31,
+        65
+      ],
+      "offset": 156114,
+      "length": 2015,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "620c61ab1e7a58d5b4bcd0a008dc53da772fb272227695ced5504609bd1c88c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_07.png",
+      "width": 35,
+      "height": 64,
+      "texture_px": [
+        35,
+        64
+      ],
+      "offset": 158129,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "f872fcc50a4fa2c2d74b77363184f1ef8c3c046432e722fab21bde6f3e5b860b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_08.png",
+      "width": 35,
+      "height": 64,
+      "texture_px": [
+        35,
+        64
+      ],
+      "offset": 160369,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "5e3a47c6924a58cc69a46b1a23bf1c3855adce67587499f4298290db724a2551",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_09.png",
+      "width": 31,
+      "height": 64,
+      "texture_px": [
+        31,
+        64
+      ],
+      "offset": 162609,
+      "length": 1984,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "5cff4a17aa26a586520b74d28cb1403c702847c64a718c5f969c48a053f04a30",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_10.png",
+      "width": 30,
+      "height": 64,
+      "texture_px": [
+        30,
+        64
+      ],
+      "offset": 164593,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "c53e1bae5ebcccf59e1c8203298c1a7d05285bf7823f2adccd27af7d69fa956b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_11.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 166513,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "78af7f9965f6ae5212ff8e0d80a413ca6701459f5d5f3e209e7994d4ba094e29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_12.png",
+      "width": 25,
+      "height": 65,
+      "texture_px": [
+        25,
+        65
+      ],
+      "offset": 168333,
+      "length": 1625,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        14
+      ],
+      "sha256": "e5dcc49bb22a62353c88072ca11e1ac32286beb27a1b29ff375d3e17c1402aac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_13.png",
+      "width": 22,
+      "height": 67,
+      "texture_px": [
+        22,
+        67
+      ],
+      "offset": 169958,
+      "length": 1474,
+      "trim_origin_top_left_px": [
+        71,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        14
+      ],
+      "sha256": "454443ed70869a39cd7f109e376dfd6dba637ba7d9430ffc78805795b4b4a420",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_14.png",
+      "width": 21,
+      "height": 68,
+      "texture_px": [
+        21,
+        68
+      ],
+      "offset": 171432,
+      "length": 1428,
+      "trim_origin_top_left_px": [
+        72,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        14
+      ],
+      "sha256": "147c92afed569edb80429120783e26d0ee22c3dd99d726700376ba2e0a4f3728",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_w_15.png",
+      "width": 21,
+      "height": 69,
+      "texture_px": [
+        21,
+        69
+      ],
+      "offset": 172860,
+      "length": 1449,
+      "trim_origin_top_left_px": [
+        72,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        14
+      ],
+      "sha256": "d10400b51b91fa5aedee132b7c8cadfbeb64eb258234d0bc643d36a75da4d999",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_00.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 174309,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "183bc18f79d693488e4582c372ca80853361198fad3a767590b584acb6fb9b50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_01.png",
+      "width": 27,
+      "height": 70,
+      "texture_px": [
+        27,
+        70
+      ],
+      "offset": 176129,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "de842f43ffef48b443e241d1882ec45acb13b91f50eee65c6b852df6edacea12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_02.png",
+      "width": 30,
+      "height": 68,
+      "texture_px": [
+        30,
+        68
+      ],
+      "offset": 178019,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "a93337a97fcf26ef2e92a0e34ae158dd6023e29c289f1f149bcd356702f2e4a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_03.png",
+      "width": 30,
+      "height": 69,
+      "texture_px": [
+        30,
+        69
+      ],
+      "offset": 180059,
+      "length": 2070,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "bf95efa0b2b9e095d2d382c93c2792b13df02f0087110a611863e54b76a5ce55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_04.png",
+      "width": 28,
+      "height": 67,
+      "texture_px": [
+        28,
+        67
+      ],
+      "offset": 182129,
+      "length": 1876,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "14c317ac178381ec9cd09da4a7562a88e514fdd2c8f58fb4a413ff7ab9b41361",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_05.png",
+      "width": 28,
+      "height": 67,
+      "texture_px": [
+        28,
+        67
+      ],
+      "offset": 184005,
+      "length": 1876,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "63456cb8fbeda7f8da15f841a4f36e84ca9b87281589ce204094db33c9f01324",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_06.png",
+      "width": 28,
+      "height": 67,
+      "texture_px": [
+        28,
+        67
+      ],
+      "offset": 185881,
+      "length": 1876,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "5a8c6fa3ca9578643d9bb53d054c6fe58ad588d71beea7bd000294dcfd6378d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_07.png",
+      "width": 29,
+      "height": 67,
+      "texture_px": [
+        29,
+        67
+      ],
+      "offset": 187757,
+      "length": 1943,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "5ee792c1e411e3a32865c5400f47199de1ba9444f55e807ff2821e093e0b0429",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_08.png",
+      "width": 33,
+      "height": 67,
+      "texture_px": [
+        33,
+        67
+      ],
+      "offset": 189700,
+      "length": 2211,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        15
+      ],
+      "sha256": "189b96f73e97ce78414bb6e3e1d5f9a271c0a0b8c413217d9ff2465687b268a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_09.png",
+      "width": 31,
+      "height": 66,
+      "texture_px": [
+        31,
+        66
+      ],
+      "offset": 191911,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        15
+      ],
+      "sha256": "803bd192f40ee475900fcaa5d640cf419a8efcc5fa2a9c91dda88f3e1aabd0f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_10.png",
+      "width": 30,
+      "height": 66,
+      "texture_px": [
+        30,
+        66
+      ],
+      "offset": 193957,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        15
+      ],
+      "sha256": "b418cc970e49d5ea40e6699ebd9607e061d147c5ee8c53eedc2ad95fa1bed8f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_11.png",
+      "width": 27,
+      "height": 67,
+      "texture_px": [
+        27,
+        67
+      ],
+      "offset": 195937,
+      "length": 1809,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        15
+      ],
+      "sha256": "2da6b9a9f3ae99d6d7b7a4a1a5c12767c7de92ea90b89162ce57ef2cf98bb54f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_12.png",
+      "width": 27,
+      "height": 67,
+      "texture_px": [
+        27,
+        67
+      ],
+      "offset": 197746,
+      "length": 1809,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        15
+      ],
+      "sha256": "935e5b0296ac4efee9abb3676d1cbfa809a8f2f2c22f44fc277f4fc4a76995ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_13.png",
+      "width": 26,
+      "height": 69,
+      "texture_px": [
+        26,
+        69
+      ],
+      "offset": 199555,
+      "length": 1794,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "41d46553e7234435cd80a9202ef29b6ea74997eacd1149884d547942da4b7994",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_14.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 201349,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "37aae92b4349a01fe63ec8d61ca52109013f5c8b237c63b4404e9023bedb00e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_wnw_15.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 203169,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "183bc18f79d693488e4582c372ca80853361198fad3a767590b584acb6fb9b50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_00.png",
+      "width": 31,
+      "height": 70,
+      "texture_px": [
+        31,
+        70
+      ],
+      "offset": 204989,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "b7a0da8fa38dc74313535ec54feed47c3319b5d3f9bfca6652abec13f2b2be74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_01.png",
+      "width": 31,
+      "height": 69,
+      "texture_px": [
+        31,
+        69
+      ],
+      "offset": 207159,
+      "length": 2139,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "536449611abd80df6f7f68a7416edc15f28d9326d9429b64a72ba6663b24427e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_02.png",
+      "width": 36,
+      "height": 68,
+      "texture_px": [
+        36,
+        68
+      ],
+      "offset": 209298,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "127b621ebd004ae904f9d1a9f5e8790680364ccdc5e5f54e997d7e017bc293b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_03.png",
+      "width": 39,
+      "height": 67,
+      "texture_px": [
+        39,
+        67
+      ],
+      "offset": 211746,
+      "length": 2613,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "0f86169c90266ce6cb8dac5ccae8e132dd1b5f70d99427bd28d4575700a4def6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_04.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 214359,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "2718e35556d5bdb9935bae1af2156daa446c00e5e3fd07bc0cc8541b952783b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_05.png",
+      "width": 33,
+      "height": 67,
+      "texture_px": [
+        33,
+        67
+      ],
+      "offset": 216771,
+      "length": 2211,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "544b881482d9d899cc109923fcdbcac3f119cd0399cc3878dfc6b30cb37040f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_06.png",
+      "width": 32,
+      "height": 68,
+      "texture_px": [
+        32,
+        68
+      ],
+      "offset": 218982,
+      "length": 2176,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "07ddb17704e15ebde4be8764a8bbd3ab0087726a1be6075a7f64dbe974ba7be4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_07.png",
+      "width": 31,
+      "height": 68,
+      "texture_px": [
+        31,
+        68
+      ],
+      "offset": 221158,
+      "length": 2108,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "3b912695708e9ca617134ebbdfba221e61f22b7ab890efe74b383b5c8c8c3db7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_08.png",
+      "width": 30,
+      "height": 68,
+      "texture_px": [
+        30,
+        68
+      ],
+      "offset": 223266,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "f3ba7eb033a332940bf0637e711f61df60cbeb1ce213cadf81596d38acf8730e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_09.png",
+      "width": 31,
+      "height": 67,
+      "texture_px": [
+        31,
+        67
+      ],
+      "offset": 225306,
+      "length": 2077,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "27a2e91440b9ff807526aa66e5017784ea49586a3e45b6d59f129973c26e7b56",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_10.png",
+      "width": 29,
+      "height": 67,
+      "texture_px": [
+        29,
+        67
+      ],
+      "offset": 227383,
+      "length": 1943,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "3c774a4a45e1589033737114da16c6724f774f75bd57d669cc7e3afe053a6042",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_11.png",
+      "width": 30,
+      "height": 67,
+      "texture_px": [
+        30,
+        67
+      ],
+      "offset": 229326,
+      "length": 2010,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "f8d9c40f9706cd9e8281c9308a5ae04b9d97411a16acbaf2fdf8c6a5397f1d07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_12.png",
+      "width": 30,
+      "height": 68,
+      "texture_px": [
+        30,
+        68
+      ],
+      "offset": 231336,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "3696c4d47aa8b570c4ce0b0fe25cd2db00a645f06590134088baba067fca2e37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_13.png",
+      "width": 30,
+      "height": 69,
+      "texture_px": [
+        30,
+        69
+      ],
+      "offset": 233376,
+      "length": 2070,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "970bcc5a1b3170a242ca0492d331f5fd74160d1a06de4bc4dcb4a3a050b5a028",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_14.png",
+      "width": 31,
+      "height": 70,
+      "texture_px": [
+        31,
+        70
+      ],
+      "offset": 235446,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "4c6f33dec574b3c9c6a665f2c1cd554ae1058412a0a3eafff28d9a83e32877ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nw_15.png",
+      "width": 31,
+      "height": 70,
+      "texture_px": [
+        31,
+        70
+      ],
+      "offset": 237616,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "b7a0da8fa38dc74313535ec54feed47c3319b5d3f9bfca6652abec13f2b2be74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_00.png",
+      "width": 35,
+      "height": 68,
+      "texture_px": [
+        35,
+        68
+      ],
+      "offset": 239786,
+      "length": 2380,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "f92321f6e191094d7c530026ef7ed8087f4ee0673102f0a0692d71cbccd70d63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_01.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 242166,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        64,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "93cf2da3cfb4a06ded85919555ad23c3ac02f8a51da83211fb0d5b4b4f29ef14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_02.png",
+      "width": 42,
+      "height": 65,
+      "texture_px": [
+        42,
+        65
+      ],
+      "offset": 244511,
+      "length": 2730,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "1f6ac08ef33c90defb686362a091525273a16311b8457866c426bdeea48169a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_03.png",
+      "width": 46,
+      "height": 64,
+      "texture_px": [
+        46,
+        64
+      ],
+      "offset": 247241,
+      "length": 2944,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "a9bc664f6ae2e9e3f5fbd5fc39ab40d45fdb7d4d2c1171c360ad98e32bce7b6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_04.png",
+      "width": 44,
+      "height": 65,
+      "texture_px": [
+        44,
+        65
+      ],
+      "offset": 250185,
+      "length": 2860,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "8a9dfc717626e96ef44a3e136e06b4d72cb0fbc474cdd208bde33e4bd90716cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_05.png",
+      "width": 40,
+      "height": 66,
+      "texture_px": [
+        40,
+        66
+      ],
+      "offset": 253045,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "ad952c9af45c0ca706561ea331a1f6ee3d7c348eacac5a4971c695e846c9894a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_06.png",
+      "width": 37,
+      "height": 66,
+      "texture_px": [
+        37,
+        66
+      ],
+      "offset": 255685,
+      "length": 2442,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "3dfbfc5b37b3b15fde13aa57d394dbc58bb938fcf4d9f1ab18f918d3d595e2ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_07.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 258127,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "5b4537402d1d14a065525946ab7e4761ad9d47e1990c498dae1afe8f34ebc7d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_08.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 260539,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "52579a2ac412d43871edaaeeb5399101438968d2786a32071f2a5a34d1a3051e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_09.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 262884,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "3ba7d92d0a10c8cf3e6fcd1a92460a1bc7ff8eaa5994707673b1786a6e4f3f20",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_10.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 265194,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        62,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "ed38efb0515792cc8613fc02f747553f7c238728b1633f2e25de6353daab5552",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_11.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 267504,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "fb25c86d25ec29071ef376c9456e3bbad13207d9da3ae77d23e0137f96e331f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_12.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 269814,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "f44c2e2624afef81158b315aa998c1feaccaf5834bf3b59d9f3d5f9529c1f79c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_13.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 272124,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        64,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "d4cf1dc9dedf08a6161aae7692233b217211b94d5779b6cc8523643084a6e2e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_14.png",
+      "width": 35,
+      "height": 68,
+      "texture_px": [
+        35,
+        68
+      ],
+      "offset": 274469,
+      "length": 2380,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "2c255135b4e3471b3a5aed1efc8503d7ad45be4cd91413de344fce2d70af5fc9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nnw_15.png",
+      "width": 35,
+      "height": 68,
+      "texture_px": [
+        35,
+        68
+      ],
+      "offset": 276849,
+      "length": 2380,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "f92321f6e191094d7c530026ef7ed8087f4ee0673102f0a0692d71cbccd70d63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_00.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 279229,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "d2e35c8004b7653dd6b9b3d3c75e3c620e63fb456531938b78a255bcf6320b3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_01.png",
+      "width": 38,
+      "height": 64,
+      "texture_px": [
+        38,
+        64
+      ],
+      "offset": 281699,
+      "length": 2432,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "063a6aa90583abb1f004a78fc1b652b69614bf46682412057650eab533e13913",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_02.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 284131,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "eeaa1015733b60073383a9ba8c961837968d782ffe5397ef3aa40a0ae5d0490a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_03.png",
+      "width": 46,
+      "height": 62,
+      "texture_px": [
+        46,
+        62
+      ],
+      "offset": 286859,
+      "length": 2852,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "b88a1d60964b5b0f0866d62407f8933f0b570bf0a8d8ed9fb9d1935e27efe6d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_04.png",
+      "width": 45,
+      "height": 61,
+      "texture_px": [
+        45,
+        61
+      ],
+      "offset": 289711,
+      "length": 2745,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "24fbce9537bfd8f2a232d5c7d485f26de657306f69a11ff1cb06e8857c7b8352",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_05.png",
+      "width": 42,
+      "height": 62,
+      "texture_px": [
+        42,
+        62
+      ],
+      "offset": 292456,
+      "length": 2604,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "44bc95ea6a33992dc6d0ee9a8bc69c561f258f1efd21c2a9744f40d1e0222e59",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_06.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 295060,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "ed2578f1dfb896b543972b6ea63ee299530b6ad35cadcd9f6faf0a0fbd08b416",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_07.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 297580,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "605f581215c5d0b377f684c80761db3006cc4dd4827739997d3499a223ed5cb8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_08.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 300140,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "4910a3224619d043b0f1a8e06dcc6a3639a3ad5a278ee5a696666ebec9114088",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_09.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 302700,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "ebc15e949358abbca41b0a8d87705b2a1fecd4d48ef07f458159ab03be9e553d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_10.png",
+      "width": 39,
+      "height": 63,
+      "texture_px": [
+        39,
+        63
+      ],
+      "offset": 305220,
+      "length": 2457,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "017ae973dbd9f0573f4e8d22e3cda397b34dc1549a3a2edffbc427a4f11e573f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_11.png",
+      "width": 39,
+      "height": 63,
+      "texture_px": [
+        39,
+        63
+      ],
+      "offset": 307677,
+      "length": 2457,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "36d11847151a117f9e8f7d42001595f893d71c97ce000e5f9a922e5bb7d3d006",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_12.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 310134,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "c85868703a86ff8152d8399666ae1d0bcbaecbdf0d6c02e65c947de55871c739",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_13.png",
+      "width": 38,
+      "height": 64,
+      "texture_px": [
+        38,
+        64
+      ],
+      "offset": 312654,
+      "length": 2432,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "b53f8bc3e963415f30c1344a809668a81b1dee5f2a00146ce8b3fa01bf3ee6fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_14.png",
+      "width": 38,
+      "height": 64,
+      "texture_px": [
+        38,
+        64
+      ],
+      "offset": 315086,
+      "length": 2432,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "0f0c9335c42260b0f31f63af2859b1de695189cf4eda3a0b043a0314f121afbe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_n_15.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 317518,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "d2e35c8004b7653dd6b9b3d3c75e3c620e63fb456531938b78a255bcf6320b3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_00.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 319988,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "17a4024fbf14fdcfea6023220be6a7f6b94303bfd25519a8361c37d732741716",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_01.png",
+      "width": 39,
+      "height": 64,
+      "texture_px": [
+        39,
+        64
+      ],
+      "offset": 322548,
+      "length": 2496,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "2d14ab228913e6dc3a01dcb680739dc8523316da6f93fe746779450b62a63cb8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_02.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 325044,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        13
+      ],
+      "sha256": "600c36e1b4464b2d70a3e8206fd67eab84b8a690ab5a08df2abf0e0869ec4d4c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_03.png",
+      "width": 43,
+      "height": 64,
+      "texture_px": [
+        43,
+        64
+      ],
+      "offset": 327732,
+      "length": 2752,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "e976f713dfaeaef8c6bdfa93d0e8c52510346d100c457b4b386d96fb100160b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_04.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 330484,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        13
+      ],
+      "sha256": "43e3e12f113a33476825b723d8a8ff7a52b0423e99c03f874f6ab16ba4a080c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_05.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 333300,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "7b8ce0f141587fb51455d57d0811f8561e6516de757b5de1d1b1ae8cec6b6d39",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_06.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 336116,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "05f0a05e804a5907d7686b25725447a490e33f64da08c434401ae95df7c9a657",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_07.png",
+      "width": 41,
+      "height": 64,
+      "texture_px": [
+        41,
+        64
+      ],
+      "offset": 338804,
+      "length": 2624,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "18234bff52c4a74a26fea5fc87f9bfd8515e1f48ca35896b0553977fb8ea0b7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_08.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 341428,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "da853cc04c18f896763051c96a2fe40f6763b2782cb0475a51fb3304cee4487a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_09.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 344116,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "04db7dc9977e839cbb2d211cdb172f03c8805541396190ab7467add3e788671e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_10.png",
+      "width": 41,
+      "height": 63,
+      "texture_px": [
+        41,
+        63
+      ],
+      "offset": 346804,
+      "length": 2583,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "bc0fd36dd5592076cbbcfe537661a7c38d37a96db472e9eae0c71c0355ef6a81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_11.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 349387,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "ed6908885ba294493204aa486a0f3509d2304f89551ed044ae5b29b6d5badb63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_12.png",
+      "width": 41,
+      "height": 63,
+      "texture_px": [
+        41,
+        63
+      ],
+      "offset": 352075,
+      "length": 2583,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "a86c0ef18d8a2f5c5ff49137d0401476878dc96b1360bee553220c9784ede41e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_13.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 354658,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "64c15938ac8d5eafc2d911bac41ab6fb9daa9d18e98f1a5810874d3d4dcbd4c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_14.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 357178,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "597f763e11c7438057810ad1f36781e2fa552026f57647d3ae9cdd394d49407c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_nne_15.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 359738,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "17a4024fbf14fdcfea6023220be6a7f6b94303bfd25519a8361c37d732741716",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_00.png",
+      "width": 36,
+      "height": 65,
+      "texture_px": [
+        36,
+        65
+      ],
+      "offset": 362298,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "159336cdcec44081423ea08487cf5f23b45340de2b85cfca9baece4568f16e9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_01.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 364638,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "cefc4e385f5ea6254f044576040f052c023717ed4ee2c1da1d95a4d7612ca671",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_02.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 366913,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "cc481f8d26a045e4ccc53a7da20bce4ebf3572870d6c12ee41b44271950a2dd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_03.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 369188,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        16
+      ],
+      "sha256": "15e293802c3f97b1063599621bfc27e8a1216af3b14b317fb638f634653de905",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_04.png",
+      "width": 41,
+      "height": 65,
+      "texture_px": [
+        41,
+        65
+      ],
+      "offset": 371723,
+      "length": 2665,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        16
+      ],
+      "sha256": "9b7c2443e42c37411700bae3b376050dcc2180fbd2f7a591069cadedcc6d4418",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_05.png",
+      "width": 43,
+      "height": 65,
+      "texture_px": [
+        43,
+        65
+      ],
+      "offset": 374388,
+      "length": 2795,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "adabfa2de70415cf86b50acc4510da17fb6fc1c05f7cc67c9365dbe49d700483",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_06.png",
+      "width": 42,
+      "height": 65,
+      "texture_px": [
+        42,
+        65
+      ],
+      "offset": 377183,
+      "length": 2730,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "430714b6b9e8c4c87612581a5682fb1518d4e0f472984a5cc4d6e87b28da1f50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_07.png",
+      "width": 42,
+      "height": 65,
+      "texture_px": [
+        42,
+        65
+      ],
+      "offset": 379913,
+      "length": 2730,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "b06efdc9f72dddc1ae60779ddd228715c594f16458db0b14c11fd8479da76e24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_08.png",
+      "width": 40,
+      "height": 65,
+      "texture_px": [
+        40,
+        65
+      ],
+      "offset": 382643,
+      "length": 2600,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "4a162caffbc0c8ea8a0da690be6b86a5b27d34742f00b1b30a833ed3b063962a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_09.png",
+      "width": 40,
+      "height": 65,
+      "texture_px": [
+        40,
+        65
+      ],
+      "offset": 385243,
+      "length": 2600,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "be5c7598ca8dd0b20a8f6c0977a775187142e021f3d5759f7271a0928dc28981",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_10.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 387843,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "4adc6727a8b06324b9148d88c1f108049fe9564962c5c33eb32984bf91bbd1d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_11.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 390313,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "b6b3b7a395c5774ae3c9f3dae247834c09cbea6ac5ff99afaf2e6e51414443c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_12.png",
+      "width": 37,
+      "height": 65,
+      "texture_px": [
+        37,
+        65
+      ],
+      "offset": 392848,
+      "length": 2405,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "ae0b58d89c2df5368ff44b1e04c89e11345376ac6b53ca9fa86eb4003029cc94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_13.png",
+      "width": 37,
+      "height": 65,
+      "texture_px": [
+        37,
+        65
+      ],
+      "offset": 395253,
+      "length": 2405,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "f23c915c00fe122180715d3bf094c5946a368659c5b7ac064f3e1e0fbb17949f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_14.png",
+      "width": 36,
+      "height": 66,
+      "texture_px": [
+        36,
+        66
+      ],
+      "offset": 397658,
+      "length": 2376,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "4c1238911448d3cbd4f7cbeef47bb8199d1640bb0b40b51c85c3d877b1683a6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ne_15.png",
+      "width": 36,
+      "height": 65,
+      "texture_px": [
+        36,
+        65
+      ],
+      "offset": 400034,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "159336cdcec44081423ea08487cf5f23b45340de2b85cfca9baece4568f16e9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_00.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 402374,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "c23cbe73d827d66d43e2a902d8ff299fbbf868b821dcdd5b3d13833185adea8b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_01.png",
+      "width": 27,
+      "height": 66,
+      "texture_px": [
+        27,
+        66
+      ],
+      "offset": 404194,
+      "length": 1782,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "7e690806fe61b975c443fc833bcd9e4e2d1f90b30d11be575231920c8fa65347",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_02.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 405976,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "31b9ea781b40b4bb54215d30f25ff772bb86dd57e9368f7c4aa07126cefa0961",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_03.png",
+      "width": 31,
+      "height": 65,
+      "texture_px": [
+        31,
+        65
+      ],
+      "offset": 407731,
+      "length": 2015,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        17
+      ],
+      "sha256": "41a3f7ecb52a88789e56a1990dd892b39226a197eec9ece4dc5b445a9fbb85c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_04.png",
+      "width": 34,
+      "height": 65,
+      "texture_px": [
+        34,
+        65
+      ],
+      "offset": 409746,
+      "length": 2210,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        17
+      ],
+      "sha256": "3c6610a9336a67d3c2042fac1bcdadbe587ae50d5137c8664738e9b7b8b27d87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_05.png",
+      "width": 36,
+      "height": 64,
+      "texture_px": [
+        36,
+        64
+      ],
+      "offset": 411956,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "77697de0e62caea9a3a1da5d1c8e2eab0ade108a0362e218d1a88d6cc6e2526d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_06.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 414260,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "7e617d6edce69e7b188350dcf1d1d7404a7ca9cb6b50a74c2749126ebc260c51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_07.png",
+      "width": 39,
+      "height": 66,
+      "texture_px": [
+        39,
+        66
+      ],
+      "offset": 416730,
+      "length": 2574,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "a6de9c5c54dee9ec8e772f6dee2cf9f1a6195a443446d20ebb69bb62ae35f882",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_08.png",
+      "width": 37,
+      "height": 65,
+      "texture_px": [
+        37,
+        65
+      ],
+      "offset": 419304,
+      "length": 2405,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "fd0dd22177e1380883675ade9364c4d72db4e961751915e316c92820f1fc179d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_09.png",
+      "width": 34,
+      "height": 65,
+      "texture_px": [
+        34,
+        65
+      ],
+      "offset": 421709,
+      "length": 2210,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "bb83a455538d7f8e599c7d4af144226897424f7a13f6bac7f6e4fc08a352d967",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_10.png",
+      "width": 34,
+      "height": 66,
+      "texture_px": [
+        34,
+        66
+      ],
+      "offset": 423919,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "bc86ea336d78da4def5446d63cedc21ac44a3b0f8a7090e075b890eb90a47e46",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_11.png",
+      "width": 32,
+      "height": 66,
+      "texture_px": [
+        32,
+        66
+      ],
+      "offset": 426163,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "3b9ea3fc5044aee7d7c11168ad767676efd78284a4df9aeecf665052b669774e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_12.png",
+      "width": 30,
+      "height": 65,
+      "texture_px": [
+        30,
+        65
+      ],
+      "offset": 428275,
+      "length": 1950,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "76f4457fdaedcce96fcfd9f5ad5c5deb25993ded397199e850c5f966da375e99",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_13.png",
+      "width": 29,
+      "height": 66,
+      "texture_px": [
+        29,
+        66
+      ],
+      "offset": 430225,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "fb804c928c834b5731a62224fa485b16111fa0faaa34dea98101055f798988c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_14.png",
+      "width": 29,
+      "height": 65,
+      "texture_px": [
+        29,
+        65
+      ],
+      "offset": 432139,
+      "length": 1885,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "6d59f979f4567038bdb317dddba15ed58f665ad835780f29322ee6e51be84a3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ene_15.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 434024,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "c23cbe73d827d66d43e2a902d8ff299fbbf868b821dcdd5b3d13833185adea8b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_00.png",
+      "width": 24,
+      "height": 66,
+      "texture_px": [
+        24,
+        66
+      ],
+      "offset": 435844,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "604bcf38df4426a2b03cf99db3b33c59298dc828e394828d50a3494296f5efdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_01.png",
+      "width": 24,
+      "height": 66,
+      "texture_px": [
+        24,
+        66
+      ],
+      "offset": 437428,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        16
+      ],
+      "sha256": "5118be27ae921b546c8bfa7f82d6afa4848cb8783b3b538e1f0c836081310e45",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_02.png",
+      "width": 26,
+      "height": 65,
+      "texture_px": [
+        26,
+        65
+      ],
+      "offset": 439012,
+      "length": 1690,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        17
+      ],
+      "sha256": "de5a71840d576c9b1a2beb373acf6d1804ea453ecc3bd0f6741c5dadbd88a25f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_03.png",
+      "width": 26,
+      "height": 66,
+      "texture_px": [
+        26,
+        66
+      ],
+      "offset": 440702,
+      "length": 1716,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "83d39e53b877af15510db3a21615f8b0d680be442ea69e1bde3585aa9ea3bab2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_04.png",
+      "width": 27,
+      "height": 66,
+      "texture_px": [
+        27,
+        66
+      ],
+      "offset": 442418,
+      "length": 1782,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "c434ae53a5f8cead611fce9ca48666c09077b3a471128bbe03b68d9fc5f0d34b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_05.png",
+      "width": 27,
+      "height": 66,
+      "texture_px": [
+        27,
+        66
+      ],
+      "offset": 444200,
+      "length": 1782,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "89a86640a2bed8ea44364d78358f47c69a6c8b4f420563ae9f53e492bada441b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_06.png",
+      "width": 31,
+      "height": 66,
+      "texture_px": [
+        31,
+        66
+      ],
+      "offset": 445982,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "9ca30e85946a8e3feb0c28952dd7267d90300255c3c527a952dc13a6d5e41615",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_07.png",
+      "width": 34,
+      "height": 66,
+      "texture_px": [
+        34,
+        66
+      ],
+      "offset": 448028,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "221d9795e8d8d0d68939cfc5dc1fdd4daa45f53cc7b9c10d2ca9845a43921409",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_08.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 450272,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "f8cc15dd3fc3aa23d418c3bd3156e0f49947985eed4eb788d88531687a44dc0f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_09.png",
+      "width": 31,
+      "height": 67,
+      "texture_px": [
+        31,
+        67
+      ],
+      "offset": 452582,
+      "length": 2077,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "804567b95f117355c90705f6a84b67f8382cacf2907fbfef89e294a7a7e2cdd7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_10.png",
+      "width": 31,
+      "height": 67,
+      "texture_px": [
+        31,
+        67
+      ],
+      "offset": 454659,
+      "length": 2077,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "0574259d288beb0b13e1459c5e2ca9338cbbbdfff56b4416f8fe1c7296e961ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_11.png",
+      "width": 29,
+      "height": 67,
+      "texture_px": [
+        29,
+        67
+      ],
+      "offset": 456736,
+      "length": 1943,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "de6ad665c3a1980e1e77cb80c5a40a300410a39ae6ab2313c9bdcb0786ce7e78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_12.png",
+      "width": 25,
+      "height": 66,
+      "texture_px": [
+        25,
+        66
+      ],
+      "offset": 458679,
+      "length": 1650,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        17
+      ],
+      "sha256": "747f6424a50604902fc47e914692018f1e912569ef43c1686e6f860a6edc6cd0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_13.png",
+      "width": 24,
+      "height": 65,
+      "texture_px": [
+        24,
+        65
+      ],
+      "offset": 460329,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        16
+      ],
+      "sha256": "adc4d448870fa1dd56e5191dbefb03eca99296081a50c71c970d8e8b6746aff7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_14.png",
+      "width": 24,
+      "height": 65,
+      "texture_px": [
+        24,
+        65
+      ],
+      "offset": 461889,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "86752b08eba03360172b204251b7ea1ae12e4c1f961cab1fcafde5972d342866",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_e_15.png",
+      "width": 24,
+      "height": 66,
+      "texture_px": [
+        24,
+        66
+      ],
+      "offset": 463449,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "604bcf38df4426a2b03cf99db3b33c59298dc828e394828d50a3494296f5efdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_00.png",
+      "width": 23,
+      "height": 65,
+      "texture_px": [
+        23,
+        65
+      ],
+      "offset": 465033,
+      "length": 1495,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "64a596215ea92156f2263a1a13b6ef8a5be9f674e348e7554aec3a6223d9dc8e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_01.png",
+      "width": 26,
+      "height": 64,
+      "texture_px": [
+        26,
+        64
+      ],
+      "offset": 466528,
+      "length": 1664,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        15
+      ],
+      "sha256": "93c23cac45e01a017c534ff8111a2e7e459263e1afefa8627067cd3287328f4c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_02.png",
+      "width": 30,
+      "height": 63,
+      "texture_px": [
+        30,
+        63
+      ],
+      "offset": 468192,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        16
+      ],
+      "sha256": "db8646c6beeb2d6e35e620b7e90491b4a33feb8493812dff8676bc37bf6ac9dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_03.png",
+      "width": 30,
+      "height": 64,
+      "texture_px": [
+        30,
+        64
+      ],
+      "offset": 470082,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        17
+      ],
+      "sha256": "19905967bfcc9a493dc8a1ad5eea6538b938af815693e2315bdd9f973494c653",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_04.png",
+      "width": 29,
+      "height": 64,
+      "texture_px": [
+        29,
+        64
+      ],
+      "offset": 472002,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        17
+      ],
+      "sha256": "70ec740ec06fdb1b64c9f18fa77520b94da24278aa2c3a7342c8b43822ff1883",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_05.png",
+      "width": 29,
+      "height": 64,
+      "texture_px": [
+        29,
+        64
+      ],
+      "offset": 473858,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        17
+      ],
+      "sha256": "b6e4e5102ccd22912b9d544e7d5a72c48f84a5eaa2d109785b524355fbefa468",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_06.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 475714,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "a05563e70007fa833c687ed4ee6c7c9a0e499b8be117f10c282e837dd7a353ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_07.png",
+      "width": 29,
+      "height": 66,
+      "texture_px": [
+        29,
+        66
+      ],
+      "offset": 477534,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        19
+      ],
+      "sha256": "31ce1364be5a0b03cc480b7423dca70741476911f2d1ecc44273273b03d64a12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_08.png",
+      "width": 33,
+      "height": 66,
+      "texture_px": [
+        33,
+        66
+      ],
+      "offset": 479448,
+      "length": 2178,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        19
+      ],
+      "sha256": "e6f43bec16ce00c387e44764cef469e10e6b4191a84d1221057eeaee6b660e08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_09.png",
+      "width": 31,
+      "height": 66,
+      "texture_px": [
+        31,
+        66
+      ],
+      "offset": 481626,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        19
+      ],
+      "sha256": "87305e801b0db66b2699010f3e98383d9c5a9234ae28c00ecc64d963601cc4e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_10.png",
+      "width": 31,
+      "height": 66,
+      "texture_px": [
+        31,
+        66
+      ],
+      "offset": 483672,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        19
+      ],
+      "sha256": "0d43c45dd56d40db7840313f19974c470912424c54ca0cd104238898ebd053c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_11.png",
+      "width": 28,
+      "height": 65,
+      "texture_px": [
+        28,
+        65
+      ],
+      "offset": 485718,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        18
+      ],
+      "sha256": "b24aa8b878d7f2a8e8d90216c0b7d5dc6fd955c129cf626acc2e656e9f0d5b89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_12.png",
+      "width": 27,
+      "height": 65,
+      "texture_px": [
+        27,
+        65
+      ],
+      "offset": 487538,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        17
+      ],
+      "sha256": "6ed6083a95d12bdf0c1c6032825abe55353536109b74995af6178f4082289810",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_13.png",
+      "width": 25,
+      "height": 65,
+      "texture_px": [
+        25,
+        65
+      ],
+      "offset": 489293,
+      "length": 1625,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        16
+      ],
+      "sha256": "33ee03223ac418b03580024d93ddf541bcec1878aca762c5169294096158f791",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_14.png",
+      "width": 24,
+      "height": 64,
+      "texture_px": [
+        24,
+        64
+      ],
+      "offset": 490918,
+      "length": 1536,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "2f107360228e92ceb43298d1cf93f8a0d96aa8a1a9be84c5634743949ca96de8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_ese_15.png",
+      "width": 23,
+      "height": 65,
+      "texture_px": [
+        23,
+        65
+      ],
+      "offset": 492454,
+      "length": 1495,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "64a596215ea92156f2263a1a13b6ef8a5be9f674e348e7554aec3a6223d9dc8e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_00.png",
+      "width": 31,
+      "height": 63,
+      "texture_px": [
+        31,
+        63
+      ],
+      "offset": 493949,
+      "length": 1953,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        13
+      ],
+      "sha256": "c12ab7675e3a3bd9cae10eac56888957bc30e20335eab9644626f36c59ca28fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_01.png",
+      "width": 31,
+      "height": 62,
+      "texture_px": [
+        31,
+        62
+      ],
+      "offset": 495902,
+      "length": 1922,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        13
+      ],
+      "sha256": "1f7498cc6d52cfc2122e3f69ca635cf79117710eb706d786fbe8f7189f23eec0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_02.png",
+      "width": 36,
+      "height": 61,
+      "texture_px": [
+        36,
+        61
+      ],
+      "offset": 497824,
+      "length": 2196,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "324059f4baa8172d13764c6c1cc6599931d34666d659b427ada569eec62e0474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_03.png",
+      "width": 39,
+      "height": 60,
+      "texture_px": [
+        39,
+        60
+      ],
+      "offset": 500020,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        58,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "a50012b5f88b5dbac041c563e415a87442816385d4b51aafe01fa128b55b8e48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_04.png",
+      "width": 36,
+      "height": 61,
+      "texture_px": [
+        36,
+        61
+      ],
+      "offset": 502360,
+      "length": 2196,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "049b6d4be3867b35635427cebb771f8ef4a4c2c23294e2ef4b05e1a6408f0849",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_05.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 504556,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "3224d2cc0932a82324a3df355987305ed2cc2efce99971595de45067cf36a26a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_06.png",
+      "width": 32,
+      "height": 62,
+      "texture_px": [
+        32,
+        62
+      ],
+      "offset": 506602,
+      "length": 1984,
+      "trim_origin_top_left_px": [
+        65,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        17
+      ],
+      "sha256": "5c75aa18536e8a7fefd7ea928caeb7b7f6b7139057d09ebce7cfc6fc822153ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_07.png",
+      "width": 31,
+      "height": 63,
+      "texture_px": [
+        31,
+        63
+      ],
+      "offset": 508586,
+      "length": 1953,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        18
+      ],
+      "sha256": "97df41e7e4b6e3346fd89a79efd3830100e76856e2c9114c55b1004914856d4e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_08.png",
+      "width": 30,
+      "height": 64,
+      "texture_px": [
+        30,
+        64
+      ],
+      "offset": 510539,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        19
+      ],
+      "sha256": "ec3dc43e3fa6ba6787aca964299e0de5076ec352b7eddfeafd1e04676cd76935",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_09.png",
+      "width": 31,
+      "height": 65,
+      "texture_px": [
+        31,
+        65
+      ],
+      "offset": 512459,
+      "length": 2015,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        19
+      ],
+      "sha256": "1b1359605ff9c8fcc6f5e680a5d8b614f13f247e4d9be20229cfcd85359439bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_10.png",
+      "width": 29,
+      "height": 63,
+      "texture_px": [
+        29,
+        63
+      ],
+      "offset": 514474,
+      "length": 1827,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        17
+      ],
+      "sha256": "4684408f719ddaf1655a8ee8cbb539015fd1f8c8d0942c11245281f8c484d5a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_11.png",
+      "width": 30,
+      "height": 63,
+      "texture_px": [
+        30,
+        63
+      ],
+      "offset": 516301,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        16
+      ],
+      "sha256": "462d54c3b844f26351beaed50ea81f010cc1f182c303897c09c6264fcbac3882",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_12.png",
+      "width": 30,
+      "height": 63,
+      "texture_px": [
+        30,
+        63
+      ],
+      "offset": 518191,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        16
+      ],
+      "sha256": "349f94770158ece360f3bcc7db994127fa4762a0562d5be66fd5f9a12f0d4c7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_13.png",
+      "width": 30,
+      "height": 62,
+      "texture_px": [
+        30,
+        62
+      ],
+      "offset": 520081,
+      "length": 1860,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "eab682b07761df5d534dbcfe260f6b2fa1478e1ef8a39c95b007818da8a9719c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_14.png",
+      "width": 31,
+      "height": 62,
+      "texture_px": [
+        31,
+        62
+      ],
+      "offset": 521941,
+      "length": 1922,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        13
+      ],
+      "sha256": "079088f5a27a38ee51c157c20eb7ddb2435b25115a3e29306991d97673b7e3e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_se_15.png",
+      "width": 31,
+      "height": 63,
+      "texture_px": [
+        31,
+        63
+      ],
+      "offset": 523863,
+      "length": 1953,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        13
+      ],
+      "sha256": "c12ab7675e3a3bd9cae10eac56888957bc30e20335eab9644626f36c59ca28fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_00.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 525816,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "296e7df35a36e10206eaf89bc9cbfc809042c195087d805671e349cbfcf72acd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_01.png",
+      "width": 35,
+      "height": 58,
+      "texture_px": [
+        35,
+        58
+      ],
+      "offset": 527881,
+      "length": 2030,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "12166a8306f64b9db4e4817a0922b3a14b4a81712b1849d8590456c1460c62f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_02.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 529911,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        55,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10
+      ],
+      "sha256": "371a6611d7a808a576bf2021faa602a0557bf0e7406c2a7bf42467cc3d7be2bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_03.png",
+      "width": 46,
+      "height": 58,
+      "texture_px": [
+        46,
+        58
+      ],
+      "offset": 532347,
+      "length": 2668,
+      "trim_origin_top_left_px": [
+        54,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        11
+      ],
+      "sha256": "b36f5cd4534221b38ca757ae9d1f6df76d17cede8dbcf17d5c4ef8113f129c7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_04.png",
+      "width": 44,
+      "height": 57,
+      "texture_px": [
+        44,
+        57
+      ],
+      "offset": 535015,
+      "length": 2508,
+      "trim_origin_top_left_px": [
+        56,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        11
+      ],
+      "sha256": "fc41fb9401c106d7b7d3521be36f0b2c541b3cf361582cfbfcc867d1f62969ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_05.png",
+      "width": 39,
+      "height": 58,
+      "texture_px": [
+        39,
+        58
+      ],
+      "offset": 537523,
+      "length": 2262,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "0e01b878b06e56f2543bc71944c5da3e7a54a0260838cc658ddb25e0015a4fa6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_06.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 539785,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "05c3122dd9aa81bfb3dab98b7b526d6c0411601068ac13e9da1eb6feff96bcd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_07.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 541968,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        15
+      ],
+      "sha256": "e8bb6497c259ae4528aa0181f9e07177ed99e0f3cb395b4d80ecc979b79cb22c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_08.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        35,
+        60
+      ],
+      "offset": 544092,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "820c4de556038bd8f000ffd42202a9eb667aba8b7d41002484e213d99b2bffdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_09.png",
+      "width": 35,
+      "height": 61,
+      "texture_px": [
+        35,
+        61
+      ],
+      "offset": 546192,
+      "length": 2135,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "82999ec16140a3a552416c6d25d4c95b9a34a73c2f3395af8205f14408593eb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_10.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        35,
+        60
+      ],
+      "offset": 548327,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "8785020baa9dcc7b41dcbe8208a879f3ce8363ee60f6593f7fbd4ce23cb68a5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_11.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 550427,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        62,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        13
+      ],
+      "sha256": "f89fb5c0e54f28cf97d144738c23f890a4795410861909dfc9bbe40dc37f97ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_12.png",
+      "width": 34,
+      "height": 59,
+      "texture_px": [
+        34,
+        59
+      ],
+      "offset": 552492,
+      "length": 2006,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "fb8dc43a6de8e0f4339f2104f34bfdefc5eecf7ce4c137dbd15ef734f634b607",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_13.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 554498,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        61,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "b34660a09e097d44a81d12c2901d011d3e7983cc608092f3bde0a0291c7f07dd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_14.png",
+      "width": 35,
+      "height": 58,
+      "texture_px": [
+        35,
+        58
+      ],
+      "offset": 556563,
+      "length": 2030,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "90db3826e3c0c2a3c2c69fb95432c6e5a32b7545f684920f4adb37ce8d7c6a23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTrip.atlas",
+      "name": "trip_sse_15.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 558593,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "296e7df35a36e10206eaf89bc9cbfc809042c195087d805671e349cbfcf72acd",
+      "empty": false
+    }
+  ],
+  "source_authority": "TripOct08/Trip_Authored.blend"
+}

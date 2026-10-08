@@ -152,8 +152,35 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         ]))
     }
 
+    override var inventoryBearForm: BearFormReadout? {
+        combatDirector.flatMap { BearFormReadout($0.presentedCombat) }
+    }
+
+    override var inventoryCurrentHealth: Int {
+        combatDirector?.presentedCombat.actors.first(where: \.player)?.hp ?? super.inventoryCurrentHealth
+    }
+    override var inventoryMaximumHealth: Int {
+        combatDirector?.presentedCombat.actors.first(where: \.player)?.maximumHP ?? super.inventoryMaximumHealth
+    }
+
+    override func handleInventoryInput() {
+        guard combatDirector != nil else { super.handleInventoryInput(); return }
+        guard !mapIsPresented, !worldMapIsPresented, !journalIsPresented else { return }
+        setInventoryPresented(!inventoryIsPresented)
+    }
+
+    override func overlayPresentationDidChange() {
+        super.overlayPresentationDidChange()
+        combatDirector?.setInventoryPresented(inventoryIsPresented)
+    }
+
     override func handlePointerDown(_ event: GamePointerEvent) {
-        if combatDirector != nil { return }
+        if combatDirector != nil {
+            guard !inventoryIsPresented else { return }
+            let point = actionBar.convert(event.location, from: self)
+            actionBar.beginPress(at: point)
+            return
+        }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.handlePointerDown(at: dialoguePanelPoint(for: event.location)) }
             return
@@ -167,7 +194,9 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
-        if combatDirector != nil { return }
+        if combatDirector != nil {
+            actionBar.updatePress(at: actionBar.convert(event.location, from: self)); return
+        }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.handlePointerDragged(at: dialoguePanelPoint(for: event.location)) }
             return
@@ -184,7 +213,20 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerUp(_ event: GamePointerEvent) {
-        if let combatDirector { combatDirector.pointer(at: event.location); return }
+        if inventoryIsPresented {
+            inventoryOverlay.handlePointer(at: inventoryOverlay.convert(event.location, from: self),
+                                           splitModifier: event.isWaypointQueue)
+            return
+        }
+        if let combatDirector {
+            let button = actionBar.endPress(at: actionBar.convert(event.location, from: self))
+            if button == .inventory || button == .character
+                || portraitBar.hitTestPortrait(portraitBar.convert(event.location, from: self)) {
+                handleInventoryInput()
+            } else if button == .clock { handleTacticalPauseInput() }
+            else { combatDirector.pointer(at: event.location) }
+            return
+        }
         if storyOwnsInput {
             if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
             else if dialogueIsActive {
@@ -205,13 +247,6 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         }
         if mapIsPresented {
             areaMapOverlay.handlePointer(at: areaMapOverlay.convert(hudPoint, from: hudRoot))
-            return
-        }
-        if inventoryIsPresented {
-            inventoryOverlay.handlePointer(
-                at: inventoryOverlay.convert(hudPoint, from: hudRoot),
-                splitModifier: event.isWaypointQueue
-            )
             return
         }
 
@@ -298,6 +333,10 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleDirectionalInput(_ direction: CGVector) -> Bool {
+        if inventoryIsPresented {
+            inventoryOverlay.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1)
+            return true
+        }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1) }
             return true
@@ -307,17 +346,24 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             journalOverlay.handleDirectionalInput(direction)
             return true
         }
-        if inventoryIsPresented {
-            inventoryOverlay.moveSelection(direction.dx < 0 || direction.dy > 0 ? -1 : 1)
-            return true
-        }
         // No overlay: the key belongs to the viewport, not the detective.
         return false
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
-        if let combatDirector { combatDirector.hover(at: event.location); return }
-        if storyOwnsInput {
+        if let combatDirector, !inventoryIsPresented {
+            combatDirector.hover(at: event.location)
+            #if os(macOS)
+            let point = actionBar.convert(event.location, from: self)
+            let button = actionBar.hitTest(point)
+            actionBar.setHighlightedButton(button)
+            (button == .inventory || button == .character || button == .clock
+                || portraitBar.hitTestPortrait(portraitBar.convert(event.location, from: self))
+                ? NSCursor.pointingHand : NSCursor.arrow).set()
+            #endif
+            return
+        }
+        if storyOwnsInput && !inventoryIsPresented {
             setCameraScroll(.zero)
             if dialogueIsActive { _ = dialoguePresenter.updatePointer(at: dialoguePanelPoint(for: event.location)) }
             return
@@ -416,6 +462,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleCancelInput() {
+        if inventoryIsPresented { setInventoryPresented(false); return }
         if let combatDirector { combatDirector.cancelTargeting(); return }
         if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
@@ -424,8 +471,6 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             setWorldMapPresented(false)
         } else if mapIsPresented {
             setMapPresented(false)
-        } else if inventoryIsPresented {
-            setInventoryPresented(false)
         } else {
             clearMovementFeedback()
             clearWaypointPips()
@@ -444,6 +489,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleClearTargetingInput() {
+        if inventoryIsPresented { setInventoryPresented(false); return }
         if let combatDirector { combatDirector.cancelTargeting(); return }
         if storyOwnsInput { _ = cutsceneDirector.trySkip(); return }
         if journalIsPresented {
@@ -452,8 +498,6 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             setWorldMapPresented(false)
         } else if mapIsPresented {
             setMapPresented(false)
-        } else if inventoryIsPresented {
-            setInventoryPresented(false)
         } else {
             clearMovementFeedback()
         }
@@ -470,6 +514,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handleConfirmInput() {
+        if inventoryIsPresented { setInventoryPresented(false); return }
         if let combatDirector { combatDirector.command(2); return }
         if storyOwnsInput {
             if cutsceneDirector.isPlaying { _ = cutsceneDirector.trySkip() }
@@ -482,12 +527,11 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             setWorldMapPresented(false)
         } else if mapIsPresented {
             setMapPresented(false)
-        } else if inventoryIsPresented {
-            setInventoryPresented(false)
         }
     }
 
     override func handleDialogueChoiceDigit(_ digit: Int) {
+        guard !inventoryIsPresented else { return }
         if let combatDirector { combatDirector.command(digit); return }
         guard dialogueIsActive, !cutsceneDirector.isPlaying else { return }
         dialoguePresenter.selectChoice(at: digit - 1)
@@ -543,9 +587,11 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             if !wharfStory.isCombatActive { performCorrectiveRepathIfNeeded(at: currentTime) }
         }
         finishAreaTick(at: detective.position)
+        let bearUI = inventoryBearForm
+        portraitBar.setBearForm(bearUI != nil)
         portraitBar.setHealth(
-            current: combatDirector?.presentedCombat.actors.first(where: \.player)?.hp ?? context.session.currentHealth,
-            maximum: context.session.maximumHealth
+            current: bearUI?.endurance ?? inventoryCurrentHealth,
+            maximum: bearUI == nil ? inventoryMaximumHealth : BearFormRules.maximumEndurance
         )
         areaMapOverlay.updateCurrentPosition(detective.position)
         updateDepth(of: detective)
@@ -577,18 +623,21 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         inventoryOverlay.onDismiss = { [weak self] in self?.setInventoryPresented(false) }
         inventoryOverlay.onEquipCarriedItem = { [weak self] index, slot in
             guard let self else { return nil }
+            guard combatDirector?.combat.isBear != true else { return .equipmentMergedInBearForm }
             let refusal = context.session.equipCarriedItem(at: index, to: slot)
             refreshInventoryOverlay()
             return refusal
         }
         inventoryOverlay.onUnequipItem = { [weak self] slot in
             guard let self else { return nil }
+            guard combatDirector?.combat.isBear != true else { return .equipmentMergedInBearForm }
             let refusal = context.session.unequipItem(from: slot)
             refreshInventoryOverlay()
             return refusal
         }
         inventoryOverlay.onMoveEquippedItem = { [weak self] source, destination in
             guard let self else { return nil }
+            guard combatDirector?.combat.isBear != true else { return .equipmentMergedInBearForm }
             let refusal = context.session.moveEquippedItem(from: source, to: destination)
             refreshInventoryOverlay()
             return refusal

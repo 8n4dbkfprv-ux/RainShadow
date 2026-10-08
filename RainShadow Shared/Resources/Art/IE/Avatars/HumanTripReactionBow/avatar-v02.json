@@ -1,0 +1,8500 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanTripReactionBow",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "57fac654bea69b5e08364f3fed3840c646af5acbb698d39bebc9ccd1a761636e",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_00.png",
+      "width": 5,
+      "height": 12,
+      "texture_px": [
+        5,
+        12
+      ],
+      "offset": 16,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        62,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -12
+      ],
+      "sha256": "bd785145eefe61041e8bc5f0c8accbea35459b3f417df199027181eefce010c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_01.png",
+      "width": 6,
+      "height": 17,
+      "texture_px": [
+        6,
+        17
+      ],
+      "offset": 76,
+      "length": 102,
+      "trim_origin_top_left_px": [
+        61,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -8
+      ],
+      "sha256": "7144d732987e5125782cd80ffaecba54af231bcf305016e6b76950af9b9cb000",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_02.png",
+      "width": 23,
+      "height": 33,
+      "texture_px": [
+        23,
+        33
+      ],
+      "offset": 178,
+      "length": 759,
+      "trim_origin_top_left_px": [
+        51,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        2
+      ],
+      "sha256": "65a61d5ea77c74e41e780f9e1e7a0ea9f68e434d97515a17a900a0fa0ed7feaa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_03.png",
+      "width": 40,
+      "height": 43,
+      "texture_px": [
+        40,
+        43
+      ],
+      "offset": 937,
+      "length": 1720,
+      "trim_origin_top_left_px": [
+        42,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        6
+      ],
+      "sha256": "7ca8b9a5fdc2545b027f5c610a3e62371da37f204192389fa272b79d47e19309",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_04.png",
+      "width": 49,
+      "height": 38,
+      "texture_px": [
+        49,
+        38
+      ],
+      "offset": 2657,
+      "length": 1862,
+      "trim_origin_top_left_px": [
+        37,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        4
+      ],
+      "sha256": "9418f1413a8903199132fe1c0774439070e3f4d768ab4ccf7f5546d8f5d4c0da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_05.png",
+      "width": 58,
+      "height": 23,
+      "texture_px": [
+        58,
+        23
+      ],
+      "offset": 4519,
+      "length": 1334,
+      "trim_origin_top_left_px": [
+        29,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -3
+      ],
+      "sha256": "ce635b4b2ee0c1944e95294db483f899e0b94e306f9658f7147504501d7143d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_06.png",
+      "width": 63,
+      "height": 8,
+      "texture_px": [
+        63,
+        8
+      ],
+      "offset": 5853,
+      "length": 504,
+      "trim_origin_top_left_px": [
+        26,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        -13
+      ],
+      "sha256": "0f6ec8b6ef6cb76cd0cd1ffed9474a7eeae70133ee9fab555256b91e2adfd972",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_07.png",
+      "width": 64,
+      "height": 6,
+      "texture_px": [
+        64,
+        6
+      ],
+      "offset": 6357,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        27,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        -15
+      ],
+      "sha256": "1042f90f720ede485bfb17d83dbeb2fda2b7389a7d42ae82f40e833a22436901",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_08.png",
+      "width": 64,
+      "height": 7,
+      "texture_px": [
+        64,
+        7
+      ],
+      "offset": 6741,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        28,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        52,
+        -14
+      ],
+      "sha256": "1b21c8c9108c00cf50d6da2900e9234f3d9c1a5c1132b2f3d43ab0a1281852e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_09.png",
+      "width": 63,
+      "height": 11,
+      "texture_px": [
+        63,
+        11
+      ],
+      "offset": 7189,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        30,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -12
+      ],
+      "sha256": "0b51706db0881a2777244caaa3c9e6e99f430d86a166170840ea526c6f70018a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_10.png",
+      "width": 63,
+      "height": 14,
+      "texture_px": [
+        63,
+        14
+      ],
+      "offset": 7882,
+      "length": 882,
+      "trim_origin_top_left_px": [
+        32,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -10
+      ],
+      "sha256": "3d8370894f6815f7ae814cf412c261929337bdf1309af19fb4278cd0d10381f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_11.png",
+      "width": 63,
+      "height": 14,
+      "texture_px": [
+        63,
+        14
+      ],
+      "offset": 8764,
+      "length": 882,
+      "trim_origin_top_left_px": [
+        32,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -10
+      ],
+      "sha256": "3d8370894f6815f7ae814cf412c261929337bdf1309af19fb4278cd0d10381f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_12.png",
+      "width": 63,
+      "height": 14,
+      "texture_px": [
+        63,
+        14
+      ],
+      "offset": 9646,
+      "length": 882,
+      "trim_origin_top_left_px": [
+        32,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -10
+      ],
+      "sha256": "3d8370894f6815f7ae814cf412c261929337bdf1309af19fb4278cd0d10381f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_13.png",
+      "width": 62,
+      "height": 19,
+      "texture_px": [
+        62,
+        19
+      ],
+      "offset": 10528,
+      "length": 1178,
+      "trim_origin_top_left_px": [
+        31,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -7
+      ],
+      "sha256": "aef0a85b0d8f266358475f6874783f28fd590507f7749ecac8b64c114f56fd0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_14.png",
+      "width": 57,
+      "height": 31,
+      "texture_px": [
+        57,
+        31
+      ],
+      "offset": 11706,
+      "length": 1767,
+      "trim_origin_top_left_px": [
+        30,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        0
+      ],
+      "sha256": "18d06111c6b77f886441a66553bf986e6866f89bbc56e2807b9fac586e9c59a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_15.png",
+      "width": 56,
+      "height": 35,
+      "texture_px": [
+        56,
+        35
+      ],
+      "offset": 13473,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        28,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        52,
+        2
+      ],
+      "sha256": "9d723d2ab225c6ed36b6b87f4449d6e6a0c16fee5af9022dde83b62977375863",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_16.png",
+      "width": 62,
+      "height": 17,
+      "texture_px": [
+        62,
+        17
+      ],
+      "offset": 15433,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        26,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        -7
+      ],
+      "sha256": "61cea6556736e8d59a748f8d2eef76ef0055f4af2f138ff8232f3e957b097705",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_17.png",
+      "width": 64,
+      "height": 11,
+      "texture_px": [
+        64,
+        11
+      ],
+      "offset": 16487,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        28,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        52,
+        -11
+      ],
+      "sha256": "e4ab0b452363dd9207d723ac9cf9a897a3c9559ecec64ed361a4d73e235701c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_18.png",
+      "width": 59,
+      "height": 25,
+      "texture_px": [
+        59,
+        25
+      ],
+      "offset": 17191,
+      "length": 1475,
+      "trim_origin_top_left_px": [
+        33,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -3
+      ],
+      "sha256": "909937c4f255081fffb8a11b1378b2f5b4e60639087c7fc03d6fb94ae5711f00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_19.png",
+      "width": 47,
+      "height": 39,
+      "texture_px": [
+        47,
+        39
+      ],
+      "offset": 18666,
+      "length": 1833,
+      "trim_origin_top_left_px": [
+        40,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        4
+      ],
+      "sha256": "13084d127de4660ba987aac3c0b8e9d6e1577dbed15e193787bc9b8991aecb53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_20.png",
+      "width": 27,
+      "height": 31,
+      "texture_px": [
+        27,
+        31
+      ],
+      "offset": 20499,
+      "length": 837,
+      "trim_origin_top_left_px": [
+        50,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        1
+      ],
+      "sha256": "516b1f53908472efc1a482a4a1f711d8ea3dc35d68d42a59c9b57a240dfe1153",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_21.png",
+      "width": 11,
+      "height": 21,
+      "texture_px": [
+        11,
+        21
+      ],
+      "offset": 21336,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        59,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -5
+      ],
+      "sha256": "9dfbdac524eb1de05c52d9d0ad9cec72398410e4d2ed50a0bc07029da1830c60",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_22.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 21567,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        62,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -11
+      ],
+      "sha256": "a1c398e0514f76d48b5861fa51d97a3af41a8e3e93e50b93d38853ed831399c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_s_23.png",
+      "width": 5,
+      "height": 12,
+      "texture_px": [
+        5,
+        12
+      ],
+      "offset": 21632,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        62,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -12
+      ],
+      "sha256": "bd785145eefe61041e8bc5f0c8accbea35459b3f417df199027181eefce010c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_00.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 21692,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        52,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -19
+      ],
+      "sha256": "35973bfe162bfea3c196659f2bf2a6e6e18da7963d2d89d0c297d5726cd102d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_01.png",
+      "width": 11,
+      "height": 17,
+      "texture_px": [
+        11,
+        17
+      ],
+      "offset": 21818,
+      "length": 187,
+      "trim_origin_top_left_px": [
+        56,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -13
+      ],
+      "sha256": "17273fdd8c4263194854f0fc92cf89e414ddecbfa7ea7fcce02fae41fdd5bd83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_02.png",
+      "width": 17,
+      "height": 27,
+      "texture_px": [
+        17,
+        27
+      ],
+      "offset": 22005,
+      "length": 459,
+      "trim_origin_top_left_px": [
+        49,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -8
+      ],
+      "sha256": "e91c76d200dbdb0e55ae2be65a2dced62194e9ab3b7d08eba044063ca7f99041",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_03.png",
+      "width": 42,
+      "height": 32,
+      "texture_px": [
+        42,
+        32
+      ],
+      "offset": 22464,
+      "length": 1344,
+      "trim_origin_top_left_px": [
+        35,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -6
+      ],
+      "sha256": "e5e4ed663e787a5a9dcce5e5a6e40c22b3d44c686f7bece8c3063ecccee36a11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_04.png",
+      "width": 52,
+      "height": 23,
+      "texture_px": [
+        52,
+        23
+      ],
+      "offset": 23808,
+      "length": 1196,
+      "trim_origin_top_left_px": [
+        29,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -10
+      ],
+      "sha256": "ce6c3577435608419cf06751059c1851714da0b4a2ada1b9d7da54f8bdb8b625",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_05.png",
+      "width": 54,
+      "height": 9,
+      "texture_px": [
+        54,
+        9
+      ],
+      "offset": 25004,
+      "length": 486,
+      "trim_origin_top_left_px": [
+        25,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55,
+        -19
+      ],
+      "sha256": "c72388c774e2f03e71af89c5cf17e683a44dfb110d10994d158c83b1b1906f1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_06.png",
+      "width": 55,
+      "height": 14,
+      "texture_px": [
+        55,
+        14
+      ],
+      "offset": 25490,
+      "length": 770,
+      "trim_origin_top_left_px": [
+        24,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        -17
+      ],
+      "sha256": "d169dda10cd7ba90c81e477a5811c672c83d96c56d32685bb9b338669caa53c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_07.png",
+      "width": 57,
+      "height": 21,
+      "texture_px": [
+        57,
+        21
+      ],
+      "offset": 26260,
+      "length": 1197,
+      "trim_origin_top_left_px": [
+        25,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55,
+        -13
+      ],
+      "sha256": "bc3fdf9bc1b6b6deba5e9aec1964c5ea4ead8a79637769a3655430d3f45d665f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_08.png",
+      "width": 56,
+      "height": 23,
+      "texture_px": [
+        56,
+        23
+      ],
+      "offset": 27457,
+      "length": 1288,
+      "trim_origin_top_left_px": [
+        27,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        -12
+      ],
+      "sha256": "4016067bffb898bbf66880b74c680cda00cdaa2df1373b31d03675733f743985",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_09.png",
+      "width": 55,
+      "height": 29,
+      "texture_px": [
+        55,
+        29
+      ],
+      "offset": 28745,
+      "length": 1595,
+      "trim_origin_top_left_px": [
+        30,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -9
+      ],
+      "sha256": "25b08bfc1c67fa3cecbd90f2d3984a225afb920a5599d0f1945d77998f8fe76d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_10.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 30340,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        33,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -7
+      ],
+      "sha256": "556481c6aa29a36cb5c65b2b2c9063b85bb3a2f8c6f75626122473b1df2b6d12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_11.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 31983,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        33,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -7
+      ],
+      "sha256": "556481c6aa29a36cb5c65b2b2c9063b85bb3a2f8c6f75626122473b1df2b6d12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_12.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 33626,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        33,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -7
+      ],
+      "sha256": "556481c6aa29a36cb5c65b2b2c9063b85bb3a2f8c6f75626122473b1df2b6d12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_13.png",
+      "width": 51,
+      "height": 36,
+      "texture_px": [
+        51,
+        36
+      ],
+      "offset": 35269,
+      "length": 1836,
+      "trim_origin_top_left_px": [
+        31,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -5
+      ],
+      "sha256": "c5e8d80e2599690ee16237c9a08aec5d11a5c0b36c427350326df12f13a28b45",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_14.png",
+      "width": 45,
+      "height": 46,
+      "texture_px": [
+        45,
+        46
+      ],
+      "offset": 37105,
+      "length": 2070,
+      "trim_origin_top_left_px": [
+        30,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        0
+      ],
+      "sha256": "16040c80d6ed90f1662e7faf30bf986a75476e91c5f01955525e4e4424388c11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_15.png",
+      "width": 43,
+      "height": 49,
+      "texture_px": [
+        43,
+        49
+      ],
+      "offset": 39175,
+      "length": 2107,
+      "trim_origin_top_left_px": [
+        29,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        1
+      ],
+      "sha256": "283db04c69bbe5c0c5852cd337e29ea8c54780025337c7f226cd75334b067ea5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_16.png",
+      "width": 56,
+      "height": 33,
+      "texture_px": [
+        56,
+        33
+      ],
+      "offset": 41282,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        23,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57,
+        -6
+      ],
+      "sha256": "68b4bab5103b5b53e2cdccba36b5e6fca92a60c1bfa47ffd19f08a1e0a27ec0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_17.png",
+      "width": 63,
+      "height": 15,
+      "texture_px": [
+        63,
+        15
+      ],
+      "offset": 43130,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        22,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        58,
+        -15
+      ],
+      "sha256": "66944485f743fa8546b2375883908a076c905e6af3336a90f39b35055bfa4261",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_18.png",
+      "width": 64,
+      "height": 11,
+      "texture_px": [
+        64,
+        11
+      ],
+      "offset": 44075,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        24,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        -18
+      ],
+      "sha256": "5875e46520afaabb0f6a22ab612c118691c6ae9af8061a359c5bc8aea2387490",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_19.png",
+      "width": 47,
+      "height": 26,
+      "texture_px": [
+        47,
+        26
+      ],
+      "offset": 44779,
+      "length": 1222,
+      "trim_origin_top_left_px": [
+        34,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -8
+      ],
+      "sha256": "9269bcadb5142544d850dbd0dd4e215f0d61b4d0bdc463a1448066936d5a71f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_20.png",
+      "width": 21,
+      "height": 25,
+      "texture_px": [
+        21,
+        25
+      ],
+      "offset": 46001,
+      "length": 525,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -8
+      ],
+      "sha256": "0357a8bb90af01cc424cd5221ab565034afa9d96f01746a835564409ddd6675f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_21.png",
+      "width": 5,
+      "height": 19,
+      "texture_px": [
+        5,
+        19
+      ],
+      "offset": 46526,
+      "length": 95,
+      "trim_origin_top_left_px": [
+        60,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -11
+      ],
+      "sha256": "7b67871fa51062160a39e1ac5411ddbf8d9c87c9b44a77c0f37cda96c98735e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_22.png",
+      "width": 15,
+      "height": 12,
+      "texture_px": [
+        15,
+        12
+      ],
+      "offset": 46621,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        54,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -16
+      ],
+      "sha256": "18d7e83a08e7b84fde8c72649ea7581e3555b1fa8081f4a4fd79297955dfcb49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ssw_23.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 46801,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        52,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -19
+      ],
+      "sha256": "35973bfe162bfea3c196659f2bf2a6e6e18da7963d2d89d0c297d5726cd102d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_00.png",
+      "width": 22,
+      "height": 8,
+      "texture_px": [
+        22,
+        8
+      ],
+      "offset": 46927,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        46,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -24
+      ],
+      "sha256": "a634cae0d56e1e73775b2d99128848869f4d0ee8197118218f2dd2ad00efe879",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_01.png",
+      "width": 21,
+      "height": 19,
+      "texture_px": [
+        21,
+        19
+      ],
+      "offset": 47103,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -17
+      ],
+      "sha256": "54496bcf9b6c79b28c9bb4a8f87a197dc46c231b2cabe309efc62a57ba21fbbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_02.png",
+      "width": 13,
+      "height": 24,
+      "texture_px": [
+        13,
+        24
+      ],
+      "offset": 47502,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        51,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -16
+      ],
+      "sha256": "6889bdf911043e0dabcee8076eb7e52cc34790946fbc01281bda2d55bfc1657f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_03.png",
+      "width": 38,
+      "height": 20,
+      "texture_px": [
+        38,
+        20
+      ],
+      "offset": 47814,
+      "length": 760,
+      "trim_origin_top_left_px": [
+        34,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -19
+      ],
+      "sha256": "e30f8c406232b1ce0b2f96d5912275ece04022d94ab2b44662ce470a4b55dff2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_04.png",
+      "width": 47,
+      "height": 11,
+      "texture_px": [
+        47,
+        11
+      ],
+      "offset": 48574,
+      "length": 517,
+      "trim_origin_top_left_px": [
+        29,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -25
+      ],
+      "sha256": "2aa23e1e0f94fdfd9da28e73203da6afdb6ab9ec850f7c023648e42bbe42c67e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_05.png",
+      "width": 41,
+      "height": 10,
+      "texture_px": [
+        41,
+        10
+      ],
+      "offset": 49091,
+      "length": 410,
+      "trim_origin_top_left_px": [
+        30,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -26
+      ],
+      "sha256": "0cdee9d24ea68699cf9ab343812338a6609f5386fcfde9b101125adde5e66247",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_06.png",
+      "width": 41,
+      "height": 28,
+      "texture_px": [
+        41,
+        28
+      ],
+      "offset": 49501,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        30,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -18
+      ],
+      "sha256": "d5b4a7a961981f132e0d94ef166b57f71f125f399822baceddf42a3c261521fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_07.png",
+      "width": 40,
+      "height": 35,
+      "texture_px": [
+        40,
+        35
+      ],
+      "offset": 50649,
+      "length": 1400,
+      "trim_origin_top_left_px": [
+        33,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -14
+      ],
+      "sha256": "066f5513437fc803cef8128a6298f6fbba7a026b11be9bd988af3548fcc5e470",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_08.png",
+      "width": 40,
+      "height": 38,
+      "texture_px": [
+        40,
+        38
+      ],
+      "offset": 52049,
+      "length": 1520,
+      "trim_origin_top_left_px": [
+        34,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -12
+      ],
+      "sha256": "858fb9049fc68f5e3578ffbfe6c8041573c592caa2be0145b842f767439d04fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_09.png",
+      "width": 37,
+      "height": 42,
+      "texture_px": [
+        37,
+        42
+      ],
+      "offset": 53569,
+      "length": 1554,
+      "trim_origin_top_left_px": [
+        38,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -9
+      ],
+      "sha256": "f25953e00f2d22159920258234ec5003bc46b8205d52df5ce1aafb6799118e6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_10.png",
+      "width": 36,
+      "height": 44,
+      "texture_px": [
+        36,
+        44
+      ],
+      "offset": 55123,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        40,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -7
+      ],
+      "sha256": "212ff9f7841728c158cabe9042f9768d4cfefa6f2403e11e5eee9a6425ab50c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_11.png",
+      "width": 36,
+      "height": 44,
+      "texture_px": [
+        36,
+        44
+      ],
+      "offset": 56707,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        40,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -7
+      ],
+      "sha256": "212ff9f7841728c158cabe9042f9768d4cfefa6f2403e11e5eee9a6425ab50c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_12.png",
+      "width": 36,
+      "height": 44,
+      "texture_px": [
+        36,
+        44
+      ],
+      "offset": 58291,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        40,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -7
+      ],
+      "sha256": "212ff9f7841728c158cabe9042f9768d4cfefa6f2403e11e5eee9a6425ab50c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_13.png",
+      "width": 33,
+      "height": 48,
+      "texture_px": [
+        33,
+        48
+      ],
+      "offset": 59875,
+      "length": 1584,
+      "trim_origin_top_left_px": [
+        39,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -6
+      ],
+      "sha256": "7bae3fd4e4d99923317f8b7c3cca27dfaa9a41fc8869b2c8b81e0ba564da9d3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_14.png",
+      "width": 26,
+      "height": 57,
+      "texture_px": [
+        26,
+        57
+      ],
+      "offset": 61459,
+      "length": 1482,
+      "trim_origin_top_left_px": [
+        39,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -2
+      ],
+      "sha256": "ba8b7e01c9a37155d1de4a0c437267d96770b3ab38f7bbc00d1d017b023ae7d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_15.png",
+      "width": 24,
+      "height": 58,
+      "texture_px": [
+        24,
+        58
+      ],
+      "offset": 62941,
+      "length": 1392,
+      "trim_origin_top_left_px": [
+        38,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -3
+      ],
+      "sha256": "ca9ad46d8c28342763ea7026a71e7a8384dc59f6921dee114aa3ca0034ea5a57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_16.png",
+      "width": 40,
+      "height": 47,
+      "texture_px": [
+        40,
+        47
+      ],
+      "offset": 64333,
+      "length": 1880,
+      "trim_origin_top_left_px": [
+        29,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -8
+      ],
+      "sha256": "929e066a5835f4eb0b6c4c43e04cdcff5681a7e969d79ff746784e4bf4e32f9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_17.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 66213,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        26,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        -14
+      ],
+      "sha256": "0f40c200d6082901ff684f1367c06d0b320cd2e8936749c70334de4310b5319d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_18.png",
+      "width": 58,
+      "height": 15,
+      "texture_px": [
+        58,
+        15
+      ],
+      "offset": 67856,
+      "length": 870,
+      "trim_origin_top_left_px": [
+        25,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55,
+        -22
+      ],
+      "sha256": "51ec76a2ad86705d4a8e6d84e1d5da78f93a83d05020a27c8acb355d5dd4f276",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_19.png",
+      "width": 42,
+      "height": 14,
+      "texture_px": [
+        42,
+        14
+      ],
+      "offset": 68726,
+      "length": 588,
+      "trim_origin_top_left_px": [
+        35,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -22
+      ],
+      "sha256": "4e5f53ee006ea0b39e796242d6b7af99d24e7efecf566c48a68a283dcba2d69d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_20.png",
+      "width": 13,
+      "height": 20,
+      "texture_px": [
+        13,
+        20
+      ],
+      "offset": 69314,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        53,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -17
+      ],
+      "sha256": "014e3a603df43c9d1dfc3f78a0de94f548177bd5c804a92013198a5836dc27fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_21.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 69574,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        54,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -16
+      ],
+      "sha256": "b161e959c23cc5dadf217b2c4203023a205250e82a72f7f73edcf1c524a6c535",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_22.png",
+      "width": 23,
+      "height": 14,
+      "texture_px": [
+        23,
+        14
+      ],
+      "offset": 69878,
+      "length": 322,
+      "trim_origin_top_left_px": [
+        48,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -20
+      ],
+      "sha256": "49853b9819a83dc8e2e8a5ab4646d227148961e2215e264d206ec6c41d39bc07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sw_23.png",
+      "width": 22,
+      "height": 8,
+      "texture_px": [
+        22,
+        8
+      ],
+      "offset": 70200,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        46,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -24
+      ],
+      "sha256": "a634cae0d56e1e73775b2d99128848869f4d0ee8197118218f2dd2ad00efe879",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_00.png",
+      "width": 27,
+      "height": 11,
+      "texture_px": [
+        27,
+        11
+      ],
+      "offset": 70376,
+      "length": 297,
+      "trim_origin_top_left_px": [
+        45,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -28
+      ],
+      "sha256": "43cd3785f4d2e57ebec67e7e3cf47b2e9f32b2948d9781b98f0c00bf6397169e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_01.png",
+      "width": 23,
+      "height": 20,
+      "texture_px": [
+        23,
+        20
+      ],
+      "offset": 70673,
+      "length": 460,
+      "trim_origin_top_left_px": [
+        49,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -23
+      ],
+      "sha256": "a484b3eaa0b319fa3920c0ef91d064e538d13fb5eee2c14ab06db0e28001a57f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_02.png",
+      "width": 11,
+      "height": 22,
+      "texture_px": [
+        11,
+        22
+      ],
+      "offset": 71133,
+      "length": 242,
+      "trim_origin_top_left_px": [
+        56,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -24
+      ],
+      "sha256": "c133b60b86270be392cb1c61a189c86a398a5f8f164d3d467313317893c9942c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_03.png",
+      "width": 28,
+      "height": 11,
+      "texture_px": [
+        28,
+        11
+      ],
+      "offset": 71375,
+      "length": 308,
+      "trim_origin_top_left_px": [
+        41,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -32
+      ],
+      "sha256": "7ad791ba7a3239d57a11b5365bb85d93f15e4983769e1236263158c1fa2f6c7e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_04.png",
+      "width": 34,
+      "height": 6,
+      "texture_px": [
+        34,
+        6
+      ],
+      "offset": 71683,
+      "length": 204,
+      "trim_origin_top_left_px": [
+        38,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -35
+      ],
+      "sha256": "c203b964a1c45ad305965f5484fa44908a39af0b0f081a59984a78e8c34560aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_05.png",
+      "width": 26,
+      "height": 19,
+      "texture_px": [
+        26,
+        19
+      ],
+      "offset": 71887,
+      "length": 494,
+      "trim_origin_top_left_px": [
+        41,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -29
+      ],
+      "sha256": "2c2c1f15ee00841218aee2015804b00df77232d7b3a06e5f81bfd5002d2dd092",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_06.png",
+      "width": 22,
+      "height": 37,
+      "texture_px": [
+        22,
+        37
+      ],
+      "offset": 72381,
+      "length": 814,
+      "trim_origin_top_left_px": [
+        44,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        -22
+      ],
+      "sha256": "70edcbc8d059ccdbf00823f39f440ef2ec41d784f7bf34bec540be723af597a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_07.png",
+      "width": 21,
+      "height": 43,
+      "texture_px": [
+        21,
+        43
+      ],
+      "offset": 73195,
+      "length": 903,
+      "trim_origin_top_left_px": [
+        46,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -18
+      ],
+      "sha256": "7807eda2dbc8b1f1b6201a6e1d64d6f1f53f2867a907a80a615f7dc08dac679f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_08.png",
+      "width": 20,
+      "height": 45,
+      "texture_px": [
+        20,
+        45
+      ],
+      "offset": 74098,
+      "length": 900,
+      "trim_origin_top_left_px": [
+        48,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -16
+      ],
+      "sha256": "fdd691fee9d68da3b346a509d16f1e3447347cc93f17a51dd160cecd229e16d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_09.png",
+      "width": 18,
+      "height": 50,
+      "texture_px": [
+        18,
+        50
+      ],
+      "offset": 74998,
+      "length": 900,
+      "trim_origin_top_left_px": [
+        51,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -12
+      ],
+      "sha256": "f1b2ae47ae70710519970ab9039c6c1f48b3a8afc1cd8f87645cfd2f66c1d0b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_10.png",
+      "width": 17,
+      "height": 52,
+      "texture_px": [
+        17,
+        52
+      ],
+      "offset": 75898,
+      "length": 884,
+      "trim_origin_top_left_px": [
+        53,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -10
+      ],
+      "sha256": "b6a8a5878a1bc35b4d867915054794538deb6e65abc58f436681fd24ffc50ee4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_11.png",
+      "width": 17,
+      "height": 52,
+      "texture_px": [
+        17,
+        52
+      ],
+      "offset": 76782,
+      "length": 884,
+      "trim_origin_top_left_px": [
+        53,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -10
+      ],
+      "sha256": "b6a8a5878a1bc35b4d867915054794538deb6e65abc58f436681fd24ffc50ee4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_12.png",
+      "width": 17,
+      "height": 52,
+      "texture_px": [
+        17,
+        52
+      ],
+      "offset": 77666,
+      "length": 884,
+      "trim_origin_top_left_px": [
+        53,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -10
+      ],
+      "sha256": "b6a8a5878a1bc35b4d867915054794538deb6e65abc58f436681fd24ffc50ee4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_13.png",
+      "width": 14,
+      "height": 55,
+      "texture_px": [
+        14,
+        55
+      ],
+      "offset": 78550,
+      "length": 770,
+      "trim_origin_top_left_px": [
+        53,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -9
+      ],
+      "sha256": "25760311fde244aa0989dc5703b524913543ae2a27501e67ab8919c1b4bfccac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_14.png",
+      "width": 11,
+      "height": 61,
+      "texture_px": [
+        11,
+        61
+      ],
+      "offset": 79320,
+      "length": 671,
+      "trim_origin_top_left_px": [
+        53,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -9
+      ],
+      "sha256": "62cfb52f420d71a43ffad996fc749fdca15f2cc7dd14b8b30c77f8d99e9ae9c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_15.png",
+      "width": 11,
+      "height": 63,
+      "texture_px": [
+        11,
+        63
+      ],
+      "offset": 79991,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        52,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -9
+      ],
+      "sha256": "d963e72d912e828d6f4fbfce57407ddf1a2ed00e7bc96dc25ea8d388774c4b40",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_16.png",
+      "width": 21,
+      "height": 54,
+      "texture_px": [
+        21,
+        54
+      ],
+      "offset": 80684,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        44,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        -13
+      ],
+      "sha256": "78918d26f8d94b30f2998abde409934d8d6be1481d257780e4f9c36d1035f896",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_17.png",
+      "width": 35,
+      "height": 43,
+      "texture_px": [
+        35,
+        43
+      ],
+      "offset": 81818,
+      "length": 1505,
+      "trim_origin_top_left_px": [
+        36,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -16
+      ],
+      "sha256": "3ef5d7dc6a51efe60c39ec058cf5e4187c9a7104e69e36e2629924eb1b9a5529",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_18.png",
+      "width": 45,
+      "height": 29,
+      "texture_px": [
+        45,
+        29
+      ],
+      "offset": 83323,
+      "length": 1305,
+      "trim_origin_top_left_px": [
+        32,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -22
+      ],
+      "sha256": "c75f128069828a89139d116911f6471f8dcf3f33830ca933fd19602761859efe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_19.png",
+      "width": 30,
+      "height": 6,
+      "texture_px": [
+        30,
+        6
+      ],
+      "offset": 84628,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        42,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -34
+      ],
+      "sha256": "dc967040a8eb7103e1b9675480838fc656b0082be82c153610127191d528dfcd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_20.png",
+      "width": 10,
+      "height": 18,
+      "texture_px": [
+        10,
+        18
+      ],
+      "offset": 84808,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        59,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -24
+      ],
+      "sha256": "903ef58f1a3c64a85b4fbddb43fc04601e9093cf299df3a4d328b162ce64e545",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_21.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 84988,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        52,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -21
+      ],
+      "sha256": "17373ba591cc1844dc2bf9643fdad61feaa558a9dfe3f187fdedc54d31fe0c81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_22.png",
+      "width": 25,
+      "height": 15,
+      "texture_px": [
+        25,
+        15
+      ],
+      "offset": 85408,
+      "length": 375,
+      "trim_origin_top_left_px": [
+        47,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -25
+      ],
+      "sha256": "1633be24883ac3f5fee5c44e8622fb25512b6924ae42445905236a36bfea4472",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wsw_23.png",
+      "width": 27,
+      "height": 11,
+      "texture_px": [
+        27,
+        11
+      ],
+      "offset": 85783,
+      "length": 297,
+      "trim_origin_top_left_px": [
+        45,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -28
+      ],
+      "sha256": "43cd3785f4d2e57ebec67e7e3cf47b2e9f32b2948d9781b98f0c00bf6397169e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_00.png",
+      "width": 46,
+      "height": 31,
+      "texture_px": [
+        46,
+        31
+      ],
+      "offset": 86080,
+      "length": 1426,
+      "trim_origin_top_left_px": [
+        49,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -18
+      ],
+      "sha256": "135a78ad4d9983310447087a144f3820fdcbf5c555d75bfc48fce070e72bc05e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_01.png",
+      "width": 22,
+      "height": 23,
+      "texture_px": [
+        22,
+        23
+      ],
+      "offset": 87506,
+      "length": 506,
+      "trim_origin_top_left_px": [
+        52,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -29
+      ],
+      "sha256": "3a1ba1d7aa683d887580dac2a291a6c92bc3f63257b1e355a812de3428e7704a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_02.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 88012,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -29
+      ],
+      "sha256": "7c8fe03eb6cd6a935f3181427a45fd7d3d6b8f74f5a15fd1bfae4cb17ac25469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_03.png",
+      "width": 18,
+      "height": 4,
+      "texture_px": [
+        18,
+        4
+      ],
+      "offset": 88380,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        53,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -42
+      ],
+      "sha256": "ceda1912238cca3e9b95dda88cf3dd4962bf055e9673b3d32e8b24dc160a15c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_04.png",
+      "width": 20,
+      "height": 12,
+      "texture_px": [
+        20,
+        12
+      ],
+      "offset": 88452,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        52,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -38
+      ],
+      "sha256": "3db10821280490c1451f9fd00c56c0fe1e38cb965809e29cf7617ca8128fbdcc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_05.png",
+      "width": 12,
+      "height": 22,
+      "texture_px": [
+        12,
+        22
+      ],
+      "offset": 88692,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -35
+      ],
+      "sha256": "3fe1610d5a699d6b7eeb99103b2bc77bc3da1cf2f11cee34254c9213483a9d7f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_06.png",
+      "width": 13,
+      "height": 38,
+      "texture_px": [
+        13,
+        38
+      ],
+      "offset": 88956,
+      "length": 494,
+      "trim_origin_top_left_px": [
+        57,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -28
+      ],
+      "sha256": "28f91d882590268436e24a977b26ec5212b1eb54bbef6b1288ccccb5320e9b0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_07.png",
+      "width": 14,
+      "height": 45,
+      "texture_px": [
+        14,
+        45
+      ],
+      "offset": 89450,
+      "length": 630,
+      "trim_origin_top_left_px": [
+        57,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -24
+      ],
+      "sha256": "b496aaa849854ac53a7a873bf26eb58219854e75753781ff7e014838d4c7a8f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_08.png",
+      "width": 14,
+      "height": 46,
+      "texture_px": [
+        14,
+        46
+      ],
+      "offset": 90080,
+      "length": 644,
+      "trim_origin_top_left_px": [
+        58,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -22
+      ],
+      "sha256": "3d8da15297a07cf5da6411f57309f7536dd103cb167892316aba19f191a9bcfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_09.png",
+      "width": 16,
+      "height": 50,
+      "texture_px": [
+        16,
+        50
+      ],
+      "offset": 90724,
+      "length": 800,
+      "trim_origin_top_left_px": [
+        58,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -17
+      ],
+      "sha256": "9ed1ca033de4b7c459b0af8a5f917f19f89df06489a94c3feb102b6ca501a4e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_10.png",
+      "width": 17,
+      "height": 51,
+      "texture_px": [
+        17,
+        51
+      ],
+      "offset": 91524,
+      "length": 867,
+      "trim_origin_top_left_px": [
+        58,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -15
+      ],
+      "sha256": "c74f04fef6e83212e3fdc2076ead04666371871debe9820861aab1393d176959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_11.png",
+      "width": 17,
+      "height": 51,
+      "texture_px": [
+        17,
+        51
+      ],
+      "offset": 92391,
+      "length": 867,
+      "trim_origin_top_left_px": [
+        58,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -15
+      ],
+      "sha256": "c4573050f15942c1f43b2929b605c71b3545438b33b7be498085d8f1a5a0ade2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_12.png",
+      "width": 17,
+      "height": 51,
+      "texture_px": [
+        17,
+        51
+      ],
+      "offset": 93258,
+      "length": 867,
+      "trim_origin_top_left_px": [
+        58,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -15
+      ],
+      "sha256": "c4573050f15942c1f43b2929b605c71b3545438b33b7be498085d8f1a5a0ade2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_13.png",
+      "width": 19,
+      "height": 55,
+      "texture_px": [
+        19,
+        55
+      ],
+      "offset": 94125,
+      "length": 1045,
+      "trim_origin_top_left_px": [
+        55,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -15
+      ],
+      "sha256": "182a8cd27a6973a89a9d0e3ce74e075e4e9d214fdc5ef1855944cc8cab43fde5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_14.png",
+      "width": 23,
+      "height": 57,
+      "texture_px": [
+        23,
+        57
+      ],
+      "offset": 95170,
+      "length": 1311,
+      "trim_origin_top_left_px": [
+        51,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -17
+      ],
+      "sha256": "2bd8320ffcd5b37c8101eaffe9fd1c72b17099b403d30f26b448cba11791fc03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_15.png",
+      "width": 25,
+      "height": 59,
+      "texture_px": [
+        25,
+        59
+      ],
+      "offset": 96481,
+      "length": 1475,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -18
+      ],
+      "sha256": "7cdca214dd453ce3a861c5166a991d662f49afd12eadf1d8dad098502c2ef08f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_16.png",
+      "width": 14,
+      "height": 56,
+      "texture_px": [
+        14,
+        56
+      ],
+      "offset": 97956,
+      "length": 784,
+      "trim_origin_top_left_px": [
+        56,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -19
+      ],
+      "sha256": "7bf5776293b0953e437cffd5979f2cba3d4d0e569cda6c521cb7b022df624a41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_17.png",
+      "width": 17,
+      "height": 50,
+      "texture_px": [
+        17,
+        50
+      ],
+      "offset": 98740,
+      "length": 850,
+      "trim_origin_top_left_px": [
+        54,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -19
+      ],
+      "sha256": "141992fde855efd81a40b11f729bffccdff1cae6866d6ce0a186b709d88c33e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_18.png",
+      "width": 25,
+      "height": 38,
+      "texture_px": [
+        25,
+        38
+      ],
+      "offset": 99590,
+      "length": 950,
+      "trim_origin_top_left_px": [
+        49,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -24
+      ],
+      "sha256": "9b548619f83bd58fb0a476d243ccb218fade5d6a7e7b061e58de8ec7902139c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_19.png",
+      "width": 14,
+      "height": 6,
+      "texture_px": [
+        14,
+        6
+      ],
+      "offset": 100540,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        56,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -38
+      ],
+      "sha256": "1a014b32dd222bb237a1920f1cd8ca0f4ac0620bbbbccbe126ccc5ee4bd3ab52",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_20.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 100624,
+      "length": 285,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -28
+      ],
+      "sha256": "f95b2d4a8672db8d7e43e6e133798941d61b6ceb00c3abf92544de8960c194d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_21.png",
+      "width": 20,
+      "height": 22,
+      "texture_px": [
+        20,
+        22
+      ],
+      "offset": 100909,
+      "length": 440,
+      "trim_origin_top_left_px": [
+        54,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -28
+      ],
+      "sha256": "ee08040a6ff312bb8f195bfda998aa693cde16bcf17e8128a0389cc7ea955feb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_22.png",
+      "width": 41,
+      "height": 33,
+      "texture_px": [
+        41,
+        33
+      ],
+      "offset": 101349,
+      "length": 1353,
+      "trim_origin_top_left_px": [
+        50,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -17
+      ],
+      "sha256": "8122b37c1c3f0d51b6b57b6530562a7623fac8b895f1e5d98c254e81dab0c549",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_w_23.png",
+      "width": 46,
+      "height": 31,
+      "texture_px": [
+        46,
+        31
+      ],
+      "offset": 102702,
+      "length": 1426,
+      "trim_origin_top_left_px": [
+        49,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -18
+      ],
+      "sha256": "135a78ad4d9983310447087a144f3820fdcbf5c555d75bfc48fce070e72bc05e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_00.png",
+      "width": 43,
+      "height": 44,
+      "texture_px": [
+        43,
+        44
+      ],
+      "offset": 104128,
+      "length": 1892,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -12
+      ],
+      "sha256": "117e6a16194f9a5658d72d8340b40e24e33fc1eca60602d9be7b0b87b9adea19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_01.png",
+      "width": 32,
+      "height": 44,
+      "texture_px": [
+        32,
+        44
+      ],
+      "offset": 106020,
+      "length": 1408,
+      "trim_origin_top_left_px": [
+        60,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -15
+      ],
+      "sha256": "a9572153c93cd9591d026d946af54a9e14b74b70aabf7526f9e4f2707414ba9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_02.png",
+      "width": 14,
+      "height": 19,
+      "texture_px": [
+        14,
+        19
+      ],
+      "offset": 107428,
+      "length": 266,
+      "trim_origin_top_left_px": [
+        62,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -39
+      ],
+      "sha256": "957f4656c94d86845a9dc7dbceb1a38ebc64b48e4ccce45a916436fd0d6c5fcb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_03.png",
+      "width": 6,
+      "height": 3,
+      "texture_px": [
+        6,
+        3
+      ],
+      "offset": 107694,
+      "length": 18,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -47
+      ],
+      "sha256": "99f58a0210a30d13f9421954ceeb814e2d90db5fba523c45df19653c6969c946",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_04.png",
+      "width": 11,
+      "height": 13,
+      "texture_px": [
+        11,
+        13
+      ],
+      "offset": 107712,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -42
+      ],
+      "sha256": "b3b94f831d7cc33704d253a310ca0319b466db7ec5c2d826273fa738230473f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_05.png",
+      "width": 23,
+      "height": 20,
+      "texture_px": [
+        23,
+        20
+      ],
+      "offset": 107855,
+      "length": 460,
+      "trim_origin_top_left_px": [
+        59,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -40
+      ],
+      "sha256": "92fe4da02ffe65c09e312edbac15a96e0141c28f007f8cf17019c5245a694086",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_06.png",
+      "width": 31,
+      "height": 32,
+      "texture_px": [
+        31,
+        32
+      ],
+      "offset": 108315,
+      "length": 992,
+      "trim_origin_top_left_px": [
+        55,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -35
+      ],
+      "sha256": "e3330adcaff3dcbd4cf1125a84c7e6c27e10790f85dd3a0759898ed997a31941",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_07.png",
+      "width": 33,
+      "height": 38,
+      "texture_px": [
+        33,
+        38
+      ],
+      "offset": 109307,
+      "length": 1254,
+      "trim_origin_top_left_px": [
+        55,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -31
+      ],
+      "sha256": "7d4347b8c32fce3a9a18c6fb3459c8295f6c4dc6fee15cdd3bc1e8bfd352e9e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_08.png",
+      "width": 34,
+      "height": 39,
+      "texture_px": [
+        34,
+        39
+      ],
+      "offset": 110561,
+      "length": 1326,
+      "trim_origin_top_left_px": [
+        55,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -29
+      ],
+      "sha256": "393a0edad85435d735a379abb5a461d8b64b0e1a361e3827b333d80595f92dd2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_09.png",
+      "width": 36,
+      "height": 43,
+      "texture_px": [
+        36,
+        43
+      ],
+      "offset": 111887,
+      "length": 1548,
+      "trim_origin_top_left_px": [
+        54,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -24
+      ],
+      "sha256": "74919ac3f9533748932d13b76776ecfd3652542b502c8b52d9ee630a638d4e7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_10.png",
+      "width": 37,
+      "height": 44,
+      "texture_px": [
+        37,
+        44
+      ],
+      "offset": 113435,
+      "length": 1628,
+      "trim_origin_top_left_px": [
+        54,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -22
+      ],
+      "sha256": "2a99b0d6de60d690f0e649f48e99be83b391626766505a4f297ef8e4904c9f58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_11.png",
+      "width": 37,
+      "height": 44,
+      "texture_px": [
+        37,
+        44
+      ],
+      "offset": 115063,
+      "length": 1628,
+      "trim_origin_top_left_px": [
+        54,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -22
+      ],
+      "sha256": "2a99b0d6de60d690f0e649f48e99be83b391626766505a4f297ef8e4904c9f58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_12.png",
+      "width": 37,
+      "height": 44,
+      "texture_px": [
+        37,
+        44
+      ],
+      "offset": 116691,
+      "length": 1628,
+      "trim_origin_top_left_px": [
+        54,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -22
+      ],
+      "sha256": "2a99b0d6de60d690f0e649f48e99be83b391626766505a4f297ef8e4904c9f58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_13.png",
+      "width": 39,
+      "height": 46,
+      "texture_px": [
+        39,
+        46
+      ],
+      "offset": 118319,
+      "length": 1794,
+      "trim_origin_top_left_px": [
+        52,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -23
+      ],
+      "sha256": "265a8c5dfbc02231f5cc3c646f292063d1c695423311d576d5be78ce2b597829",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_14.png",
+      "width": 41,
+      "height": 46,
+      "texture_px": [
+        41,
+        46
+      ],
+      "offset": 120113,
+      "length": 1886,
+      "trim_origin_top_left_px": [
+        51,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -26
+      ],
+      "sha256": "0570cc01feb006c89524fae43b659ba4bcfd9c6cf5818c02c963d7f1adfc683d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_15.png",
+      "width": 42,
+      "height": 48,
+      "texture_px": [
+        42,
+        48
+      ],
+      "offset": 121999,
+      "length": 2016,
+      "trim_origin_top_left_px": [
+        50,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -27
+      ],
+      "sha256": "a252bec9db91d543c87b533b6e4046b2232ecbbf1459cbb2b35f523bd0abea5d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_16.png",
+      "width": 33,
+      "height": 50,
+      "texture_px": [
+        33,
+        50
+      ],
+      "offset": 124015,
+      "length": 1650,
+      "trim_origin_top_left_px": [
+        54,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -26
+      ],
+      "sha256": "e6e14d838507aa5ebb6d2d09730b61a906da79067b090228c9dea5dd28169f3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_17.png",
+      "width": 19,
+      "height": 48,
+      "texture_px": [
+        19,
+        48
+      ],
+      "offset": 125665,
+      "length": 912,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -25
+      ],
+      "sha256": "1d2803eba46ebbcada7a566d85912f67a045402535285d7aa67b021694086223",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_18.png",
+      "width": 12,
+      "height": 41,
+      "texture_px": [
+        12,
+        41
+      ],
+      "offset": 126577,
+      "length": 492,
+      "trim_origin_top_left_px": [
+        67,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -27
+      ],
+      "sha256": "bfe93a13461183deb9c230f18670d279bf72cba6840d886cb4572065f196d898",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_19.png",
+      "width": 10,
+      "height": 7,
+      "texture_px": [
+        10,
+        7
+      ],
+      "offset": 127069,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -41
+      ],
+      "sha256": "eded69a24e861d7abc9a2d398060a920b2b0455f72133d65958baf4f716c2494",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_20.png",
+      "width": 13,
+      "height": 15,
+      "texture_px": [
+        13,
+        15
+      ],
+      "offset": 127139,
+      "length": 195,
+      "trim_origin_top_left_px": [
+        62,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -38
+      ],
+      "sha256": "a43eb29509182d1a50b50b46ff69a97bb0c101566efa2def72f54e4d09c32921",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_21.png",
+      "width": 14,
+      "height": 18,
+      "texture_px": [
+        14,
+        18
+      ],
+      "offset": 127334,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -38
+      ],
+      "sha256": "33d4c937fb1c978784c04a09738b0a57baf60a75ac533229554b8a23508b1a01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_22.png",
+      "width": 38,
+      "height": 44,
+      "texture_px": [
+        38,
+        44
+      ],
+      "offset": 127586,
+      "length": 1672,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -13
+      ],
+      "sha256": "e77bc2dc10c87d0a5ce543bab21910744f5d1ee9a76cdfc345b4e985a839ef27",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_wnw_23.png",
+      "width": 43,
+      "height": 44,
+      "texture_px": [
+        43,
+        44
+      ],
+      "offset": 129258,
+      "length": 1892,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -12
+      ],
+      "sha256": "117e6a16194f9a5658d72d8340b40e24e33fc1eca60602d9be7b0b87b9adea19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_00.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 131150,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -6
+      ],
+      "sha256": "0c1a329222b4672b2625511986cddf7944a0cc26ee2a43c9604e1a2ac9c5a75e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_01.png",
+      "width": 27,
+      "height": 53,
+      "texture_px": [
+        27,
+        53
+      ],
+      "offset": 132965,
+      "length": 1431,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "0e851fa4dd68d90cdd0d4252d1f3480fb1fe7b39efddf66b42a7e9b0b91894ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_02.png",
+      "width": 24,
+      "height": 33,
+      "texture_px": [
+        24,
+        33
+      ],
+      "offset": 134396,
+      "length": 792,
+      "trim_origin_top_left_px": [
+        69,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -29
+      ],
+      "sha256": "8f766ab070255abe6dbcf63e331fbba5692418e29836a05f565f51fe068a4c23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_03.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 135188,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        69,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -45
+      ],
+      "sha256": "0d2d32febe540a171eddad936a0c9b74c1bb797b10107b65a93df40131aca80c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_04.png",
+      "width": 25,
+      "height": 11,
+      "texture_px": [
+        25,
+        11
+      ],
+      "offset": 135356,
+      "length": 275,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -44
+      ],
+      "sha256": "2611590278f435c1b04d9694999cb7890c76abc375830a626f1314e8fd628ed3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_05.png",
+      "width": 40,
+      "height": 14,
+      "texture_px": [
+        40,
+        14
+      ],
+      "offset": 135631,
+      "length": 560,
+      "trim_origin_top_left_px": [
+        61,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -43
+      ],
+      "sha256": "4f150bac985c405b549e8688122daf386a2d0c6aef9a1af498603e9b0cb1caf4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_06.png",
+      "width": 49,
+      "height": 22,
+      "texture_px": [
+        49,
+        22
+      ],
+      "offset": 136191,
+      "length": 1078,
+      "trim_origin_top_left_px": [
+        57,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -40
+      ],
+      "sha256": "16a68f4c5cad9c71f3584be45d758b57c389efef59d2d8295df3c9908bcf021a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_07.png",
+      "width": 50,
+      "height": 27,
+      "texture_px": [
+        50,
+        27
+      ],
+      "offset": 137269,
+      "length": 1350,
+      "trim_origin_top_left_px": [
+        57,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -37
+      ],
+      "sha256": "d7d070cddcf611be4c51322ccdde4410217889800497239222c8386e27213b25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_08.png",
+      "width": 51,
+      "height": 28,
+      "texture_px": [
+        51,
+        28
+      ],
+      "offset": 138619,
+      "length": 1428,
+      "trim_origin_top_left_px": [
+        56,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "dd23b677757bbea32bcbdbb51cca9d18d56b46f0ba9cebe6d314a50970bfcc6d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_09.png",
+      "width": 52,
+      "height": 30,
+      "texture_px": [
+        52,
+        30
+      ],
+      "offset": 140047,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        55,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -31
+      ],
+      "sha256": "c2fc4405a20d476e8b4b53d78f0a36adfd3fa7008c361aa31cd275b662940e6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_10.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 141607,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        54,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -29
+      ],
+      "sha256": "148830522edbdff51275c4450f96772fcf0cf0c006c8a283c46b1f90c3b21fba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_11.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 143250,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        54,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -29
+      ],
+      "sha256": "148830522edbdff51275c4450f96772fcf0cf0c006c8a283c46b1f90c3b21fba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_12.png",
+      "width": 53,
+      "height": 31,
+      "texture_px": [
+        53,
+        31
+      ],
+      "offset": 144893,
+      "length": 1643,
+      "trim_origin_top_left_px": [
+        54,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -29
+      ],
+      "sha256": "148830522edbdff51275c4450f96772fcf0cf0c006c8a283c46b1f90c3b21fba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_13.png",
+      "width": 55,
+      "height": 31,
+      "texture_px": [
+        55,
+        31
+      ],
+      "offset": 146536,
+      "length": 1705,
+      "trim_origin_top_left_px": [
+        53,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -31
+      ],
+      "sha256": "a4a4c4a9f13901501d4175f7634087e0125d99cc8417012488b6c39ad9c70beb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_14.png",
+      "width": 56,
+      "height": 35,
+      "texture_px": [
+        56,
+        35
+      ],
+      "offset": 148241,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        54,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -33
+      ],
+      "sha256": "5aa86e8e7564a3328f78af9a8f4b8b7a2145d89067faeb59628cd20d80011e10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_15.png",
+      "width": 54,
+      "height": 34,
+      "texture_px": [
+        54,
+        34
+      ],
+      "offset": 150201,
+      "length": 1836,
+      "trim_origin_top_left_px": [
+        56,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "784f295bb92fb43e835e4da74153f4a56f35ad456c2061d867f255a1fe1f6956",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_16.png",
+      "width": 50,
+      "height": 39,
+      "texture_px": [
+        50,
+        39
+      ],
+      "offset": 152037,
+      "length": 1950,
+      "trim_origin_top_left_px": [
+        57,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -33
+      ],
+      "sha256": "244778f791419487c7c31017dc6916dc26521d102b114186597616d81de2bf7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_17.png",
+      "width": 38,
+      "height": 41,
+      "texture_px": [
+        38,
+        41
+      ],
+      "offset": 153987,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        61,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -30
+      ],
+      "sha256": "4fabe6db8f0dceb96651f5e5bb5a2b8f9460b12f391bad780ee10a8ff5cb7f28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_18.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 155545,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        65,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -30
+      ],
+      "sha256": "898c30ba554a69f0df4ea4c680b8a9a04a779d0318e21a7012b308029de84a1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_19.png",
+      "width": 25,
+      "height": 6,
+      "texture_px": [
+        25,
+        6
+      ],
+      "offset": 156609,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -42
+      ],
+      "sha256": "3c86787d4de0772b0df9cf69e04fc178e32c003a33b26027487bb3539ba49765",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_20.png",
+      "width": 28,
+      "height": 31,
+      "texture_px": [
+        28,
+        31
+      ],
+      "offset": 156759,
+      "length": 868,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -26
+      ],
+      "sha256": "73ab4e5472cbafbe715cdfc18a8af2849baa6777fa81655a4db21a3f18f2f19f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_21.png",
+      "width": 28,
+      "height": 48,
+      "texture_px": [
+        28,
+        48
+      ],
+      "offset": 157627,
+      "length": 1344,
+      "trim_origin_top_left_px": [
+        69,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -13
+      ],
+      "sha256": "3b6499987659beef80281b46fbadf0acf69051944bddc34200827be494f1f47f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_22.png",
+      "width": 30,
+      "height": 54,
+      "texture_px": [
+        30,
+        54
+      ],
+      "offset": 158971,
+      "length": 1620,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "7fa14d0e13cd61bc058359478f014fae57584e91bfcee361fd3c0a18059562a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nw_23.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 160591,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -6
+      ],
+      "sha256": "0c1a329222b4672b2625511986cddf7944a0cc26ee2a43c9604e1a2ac9c5a75e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_00.png",
+      "width": 18,
+      "height": 62,
+      "texture_px": [
+        18,
+        62
+      ],
+      "offset": 162406,
+      "length": 1116,
+      "trim_origin_top_left_px": [
+        84,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        0
+      ],
+      "sha256": "e0ad5ba51c5d00592bab1a35928617dbba0574fe0a12a8dd2ed1ea4a62d91a26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_01.png",
+      "width": 17,
+      "height": 59,
+      "texture_px": [
+        17,
+        59
+      ],
+      "offset": 163522,
+      "length": 1003,
+      "trim_origin_top_left_px": [
+        82,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -6
+      ],
+      "sha256": "1b7b1442fbbd5dd635b07ff12f92f7d5f912719b135b3e7cb3414844478bb534",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_02.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 164525,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        78,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -24
+      ],
+      "sha256": "35d37b9c37dfbaa60f7f3502a7ffa7757f4c299bac7d92c10d6a1fdcd4439e1c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_03.png",
+      "width": 31,
+      "height": 14,
+      "texture_px": [
+        31,
+        14
+      ],
+      "offset": 165485,
+      "length": 434,
+      "trim_origin_top_left_px": [
+        74,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -41
+      ],
+      "sha256": "ed7961d59a4a5486da77888f73f6ac08b20b3693ca3ab47c6d3296b2bbfd0e24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_04.png",
+      "width": 40,
+      "height": 8,
+      "texture_px": [
+        40,
+        8
+      ],
+      "offset": 165919,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "8100a3cbb03993a1786fec8d8aa54ee477befb8467dd2d6f62dbed849068223b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_05.png",
+      "width": 52,
+      "height": 11,
+      "texture_px": [
+        52,
+        11
+      ],
+      "offset": 166239,
+      "length": 572,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -41
+      ],
+      "sha256": "001fd2948e6d0440dee373cb55180731310f6f18a681731da4219f5e1b4ab32c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_06.png",
+      "width": 60,
+      "height": 13,
+      "texture_px": [
+        60,
+        13
+      ],
+      "offset": 166811,
+      "length": 780,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -40
+      ],
+      "sha256": "d64c66faecc9764c59715a4afe592488ad1112b96f64ef24baecc60251c4d50d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_07.png",
+      "width": 62,
+      "height": 15,
+      "texture_px": [
+        62,
+        15
+      ],
+      "offset": 167591,
+      "length": 930,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -39
+      ],
+      "sha256": "8620c19adea8c42e70ab3279734aa7442f7d3686542df3c5995646532fbef61c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_08.png",
+      "width": 62,
+      "height": 16,
+      "texture_px": [
+        62,
+        16
+      ],
+      "offset": 168521,
+      "length": 992,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -37
+      ],
+      "sha256": "7271176356985dead8a9ce87e71514847dcf749e0c13a1d0addc280ae12fa4b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_09.png",
+      "width": 63,
+      "height": 17,
+      "texture_px": [
+        63,
+        17
+      ],
+      "offset": 169513,
+      "length": 1071,
+      "trim_origin_top_left_px": [
+        58,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -34
+      ],
+      "sha256": "4a75bf67f78bc32c1cea3306d99e6f548edbdc96eef7e7733ddc7c5dfa6c89c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_10.png",
+      "width": 63,
+      "height": 18,
+      "texture_px": [
+        63,
+        18
+      ],
+      "offset": 170584,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        57,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -32
+      ],
+      "sha256": "5959cd65d2fa209709bef17b7169b1d76b44c2c981bf80950cb20ae3d3c72d51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_11.png",
+      "width": 63,
+      "height": 18,
+      "texture_px": [
+        63,
+        18
+      ],
+      "offset": 171718,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        57,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -32
+      ],
+      "sha256": "5959cd65d2fa209709bef17b7169b1d76b44c2c981bf80950cb20ae3d3c72d51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_12.png",
+      "width": 63,
+      "height": 18,
+      "texture_px": [
+        63,
+        18
+      ],
+      "offset": 172852,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        57,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -32
+      ],
+      "sha256": "5959cd65d2fa209709bef17b7169b1d76b44c2c981bf80950cb20ae3d3c72d51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_13.png",
+      "width": 64,
+      "height": 19,
+      "texture_px": [
+        64,
+        19
+      ],
+      "offset": 173986,
+      "length": 1216,
+      "trim_origin_top_left_px": [
+        58,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -34
+      ],
+      "sha256": "85c3b58c30ed019f378b5beb913b8f9e787b654f368fedbfe1c3d289167b50b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_14.png",
+      "width": 61,
+      "height": 21,
+      "texture_px": [
+        61,
+        21
+      ],
+      "offset": 175202,
+      "length": 1281,
+      "trim_origin_top_left_px": [
+        63,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -36
+      ],
+      "sha256": "c58509ce8c0406892f591c7b3497eaadf12ccbcb14c5a085740c7440865865f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_15.png",
+      "width": 60,
+      "height": 21,
+      "texture_px": [
+        60,
+        21
+      ],
+      "offset": 176483,
+      "length": 1260,
+      "trim_origin_top_left_px": [
+        65,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -38
+      ],
+      "sha256": "5157b8dc6c572f7c4b5483f5fc90f777e50feb770c262d07ada3f7bc0d8df958",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_16.png",
+      "width": 61,
+      "height": 23,
+      "texture_px": [
+        61,
+        23
+      ],
+      "offset": 177743,
+      "length": 1403,
+      "trim_origin_top_left_px": [
+        63,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -38
+      ],
+      "sha256": "9cf7397d8d4a75dd12cd97919a83234cbb0bdd4c131ec1ba6b17a180c86e0253",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_17.png",
+      "width": 55,
+      "height": 28,
+      "texture_px": [
+        55,
+        28
+      ],
+      "offset": 179146,
+      "length": 1540,
+      "trim_origin_top_left_px": [
+        63,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -35
+      ],
+      "sha256": "b1cfa97348f2d28fa1536bca2401bd9f7e968cbdd1e085b283c5e9df95f1f9b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_18.png",
+      "width": 47,
+      "height": 28,
+      "texture_px": [
+        47,
+        28
+      ],
+      "offset": 180686,
+      "length": 1316,
+      "trim_origin_top_left_px": [
+        65,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -34
+      ],
+      "sha256": "f02d45ad68b8e69c93a7f31e29fce2a48bb0cd24c152911e51981852a263aa9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_19.png",
+      "width": 38,
+      "height": 10,
+      "texture_px": [
+        38,
+        10
+      ],
+      "offset": 182002,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "15f4e592629ed4766852813c9288cf3b4677783c2bf89629f72b7265a94adfe1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_20.png",
+      "width": 29,
+      "height": 40,
+      "texture_px": [
+        29,
+        40
+      ],
+      "offset": 182382,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -20
+      ],
+      "sha256": "c138c24514a7287422fb3ce4ddbb6ac8ff328560c7b9f71e38b0da616bc71c42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_21.png",
+      "width": 21,
+      "height": 54,
+      "texture_px": [
+        21,
+        54
+      ],
+      "offset": 183542,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        80,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -8
+      ],
+      "sha256": "616c84e81594a27c676d2187093110b6dc0d914cec6683531764556b064d0406",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_22.png",
+      "width": 18,
+      "height": 61,
+      "texture_px": [
+        18,
+        61
+      ],
+      "offset": 184676,
+      "length": 1098,
+      "trim_origin_top_left_px": [
+        83,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -1
+      ],
+      "sha256": "248636818733e43590e78ab2f697cb3ad31e33429f9b54b66cea8a70e3e7ac8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nnw_23.png",
+      "width": 18,
+      "height": 62,
+      "texture_px": [
+        18,
+        62
+      ],
+      "offset": 185774,
+      "length": 1116,
+      "trim_origin_top_left_px": [
+        84,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        0
+      ],
+      "sha256": "e0ad5ba51c5d00592bab1a35928617dbba0574fe0a12a8dd2ed1ea4a62d91a26",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_00.png",
+      "width": 5,
+      "height": 65,
+      "texture_px": [
+        5,
+        65
+      ],
+      "offset": 186890,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        93,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        6
+      ],
+      "sha256": "29780e41cf7e248a166be79831738d0adf8c826a6b322efec329fa31a4eb75ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_01.png",
+      "width": 6,
+      "height": 61,
+      "texture_px": [
+        6,
+        61
+      ],
+      "offset": 187215,
+      "length": 366,
+      "trim_origin_top_left_px": [
+        93,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        0
+      ],
+      "sha256": "aaab4728ab4cb8a111032d8485a2d8b274b9222473d848363b6345b3c2d45f89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_02.png",
+      "width": 23,
+      "height": 48,
+      "texture_px": [
+        23,
+        48
+      ],
+      "offset": 187581,
+      "length": 1104,
+      "trim_origin_top_left_px": [
+        86,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -16
+      ],
+      "sha256": "6bc4ba59db65936edb4987d0c44595630a998f42eb69b3f308e6eca58a4304d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_03.png",
+      "width": 40,
+      "height": 24,
+      "texture_px": [
+        40,
+        24
+      ],
+      "offset": 188685,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        78,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -33
+      ],
+      "sha256": "650f33879d6a3c547fb364cf4123eeb9cc6b6527afb4038d75cd06da919c9486",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_04.png",
+      "width": 51,
+      "height": 17,
+      "texture_px": [
+        51,
+        17
+      ],
+      "offset": 189645,
+      "length": 867,
+      "trim_origin_top_left_px": [
+        73,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "d4b286e5453012e481a83fd2a339d7c357d65f9ee601a12fd2ad39959bad3fbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_05.png",
+      "width": 57,
+      "height": 22,
+      "texture_px": [
+        57,
+        22
+      ],
+      "offset": 190512,
+      "length": 1254,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "00ca1b6b402dc92ff97b33ac759143efd9f42d527da1d79ae7e85f0d3223eeea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_06.png",
+      "width": 62,
+      "height": 18,
+      "texture_px": [
+        62,
+        18
+      ],
+      "offset": 191766,
+      "length": 1116,
+      "trim_origin_top_left_px": [
+        72,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "06e7c390cafe94e3cc5747962f9211fcfb7f7d412ab6698c334420c6ea64609c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_07.png",
+      "width": 63,
+      "height": 15,
+      "texture_px": [
+        63,
+        15
+      ],
+      "offset": 192882,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -34
+      ],
+      "sha256": "362f686586205e5fbf334a845b25efe38435e5990f003701a606cbc8d7ea26d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_08.png",
+      "width": 65,
+      "height": 16,
+      "texture_px": [
+        65,
+        16
+      ],
+      "offset": 193827,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -32
+      ],
+      "sha256": "7b4da44ab4b73dd11a7b77bfeeca455c9ac9c20092f7817e3bf347d0f6355652",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_09.png",
+      "width": 64,
+      "height": 14,
+      "texture_px": [
+        64,
+        14
+      ],
+      "offset": 194867,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        65,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -31
+      ],
+      "sha256": "43800cce2ec67c6a14404109f6aadd6728c53292a32fb8c13c3189162da30760",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_10.png",
+      "width": 61,
+      "height": 13,
+      "texture_px": [
+        61,
+        13
+      ],
+      "offset": 195763,
+      "length": 793,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -30
+      ],
+      "sha256": "5ced9e513370ba8d6ae8644e32df257545d017d6a42d24a4ffa263f74a7190d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_11.png",
+      "width": 61,
+      "height": 13,
+      "texture_px": [
+        61,
+        13
+      ],
+      "offset": 196556,
+      "length": 793,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -30
+      ],
+      "sha256": "5ced9e513370ba8d6ae8644e32df257545d017d6a42d24a4ffa263f74a7190d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_12.png",
+      "width": 61,
+      "height": 13,
+      "texture_px": [
+        61,
+        13
+      ],
+      "offset": 197349,
+      "length": 793,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -30
+      ],
+      "sha256": "5ced9e513370ba8d6ae8644e32df257545d017d6a42d24a4ffa263f74a7190d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_13.png",
+      "width": 61,
+      "height": 13,
+      "texture_px": [
+        61,
+        13
+      ],
+      "offset": 198142,
+      "length": 793,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -31
+      ],
+      "sha256": "ad66841157e644073c217f7fcbed0500389244d239d2ec1a4d3f9b833278d2fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_14.png",
+      "width": 57,
+      "height": 10,
+      "texture_px": [
+        57,
+        10
+      ],
+      "offset": 198935,
+      "length": 570,
+      "trim_origin_top_left_px": [
+        73,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "866637b6afc89163254a93697698d4d43597b39a8fc1f063c61c15a24f7361b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_15.png",
+      "width": 55,
+      "height": 11,
+      "texture_px": [
+        55,
+        11
+      ],
+      "offset": 199505,
+      "length": 605,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -35
+      ],
+      "sha256": "17cda7f2df73f01490347a737c031e92fddc2f2c86ddb338481cea44e333dd11",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_16.png",
+      "width": 63,
+      "height": 11,
+      "texture_px": [
+        63,
+        11
+      ],
+      "offset": 200110,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        72,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "a9977fb3f1b6e00a013eb2eb8249eba9b8300dcc954b1b9dfb44d53f2fe78d1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_17.png",
+      "width": 64,
+      "height": 15,
+      "texture_px": [
+        64,
+        15
+      ],
+      "offset": 200803,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -35
+      ],
+      "sha256": "dd0d3372289df27c52e7e3c8174ede1b4fec1d77a343821ebae345773d7326bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_18.png",
+      "width": 60,
+      "height": 15,
+      "texture_px": [
+        60,
+        15
+      ],
+      "offset": 201763,
+      "length": 900,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -35
+      ],
+      "sha256": "d2267d20134b9f08f708d179bc9294d7f325f6466c2d73b0aeb7fb4d0e65062d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_19.png",
+      "width": 47,
+      "height": 21,
+      "texture_px": [
+        47,
+        21
+      ],
+      "offset": 202663,
+      "length": 987,
+      "trim_origin_top_left_px": [
+        73,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -31
+      ],
+      "sha256": "39f2fb298f02216fdc1f6751f19ffc86220eb43217e5ea6ee5337faef3497932",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_20.png",
+      "width": 27,
+      "height": 48,
+      "texture_px": [
+        27,
+        48
+      ],
+      "offset": 203650,
+      "length": 1296,
+      "trim_origin_top_left_px": [
+        83,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -12
+      ],
+      "sha256": "f60d97f19978adfd83e512cc1cdd2e3334845753fbb7dd2f1f04360cbf5d79a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_21.png",
+      "width": 11,
+      "height": 59,
+      "texture_px": [
+        11,
+        59
+      ],
+      "offset": 204946,
+      "length": 649,
+      "trim_origin_top_left_px": [
+        90,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -1
+      ],
+      "sha256": "86e21d2670493fcd81b005b5204715c139220b86f78aa4d21b5ecf4e06a8b081",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_22.png",
+      "width": 5,
+      "height": 65,
+      "texture_px": [
+        5,
+        65
+      ],
+      "offset": 205595,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        93,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        5
+      ],
+      "sha256": "6e27cf1297452c311cb6543f21b03ef8d4ddcefb638c48be06eefedc2e4ae458",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_n_23.png",
+      "width": 5,
+      "height": 65,
+      "texture_px": [
+        5,
+        65
+      ],
+      "offset": 205920,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        93,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        6
+      ],
+      "sha256": "29780e41cf7e248a166be79831738d0adf8c826a6b322efec329fa31a4eb75ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_00.png",
+      "width": 19,
+      "height": 63,
+      "texture_px": [
+        19,
+        63
+      ],
+      "offset": 206245,
+      "length": 1197,
+      "trim_origin_top_left_px": [
+        89,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        10
+      ],
+      "sha256": "256c27560a0f007b656e3ce173e287eb5061d05613800cd2667ea1b5c2f4ee3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_01.png",
+      "width": 11,
+      "height": 61,
+      "texture_px": [
+        11,
+        61
+      ],
+      "offset": 207442,
+      "length": 671,
+      "trim_origin_top_left_px": [
+        93,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        4
+      ],
+      "sha256": "161bacd7e2f43fadeeb4b6407fc7e847c9e297cfe14fab9163003b18fc9190b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_02.png",
+      "width": 17,
+      "height": 54,
+      "texture_px": [
+        17,
+        54
+      ],
+      "offset": 208113,
+      "length": 918,
+      "trim_origin_top_left_px": [
+        94,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -7
+      ],
+      "sha256": "45a59176c3eead9632e27572010736ebe0c298573f81331b624d6021e557f752",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_03.png",
+      "width": 43,
+      "height": 35,
+      "texture_px": [
+        43,
+        35
+      ],
+      "offset": 209031,
+      "length": 1505,
+      "trim_origin_top_left_px": [
+        83,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -21
+      ],
+      "sha256": "58ba871b10afa0a9ac94452f0ad3701f6c3f354aa248a48e424db74660223e6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_04.png",
+      "width": 52,
+      "height": 30,
+      "texture_px": [
+        52,
+        30
+      ],
+      "offset": 210536,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        79,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -23
+      ],
+      "sha256": "2a6d258f1502114d5dec5a5d03dcb87f440ed30f8386184f358aa0dc4b25619a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_05.png",
+      "width": 53,
+      "height": 37,
+      "texture_px": [
+        53,
+        37
+      ],
+      "offset": 212096,
+      "length": 1961,
+      "trim_origin_top_left_px": [
+        81,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -19
+      ],
+      "sha256": "2380324232065806622dde649b1fd634247bc5622f1b65d7966d7e7f9aade185",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_06.png",
+      "width": 56,
+      "height": 33,
+      "texture_px": [
+        56,
+        33
+      ],
+      "offset": 214057,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        80,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -21
+      ],
+      "sha256": "10b0f37a80804eda9cecba377aeb149e2b14505ea6d07e57aac14b73941e18c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_07.png",
+      "width": 56,
+      "height": 29,
+      "texture_px": [
+        56,
+        29
+      ],
+      "offset": 215905,
+      "length": 1624,
+      "trim_origin_top_left_px": [
+        78,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -22
+      ],
+      "sha256": "623350cef8df5fad197a03650d7f65d142c9adc2fcae19b5b7f28b6adc05ea13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_08.png",
+      "width": 54,
+      "height": 28,
+      "texture_px": [
+        54,
+        28
+      ],
+      "offset": 217529,
+      "length": 1512,
+      "trim_origin_top_left_px": [
+        77,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -22
+      ],
+      "sha256": "c52af186a2f2986da8a9a21326ac33d3f30c95846f6ff4fbdec321d23332748b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_09.png",
+      "width": 53,
+      "height": 27,
+      "texture_px": [
+        53,
+        27
+      ],
+      "offset": 219041,
+      "length": 1431,
+      "trim_origin_top_left_px": [
+        75,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -21
+      ],
+      "sha256": "e9e96b3d4079689c9328ccaecc589994a98b96e9cdc0857736b5643f4f9f82bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_10.png",
+      "width": 53,
+      "height": 25,
+      "texture_px": [
+        53,
+        25
+      ],
+      "offset": 220472,
+      "length": 1325,
+      "trim_origin_top_left_px": [
+        74,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -21
+      ],
+      "sha256": "1c0b83a68f9da6641b0b495bea092e99e17bc67673768c9e3e7c369058c11112",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_11.png",
+      "width": 53,
+      "height": 25,
+      "texture_px": [
+        53,
+        25
+      ],
+      "offset": 221797,
+      "length": 1325,
+      "trim_origin_top_left_px": [
+        74,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -21
+      ],
+      "sha256": "1c0b83a68f9da6641b0b495bea092e99e17bc67673768c9e3e7c369058c11112",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_12.png",
+      "width": 53,
+      "height": 25,
+      "texture_px": [
+        53,
+        25
+      ],
+      "offset": 223122,
+      "length": 1325,
+      "trim_origin_top_left_px": [
+        74,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -21
+      ],
+      "sha256": "1c0b83a68f9da6641b0b495bea092e99e17bc67673768c9e3e7c369058c11112",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_13.png",
+      "width": 50,
+      "height": 24,
+      "texture_px": [
+        50,
+        24
+      ],
+      "offset": 224447,
+      "length": 1200,
+      "trim_origin_top_left_px": [
+        78,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -22
+      ],
+      "sha256": "39b5ec3cdea2d8961506140c504235e160db49f044e6a1d4155ddb135599361b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_14.png",
+      "width": 44,
+      "height": 19,
+      "texture_px": [
+        44,
+        19
+      ],
+      "offset": 225647,
+      "length": 836,
+      "trim_origin_top_left_px": [
+        85,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -25
+      ],
+      "sha256": "cc95c09f7ea96c6afc50c000c424c225dde6523b7e67b4d0ba7fdb494c53ed96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_15.png",
+      "width": 42,
+      "height": 17,
+      "texture_px": [
+        42,
+        17
+      ],
+      "offset": 226483,
+      "length": 714,
+      "trim_origin_top_left_px": [
+        89,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -26
+      ],
+      "sha256": "2ad523caf86cc40435775d2defda2a44b78379ab68d6110901e85345f029460a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_16.png",
+      "width": 54,
+      "height": 17,
+      "texture_px": [
+        54,
+        17
+      ],
+      "offset": 227197,
+      "length": 918,
+      "trim_origin_top_left_px": [
+        82,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -27
+      ],
+      "sha256": "9a2a429248611d2e8dc2fc9d80baebc4df807a24d9e5b3f117bc3ba6cf6c06c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_17.png",
+      "width": 56,
+      "height": 13,
+      "texture_px": [
+        56,
+        13
+      ],
+      "offset": 228115,
+      "length": 728,
+      "trim_origin_top_left_px": [
+        81,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -29
+      ],
+      "sha256": "840f4b01076deb0a05ab47eed5a370021ee26ef3359597b771d6fddb71e837e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_18.png",
+      "width": 65,
+      "height": 13,
+      "texture_px": [
+        65,
+        13
+      ],
+      "offset": 228843,
+      "length": 845,
+      "trim_origin_top_left_px": [
+        71,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -29
+      ],
+      "sha256": "981961457f22a9e43000cd33df241bf06ade3962b80ca49789eaef9535528fb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_19.png",
+      "width": 48,
+      "height": 34,
+      "texture_px": [
+        48,
+        34
+      ],
+      "offset": 229688,
+      "length": 1632,
+      "trim_origin_top_left_px": [
+        78,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -19
+      ],
+      "sha256": "b6f04c6db5c6698e6ef16e6e742af39ac9cafd862cb7e7eff9350a7a8801c80d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_20.png",
+      "width": 21,
+      "height": 55,
+      "texture_px": [
+        21,
+        55
+      ],
+      "offset": 231320,
+      "length": 1155,
+      "trim_origin_top_left_px": [
+        90,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -3
+      ],
+      "sha256": "223775d916a181c1c674e5694bcc07ac792b0ff00267d5c7b0c27ecaf6a00a87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_21.png",
+      "width": 6,
+      "height": 60,
+      "texture_px": [
+        6,
+        60
+      ],
+      "offset": 232475,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        95,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        4
+      ],
+      "sha256": "8706258c23c83f43f42b1a86c56d93825d09e744f71cfa7261cfd7beb8fbccad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_22.png",
+      "width": 15,
+      "height": 62,
+      "texture_px": [
+        15,
+        62
+      ],
+      "offset": 232835,
+      "length": 930,
+      "trim_origin_top_left_px": [
+        91,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        8
+      ],
+      "sha256": "10d703382f4257a05ebc1e0c19e22575d8ddc2193e2b767078fca73589b4a9bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_nne_23.png",
+      "width": 19,
+      "height": 63,
+      "texture_px": [
+        19,
+        63
+      ],
+      "offset": 233765,
+      "length": 1197,
+      "trim_origin_top_left_px": [
+        89,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        10
+      ],
+      "sha256": "256c27560a0f007b656e3ce173e287eb5061d05613800cd2667ea1b5c2f4ee3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_00.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 234962,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        81,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        12
+      ],
+      "sha256": "ad2614fea2f34d7080cfe9f8191565b66cfb156e9fe8b887146492f057f5734c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_01.png",
+      "width": 22,
+      "height": 58,
+      "texture_px": [
+        22,
+        58
+      ],
+      "offset": 236777,
+      "length": 1276,
+      "trim_origin_top_left_px": [
+        88,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        9
+      ],
+      "sha256": "6ea624bc31e53b2d0fb628f7c44e2441b44c6502857cbfb2a35a3079952bf606",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_02.png",
+      "width": 13,
+      "height": 57,
+      "texture_px": [
+        13,
+        57
+      ],
+      "offset": 238053,
+      "length": 741,
+      "trim_origin_top_left_px": [
+        96,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        2
+      ],
+      "sha256": "4437203384820902facbdf8f160064f9add516478d02ebd48028d40ea3ab1395",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_03.png",
+      "width": 38,
+      "height": 46,
+      "texture_px": [
+        38,
+        46
+      ],
+      "offset": 238794,
+      "length": 1748,
+      "trim_origin_top_left_px": [
+        88,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -8
+      ],
+      "sha256": "8bfb8e1a679db503c0f00596a758ef36aaa97eef900b2056d6f42773537b333d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_04.png",
+      "width": 46,
+      "height": 44,
+      "texture_px": [
+        46,
+        44
+      ],
+      "offset": 240542,
+      "length": 2024,
+      "trim_origin_top_left_px": [
+        84,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -9
+      ],
+      "sha256": "4f71e2477271245c50367bf449399e4889bb3ece34f61d594dec6328d5e07f6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_05.png",
+      "width": 41,
+      "height": 50,
+      "texture_px": [
+        41,
+        50
+      ],
+      "offset": 242566,
+      "length": 2050,
+      "trim_origin_top_left_px": [
+        89,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -4
+      ],
+      "sha256": "fecfcf16051b334b06b1f06c55bdcfde8ad2df2d3740b9a92cdc7626cf6446f1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_06.png",
+      "width": 39,
+      "height": 46,
+      "texture_px": [
+        39,
+        46
+      ],
+      "offset": 244616,
+      "length": 1794,
+      "trim_origin_top_left_px": [
+        90,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -6
+      ],
+      "sha256": "fc04b0ef2ee0b2e9fe1a39a7f0927dc25514572baeb6671f59593feb27990b3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_07.png",
+      "width": 39,
+      "height": 42,
+      "texture_px": [
+        39,
+        42
+      ],
+      "offset": 246410,
+      "length": 1638,
+      "trim_origin_top_left_px": [
+        88,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -8
+      ],
+      "sha256": "8f53ec5f0d6c21bd4f897e6dfe2d2fbf6094f6f77fbea1795f090db74dc0c920",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_08.png",
+      "width": 38,
+      "height": 41,
+      "texture_px": [
+        38,
+        41
+      ],
+      "offset": 248048,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        87,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -8
+      ],
+      "sha256": "03be5826bad57a45fcff473e39de97299eba9f5efb7e444a176e168929b64c4e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_09.png",
+      "width": 37,
+      "height": 38,
+      "texture_px": [
+        37,
+        38
+      ],
+      "offset": 249606,
+      "length": 1406,
+      "trim_origin_top_left_px": [
+        85,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -9
+      ],
+      "sha256": "42c20fedcfe767e69a00f9a25410d4975ad94f9cab3a0f0c590c87dcd9316b66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_10.png",
+      "width": 36,
+      "height": 38,
+      "texture_px": [
+        36,
+        38
+      ],
+      "offset": 251012,
+      "length": 1368,
+      "trim_origin_top_left_px": [
+        84,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -9
+      ],
+      "sha256": "84027887be0d225d05f1e254f28a8e17e1a4d8e2e0744948c9a1d9f3bc0a8f28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_11.png",
+      "width": 36,
+      "height": 38,
+      "texture_px": [
+        36,
+        38
+      ],
+      "offset": 252380,
+      "length": 1368,
+      "trim_origin_top_left_px": [
+        84,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -9
+      ],
+      "sha256": "84027887be0d225d05f1e254f28a8e17e1a4d8e2e0744948c9a1d9f3bc0a8f28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_12.png",
+      "width": 36,
+      "height": 38,
+      "texture_px": [
+        36,
+        38
+      ],
+      "offset": 253748,
+      "length": 1368,
+      "trim_origin_top_left_px": [
+        84,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -9
+      ],
+      "sha256": "84027887be0d225d05f1e254f28a8e17e1a4d8e2e0744948c9a1d9f3bc0a8f28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_13.png",
+      "width": 32,
+      "height": 34,
+      "texture_px": [
+        32,
+        34
+      ],
+      "offset": 255116,
+      "length": 1088,
+      "trim_origin_top_left_px": [
+        88,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -11
+      ],
+      "sha256": "38ce4a08a83384125d7cf996c09d283facc335c6cf228d1bb867dc6a268dffef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_14.png",
+      "width": 26,
+      "height": 27,
+      "texture_px": [
+        26,
+        27
+      ],
+      "offset": 256204,
+      "length": 702,
+      "trim_origin_top_left_px": [
+        95,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -14
+      ],
+      "sha256": "c92c1d95f8d43e57eac2858755be92531c8c8b5a7cc8adfb1321b53b0db20c3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_15.png",
+      "width": 24,
+      "height": 24,
+      "texture_px": [
+        24,
+        24
+      ],
+      "offset": 256906,
+      "length": 576,
+      "trim_origin_top_left_px": [
+        98,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -15
+      ],
+      "sha256": "ac7d5d4be3f3242c892479202a6e85888f3417340eb2a1bcb64ed8a5d41d3c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_16.png",
+      "width": 40,
+      "height": 29,
+      "texture_px": [
+        40,
+        29
+      ],
+      "offset": 257482,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        90,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -14
+      ],
+      "sha256": "b4ec15a924f566950650a7c162a7e10f51c9a2cb8237684c0707f816819b0ace",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_17.png",
+      "width": 50,
+      "height": 25,
+      "texture_px": [
+        50,
+        25
+      ],
+      "offset": 258642,
+      "length": 1250,
+      "trim_origin_top_left_px": [
+        85,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -16
+      ],
+      "sha256": "504934aad4313ce4bb762f3764161b7f95853eaf605cd4426a6e9fe4313825a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_18.png",
+      "width": 59,
+      "height": 27,
+      "texture_px": [
+        59,
+        27
+      ],
+      "offset": 259892,
+      "length": 1593,
+      "trim_origin_top_left_px": [
+        76,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -17
+      ],
+      "sha256": "11aac2af36dd60be30dcbc4c1fdf9a08d057700669b75de41ed7091236bfa1fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_19.png",
+      "width": 43,
+      "height": 48,
+      "texture_px": [
+        43,
+        48
+      ],
+      "offset": 261485,
+      "length": 2064,
+      "trim_origin_top_left_px": [
+        83,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -5
+      ],
+      "sha256": "01d875bf5732a1b1cf7f0d69962509f7e109310dd9f96f9dba3a8f41ca6f1ff7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_20.png",
+      "width": 13,
+      "height": 59,
+      "texture_px": [
+        13,
+        59
+      ],
+      "offset": 263549,
+      "length": 767,
+      "trim_origin_top_left_px": [
+        94,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        5
+      ],
+      "sha256": "d7b935c8816bbb9755512e4ea4dbbffcae894f186a6d167275b0e65440a8dd31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_21.png",
+      "width": 16,
+      "height": 58,
+      "texture_px": [
+        16,
+        58
+      ],
+      "offset": 264316,
+      "length": 928,
+      "trim_origin_top_left_px": [
+        90,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        9
+      ],
+      "sha256": "6a3cde6e054f71b5c90f69de1f37a4fafe2fd6be0dd5abaf6fe0c2ce0aaaf6ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_22.png",
+      "width": 28,
+      "height": 56,
+      "texture_px": [
+        28,
+        56
+      ],
+      "offset": 265244,
+      "length": 1568,
+      "trim_origin_top_left_px": [
+        84,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        11
+      ],
+      "sha256": "233baf926b23d6535ab67e5758fa9fcaeb72647ea8300e7b14a61cd99d23717d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ne_23.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 266812,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        81,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        12
+      ],
+      "sha256": "ad2614fea2f34d7080cfe9f8191565b66cfb156e9fe8b887146492f057f5734c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_00.png",
+      "width": 43,
+      "height": 43,
+      "texture_px": [
+        43,
+        43
+      ],
+      "offset": 268627,
+      "length": 1849,
+      "trim_origin_top_left_px": [
+        72,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        10
+      ],
+      "sha256": "4816de44aa6b2c5fca414a1cfe409ea3d699b8bb16829e7e11a9d8c112f619f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_01.png",
+      "width": 29,
+      "height": 49,
+      "texture_px": [
+        29,
+        49
+      ],
+      "offset": 270476,
+      "length": 1421,
+      "trim_origin_top_left_px": [
+        82,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        10
+      ],
+      "sha256": "3e0a5b0db04d2ec52aa57250938b39e27d27ceffce20ad59c6f607b0be56f53f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_02.png",
+      "width": 11,
+      "height": 58,
+      "texture_px": [
+        11,
+        58
+      ],
+      "offset": 271897,
+      "length": 638,
+      "trim_origin_top_left_px": [
+        93,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        9
+      ],
+      "sha256": "bb32eacbedb6b07dc7fb8b91cffc7ee10bc31eae6d2c1cb34dc4987d46d740dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_03.png",
+      "width": 29,
+      "height": 56,
+      "texture_px": [
+        29,
+        56
+      ],
+      "offset": 272535,
+      "length": 1624,
+      "trim_origin_top_left_px": [
+        90,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        4
+      ],
+      "sha256": "422cae347a533d7f179ac32a5cec48ccdd71a421441424a51f64fdcd71fe5bc1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_04.png",
+      "width": 35,
+      "height": 56,
+      "texture_px": [
+        35,
+        56
+      ],
+      "offset": 274159,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        88,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        5
+      ],
+      "sha256": "e5e7624052a3f6e84f250ec03d5e3ef35926e908e2c9d852387806756ef8b410",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_05.png",
+      "width": 25,
+      "height": 59,
+      "texture_px": [
+        25,
+        59
+      ],
+      "offset": 276119,
+      "length": 1475,
+      "trim_origin_top_left_px": [
+        93,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        8
+      ],
+      "sha256": "ecd168995108da68988cc56e0284ef32eb19a2e1173b5d54a9da191f26efb673",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_06.png",
+      "width": 21,
+      "height": 55,
+      "texture_px": [
+        21,
+        55
+      ],
+      "offset": 277594,
+      "length": 1155,
+      "trim_origin_top_left_px": [
+        94,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        7
+      ],
+      "sha256": "53257071c2ad827b117347124ea7713220c669cf2df4108cca2484b5fb827970",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_07.png",
+      "width": 20,
+      "height": 50,
+      "texture_px": [
+        20,
+        50
+      ],
+      "offset": 278749,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        93,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        4
+      ],
+      "sha256": "3a1245aeba9ab77ccf2c4d1a3dee7d57bcd3aba3daa784d830573df02dbd673f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_08.png",
+      "width": 20,
+      "height": 50,
+      "texture_px": [
+        20,
+        50
+      ],
+      "offset": 279749,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        92,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        4
+      ],
+      "sha256": "002f844ea63622bcdd82da66a4968ce79992f24bd8c15923fedd28dbd69c4b91",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_09.png",
+      "width": 17,
+      "height": 46,
+      "texture_px": [
+        17,
+        46
+      ],
+      "offset": 280749,
+      "length": 782,
+      "trim_origin_top_left_px": [
+        91,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        1
+      ],
+      "sha256": "0189c1fdce5725caf6731ad4ed8f2fe16b044d2ac93884d615fcda1f1975d90a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_10.png",
+      "width": 17,
+      "height": 43,
+      "texture_px": [
+        17,
+        43
+      ],
+      "offset": 281531,
+      "length": 731,
+      "trim_origin_top_left_px": [
+        90,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        0
+      ],
+      "sha256": "5a6ed7fe316d30ecdd74a68bb2e6288cea496a474f397b2fda8f32775aba5c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_11.png",
+      "width": 17,
+      "height": 43,
+      "texture_px": [
+        17,
+        43
+      ],
+      "offset": 282262,
+      "length": 731,
+      "trim_origin_top_left_px": [
+        90,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        0
+      ],
+      "sha256": "5a6ed7fe316d30ecdd74a68bb2e6288cea496a474f397b2fda8f32775aba5c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_12.png",
+      "width": 17,
+      "height": 43,
+      "texture_px": [
+        17,
+        43
+      ],
+      "offset": 282993,
+      "length": 731,
+      "trim_origin_top_left_px": [
+        90,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        0
+      ],
+      "sha256": "5a6ed7fe316d30ecdd74a68bb2e6288cea496a474f397b2fda8f32775aba5c6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_13.png",
+      "width": 14,
+      "height": 41,
+      "texture_px": [
+        14,
+        41
+      ],
+      "offset": 283724,
+      "length": 574,
+      "trim_origin_top_left_px": [
+        93,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -1
+      ],
+      "sha256": "e8fb5ecec55d509e018efc6b41e18b433e981136baee3f1bdd0dca8b11b07200",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_14.png",
+      "width": 10,
+      "height": 31,
+      "texture_px": [
+        10,
+        31
+      ],
+      "offset": 284298,
+      "length": 310,
+      "trim_origin_top_left_px": [
+        97,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -4
+      ],
+      "sha256": "5aea0e2f2622277c70e4fd65ccb1380c1df241cdb5443445f542c32befd51440",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_15.png",
+      "width": 10,
+      "height": 27,
+      "texture_px": [
+        10,
+        27
+      ],
+      "offset": 284608,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        98,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -5
+      ],
+      "sha256": "be40da210c9ef0cecebf3224fe0fbd325fa67110844f2840964aba62274618c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_16.png",
+      "width": 21,
+      "height": 37,
+      "texture_px": [
+        21,
+        37
+      ],
+      "offset": 284878,
+      "length": 777,
+      "trim_origin_top_left_px": [
+        95,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -1
+      ],
+      "sha256": "821789855be0b65a0af63d253419d2f72746d0f5a1db540fdd98323eeaf30728",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_17.png",
+      "width": 35,
+      "height": 39,
+      "texture_px": [
+        35,
+        39
+      ],
+      "offset": 285655,
+      "length": 1365,
+      "trim_origin_top_left_px": [
+        89,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -1
+      ],
+      "sha256": "82d056827549aac7ba0aee3484032fcf6fcc56cb83b70d7796fbb33c17c668e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_18.png",
+      "width": 41,
+      "height": 36,
+      "texture_px": [
+        41,
+        36
+      ],
+      "offset": 287020,
+      "length": 1476,
+      "trim_origin_top_left_px": [
+        86,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -2
+      ],
+      "sha256": "4691c410a28bb26d593388d7e546be992d1b8d432835653faea6aa5e65059084",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_19.png",
+      "width": 29,
+      "height": 58,
+      "texture_px": [
+        29,
+        58
+      ],
+      "offset": 288496,
+      "length": 1682,
+      "trim_origin_top_left_px": [
+        88,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        7
+      ],
+      "sha256": "5af5f4553f98fa413a0534ea7e6879f53c7f9caeb06047c2057ae7ef0d4991fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_20.png",
+      "width": 10,
+      "height": 60,
+      "texture_px": [
+        10,
+        60
+      ],
+      "offset": 290178,
+      "length": 600,
+      "trim_origin_top_left_px": [
+        91,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        12
+      ],
+      "sha256": "b8740b682ce19e8293aae897b5d186d167d8dce6ebed43f3ff270934d9ca687a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_21.png",
+      "width": 24,
+      "height": 53,
+      "texture_px": [
+        24,
+        53
+      ],
+      "offset": 290778,
+      "length": 1272,
+      "trim_origin_top_left_px": [
+        84,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        12
+      ],
+      "sha256": "e935d15dba74b80eb0d60ff8e4ce5e6ca00b486b652838a500d121ff58da02d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_22.png",
+      "width": 37,
+      "height": 47,
+      "texture_px": [
+        37,
+        47
+      ],
+      "offset": 292050,
+      "length": 1739,
+      "trim_origin_top_left_px": [
+        76,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        12
+      ],
+      "sha256": "816f4f02c335bcd55d033b4ac31a58ad2336d61cd6437ac0c2cb491e5c5f9acf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ene_23.png",
+      "width": 43,
+      "height": 43,
+      "texture_px": [
+        43,
+        43
+      ],
+      "offset": 293789,
+      "length": 1849,
+      "trim_origin_top_left_px": [
+        72,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        10
+      ],
+      "sha256": "4816de44aa6b2c5fca414a1cfe409ea3d699b8bb16829e7e11a9d8c112f619f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_00.png",
+      "width": 46,
+      "height": 30,
+      "texture_px": [
+        46,
+        30
+      ],
+      "offset": 295638,
+      "length": 1380,
+      "trim_origin_top_left_px": [
+        65,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        7
+      ],
+      "sha256": "a28f36c30eaca206b547d84b895fd2112295e6410289905d041b5c5e8d569271",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_01.png",
+      "width": 34,
+      "height": 40,
+      "texture_px": [
+        34,
+        40
+      ],
+      "offset": 297018,
+      "length": 1360,
+      "trim_origin_top_left_px": [
+        74,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        9
+      ],
+      "sha256": "98b63532c9b6935e4e43ea8864644eeae016e5193746706ea6d1cba6bde452df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_02.png",
+      "width": 16,
+      "height": 55,
+      "texture_px": [
+        16,
+        55
+      ],
+      "offset": 298378,
+      "length": 880,
+      "trim_origin_top_left_px": [
+        86,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        13
+      ],
+      "sha256": "b2d249bfbe83c157044096e9b95beb883cf18ebc9452e3831a21e412d12987c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_03.png",
+      "width": 19,
+      "height": 62,
+      "texture_px": [
+        19,
+        62
+      ],
+      "offset": 299258,
+      "length": 1178,
+      "trim_origin_top_left_px": [
+        88,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        14
+      ],
+      "sha256": "0d812b15787cd086c1b13af553e531e8712ed4145b3c9c08765e3ae457aa44d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_04.png",
+      "width": 20,
+      "height": 61,
+      "texture_px": [
+        20,
+        61
+      ],
+      "offset": 300436,
+      "length": 1220,
+      "trim_origin_top_left_px": [
+        88,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        14
+      ],
+      "sha256": "d4be29b2c1a53450e2c55dda6b8e23b42923215861b1afb2de304199efb85045",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_05.png",
+      "width": 12,
+      "height": 63,
+      "texture_px": [
+        12,
+        63
+      ],
+      "offset": 301656,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        90,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        17
+      ],
+      "sha256": "ec992fb4225b371c6647afd4bac3dcb7c110ac5781c5cc617fcdfb035c8c5af5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_06.png",
+      "width": 13,
+      "height": 56,
+      "texture_px": [
+        13,
+        56
+      ],
+      "offset": 302412,
+      "length": 728,
+      "trim_origin_top_left_px": [
+        90,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        14
+      ],
+      "sha256": "5b2151aaa09f317d725633eb613e31997b6ea9e2d40dcb17d2648d42fc387991",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_07.png",
+      "width": 14,
+      "height": 52,
+      "texture_px": [
+        14,
+        52
+      ],
+      "offset": 303140,
+      "length": 728,
+      "trim_origin_top_left_px": [
+        89,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        11
+      ],
+      "sha256": "45f37bae937a3e3db169efa0b594134f4ac8e2faac39356e5be051c0cbb8bd44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_08.png",
+      "width": 14,
+      "height": 50,
+      "texture_px": [
+        14,
+        50
+      ],
+      "offset": 303868,
+      "length": 700,
+      "trim_origin_top_left_px": [
+        88,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        10
+      ],
+      "sha256": "02cb345853b71fc391dee58798f9853c7e3edae2f89ff2c6786baffbfdbb1fb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_09.png",
+      "width": 16,
+      "height": 46,
+      "texture_px": [
+        16,
+        46
+      ],
+      "offset": 304568,
+      "length": 736,
+      "trim_origin_top_left_px": [
+        86,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        7
+      ],
+      "sha256": "b23aba3916e7800121cd81ac49c527e9990d58f8705a834eadfb9f225943bda3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_10.png",
+      "width": 16,
+      "height": 45,
+      "texture_px": [
+        16,
+        45
+      ],
+      "offset": 305304,
+      "length": 720,
+      "trim_origin_top_left_px": [
+        86,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        6
+      ],
+      "sha256": "a0f94af926030f505916987433a50614bb5247a219a1da915ce87cc76a9f9feb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_11.png",
+      "width": 16,
+      "height": 45,
+      "texture_px": [
+        16,
+        45
+      ],
+      "offset": 306024,
+      "length": 720,
+      "trim_origin_top_left_px": [
+        86,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        6
+      ],
+      "sha256": "a0f94af926030f505916987433a50614bb5247a219a1da915ce87cc76a9f9feb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_12.png",
+      "width": 16,
+      "height": 45,
+      "texture_px": [
+        16,
+        45
+      ],
+      "offset": 306744,
+      "length": 720,
+      "trim_origin_top_left_px": [
+        86,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        6
+      ],
+      "sha256": "a0f94af926030f505916987433a50614bb5247a219a1da915ce87cc76a9f9feb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_13.png",
+      "width": 19,
+      "height": 41,
+      "texture_px": [
+        19,
+        41
+      ],
+      "offset": 307464,
+      "length": 779,
+      "trim_origin_top_left_px": [
+        86,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        5
+      ],
+      "sha256": "c2ad256597958675c707e8bb89aba6ad3ab723f15c452a62aba4dcd70dfcbb5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_14.png",
+      "width": 23,
+      "height": 28,
+      "texture_px": [
+        23,
+        28
+      ],
+      "offset": 308243,
+      "length": 644,
+      "trim_origin_top_left_px": [
+        86,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        1
+      ],
+      "sha256": "0c4fa8016d7b0ba32ec1fbaee49946d61e05b6b461cb1c1850eb3720db527894",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_15.png",
+      "width": 25,
+      "height": 24,
+      "texture_px": [
+        25,
+        24
+      ],
+      "offset": 308887,
+      "length": 600,
+      "trim_origin_top_left_px": [
+        86,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        0
+      ],
+      "sha256": "b3becee1773363e787b409b4bd570f6224289bc7de8961ea31fc7d6d6e4359ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_16.png",
+      "width": 14,
+      "height": 37,
+      "texture_px": [
+        14,
+        37
+      ],
+      "offset": 309487,
+      "length": 518,
+      "trim_origin_top_left_px": [
+        90,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        6
+      ],
+      "sha256": "6483fb98a797a7fe1363046c334c35d991fa7ea095934d606b31b535c8cc93cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_17.png",
+      "width": 17,
+      "height": 47,
+      "texture_px": [
+        17,
+        47
+      ],
+      "offset": 310005,
+      "length": 799,
+      "trim_origin_top_left_px": [
+        89,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        9
+      ],
+      "sha256": "a34bae3632409a05358d085e5cde59289969bf5605c95f80710c514549c6af43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_18.png",
+      "width": 25,
+      "height": 45,
+      "texture_px": [
+        25,
+        45
+      ],
+      "offset": 310804,
+      "length": 1125,
+      "trim_origin_top_left_px": [
+        86,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        9
+      ],
+      "sha256": "54bf23402186902e449f5ae79307f217f70f0652bff7bd137e57d426b4925de5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_19.png",
+      "width": 18,
+      "height": 63,
+      "texture_px": [
+        18,
+        63
+      ],
+      "offset": 311929,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        86,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        15
+      ],
+      "sha256": "0838a486632d0121895fc506ae2e12233bf0d0f73d52e4c44446c29b63b443e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_20.png",
+      "width": 17,
+      "height": 58,
+      "texture_px": [
+        17,
+        58
+      ],
+      "offset": 313063,
+      "length": 986,
+      "trim_origin_top_left_px": [
+        84,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        15
+      ],
+      "sha256": "450e74c2045f14beb5e03891f1e7a775627ac7737bef135c530c60f45debccbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_21.png",
+      "width": 30,
+      "height": 45,
+      "texture_px": [
+        30,
+        45
+      ],
+      "offset": 314049,
+      "length": 1350,
+      "trim_origin_top_left_px": [
+        76,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        12
+      ],
+      "sha256": "3e344109183d9ed4c0f87e6fa3874a399a06e229ba1f8f006491d7d0320532f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_22.png",
+      "width": 40,
+      "height": 35,
+      "texture_px": [
+        40,
+        35
+      ],
+      "offset": 315399,
+      "length": 1400,
+      "trim_origin_top_left_px": [
+        69,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        9
+      ],
+      "sha256": "f586a22083e4c3ff54636fd3e83eabe449385264739dfdf2c924c14c6781e62b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_e_23.png",
+      "width": 46,
+      "height": 30,
+      "texture_px": [
+        46,
+        30
+      ],
+      "offset": 316799,
+      "length": 1380,
+      "trim_origin_top_left_px": [
+        65,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        7
+      ],
+      "sha256": "a28f36c30eaca206b547d84b895fd2112295e6410289905d041b5c5e8d569271",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_00.png",
+      "width": 42,
+      "height": 20,
+      "texture_px": [
+        42,
+        20
+      ],
+      "offset": 318179,
+      "length": 840,
+      "trim_origin_top_left_px": [
+        60,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        2
+      ],
+      "sha256": "6819da9d276223114996da10ccb2caa0208f269aff66ad614227b527775af621",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_01.png",
+      "width": 32,
+      "height": 30,
+      "texture_px": [
+        32,
+        30
+      ],
+      "offset": 319019,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        68,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        7
+      ],
+      "sha256": "135228720f4f184cf4457edbdaa40cabb315fe49250413238670f63743709dca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_02.png",
+      "width": 21,
+      "height": 52,
+      "texture_px": [
+        21,
+        52
+      ],
+      "offset": 319979,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        77,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        15
+      ],
+      "sha256": "8f0dc8feb48d284d2d3611d884fcadf71e6177d881b85428f9edf98d8c934894",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_03.png",
+      "width": 11,
+      "height": 64,
+      "texture_px": [
+        11,
+        64
+      ],
+      "offset": 321071,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        82,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        19
+      ],
+      "sha256": "6e20a4922a43111c08fcaabca4315c118760c77d141863f262c662764f33ee51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_04.png",
+      "width": 12,
+      "height": 65,
+      "texture_px": [
+        12,
+        65
+      ],
+      "offset": 321775,
+      "length": 780,
+      "trim_origin_top_left_px": [
+        82,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        20
+      ],
+      "sha256": "f18ff36f0b7d374151841f7a0718b799caa1361189af836c6483644852323ac1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_05.png",
+      "width": 23,
+      "height": 62,
+      "texture_px": [
+        23,
+        62
+      ],
+      "offset": 322555,
+      "length": 1426,
+      "trim_origin_top_left_px": [
+        78,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        22
+      ],
+      "sha256": "40f6ed5b101b5f04ee6a20ce4d2a263da6b738bc4e2c7dc8e251711c5c58be44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_06.png",
+      "width": 32,
+      "height": 51,
+      "texture_px": [
+        32,
+        51
+      ],
+      "offset": 323981,
+      "length": 1632,
+      "trim_origin_top_left_px": [
+        73,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        16
+      ],
+      "sha256": "e351e6b081439365d12d2a56caed68ec9340d6a49cad00b7e92936bb83701627",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_07.png",
+      "width": 33,
+      "height": 46,
+      "texture_px": [
+        33,
+        46
+      ],
+      "offset": 325613,
+      "length": 1518,
+      "trim_origin_top_left_px": [
+        72,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        12
+      ],
+      "sha256": "2b3c02bfde4d4451b287a86c510a48daa11c9b7c4cdb34a8f8e696f2e5734060",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_08.png",
+      "width": 34,
+      "height": 44,
+      "texture_px": [
+        34,
+        44
+      ],
+      "offset": 327131,
+      "length": 1496,
+      "trim_origin_top_left_px": [
+        71,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        11
+      ],
+      "sha256": "f35dfa8733fef85f87948e4a815ff2cd464acf80fd24ff321c26dfcd5203180f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_09.png",
+      "width": 36,
+      "height": 40,
+      "texture_px": [
+        36,
+        40
+      ],
+      "offset": 328627,
+      "length": 1440,
+      "trim_origin_top_left_px": [
+        70,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        8
+      ],
+      "sha256": "4197c3e478b26e68ee1bed00754df32725accf6e87693a40c3ea4ba9ca1dfa73",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_10.png",
+      "width": 37,
+      "height": 36,
+      "texture_px": [
+        37,
+        36
+      ],
+      "offset": 330067,
+      "length": 1332,
+      "trim_origin_top_left_px": [
+        69,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        5
+      ],
+      "sha256": "fda5113ad1a4dcb7de9a2b98a5bd104a6c150914b298376e395453c71455c291",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_11.png",
+      "width": 37,
+      "height": 36,
+      "texture_px": [
+        37,
+        36
+      ],
+      "offset": 331399,
+      "length": 1332,
+      "trim_origin_top_left_px": [
+        69,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        5
+      ],
+      "sha256": "fda5113ad1a4dcb7de9a2b98a5bd104a6c150914b298376e395453c71455c291",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_12.png",
+      "width": 37,
+      "height": 36,
+      "texture_px": [
+        37,
+        36
+      ],
+      "offset": 332731,
+      "length": 1332,
+      "trim_origin_top_left_px": [
+        69,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        5
+      ],
+      "sha256": "fda5113ad1a4dcb7de9a2b98a5bd104a6c150914b298376e395453c71455c291",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_13.png",
+      "width": 40,
+      "height": 32,
+      "texture_px": [
+        40,
+        32
+      ],
+      "offset": 334063,
+      "length": 1280,
+      "trim_origin_top_left_px": [
+        68,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        4
+      ],
+      "sha256": "87e7f4ec0532d749a6027d996a45ac99c8765111306de26847c35f8459cddac9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_14.png",
+      "width": 42,
+      "height": 18,
+      "texture_px": [
+        42,
+        18
+      ],
+      "offset": 335343,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        67,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        0
+      ],
+      "sha256": "45d004189f47d596904de02459d47cc319db9b761504116b77bb112f204fea7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_15.png",
+      "width": 42,
+      "height": 15,
+      "texture_px": [
+        42,
+        15
+      ],
+      "offset": 336099,
+      "length": 630,
+      "trim_origin_top_left_px": [
+        67,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        0
+      ],
+      "sha256": "687ee85a9a5823501b163e15aa5fb60d532d2cb5e953645f22b5a2cf7f86ae37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_16.png",
+      "width": 33,
+      "height": 32,
+      "texture_px": [
+        33,
+        32
+      ],
+      "offset": 336729,
+      "length": 1056,
+      "trim_origin_top_left_px": [
+        73,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        8
+      ],
+      "sha256": "2860256e4ab15e2ad630b9674f766fb37c5e503b2d2f174dc31f2ef3f671167d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_17.png",
+      "width": 19,
+      "height": 45,
+      "texture_px": [
+        19,
+        45
+      ],
+      "offset": 337785,
+      "length": 855,
+      "trim_origin_top_left_px": [
+        80,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        12
+      ],
+      "sha256": "964c95212806d86de88353941b34d21fb43bec6dd7c30f602ae184a4942c4852",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_18.png",
+      "width": 12,
+      "height": 53,
+      "texture_px": [
+        12,
+        53
+      ],
+      "offset": 338640,
+      "length": 636,
+      "trim_origin_top_left_px": [
+        81,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        15
+      ],
+      "sha256": "336bd5f908d24299b9e1e447cee479d93245e41eec9138301c492f8b5bf7f78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_19.png",
+      "width": 13,
+      "height": 62,
+      "texture_px": [
+        13,
+        62
+      ],
+      "offset": 339276,
+      "length": 806,
+      "trim_origin_top_left_px": [
+        80,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        19
+      ],
+      "sha256": "cae0b745f976a57f60f1b98653eda565f138da892b9bb400086371b906019aa7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_20.png",
+      "width": 23,
+      "height": 53,
+      "texture_px": [
+        23,
+        53
+      ],
+      "offset": 340082,
+      "length": 1219,
+      "trim_origin_top_left_px": [
+        75,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        16
+      ],
+      "sha256": "b75c2aa3e3a8f979a226aaf36efdf7a27f8cf90d107c4c7a136e86562b4a19ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_21.png",
+      "width": 31,
+      "height": 36,
+      "texture_px": [
+        31,
+        36
+      ],
+      "offset": 341301,
+      "length": 1116,
+      "trim_origin_top_left_px": [
+        69,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        9
+      ],
+      "sha256": "f9d6651cd58f6af1da74b5f461ba5e99c0c61cbd5f28f67d9093f0933cefd74d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_22.png",
+      "width": 38,
+      "height": 25,
+      "texture_px": [
+        38,
+        25
+      ],
+      "offset": 342417,
+      "length": 950,
+      "trim_origin_top_left_px": [
+        63,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        5
+      ],
+      "sha256": "c18e1aa0b9910f42ebe3a8b592490c35d46647b0a571efc02a2c585d0365807c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_ese_23.png",
+      "width": 42,
+      "height": 20,
+      "texture_px": [
+        42,
+        20
+      ],
+      "offset": 343367,
+      "length": 840,
+      "trim_origin_top_left_px": [
+        60,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        2
+      ],
+      "sha256": "6819da9d276223114996da10ccb2caa0208f269aff66ad614227b527775af621",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_00.png",
+      "width": 32,
+      "height": 14,
+      "texture_px": [
+        32,
+        14
+      ],
+      "offset": 344207,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        58,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -4
+      ],
+      "sha256": "887715e9130bce9dad4c2b37de039007f100a06d1984e0ff909a6ad82ab12398",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_01.png",
+      "width": 27,
+      "height": 24,
+      "texture_px": [
+        27,
+        24
+      ],
+      "offset": 344655,
+      "length": 648,
+      "trim_origin_top_left_px": [
+        63,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        3
+      ],
+      "sha256": "8e60c224e0a3d6b9a85404989f57e379fdda14192a8966676ec186d0cfeaaddd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_02.png",
+      "width": 24,
+      "height": 46,
+      "texture_px": [
+        24,
+        46
+      ],
+      "offset": 345303,
+      "length": 1104,
+      "trim_origin_top_left_px": [
+        67,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        14
+      ],
+      "sha256": "c03fdc7c798444ec0f593fe9dc78d194024d62947fdf40a2530ae44c515f4dfe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_03.png",
+      "width": 21,
+      "height": 61,
+      "texture_px": [
+        21,
+        61
+      ],
+      "offset": 346407,
+      "length": 1281,
+      "trim_origin_top_left_px": [
+        70,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        20
+      ],
+      "sha256": "605f97c71f2c85f1b8a3947dd122792e90f19fe8deb1b40ebe37b02df7b05a1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_04.png",
+      "width": 25,
+      "height": 60,
+      "texture_px": [
+        25,
+        60
+      ],
+      "offset": 347688,
+      "length": 1500,
+      "trim_origin_top_left_px": [
+        68,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        20
+      ],
+      "sha256": "09a5b8534d416da2672845f45af1d7578cb2e8fac1757348f79fdb1c928e9e94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_05.png",
+      "width": 40,
+      "height": 53,
+      "texture_px": [
+        40,
+        53
+      ],
+      "offset": 349188,
+      "length": 2120,
+      "trim_origin_top_left_px": [
+        59,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        19
+      ],
+      "sha256": "beeb504f921f3658f282933fd5747c2ac798891b392104b15b1543ea4ea5f275",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_06.png",
+      "width": 50,
+      "height": 40,
+      "texture_px": [
+        50,
+        40
+      ],
+      "offset": 351308,
+      "length": 2000,
+      "trim_origin_top_left_px": [
+        53,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        12
+      ],
+      "sha256": "e901fee9816297c702bd2cf727bac44da493cb8898e8a459a81b94848e4e9362",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_07.png",
+      "width": 52,
+      "height": 34,
+      "texture_px": [
+        52,
+        34
+      ],
+      "offset": 353308,
+      "length": 1768,
+      "trim_origin_top_left_px": [
+        52,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        7
+      ],
+      "sha256": "1f30f0b0a0d90fc9db8848c4c0e6f0e46e90db5e15ee6f1050850244d8539fe0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_08.png",
+      "width": 53,
+      "height": 32,
+      "texture_px": [
+        53,
+        32
+      ],
+      "offset": 355076,
+      "length": 1696,
+      "trim_origin_top_left_px": [
+        52,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        6
+      ],
+      "sha256": "05859a10b3e2da0a0d570d51f4c30db3764fa0fcb775b29b486029a13851e18e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_09.png",
+      "width": 54,
+      "height": 27,
+      "texture_px": [
+        54,
+        27
+      ],
+      "offset": 356772,
+      "length": 1458,
+      "trim_origin_top_left_px": [
+        52,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        2
+      ],
+      "sha256": "841669e3dcc68cfbb6a15aa9ff027b4a67356d9333c7706081c0868168c87214",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_10.png",
+      "width": 54,
+      "height": 24,
+      "texture_px": [
+        54,
+        24
+      ],
+      "offset": 358230,
+      "length": 1296,
+      "trim_origin_top_left_px": [
+        52,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        0
+      ],
+      "sha256": "2731e589cbab457e26108eb2fbdaf056186f01f87ed7056771269820fb1b35d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_11.png",
+      "width": 54,
+      "height": 24,
+      "texture_px": [
+        54,
+        24
+      ],
+      "offset": 359526,
+      "length": 1296,
+      "trim_origin_top_left_px": [
+        52,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        0
+      ],
+      "sha256": "2731e589cbab457e26108eb2fbdaf056186f01f87ed7056771269820fb1b35d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_12.png",
+      "width": 54,
+      "height": 24,
+      "texture_px": [
+        54,
+        24
+      ],
+      "offset": 360822,
+      "length": 1296,
+      "trim_origin_top_left_px": [
+        52,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        0
+      ],
+      "sha256": "2731e589cbab457e26108eb2fbdaf056186f01f87ed7056771269820fb1b35d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_13.png",
+      "width": 56,
+      "height": 18,
+      "texture_px": [
+        56,
+        18
+      ],
+      "offset": 362118,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        51,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -2
+      ],
+      "sha256": "280c91767566096542c4703fd7240be38921045ed2c106b0aede73cbeaedb849",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_14.png",
+      "width": 56,
+      "height": 6,
+      "texture_px": [
+        56,
+        6
+      ],
+      "offset": 363126,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        49,
+        88
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -6
+      ],
+      "sha256": "8217baf0723fbe05b21036b2f1f9ffe476fbca44950210f53449febd0e3db015",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_15.png",
+      "width": 54,
+      "height": 5,
+      "texture_px": [
+        54,
+        5
+      ],
+      "offset": 363462,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        49,
+        89
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -6
+      ],
+      "sha256": "52b1428ecbe240fecaced794e0c74d2cc68ff6094d89ee03f64b1fd241629b3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_16.png",
+      "width": 50,
+      "height": 21,
+      "texture_px": [
+        50,
+        21
+      ],
+      "offset": 363732,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        53,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        4
+      ],
+      "sha256": "7eb3ded5f7b7727c2edc84d2c8b315a4cc5cc2fc17a9ced542ed0df89a6aba8e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_17.png",
+      "width": 38,
+      "height": 38,
+      "texture_px": [
+        38,
+        38
+      ],
+      "offset": 364782,
+      "length": 1444,
+      "trim_origin_top_left_px": [
+        61,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "9530d094e76f2b8388431d3a95f1dec86fe3370aaa2f7f23928659f611a94aae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_18.png",
+      "width": 27,
+      "height": 50,
+      "texture_px": [
+        27,
+        50
+      ],
+      "offset": 366226,
+      "length": 1350,
+      "trim_origin_top_left_px": [
+        67,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "7f7437d570c2de978178bf6156f6120f981f80e6d9e9b70a6f72ed121eba2868",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_19.png",
+      "width": 26,
+      "height": 59,
+      "texture_px": [
+        26,
+        59
+      ],
+      "offset": 367576,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        67,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        19
+      ],
+      "sha256": "72da427485264d57f226b54dea05a39d31af0dc5e4bc7dbe589d3e26727eb0ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_20.png",
+      "width": 28,
+      "height": 47,
+      "texture_px": [
+        28,
+        47
+      ],
+      "offset": 369110,
+      "length": 1316,
+      "trim_origin_top_left_px": [
+        65,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "65ef0ff8c087fba3bbe1c2d806ebbaa46a718f5a1af22567de6373aebcbcd811",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_21.png",
+      "width": 28,
+      "height": 29,
+      "texture_px": [
+        28,
+        29
+      ],
+      "offset": 370426,
+      "length": 812,
+      "trim_origin_top_left_px": [
+        63,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "ca2a2800b6968626c29709ceb73d38a9f1cbaa588c9baadf93c4be237944cce5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_22.png",
+      "width": 30,
+      "height": 18,
+      "texture_px": [
+        30,
+        18
+      ],
+      "offset": 371238,
+      "length": 540,
+      "trim_origin_top_left_px": [
+        60,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        0
+      ],
+      "sha256": "5ad3b5e57982ab517eafaa8086249771f2d5fb5223bd9a927ba5e61b77585382",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_se_23.png",
+      "width": 32,
+      "height": 14,
+      "texture_px": [
+        32,
+        14
+      ],
+      "offset": 371778,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        58,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -4
+      ],
+      "sha256": "887715e9130bce9dad4c2b37de039007f100a06d1984e0ff909a6ad82ab12398",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_00.png",
+      "width": 17,
+      "height": 11,
+      "texture_px": [
+        17,
+        11
+      ],
+      "offset": 372226,
+      "length": 187,
+      "trim_origin_top_left_px": [
+        59,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -9
+      ],
+      "sha256": "15b51ab77ae576b8e85f788f4ce88825cd886cfeeabc6facdc809bcaa9256057",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 372413,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -2
+      ],
+      "sha256": "5504c8974a10b7233c6254536a48e9c5b606ab6377a654b9b433f0c15d179d92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_02.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 372753,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        58,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        9
+      ],
+      "sha256": "773e412a1f8a25ba6630197e6710b352afe5cbb5279f671a3f94ba8f7f4f7bae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_03.png",
+      "width": 32,
+      "height": 55,
+      "texture_px": [
+        32,
+        55
+      ],
+      "offset": 373689,
+      "length": 1760,
+      "trim_origin_top_left_px": [
+        55,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        16
+      ],
+      "sha256": "d01154993b42685347783578a5de18ed430594e94553b18d3826559ecb7806b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_04.png",
+      "width": 41,
+      "height": 52,
+      "texture_px": [
+        41,
+        52
+      ],
+      "offset": 375449,
+      "length": 2132,
+      "trim_origin_top_left_px": [
+        50,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        15
+      ],
+      "sha256": "296b6cf34170c3fca047840ab04ac55437871c7da0aae957b3f49d4b86e1aa7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_05.png",
+      "width": 53,
+      "height": 39,
+      "texture_px": [
+        53,
+        39
+      ],
+      "offset": 377581,
+      "length": 2067,
+      "trim_origin_top_left_px": [
+        41,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        10
+      ],
+      "sha256": "8a11447bc36fa77573bb031fef83b1da854ae4bc3ac961811ff3d2fb6429b011",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_06.png",
+      "width": 61,
+      "height": 23,
+      "texture_px": [
+        61,
+        23
+      ],
+      "offset": 379648,
+      "length": 1403,
+      "trim_origin_top_left_px": [
+        36,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        1
+      ],
+      "sha256": "a94a7a68a7d430a15fcc6f3f1379815e4d9f91b5e3a6168ad1026021a1dcc62e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_07.png",
+      "width": 62,
+      "height": 17,
+      "texture_px": [
+        62,
+        17
+      ],
+      "offset": 381051,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        36,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -3
+      ],
+      "sha256": "796540290f18e24032649251518ff61e4566adb7ca6669fc68b97893f3dd595e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_08.png",
+      "width": 62,
+      "height": 14,
+      "texture_px": [
+        62,
+        14
+      ],
+      "offset": 382105,
+      "length": 868,
+      "trim_origin_top_left_px": [
+        37,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        -5
+      ],
+      "sha256": "354df3917fb63b69af7fefeb902c794e4d6441a03987f7ca9ac299c28274f1a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_09.png",
+      "width": 62,
+      "height": 10,
+      "texture_px": [
+        62,
+        10
+      ],
+      "offset": 382973,
+      "length": 620,
+      "trim_origin_top_left_px": [
+        39,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -8
+      ],
+      "sha256": "e54b34c9de0861b76518f0e88871e0eefaf40b3243b9f7455fe86af9eb494539",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_10.png",
+      "width": 64,
+      "height": 7,
+      "texture_px": [
+        64,
+        7
+      ],
+      "offset": 383593,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        39,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -10
+      ],
+      "sha256": "40780b5b13c81458c2f024d56c322a660482a9342491a9f4ae62cd3517eec2d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_11.png",
+      "width": 64,
+      "height": 7,
+      "texture_px": [
+        64,
+        7
+      ],
+      "offset": 384041,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        39,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -10
+      ],
+      "sha256": "40780b5b13c81458c2f024d56c322a660482a9342491a9f4ae62cd3517eec2d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_12.png",
+      "width": 64,
+      "height": 7,
+      "texture_px": [
+        64,
+        7
+      ],
+      "offset": 384489,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        39,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -10
+      ],
+      "sha256": "40780b5b13c81458c2f024d56c322a660482a9342491a9f4ae62cd3517eec2d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_13.png",
+      "width": 64,
+      "height": 4,
+      "texture_px": [
+        64,
+        4
+      ],
+      "offset": 384937,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        37,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        -12
+      ],
+      "sha256": "3d74410e5f81f9e52194ab0dbc00970667e657ec837967fae4c0e9f23e835ffb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_14.png",
+      "width": 60,
+      "height": 14,
+      "texture_px": [
+        60,
+        14
+      ],
+      "offset": 385193,
+      "length": 840,
+      "trim_origin_top_left_px": [
+        36,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -4
+      ],
+      "sha256": "a6fd3ab7ba84afd6e0074b79e680494d8a85c1ad0aed5830ba168e90f6199b55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_15.png",
+      "width": 59,
+      "height": 18,
+      "texture_px": [
+        59,
+        18
+      ],
+      "offset": 386033,
+      "length": 1062,
+      "trim_origin_top_left_px": [
+        36,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -1
+      ],
+      "sha256": "d610c87ac54611235cdeb88aabf68ca4500d06e1f52a186a35068f992a7d6834",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_16.png",
+      "width": 61,
+      "height": 9,
+      "texture_px": [
+        61,
+        9
+      ],
+      "offset": 387095,
+      "length": 549,
+      "trim_origin_top_left_px": [
+        36,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -7
+      ],
+      "sha256": "915422d26ff2c4d93605a15dfe3c089af1c11ed2bc470a6a586024fdb71b8888",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_17.png",
+      "width": 56,
+      "height": 25,
+      "texture_px": [
+        56,
+        25
+      ],
+      "offset": 387644,
+      "length": 1400,
+      "trim_origin_top_left_px": [
+        41,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        3
+      ],
+      "sha256": "17b4c7b371ad785f75b1314ba6dc2a0745d6cfa908d4a8a9b2f0775146b5b24b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_18.png",
+      "width": 46,
+      "height": 40,
+      "texture_px": [
+        46,
+        40
+      ],
+      "offset": 389044,
+      "length": 1840,
+      "trim_origin_top_left_px": [
+        48,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        9
+      ],
+      "sha256": "67f88364100242fa668f7879e1028cb36f2c1e0c6dca1a6fd504ff9153142b61",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_19.png",
+      "width": 38,
+      "height": 51,
+      "texture_px": [
+        38,
+        51
+      ],
+      "offset": 390884,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        52,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        15
+      ],
+      "sha256": "d6a8f062d8578fbe23e19f2c03f8a6525b6de8e318cbf8d9671c5ab727f4df50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_20.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 392822,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        56,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        8
+      ],
+      "sha256": "cf8a173bd2db7f777824c5897478ef92ec84a35e8d5bd6a8dcb4ac11cb5dc133",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_21.png",
+      "width": 21,
+      "height": 23,
+      "texture_px": [
+        21,
+        23
+      ],
+      "offset": 393924,
+      "length": 483,
+      "trim_origin_top_left_px": [
+        59,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        0
+      ],
+      "sha256": "08c4ef7e44024037f49fd9b96e5039ecf43263b6aef4229e0198725b95eb7b88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_22.png",
+      "width": 18,
+      "height": 14,
+      "texture_px": [
+        18,
+        14
+      ],
+      "offset": 394407,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        59,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -6
+      ],
+      "sha256": "cbad014a50936fa2022d50abef8269286d11954d3a629868b38a643b52d5f981",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionBow.atlas",
+      "name": "tripfall_sse_23.png",
+      "width": 17,
+      "height": 11,
+      "texture_px": [
+        17,
+        11
+      ],
+      "offset": 394659,
+      "length": 187,
+      "trim_origin_top_left_px": [
+        59,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -9
+      ],
+      "sha256": "15b51ab77ae576b8e85f788f4ce88825cd886cfeeabc6facdc809bcaa9256057",
+      "empty": false
+    }
+  ],
+  "source_authority": "TripReactionOct08/TripReaction_Authored.blend"
+}

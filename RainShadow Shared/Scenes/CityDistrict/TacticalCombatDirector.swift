@@ -1,4 +1,5 @@
 import SpriteKit
+import AVFoundation
 
 /// Scene adapter for the pure combat core. The turn is locked while its accepted
 /// event is presented; save/reload resumes at that event's already-saved endpoint.
@@ -16,12 +17,20 @@ final class TacticalCombatDirector {
     private let panel = SKShapeNode()
     private let turnPanel = SKShapeNode()
     private var buttons: [SKShapeNode] = []
+    private var laidOutBearForm: Bool?
+    var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
+    private var activeButtons: [SKShapeNode] {
+        combat.isBear ? [14, 15, 3, 0, 11, 1, 2].map { buttons[$0] } : Array(buttons.prefix(14))
+    }
     private let routePreview = SKShapeNode()
     private let sightPreview = SKNode()
     private var showingSight = false
     private(set) var selectingSneakAttack = false
     private var badges: [String: SKLabelNode] = [:]
     private var rings: [String: SKShapeNode] = [:]
+    private(set) var defeatNodes: [String: CharacterAppearanceNode] = [:]
+    private(set) var defeats: [String: CombatDefeatMotion] = [:]
+    var defeatsAnimating: Bool { defeats.values.contains { !$0.finished } }
     private(set) var hitReactions: [String: CombatRecoil] = [:]
     private var reactionFacings: [String: (start: ActorFacing, rest: ActorFacing)] = [:]
     private(set) var reactionNodes: [String: CharacterAppearanceNode] = [:]
@@ -41,7 +50,33 @@ final class TacticalCombatDirector {
     private var tick = 0
     private var finished = false
     private(set) var selectedManeuver: CombatManeuver?
+    private(set) var selectingShove = false
+    struct ShovePresentation {
+        let before: TacticalCombat
+        let result: TacticalCombat.Shove
+        let target: Combatant
+        let node: CharacterAppearanceNode
+        let facing: ActorFacing
+        var elapsed = 0.0
+        var impactPresented = false
+    }
+    private(set) var shovePresentation: ShovePresentation?
     private(set) var aimingFireArrow = false
+    private(set) var selectingClaw = false
+    struct BearAbilityPresentation {
+        let before: TacticalCombat
+        let action: CharacterVisualAction
+        let strike: TacticalCombat.Strike?
+        let targets: [Combatant]
+        var elapsed = 0.0
+        var impactPresented = false
+        var impactTime: Double { action == .roar ? BearFormRules.roarImpactTime : BearFormRules.clawImpactTime }
+        var duration: Double { action == .roar ? BearFormRules.roarDuration : BearFormRules.clawDuration }
+    }
+    private(set) var bearAbility: BearAbilityPresentation?
+    private var roarWaves: [SKShapeNode] = []
+    private var roarSound: AVAudioPlayer?
+    var roarSoundIsPlaying: Bool { roarSound?.isPlaying == true }
     private var playerBowNode: CharacterAppearanceNode?
     private var playerMeleeNode: CharacterAppearanceNode?
     private(set) var barrelNodes: [String: CombatBarrelVisual] = [:]
@@ -49,11 +84,13 @@ final class TacticalCombatDirector {
     private(set) var knockbackElapsed: TimeInterval = 0
     private(set) var blasts: [BarrelBlastVisual] = []
     var presentedCombat: TacticalCombat {
-        meleeAttack.flatMap { $0.impactPresented ? nil : $0.before }
+        bearAbility.flatMap { $0.impactPresented ? nil : $0.before }
+            ?? shovePresentation.flatMap { $0.impactPresented ? nil : $0.before }
+            ?? meleeAttack.flatMap { $0.impactPresented ? nil : $0.before }
             ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat
     }
     private(set) var meleeAttack: MeleeAttackPresentation?
-    func isStriking(_ id: String) -> Bool { meleeAttack?.before.current.id == id }
+    func isStriking(_ id: String) -> Bool { bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
     func isShooting(_ id: String) -> Bool { rangedShot?.actor.definition.id == id }
     private(set) var bearNode: CharacterAppearanceNode?
@@ -65,7 +102,14 @@ final class TacticalCombatDirector {
     private var bearFacing: ActorFacing = .south
     private var feedback = "Click ground to move • Click a rival to strike"
     var debrisMoving: Bool { barrelNodes.values.contains { $0.isSimulating } }
-    var busy: Bool { !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || !hitReactions.isEmpty }
+    /// Held Prone poses remain visible without blocking other actors' turns.
+    private var reactionsAnimating: Bool {
+        hitReactions.contains { id, reaction in
+            !(presentedCombat.actors.contains { $0.id == id && $0.isProne }
+                && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
+        }
+    }
+    var busy: Bool { bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -82,8 +126,8 @@ final class TacticalCombatDirector {
             hud.addChild(label)
         }
         let commands = [("combat.defend", "Defend [1]"), ("combat.end", "End turn [Enter]"), ("combat.yield", "Yield [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
-            + CombatManeuver.allCases.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish")] {
+            + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
+        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]")] {
             let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
             button.name = name
             button.fillColor = SKColor(white: 0.17, alpha: 1)
@@ -92,6 +136,7 @@ final class TacticalCombatDirector {
             text.text = title; text.fontSize = 14; text.verticalAlignmentMode = .center
             button.addChild(text); hud.addChild(button); buttons.append(button)
         }
+        routePreview.name = "combat.routePreview"
         routePreview.strokeColor = .cyan; routePreview.lineWidth = 2; routePreview.zPosition = 10000
         scene.depthWorldRoot.addChild(routePreview)
         sightPreview.zPosition = -0.2; scene.depthWorldRoot.addChild(sightPreview)
@@ -126,6 +171,13 @@ final class TacticalCombatDirector {
                 position: barrel.position, radius: 20, isBumpable: false, isMoving: false,
                 personalSpaceCells: 3)) }
         }
+        for actor in combat.actors where !actor.conscious { beginDefeat(actor, restored: true) }
+        updateDefeats(delta: 0)
+        for actor in combat.actors where actor.isProne {
+            let result = TacticalCombat.Strike(attacker: actor.id, target: actor.id, roll: 0, damage: 0, knockedOut: false)
+            beginReaction(result, target: actor, kind: .tripFall, elapsed: ProneMotion.holdTime)
+        }
+        updateReactions()
         layout()
         updateStealth(delta: 0)
         updateBurning(delta: 0)
@@ -134,12 +186,15 @@ final class TacticalCombatDirector {
     }
 
     func layout() {
+        laidOutBearForm = combat.isBear
+        let visible = activeButtons
+        for button in buttons { button.isHidden = !visible.contains { $0 === button } }
         let left = HUDChromeLayout.leftRailClearance(for: scene.size)
         let right = HUDChromeLayout.rightRailClearance(for: scene.size)
         let width = max(260, min(820, scene.size.width - left - right - 16))
         hud.position.x = (left - right) / 2
         let columns = width >= 760 ? 5 : width >= 460 ? 3 : 2
-        let rows = Int(ceil(Double(buttons.count) / Double(columns)))
+        let rows = Int(ceil(Double(visible.count) / Double(columns)))
         let height: CGFloat = 140 + CGFloat(rows) * 48
         panel.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -height / 2, width: width, height: height), cornerWidth: 8, cornerHeight: 8, transform: nil)
         panel.position.y = -scene.size.height / 2 + height / 2 + 24
@@ -152,7 +207,7 @@ final class TacticalCombatDirector {
         header.fontSize = 17; order.fontSize = 13; message.fontSize = 14; history.fontSize = 12
         for label in [message, history, order] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
         message.numberOfLines = width < 660 ? 4 : 2
-        for (i, button) in buttons.enumerated() {
+        for (i, button) in visible.enumerated() {
             let spacing = min(158, (width - 20) / CGFloat(columns))
             button.setScale(min(1, spacing / 154))
             button.position = CGPoint(x: (CGFloat(i % columns) - CGFloat(columns - 1) / 2) * spacing,
@@ -165,6 +220,7 @@ final class TacticalCombatDirector {
         id == TacticalCombat.playerID ? (displayingBear ? bearNode : scene.detective) : crew.first { $0.definition.id == id }
     }
     private func refresh() {
+        if laidOutBearForm != combat.isBear { layout() }
         let shown = presentedCombat
         header.text = "ROUND \(shown.round)  •  \(shown.current.name.uppercased())\(scene.pause.isPausedByPlayer ? " — PAUSED [Space]" : "")"
         order.text = shown.actors.filter(\.conscious).map { "\($0.id == shown.current.id ? "▶ " : "")\($0.name) \($0.initiative)" }.joined(separator: "   →   ")
@@ -174,12 +230,12 @@ final class TacticalCombatDirector {
             : "\(combat.current.name) is taking their turn…"
         history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
-        (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Revert [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
+        (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
         for (index, maneuver) in CombatManeuver.allCases.enumerated() {
-            let button = buttons[index + 5]
+            let button = buttons[maneuver == .tripAttack ? 13 : index + 5]
             let spent = (combat.current.usedManeuvers ?? []).contains(maneuver)
-            (button.children.first as? SKLabelNode)?.text = spent ? maneuver.title + " · spent" : "\(maneuver.title) [\(index + 6)]"
+            (button.children.first as? SKLabelNode)?.text = spent ? maneuver.title + " · spent" : maneuver == .tripAttack ? "Trip attack" : "\(maneuver.title) [\(index + 6)]"
             let gear = !maneuver.ranged || playerBowSupported
             button.alpha = combat.isPlayerTurn && !busy && gear && combat.canUse(maneuver, hasSword: playerHasSword) ? 1 : 0.35
             button.strokeColor = selectedManeuver == maneuver ? .cyan : SKColor(white: 0.5, alpha: 1)
@@ -190,7 +246,14 @@ final class TacticalCombatDirector {
         buttons[10].strokeColor = selectingSneakAttack ? .cyan : SKColor(white: 0.5, alpha: 1)
         (buttons[10].children.first as? SKLabelNode)?.text = combat.current.sneakSpent == true ? "Sneak · spent" : "Sneak attack +1d6"
         buttons[11].alpha = combat.isPlayerTurn && !busy && combat.canExtinguish ? 1 : 0.35
+        buttons[12].alpha = combat.isPlayerTurn && !busy && combat.canShove ? 1 : 0.35
+        buttons[12].strokeColor = selectingShove ? .cyan : SKColor(white: 0.5, alpha: 1)
+        (buttons[12].children.first as? SKLabelNode)?.text = combat.current.shoveSpent == true ? "Shove · spent" : "Shove · bonus"
         buttons[4].strokeColor = aimingFireArrow ? .cyan : SKColor(white: 0.5, alpha: 1)
+        buttons[14].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
+        buttons[14].strokeColor = selectingClaw ? .cyan : SKColor(white: 0.5, alpha: 1)
+        buttons[15].alpha = combat.canGoadingRoar && !busy ? 1 : 0.35
+        (buttons[15].children.first as? SKLabelNode)?.text = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading roar [6]"
         for actor in shown.actors {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
             badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.defending ? " +4" : "")"
@@ -213,8 +276,34 @@ final class TacticalCombatDirector {
         routePreview.path = nil
         refresh()
     }
-    func command(_ digit: Int) {
-        guard combat.isPlayerTurn, !busy, !scene.pause.isPausedByPlayer else { return }
+    /// Inventory owns input and presentation while open; keep the player's
+    /// explicit pause independent so closing the bag cannot clear it.
+    func setInventoryPresented(_ presented: Bool) {
+        hud.isHidden = presented
+        if presented { cancelTargeting() }
+    }
+    private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented }
+
+    func command(_ input: Int) {
+        guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
+        let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
+        if combat.isBear && ![1, 2, 3, 4, 12, 15, 16].contains(digit) { return }
+        if digit == 15 {
+            guard combat.isBear, combat.budget.canAttack else { return }
+            let wasSelected = selectingClaw; cancelTargeting(); selectingClaw = !wasSelected
+            feedback = selectingClaw ? "Claw Attack: choose a nearby rival • 5–8 damage • standard action." : "Click ground to move • Click a rival to claw"
+            refresh(); return
+        }
+        if digit == 16 { performRoar(); return }
+        selectingClaw = false
+        if digit == 13 {
+            if selectingShove { cancelTargeting(); refresh(); return }
+            guard combat.canShove else { feedback = combat.isBear ? "Shove requires human form." : "Shove bonus action is spent this turn."; refresh(); return }
+            cancelTargeting(); selectingShove = true
+            feedback = "Shove: choose a nearby rival. Bonus action; keeps your attack. Hover for chance and landing."
+            refresh(); return
+        }
+        if selectingShove { cancelTargeting() }
         if digit == 12 {
             if combat.extinguish() {
                 cancelTargeting(); feedback = "Flames extinguished. Move or end your turn."
@@ -246,15 +335,15 @@ final class TacticalCombatDirector {
             drawSight(); refresh(); return
         }
         selectingSneakAttack = false
-        if (6...9).contains(digit) {
-            let maneuver = CombatManeuver.allCases[digit - 6]
+        if (6...9).contains(digit) || digit == 14 {
+            let maneuver = digit == 14 ? CombatManeuver.tripAttack : CombatManeuver.allCases[digit - 6]
             if selectedManeuver == maneuver { cancelTargeting(); return }
             guard combat.canUse(maneuver, hasSword: playerHasSword), !maneuver.ranged || playerBowSupported else {
                 feedback = "\(maneuver.title): \((combat.current.usedManeuvers ?? []).contains(maneuver) ? "spent this encounter" : combat.isBear ? "requires human form" : maneuver.ranged && !playerBowSupported ? "requires a bow and no armor" : !maneuver.ranged && !playerHasSword ? "equip a sword before combat" : "not enough actions remaining")."
                 refresh(); return
             }
             selectedManeuver = maneuver; aimingFireArrow = false; routePreview.path = nil
-            feedback = "\(maneuver.title) · 1 use/fight: \(maneuver.detail). Select a rival; press \(digit) again to cancel."
+            feedback = "\(maneuver.title) · 1 use/fight: \(maneuver.detail). Select a rival; select this action again to cancel."
             refresh(); return
         }
         selectedManeuver = nil
@@ -288,6 +377,9 @@ final class TacticalCombatDirector {
         }
     }
     func cancelTargeting() {
+        selectingClaw = false
+        routePreview.zPosition = 10000
+        selectingShove = false
         selectingSneakAttack = false; showingSight = false; sightPreview.removeAllChildren()
         selectedManeuver = nil; aimingFireArrow = false; routePreview.path = nil
         feedback = "Click ground to move • Click a rival to strike"; refresh()
@@ -301,11 +393,17 @@ final class TacticalCombatDirector {
             && !VossArmorAppearance.allCases.contains { $0.isEquipped(in: scene.context.session.characterInventory) }
     }
     func pointer(at scenePoint: CGPoint) {
+        guard !scene.anyOverlayIsPresented else { return }
         let point = hud.convert(scenePoint, from: scene)
-        for (i, button) in buttons.enumerated() where button.contains(point) { command(i + 1); return }
+        for (i, button) in buttons.enumerated() where !button.isHidden && button.contains(point) { command(i + 1); return }
         if panel.contains(point) || turnPanel.contains(point) || existingChromeContains(point) { return }
-        guard combat.isPlayerTurn, !busy, !scene.pause.isPausedByPlayer else { return }
+        guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
+        if selectingShove {
+            if let target = shoveTarget(at: world) { performShove(target) }
+            else { feedback = "Choose a nearby standing rival to shove."; refresh() }
+            return
+        }
         if let barrel = barrel(at: world) {
             if selectedManeuver != nil || selectingSneakAttack { feedback = "Weapon techniques target rivals. Use Fire arrow [5] for barrels."; refresh(); return }
             if aimingFireArrow {
@@ -330,6 +428,8 @@ final class TacticalCombatDirector {
                 if ranged { shoot(target, requireSneakAttack: true) } else { strike(target, requireSneakAttack: true) }
             } else if aimingFireArrow || selectedManeuver?.ranged == true { shoot(target, maneuver: selectedManeuver) }
             else { strike(target, maneuver: selectedManeuver) }
+        } else if selectingClaw {
+            feedback = "Choose a nearby rival, or select Claw Attack again to move."; refresh()
         } else if selectingSneakAttack {
             feedback = "Choose a rival for Sneak Attack, or click Sneak attack again to move."; refresh()
         } else if aimingFireArrow || selectedManeuver != nil {
@@ -340,11 +440,15 @@ final class TacticalCombatDirector {
         } else { feedback = "No clear route to that point."; refresh() }
     }
     func hover(at scenePoint: CGPoint) {
-        guard combat.isPlayerTurn, !busy else { routePreview.path = nil; return }
+        guard combat.isPlayerTurn, !busy, !scene.anyOverlayIsPresented else { routePreview.path = nil; return }
         let hudPoint = hud.convert(scenePoint, from: scene)
         guard !panel.contains(hudPoint), !turnPanel.contains(hudPoint), !existingChromeContains(hudPoint) else { routePreview.path = nil; return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
-        if selectedManeuver != nil || selectingSneakAttack { routePreview.path = nil; return }
+        if selectingShove {
+            if let target = shoveTarget(at: world) { previewShove(target) } else { routePreview.path = nil }
+            return
+        }
+        if selectedManeuver != nil || selectingSneakAttack || selectingClaw { routePreview.path = nil; return }
         if let barrel = barrel(at: world) { preview(barrel); return }
         if aimingFireArrow { routePreview.path = nil; return }
         guard let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) else {
@@ -412,6 +516,10 @@ final class TacticalCombatDirector {
         let attacker = combat.current
         let wasBear = combat.isBear
         let before = combat
+        if maneuver == .tripAttack && (target.isProne || (target.player && wasBear)) {
+            feedback = target.isProne ? "That rival is already Prone." : "Trip Attack requires a human target."
+            refresh(); return
+        }
         let node = attacker.player && wasBear ? nil : meleeActor(for: attacker)
         guard attacker.player && wasBear || node != nil else { return }
         let line = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position, to: target.position, excluding: [attacker.id, target.id])
@@ -422,6 +530,7 @@ final class TacticalCombatDirector {
             refresh(); return
         }
         selectingSneakAttack = false
+        selectingClaw = false
         selectedManeuver = nil
         feedback = maneuver.map { "\($0.title) used. Move or end your turn." } ?? "Click ground to move • Click a rival to strike"
         if attacker.player { scene.detective.setEntranceFacing(.orient(from: attacker.position, to: target.position)) }
@@ -431,7 +540,10 @@ final class TacticalCombatDirector {
         delay = 0.85
         if attacker.player && wasBear {
             bearFacing = .orient(from: attacker.position, to: target.position)
-            bearAction = (.attack, 0)
+            bearAbility = BearAbilityPresentation(before: before, action: .attack, strike: result, targets: [target])
+            delay = 0.15
+            checkpoint(synchronize: false)
+            return
         } else if node == nil && target.player && wasBear && combat.isBear && result.damage > 0 {
             bearAction = (.hit, 0)
         }
@@ -478,10 +590,122 @@ final class TacticalCombatDirector {
         scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: actor.position)
         return node
     }
+    private func shoveTarget(at point: CGPoint) -> Combatant? {
+        combat.actors.filter { $0.conscious && $0.id != combat.current.id && ($0.hidden != true || $0.player == combat.current.player) }
+            .min { CombatNavigation.distance($0.position, point) < CombatNavigation.distance($1.position, point) }
+            .flatMap { CombatNavigation.distance($0.position, point) <= 65 ? $0 : nil }
+    }
+    private func shoveLanding(_ target: Combatant) -> CGPoint {
+        CombatNavigation.knockbackDestination(in: scene.navigation, actor: target, awayFrom: combat.current.position,
+            actors: combat.actors, destroyedBarrels: [], bear: target.player && combat.isBear,
+            maximumDistance: ShoveRules.distance(attacker: combat.physique(of: combat.current), target: combat.physique(of: target)))
+    }
+    private func shoveClear(_ target: Combatant) -> Bool {
+        CombatNavigation.clearLine(in: scene.navigation, from: combat.current.position, to: target.position,
+            excluding: [combat.current.id, target.id])
+    }
+    private func previewShove(_ target: Combatant) {
+        let end = shoveLanding(target), clear = shoveClear(target)
+        let preview = combat.shovePreview(target: target.id, clearLine: clear, destination: end)
+        let path = CGMutablePath(); path.move(to: target.position); path.addLine(to: end)
+        path.addEllipse(in: CGRect(x: end.x - 24, y: end.y - 18, width: 48, height: 36))
+        routePreview.zPosition = SceneLayer.hud.rawValue - SceneLayer.depthWorld.rawValue - 1
+        routePreview.path = path; routePreview.strokeColor = preview == nil ? .red : .cyan
+        feedback = preview.map { "Shove \($0.chance)% · \(Int(CombatNavigation.distance(target.position, end) / 8)) ft · bonus action" }
+            ?? combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove."
+        refresh()
+    }
+    private func performShove(_ target: Combatant) {
+        let end = shoveLanding(target), clear = shoveClear(target)
+        guard combat.shovePreview(target: target.id, clearLine: clear, destination: end) != nil else { previewShove(target); return }
+        let actor = combat.current
+        var definition: CharacterDefinition
+        if actor.player {
+            definition = .voss
+            let inventory = scene.context.session.characterInventory
+            let catalog = scene.context.session.itemCatalog
+            definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+                $0.isEquipped(in: inventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
+            }
+            if let weapon = VossWeaponAppearance.equipped(in: inventory, catalog: catalog),
+               let item = CharacterEquipmentCode(rawValue: weapon.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+            if let ammunition = VossAmmunitionAppearance.equipped(in: inventory, catalog: catalog),
+               let item = CharacterEquipmentCode(rawValue: ammunition.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+        } else if let original = actorNode(actor.id) as? CharacterAppearanceNode { definition = original.definition }
+        else { return }
+        definition.appearance.equipment.removeAll { $0.item == .elvenCourtArrow }
+        let facing = ActorFacing.orient(from: actor.position, to: target.position)
+        do {
+            let node = try CharacterAppearanceNode(definition: definition)
+            try node.present(action: .shove, facing: facing, phase: 0)
+            node.position = actor.position
+            node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
+            let before = combat
+            guard let result = combat.shove(target: target.id, clearLine: clear, destination: end) else { return }
+            node.name = "combat.shove.actor"; scene.depthWorldRoot.addChild(node)
+            scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
+            actorNode(actor.id)?.isHidden = true
+            if actor.player { scene.detective.setEntranceFacing(facing) }
+            else if let original = actorNode(actor.id) as? CharacterAppearanceNode { try? original.present(action: .idle, facing: facing, phase: 0) }
+            stealthNodes[actor.id]?.isHidden = true
+            for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
+                decoration?.removeFromParent(); if let decoration { node.addChild(decoration) }
+            }
+            shovePresentation = ShovePresentation(before: before, result: result, target: target, node: node, facing: facing)
+            // Occupancy reserves the accepted endpoint even while the old pose is visible.
+            if let move = result.displacement { scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false) }
+            cancelTargeting(); checkpoint()
+        } catch { feedback = "Shove artwork could not load."; refresh() }
+    }
+    private func updateShove(delta: Double) {
+        guard var shove = shovePresentation else { return }
+        shove.elapsed += delta
+        // The shared melee reach includes both actors' footprints. Step the
+        // presentation into palm contact, then recover to the unchanged game position.
+        let start = shove.before.current.position
+        let distance = CombatNavigation.distance(start, shove.target.position)
+        let step = max(0, distance - 58)
+        let contact = ShoveAnimationSet.impactTime
+        let t = min(1, max(0, shove.elapsed < contact ? shove.elapsed / contact
+            : (ShoveAnimationSet.duration - shove.elapsed) / (ShoveAnimationSet.duration - contact)))
+        let amount = CGFloat(step / max(1, distance) * t * t * (3 - 2 * t))
+        shove.node.position = CGPoint(x: start.x + (shove.target.position.x - start.x) * amount,
+                                      y: start.y + (shove.target.position.y - start.y) * amount)
+        try? shove.node.present(action: .shove, facing: shove.facing, phase: ShoveAnimationSet.phase(elapsed: shove.elapsed))
+        scene.applyAreaLighting(to: shove.node); scene.updateDepth(of: shove.node); scene.applyActorCover(to: shove.node, at: shove.node.position)
+        if !shove.impactPresented && shove.elapsed >= ShoveAnimationSet.impactTime {
+            shove.impactPresented = true
+            let elapsed = max(0, shove.elapsed - ShoveAnimationSet.impactTime)
+            if let move = shove.result.displacement { knockbacks = [move]; knockbackElapsed = elapsed - delta }
+            let hit = TacticalCombat.Strike(attacker: shove.result.attacker, target: shove.result.target, roll: shove.result.roll, damage: 0, knockedOut: false)
+            // Cosmetic knockdown: use the full fall/get-up clip without adding
+            // Prone, damage, or a movement charge. Its recovery keeps the turn busy.
+            beginReaction(hit, target: shove.target, kind: shove.result.succeeded ? .fall : .hit,
+                elapsed: elapsed, source: shove.before.current.position)
+            feedback = shove.result.succeeded ? "Shoved back. Your normal attack is still available if unspent." : "Shove resisted. Bonus action spent."
+            let label = SKLabelNode(fontNamed: "AvenirNext-Bold")
+            label.text = shove.result.succeeded ? "SHOVED" : "RESISTED"; label.fontSize = 20
+            label.position = CGPoint(x: shove.target.position.x, y: shove.target.position.y + 90); label.zPosition = 20001
+            scene.depthWorldRoot.addChild(label); label.run(.sequence([.group([.moveBy(x: 0, y: 22, duration: 0.6), .fadeOut(withDuration: 0.7)]), .removeFromParent()]))
+        }
+        if shove.elapsed >= ShoveAnimationSet.duration {
+            let id = shove.result.attacker, original = actorNode(shove.result.attacker)
+            original?.isHidden = false
+            for decoration in [badges[id], rings[id]] as [SKNode?] {
+                decoration?.removeFromParent(); if let decoration { original?.addChild(decoration) }
+            }
+            shove.node.removeFromParent(); shovePresentation = nil
+            revealObservedActors(); checkpoint(); return
+        }
+        shovePresentation = shove
+    }
+
     private func beginReaction(_ result: TacticalCombat.Strike, target: Combatant,
                                kind: CombatReactionKind, elapsed: Double = 0, source: CGPoint? = nil) {
         guard !result.knockedOut, let attacker = combat.actors.first(where: { $0.id == result.attacker }),
               combat.actors.contains(where: { $0.id == target.id && $0.conscious }) else { return }
+        // Further hits and misses never make a Prone target stand up early.
+        if target.isProne && kind != .tripFall { return }
         // The bear keeps its existing authored hit animation. Human equipment clips
         // must never be substituted during a transformation.
         guard !(target.player && (displayingBear || formTransition != nil)) else { return }
@@ -525,7 +749,9 @@ final class TacticalCombatDirector {
     private func updateReactions() {
         for id in Array(hitReactions.keys) {
             guard let reaction = hitReactions[id], let node = reactionNodes[id], let original = actorNode(id) else { continue }
-            if reaction.finished {
+            let prone = presentedCombat.actors.contains { $0.id == id && $0.isProne }
+            let phase = prone && reaction.kind == .tripFall ? min(ProneMotion.holdPhase, reaction.phase) : reaction.phase
+            if reaction.finished && !prone {
                 node.setCombatRecoil(0); node.isHidden = true; hitReactions[id] = nil; reactionFacings[id] = nil
                 original.isHidden = !combat.actors.contains { $0.id == id && $0.conscious }
                 for decoration in [badges[id], rings[id]] as [SKNode?] {
@@ -539,8 +765,8 @@ final class TacticalCombatDirector {
             if id == TacticalCombat.playerID { playerBowNode?.isHidden = true; playerMeleeNode?.isHidden = true }
             let facings = reactionFacings[id] ?? (node.currentFacing, node.currentFacing)
             let facing = reaction.kind.isKnockback ? ExplosionKnockbackMotion.recoveryFacing(
-                from: facings.0, to: facings.1, phase: reaction.phase, frames: reaction.kind.frames) : facings.0
-            try? node.presentReaction(reaction.kind, facing: facing, phase: reaction.phase)
+                from: facings.0, to: facings.1, phase: phase, frames: reaction.kind.frames) : facings.0
+            try? node.presentReaction(reaction.kind, facing: facing, phase: phase)
             node.setCombatRecoil(CGFloat(reaction.angle))
             scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
             for decoration in [badges[id], rings[id]] as [SKNode?] where decoration?.parent !== node {
@@ -549,13 +775,66 @@ final class TacticalCombatDirector {
         }
     }
 
+    private func beginDefeat(_ actor: Combatant, restored: Bool = false) {
+        guard defeatNodes[actor.id] == nil else { return }
+        var definition: CharacterDefinition
+        if actor.player {
+            definition = .voss
+            let inventory = scene.context.session.characterInventory
+            let catalog = scene.context.session.itemCatalog
+            definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+                $0.isEquipped(in: inventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
+            }
+            if let weapon = VossWeaponAppearance.equipped(in: inventory, catalog: catalog),
+               let item = CharacterEquipmentCode(rawValue: weapon.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+            if let ammunition = VossAmmunitionAppearance.equipped(in: inventory, catalog: catalog),
+               let item = CharacterEquipmentCode(rawValue: ammunition.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+        } else if let original = actorNode(actor.id) as? CharacterAppearanceNode { definition = original.definition }
+        else { return }
+        let facing = ActorFacing.clamped(actor.combatFacing ?? (actorNode(actor.id) as? CharacterAppearanceNode)?.currentFacing.rawValue ?? scene.detective.currentFacing.rawValue)
+        do {
+            let node = try CharacterAppearanceNode(definition: definition)
+            node.name = "combat.defeated." + actor.id
+            node.position = actorNode(actor.id)?.position ?? actor.position
+            node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
+            node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
+            let motion = CombatDefeatMotion(facing: facing, elapsed: restored || actor.isProne ? DefeatAnimationSet.duration : 0)
+            try node.present(action: .die, facing: facing, phase: motion.phase)
+            scene.depthWorldRoot.addChild(node)
+            defeatNodes[actor.id] = node; defeats[actor.id] = motion
+            node.isHidden = actor.player && (displayingBear || formTransition != nil)
+            hitReactions[actor.id] = nil; reactionFacings[actor.id] = nil
+            reactionNodes[actor.id]?.isHidden = true; stealthNodes[actor.id]?.isHidden = true
+            hideTransitions[actor.id] = nil
+            badges[actor.id]?.isHidden = true; rings[actor.id]?.isHidden = true
+            scene.navigation.unregisterActor(id: actor.id)
+            if !node.isHidden { actorNode(actor.id)?.isHidden = true }
+        } catch { feedback = "Defeat artwork could not load."; assertionFailure("Defeat artwork: \(error)") }
+    }
+
+    private func updateDefeats(delta: Double) {
+        for id in defeats.keys {
+            guard var motion = defeats[id], let node = defeatNodes[id] else { continue }
+            // Depleting Bear Form first plays its existing reversion, then the
+            // human collapse. Never replace a visible bear with human death art.
+            if id == TacticalCombat.playerID && (displayingBear || formTransition != nil) { node.isHidden = true; continue }
+            motion.elapsed = min(DefeatAnimationSet.duration, motion.elapsed + delta); defeats[id] = motion
+            try? node.present(action: .die, facing: motion.facing, phase: motion.phase)
+            node.isHidden = false
+            scene.navigation.unregisterActor(id: id)
+            actorNode(id)?.isHidden = true
+            if id == TacticalCombat.playerID { playerMeleeNode?.isHidden = true; playerBowNode?.isHidden = true }
+            scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
+        }
+    }
+
     private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant, reacts: Bool = true) {
-        if reacts && result.damage > 0 && !result.knockedOut { beginReaction(result, target: target, kind: .hit) }
+        if reacts && result.damage > 0 && !result.knockedOut { beginReaction(result, target: target, kind: result.maneuver == .tripAttack ? .tripFall : .hit) }
         // Immediate bear attacks have no human wind-up presentation to anticipate.
         if reacts && result.damage == 0 && hitReactions[target.id] == nil { beginReaction(result, target: target, kind: .dodge) }
         // Accepted damage is revealed by the action presentation at its hit marker.
         let effect = SKShapeNode(ellipseOf: CGSize(width: 52, height: 38))
-        effect.position = CGPoint(x: target.position.x, y: target.position.y + 45)
+        effect.position = CGPoint(x: target.position.x, y: target.position.y + (target.isProne || result.maneuver == .tripAttack ? 20 : 45))
         effect.strokeColor = result.sneakDamage > 0 ? .magenta : result.damage > 0 ? .orange : .white; effect.lineWidth = 3; effect.zPosition = 20000
         scene.depthWorldRoot.addChild(effect)
         effect.run(.sequence([.group([.scale(to: 1.8, duration: 0.3), .fadeOut(withDuration: 0.4)]), .removeFromParent()]))
@@ -565,18 +844,13 @@ final class TacticalCombatDirector {
             if result.fireArrow { number.text! += " · Burning" }
             if result.maneuver == .feintingCut { number.text! += " · Weakened" }
             if result.maneuver == .pinningShot { number.text! += " · Slowed" }
+            if result.maneuver == .tripAttack { number.text! += " · Prone" }
         }
         if result.sneakDamage > 0 { number.text! += " · Sneak +\(result.sneakDamage)" }
         number.fontSize = 26; number.position = CGPoint(x: target.position.x, y: target.position.y + 95); number.zPosition = 20001
         scene.depthWorldRoot.addChild(number)
         number.run(.sequence([.group([.moveBy(x: 0, y: 35, duration: 0.7), .fadeOut(withDuration: 0.8)]), .removeFromParent()]))
-        if result.knockedOut {
-            hitReactions[target.id] = nil; reactionFacings[target.id] = nil
-            reactionNodes[target.id]?.setCombatRecoil(0)
-            reactionNodes[target.id]?.isHidden = true
-            scene.navigation.unregisterActor(id: target.id)
-            actorNode(target.id)?.isHidden = true
-        }
+        if result.knockedOut { beginDefeat(target) }
     }
     private func shoot(_ target: Combatant, maneuver: CombatManeuver? = nil, requireSneakAttack: Bool = false) {
         let attacker = combat.current
@@ -778,13 +1052,17 @@ final class TacticalCombatDirector {
         let before = combat
         var burn: TacticalCombat.Strike?
         guard combat.endTurn(burningHit: { burn = $0 }) else { return }
+        if before.actors.contains(where: { $0.id == combat.current.id && $0.isProne }),
+           hitReactions[combat.current.id] != nil {
+            hitReactions[combat.current.id]?.elapsed = ProneMotion.holdTime
+        }
         if let burn { presentImpact(burn, target: before.current, reacts: false) }
         updateBurning(delta: 0)
     }
 
     private func updateStealth(delta: TimeInterval) {
         stealthTime += delta
-        let hidden = presentedCombat.actors.filter { $0.hidden == true && $0.conscious && !($0.player && displayingBear) }
+        let hidden = presentedCombat.actors.filter { $0.id != shovePresentation?.result.attacker && $0.id != shovePresentation?.result.target && $0.hidden == true && $0.conscious && !($0.player && displayingBear) }
         let ids = Set(hidden.map(\.id))
         for id in Array(stealthNodes.keys) where !ids.contains(id) || isStriking(id) || isShooting(id) || hitReactions[id] != nil {
             let node = stealthNodes[id]!
@@ -876,10 +1154,11 @@ final class TacticalCombatDirector {
     }
 
     private func enemyTurn() {
-        if combat.current.isBurning && combat.current.hp <= 8 && combat.extinguish() {
+        let goadingTarget = combat.goadingTarget(for: combat.current)
+        if goadingTarget == nil && combat.current.isBurning && combat.current.hp <= 8 && combat.extinguish() {
             updateBurning(delta: 0); delay = 0.5; checkpoint(); return
         }
-        guard let target = combat.actors.first(where: { $0.player && $0.conscious }) else { return }
+        guard let target = goadingTarget ?? combat.actors.first(where: { $0.player && $0.conscious }) else { return }
         if target.hidden == true {
             let lastSeen = target.lastSeenPosition ?? target.position
             combat.face(combat.current.id, toward: lastSeen)
@@ -897,7 +1176,14 @@ final class TacticalCombatDirector {
         let actor = combat.current
         let distance = CombatNavigation.distance(actor.position, target.position)
         if actor.rangedWeapon == .bow {
-            if let barrel = usefulBarrel(for: actor) { equipLookout(actor, bow: true); shootBarrel(barrel); return }
+            if goadingTarget == nil, combat.canShove, combat.budget.canAttack, distance <= TacticalCombat.meleeReach {
+                let end = shoveLanding(target)
+                if CombatNavigation.distance(actor.position, end) > TacticalCombat.meleeReach + 8,
+                   let preview = combat.shovePreview(target: target.id, clearLine: shoveClear(target), destination: end), preview.chance >= 25 {
+                    performShove(target); return
+                }
+            }
+            if goadingTarget == nil, let barrel = usefulBarrel(for: actor) { equipLookout(actor, bow: true); shootBarrel(barrel); return }
             equipLookout(actor, bow: distance > TacticalCombat.meleeReach)
             if combat.budget.canAttack, BowAttackRules.canShoot(attacker: actor, target: target,
                 clearLine: CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: target.position,
@@ -925,9 +1211,20 @@ final class TacticalCombatDirector {
         guard !finished else { return }
         let delta = min(0.1, max(0, time - (lastTime ?? time)))
         refresh()
-        formEffect?.setPaused(scene.pause.isPausedByPlayer)
-        guard !scene.pause.isPausedByPlayer else { return }
-        for id in Array(hitReactions.keys) { hitReactions[id]?.elapsed += delta }
+        formEffect?.setPaused(presentationPaused)
+        if presentationPaused { roarSound?.pause() }
+        else if let roarSound, let ability = bearAbility, ability.action == .roar {
+            if abs(roarSound.currentTime - ability.elapsed) > 0.1 { roarSound.currentTime = ability.elapsed }
+            if !roarSound.isPlaying { roarSound.play() }
+        }
+        guard !presentationPaused else { return }
+        for id in Array(hitReactions.keys) {
+            hitReactions[id]?.elapsed += delta
+            if presentedCombat.actors.contains(where: { $0.id == id && $0.isProne }), hitReactions[id]?.kind == .tripFall {
+                let elapsed = hitReactions[id]!.elapsed
+                hitReactions[id]?.elapsed = min(ProneMotion.holdTime, elapsed)
+            }
+        }
         for node in barrelNodes.values { node.advance(delta: delta) }
         for blast in blasts { blast.advance(delta: delta) }
         blasts.filter(\.finished).forEach { $0.removeFromParent() }
@@ -1013,6 +1310,8 @@ final class TacticalCombatDirector {
                 scene.detective.isHidden = displayingBear || !combat.actors.first(where: \.player)!.conscious
             }
         }
+        updateBearAbility(delta: delta)
+        updateShove(delta: delta)
         advanceKnockback(delta: delta)
         updateForm(delta: delta, time: time)
         updateReactions()
@@ -1035,8 +1334,9 @@ final class TacticalCombatDirector {
             if !mover.isMoving { movementCompleted() }
         }
         updateStealth(delta: delta)
+        updateDefeats(delta: delta)
         updateBurning(delta: delta)
-        guard hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, hitReactions.isEmpty else { return }
+        guard bearAbility == nil, bearAction == nil, shovePresentation == nil, !defeatsAnimating, hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, !reactionsAnimating else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
@@ -1079,7 +1379,7 @@ final class TacticalCombatDirector {
         if settled { knockbacks.removeAll() }
     }
     func finish() {
-        guard !finished, combat.outcome != nil else { return }
+        guard !finished, !defeatsAnimating, combat.outcome != nil else { return }
         finished = true
         scene.detective.setCombatRecoil(0)
         crew.forEach { $0.setCombatRecoil(0) }; bearNode?.setCombatRecoil(0)
@@ -1102,10 +1402,79 @@ final class TacticalCombatDirector {
         barrelNodes.removeAll()
         blasts.forEach { $0.removeFromParent() }; blasts.removeAll()
         bearNode?.removeFromParent(); formEffect?.stop()
+        roarWaves.forEach { $0.removeFromParent() }; roarWaves.removeAll(); bearAbility = nil; bearAction = nil
+        roarSound?.stop(); roarSound = nil
         scene.detective.alpha = 1
-        scene.detective.isHidden = false
-        scene.navigation.registerActor(id: TacticalCombat.playerID, kind: .player, at: scene.detective.position, radius: NavigationAgentProfile.detective.radius)
+        scene.detective.isHidden = defeatNodes[TacticalCombat.playerID] != nil
+        if defeatNodes[TacticalCombat.playerID] == nil {
+            scene.navigation.registerActor(id: TacticalCombat.playerID, kind: .player, at: scene.detective.position, radius: NavigationAgentProfile.detective.radius)
+        }
         completion()
+    }
+
+    private func performRoar() {
+        guard combat.canGoadingRoar else {
+            feedback = combat.isBear ? (combat.bearForm?.roarSpent == true ? "Goading Roar is spent for this transformation." : "Goading Roar needs a standard action.") : "Goading Roar requires Bear Form."
+            refresh(); return
+        }
+        let before = combat
+        let visibleTargets = combat.roarTargets(clearLine: sneakLine)
+        guard !visibleTargets.isEmpty else {
+            feedback = "Goading Roar: no visible rivals within 30 feet. Move closer; nothing was spent."
+            refresh(); return
+        }
+        guard combat.goadingRoar(clearLine: sneakLine) != nil else { return }
+        cancelTargeting()
+        if let nearest = visibleTargets.min(by: { CombatNavigation.distance(before.current.position, $0.position) < CombatNavigation.distance(before.current.position, $1.position) }) {
+            bearFacing = .orient(from: before.current.position, to: nearest.position)
+        }
+        bearAbility = BearAbilityPresentation(before: before, action: .roar, strike: nil, targets: visibleTargets)
+        roarSound = try? AVAudioPlayer(data: BearTransformationEffect.roarSoundData())
+        roarSound?.volume = 0.45; roarSound?.prepareToPlay(); roarSound?.play()
+        feedback = "Goading Roar: nearby rivals focus on the bear through their next turn."
+        delay = 0.15
+        for _ in 0..<3 {
+            let wave = SKShapeNode(ellipseOf: CGSize(width: 2, height: 1.5))
+            wave.strokeColor = SKColor(red: 1, green: 0.76, blue: 0.3, alpha: 1)
+            wave.fillColor = .clear; wave.lineWidth = 0.04; wave.zPosition = 1
+            wave.position = before.current.position; wave.isHidden = true
+            scene.depthWorldRoot.addChild(wave); roarWaves.append(wave)
+        }
+        checkpoint(synchronize: false)
+    }
+
+    private func updateBearAbility(delta: Double) {
+        guard var ability = bearAbility else { return }
+        ability.elapsed += delta
+        if let strike = ability.strike, strike.damage == 0,
+           ability.elapsed >= ability.impactTime - CombatRecoil.dodgeLeadTime,
+           hitReactions[strike.target] == nil, !ability.impactPresented {
+            beginReaction(strike, target: ability.targets[0], kind: .dodge,
+                          elapsed: max(0, ability.elapsed - (ability.impactTime - CombatRecoil.dodgeLeadTime)))
+        }
+        if !ability.impactPresented && ability.elapsed >= ability.impactTime {
+            ability.impactPresented = true
+            bearAbility = ability
+            if let strike = ability.strike { presentImpact(strike, target: ability.targets[0]) }
+            else {
+                for target in ability.targets {
+                    let response = TacticalCombat.Strike(attacker: ability.before.current.id, target: target.id, roll: 0, damage: 0, knockedOut: false)
+                    beginReaction(response, target: target, kind: .hit)
+                }
+            }
+            refresh()
+        }
+        for (i, wave) in roarWaves.enumerated() {
+            let t = (ability.elapsed - ability.impactTime - Double(i) * 0.10) / 0.5
+            wave.isHidden = t < 0 || t >= 1
+            wave.setScale(CGFloat(16 + BearFormRules.roarRadius * min(1, max(0, t))))
+            wave.alpha = CGFloat(0.55 * (1 - min(1, max(0, t))))
+        }
+        if ability.elapsed >= ability.duration {
+            bearAbility = nil
+            roarSound?.stop(); roarSound = nil
+            roarWaves.forEach { $0.removeFromParent() }; roarWaves.removeAll()
+        } else { bearAbility = ability }
     }
 
     private func prepareBear() throws {
@@ -1140,6 +1509,7 @@ final class TacticalCombatDirector {
 
     private func synchronizeForm() {
         guard combat.isBear != displayingBear, formTransition == nil else { return }
+        cancelTargeting()
         registerPlayerFootprint()
         bearFacing = displayingBear ? bearFacing : scene.detective.currentFacing
         formTransition = (combat.isBear, 0)
@@ -1182,12 +1552,17 @@ final class TacticalCombatDirector {
             // Reverse the authored crouch, retaining every frame's ground pivot.
             let rise = BearTransformationEffect.ramp(transition.elapsed, BearTransformationEffect.revealTime, 1.30)
             try? bearNode.present(action: .revert, facing: bearFacing, phase: min(9, max(0, Int((1 - rise) * 9))))
+        } else if let ability = bearAbility {
+            let fps = ability.action == .roar ? 20.0 : BearFormRules.clawFPS
+            let count = (try? BearAnimationSet.frameCount(for: ability.action)) ?? 1
+            try? bearNode.present(action: ability.action, facing: bearFacing, phase: min(count - 1, Int(ability.elapsed * fps)))
         } else if var action = bearAction {
             action.elapsed += delta
             let count = (try? BearAnimationSet.frameCount(for: action.action)) ?? 1
-            let frame = min(count - 1, Int(action.elapsed * 15))
+            let fps = action.action == .attack ? BearFormRules.clawFPS : 15.0
+            let frame = min(count - 1, Int(action.elapsed * fps))
             try? bearNode.present(action: action.action, facing: bearFacing, phase: frame)
-            bearAction = action.elapsed >= Double(count) / 15 ? nil : action
+            bearAction = action.elapsed >= Double(count) / fps ? nil : action
         } else {
             try? bearNode.advance(action: movingID == TacticalCombat.playerID ? .walk : .idle,
                                   facing: bearFacing, at: time, paused: false)

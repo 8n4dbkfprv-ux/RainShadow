@@ -1,0 +1,4276 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanShove",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "db5924131beab1e3f031bc693c64e9db5f53d21612f65664f64a265e7c63058b",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": true,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_00.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        35,
+        60
+      ],
+      "offset": 16,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "c53dcf0e27a0b28466eec46466017fffb98c0261d38a3c6414b53028149b14fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_00.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 2116,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "ea745d20df5a9a55c65046a78fdbb843bf11b47a60bee776909888870358d83c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_00.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 4410,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "b695adcf3dae72280840776e154cbcb2d5091d390951d2f650026fc0e52b0e96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_00.png",
+      "width": 26,
+      "height": 66,
+      "texture_px": [
+        26,
+        66
+      ],
+      "offset": 6489,
+      "length": 1716,
+      "trim_origin_top_left_px": [
+        70,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "544728cc16e36ed6a940ab15ee632e4df88d759f14e7a6d7a44fe99f3a373f04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_00.png",
+      "width": 24,
+      "height": 69,
+      "texture_px": [
+        24,
+        69
+      ],
+      "offset": 8205,
+      "length": 1656,
+      "trim_origin_top_left_px": [
+        69,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        14
+      ],
+      "sha256": "819c2a2567b934d970701b4c301508f0525164e9a950d1cfe125333af7a0f8a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_00.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 9861,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "e5c249281d9bdcdc3359725a1f8d1bbea5426df6a018a846597d7dd7308f80ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_00.png",
+      "width": 29,
+      "height": 70,
+      "texture_px": [
+        29,
+        70
+      ],
+      "offset": 11681,
+      "length": 2030,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "1b41747b2d7c239e4eba9ca91b9f53ee7d982b589d2a8dd8f1d215833d9868c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_00.png",
+      "width": 33,
+      "height": 68,
+      "texture_px": [
+        33,
+        68
+      ],
+      "offset": 13711,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "bf8a3fe967e0b814f92c3a688e94975aa4e486652160684d78c0cb6cd3b1c546",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_00.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 15955,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "fc25346cd36f0242d755b831732d24eed77b24e404dd2caad3680da1c96a86e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_00.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        37,
+        64
+      ],
+      "offset": 18230,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "47171d3b7744e85c005af78d2293a090dc13aab6f9002c23392122324105fe4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_00.png",
+      "width": 33,
+      "height": 64,
+      "texture_px": [
+        33,
+        64
+      ],
+      "offset": 20598,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "ba07d721c092d6c2531b5d1067b58c5d0c76061e241e8dec25c799a7042acb73",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_00.png",
+      "width": 26,
+      "height": 61,
+      "texture_px": [
+        26,
+        61
+      ],
+      "offset": 22710,
+      "length": 1586,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0b5f2b8e24993700f445b07246e2840a0a16954a07bb2016488dcf741e4077dd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_00.png",
+      "width": 24,
+      "height": 61,
+      "texture_px": [
+        24,
+        61
+      ],
+      "offset": 24296,
+      "length": 1464,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "a164a104fdf07d4f444e18ef298d344d0152964d1ae6b58955446797a6306073",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_00.png",
+      "width": 26,
+      "height": 59,
+      "texture_px": [
+        26,
+        59
+      ],
+      "offset": 25760,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "ca91b037ef6a9ac3897c908b4bfa46de3405bd331222560140316f7b0d855519",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_00.png",
+      "width": 29,
+      "height": 58,
+      "texture_px": [
+        29,
+        58
+      ],
+      "offset": 27294,
+      "length": 1682,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "ac65a5e8dd4517afba280c522895e38f9e866184c0ca056505e61a3cc1baa72e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_00.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 28976,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "4ceeda5cf252523102a85d12789a7e5786075ef349cda01d60b0f24eee227e84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_01.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 30824,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "35ec93df87f3884d70d6e0bc05bfe89f31884500e76d626e50cd485161b9a52b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_01.png",
+      "width": 37,
+      "height": 61,
+      "texture_px": [
+        37,
+        61
+      ],
+      "offset": 32948,
+      "length": 2257,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "839217f9a2da86693861b05243e3d3000e40cfd6844363f6b1c9f785e9c0cd89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_01.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 35205,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "c8fe30710d9ea4cb81e5cb8a6c1e634060778aa13efc047c56f5cdf133e86d8b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_01.png",
+      "width": 26,
+      "height": 65,
+      "texture_px": [
+        26,
+        65
+      ],
+      "offset": 37251,
+      "length": 1690,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "ecd3e27917bb3b0af2126fa6801afe9d6363ea92a67741748eb07032ac9dc048",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_01.png",
+      "width": 25,
+      "height": 68,
+      "texture_px": [
+        25,
+        68
+      ],
+      "offset": 38941,
+      "length": 1700,
+      "trim_origin_top_left_px": [
+        68,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        14
+      ],
+      "sha256": "bedc18e795555d0a3d177c77b0e2f4169e5caf15793bec400b4e62a081c61284",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_01.png",
+      "width": 27,
+      "height": 70,
+      "texture_px": [
+        27,
+        70
+      ],
+      "offset": 40641,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        15
+      ],
+      "sha256": "7a8a5c640b179e5f140207c0a4b067451c19d7529d791a88f8c197de500db387",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_01.png",
+      "width": 30,
+      "height": 70,
+      "texture_px": [
+        30,
+        70
+      ],
+      "offset": 42531,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        65,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "6fce4bacb5ac5e0630af8c5c406d3772f93ff7fce57b49c27b612884b5999e51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_01.png",
+      "width": 34,
+      "height": 68,
+      "texture_px": [
+        34,
+        68
+      ],
+      "offset": 44631,
+      "length": 2312,
+      "trim_origin_top_left_px": [
+        63,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "9554a03ec79481010b24586c7abd4c191886d021eece2113e6be10e40be7b077",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_01.png",
+      "width": 36,
+      "height": 64,
+      "texture_px": [
+        36,
+        64
+      ],
+      "offset": 46943,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "99e7f07885fbb216dbe7ff08db2cc09b5813963f5388379218559307d38db34a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_01.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        37,
+        64
+      ],
+      "offset": 49247,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "2a732ecf3b73028fe77f9ab278b96223a238bbb24179346f02f8984e57ad8bda",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_01.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 51615,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "b731b3d237cb37d56719329372ee115d57997f843b6fcab4dcafc10b00275168",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_01.png",
+      "width": 26,
+      "height": 61,
+      "texture_px": [
+        26,
+        61
+      ],
+      "offset": 53694,
+      "length": 1586,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "1c35d4aa2e4625823c2b9b3c4ec49e5bb401a8bfbd3caa28f6efac07ea377dfb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_01.png",
+      "width": 25,
+      "height": 60,
+      "texture_px": [
+        25,
+        60
+      ],
+      "offset": 55280,
+      "length": 1500,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "529ab8a56cf5c8e6c32bbbc2fff0a229a95fbb3883412e5db92d3e80a4d95fa2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_01.png",
+      "width": 28,
+      "height": 59,
+      "texture_px": [
+        28,
+        59
+      ],
+      "offset": 56780,
+      "length": 1652,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "ea23cbf877a70b293dad42aba0f437c9f9f271361088a1c689ff429cdf1bfc45",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_01.png",
+      "width": 31,
+      "height": 57,
+      "texture_px": [
+        31,
+        57
+      ],
+      "offset": 58432,
+      "length": 1767,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "484185768f7115591fd188a1eb5750a0e9388bf6cbd3ead1ecdd0b76b008be21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_01.png",
+      "width": 34,
+      "height": 55,
+      "texture_px": [
+        34,
+        55
+      ],
+      "offset": 60199,
+      "length": 1870,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "e51f741d354418ba13aa35cce761be2304fbb17ca473493198af8bbbb149af36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_02.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 62069,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "c3add51e5bf7de0b1fa987497ef89a43accbf66297f9931bed6ed58fc2af6815",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_02.png",
+      "width": 37,
+      "height": 61,
+      "texture_px": [
+        37,
+        61
+      ],
+      "offset": 64252,
+      "length": 2257,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "1fba2ca1025899ec3e832c7812ed05f39b57593bd8e9ae2195b6b4c004ca779e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_02.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 66509,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "f9972daf7a87770524a9626289b6da72c81912253fda3d1c33aaf21dda7a4a0f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_02.png",
+      "width": 26,
+      "height": 65,
+      "texture_px": [
+        26,
+        65
+      ],
+      "offset": 68555,
+      "length": 1690,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "cc0586c1ab23b02ca4ac221a685ebf9e8d263e9a7214c08d8376c48c52059af0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_02.png",
+      "width": 27,
+      "height": 67,
+      "texture_px": [
+        27,
+        67
+      ],
+      "offset": 70245,
+      "length": 1809,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "ca3f0906753084ef14cf0f82ebac8b4e4a4b4813191cc08c18fccfedecf852b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_02.png",
+      "width": 30,
+      "height": 69,
+      "texture_px": [
+        30,
+        69
+      ],
+      "offset": 72054,
+      "length": 2070,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        15
+      ],
+      "sha256": "c9554de015b81475edaefc475668f99456c196e6e95ae3c08b845964d96b67c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_02.png",
+      "width": 33,
+      "height": 69,
+      "texture_px": [
+        33,
+        69
+      ],
+      "offset": 74124,
+      "length": 2277,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "dfb4d0786092b34779879c8fd493fd0ca3ac18b1114fc47b0220dfcc1f1a9968",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_02.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 76401,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "30fc7e9680b8497d6f7866e1cf34c526f7fdd48fe9c0370d2525d0b444a9ce1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_02.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        37,
+        64
+      ],
+      "offset": 78813,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "89ce97e95f57b61b894b1ac54469ee3c7e5989c2ec462fe30dfa920c3a5a469f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_02.png",
+      "width": 37,
+      "height": 63,
+      "texture_px": [
+        37,
+        63
+      ],
+      "offset": 81181,
+      "length": 2331,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "1310736531cc843dcfe909c38c23df7fa9fd086996dd7e7d23781fe553e065e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_02.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 83512,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "ab81584df29fc63bd62fa66cdcce4d55af961bd65d4190d45823283e4ff92655",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_02.png",
+      "width": 26,
+      "height": 61,
+      "texture_px": [
+        26,
+        61
+      ],
+      "offset": 85591,
+      "length": 1586,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "deb8be6ab3b20c366eed35857d19fb2af541880ff486a40ff5f3515b8ef95870",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_02.png",
+      "width": 27,
+      "height": 61,
+      "texture_px": [
+        27,
+        61
+      ],
+      "offset": 87177,
+      "length": 1647,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "15f542c82891f23e86286868b05f94eba94c1bfda26cae246edaafedabbc9b6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_02.png",
+      "width": 31,
+      "height": 59,
+      "texture_px": [
+        31,
+        59
+      ],
+      "offset": 88824,
+      "length": 1829,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "2a032692776b1ee1ef4790c976d2e5310330d4fb92aa1436000f6bd7253a2b61",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_02.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 90653,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "bffec53e9f948f1c980e87f97ce40fd14459d51f9919f4d79c326141e0793b87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_02.png",
+      "width": 36,
+      "height": 55,
+      "texture_px": [
+        36,
+        55
+      ],
+      "offset": 92534,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "d27ab0d0cd2128469efd4bf1044f562b65b4574b8d4117c51f7bdca2e7c90844",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_03.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 94514,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "c3add51e5bf7de0b1fa987497ef89a43accbf66297f9931bed6ed58fc2af6815",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_03.png",
+      "width": 37,
+      "height": 61,
+      "texture_px": [
+        37,
+        61
+      ],
+      "offset": 96697,
+      "length": 2257,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "1fba2ca1025899ec3e832c7812ed05f39b57593bd8e9ae2195b6b4c004ca779e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_03.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 98954,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "f9972daf7a87770524a9626289b6da72c81912253fda3d1c33aaf21dda7a4a0f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_03.png",
+      "width": 26,
+      "height": 65,
+      "texture_px": [
+        26,
+        65
+      ],
+      "offset": 101000,
+      "length": 1690,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "cc0586c1ab23b02ca4ac221a685ebf9e8d263e9a7214c08d8376c48c52059af0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_03.png",
+      "width": 27,
+      "height": 67,
+      "texture_px": [
+        27,
+        67
+      ],
+      "offset": 102690,
+      "length": 1809,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "ca3f0906753084ef14cf0f82ebac8b4e4a4b4813191cc08c18fccfedecf852b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_03.png",
+      "width": 30,
+      "height": 69,
+      "texture_px": [
+        30,
+        69
+      ],
+      "offset": 104499,
+      "length": 2070,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        15
+      ],
+      "sha256": "c9554de015b81475edaefc475668f99456c196e6e95ae3c08b845964d96b67c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_03.png",
+      "width": 33,
+      "height": 69,
+      "texture_px": [
+        33,
+        69
+      ],
+      "offset": 106569,
+      "length": 2277,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "dfb4d0786092b34779879c8fd493fd0ca3ac18b1114fc47b0220dfcc1f1a9968",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_03.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 108846,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "30fc7e9680b8497d6f7866e1cf34c526f7fdd48fe9c0370d2525d0b444a9ce1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_03.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        37,
+        64
+      ],
+      "offset": 111258,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "89ce97e95f57b61b894b1ac54469ee3c7e5989c2ec462fe30dfa920c3a5a469f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_03.png",
+      "width": 37,
+      "height": 63,
+      "texture_px": [
+        37,
+        63
+      ],
+      "offset": 113626,
+      "length": 2331,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "1310736531cc843dcfe909c38c23df7fa9fd086996dd7e7d23781fe553e065e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_03.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 115957,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "ab81584df29fc63bd62fa66cdcce4d55af961bd65d4190d45823283e4ff92655",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_03.png",
+      "width": 26,
+      "height": 61,
+      "texture_px": [
+        26,
+        61
+      ],
+      "offset": 118036,
+      "length": 1586,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "deb8be6ab3b20c366eed35857d19fb2af541880ff486a40ff5f3515b8ef95870",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_03.png",
+      "width": 27,
+      "height": 61,
+      "texture_px": [
+        27,
+        61
+      ],
+      "offset": 119622,
+      "length": 1647,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "15f542c82891f23e86286868b05f94eba94c1bfda26cae246edaafedabbc9b6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_03.png",
+      "width": 31,
+      "height": 59,
+      "texture_px": [
+        31,
+        59
+      ],
+      "offset": 121269,
+      "length": 1829,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "2a032692776b1ee1ef4790c976d2e5310330d4fb92aa1436000f6bd7253a2b61",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_03.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 123098,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "bffec53e9f948f1c980e87f97ce40fd14459d51f9919f4d79c326141e0793b87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_03.png",
+      "width": 36,
+      "height": 55,
+      "texture_px": [
+        36,
+        55
+      ],
+      "offset": 124979,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "d27ab0d0cd2128469efd4bf1044f562b65b4574b8d4117c51f7bdca2e7c90844",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_04.png",
+      "width": 35,
+      "height": 56,
+      "texture_px": [
+        35,
+        56
+      ],
+      "offset": 126959,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "7053591e737b3033f767b9c065c1f2ee80453e1da2ef4193966298e2abfc13b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_04.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 128919,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "7a4ab33a0f0aa7dcb92855a0ca177638bb3d583c093798f8f9dfb45848a3ebed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_04.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 131007,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "2abf8b78cdcba1d123721c97158f87e799d1fecfa787abdfe9ad2fad61b6c163",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_04.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 132954,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "be9f34242ea74011d8359fcd3beb481e6c59ebabe796c4a967e20795e17ad797",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_04.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 135159,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        55,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        14
+      ],
+      "sha256": "66825b329ae5bf8eefb4476e2af831914ac006b478a9a04e33e517896ff0b642",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_04.png",
+      "width": 40,
+      "height": 69,
+      "texture_px": [
+        40,
+        69
+      ],
+      "offset": 137705,
+      "length": 2760,
+      "trim_origin_top_left_px": [
+        53,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        15
+      ],
+      "sha256": "1ae01c03a909b2edd86d8baddf989648c5a547e5e3cf803b72b1e4739efc335b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_04.png",
+      "width": 40,
+      "height": 70,
+      "texture_px": [
+        40,
+        70
+      ],
+      "offset": 140465,
+      "length": 2800,
+      "trim_origin_top_left_px": [
+        54,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        14
+      ],
+      "sha256": "3bc6f708ef6bf3f3abf4fff8d31609886914134a3d0fe805d5d32bf10b6e656b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_04.png",
+      "width": 37,
+      "height": 69,
+      "texture_px": [
+        37,
+        69
+      ],
+      "offset": 143265,
+      "length": 2553,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "ed792f6b6e471f0c114135e030ec3add1f01022f0feca3bb1c9503b1325b5f4c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_04.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 145818,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        62,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "c4c60525542dd03282d47bd47468c971173b2397a340f6d1a4e66f403e603579",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_04.png",
+      "width": 36,
+      "height": 70,
+      "texture_px": [
+        36,
+        70
+      ],
+      "offset": 148163,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        60,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "48324c4fdc4ab850e7e71fadb15896f2a07ea293a5a0fc04e54dce8133b3f9cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_04.png",
+      "width": 33,
+      "height": 69,
+      "texture_px": [
+        33,
+        69
+      ],
+      "offset": 150683,
+      "length": 2277,
+      "trim_origin_top_left_px": [
+        61,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "88c6dd16c8ae2378980ede443125ccb0beb6b408fcc2de916dc0b74504b25b99",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_04.png",
+      "width": 35,
+      "height": 64,
+      "texture_px": [
+        35,
+        64
+      ],
+      "offset": 152960,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "6fdb64babeb5f40071c2fd8e86d7996dda5314d844e72afe82e692426f57c341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_04.png",
+      "width": 38,
+      "height": 60,
+      "texture_px": [
+        38,
+        60
+      ],
+      "offset": 155200,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "3e7c92433b5d2407bec27b2be8ae8f964d9b68a9a66a013d414650579c6f8bdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_04.png",
+      "width": 40,
+      "height": 57,
+      "texture_px": [
+        40,
+        57
+      ],
+      "offset": 157480,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "5bed19b2d3fd0be1b1c5c7fd234f56a42cfbf79cdf8b1c52263d672b2e59bdce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_04.png",
+      "width": 40,
+      "height": 55,
+      "texture_px": [
+        40,
+        55
+      ],
+      "offset": 159760,
+      "length": 2200,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "2ba829ef1d6202bbd0c20b16b54413d8d568a6331422c4e0daac4b886ec79e12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_04.png",
+      "width": 37,
+      "height": 53,
+      "texture_px": [
+        37,
+        53
+      ],
+      "offset": 161960,
+      "length": 1961,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "76976e6f78b85a1bbbbbf07fdbdb19bdc944e83a81280c28eea8297af4e11b9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_05.png",
+      "width": 34,
+      "height": 54,
+      "texture_px": [
+        34,
+        54
+      ],
+      "offset": 163921,
+      "length": 1836,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "f3ab65e0e378124fee1880632ae784d8e24794ddae0f4ba11d307f3a7401fc87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_05.png",
+      "width": 36,
+      "height": 55,
+      "texture_px": [
+        36,
+        55
+      ],
+      "offset": 165757,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e99d7d4c0c5a367cd6728db61c5b632928c7f4c9d75fed12dbcf7cd35ee1302e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_05.png",
+      "width": 34,
+      "height": 57,
+      "texture_px": [
+        34,
+        57
+      ],
+      "offset": 167737,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "4c3269bb50dc43a642902dfdbf6b801eac71467a503051a965a9ebaaa58872d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_05.png",
+      "width": 41,
+      "height": 61,
+      "texture_px": [
+        41,
+        61
+      ],
+      "offset": 169675,
+      "length": 2501,
+      "trim_origin_top_left_px": [
+        55,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "74fee88d7c8b7144ae318e0e60336cd79d8ee82497cbfc941b82ca5dbdb6c763",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_05.png",
+      "width": 45,
+      "height": 66,
+      "texture_px": [
+        45,
+        66
+      ],
+      "offset": 172176,
+      "length": 2970,
+      "trim_origin_top_left_px": [
+        48,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "15069bb01ac8f065a675040495f617d969ed8903fbeee3956d0e5c2d7ddaa716",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_05.png",
+      "width": 46,
+      "height": 69,
+      "texture_px": [
+        46,
+        69
+      ],
+      "offset": 175146,
+      "length": 3174,
+      "trim_origin_top_left_px": [
+        47,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        15
+      ],
+      "sha256": "85295f8e326b3cdbf6d9bf0d56b291d6471b8a59b95358c229a5393a42863767",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_05.png",
+      "width": 44,
+      "height": 71,
+      "texture_px": [
+        44,
+        71
+      ],
+      "offset": 178320,
+      "length": 3124,
+      "trim_origin_top_left_px": [
+        50,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        14
+      ],
+      "sha256": "6248429c773c7bf7c3fd8301c84f4595f22e105a23eb206cdf33bee4eabb22b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_05.png",
+      "width": 37,
+      "height": 71,
+      "texture_px": [
+        37,
+        71
+      ],
+      "offset": 181444,
+      "length": 2627,
+      "trim_origin_top_left_px": [
+        57,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "db44cac347962427fcfa4db6c2ec38a2059eb132ec43a6db7157f375153d1042",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_05.png",
+      "width": 34,
+      "height": 73,
+      "texture_px": [
+        34,
+        73
+      ],
+      "offset": 184071,
+      "length": 2482,
+      "trim_origin_top_left_px": [
+        62,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "b2bb58a361bbdbebf1917dd07553534a46b7f5d2ada36361c3563a36caae3eb1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_05.png",
+      "width": 36,
+      "height": 75,
+      "texture_px": [
+        36,
+        75
+      ],
+      "offset": 186553,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        60,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "2f431a21243574e099d4938c6bdddbb56ba990cbb459ef7aa37a0acccba7066e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_05.png",
+      "width": 34,
+      "height": 73,
+      "texture_px": [
+        34,
+        73
+      ],
+      "offset": 189253,
+      "length": 2482,
+      "trim_origin_top_left_px": [
+        61,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "826e4e688c5121f6bc96e5b53ed9cc67e7a0658ff04105e942777d9c4cd25cd7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_05.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 191735,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "b7a564b214d5bf5ea2bf0cbe772be4423c12d6684315d06906f2f7ec8a02763a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_05.png",
+      "width": 45,
+      "height": 60,
+      "texture_px": [
+        45,
+        60
+      ],
+      "offset": 194441,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "c28b30513f694024a57f9de8023d780345dc18872f8c0d0368a7f78fd4d00be4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_05.png",
+      "width": 47,
+      "height": 57,
+      "texture_px": [
+        47,
+        57
+      ],
+      "offset": 197141,
+      "length": 2679,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "3fb81f305d922c4eb39c627665f4fe90cb3caa3a0ec26680ce2e832f71b4a6fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_05.png",
+      "width": 44,
+      "height": 54,
+      "texture_px": [
+        44,
+        54
+      ],
+      "offset": 199820,
+      "length": 2376,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "e73f53b4d31cf4b213fbc9c022d3406c237bb50d4a1a78e9ba8d9e56a9b0dcf2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_05.png",
+      "width": 37,
+      "height": 51,
+      "texture_px": [
+        37,
+        51
+      ],
+      "offset": 202196,
+      "length": 1887,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "91397abe14c9ff3076ba8531a5a72dfe11e4a0a040d0da23ef370235a70bfdae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_06.png",
+      "width": 34,
+      "height": 54,
+      "texture_px": [
+        34,
+        54
+      ],
+      "offset": 204083,
+      "length": 1836,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "f3ab65e0e378124fee1880632ae784d8e24794ddae0f4ba11d307f3a7401fc87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_06.png",
+      "width": 36,
+      "height": 55,
+      "texture_px": [
+        36,
+        55
+      ],
+      "offset": 205919,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e99d7d4c0c5a367cd6728db61c5b632928c7f4c9d75fed12dbcf7cd35ee1302e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_06.png",
+      "width": 34,
+      "height": 57,
+      "texture_px": [
+        34,
+        57
+      ],
+      "offset": 207899,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "4c3269bb50dc43a642902dfdbf6b801eac71467a503051a965a9ebaaa58872d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_06.png",
+      "width": 41,
+      "height": 61,
+      "texture_px": [
+        41,
+        61
+      ],
+      "offset": 209837,
+      "length": 2501,
+      "trim_origin_top_left_px": [
+        55,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "74fee88d7c8b7144ae318e0e60336cd79d8ee82497cbfc941b82ca5dbdb6c763",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_06.png",
+      "width": 45,
+      "height": 66,
+      "texture_px": [
+        45,
+        66
+      ],
+      "offset": 212338,
+      "length": 2970,
+      "trim_origin_top_left_px": [
+        48,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        14
+      ],
+      "sha256": "15069bb01ac8f065a675040495f617d969ed8903fbeee3956d0e5c2d7ddaa716",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_06.png",
+      "width": 46,
+      "height": 69,
+      "texture_px": [
+        46,
+        69
+      ],
+      "offset": 215308,
+      "length": 3174,
+      "trim_origin_top_left_px": [
+        47,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        15
+      ],
+      "sha256": "85295f8e326b3cdbf6d9bf0d56b291d6471b8a59b95358c229a5393a42863767",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_06.png",
+      "width": 44,
+      "height": 71,
+      "texture_px": [
+        44,
+        71
+      ],
+      "offset": 218482,
+      "length": 3124,
+      "trim_origin_top_left_px": [
+        50,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        14
+      ],
+      "sha256": "6248429c773c7bf7c3fd8301c84f4595f22e105a23eb206cdf33bee4eabb22b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_06.png",
+      "width": 37,
+      "height": 71,
+      "texture_px": [
+        37,
+        71
+      ],
+      "offset": 221606,
+      "length": 2627,
+      "trim_origin_top_left_px": [
+        57,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "db44cac347962427fcfa4db6c2ec38a2059eb132ec43a6db7157f375153d1042",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_06.png",
+      "width": 34,
+      "height": 73,
+      "texture_px": [
+        34,
+        73
+      ],
+      "offset": 224233,
+      "length": 2482,
+      "trim_origin_top_left_px": [
+        62,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "b2bb58a361bbdbebf1917dd07553534a46b7f5d2ada36361c3563a36caae3eb1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_06.png",
+      "width": 36,
+      "height": 75,
+      "texture_px": [
+        36,
+        75
+      ],
+      "offset": 226715,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        60,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "2f431a21243574e099d4938c6bdddbb56ba990cbb459ef7aa37a0acccba7066e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_06.png",
+      "width": 34,
+      "height": 73,
+      "texture_px": [
+        34,
+        73
+      ],
+      "offset": 229415,
+      "length": 2482,
+      "trim_origin_top_left_px": [
+        61,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "826e4e688c5121f6bc96e5b53ed9cc67e7a0658ff04105e942777d9c4cd25cd7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_06.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 231897,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "b7a564b214d5bf5ea2bf0cbe772be4423c12d6684315d06906f2f7ec8a02763a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_06.png",
+      "width": 45,
+      "height": 60,
+      "texture_px": [
+        45,
+        60
+      ],
+      "offset": 234603,
+      "length": 2700,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "c28b30513f694024a57f9de8023d780345dc18872f8c0d0368a7f78fd4d00be4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_06.png",
+      "width": 47,
+      "height": 57,
+      "texture_px": [
+        47,
+        57
+      ],
+      "offset": 237303,
+      "length": 2679,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "3fb81f305d922c4eb39c627665f4fe90cb3caa3a0ec26680ce2e832f71b4a6fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_06.png",
+      "width": 44,
+      "height": 54,
+      "texture_px": [
+        44,
+        54
+      ],
+      "offset": 239982,
+      "length": 2376,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "e73f53b4d31cf4b213fbc9c022d3406c237bb50d4a1a78e9ba8d9e56a9b0dcf2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_06.png",
+      "width": 37,
+      "height": 51,
+      "texture_px": [
+        37,
+        51
+      ],
+      "offset": 242358,
+      "length": 1887,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "91397abe14c9ff3076ba8531a5a72dfe11e4a0a040d0da23ef370235a70bfdae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_07.png",
+      "width": 34,
+      "height": 54,
+      "texture_px": [
+        34,
+        54
+      ],
+      "offset": 244245,
+      "length": 1836,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "36563db2338a8a3b550a0f2b654c5af15cf98e62b37402fcdcd86ebdb703614e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_07.png",
+      "width": 36,
+      "height": 56,
+      "texture_px": [
+        36,
+        56
+      ],
+      "offset": 246081,
+      "length": 2016,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "66a667b6f86752cfdd19e6078e7b6f5428be8bd8fbe3fc2dbb6d5e9a8d854db3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_07.png",
+      "width": 34,
+      "height": 58,
+      "texture_px": [
+        34,
+        58
+      ],
+      "offset": 248097,
+      "length": 1972,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "421de75cab71923a2bf820a7baa48b31186dd9187ae7e80bd11767b9c134b9f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_07.png",
+      "width": 40,
+      "height": 62,
+      "texture_px": [
+        40,
+        62
+      ],
+      "offset": 250069,
+      "length": 2480,
+      "trim_origin_top_left_px": [
+        56,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "2e5d1353dc59725c80c814ffcc9020a670290a5b55b4e19b6f43ee931d24b80c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_07.png",
+      "width": 44,
+      "height": 66,
+      "texture_px": [
+        44,
+        66
+      ],
+      "offset": 252549,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        49,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        14
+      ],
+      "sha256": "b021cd7326876d6a23c3d9e9c352a2b129fc7b65c5848fbc24d86c5a3a4f6392",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_07.png",
+      "width": 46,
+      "height": 69,
+      "texture_px": [
+        46,
+        69
+      ],
+      "offset": 255453,
+      "length": 3174,
+      "trim_origin_top_left_px": [
+        47,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        15
+      ],
+      "sha256": "9e1125d9b0527d29daa9262d39bc68ba63140ad573db3551d9783703d52e0ac0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_07.png",
+      "width": 44,
+      "height": 71,
+      "texture_px": [
+        44,
+        71
+      ],
+      "offset": 258627,
+      "length": 3124,
+      "trim_origin_top_left_px": [
+        50,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        14
+      ],
+      "sha256": "e726d8e39ef2a6e9cd27ea648e1995b12ced9547b1909ed574a5fd64aa025000",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_07.png",
+      "width": 37,
+      "height": 70,
+      "texture_px": [
+        37,
+        70
+      ],
+      "offset": 261751,
+      "length": 2590,
+      "trim_origin_top_left_px": [
+        57,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "6b28d361cb1bef6b4147243f987358e650355536461bf70ed281df485c9c5778",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_07.png",
+      "width": 34,
+      "height": 72,
+      "texture_px": [
+        34,
+        72
+      ],
+      "offset": 264341,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        62,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "b36067aa87b5afa96d92b73dc1752285214947c68083f47694fc9243f9b2d682",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_07.png",
+      "width": 36,
+      "height": 74,
+      "texture_px": [
+        36,
+        74
+      ],
+      "offset": 266789,
+      "length": 2664,
+      "trim_origin_top_left_px": [
+        60,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "218aa8367a2ac2ed4c794db9b80dd1bb2480b625dae0eda709cc5cb2bfc46357",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_07.png",
+      "width": 34,
+      "height": 73,
+      "texture_px": [
+        34,
+        73
+      ],
+      "offset": 269453,
+      "length": 2482,
+      "trim_origin_top_left_px": [
+        61,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "5b9f41227696c3a14e76301f3734fc376db526b7f978ab7f570d10780e9702ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_07.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 271935,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e3f22bfaae7dbc59dc18dd8cc471b6e6fccb8e808962c4cb67d1deed7e3f09a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_07.png",
+      "width": 44,
+      "height": 60,
+      "texture_px": [
+        44,
+        60
+      ],
+      "offset": 274641,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "405a23679d37c9f3969788fbd3fe46909a8fac3470d3d7c3a66a72604728d1e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_07.png",
+      "width": 46,
+      "height": 57,
+      "texture_px": [
+        46,
+        57
+      ],
+      "offset": 277281,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "7c5fd4354343fb71d1367b853d389f517ddb453b4f912c4b1a95f7e42fae9652",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_07.png",
+      "width": 44,
+      "height": 54,
+      "texture_px": [
+        44,
+        54
+      ],
+      "offset": 279903,
+      "length": 2376,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "0e430ae78d015af3939ee65049138fa14bd290a7798caef2bbf93bd6eb9a15c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_07.png",
+      "width": 37,
+      "height": 51,
+      "texture_px": [
+        37,
+        51
+      ],
+      "offset": 282279,
+      "length": 1887,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        6
+      ],
+      "sha256": "778045fe9efa829e8d4421bb569803cf994dea5c46a0c963c5e4791924c27bce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_08.png",
+      "width": 34,
+      "height": 56,
+      "texture_px": [
+        34,
+        56
+      ],
+      "offset": 284166,
+      "length": 1904,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "d6f98cacec666efab6be6d4e888651752471078db15a77e9577e957dbfeb08db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_08.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 286070,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "bf9d69732e3b75c781cd07b59187949ed9a5b692fa39aa45db9415b544927597",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_08.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 288158,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "83c3d731ce23acf9f80cb3aba7514b2008fdb8f429811bfb2b51cedc3491aeb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_08.png",
+      "width": 36,
+      "height": 63,
+      "texture_px": [
+        36,
+        63
+      ],
+      "offset": 290105,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "4301f4798b018c1f63b7510b9564d45bc8510b24ee97e6e43262e7ac7101225b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_08.png",
+      "width": 39,
+      "height": 67,
+      "texture_px": [
+        39,
+        67
+      ],
+      "offset": 292373,
+      "length": 2613,
+      "trim_origin_top_left_px": [
+        54,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        14
+      ],
+      "sha256": "d8426df09f781b5972fd9256264622a01b9fbeb63e01fef65b6035ee3e89ebe0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_08.png",
+      "width": 41,
+      "height": 70,
+      "texture_px": [
+        41,
+        70
+      ],
+      "offset": 294986,
+      "length": 2870,
+      "trim_origin_top_left_px": [
+        52,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        15
+      ],
+      "sha256": "90fe603b52ac52c09dfff4a24345287c60e9b71837a8e5062a6541aef36c9e4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_08.png",
+      "width": 40,
+      "height": 71,
+      "texture_px": [
+        40,
+        71
+      ],
+      "offset": 297856,
+      "length": 2840,
+      "trim_origin_top_left_px": [
+        54,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        14
+      ],
+      "sha256": "d11e33c82f7217391e4559850edc7cdb95fc574eab0a2b275f605a2f3ead9250",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_08.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 300696,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "002f4449335e5ed20cee46455093f4e452601221cbb1ad8cfd64135d30998c0e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_08.png",
+      "width": 34,
+      "height": 66,
+      "texture_px": [
+        34,
+        66
+      ],
+      "offset": 303180,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        62,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "ee0bb63631a871567746c65e59f985e3cac5b5be89cb072e320f1bfaec90286a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_08.png",
+      "width": 36,
+      "height": 68,
+      "texture_px": [
+        36,
+        68
+      ],
+      "offset": 305424,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "d508b68c83bf0e86222e9fc5df85bef882a36e5f5cf98994639f29e5869b0d9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_08.png",
+      "width": 33,
+      "height": 67,
+      "texture_px": [
+        33,
+        67
+      ],
+      "offset": 307872,
+      "length": 2211,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "6165d82b71b82a6c4d2906313cf195dbc6a116d9bcaed8b09b06fd2b8da52e92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_08.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 310083,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "525550a492739b126b3e3a6aa17914730f4bb153935f5a0d3e54c37b446d9e84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_08.png",
+      "width": 39,
+      "height": 60,
+      "texture_px": [
+        39,
+        60
+      ],
+      "offset": 312315,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "7c8483f324b3fcb40cd766072715168bccda71313205a7322aeccfbbb06457b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_08.png",
+      "width": 41,
+      "height": 57,
+      "texture_px": [
+        41,
+        57
+      ],
+      "offset": 314655,
+      "length": 2337,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "d8aa0c3cc214c5643f3e814de34586b524611ca214840cae10f0d049e4d5b9a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_08.png",
+      "width": 40,
+      "height": 55,
+      "texture_px": [
+        40,
+        55
+      ],
+      "offset": 316992,
+      "length": 2200,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "f375d145dcc35cde34191cb08aa8fb0508e400e53702f73d03edb633430181e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_08.png",
+      "width": 36,
+      "height": 52,
+      "texture_px": [
+        36,
+        52
+      ],
+      "offset": 319192,
+      "length": 1872,
+      "trim_origin_top_left_px": [
+        65,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        6
+      ],
+      "sha256": "8be02891706c124c33cf0e85a54140e372b0a6ed528814e12eb90cf8d56c8aaf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_09.png",
+      "width": 35,
+      "height": 57,
+      "texture_px": [
+        35,
+        57
+      ],
+      "offset": 321064,
+      "length": 1995,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "b6de7c6bc5cac51c0fb5e4e8635105e7720bf277d9340cfa6b9464ca058724ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_09.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 323059,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "bfa2853d2b124e13c1c980e21513563cb3ade57626397a6422c840ec3a4cb8ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_09.png",
+      "width": 33,
+      "height": 61,
+      "texture_px": [
+        33,
+        61
+      ],
+      "offset": 325183,
+      "length": 2013,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "b339b0f72d7bb85c1163fc7b0b460d8f1900a7b49ed4362fd77ba96f39776018",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_09.png",
+      "width": 28,
+      "height": 64,
+      "texture_px": [
+        28,
+        64
+      ],
+      "offset": 327196,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        68,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        12
+      ],
+      "sha256": "40dd1211e6a2ccc08682a93b55af006bedd4427e4ed3900c845f35660725c280",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_09.png",
+      "width": 29,
+      "height": 67,
+      "texture_px": [
+        29,
+        67
+      ],
+      "offset": 328988,
+      "length": 1943,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "e13cef166384e66b7c0d5673a808adc9f2f0a6f082e5e3f64822a91199a6a982",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_09.png",
+      "width": 32,
+      "height": 70,
+      "texture_px": [
+        32,
+        70
+      ],
+      "offset": 330931,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "3df7c4ba5b0d7ddfcbffe17a50dd8b7631f5a08725a27e1b37751199a8538508",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_09.png",
+      "width": 33,
+      "height": 70,
+      "texture_px": [
+        33,
+        70
+      ],
+      "offset": 333171,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "a14d71aa1b591b27d26ec13266b64c8af5b95976faf5c5806bcdebfbb2f71111",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_09.png",
+      "width": 33,
+      "height": 69,
+      "texture_px": [
+        33,
+        69
+      ],
+      "offset": 335481,
+      "length": 2277,
+      "trim_origin_top_left_px": [
+        63,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "8c50cc49d409487e40ccc721b6d11fff682b50e21646a14601385fee0c3982a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_09.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 337758,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        62,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "d5a45efb3394b55c09e2823f0165863995553f9ef7e27d2b082b6f932d806612",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_09.png",
+      "width": 36,
+      "height": 65,
+      "texture_px": [
+        36,
+        65
+      ],
+      "offset": 340068,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "3c6a893324dbaa7cd6079b17227b2f79966a07a0920d571487ae4711ced02e58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_09.png",
+      "width": 33,
+      "height": 65,
+      "texture_px": [
+        33,
+        65
+      ],
+      "offset": 342408,
+      "length": 2145,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c16d612a963e26443f76ad0ef1fd623a22eb69fb05306de79e8ac8989d8fe2fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_09.png",
+      "width": 28,
+      "height": 62,
+      "texture_px": [
+        28,
+        62
+      ],
+      "offset": 344553,
+      "length": 1736,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "2a435cfa0d7645b119e924bf09c0a9093e235731cbbbb43dd64564bf1a7988e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_09.png",
+      "width": 30,
+      "height": 60,
+      "texture_px": [
+        30,
+        60
+      ],
+      "offset": 346289,
+      "length": 1800,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "84d5e0c17f1c15ce511eb73d58bb2f4377754fb790f00fa9ed614cc8da715c4b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_09.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 348089,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "eaba07b503864706b00967b47f59e339910188c4c7243784b42d0635b21a7e7d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_09.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 349945,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "ddfefcd8a00d706b9cac2d82c99f566ba152609ea2d7aa8f1ab4debc0769f003",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_09.png",
+      "width": 33,
+      "height": 54,
+      "texture_px": [
+        33,
+        54
+      ],
+      "offset": 351793,
+      "length": 1782,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        6
+      ],
+      "sha256": "4615b35f39d5e5dcb1acfe334604ae8be4c0a68056f4de3d1bea74863bbb07df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_10.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 353575,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "01e62b11962189eaa2c37b7724f7838cd3b39973e43973f3569ff5ce38bd4ebe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_10.png",
+      "width": 37,
+      "height": 61,
+      "texture_px": [
+        37,
+        61
+      ],
+      "offset": 355640,
+      "length": 2257,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "9220d9fbbc4c48851ce2b475f2e29b19c2459d2dba7b13758edd2b825d6c1139",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_10.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 357897,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "169df550acd1d77cb396eca45e43491b0bc7500ed2e07e311e70e7b3479c0c1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_10.png",
+      "width": 26,
+      "height": 65,
+      "texture_px": [
+        26,
+        65
+      ],
+      "offset": 359943,
+      "length": 1690,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "143bc9a21b8fc77676096b55ece6cafe9a79d7b6fd111154699b99efdb2c9ba5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_10.png",
+      "width": 24,
+      "height": 68,
+      "texture_px": [
+        24,
+        68
+      ],
+      "offset": 361633,
+      "length": 1632,
+      "trim_origin_top_left_px": [
+        69,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        14
+      ],
+      "sha256": "c817d04c727868e26e074d373c2a5d7638da3b9fbeeac609d52aeb5c3d44ca37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_10.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 363265,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "c248e4b47d13e8711851041583cd910f859b8aa03fb34bcf50cda7b3ffec5926",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_10.png",
+      "width": 28,
+      "height": 70,
+      "texture_px": [
+        28,
+        70
+      ],
+      "offset": 365085,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "529da1865946448ccbbabfe357f76c95d3b5ff7620a354936398231dc9efef6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_10.png",
+      "width": 33,
+      "height": 68,
+      "texture_px": [
+        33,
+        68
+      ],
+      "offset": 367045,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "eb1f3bcfe9ec6afdb706401fa272db46992a3118392f81dc3d1aa1997687d279",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_10.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 369289,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "f01b50da0dde88567cde1de9ab5a3e1b3199ab89380fc80a5e5bc65f00d44397",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_10.png",
+      "width": 37,
+      "height": 65,
+      "texture_px": [
+        37,
+        65
+      ],
+      "offset": 371564,
+      "length": 2405,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "0b7d2a1c7a671a693f21e0a23eb19ef6b95f9e84639b9a2cb07571467bff8c93",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_10.png",
+      "width": 33,
+      "height": 64,
+      "texture_px": [
+        33,
+        64
+      ],
+      "offset": 373969,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "91cdf80fc2ac9df88fa56a4586e82abe83ab5d22885f34e62bbfc1248bb1a23f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_10.png",
+      "width": 26,
+      "height": 62,
+      "texture_px": [
+        26,
+        62
+      ],
+      "offset": 376081,
+      "length": 1612,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "e1aaf577a9d9df1545bfc56f42fa020fb412fc030cb5b57b36a06bf5d399eada",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_10.png",
+      "width": 24,
+      "height": 61,
+      "texture_px": [
+        24,
+        61
+      ],
+      "offset": 377693,
+      "length": 1464,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "e37964e49fd80e9ca3368daacfd2e30a004ed4b6d978269cc4efe7daac4101b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_10.png",
+      "width": 26,
+      "height": 59,
+      "texture_px": [
+        26,
+        59
+      ],
+      "offset": 379157,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "d71d44d2e17572662a7b3a60048d3f26d89d286278b1d514c153d0a0fe7f35ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_10.png",
+      "width": 28,
+      "height": 57,
+      "texture_px": [
+        28,
+        57
+      ],
+      "offset": 380691,
+      "length": 1596,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "9304e79c164f7e4754b00af4b591bd54cec0bafe04bcb3f903a51cd1d80d2ac9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_10.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 382287,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "29ec4528b6e8fa72127892002529f81fd3cfe227a237f8fc1ec10e50846430c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_s_11.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        35,
+        60
+      ],
+      "offset": 384102,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "c53dcf0e27a0b28466eec46466017fffb98c0261d38a3c6414b53028149b14fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ssw_11.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 386202,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        63,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "ea745d20df5a9a55c65046a78fdbb843bf11b47a60bee776909888870358d83c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sw_11.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 388496,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        66,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "b695adcf3dae72280840776e154cbcb2d5091d390951d2f650026fc0e52b0e96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wsw_11.png",
+      "width": 26,
+      "height": 66,
+      "texture_px": [
+        26,
+        66
+      ],
+      "offset": 390575,
+      "length": 1716,
+      "trim_origin_top_left_px": [
+        70,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        12
+      ],
+      "sha256": "544728cc16e36ed6a940ab15ee632e4df88d759f14e7a6d7a44fe99f3a373f04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_w_11.png",
+      "width": 24,
+      "height": 69,
+      "texture_px": [
+        24,
+        69
+      ],
+      "offset": 392291,
+      "length": 1656,
+      "trim_origin_top_left_px": [
+        69,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        14
+      ],
+      "sha256": "819c2a2567b934d970701b4c301508f0525164e9a950d1cfe125333af7a0f8a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_wnw_11.png",
+      "width": 26,
+      "height": 70,
+      "texture_px": [
+        26,
+        70
+      ],
+      "offset": 393947,
+      "length": 1820,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        15
+      ],
+      "sha256": "e5c249281d9bdcdc3359725a1f8d1bbea5426df6a018a846597d7dd7308f80ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nw_11.png",
+      "width": 29,
+      "height": 70,
+      "texture_px": [
+        29,
+        70
+      ],
+      "offset": 395767,
+      "length": 2030,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "1b41747b2d7c239e4eba9ca91b9f53ee7d982b589d2a8dd8f1d215833d9868c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nnw_11.png",
+      "width": 33,
+      "height": 68,
+      "texture_px": [
+        33,
+        68
+      ],
+      "offset": 397797,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        64,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "bf8a3fe967e0b814f92c3a688e94975aa4e486652160684d78c0cb6cd3b1c546",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_n_11.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 400041,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "fc25346cd36f0242d755b831732d24eed77b24e404dd2caad3680da1c96a86e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_nne_11.png",
+      "width": 37,
+      "height": 64,
+      "texture_px": [
+        37,
+        64
+      ],
+      "offset": 402316,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        60,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "47171d3b7744e85c005af78d2293a090dc13aab6f9002c23392122324105fe4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ne_11.png",
+      "width": 33,
+      "height": 64,
+      "texture_px": [
+        33,
+        64
+      ],
+      "offset": 404684,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "ba07d721c092d6c2531b5d1067b58c5d0c76061e241e8dec25c799a7042acb73",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ene_11.png",
+      "width": 26,
+      "height": 61,
+      "texture_px": [
+        26,
+        61
+      ],
+      "offset": 406796,
+      "length": 1586,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0b5f2b8e24993700f445b07246e2840a0a16954a07bb2016488dcf741e4077dd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_e_11.png",
+      "width": 24,
+      "height": 61,
+      "texture_px": [
+        24,
+        61
+      ],
+      "offset": 408382,
+      "length": 1464,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "a164a104fdf07d4f444e18ef298d344d0152964d1ae6b58955446797a6306073",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_ese_11.png",
+      "width": 26,
+      "height": 59,
+      "texture_px": [
+        26,
+        59
+      ],
+      "offset": 409846,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "ca91b037ef6a9ac3897c908b4bfa46de3405bd331222560140316f7b0d855519",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_se_11.png",
+      "width": 29,
+      "height": 58,
+      "texture_px": [
+        29,
+        58
+      ],
+      "offset": 411380,
+      "length": 1682,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "ac65a5e8dd4517afba280c522895e38f9e866184c0ca056505e61a3cc1baa72e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanShove.atlas",
+      "name": "shove_sse_11.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 413062,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        6
+      ],
+      "sha256": "4ceeda5cf252523102a85d12789a7e5786075ef349cda01d60b0f24eee227e84",
+      "empty": false
+    }
+  ],
+  "source_authority": "ShoveOct08/Shove_Authored.blend"
+}

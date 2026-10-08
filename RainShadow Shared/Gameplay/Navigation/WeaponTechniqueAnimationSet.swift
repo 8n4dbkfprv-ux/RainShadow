@@ -56,3 +56,37 @@ enum WeaponTechniqueAnimationSet {
             y: density * (sqrt(1 - 0.75 * 0.75) * z - 0.75 * (sin(angle) * x - cos(angle) * y)))
     }
 }
+
+
+/// A low sweeping sword cut, authored independently of the normal attacks.
+enum TripAnimationSet {
+    static let body = "HumanTrip"
+    static let hashes: [String: String] = [
+        "HumanTrip": "77c11c0dde5f230e64f7f880305f5d6499b40320bba82872cba83babf55bf10d",
+        "HumanTripSword": "9589f8f72be7cf44658ad98e8239af7d64450a799ee92e3652a743a0939dda67",
+        "HumanTripMail": "bf719549a32c78d3ce25e39e81ff616a1ab9e1fd09f364aab4a9ae66370394b3",
+        "HumanTripHelmet": "226c867cdc2326e7e89fd62550f63c8dbd31093e99da1a7859da1b1faa47237a",
+    ]
+    static func equipment(_ item: CharacterEquipmentCode) -> String? {
+        WeaponTechniqueAnimationSet.equipment(item)?.replacingOccurrences(of: "HumanTechniques", with: body)
+    }
+    static func name(facing: ActorFacing, phase: Int) throws -> String {
+        guard (0..<16).contains(phase) else { throw CharacterAppearanceError.invalidPhase(phase) }
+        return String(format: "trip_%@_%02d.png", VossAnimationSet.direction(facing), phase)
+    }
+    static func validate(_ sprite: IEIndexedSprite, character: String) throws {
+        guard sprite.character == character, sprite.blobSHA256 == hashes[character],
+              sprite.paletteLayout == .bgeeMixed, sprite.frames.count == 256,
+              sprite.sourceCanvasSize == .init(width: 160, height: 160),
+              sprite.sourcePivotFromCanvasBottomLeft == .init(x: 80, y: 60),
+              sprite.compatibilityDisplaySize == .init(x: 175.78125, y: 175.78125) else {
+            throw IEIndexedSpriteError.malformedManifest(reason: "Expected the approved Trip Attack payload")
+        }
+        for facing in ActorFacing.allCases { for phase in 0..<16 {
+            let key = try name(facing: facing, phase: phase)
+            guard let frame = sprite.frame(atlas: character + ".atlas", name: key), character != body || !frame.isEmpty else {
+                throw CharacterAppearanceError.missingFrame(character, key)
+            }
+        } }
+    }
+}

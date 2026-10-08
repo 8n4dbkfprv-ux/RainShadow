@@ -47,13 +47,23 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
 
     private struct Resources {
         let body: IEAvatarFrameLibrary
+        let bearRoar: IEAvatarFrameLibrary?
+        let bearClaw: IEAvatarFrameLibrary?
         let equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let bowShot: IEAvatarFrameLibrary?
+        let tripBody: IEAvatarFrameLibrary?
+        let tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let shoveBody: IEAvatarFrameLibrary?
+        let shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let defeatBody: IEAvatarFrameLibrary?
+        let defeatEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let stealthBody: IEAvatarFrameLibrary?
         let stealthBow: IEAvatarFrameLibrary?
         let stealthEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let knockbackBody: IEAvatarFrameLibrary?
         let knockbackEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let tripReactionBody: IEAvatarFrameLibrary?
+        let tripReactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let reactionBody: IEAvatarFrameLibrary?
         let reactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let meleeBody: IEAvatarFrameLibrary?
@@ -65,6 +75,14 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         init(appearance: CharacterAppearance) throws {
             try appearance.validate()
             body = try IEAvatarFrameLibrary.shared(appearance: appearance)
+            if appearance.body == .bearGuardian {
+                let library = try IEAvatarFrameLibrary.shared(character: BearRoarAnimationSet.character, colors: body.colors)
+                try BearRoarAnimationSet.validate(library.sprite)
+                bearRoar = library
+                let claw = try IEAvatarFrameLibrary.shared(character: BearClawAnimationSet.character, colors: body.colors)
+                try BearClawAnimationSet.validate(claw.sprite)
+                bearClaw = claw
+            } else { bearRoar = nil; bearClaw = nil }
             var equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             for layer in appearance.equipment {
                 let base = try IEAvatarFrameLibrary.shared(character: layer.item.character)
@@ -73,12 +91,43 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            var tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var defeatEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var stealthEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var knockbackEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var tripReactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var reactionEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var meleeEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var techniqueEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             if appearance.body == .humanMale01 {
+                let trip = try IEAvatarFrameLibrary.shared(character: TripAnimationSet.body, colors: body.colors)
+                try TripAnimationSet.validate(trip.sprite, character: TripAnimationSet.body)
+                tripBody = trip
+                for (item, base) in equipment {
+                    guard let name = TripAnimationSet.equipment(item) else { continue }
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try TripAnimationSet.validate(layer.sprite, character: name)
+                    tripEquipment[item] = layer
+                }
+                let shove = try IEAvatarFrameLibrary.shared(character: ShoveAnimationSet.body, colors: body.colors)
+                try ShoveAnimationSet.validate(shove.sprite, character: ShoveAnimationSet.body)
+                shoveBody = shove
+                for (item, base) in equipment where item != .elvenCourtArrow {
+                    let name = ShoveAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try ShoveAnimationSet.validate(layer.sprite, character: name)
+                    shoveEquipment[item] = layer
+                }
+                let defeat = try IEAvatarFrameLibrary.shared(character: DefeatAnimationSet.body, colors: body.colors)
+                try DefeatAnimationSet.validate(defeat.sprite, character: DefeatAnimationSet.body)
+                defeatBody = defeat
+                for (item, base) in equipment {
+                    let name = DefeatAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try DefeatAnimationSet.validate(layer.sprite, character: name)
+                    defeatEquipment[item] = layer
+                }
                 let stealth = try IEAvatarFrameLibrary.shared(character: StealthAnimationSet.body, colors: body.colors)
                 try StealthAnimationSet.validate(stealth.sprite, character: StealthAnimationSet.body)
                 stealthBody = stealth
@@ -87,6 +136,15 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
                     try StealthAnimationSet.validate(layer.sprite, character: name)
                     stealthEquipment[item] = layer
+                }
+                let tripReaction = try IEAvatarFrameLibrary.shared(character: CombatReactionAnimationSet.tripBody, colors: body.colors)
+                try CombatReactionAnimationSet.validate(tripReaction.sprite, character: CombatReactionAnimationSet.tripBody)
+                tripReactionBody = tripReaction
+                for (item, base) in equipment {
+                    guard let name = CombatReactionAnimationSet.tripEquipment(item) else { continue }
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try CombatReactionAnimationSet.validate(layer.sprite, character: name)
+                    tripReactionEquipment[item] = layer
                 }
                 let reaction = try IEAvatarFrameLibrary.shared(character: CombatReactionAnimationSet.body, colors: body.colors)
                 try CombatReactionAnimationSet.validate(reaction.sprite, character: CombatReactionAnimationSet.body)
@@ -121,7 +179,11 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                         techniqueEquipment[item] = technique
                     }
                 }
-            } else { meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil }
+            } else { tripReactionBody = nil; tripBody = nil; meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil; defeatBody = nil; shoveBody = nil }
+            self.tripReactionEquipment = tripReactionEquipment
+            self.tripEquipment = tripEquipment
+            self.shoveEquipment = shoveEquipment
+            self.defeatEquipment = defeatEquipment
             self.stealthEquipment = stealthEquipment
             self.reactionEquipment = reactionEquipment
             self.knockbackEquipment = knockbackEquipment
@@ -161,14 +223,14 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
 
         func reactionFrames(_ kind: CombatReactionKind, facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
             let name = try CombatReactionAnimationSet.name(kind, facing: facing, phase: phase)
-            let character = kind.isKnockback ? CombatReactionAnimationSet.knockbackBody : CombatReactionAnimationSet.body
-            let library = kind.isKnockback ? knockbackBody : reactionBody
+            let character = kind == .tripFall ? CombatReactionAnimationSet.tripBody : kind.isKnockback ? CombatReactionAnimationSet.knockbackBody : CombatReactionAnimationSet.body
+            let library = kind == .tripFall ? tripReactionBody : kind.isKnockback ? knockbackBody : reactionBody
             guard let frame = library?.frame(atlas: character + ".atlas", name: name) else {
                 throw CharacterAppearanceError.missingFrame(character, name)
             }
             var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
-            for (item, library) in (kind.isKnockback ? knockbackEquipment : reactionEquipment) {
-                let atlas = (kind.isKnockback ? CombatReactionAnimationSet.knockbackEquipment(item) : CombatReactionAnimationSet.equipment(item)) + ".atlas"
+            for (item, library) in (kind == .tripFall ? tripReactionEquipment : kind.isKnockback ? knockbackEquipment : reactionEquipment) {
+                let atlas = (kind == .tripFall ? CombatReactionAnimationSet.tripEquipment(item)! : kind.isKnockback ? CombatReactionAnimationSet.knockbackEquipment(item) : CombatReactionAnimationSet.equipment(item)) + ".atlas"
                 guard let overlay = library.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
                 overlays[item] = overlay
             }
@@ -177,6 +239,33 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
 
         func frames(appearance: CharacterAppearance, action: CharacterVisualAction,
                     facing: ActorFacing, phase: Int, technique: CombatManeuver? = nil) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
+            if action == .roar, let library = bearRoar {
+                let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: BearRoarAnimationSet.character + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(BearRoarAnimationSet.character, name)
+                }
+                return (frame, [:])
+            }
+            if action == .attack, let library = bearClaw {
+                let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: BearClawAnimationSet.character + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(BearClawAnimationSet.character, name)
+                }
+                return (frame, [:])
+            }
+            if technique == .tripAttack, let library = tripBody {
+                let name = try TripAnimationSet.name(facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: TripAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(TripAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in tripEquipment {
+                    let atlas = TripAnimationSet.equipment(item)! + ".atlas"
+                    guard let overlay = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = overlay
+                }
+                return (frame, overlays)
+            }
             if let technique, technique != .aimedShot {
                 let isBow = technique == .pinningShot
                 guard action == (isBow ? .shoot : .attack), let library = isBow ? pinningShot : techniqueBody else {
@@ -194,6 +283,32 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                         guard let overlay = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
                         overlays[item] = overlay
                     }
+                }
+                return (frame, overlays)
+            }
+            if action == .shove, let library = shoveBody {
+                let name = try ShoveAnimationSet.name(facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: ShoveAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(ShoveAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in shoveEquipment {
+                    let atlas = ShoveAnimationSet.equipment(item) + ".atlas"
+                    guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = frame
+                }
+                return (frame, overlays)
+            }
+            if action == .die, let library = defeatBody {
+                let name = try DefeatAnimationSet.name(facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: DefeatAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(DefeatAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in defeatEquipment {
+                    let atlas = DefeatAnimationSet.equipment(item) + ".atlas"
+                    guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = frame
                 }
                 return (frame, overlays)
             }

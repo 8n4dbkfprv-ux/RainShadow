@@ -1,0 +1,6388 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanDefeatBow",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "30e337f21609a4225af286c9f04a27fb3f06a3569a99859c7f443225e41fb069",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_00.png",
+      "width": 16,
+      "height": 13,
+      "texture_px": [
+        16,
+        13
+      ],
+      "offset": 16,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        52,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -11
+      ],
+      "sha256": "e499da0f14c5d12353bdf8af98d4e464a1c85ac0cef9faa90b5e8f4521c446d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_00.png",
+      "width": 6,
+      "height": 14,
+      "texture_px": [
+        6,
+        14
+      ],
+      "offset": 224,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        56,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -16
+      ],
+      "sha256": "037e3ac4061ffc9f1aecab9b9390c506f76c12f4947c660daa2fe8f40079f12c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_00.png",
+      "width": 18,
+      "height": 12,
+      "texture_px": [
+        18,
+        12
+      ],
+      "offset": 308,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        49,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -24
+      ],
+      "sha256": "9076611fa2beabf85803433937b88cc9de3d84c5be3a5d8dc2d74eb2002ab34e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_00.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 524,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        46,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -30
+      ],
+      "sha256": "2530b425395daf32c645f16fe8d47eff38e53e74121e66691c5c6fa8d76629f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_00.png",
+      "width": 47,
+      "height": 18,
+      "texture_px": [
+        47,
+        18
+      ],
+      "offset": 784,
+      "length": 846,
+      "trim_origin_top_left_px": [
+        48,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -27
+      ],
+      "sha256": "b442d87b34842a16ca6cec1b3f8d27fd807b9a6bdb10101ec5f7e80c8e89084d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_00.png",
+      "width": 49,
+      "height": 32,
+      "texture_px": [
+        49,
+        32
+      ],
+      "offset": 1630,
+      "length": 1568,
+      "trim_origin_top_left_px": [
+        55,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -21
+      ],
+      "sha256": "19e1b6ea224eebb1728b1df35e2a6f639188d5c64e30d8ad901d916892b1887f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_00.png",
+      "width": 44,
+      "height": 46,
+      "texture_px": [
+        44,
+        46
+      ],
+      "offset": 3198,
+      "length": 2024,
+      "trim_origin_top_left_px": [
+        66,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "e4d26f3996b9b9c77bf24dc1162fb97c995c3da209e7bcc7bfdf9d2188a275e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_00.png",
+      "width": 32,
+      "height": 57,
+      "texture_px": [
+        32,
+        57
+      ],
+      "offset": 5222,
+      "length": 1824,
+      "trim_origin_top_left_px": [
+        79,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -4
+      ],
+      "sha256": "ad82c3cead88d0d49a68723a28fa2cf19b0e6db8a04425ded9f04ebb88d0ea2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_00.png",
+      "width": 16,
+      "height": 64,
+      "texture_px": [
+        16,
+        64
+      ],
+      "offset": 7046,
+      "length": 1024,
+      "trim_origin_top_left_px": [
+        92,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        5
+      ],
+      "sha256": "c47556c0ea2dba8b99fbd4f5bf46f3186165afce82ed1d76219a14ecb5874d6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_00.png",
+      "width": 6,
+      "height": 65,
+      "texture_px": [
+        6,
+        65
+      ],
+      "offset": 8070,
+      "length": 390,
+      "trim_origin_top_left_px": [
+        98,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        12
+      ],
+      "sha256": "6489e24d043d7afa70218b745767824ec0efb742932159d7be2f7cbb7da535f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_00.png",
+      "width": 22,
+      "height": 61,
+      "texture_px": [
+        22,
+        61
+      ],
+      "offset": 8460,
+      "length": 1342,
+      "trim_origin_top_left_px": [
+        89,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        16
+      ],
+      "sha256": "3646a5fd19e63e94611671fe45840c551c206d56ec933fb3a5440e36657cabf6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_00.png",
+      "width": 37,
+      "height": 52,
+      "texture_px": [
+        37,
+        52
+      ],
+      "offset": 9802,
+      "length": 1924,
+      "trim_origin_top_left_px": [
+        77,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        17
+      ],
+      "sha256": "24ae23c7ac230d254c818be2e1c6e9b4f3ae476e91bb4b5d3f6278d937cddde8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_00.png",
+      "width": 47,
+      "height": 40,
+      "texture_px": [
+        47,
+        40
+      ],
+      "offset": 11726,
+      "length": 1880,
+      "trim_origin_top_left_px": [
+        65,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "e9ad4e2f9fadb0fcbfa6e419f3bcfdfbb7588954c234da631bdaccc85819b8b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_00.png",
+      "width": 49,
+      "height": 26,
+      "texture_px": [
+        49,
+        26
+      ],
+      "offset": 13606,
+      "length": 1274,
+      "trim_origin_top_left_px": [
+        56,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        8
+      ],
+      "sha256": "70aef860d6354c3ef251f1ce856cde15cc768331dd74b01bd3e91f7bd0d312a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_00.png",
+      "width": 44,
+      "height": 17,
+      "texture_px": [
+        44,
+        17
+      ],
+      "offset": 14880,
+      "length": 748,
+      "trim_origin_top_left_px": [
+        50,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        1
+      ],
+      "sha256": "cfed806af85356162154fd8b0c254262fcb9ad66d2981bcc9d07acc4cb2ceafe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_00.png",
+      "width": 32,
+      "height": 11,
+      "texture_px": [
+        32,
+        11
+      ],
+      "offset": 15628,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        49,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -8
+      ],
+      "sha256": "ece46b39c546e75feb130cf21b7f06a6215265dc80f73284eaebf0cd4673e72c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_01.png",
+      "width": 22,
+      "height": 29,
+      "texture_px": [
+        22,
+        29
+      ],
+      "offset": 15980,
+      "length": 638,
+      "trim_origin_top_left_px": [
+        49,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -1
+      ],
+      "sha256": "2b7f68936a9757c039bad0d43bf5d7142591feedfe7d26cde52455809ff8a32e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_01.png",
+      "width": 14,
+      "height": 24,
+      "texture_px": [
+        14,
+        24
+      ],
+      "offset": 16618,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        50,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -11
+      ],
+      "sha256": "7a7bd45db71abbca41de5188e92a35a96a0ecac2dbc222b5aafde1414b14f418",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_01.png",
+      "width": 9,
+      "height": 21,
+      "texture_px": [
+        9,
+        21
+      ],
+      "offset": 16954,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        54,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -19
+      ],
+      "sha256": "15a9aa03a34a968e16290e0b80b3175a532457ab946e00520f81ca59a65d1539",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_01.png",
+      "width": 12,
+      "height": 21,
+      "texture_px": [
+        12,
+        21
+      ],
+      "offset": 17143,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        57,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -25
+      ],
+      "sha256": "87192025f98f95db45f267175b4f56392edca5d5688fc9a28d1065ee602ce509",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_01.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 17395,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        59,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -30
+      ],
+      "sha256": "b43272a3f1152b046d8f8ebf2d94033f4cea7052bbb0495e5efb4a51f3e13032",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_01.png",
+      "width": 13,
+      "height": 17,
+      "texture_px": [
+        13,
+        17
+      ],
+      "offset": 17731,
+      "length": 221,
+      "trim_origin_top_left_px": [
+        64,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -40
+      ],
+      "sha256": "c861e2bd63d7a322b9d9f9d270955d61c86090f48295f50603bc83f6ad3f3202",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_01.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 17952,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        71,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -24
+      ],
+      "sha256": "10a242946fc98f0127eb8476f23bf07d4219ed31bc5cdc5cace7411bf851ba99",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_01.png",
+      "width": 27,
+      "height": 45,
+      "texture_px": [
+        27,
+        45
+      ],
+      "offset": 18988,
+      "length": 1215,
+      "trim_origin_top_left_px": [
+        80,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -17
+      ],
+      "sha256": "bc09ce8238ba6cd901d52c8d0ecc5f03a0a1dda60f1f4b5f24d1f08cc7184758",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_01.png",
+      "width": 22,
+      "height": 51,
+      "texture_px": [
+        22,
+        51
+      ],
+      "offset": 20203,
+      "length": 1122,
+      "trim_origin_top_left_px": [
+        89,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -9
+      ],
+      "sha256": "df4f7fadf693795a3088ed96704170ad14ee0307e38feed88de6325ece4112f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_01.png",
+      "width": 15,
+      "height": 57,
+      "texture_px": [
+        15,
+        57
+      ],
+      "offset": 21325,
+      "length": 855,
+      "trim_origin_top_left_px": [
+        96,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        0
+      ],
+      "sha256": "1569deead756b029b19d44f2f82c0f7765411f41e2a98ea0ac63730be85c73df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_01.png",
+      "width": 9,
+      "height": 59,
+      "texture_px": [
+        9,
+        59
+      ],
+      "offset": 22180,
+      "length": 531,
+      "trim_origin_top_left_px": [
+        97,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        8
+      ],
+      "sha256": "f1f0e308276f2e56459c60eaabfabae687a3ff6daf84472df39eaf9aef49fb18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_01.png",
+      "width": 12,
+      "height": 59,
+      "texture_px": [
+        12,
+        59
+      ],
+      "offset": 22711,
+      "length": 708,
+      "trim_origin_top_left_px": [
+        91,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        14
+      ],
+      "sha256": "67af049df69e3ca84c176f6e8ce5da8fb5534461984082a433bb7ec5080ca0f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_01.png",
+      "width": 19,
+      "height": 55,
+      "texture_px": [
+        19,
+        55
+      ],
+      "offset": 23419,
+      "length": 1045,
+      "trim_origin_top_left_px": [
+        82,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        17
+      ],
+      "sha256": "dc4c5d01eb74a25a1ae01493263a1ce9b6cb03bc7ebd5ec6e99820e4b62388c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_01.png",
+      "width": 25,
+      "height": 49,
+      "texture_px": [
+        25,
+        49
+      ],
+      "offset": 24464,
+      "length": 1225,
+      "trim_origin_top_left_px": [
+        71,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        17
+      ],
+      "sha256": "53dbb6d0e92adcc22163fe6c0e046692936e1f8264050451768d4bbd99539c42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_01.png",
+      "width": 28,
+      "height": 42,
+      "texture_px": [
+        28,
+        42
+      ],
+      "offset": 25689,
+      "length": 1176,
+      "trim_origin_top_left_px": [
+        61,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "97bc0f300daed7ff54eed5b87adbb83f724c147fd024ddf30deb40e79335e720",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_01.png",
+      "width": 27,
+      "height": 34,
+      "texture_px": [
+        27,
+        34
+      ],
+      "offset": 26865,
+      "length": 918,
+      "trim_origin_top_left_px": [
+        53,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        6
+      ],
+      "sha256": "39ead45f5748e481ac10d4e2ebbdd7df4a54f75d7e04f3849c3e466e98dcc543",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_02.png",
+      "width": 38,
+      "height": 51,
+      "texture_px": [
+        38,
+        51
+      ],
+      "offset": 27783,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        42,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        3
+      ],
+      "sha256": "5f9563948d711307e94305965e23bf79f8bd1acd5728f16616a5887150330c95",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_02.png",
+      "width": 46,
+      "height": 39,
+      "texture_px": [
+        46,
+        39
+      ],
+      "offset": 29721,
+      "length": 1794,
+      "trim_origin_top_left_px": [
+        34,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -9
+      ],
+      "sha256": "7a339f55476ec2ec0aa26f65c6e9fab98a4c5412541ea3dd510086283c31c46c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_02.png",
+      "width": 47,
+      "height": 25,
+      "texture_px": [
+        47,
+        25
+      ],
+      "offset": 31515,
+      "length": 1175,
+      "trim_origin_top_left_px": [
+        33,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -23
+      ],
+      "sha256": "09db61d29792b6ace2b30d074e6c086e6ea259f5a30ce6f26fca215024090d29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_02.png",
+      "width": 40,
+      "height": 12,
+      "texture_px": [
+        40,
+        12
+      ],
+      "offset": 32690,
+      "length": 480,
+      "trim_origin_top_left_px": [
+        40,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -36
+      ],
+      "sha256": "953aa9d7750d1b2de2dfecf25de6ae11bb3a32a9b2658fcb8c7fddf3406749be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_02.png",
+      "width": 29,
+      "height": 3,
+      "texture_px": [
+        29,
+        3
+      ],
+      "offset": 33170,
+      "length": 87,
+      "trim_origin_top_left_px": [
+        52,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -46
+      ],
+      "sha256": "52ea868d7623451d1125018f7c8758600d8bca35be049fbafb533930026faeaa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_02.png",
+      "width": 16,
+      "height": 6,
+      "texture_px": [
+        16,
+        6
+      ],
+      "offset": 33257,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        69,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -47
+      ],
+      "sha256": "f9292b8647c3168f69b197cf7f43fa4307e95cfa9276934d251aa50061429cf0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_02.png",
+      "width": 13,
+      "height": 8,
+      "texture_px": [
+        13,
+        8
+      ],
+      "offset": 33353,
+      "length": 104,
+      "trim_origin_top_left_px": [
+        80,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -45
+      ],
+      "sha256": "5936eff3663256688a8fd10e7c304de5d45e3d7957b14c66910d6f79367accc1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_02.png",
+      "width": 25,
+      "height": 8,
+      "texture_px": [
+        25,
+        8
+      ],
+      "offset": 33457,
+      "length": 200,
+      "trim_origin_top_left_px": [
+        80,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -41
+      ],
+      "sha256": "4b167a26718cfc3adc1679312d8877e8be9aa253924f0b03302c05b9003d0c8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_02.png",
+      "width": 38,
+      "height": 14,
+      "texture_px": [
+        38,
+        14
+      ],
+      "offset": 33657,
+      "length": 532,
+      "trim_origin_top_left_px": [
+        80,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -34
+      ],
+      "sha256": "c2617e13cb78dd381038f57e310b9f4d816962171412129dbd3ae9bdf945c5e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_02.png",
+      "width": 46,
+      "height": 24,
+      "texture_px": [
+        46,
+        24
+      ],
+      "offset": 34189,
+      "length": 1104,
+      "trim_origin_top_left_px": [
+        80,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -24
+      ],
+      "sha256": "500146ab9443b9ab8f9734397a1cf25f8756ac60d62d9cb4a31057e989ca1d24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_02.png",
+      "width": 46,
+      "height": 36,
+      "texture_px": [
+        46,
+        36
+      ],
+      "offset": 35293,
+      "length": 1656,
+      "trim_origin_top_left_px": [
+        80,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -12
+      ],
+      "sha256": "ac6678253b0c5ff137f82afe6204c94c3dd712fd3e11482fd15c0948c5aecdae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_02.png",
+      "width": 40,
+      "height": 47,
+      "texture_px": [
+        40,
+        47
+      ],
+      "offset": 36949,
+      "length": 1880,
+      "trim_origin_top_left_px": [
+        80,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        0
+      ],
+      "sha256": "c4d047af43d1872e710890d16023933f5da93224e1619d72c8ca0e782411459e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_02.png",
+      "width": 28,
+      "height": 57,
+      "texture_px": [
+        28,
+        57
+      ],
+      "offset": 38829,
+      "length": 1596,
+      "trim_origin_top_left_px": [
+        79,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        10
+      ],
+      "sha256": "062c1696ffab0026d21a4cc35945b59675a5c3099c181f2199c876de93ad1238",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_02.png",
+      "width": 17,
+      "height": 62,
+      "texture_px": [
+        17,
+        62
+      ],
+      "offset": 40425,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        74,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        15
+      ],
+      "sha256": "b7800087b0beefe64171e7d7f9c8fdb6b9bcdc9ef64ae58bf737e97e75eb4fba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_02.png",
+      "width": 13,
+      "height": 64,
+      "texture_px": [
+        13,
+        64
+      ],
+      "offset": 41479,
+      "length": 832,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        16
+      ],
+      "sha256": "d54cc502914bba839bfac4243f4b618ba4e3d0cdd39feb9b811b768dca6fa3e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_02.png",
+      "width": 25,
+      "height": 60,
+      "texture_px": [
+        25,
+        60
+      ],
+      "offset": 42311,
+      "length": 1500,
+      "trim_origin_top_left_px": [
+        55,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12
+      ],
+      "sha256": "b54b201ad878510768842b79eba744e3a9e830db63bc1b5050fb82a11bf34f49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_03.png",
+      "width": 43,
+      "height": 49,
+      "texture_px": [
+        43,
+        49
+      ],
+      "offset": 43811,
+      "length": 2107,
+      "trim_origin_top_left_px": [
+        40,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -1
+      ],
+      "sha256": "3d0976225212e21cbec74377683e374b66ef5893fc2bf1275ac312eac28e6f01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_03.png",
+      "width": 54,
+      "height": 35,
+      "texture_px": [
+        54,
+        35
+      ],
+      "offset": 45918,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        31,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -14
+      ],
+      "sha256": "9a9115e0104268c80c003d3401c4900afdb76ecef8b48e4b49d3def5a367a90b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_03.png",
+      "width": 57,
+      "height": 19,
+      "texture_px": [
+        57,
+        19
+      ],
+      "offset": 47808,
+      "length": 1083,
+      "trim_origin_top_left_px": [
+        30,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -29
+      ],
+      "sha256": "131ae5d4258ebf7153fda0e27dbd05e0a6e9e49fb125c020a8bbb2fb0b896ca9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_03.png",
+      "width": 52,
+      "height": 4,
+      "texture_px": [
+        52,
+        4
+      ],
+      "offset": 48891,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        35,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -43
+      ],
+      "sha256": "62d7249987b5d889fc0a056c80f5af97c3c413d428d309475c85194c1f139e1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_03.png",
+      "width": 39,
+      "height": 12,
+      "texture_px": [
+        39,
+        12
+      ],
+      "offset": 49099,
+      "length": 468,
+      "trim_origin_top_left_px": [
+        48,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -43
+      ],
+      "sha256": "c3b802700f86fb0daed6c0b5f826abc07ba6de1482c49fb109f97589ca770cea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_03.png",
+      "width": 22,
+      "height": 21,
+      "texture_px": [
+        22,
+        21
+      ],
+      "offset": 49567,
+      "length": 462,
+      "trim_origin_top_left_px": [
+        66,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -41
+      ],
+      "sha256": "371f9c57b7001435166f8aebe3ad1860bd9382fcb8d898f341f613cadd93160f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_03.png",
+      "width": 11,
+      "height": 23,
+      "texture_px": [
+        11,
+        23
+      ],
+      "offset": 50029,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        82,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -40
+      ],
+      "sha256": "3d14b7f9b8b92151fab3be54b1eb4c5a226340846468f459115087f590beea78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_03.png",
+      "width": 25,
+      "height": 20,
+      "texture_px": [
+        25,
+        20
+      ],
+      "offset": 50282,
+      "length": 500,
+      "trim_origin_top_left_px": [
+        80,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -38
+      ],
+      "sha256": "7f8ede099e49c8b060d534bcb5679939810a4385f25ce637a877712c1ea5acdf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_03.png",
+      "width": 43,
+      "height": 14,
+      "texture_px": [
+        43,
+        14
+      ],
+      "offset": 50782,
+      "length": 602,
+      "trim_origin_top_left_px": [
+        77,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -35
+      ],
+      "sha256": "8c8a30680be8e130751b1bd72cc3c90dd6b46cff8ad5aa4324b31ab9e532e86d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_03.png",
+      "width": 53,
+      "height": 13,
+      "texture_px": [
+        53,
+        13
+      ],
+      "offset": 51384,
+      "length": 689,
+      "trim_origin_top_left_px": [
+        75,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -29
+      ],
+      "sha256": "153ba24743d23aaa15f635f32204c13606bdd2daaacef9cad4e589ecf4cf488d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_03.png",
+      "width": 56,
+      "height": 25,
+      "texture_px": [
+        56,
+        25
+      ],
+      "offset": 52073,
+      "length": 1400,
+      "trim_origin_top_left_px": [
+        73,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -19
+      ],
+      "sha256": "63ce48df8816fb9b8392c3727aac4b65edf7342e6f1b63ac7b7704fe94b5fea6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_03.png",
+      "width": 50,
+      "height": 40,
+      "texture_px": [
+        50,
+        40
+      ],
+      "offset": 53473,
+      "length": 2000,
+      "trim_origin_top_left_px": [
+        73,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -6
+      ],
+      "sha256": "ed3614a56ae2daab6d4ce4eabbe3567cbfd54db1f7bb673e0d7aeb9f241272cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_03.png",
+      "width": 38,
+      "height": 52,
+      "texture_px": [
+        38,
+        52
+      ],
+      "offset": 55473,
+      "length": 1976,
+      "trim_origin_top_left_px": [
+        73,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        4
+      ],
+      "sha256": "770d1808cd9371bbbefb617208420aad1d7614ddc87f43f8355441a380eac6d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_03.png",
+      "width": 22,
+      "height": 61,
+      "texture_px": [
+        22,
+        61
+      ],
+      "offset": 57449,
+      "length": 1342,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        11
+      ],
+      "sha256": "e0e9d734ffc3b8e83b8032261be1422baef22f3dc28a2aaac77306b13be53e58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_03.png",
+      "width": 11,
+      "height": 64,
+      "texture_px": [
+        11,
+        64
+      ],
+      "offset": 58791,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        13
+      ],
+      "sha256": "3537b10802352a3196966204d77a3a1aab8f84c67c27290708b042e9c1f765f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_03.png",
+      "width": 26,
+      "height": 60,
+      "texture_px": [
+        26,
+        60
+      ],
+      "offset": 59495,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        55,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        9
+      ],
+      "sha256": "59d66657887eabbb6cb11fe26ad34d98f3da9cfb7344856512dacea0d5fea4b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_04.png",
+      "width": 46,
+      "height": 44,
+      "texture_px": [
+        46,
+        44
+      ],
+      "offset": 61055,
+      "length": 2024,
+      "trim_origin_top_left_px": [
+        40,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -5
+      ],
+      "sha256": "6ef369190c34e695a60f01e87f0058246ac2aafec6844431fb86f76a49dcecd4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_04.png",
+      "width": 59,
+      "height": 28,
+      "texture_px": [
+        59,
+        28
+      ],
+      "offset": 63079,
+      "length": 1652,
+      "trim_origin_top_left_px": [
+        30,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -18
+      ],
+      "sha256": "972720997aefa42568dd8eddb28fa219956a0b25f208f999e2fc93af45ded3d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_04.png",
+      "width": 63,
+      "height": 11,
+      "texture_px": [
+        63,
+        11
+      ],
+      "offset": 64731,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        28,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        52,
+        -33
+      ],
+      "sha256": "0341c5a836e551e292eb5b3e976df2bae605421e7c620609cf5293ea8440bfb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_04.png",
+      "width": 57,
+      "height": 9,
+      "texture_px": [
+        57,
+        9
+      ],
+      "offset": 65424,
+      "length": 513,
+      "trim_origin_top_left_px": [
+        35,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -39
+      ],
+      "sha256": "8c814bae553e5ccf0524efe4f4ecbaf4cee1395b4668ceb8fd39c457dfdd2bd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_04.png",
+      "width": 44,
+      "height": 24,
+      "texture_px": [
+        44,
+        24
+      ],
+      "offset": 65937,
+      "length": 1056,
+      "trim_origin_top_left_px": [
+        47,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -36
+      ],
+      "sha256": "1cc0d88bfbb1bc866fbaf983be143068cb598c69ab2abc673619f5e6fe838423",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_04.png",
+      "width": 24,
+      "height": 34,
+      "texture_px": [
+        24,
+        34
+      ],
+      "offset": 66993,
+      "length": 816,
+      "trim_origin_top_left_px": [
+        65,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -33
+      ],
+      "sha256": "86c1ff8e891f2ba491279f8ee1332b97cb30aa6af2b904fe73fde6671b587378",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_04.png",
+      "width": 10,
+      "height": 37,
+      "texture_px": [
+        10,
+        37
+      ],
+      "offset": 67809,
+      "length": 370,
+      "trim_origin_top_left_px": [
+        83,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -31
+      ],
+      "sha256": "8045e1bca8a740fb8d20ec809ae3c4eab71c3904968c37dbcc9c54b0d76528fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_04.png",
+      "width": 26,
+      "height": 32,
+      "texture_px": [
+        26,
+        32
+      ],
+      "offset": 68179,
+      "length": 832,
+      "trim_origin_top_left_px": [
+        79,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -31
+      ],
+      "sha256": "bc82f442665b5d5bc33f7eef0ae5574d641cadd9d0c4568a0edfd852e59d137f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_04.png",
+      "width": 45,
+      "height": 24,
+      "texture_px": [
+        45,
+        24
+      ],
+      "offset": 69011,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        75,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "23c6fe3da60cbab66f08dac03389b64cfd73e9b16c5fe1acb853d7dc50b60621",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_04.png",
+      "width": 58,
+      "height": 14,
+      "texture_px": [
+        58,
+        14
+      ],
+      "offset": 70091,
+      "length": 812,
+      "trim_origin_top_left_px": [
+        71,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -27
+      ],
+      "sha256": "064e0cc0767a515f821c9f66af07577c7741739472499727aa6e9ea36b8d366e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_04.png",
+      "width": 62,
+      "height": 17,
+      "texture_px": [
+        62,
+        17
+      ],
+      "offset": 70903,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        69,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -21
+      ],
+      "sha256": "7a9d5ffbac6a82fd3b5c2bc031750ae4cb6dfb63d19b3a3e70378320ce87ffb4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_04.png",
+      "width": 57,
+      "height": 31,
+      "texture_px": [
+        57,
+        31
+      ],
+      "offset": 71957,
+      "length": 1767,
+      "trim_origin_top_left_px": [
+        68,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "18c1a44fa03c00234cb7c75e1fe41aea844d80d973d88d1428fb7b89fed1a9d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_04.png",
+      "width": 43,
+      "height": 44,
+      "texture_px": [
+        43,
+        44
+      ],
+      "offset": 73724,
+      "length": 1892,
+      "trim_origin_top_left_px": [
+        69,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "a6c7b54654e40fd6b79b1d37a88ccc08c7ab96249ddba64a1cf81c82484ed971",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_04.png",
+      "width": 25,
+      "height": 54,
+      "texture_px": [
+        25,
+        54
+      ],
+      "offset": 75616,
+      "length": 1350,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        7
+      ],
+      "sha256": "6c347157d830c3394917e3ab096fc01b1aafdbfa6ec5bf6280b19eace9b4e907",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_04.png",
+      "width": 10,
+      "height": 58,
+      "texture_px": [
+        10,
+        58
+      ],
+      "offset": 76966,
+      "length": 580,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "962c7b45533b690d3e6be576d9348bc03bcf56ea13cd86ed1eeb57dd4b366109",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_04.png",
+      "width": 26,
+      "height": 54,
+      "texture_px": [
+        26,
+        54
+      ],
+      "offset": 77546,
+      "length": 1404,
+      "trim_origin_top_left_px": [
+        55,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        5
+      ],
+      "sha256": "472d32e562e533efe1998863015cc2f8113836942566ffa093996f303493001b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_05.png",
+      "width": 48,
+      "height": 31,
+      "texture_px": [
+        48,
+        31
+      ],
+      "offset": 78950,
+      "length": 1488,
+      "trim_origin_top_left_px": [
+        40,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -11
+      ],
+      "sha256": "cb771ec6d762b2e8f3164cb2846b5d29d337d90d9d8542a2017412b3126cfc9d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_05.png",
+      "width": 61,
+      "height": 15,
+      "texture_px": [
+        61,
+        15
+      ],
+      "offset": 80438,
+      "length": 915,
+      "trim_origin_top_left_px": [
+        31,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -24
+      ],
+      "sha256": "dbe1e8145b96bdfcc900bdcde9f721c55043d610d45f58fabd31d4c22996ea58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_05.png",
+      "width": 65,
+      "height": 6,
+      "texture_px": [
+        65,
+        6
+      ],
+      "offset": 81353,
+      "length": 390,
+      "trim_origin_top_left_px": [
+        30,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -34
+      ],
+      "sha256": "9c417c788af583b2ae4d4fb325af4206b5e7bc0beaa754a16e8607c6181b3154",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_05.png",
+      "width": 59,
+      "height": 24,
+      "texture_px": [
+        59,
+        24
+      ],
+      "offset": 81743,
+      "length": 1416,
+      "trim_origin_top_left_px": [
+        36,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -30
+      ],
+      "sha256": "77fe38f00da0113c657ec4cf0272b97f94fde857e7e977619aecbbdf06f9d48c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_05.png",
+      "width": 44,
+      "height": 39,
+      "texture_px": [
+        44,
+        39
+      ],
+      "offset": 83159,
+      "length": 1716,
+      "trim_origin_top_left_px": [
+        49,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -26
+      ],
+      "sha256": "5f11dd12be3f6b9cfb5b6f150043ea2e0529b671ee2d97b9cb5f984f46b37cdd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_05.png",
+      "width": 23,
+      "height": 48,
+      "texture_px": [
+        23,
+        48
+      ],
+      "offset": 84875,
+      "length": 1104,
+      "trim_origin_top_left_px": [
+        67,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -23
+      ],
+      "sha256": "475ce7b1b8cf6ee51f19031bb1bc7055c4cddc47c18154cda5ad639afe47da94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_05.png",
+      "width": 10,
+      "height": 52,
+      "texture_px": [
+        10,
+        52
+      ],
+      "offset": 85979,
+      "length": 520,
+      "trim_origin_top_left_px": [
+        83,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -20
+      ],
+      "sha256": "2918736ababa2c3fb22f482d517417151da8e7370ebab12e7e1dc1c317db592e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_05.png",
+      "width": 29,
+      "height": 46,
+      "texture_px": [
+        29,
+        46
+      ],
+      "offset": 86499,
+      "length": 1334,
+      "trim_origin_top_left_px": [
+        77,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -20
+      ],
+      "sha256": "5f3fbef98d8ed08c5abb692eafb73d9169a429e24d52420039e29c8141a719a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_05.png",
+      "width": 47,
+      "height": 34,
+      "texture_px": [
+        47,
+        34
+      ],
+      "offset": 87833,
+      "length": 1598,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -23
+      ],
+      "sha256": "067c67b3b8d5814847e540a55997684c9708a4afccba1bb5cd6c7c79c2ae5f85",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_05.png",
+      "width": 61,
+      "height": 22,
+      "texture_px": [
+        61,
+        22
+      ],
+      "offset": 89431,
+      "length": 1342,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -22
+      ],
+      "sha256": "0c4a9b1326840bdb8eff5b097459ad2cec8be7dd12f31b98b6b25f0f1e2287de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_05.png",
+      "width": 64,
+      "height": 11,
+      "texture_px": [
+        64,
+        11
+      ],
+      "offset": 90773,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        65,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -20
+      ],
+      "sha256": "1c4492228731afddd1efca01b7a85cface4baba7287c581cfa32fbc8f3aad6f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_05.png",
+      "width": 56,
+      "height": 21,
+      "texture_px": [
+        56,
+        21
+      ],
+      "offset": 91477,
+      "length": 1176,
+      "trim_origin_top_left_px": [
+        66,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "c219d276183881fc4ec498773598ade4ce2d36f47fa528f0f7a3ce187fd0775d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_05.png",
+      "width": 43,
+      "height": 34,
+      "texture_px": [
+        43,
+        34
+      ],
+      "offset": 92653,
+      "length": 1462,
+      "trim_origin_top_left_px": [
+        67,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -4
+      ],
+      "sha256": "5dfa117a7168b292a1e0c2e92f40dc3c41c42a8a5325d5dd65f62d09582d94bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_05.png",
+      "width": 23,
+      "height": 43,
+      "texture_px": [
+        23,
+        43
+      ],
+      "offset": 94115,
+      "length": 989,
+      "trim_origin_top_left_px": [
+        70,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        2
+      ],
+      "sha256": "6dd3c21207e258f93466c3c41f9c4e3197a90837bf9216b6d771863fe953a21f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_05.png",
+      "width": 10,
+      "height": 47,
+      "texture_px": [
+        10,
+        47
+      ],
+      "offset": 95104,
+      "length": 470,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        3
+      ],
+      "sha256": "02d22b295f3c122c1de62305543f4f9d1fd2278fa7bf1ca46d83f547ee1ba9ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_05.png",
+      "width": 29,
+      "height": 42,
+      "texture_px": [
+        29,
+        42
+      ],
+      "offset": 95574,
+      "length": 1218,
+      "trim_origin_top_left_px": [
+        54,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -2
+      ],
+      "sha256": "d6c52b3e6d49f0bcea37c5f657acd25d6726b8de21a29e507714a2ef0c59cb79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_06.png",
+      "width": 50,
+      "height": 25,
+      "texture_px": [
+        50,
+        25
+      ],
+      "offset": 96792,
+      "length": 1250,
+      "trim_origin_top_left_px": [
+        39,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -13
+      ],
+      "sha256": "7da0618f2744fb32b75fd856530405492840db9157dd13dadabca6e5d56d7aa5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_06.png",
+      "width": 62,
+      "height": 9,
+      "texture_px": [
+        62,
+        9
+      ],
+      "offset": 98042,
+      "length": 558,
+      "trim_origin_top_left_px": [
+        31,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -26
+      ],
+      "sha256": "df6e1bd809c923c5d0ba5ffc30b560668af85a77b98cf49b6f40cfc998452387",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_06.png",
+      "width": 63,
+      "height": 11,
+      "texture_px": [
+        63,
+        11
+      ],
+      "offset": 98600,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        32,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -30
+      ],
+      "sha256": "36eddfbf6120a397afb76d80238b40704a6539181f9b92eeb9610530cddbb754",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_06.png",
+      "width": 56,
+      "height": 29,
+      "texture_px": [
+        56,
+        29
+      ],
+      "offset": 99293,
+      "length": 1624,
+      "trim_origin_top_left_px": [
+        38,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -26
+      ],
+      "sha256": "6587b7f48d246965be5d20464d95d4b844180f94d9fffae7a2cd4a5a80aacb8f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_06.png",
+      "width": 41,
+      "height": 44,
+      "texture_px": [
+        41,
+        44
+      ],
+      "offset": 100917,
+      "length": 1804,
+      "trim_origin_top_left_px": [
+        52,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -21
+      ],
+      "sha256": "26f41e91785d0b1a65a7147cb052bc1e041e2fcaf794b88d469a440b23c8c0ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_06.png",
+      "width": 20,
+      "height": 52,
+      "texture_px": [
+        20,
+        52
+      ],
+      "offset": 102721,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        69,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -19
+      ],
+      "sha256": "557bc0dbdaca83c925ab672f024a104a513404774d340433ad072cf086b059a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_06.png",
+      "width": 12,
+      "height": 55,
+      "texture_px": [
+        12,
+        55
+      ],
+      "offset": 103761,
+      "length": 660,
+      "trim_origin_top_left_px": [
+        82,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -17
+      ],
+      "sha256": "797d7cd1ae8ef0cfb5a2dc814f26143bd3eda18f460c838028679a96955a5ed2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_06.png",
+      "width": 31,
+      "height": 49,
+      "texture_px": [
+        31,
+        49
+      ],
+      "offset": 104421,
+      "length": 1519,
+      "trim_origin_top_left_px": [
+        76,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -17
+      ],
+      "sha256": "683567db7d52dd044181d68e9942bced93d8fb2f548ea9cc0dd5727d9dd7d23d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_06.png",
+      "width": 49,
+      "height": 36,
+      "texture_px": [
+        49,
+        36
+      ],
+      "offset": 105940,
+      "length": 1764,
+      "trim_origin_top_left_px": [
+        71,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -19
+      ],
+      "sha256": "02dba0d73e3d4b56c2bf657dac0342d04e29da33ef12ecfa366049d5498828e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_06.png",
+      "width": 62,
+      "height": 23,
+      "texture_px": [
+        62,
+        23
+      ],
+      "offset": 107704,
+      "length": 1426,
+      "trim_origin_top_left_px": [
+        66,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -20
+      ],
+      "sha256": "74cadf8fb95c570a8ddecae3456f998794058099ec0ab1e0c71c28f8ffe28cc4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_06.png",
+      "width": 61,
+      "height": 12,
+      "texture_px": [
+        61,
+        12
+      ],
+      "offset": 109130,
+      "length": 732,
+      "trim_origin_top_left_px": [
+        66,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -17
+      ],
+      "sha256": "7c0a6b22bb6e9ac9ad178827b19d24783d4a197cba6067706a5bfb4cff2e1c6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_06.png",
+      "width": 56,
+      "height": 21,
+      "texture_px": [
+        56,
+        21
+      ],
+      "offset": 109862,
+      "length": 1176,
+      "trim_origin_top_left_px": [
+        65,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "7140e3398f0ee571c5f2f2072c30fcac24a0ece0c18da99f68fa0f6d65f9e024",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_06.png",
+      "width": 41,
+      "height": 32,
+      "texture_px": [
+        41,
+        32
+      ],
+      "offset": 111038,
+      "length": 1312,
+      "trim_origin_top_left_px": [
+        67,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -4
+      ],
+      "sha256": "00dbbb547a94abdf9ea0d2eced6eb16dacdb6e6879b1babcd9274c7855917eb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_06.png",
+      "width": 21,
+      "height": 40,
+      "texture_px": [
+        21,
+        40
+      ],
+      "offset": 112350,
+      "length": 840,
+      "trim_origin_top_left_px": [
+        70,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        2
+      ],
+      "sha256": "738d41c992678b76eab912b1784bed5add49bd22ff46d95b1b3ce94793b4c533",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_06.png",
+      "width": 12,
+      "height": 42,
+      "texture_px": [
+        12,
+        42
+      ],
+      "offset": 113190,
+      "length": 504,
+      "trim_origin_top_left_px": [
+        66,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        2
+      ],
+      "sha256": "e756a17d71fc02a1395b795794fcdd869f7e340e8cbb39ea37250e1d6565bb04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_06.png",
+      "width": 31,
+      "height": 37,
+      "texture_px": [
+        31,
+        37
+      ],
+      "offset": 113694,
+      "length": 1147,
+      "trim_origin_top_left_px": [
+        53,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -3
+      ],
+      "sha256": "f5fef01d3bab7d3f183661fae583244be5a169730e4c74384377a89c64e5a8c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_07.png",
+      "width": 50,
+      "height": 25,
+      "texture_px": [
+        50,
+        25
+      ],
+      "offset": 114841,
+      "length": 1250,
+      "trim_origin_top_left_px": [
+        39,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -13
+      ],
+      "sha256": "600715cfcdee1a827841ba937f528d655455d7afb115479539c78a2a31032328",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_07.png",
+      "width": 61,
+      "height": 9,
+      "texture_px": [
+        61,
+        9
+      ],
+      "offset": 116091,
+      "length": 549,
+      "trim_origin_top_left_px": [
+        32,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -26
+      ],
+      "sha256": "249a47b0eff4f62bfa8e9743343220bf71177f96d20000085208c3d8dfdfb120",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_07.png",
+      "width": 64,
+      "height": 11,
+      "texture_px": [
+        64,
+        11
+      ],
+      "offset": 116640,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        31,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -30
+      ],
+      "sha256": "61797c189ee448d3203a655da365d2c020de5268f1df31c2b576a3e60f961a6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_07.png",
+      "width": 55,
+      "height": 28,
+      "texture_px": [
+        55,
+        28
+      ],
+      "offset": 117344,
+      "length": 1540,
+      "trim_origin_top_left_px": [
+        39,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -26
+      ],
+      "sha256": "f74b0079ec746a00669175bb7299c03088304bc20ba1d57e08ca1c05dcf4132c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_07.png",
+      "width": 41,
+      "height": 43,
+      "texture_px": [
+        41,
+        43
+      ],
+      "offset": 118884,
+      "length": 1763,
+      "trim_origin_top_left_px": [
+        51,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -22
+      ],
+      "sha256": "e308ab064993564ee60c22baad158a786b8c91349b72c41b7e24b10060190933",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_07.png",
+      "width": 20,
+      "height": 52,
+      "texture_px": [
+        20,
+        52
+      ],
+      "offset": 120647,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        69,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -19
+      ],
+      "sha256": "2b3261ee6b499d386b87a95035e5fbd5748daf61520491f721e1bef948e4de3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_07.png",
+      "width": 12,
+      "height": 54,
+      "texture_px": [
+        12,
+        54
+      ],
+      "offset": 121687,
+      "length": 648,
+      "trim_origin_top_left_px": [
+        82,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -17
+      ],
+      "sha256": "70541358a7cef2475f339afa781b56183d0921a208e0671d82759b83492bb497",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_07.png",
+      "width": 31,
+      "height": 48,
+      "texture_px": [
+        31,
+        48
+      ],
+      "offset": 122335,
+      "length": 1488,
+      "trim_origin_top_left_px": [
+        76,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -17
+      ],
+      "sha256": "58e3061bcbd5ebe6a98b6db383e019644e830586bd75fad7fe7a27eca97da9b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_07.png",
+      "width": 50,
+      "height": 37,
+      "texture_px": [
+        50,
+        37
+      ],
+      "offset": 123823,
+      "length": 1850,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -19
+      ],
+      "sha256": "fdc8827446e6fe48d1225b50397ddb87566fda14077a2baa9e63e30ad698c6be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_07.png",
+      "width": 62,
+      "height": 22,
+      "texture_px": [
+        62,
+        22
+      ],
+      "offset": 125673,
+      "length": 1364,
+      "trim_origin_top_left_px": [
+        66,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -20
+      ],
+      "sha256": "c738d3c431226cd65a7dcdfe5f0d5744ae40e695a5551586f37db0a2a28b3981",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_07.png",
+      "width": 63,
+      "height": 12,
+      "texture_px": [
+        63,
+        12
+      ],
+      "offset": 127037,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        66,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -17
+      ],
+      "sha256": "d1f0e9f47563c47d045355f2a720e2cc4b7794277eb6322735b89ddbeb2251fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_07.png",
+      "width": 56,
+      "height": 21,
+      "texture_px": [
+        56,
+        21
+      ],
+      "offset": 127793,
+      "length": 1176,
+      "trim_origin_top_left_px": [
+        65,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "4f70eb5010541a69c442385caea80f6641cc67c75f6b0eb4f180277efb81cdb5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_07.png",
+      "width": 40,
+      "height": 33,
+      "texture_px": [
+        40,
+        33
+      ],
+      "offset": 128969,
+      "length": 1320,
+      "trim_origin_top_left_px": [
+        67,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -3
+      ],
+      "sha256": "9b54cc779f0b8040b7be797825dbf566699c22148d8df7cb3f1c714bab847131",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_07.png",
+      "width": 21,
+      "height": 42,
+      "texture_px": [
+        21,
+        42
+      ],
+      "offset": 130289,
+      "length": 882,
+      "trim_origin_top_left_px": [
+        70,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        3
+      ],
+      "sha256": "329cfa04715694d641b067ef2fec460e3655e2ca0c0478ef4f8146fdf53b0916",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_07.png",
+      "width": 12,
+      "height": 43,
+      "texture_px": [
+        12,
+        43
+      ],
+      "offset": 131171,
+      "length": 516,
+      "trim_origin_top_left_px": [
+        66,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        3
+      ],
+      "sha256": "7383661a529a52211c7bb9c71a444922be126634b2bc85692ceaba3983959f92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_07.png",
+      "width": 31,
+      "height": 38,
+      "texture_px": [
+        31,
+        38
+      ],
+      "offset": 131687,
+      "length": 1178,
+      "trim_origin_top_left_px": [
+        53,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -2
+      ],
+      "sha256": "7a593697f4d13ae6b85df2d9902b6f08bc3b48d7731ddf1061d0529fab8bc007",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_08.png",
+      "width": 50,
+      "height": 25,
+      "texture_px": [
+        50,
+        25
+      ],
+      "offset": 132865,
+      "length": 1250,
+      "trim_origin_top_left_px": [
+        39,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -14
+      ],
+      "sha256": "824f8e2fc771370f8bc0f5e4a90b5eeaac944a548ed565e337d57fbf5ad2b24f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_08.png",
+      "width": 61,
+      "height": 8,
+      "texture_px": [
+        61,
+        8
+      ],
+      "offset": 134115,
+      "length": 488,
+      "trim_origin_top_left_px": [
+        33,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -28
+      ],
+      "sha256": "3b43baf2fad05f7e00edfbddac6501a133c2f563b83128f119075242d2a6e6c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_08.png",
+      "width": 62,
+      "height": 11,
+      "texture_px": [
+        62,
+        11
+      ],
+      "offset": 134603,
+      "length": 682,
+      "trim_origin_top_left_px": [
+        33,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -31
+      ],
+      "sha256": "700fc8817c71eac05e41ace50e2d8dcf7b4babb89f9404695d46ca14cb21ce31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_08.png",
+      "width": 56,
+      "height": 29,
+      "texture_px": [
+        56,
+        29
+      ],
+      "offset": 135285,
+      "length": 1624,
+      "trim_origin_top_left_px": [
+        40,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -26
+      ],
+      "sha256": "959472ce1d20b3a6822cbf80f4cece1700f99153728062ebd02f6a39f4247c88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_08.png",
+      "width": 42,
+      "height": 44,
+      "texture_px": [
+        42,
+        44
+      ],
+      "offset": 136909,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        53,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -21
+      ],
+      "sha256": "c120307fd2acd07f628230e9937affe43f0b9597427a2275c9ca1276ae605b63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_08.png",
+      "width": 20,
+      "height": 53,
+      "texture_px": [
+        20,
+        53
+      ],
+      "offset": 138757,
+      "length": 1060,
+      "trim_origin_top_left_px": [
+        71,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -17
+      ],
+      "sha256": "096866672bc6447bef056a100a291a5404a998d893a16ebbafa18d7b0f338ee6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_08.png",
+      "width": 11,
+      "height": 54,
+      "texture_px": [
+        11,
+        54
+      ],
+      "offset": 139817,
+      "length": 594,
+      "trim_origin_top_left_px": [
+        84,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -16
+      ],
+      "sha256": "41081488697dc5db09aadd83fcbdf01d8ef8ebae7684346d338fc7708101f25b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_08.png",
+      "width": 31,
+      "height": 50,
+      "texture_px": [
+        31,
+        50
+      ],
+      "offset": 140411,
+      "length": 1550,
+      "trim_origin_top_left_px": [
+        77,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -15
+      ],
+      "sha256": "65818552f39acc5b3520a059cc7a0fd4bd2dbed7c2ce5eadb945162bebd1ec05",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_08.png",
+      "width": 50,
+      "height": 38,
+      "texture_px": [
+        50,
+        38
+      ],
+      "offset": 141961,
+      "length": 1900,
+      "trim_origin_top_left_px": [
+        71,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -17
+      ],
+      "sha256": "6b52ea36f08b9cd523969d0b1f7fe88b788b4bfdd841c9b168ad0251f6d732ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_08.png",
+      "width": 60,
+      "height": 23,
+      "texture_px": [
+        60,
+        23
+      ],
+      "offset": 143861,
+      "length": 1380,
+      "trim_origin_top_left_px": [
+        67,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -18
+      ],
+      "sha256": "4b0ae151471cc8a3c3af9e4d2201ed4ae3a4656875a97440a214c871244efe1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_08.png",
+      "width": 62,
+      "height": 13,
+      "texture_px": [
+        62,
+        13
+      ],
+      "offset": 145241,
+      "length": 806,
+      "trim_origin_top_left_px": [
+        64,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -15
+      ],
+      "sha256": "2ebf97a18d613304cb516b67d73c044690f67443eade92742f9a5b215c764025",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_08.png",
+      "width": 56,
+      "height": 20,
+      "texture_px": [
+        56,
+        20
+      ],
+      "offset": 146047,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        63,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "12f41cb30031e7236c1892f069c7a417d2f99e4fb6e33a204922c1f8613a99a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_08.png",
+      "width": 40,
+      "height": 31,
+      "texture_px": [
+        40,
+        31
+      ],
+      "offset": 147167,
+      "length": 1240,
+      "trim_origin_top_left_px": [
+        66,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -3
+      ],
+      "sha256": "bdd62f9b15c86183979ad9da2feb538bb09b2af5ab101899c108995e86e181f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_08.png",
+      "width": 20,
+      "height": 40,
+      "texture_px": [
+        20,
+        40
+      ],
+      "offset": 148407,
+      "length": 800,
+      "trim_origin_top_left_px": [
+        69,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        2
+      ],
+      "sha256": "4f6178db621be8bf54e5d4f0e8290052f3d8526e524535e1e6bc299efb788a05",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_08.png",
+      "width": 11,
+      "height": 41,
+      "texture_px": [
+        11,
+        41
+      ],
+      "offset": 149207,
+      "length": 451,
+      "trim_origin_top_left_px": [
+        65,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        1
+      ],
+      "sha256": "4ec2cdbfbbd52498b320e3cab36afcea08ab300b6836c84a5ddc6e100c01b744",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_08.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 149658,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        52,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -4
+      ],
+      "sha256": "b527d954e86e9d1e1c11d9990597c2b59c40f3475590712264a1c74c5cb55287",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_09.png",
+      "width": 48,
+      "height": 21,
+      "texture_px": [
+        48,
+        21
+      ],
+      "offset": 150738,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        39,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -19
+      ],
+      "sha256": "37e94703896ead4c84dcb02b5f78810a98e45d942782026f6546cc14fa435d1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_09.png",
+      "width": 61,
+      "height": 5,
+      "texture_px": [
+        61,
+        5
+      ],
+      "offset": 151746,
+      "length": 305,
+      "trim_origin_top_left_px": [
+        34,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -32
+      ],
+      "sha256": "2368f2496744bb3dd10050ca24d7d200aa351043413ccb249613834060dc4465",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_09.png",
+      "width": 64,
+      "height": 15,
+      "texture_px": [
+        64,
+        15
+      ],
+      "offset": 152051,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        36,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -31
+      ],
+      "sha256": "6c40721bcc2af88d6320a5502d00f162e5fe675e8469a57d0a922afd07ca9962",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_09.png",
+      "width": 55,
+      "height": 31,
+      "texture_px": [
+        55,
+        31
+      ],
+      "offset": 153011,
+      "length": 1705,
+      "trim_origin_top_left_px": [
+        46,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -26
+      ],
+      "sha256": "ef6fa2a8f6530b366890ab8517dbb2334aea820c344ffc57f955a249cdbca643",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_09.png",
+      "width": 40,
+      "height": 46,
+      "texture_px": [
+        40,
+        46
+      ],
+      "offset": 154716,
+      "length": 1840,
+      "trim_origin_top_left_px": [
+        59,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -20
+      ],
+      "sha256": "5f2ea01a27949eb90312d18c0b502d4e0215ff6ff16c43ba2fe3be7219b97d10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_09.png",
+      "width": 20,
+      "height": 55,
+      "texture_px": [
+        20,
+        55
+      ],
+      "offset": 156556,
+      "length": 1100,
+      "trim_origin_top_left_px": [
+        76,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -14
+      ],
+      "sha256": "5d29e07d4800e328f124bbb83dbf295bb7141f87303d5d059164c15c443cb4c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_09.png",
+      "width": 11,
+      "height": 57,
+      "texture_px": [
+        11,
+        57
+      ],
+      "offset": 157656,
+      "length": 627,
+      "trim_origin_top_left_px": [
+        88,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -10
+      ],
+      "sha256": "cd4dcec931f38c343a76c7106c67907baff3f642ea5e9ce1cbad0908ccf9189c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_09.png",
+      "width": 30,
+      "height": 52,
+      "texture_px": [
+        30,
+        52
+      ],
+      "offset": 158283,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        80,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -9
+      ],
+      "sha256": "781dd7c9c33803a6b58bafeda0399152401022470e43116cdb7fb1c4cab3facc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_09.png",
+      "width": 49,
+      "height": 40,
+      "texture_px": [
+        49,
+        40
+      ],
+      "offset": 159843,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        72,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -11
+      ],
+      "sha256": "951091e191d75e8e4755eaf1e51e6e954bd38f9f3fa10bed626098e70253cd9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_09.png",
+      "width": 60,
+      "height": 25,
+      "texture_px": [
+        60,
+        25
+      ],
+      "offset": 161803,
+      "length": 1500,
+      "trim_origin_top_left_px": [
+        65,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "5fffdb729a0ce640baa0303dae22cda49ac6fc706b2206701408f8f9d7fdd5bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_09.png",
+      "width": 61,
+      "height": 14,
+      "texture_px": [
+        61,
+        14
+      ],
+      "offset": 163303,
+      "length": 854,
+      "trim_origin_top_left_px": [
+        61,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -11
+      ],
+      "sha256": "a559068172e0c519b9c2b75b27bad09fdb9af78d2afc2c55809b4bb5112f7c07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_09.png",
+      "width": 55,
+      "height": 18,
+      "texture_px": [
+        55,
+        18
+      ],
+      "offset": 164157,
+      "length": 990,
+      "trim_origin_top_left_px": [
+        59,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -8
+      ],
+      "sha256": "a7ac40d75fa16db3ee821496d92415949ccfce068cf3bc6e9587a33e0f873154",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_09.png",
+      "width": 40,
+      "height": 29,
+      "texture_px": [
+        40,
+        29
+      ],
+      "offset": 165147,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        60,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -3
+      ],
+      "sha256": "c9ea2b09e83cb12f17a87f3de4e469770a8a38eb18610dbb6e85637d885fb1bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_09.png",
+      "width": 19,
+      "height": 36,
+      "texture_px": [
+        19,
+        36
+      ],
+      "offset": 166307,
+      "length": 684,
+      "trim_origin_top_left_px": [
+        64,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -1
+      ],
+      "sha256": "cac6b89f9c87df12509703b92aeb0b91bed6d4189461791db4c8a7a735581686",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_09.png",
+      "width": 11,
+      "height": 38,
+      "texture_px": [
+        11,
+        38
+      ],
+      "offset": 166991,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        61,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -2
+      ],
+      "sha256": "72d6b5d11c4ea8abd5bde063c7f670d8f7956c3ebd89b8c79e55aa54fe0a9ede",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_09.png",
+      "width": 30,
+      "height": 32,
+      "texture_px": [
+        30,
+        32
+      ],
+      "offset": 167409,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        50,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -9
+      ],
+      "sha256": "a5236548ad5b33e9b45e31b02d60e35c03bab5ab8b6d8372fe2689ac217620bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_10.png",
+      "width": 51,
+      "height": 17,
+      "texture_px": [
+        51,
+        17
+      ],
+      "offset": 168369,
+      "length": 867,
+      "trim_origin_top_left_px": [
+        37,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        -25
+      ],
+      "sha256": "5f2cec6b68912693b0e66e80bdd26448f8cace6e6c4abfda2bb7f6fa39c7daba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_10.png",
+      "width": 61,
+      "height": 4,
+      "texture_px": [
+        61,
+        4
+      ],
+      "offset": 169236,
+      "length": 244,
+      "trim_origin_top_left_px": [
+        36,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -35
+      ],
+      "sha256": "2c9cbe28e2dff12d1a6b4b2c2b5ac8f9f842a7e8348d4fd6aaa3620adaa01c3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_10.png",
+      "width": 62,
+      "height": 20,
+      "texture_px": [
+        62,
+        20
+      ],
+      "offset": 169480,
+      "length": 1240,
+      "trim_origin_top_left_px": [
+        41,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -31
+      ],
+      "sha256": "9d9df66085cc4a0bae940100ccc1fb445271466cceb4538c741502e349ad3212",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_10.png",
+      "width": 53,
+      "height": 36,
+      "texture_px": [
+        53,
+        36
+      ],
+      "offset": 170720,
+      "length": 1908,
+      "trim_origin_top_left_px": [
+        53,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -24
+      ],
+      "sha256": "01655201368551581f6057fba2b3dfc824579301eaf222a94740584d57fc22b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_10.png",
+      "width": 37,
+      "height": 49,
+      "texture_px": [
+        37,
+        49
+      ],
+      "offset": 172628,
+      "length": 1813,
+      "trim_origin_top_left_px": [
+        68,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -17
+      ],
+      "sha256": "43764a45445803804d1bde8f019511880a67628aed6a77d8b77d6e222c478bfc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_10.png",
+      "width": 16,
+      "height": 57,
+      "texture_px": [
+        16,
+        57
+      ],
+      "offset": 174441,
+      "length": 912,
+      "trim_origin_top_left_px": [
+        85,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -10
+      ],
+      "sha256": "302c170c76feb3bed97f9092ae269378fd8573f487987cbfe8519d75851614fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_10.png",
+      "width": 12,
+      "height": 59,
+      "texture_px": [
+        12,
+        59
+      ],
+      "offset": 175353,
+      "length": 708,
+      "trim_origin_top_left_px": [
+        92,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -5
+      ],
+      "sha256": "249c17edee665a718df19e379b97ce0a24a924f74ad64a5ba450ec05666138bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_10.png",
+      "width": 33,
+      "height": 53,
+      "texture_px": [
+        33,
+        53
+      ],
+      "offset": 176061,
+      "length": 1749,
+      "trim_origin_top_left_px": [
+        82,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -2
+      ],
+      "sha256": "76dc21a33aae530873e653fbc4c8b9355785ab164fe630566656d821823dccd0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_10.png",
+      "width": 51,
+      "height": 40,
+      "texture_px": [
+        51,
+        40
+      ],
+      "offset": 177810,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        72,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -3
+      ],
+      "sha256": "61f16fbb93fe25780c568876dfeb1b59b42ad0549dbb1b96ab1f7d48141ed705",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_10.png",
+      "width": 60,
+      "height": 24,
+      "texture_px": [
+        60,
+        24
+      ],
+      "offset": 179850,
+      "length": 1440,
+      "trim_origin_top_left_px": [
+        63,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -6
+      ],
+      "sha256": "10bdac43714c1e3c833185e9a01bb59c456a71189ba23679bd77a795b19dae23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_10.png",
+      "width": 61,
+      "height": 13,
+      "texture_px": [
+        61,
+        13
+      ],
+      "offset": 181290,
+      "length": 793,
+      "trim_origin_top_left_px": [
+        57,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -6
+      ],
+      "sha256": "1bff3d39faa5ae66b93900e83c19502f347b2e96ec72b4c7953cd5c443600532",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_10.png",
+      "width": 54,
+      "height": 17,
+      "texture_px": [
+        54,
+        17
+      ],
+      "offset": 182083,
+      "length": 918,
+      "trim_origin_top_left_px": [
+        53,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -4
+      ],
+      "sha256": "92157f70cbfa718ae9c21b83c8a26c99778ec72fa7613bbec693721e784a9ebe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_10.png",
+      "width": 37,
+      "height": 27,
+      "texture_px": [
+        37,
+        27
+      ],
+      "offset": 183001,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        55,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -1
+      ],
+      "sha256": "c77dac39ba6380f6e580a208b00e5b01e269a67dabf1216e9985289662dc9c72",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_10.png",
+      "width": 16,
+      "height": 34,
+      "texture_px": [
+        16,
+        34
+      ],
+      "offset": 184000,
+      "length": 544,
+      "trim_origin_top_left_px": [
+        59,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -1
+      ],
+      "sha256": "a5219eb3d7caf8205efb25a1cc22812564719a42f51a2c8aad70a17c8cab4f96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_10.png",
+      "width": 12,
+      "height": 35,
+      "texture_px": [
+        12,
+        35
+      ],
+      "offset": 184544,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        56,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -5
+      ],
+      "sha256": "97e53ca90972776f6b09727985716cdc20992549ad7a10aecb1cc905c3be78d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_10.png",
+      "width": 32,
+      "height": 28,
+      "texture_px": [
+        32,
+        28
+      ],
+      "offset": 184964,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        45,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -14
+      ],
+      "sha256": "10283b027ed503a2f38577d5723c9cb39ccc6d5046a8559db5c24255945cd755",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_11.png",
+      "width": 55,
+      "height": 14,
+      "texture_px": [
+        55,
+        14
+      ],
+      "offset": 185860,
+      "length": 770,
+      "trim_origin_top_left_px": [
+        33,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -28
+      ],
+      "sha256": "df378e63e79ccdc6ef6edf8cf7fe09852b11714eefa818b0a0c01c5686af1c99",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_11.png",
+      "width": 63,
+      "height": 9,
+      "texture_px": [
+        63,
+        9
+      ],
+      "offset": 186630,
+      "length": 567,
+      "trim_origin_top_left_px": [
+        36,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -35
+      ],
+      "sha256": "f43d683dbad2aa15b3d6840de537d9cf76b54c6a4a6fd53efbe7c39a5c6d857f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_11.png",
+      "width": 60,
+      "height": 24,
+      "texture_px": [
+        60,
+        24
+      ],
+      "offset": 187197,
+      "length": 1440,
+      "trim_origin_top_left_px": [
+        46,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -31
+      ],
+      "sha256": "3f7546308bac82db8e282985c2bc842dc10a49b95d224709cb2fae6d1f3a34ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_11.png",
+      "width": 49,
+      "height": 40,
+      "texture_px": [
+        49,
+        40
+      ],
+      "offset": 188637,
+      "length": 1960,
+      "trim_origin_top_left_px": [
+        61,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -23
+      ],
+      "sha256": "1fa39e75f489042f854e93b85ae8a84eb9625aac1bb970ef8d5620287f71c13b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_11.png",
+      "width": 31,
+      "height": 51,
+      "texture_px": [
+        31,
+        51
+      ],
+      "offset": 190597,
+      "length": 1581,
+      "trim_origin_top_left_px": [
+        78,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -15
+      ],
+      "sha256": "f74cfc5b2e94d32edea1fee91ad378d3dd6b3d62ade2894da3d0755946e8d2ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_11.png",
+      "width": 9,
+      "height": 57,
+      "texture_px": [
+        9,
+        57
+      ],
+      "offset": 192178,
+      "length": 513,
+      "trim_origin_top_left_px": [
+        96,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -7
+      ],
+      "sha256": "01cd05382b9126afe5d2392a9448ee74225cab101938396171bbea841f7c44fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_11.png",
+      "width": 18,
+      "height": 56,
+      "texture_px": [
+        18,
+        56
+      ],
+      "offset": 192691,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        95,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        0
+      ],
+      "sha256": "18c48f3d84fde68559e6c9672938775fd4e262c706c45017df0165a14a1b64b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_11.png",
+      "width": 39,
+      "height": 48,
+      "texture_px": [
+        39,
+        48
+      ],
+      "offset": 193699,
+      "length": 1872,
+      "trim_origin_top_left_px": [
+        84,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        2
+      ],
+      "sha256": "9046f95bdc20bdf624cf0f1d2e4412e055575faf560ae62a19ec607816003dd0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_11.png",
+      "width": 55,
+      "height": 34,
+      "texture_px": [
+        55,
+        34
+      ],
+      "offset": 195571,
+      "length": 1870,
+      "trim_origin_top_left_px": [
+        72,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        2
+      ],
+      "sha256": "57a371c46f1aca4640a48f3e7bfc4173e958c645e890a8e39a43eb61926fcdc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_11.png",
+      "width": 63,
+      "height": 20,
+      "texture_px": [
+        63,
+        20
+      ],
+      "offset": 197441,
+      "length": 1260,
+      "trim_origin_top_left_px": [
+        61,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        1
+      ],
+      "sha256": "dd42d53aba11aba2daf11c6f4322632681499c3fe32443d51e85773473880b40",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_11.png",
+      "width": 60,
+      "height": 10,
+      "texture_px": [
+        60,
+        10
+      ],
+      "offset": 198701,
+      "length": 600,
+      "trim_origin_top_left_px": [
+        54,
+        91
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        1
+      ],
+      "sha256": "f7fd2fb713d7b269ed3362bee7e386ed20231e16960f21295261921f79c23c7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_11.png",
+      "width": 49,
+      "height": 22,
+      "texture_px": [
+        49,
+        22
+      ],
+      "offset": 199301,
+      "length": 1078,
+      "trim_origin_top_left_px": [
+        50,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        4
+      ],
+      "sha256": "cb7aad90b44e6c4305eddeefeb71bd2c187dc58ac78e0b2c974d788b7cc480c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_11.png",
+      "width": 30,
+      "height": 31,
+      "texture_px": [
+        30,
+        31
+      ],
+      "offset": 200379,
+      "length": 930,
+      "trim_origin_top_left_px": [
+        51,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        5
+      ],
+      "sha256": "786c1330db954fd66dc670b2a1ef24fb6dae263884b20720216c3f5e4362da77",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_11.png",
+      "width": 9,
+      "height": 36,
+      "texture_px": [
+        9,
+        36
+      ],
+      "offset": 201309,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        55,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        2
+      ],
+      "sha256": "7f1197b31755f8f437b75af0ebda54b4781ead3cbf78f5250212e04b1d9a4da8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_11.png",
+      "width": 17,
+      "height": 35,
+      "texture_px": [
+        17,
+        35
+      ],
+      "offset": 201633,
+      "length": 595,
+      "trim_origin_top_left_px": [
+        48,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -5
+      ],
+      "sha256": "d0dc348ce1b63251962eea33d6b522df550f81f5d38177782cbf44364b9c96b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_11.png",
+      "width": 39,
+      "height": 27,
+      "texture_px": [
+        39,
+        27
+      ],
+      "offset": 202228,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        37,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        -16
+      ],
+      "sha256": "ad87142f4c8e95a321767a1b04f7f5a737494eb638cd58de648848b72bfde893",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_12.png",
+      "width": 60,
+      "height": 16,
+      "texture_px": [
+        60,
+        16
+      ],
+      "offset": 203281,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        27,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        -28
+      ],
+      "sha256": "0ac4955f20aaca8d17e9983e1b96b1aff6cd301716d66ee9358b409602962061",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_12.png",
+      "width": 65,
+      "height": 10,
+      "texture_px": [
+        65,
+        10
+      ],
+      "offset": 204241,
+      "length": 650,
+      "trim_origin_top_left_px": [
+        35,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -35
+      ],
+      "sha256": "92dd446727496fede096b6fac52ef6a4bd1b50d713937b60d92b1e016ce939fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_12.png",
+      "width": 61,
+      "height": 25,
+      "texture_px": [
+        61,
+        25
+      ],
+      "offset": 204891,
+      "length": 1525,
+      "trim_origin_top_left_px": [
+        48,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -32
+      ],
+      "sha256": "dc2218cacfd7292ba0fe9c1ddf130d4bfd37f47474bf816395350d72738bd590",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_12.png",
+      "width": 47,
+      "height": 40,
+      "texture_px": [
+        47,
+        40
+      ],
+      "offset": 206416,
+      "length": 1880,
+      "trim_origin_top_left_px": [
+        67,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -23
+      ],
+      "sha256": "77fd31b853fa0b09527b9ecfc1351ef141e6d52ba1bfe71962285f3d229a626a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_12.png",
+      "width": 25,
+      "height": 49,
+      "texture_px": [
+        25,
+        49
+      ],
+      "offset": 208296,
+      "length": 1225,
+      "trim_origin_top_left_px": [
+        88,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "7f340aac038a9cd2f6a81827fc650f7bef452d10484b07606619be37a4720e3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_12.png",
+      "width": 3,
+      "height": 53,
+      "texture_px": [
+        3,
+        53
+      ],
+      "offset": 209521,
+      "length": 159,
+      "trim_origin_top_left_px": [
+        106,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -26,
+        -5
+      ],
+      "sha256": "330b9d88f1ae7f928d891e132362ef346d6f44641fe706e41fc54e3a9d233426",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_12.png",
+      "width": 25,
+      "height": 51,
+      "texture_px": [
+        25,
+        51
+      ],
+      "offset": 209680,
+      "length": 1275,
+      "trim_origin_top_left_px": [
+        98,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        3
+      ],
+      "sha256": "5228047a2a03ddfa9576ef4314d21f5a84eaeb6567ebc1b6fa495d86c7e92f12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_12.png",
+      "width": 45,
+      "height": 41,
+      "texture_px": [
+        45,
+        41
+      ],
+      "offset": 210955,
+      "length": 1845,
+      "trim_origin_top_left_px": [
+        86,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        7
+      ],
+      "sha256": "6cdd4e9e7ecfc8c53bae8dfc3e3405b92d552e73da832478db93d1c268d1eff0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_12.png",
+      "width": 60,
+      "height": 26,
+      "texture_px": [
+        60,
+        26
+      ],
+      "offset": 212800,
+      "length": 1560,
+      "trim_origin_top_left_px": [
+        72,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        7
+      ],
+      "sha256": "caf109fa6f804bfe8fc59f5de215820327964be38572e59681af4abee2cb7e1c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_12.png",
+      "width": 64,
+      "height": 11,
+      "texture_px": [
+        64,
+        11
+      ],
+      "offset": 214360,
+      "length": 704,
+      "trim_origin_top_left_px": [
+        61,
+        96
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        7
+      ],
+      "sha256": "50663a4a3aabd73cdbe9417f0cf87d2a2a4095ee5efbca655e8b833a602b7d78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_12.png",
+      "width": 61,
+      "height": 15,
+      "texture_px": [
+        61,
+        15
+      ],
+      "offset": 215064,
+      "length": 915,
+      "trim_origin_top_left_px": [
+        51,
+        95
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        10
+      ],
+      "sha256": "b0bc92e20a3b43c221c532199e935a14a9291644bf3f799c4331a7afffedcb58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_12.png",
+      "width": 47,
+      "height": 29,
+      "texture_px": [
+        47,
+        29
+      ],
+      "offset": 215979,
+      "length": 1363,
+      "trim_origin_top_left_px": [
+        46,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        15
+      ],
+      "sha256": "7cf9a17385a78b6c2c08904458af826ece5c599ef56af85a4c2f9db583f84802",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_12.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 217342,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        46,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        15
+      ],
+      "sha256": "41b8e4ef287913af2367bcc3a06d44b531f23637fcc96ac13a0aae17840b46b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_12.png",
+      "width": 3,
+      "height": 42,
+      "texture_px": [
+        3,
+        42
+      ],
+      "offset": 218356,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        10
+      ],
+      "sha256": "5186a10da38a081b7bfbf79503ade4707e4cbf7d7bf0923555312ccbcd7897b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_12.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 218482,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        37,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        0
+      ],
+      "sha256": "a32478ccdaf952dbe096292c3274eace654d38f98b40e003b8c9c0f1f13bbbf6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_12.png",
+      "width": 45,
+      "height": 30,
+      "texture_px": [
+        45,
+        30
+      ],
+      "offset": 219482,
+      "length": 1350,
+      "trim_origin_top_left_px": [
+        29,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -14
+      ],
+      "sha256": "7db2182ea322df308974b60568b9007e9f3344d659f060b93fbae9950a47c478",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_13.png",
+      "width": 59,
+      "height": 20,
+      "texture_px": [
+        59,
+        20
+      ],
+      "offset": 220832,
+      "length": 1180,
+      "trim_origin_top_left_px": [
+        25,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        55,
+        -24
+      ],
+      "sha256": "ed1945f167d66166564b1db75bc59b1670250ce402da8ef06dc3f8f3b87b2d17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_13.png",
+      "width": 64,
+      "height": 12,
+      "texture_px": [
+        64,
+        12
+      ],
+      "offset": 222012,
+      "length": 768,
+      "trim_origin_top_left_px": [
+        34,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -31
+      ],
+      "sha256": "c5e04d6ee13eeb1bd87f0971bc2795913d04a03580f7d022532a60498a634b50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_13.png",
+      "width": 60,
+      "height": 22,
+      "texture_px": [
+        60,
+        22
+      ],
+      "offset": 222780,
+      "length": 1320,
+      "trim_origin_top_left_px": [
+        50,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -31
+      ],
+      "sha256": "aca9f41cfaaa22627e7af1d879f1ab9115c6ceaf7fa38c4874f9504f9b746cfe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_13.png",
+      "width": 46,
+      "height": 36,
+      "texture_px": [
+        46,
+        36
+      ],
+      "offset": 224100,
+      "length": 1656,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -23
+      ],
+      "sha256": "897d9866d6c47a9bde046ba2a2a04145f56e9c63c38a02d8e476900bfa376232",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_13.png",
+      "width": 26,
+      "height": 46,
+      "texture_px": [
+        26,
+        46
+      ],
+      "offset": 225756,
+      "length": 1196,
+      "trim_origin_top_left_px": [
+        93,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -12
+      ],
+      "sha256": "dd007e7923d15f500e15b5b7fdb29d26dacb5294ce5407b942a5979b3d5bbc00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_13.png",
+      "width": 7,
+      "height": 50,
+      "texture_px": [
+        7,
+        50
+      ],
+      "offset": 226952,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        108,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        -1
+      ],
+      "sha256": "04ff327531ff4c4cf8cbbb82b71337a630d73b5a3cce7f63d9118396dd762de8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_13.png",
+      "width": 25,
+      "height": 45,
+      "texture_px": [
+        25,
+        45
+      ],
+      "offset": 227302,
+      "length": 1125,
+      "trim_origin_top_left_px": [
+        104,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -24,
+        7
+      ],
+      "sha256": "129848f8876dae3fba526edb891b8e80e379489f614f7f1846e224de62d5641a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_13.png",
+      "width": 46,
+      "height": 35,
+      "texture_px": [
+        46,
+        35
+      ],
+      "offset": 228427,
+      "length": 1610,
+      "trim_origin_top_left_px": [
+        91,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        12
+      ],
+      "sha256": "b8512225e263903d10fdf30a87f355382a46919413be44b8d0a2c878f7d2a807",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_13.png",
+      "width": 59,
+      "height": 20,
+      "texture_px": [
+        59,
+        20
+      ],
+      "offset": 230037,
+      "length": 1180,
+      "trim_origin_top_left_px": [
+        76,
+        94
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        14
+      ],
+      "sha256": "d92427e427d6e1645e408604c1bf60a01214e3da74b18e12c89b4168103afafc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_13.png",
+      "width": 64,
+      "height": 3,
+      "texture_px": [
+        64,
+        3
+      ],
+      "offset": 231217,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        62,
+        109
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "5be5524f4da9aea29d82cc5d6adba756d7ca77253ad9b9291b0c65983823dc13",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_13.png",
+      "width": 59,
+      "height": 18,
+      "texture_px": [
+        59,
+        18
+      ],
+      "offset": 231409,
+      "length": 1062,
+      "trim_origin_top_left_px": [
+        51,
+        103
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        21
+      ],
+      "sha256": "21621039ee4cb0fc1c267b5a72e8fd821623673a0cca3f00187ad7badd612532",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_13.png",
+      "width": 45,
+      "height": 33,
+      "texture_px": [
+        45,
+        33
+      ],
+      "offset": 232471,
+      "length": 1485,
+      "trim_origin_top_left_px": [
+        43,
+        93
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        26
+      ],
+      "sha256": "c7aac684a947d685bc358ea6464fedb93f59821baef8033372b8a7f44607aca2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_13.png",
+      "width": 26,
+      "height": 45,
+      "texture_px": [
+        26,
+        45
+      ],
+      "offset": 233956,
+      "length": 1170,
+      "trim_origin_top_left_px": [
+        41,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        26
+      ],
+      "sha256": "722645f539ae0fca25d5271e7ca53877f46570e08ec2ddc2863a3c00d97f4d0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_13.png",
+      "width": 7,
+      "height": 48,
+      "texture_px": [
+        7,
+        48
+      ],
+      "offset": 235126,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        45,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        19
+      ],
+      "sha256": "5ace8448fecff2abe5d56044be930a8392b1a6c4a79a1e927e71a1da5e4a2f6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_13.png",
+      "width": 25,
+      "height": 45,
+      "texture_px": [
+        25,
+        45
+      ],
+      "offset": 235462,
+      "length": 1125,
+      "trim_origin_top_left_px": [
+        31,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        7
+      ],
+      "sha256": "c4b01c7bbd9f8dae7cb39bdd9ae8b38cae7ebf79fe488625af637ece7171b648",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_13.png",
+      "width": 45,
+      "height": 34,
+      "texture_px": [
+        45,
+        34
+      ],
+      "offset": 236587,
+      "length": 1530,
+      "trim_origin_top_left_px": [
+        24,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        -9
+      ],
+      "sha256": "93d58d6e55812cb1d94486bb8ff82144060a13c47a88ce033a615a944c3bb351",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_14.png",
+      "width": 59,
+      "height": 24,
+      "texture_px": [
+        59,
+        24
+      ],
+      "offset": 238117,
+      "length": 1416,
+      "trim_origin_top_left_px": [
+        23,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57,
+        -18
+      ],
+      "sha256": "0f538ffbc552191f70a30bbecfa66e12b9b272e6dfb9788ab983e2e007c26878",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_14.png",
+      "width": 63,
+      "height": 13,
+      "texture_px": [
+        63,
+        13
+      ],
+      "offset": 239533,
+      "length": 819,
+      "trim_origin_top_left_px": [
+        34,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -27
+      ],
+      "sha256": "b27bd9da5799ec098bfdd78a889d18950a92486c92c98714e4c70020d1b1855b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_14.png",
+      "width": 59,
+      "height": 19,
+      "texture_px": [
+        59,
+        19
+      ],
+      "offset": 240352,
+      "length": 1121,
+      "trim_origin_top_left_px": [
+        51,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -27
+      ],
+      "sha256": "d350a8a0c84f1c4ba32aadcde86ad6477cf874a17da5506517f15342742454a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_14.png",
+      "width": 48,
+      "height": 31,
+      "texture_px": [
+        48,
+        31
+      ],
+      "offset": 241473,
+      "length": 1488,
+      "trim_origin_top_left_px": [
+        71,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -21
+      ],
+      "sha256": "d5fe9d0f8847f08301f0c44f2a15509789df1a3a85d2a9373984671155799408",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_14.png",
+      "width": 29,
+      "height": 42,
+      "texture_px": [
+        29,
+        42
+      ],
+      "offset": 242961,
+      "length": 1218,
+      "trim_origin_top_left_px": [
+        93,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -9
+      ],
+      "sha256": "9afe0902060211d0be3b4c0629182a46df14bc894cbf677f2831ade3e8a8cfaf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_14.png",
+      "width": 11,
+      "height": 48,
+      "texture_px": [
+        11,
+        48
+      ],
+      "offset": 244179,
+      "length": 528,
+      "trim_origin_top_left_px": [
+        108,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -28,
+        3
+      ],
+      "sha256": "a64f171375c4b9fb0a9aaaac3a08e55f51ed2d0be7383d56680a82124d14ce56",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_14.png",
+      "width": 23,
+      "height": 45,
+      "texture_px": [
+        23,
+        45
+      ],
+      "offset": 244707,
+      "length": 1035,
+      "trim_origin_top_left_px": [
+        107,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        13
+      ],
+      "sha256": "2e784589bd5849d2ef77a07b5cb3dbb94437816543935629213361274985ac02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_14.png",
+      "width": 43,
+      "height": 35,
+      "texture_px": [
+        43,
+        35
+      ],
+      "offset": 245742,
+      "length": 1505,
+      "trim_origin_top_left_px": [
+        95,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        19
+      ],
+      "sha256": "617e50e52d214dc481c740f2eedbc841778efdf8bee3990f0acfcc284f39a4e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_14.png",
+      "width": 58,
+      "height": 21,
+      "texture_px": [
+        58,
+        21
+      ],
+      "offset": 247247,
+      "length": 1218,
+      "trim_origin_top_left_px": [
+        79,
+        101
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        22
+      ],
+      "sha256": "b5d9580e210cd06f7d9b41b8c899de08820b3c66fd226af28a70c8484d9d92f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_14.png",
+      "width": 65,
+      "height": 5,
+      "texture_px": [
+        65,
+        5
+      ],
+      "offset": 248465,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        62,
+        114
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        19
+      ],
+      "sha256": "bd78b228f01224acaf552352b2f3bdb593a09c53da33b612b57224e63196c42b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_14.png",
+      "width": 62,
+      "height": 18,
+      "texture_px": [
+        62,
+        18
+      ],
+      "offset": 248790,
+      "length": 1116,
+      "trim_origin_top_left_px": [
+        49,
+        111
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        29
+      ],
+      "sha256": "1d5c95825fa4d4e79802c67897babcd7bc234457760d8cfe4d360b982415fc3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_14.png",
+      "width": 49,
+      "height": 34,
+      "texture_px": [
+        49,
+        34
+      ],
+      "offset": 249906,
+      "length": 1666,
+      "trim_origin_top_left_px": [
+        41,
+        101
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        35
+      ],
+      "sha256": "ff38eb8d9356cc027316accdc32f14e31f1754a899831744dcf0ffdf1e835f44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_14.png",
+      "width": 29,
+      "height": 45,
+      "texture_px": [
+        29,
+        45
+      ],
+      "offset": 251572,
+      "length": 1305,
+      "trim_origin_top_left_px": [
+        38,
+        89
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        34
+      ],
+      "sha256": "2817920ecf7980a8742743068436b2134c9e6de9744adf54ccc9d8e4c175c00c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_14.png",
+      "width": 11,
+      "height": 50,
+      "texture_px": [
+        11,
+        50
+      ],
+      "offset": 252877,
+      "length": 550,
+      "trim_origin_top_left_px": [
+        41,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        27
+      ],
+      "sha256": "8e52c35cef228811cceb819ccaac9d15b25f25f1000e06030db8075576c8eb87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_14.png",
+      "width": 23,
+      "height": 47,
+      "texture_px": [
+        23,
+        47
+      ],
+      "offset": 253427,
+      "length": 1081,
+      "trim_origin_top_left_px": [
+        30,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        14
+      ],
+      "sha256": "73ce19feeb5c4f16e263dd22ad6b1f4e64682084a95029301e2fc8405c4e6378",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_14.png",
+      "width": 44,
+      "height": 38,
+      "texture_px": [
+        44,
+        38
+      ],
+      "offset": 254508,
+      "length": 1672,
+      "trim_origin_top_left_px": [
+        22,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        58,
+        -2
+      ],
+      "sha256": "89705f9fefc7a5faa4829d1a804d26b7497abde10727545d27faa6f85655e1dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_15.png",
+      "width": 57,
+      "height": 28,
+      "texture_px": [
+        57,
+        28
+      ],
+      "offset": 256180,
+      "length": 1596,
+      "trim_origin_top_left_px": [
+        23,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57,
+        -11
+      ],
+      "sha256": "7940079b7de1e057c8b33e2e87301042ced9fec048f9c3c4c3e55d99c830018d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_15.png",
+      "width": 64,
+      "height": 14,
+      "texture_px": [
+        64,
+        14
+      ],
+      "offset": 257776,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        32,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -22
+      ],
+      "sha256": "eff670fa86d2a5e7dadb9902d0936cbd74ccada258fea356204ca4973e8ebb67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_15.png",
+      "width": 62,
+      "height": 15,
+      "texture_px": [
+        62,
+        15
+      ],
+      "offset": 258672,
+      "length": 930,
+      "trim_origin_top_left_px": [
+        48,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -25
+      ],
+      "sha256": "69816c37bfe628a0752d9cd47dbbdff4a432f476e1f787beac7ac1968b6e6956",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_15.png",
+      "width": 52,
+      "height": 29,
+      "texture_px": [
+        52,
+        29
+      ],
+      "offset": 259602,
+      "length": 1508,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -18
+      ],
+      "sha256": "12d00fd54923be57411b918fbcf232905d4f65337c8edd1a8f0cb208aba13fb5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_15.png",
+      "width": 33,
+      "height": 41,
+      "texture_px": [
+        33,
+        41
+      ],
+      "offset": 261110,
+      "length": 1353,
+      "trim_origin_top_left_px": [
+        90,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -6
+      ],
+      "sha256": "2ef9d0e26c8ccf147cacd19a70ebf1ab607c81918ac75dae4060d972f69cf01b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_15.png",
+      "width": 15,
+      "height": 47,
+      "texture_px": [
+        15,
+        47
+      ],
+      "offset": 262463,
+      "length": 705,
+      "trim_origin_top_left_px": [
+        106,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -26,
+        6
+      ],
+      "sha256": "4a54d42749279f612cdb40767a061fa31c7c2512013ef18355c38514d66e9308",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_15.png",
+      "width": 21,
+      "height": 46,
+      "texture_px": [
+        21,
+        46
+      ],
+      "offset": 263168,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        107,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        17
+      ],
+      "sha256": "06bf9e63d12c361012e4f09a6e90150d76975afea25f8d7e5bd1552effaca762",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_15.png",
+      "width": 40,
+      "height": 38,
+      "texture_px": [
+        40,
+        38
+      ],
+      "offset": 264134,
+      "length": 1520,
+      "trim_origin_top_left_px": [
+        97,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        24
+      ],
+      "sha256": "818119689c7d812662538ecda806f4aeb23a992cd162a05b7aa17e8b89c84764",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_15.png",
+      "width": 56,
+      "height": 24,
+      "texture_px": [
+        56,
+        24
+      ],
+      "offset": 265654,
+      "length": 1344,
+      "trim_origin_top_left_px": [
+        81,
+        103
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        27
+      ],
+      "sha256": "8167dd96506817834f24fad8bb5db9ace0bc99d71226ba78aa86d923144f36ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_15.png",
+      "width": 64,
+      "height": 10,
+      "texture_px": [
+        64,
+        10
+      ],
+      "offset": 266998,
+      "length": 640,
+      "trim_origin_top_left_px": [
+        64,
+        115
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        25
+      ],
+      "sha256": "fc6c57b03300033e72c8ff168670a18222266956241682c8bb2bfca6a533cb0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_15.png",
+      "width": 63,
+      "height": 15,
+      "texture_px": [
+        63,
+        15
+      ],
+      "offset": 267638,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        50,
+        116
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        31
+      ],
+      "sha256": "05b9c99b4bb178a683b557d33fd39f4c1f18f00e3900d5373d181a072af23be9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_15.png",
+      "width": 52,
+      "height": 31,
+      "texture_px": [
+        52,
+        31
+      ],
+      "offset": 268583,
+      "length": 1612,
+      "trim_origin_top_left_px": [
+        40,
+        107
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        38
+      ],
+      "sha256": "062501b5ba26122d868c009d219a7cdb89469caf698410e7960ec4b9e9f3c911",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_15.png",
+      "width": 33,
+      "height": 43,
+      "texture_px": [
+        33,
+        43
+      ],
+      "offset": 270195,
+      "length": 1419,
+      "trim_origin_top_left_px": [
+        37,
+        95
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        38
+      ],
+      "sha256": "5688d4a862250fbb8c506a6811a9e90b451b27b52193cb150123cf078b343adc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_15.png",
+      "width": 16,
+      "height": 48,
+      "texture_px": [
+        16,
+        48
+      ],
+      "offset": 271614,
+      "length": 768,
+      "trim_origin_top_left_px": [
+        39,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        31
+      ],
+      "sha256": "9193651faeb4ae585e741a98f8410561512afbb32da259615e09e2d35f8c60d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_15.png",
+      "width": 20,
+      "height": 48,
+      "texture_px": [
+        20,
+        48
+      ],
+      "offset": 272382,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        33,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        20
+      ],
+      "sha256": "d075acfde4be393ad5ea8714c1f50cbf6d3551a265f527827b5dc58990220e55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_15.png",
+      "width": 40,
+      "height": 41,
+      "texture_px": [
+        40,
+        41
+      ],
+      "offset": 273342,
+      "length": 1640,
+      "trim_origin_top_left_px": [
+        23,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        57,
+        5
+      ],
+      "sha256": "06a36449f057556520be7196f7973c9a0e18f7aa17e00fd3ebb25231a7113f1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_16.png",
+      "width": 54,
+      "height": 29,
+      "texture_px": [
+        54,
+        29
+      ],
+      "offset": 274982,
+      "length": 1566,
+      "trim_origin_top_left_px": [
+        24,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        -7
+      ],
+      "sha256": "bd4ef1b66c943e754ac0c2acb6962ebdfbcec28489c1e93eb018ba418a6ad19d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_16.png",
+      "width": 64,
+      "height": 14,
+      "texture_px": [
+        64,
+        14
+      ],
+      "offset": 276548,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        30,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -20
+      ],
+      "sha256": "f23143ad61c2973d408577f7382a3d53867555291f267dee3e4a9b7b90f4b5ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_16.png",
+      "width": 64,
+      "height": 12,
+      "texture_px": [
+        64,
+        12
+      ],
+      "offset": 277444,
+      "length": 768,
+      "trim_origin_top_left_px": [
+        45,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -24
+      ],
+      "sha256": "d2e2d755c62e87475cb86fde4b220a49d6af2ed97e55df111282607a2f3bd0e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_16.png",
+      "width": 56,
+      "height": 27,
+      "texture_px": [
+        56,
+        27
+      ],
+      "offset": 278212,
+      "length": 1512,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -17
+      ],
+      "sha256": "abbd85f437d619eeb7309170281651afa4e4148c607020b485d5e5fc36f5825e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_16.png",
+      "width": 38,
+      "height": 39,
+      "texture_px": [
+        38,
+        39
+      ],
+      "offset": 279724,
+      "length": 1482,
+      "trim_origin_top_left_px": [
+        86,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -5
+      ],
+      "sha256": "128f04d6f974f72785d58dbc8831b140d048baa7b2657165f2117897ae35bd2d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_16.png",
+      "width": 18,
+      "height": 46,
+      "texture_px": [
+        18,
+        46
+      ],
+      "offset": 281206,
+      "length": 828,
+      "trim_origin_top_left_px": [
+        103,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -23,
+        7
+      ],
+      "sha256": "c76db1dc99ce1cda68b944b16490c25825542769f7866c440d4872900174483d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_16.png",
+      "width": 17,
+      "height": 47,
+      "texture_px": [
+        17,
+        47
+      ],
+      "offset": 282034,
+      "length": 799,
+      "trim_origin_top_left_px": [
+        107,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        19
+      ],
+      "sha256": "3bd08a6477eab0a57ab75eecbc602694453facaaf8b1a5b62d6cd8c5db7f2e68",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_16.png",
+      "width": 36,
+      "height": 41,
+      "texture_px": [
+        36,
+        41
+      ],
+      "offset": 282833,
+      "length": 1476,
+      "trim_origin_top_left_px": [
+        99,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        26
+      ],
+      "sha256": "abe38fca38d864b24496d61438647a10324217a8ec4874076d67ce5efd08b420",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_16.png",
+      "width": 54,
+      "height": 28,
+      "texture_px": [
+        54,
+        28
+      ],
+      "offset": 284309,
+      "length": 1512,
+      "trim_origin_top_left_px": [
+        82,
+        102
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        30
+      ],
+      "sha256": "bed83570efbd6c81e77f146fe0b7dae3b0875fdf2f951c791c1e3d3c5e51030f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_16.png",
+      "width": 64,
+      "height": 14,
+      "texture_px": [
+        64,
+        14
+      ],
+      "offset": 285821,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        65,
+        114
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        28
+      ],
+      "sha256": "fe0b6058781a4ac849b1c40d6b3f2bddc2fa0f7a82a4a3ac4d6d60036e4c8378",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_16.png",
+      "width": 64,
+      "height": 14,
+      "texture_px": [
+        64,
+        14
+      ],
+      "offset": 286717,
+      "length": 896,
+      "trim_origin_top_left_px": [
+        51,
+        117
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        31
+      ],
+      "sha256": "49a16923151ef8f2afeabd26630b8fb0c94ab3b646b28dea874d7c82c21d686f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_16.png",
+      "width": 55,
+      "height": 27,
+      "texture_px": [
+        55,
+        27
+      ],
+      "offset": 287613,
+      "length": 1485,
+      "trim_origin_top_left_px": [
+        41,
+        111
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        38
+      ],
+      "sha256": "3c9c2dc93ebd274286fcfc50a48b18634744b72a3ad7c163a8d5c298a113ac73",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_16.png",
+      "width": 38,
+      "height": 42,
+      "texture_px": [
+        38,
+        42
+      ],
+      "offset": 289098,
+      "length": 1596,
+      "trim_origin_top_left_px": [
+        36,
+        98
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        40
+      ],
+      "sha256": "c20a61138fe60a55452f6e7d3641118c9bfa90b692ee6a55718419067a426c6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_16.png",
+      "width": 19,
+      "height": 48,
+      "texture_px": [
+        19,
+        48
+      ],
+      "offset": 290694,
+      "length": 912,
+      "trim_origin_top_left_px": [
+        38,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        34
+      ],
+      "sha256": "9f2818510dd31003c7d70803445ce0ccde519a6392cf351475604b4171787c91",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_16.png",
+      "width": 17,
+      "height": 48,
+      "texture_px": [
+        17,
+        48
+      ],
+      "offset": 291606,
+      "length": 816,
+      "trim_origin_top_left_px": [
+        36,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        23
+      ],
+      "sha256": "f12a87bd421ba3ebe9ce10aacb4c648aeb9c6cc7c58694160816529e3cf5b112",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_16.png",
+      "width": 35,
+      "height": 42,
+      "texture_px": [
+        35,
+        42
+      ],
+      "offset": 292422,
+      "length": 1470,
+      "trim_origin_top_left_px": [
+        26,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        54,
+        9
+      ],
+      "sha256": "47ec31775403179d846ac5cf2c06034fe039997885a021adbb4474a242c4235d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_s_17.png",
+      "width": 52,
+      "height": 29,
+      "texture_px": [
+        52,
+        29
+      ],
+      "offset": 293892,
+      "length": 1508,
+      "trim_origin_top_left_px": [
+        24,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        56,
+        -6
+      ],
+      "sha256": "8759d4b351e6ed7a51479a4b73f0b96c13ec29ed9618d628774cf948fb622927",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ssw_17.png",
+      "width": 63,
+      "height": 15,
+      "texture_px": [
+        63,
+        15
+      ],
+      "offset": 295400,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        31,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -19
+      ],
+      "sha256": "7951d49e3fa2c5f655f888498c854cddd1ff4a2cabdad610c759f8d182a9cccf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sw_17.png",
+      "width": 65,
+      "height": 12,
+      "texture_px": [
+        65,
+        12
+      ],
+      "offset": 296345,
+      "length": 780,
+      "trim_origin_top_left_px": [
+        44,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        -23
+      ],
+      "sha256": "6b92e2e6cecd3aa18b3fc48a3cd4c63f0413d4fa704c53ad767a8d30a55a88e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wsw_17.png",
+      "width": 56,
+      "height": 26,
+      "texture_px": [
+        56,
+        26
+      ],
+      "offset": 297125,
+      "length": 1456,
+      "trim_origin_top_left_px": [
+        63,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -17
+      ],
+      "sha256": "a8b76dddbf316b96501b7d1190095f268a877662ad887e4e1224b599d2473c64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_w_17.png",
+      "width": 39,
+      "height": 39,
+      "texture_px": [
+        39,
+        39
+      ],
+      "offset": 298581,
+      "length": 1521,
+      "trim_origin_top_left_px": [
+        85,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -5
+      ],
+      "sha256": "3b48c0c2c204ffb18f98d12b4396c5d7d6458a46e20433fa2cf84efff203e567",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_wnw_17.png",
+      "width": 20,
+      "height": 46,
+      "texture_px": [
+        20,
+        46
+      ],
+      "offset": 300102,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        102,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        8
+      ],
+      "sha256": "c9af78b0b48ba4e0525690aac54678b7d84d351f7e97556d177adc26be0e3d61",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nw_17.png",
+      "width": 16,
+      "height": 48,
+      "texture_px": [
+        16,
+        48
+      ],
+      "offset": 301022,
+      "length": 768,
+      "trim_origin_top_left_px": [
+        107,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -27,
+        19
+      ],
+      "sha256": "63aaa53cd59947f8ae3a85c617dab79e18e55bf88277d01454270bfa6e58e4a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nnw_17.png",
+      "width": 33,
+      "height": 42,
+      "texture_px": [
+        33,
+        42
+      ],
+      "offset": 301790,
+      "length": 1386,
+      "trim_origin_top_left_px": [
+        100,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        27
+      ],
+      "sha256": "7e579371d9870117e7eaae19a9fdf69b7ca8796e89ca7b0392d7bf3fbb16f56e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_n_17.png",
+      "width": 53,
+      "height": 30,
+      "texture_px": [
+        53,
+        30
+      ],
+      "offset": 303176,
+      "length": 1590,
+      "trim_origin_top_left_px": [
+        83,
+        101
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        31
+      ],
+      "sha256": "eaf68f9458e5169044ed51de99549f07b05001d0521900343ad57e8859e06247",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_nne_17.png",
+      "width": 63,
+      "height": 15,
+      "texture_px": [
+        63,
+        15
+      ],
+      "offset": 304766,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        66,
+        114
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        29
+      ],
+      "sha256": "278be4599e7540e3bbac10e6ee4db3eacef2382b11d9ada42c1370e9aff4281f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ne_17.png",
+      "width": 65,
+      "height": 12,
+      "texture_px": [
+        65,
+        12
+      ],
+      "offset": 305711,
+      "length": 780,
+      "trim_origin_top_left_px": [
+        51,
+        118
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        30
+      ],
+      "sha256": "c95c69e6016fa4025574b403a4474c1879fed224886beb56504da96200c9222f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ene_17.png",
+      "width": 56,
+      "height": 26,
+      "texture_px": [
+        56,
+        26
+      ],
+      "offset": 306491,
+      "length": 1456,
+      "trim_origin_top_left_px": [
+        41,
+        112
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        38
+      ],
+      "sha256": "df847af93000b4c0d25938719b7c9a3c8b7afdbeb97409594dc54eeb7e333618",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_e_17.png",
+      "width": 39,
+      "height": 39,
+      "texture_px": [
+        39,
+        39
+      ],
+      "offset": 307947,
+      "length": 1521,
+      "trim_origin_top_left_px": [
+        36,
+        100
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        39
+      ],
+      "sha256": "14be53b0a2af65a71bf93d322af6ffbc0e7f320f68b094865c667c5377260a5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_ese_17.png",
+      "width": 20,
+      "height": 47,
+      "texture_px": [
+        20,
+        47
+      ],
+      "offset": 309468,
+      "length": 940,
+      "trim_origin_top_left_px": [
+        38,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        34
+      ],
+      "sha256": "9e5f20a300fc6453520ebcee08cecb08077daf2f65dcbc49cce65cd29a546b84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_se_17.png",
+      "width": 16,
+      "height": 48,
+      "texture_px": [
+        16,
+        48
+      ],
+      "offset": 310408,
+      "length": 768,
+      "trim_origin_top_left_px": [
+        37,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        24
+      ],
+      "sha256": "1f4907192f032b8c6d4ffa66af2fd02e2ba71b3f55e5522be69c680a1a426cb5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDefeatBow.atlas",
+      "name": "die_sse_17.png",
+      "width": 33,
+      "height": 42,
+      "texture_px": [
+        33,
+        42
+      ],
+      "offset": 311176,
+      "length": 1386,
+      "trim_origin_top_left_px": [
+        27,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        53,
+        10
+      ],
+      "sha256": "71a8bcddedda1eaf54e61495fec39b092f9973b7b70bc22bab4366ec88b7246a",
+      "empty": false
+    }
+  ],
+  "source_authority": "DefeatOct08/Defeat_Authored.blend"
+}

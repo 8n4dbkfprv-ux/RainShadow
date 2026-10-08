@@ -36,7 +36,7 @@ final class BowShotPresentation {
         origin = CGPoint(x: actor.position.x + offset.x,
                          y: actor.position.y + offset.y + actor.visualHeightOffset)
         destination = CGPoint(x: target.position.x + (result.damage == 0 ? 22 : 0),
-                              y: target.position.y + (result.maneuver == .pinningShot ? 15 : targetHeight))
+                              y: target.position.y + (target.isProne ? 15 : result.maneuver == .pinningShot ? 15 : targetHeight))
         releaseTime = StealthAnimationSet.usesAttack(result) ? StealthAnimationSet.bowRelease : WeaponTechniqueMotion.bowRelease(result.maneuver)
         impactTime = releaseTime + BowAttackRules.flightDuration(from: actor.position, to: target.position)
         arrow.name = "combat.bow.arrow"

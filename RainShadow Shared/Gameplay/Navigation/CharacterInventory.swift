@@ -13,6 +13,7 @@ enum InventoryRefusal: Error, Equatable, Sendable, CustomStringConvertible {
     case cursedInPlace(slot: EquipmentSlot)
     case slotEmpty(slot: EquipmentSlot)
     case undroppable(itemID: String)
+    case equipmentMergedInBearForm
     case bagFull
     case noSuchStack(index: Int)
 
@@ -32,6 +33,8 @@ enum InventoryRefusal: Error, Equatable, Sendable, CustomStringConvertible {
             "\(slot.rawValue) is empty"
         case .undroppable(let itemID):
             "'\(itemID)' cannot be put down"
+        case .equipmentMergedInBearForm:
+            "Equipment is merged into Bear Form. Return to human form to change it."
         case .bagFull:
             "The case bag is full"
         case .noSuchStack(let index):

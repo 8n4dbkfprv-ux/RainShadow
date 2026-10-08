@@ -1,0 +1,24 @@
+{
+  "directions": [
+    "s",
+    "ssw",
+    "sw",
+    "wsw",
+    "w",
+    "wnw",
+    "nw",
+    "nnw",
+    "n",
+    "nne",
+    "ne",
+    "ene",
+    "e",
+    "ese",
+    "se",
+    "sse"
+  ],
+  "clips": {
+    "roar": 24
+  },
+  "fps": 20
+}

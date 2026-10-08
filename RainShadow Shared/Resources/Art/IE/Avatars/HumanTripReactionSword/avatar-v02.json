@@ -1,0 +1,8500 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanTripReactionSword",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "d0161282a3653dc699c80ea2de8fae7a2c9991d67afe74d6d9ba5acdb276c0b7",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_00.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 16,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "1dc2996a7319a827553216fa612579e4bcce14d98b9c5c816c631784e69fd78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_01.png",
+      "width": 7,
+      "height": 14,
+      "texture_px": [
+        7,
+        14
+      ],
+      "offset": 124,
+      "length": 98,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -8
+      ],
+      "sha256": "1401fd674872e4db4b62b20062b36b2279159f3aa1ab0ec694c2e094fe91ead7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_02.png",
+      "width": 11,
+      "height": 8,
+      "texture_px": [
+        11,
+        8
+      ],
+      "offset": 222,
+      "length": 88,
+      "trim_origin_top_left_px": [
+        58,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -14
+      ],
+      "sha256": "3413a7285f52bcfd9ce7407be74e130cd55eb908a372eac064c3685b7401e44e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_03.png",
+      "width": 16,
+      "height": 4,
+      "texture_px": [
+        16,
+        4
+      ],
+      "offset": 310,
+      "length": 64,
+      "trim_origin_top_left_px": [
+        58,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -18
+      ],
+      "sha256": "296262c7f1129184ca842d2baa8e7cbae6c89f8bbf6bbc7159c9574e48f0f6f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_04.png",
+      "width": 15,
+      "height": 4,
+      "texture_px": [
+        15,
+        4
+      ],
+      "offset": 374,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        58,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -17
+      ],
+      "sha256": "d513123c3268c153129987dc0d734366defdef3f4191391fcaa5ac0d38c3d02c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_05.png",
+      "width": 11,
+      "height": 6,
+      "texture_px": [
+        11,
+        6
+      ],
+      "offset": 434,
+      "length": 66,
+      "trim_origin_top_left_px": [
+        57,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -14
+      ],
+      "sha256": "63056b5363b96a8fb09f004c9d1aa5572954305096f2728219df38ca791d5da6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_06.png",
+      "width": 12,
+      "height": 10,
+      "texture_px": [
+        12,
+        10
+      ],
+      "offset": 500,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        57,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -12
+      ],
+      "sha256": "275c393c2fd8c8f10edf72eab64f4bd6f30142c10cd5f2a6f04374be42bb4125",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_07.png",
+      "width": 13,
+      "height": 11,
+      "texture_px": [
+        13,
+        11
+      ],
+      "offset": 620,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        59,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -11
+      ],
+      "sha256": "0e1e69c2f695e15944523099e366e77308c5bf2135e6af79bf5ea7ea0be73e57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_08.png",
+      "width": 13,
+      "height": 11,
+      "texture_px": [
+        13,
+        11
+      ],
+      "offset": 763,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -11
+      ],
+      "sha256": "32bc6eba7b2cdfbde6d099b97f75319acfb25f0bf54df6ff9c42395824267bbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_09.png",
+      "width": 12,
+      "height": 11,
+      "texture_px": [
+        12,
+        11
+      ],
+      "offset": 906,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        63,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "1e6e2fe616554390e26672c1f5b70e5fddf4bff070622f184466a549a024c0cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_10.png",
+      "width": 13,
+      "height": 12,
+      "texture_px": [
+        13,
+        12
+      ],
+      "offset": 1038,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        64,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "c0c8697366c1eabbacab69f9175cfb2a0bac7302b20663b6ccf26945a3fac40f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_11.png",
+      "width": 13,
+      "height": 12,
+      "texture_px": [
+        13,
+        12
+      ],
+      "offset": 1194,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        64,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "c0c8697366c1eabbacab69f9175cfb2a0bac7302b20663b6ccf26945a3fac40f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_12.png",
+      "width": 13,
+      "height": 12,
+      "texture_px": [
+        13,
+        12
+      ],
+      "offset": 1350,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        64,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "c0c8697366c1eabbacab69f9175cfb2a0bac7302b20663b6ccf26945a3fac40f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_13.png",
+      "width": 12,
+      "height": 14,
+      "texture_px": [
+        12,
+        14
+      ],
+      "offset": 1506,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        62,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "c11ffd8d8ea16d3175bfde67f9b17fdacb3b34d02723870f9147d1a1ee8b2f29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_14.png",
+      "width": 11,
+      "height": 19,
+      "texture_px": [
+        11,
+        19
+      ],
+      "offset": 1674,
+      "length": 209,
+      "trim_origin_top_left_px": [
+        57,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -5
+      ],
+      "sha256": "dbe347933dbc64f403078e32a9500f6118bac1fda4dc415acc8a32978d835523",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_15.png",
+      "width": 9,
+      "height": 21,
+      "texture_px": [
+        9,
+        21
+      ],
+      "offset": 1883,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        56,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -3
+      ],
+      "sha256": "7dcabb47fcbaf052cb3521eab35a7f92bdf00d21587d5eafa5c315246135179b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_16.png",
+      "width": 13,
+      "height": 16,
+      "texture_px": [
+        13,
+        16
+      ],
+      "offset": 2072,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        54,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -8
+      ],
+      "sha256": "2f042f867192fa068fd1d86cbe794bfc129126c6ddd4646e82d735f24542a280",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_17.png",
+      "width": 19,
+      "height": 14,
+      "texture_px": [
+        19,
+        14
+      ],
+      "offset": 2280,
+      "length": 266,
+      "trim_origin_top_left_px": [
+        54,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -10
+      ],
+      "sha256": "2996858d78ab7919402c57ac6bf163942fac1b67a00f336297cb3ff7cf059253",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_18.png",
+      "width": 25,
+      "height": 10,
+      "texture_px": [
+        25,
+        10
+      ],
+      "offset": 2546,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        54,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -13
+      ],
+      "sha256": "1a4040bc465a2380338378589a5e64973dad7787104a94b89045b6443997cec3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_19.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 2796,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        56,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -16
+      ],
+      "sha256": "f7f7889e56f276b32c29da46109e1b35369c672ae37abe7a75c98d043376d7fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_20.png",
+      "width": 13,
+      "height": 10,
+      "texture_px": [
+        13,
+        10
+      ],
+      "offset": 2922,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -12
+      ],
+      "sha256": "aa0277ce7f5ee06c22f1a0141cf84d940712c7a942fa9f31de37e235adb08e7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_21.png",
+      "width": 9,
+      "height": 14,
+      "texture_px": [
+        9,
+        14
+      ],
+      "offset": 3052,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -8
+      ],
+      "sha256": "ee171096e7733a29094215e9b597d18c9e9cb72018ad7b2be72446ab3a7944e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_22.png",
+      "width": 6,
+      "height": 17,
+      "texture_px": [
+        6,
+        17
+      ],
+      "offset": 3178,
+      "length": 102,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -5
+      ],
+      "sha256": "232a55de8c1daadccb17321d9019204aa96675c02784552d7e0cae766b00286c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_s_23.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 3280,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "1dc2996a7319a827553216fa612579e4bcce14d98b9c5c816c631784e69fd78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_00.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 3388,
+      "length": 285,
+      "trim_origin_top_left_px": [
+        53,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "d07bf59856d16d3a45b7fb25dfb22f768fa5e09eaf8c5986d05552368c89b541",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_01.png",
+      "width": 10,
+      "height": 17,
+      "texture_px": [
+        10,
+        17
+      ],
+      "offset": 3673,
+      "length": 170,
+      "trim_origin_top_left_px": [
+        56,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -13
+      ],
+      "sha256": "de84250915216165d4ca6466c4e86a90cafcfaa9773b06f86abf42fed95032d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_02.png",
+      "width": 7,
+      "height": 9,
+      "texture_px": [
+        7,
+        9
+      ],
+      "offset": 3843,
+      "length": 63,
+      "trim_origin_top_left_px": [
+        55,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -18
+      ],
+      "sha256": "1fee2d39a8e72ae2f8736d6d4ace75c443628913f3b0616874e8fdd5bc12d88a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_03.png",
+      "width": 11,
+      "height": 7,
+      "texture_px": [
+        11,
+        7
+      ],
+      "offset": 3906,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        54,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -21
+      ],
+      "sha256": "fceabedd99c12ce88d518c17d2b0d58ed21dabeb13099340aa754679b9821a54",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_04.png",
+      "width": 12,
+      "height": 9,
+      "texture_px": [
+        12,
+        9
+      ],
+      "offset": 3983,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        54,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -19
+      ],
+      "sha256": "766bf668a3090a071dc6c3f38c240da791d56df3fb773f297b9c9dc8101d24b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_05.png",
+      "width": 8,
+      "height": 12,
+      "texture_px": [
+        8,
+        12
+      ],
+      "offset": 4091,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        53,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -16
+      ],
+      "sha256": "a20e88a99339d17eda1c53754f1b7103f7a64708c23a3ac7cf3955031841f06b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_06.png",
+      "width": 5,
+      "height": 12,
+      "texture_px": [
+        5,
+        12
+      ],
+      "offset": 4187,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        54,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -17
+      ],
+      "sha256": "1f7149e93e7f3f306f3d52e5e9ee7d2dbb07a3b898668b193eb939c5931d2b5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_07.png",
+      "width": 5,
+      "height": 11,
+      "texture_px": [
+        5,
+        11
+      ],
+      "offset": 4247,
+      "length": 55,
+      "trim_origin_top_left_px": [
+        56,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -18
+      ],
+      "sha256": "421d6dc0fc26d3626414c62cb29d380f2177e86c9c8359ddb4800ec571c0de6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_08.png",
+      "width": 5,
+      "height": 11,
+      "texture_px": [
+        5,
+        11
+      ],
+      "offset": 4302,
+      "length": 55,
+      "trim_origin_top_left_px": [
+        57,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -17
+      ],
+      "sha256": "56c7bc30eaea07793012b6db85eb37f22e2b6afa648f3f0dc6727d744a69f2a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_09.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 4357,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        60,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -15
+      ],
+      "sha256": "52e7b30344ecc9b181e0b5ca0cbbb0a69c39bb90c75d67a389bef0f25f67098d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_10.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 4422,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        62,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "34d0296f60bc95c122daa3a0b3640f7f45b21b36c65bc193a04f72acd1ed16e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_11.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 4492,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        62,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "34d0296f60bc95c122daa3a0b3640f7f45b21b36c65bc193a04f72acd1ed16e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_12.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 4562,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        62,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "34d0296f60bc95c122daa3a0b3640f7f45b21b36c65bc193a04f72acd1ed16e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_13.png",
+      "width": 3,
+      "height": 13,
+      "texture_px": [
+        3,
+        13
+      ],
+      "offset": 4632,
+      "length": 39,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -14
+      ],
+      "sha256": "084f0e516cedfcfb394c4954150150a849b7585f079f83672b863d0b5c5a57ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_14.png",
+      "width": 2,
+      "height": 6,
+      "texture_px": [
+        2,
+        6
+      ],
+      "offset": 4671,
+      "length": 12,
+      "trim_origin_top_left_px": [
+        56,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -21
+      ],
+      "sha256": "ba5913814c3503fb8f85f431da2cb70b2341f35c1f0811af73ca5db958b2ec8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_15.png",
+      "width": 2,
+      "height": 17,
+      "texture_px": [
+        2,
+        17
+      ],
+      "offset": 4683,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        54,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -15
+      ],
+      "sha256": "539762ccf89f7b943bd173c93d7c88ec42d3054f4b776345d3e8db804fe21cc9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_16.png",
+      "width": 5,
+      "height": 20,
+      "texture_px": [
+        5,
+        20
+      ],
+      "offset": 4717,
+      "length": 100,
+      "trim_origin_top_left_px": [
+        53,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -12
+      ],
+      "sha256": "2969c2ac70019d2f437bec64a7e1d7c826cca2190904414f01cd80685b64557f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_17.png",
+      "width": 13,
+      "height": 19,
+      "texture_px": [
+        13,
+        19
+      ],
+      "offset": 4817,
+      "length": 247,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "bdc55161f1f0240e945e9505bd72a24620ea833b7decdad09392dd2dca4a282d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_18.png",
+      "width": 14,
+      "height": 12,
+      "texture_px": [
+        14,
+        12
+      ],
+      "offset": 5064,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        52,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -18
+      ],
+      "sha256": "0844a968200a185e6a7fd9385ea80b323cfbb5a64eb55cc1a3365f7f79b973f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_19.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 5232,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        55,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -18
+      ],
+      "sha256": "be9a32933ce8a91e15e42cdf30682c6837af51c447bafde25e5a3fd0f3372c90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_20.png",
+      "width": 7,
+      "height": 11,
+      "texture_px": [
+        7,
+        11
+      ],
+      "offset": 5358,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        57,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -16
+      ],
+      "sha256": "e43980c362f09cd6ed1af360066d458d04d6489aa89c4b7546d7481e045983d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_21.png",
+      "width": 8,
+      "height": 13,
+      "texture_px": [
+        8,
+        13
+      ],
+      "offset": 5435,
+      "length": 104,
+      "trim_origin_top_left_px": [
+        58,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -13
+      ],
+      "sha256": "596062a1ae9a3fdb1ced1532751370f747543a0ea62a27b32d4f611c51b4c9da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_22.png",
+      "width": 13,
+      "height": 19,
+      "texture_px": [
+        13,
+        19
+      ],
+      "offset": 5539,
+      "length": 247,
+      "trim_origin_top_left_px": [
+        54,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -11
+      ],
+      "sha256": "2c1620ffe0fa4e02dba2c408193bef203f8b6376dd39048c62ea360bc74c5faa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ssw_23.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 5786,
+      "length": 285,
+      "trim_origin_top_left_px": [
+        53,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "d07bf59856d16d3a45b7fb25dfb22f768fa5e09eaf8c5986d05552368c89b541",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_00.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 6071,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        49,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -19
+      ],
+      "sha256": "6c6d7605b2eb767e5f323c0b48bbf4de8e829eae5b405f6c7f097196f7b4ea2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_01.png",
+      "width": 18,
+      "height": 13,
+      "texture_px": [
+        18,
+        13
+      ],
+      "offset": 6401,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        51,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -21
+      ],
+      "sha256": "f59609e48a756d0ed8c9de873700ce3c6694c9ef9e25b214db296cb92aa9abae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_02.png",
+      "width": 10,
+      "height": 9,
+      "texture_px": [
+        10,
+        9
+      ],
+      "offset": 6635,
+      "length": 90,
+      "trim_origin_top_left_px": [
+        52,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -25
+      ],
+      "sha256": "95ecfe3e3f11e55fa74ac78dc824c38d7e1d7632f71674229d3bb4cd1d4fdbda",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_03.png",
+      "width": 7,
+      "height": 8,
+      "texture_px": [
+        7,
+        8
+      ],
+      "offset": 6725,
+      "length": 56,
+      "trim_origin_top_left_px": [
+        53,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -27
+      ],
+      "sha256": "cbdbac1760f975d70f26b6950cda5e6f5b8a2a3dcd220b2d867daa9711a6f24d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_04.png",
+      "width": 7,
+      "height": 10,
+      "texture_px": [
+        7,
+        10
+      ],
+      "offset": 6781,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        53,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -25
+      ],
+      "sha256": "31774d6d702800da22cb644a5c1808a7ebdedb2e45e985fbe19bb63fc1de3eb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_05.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 6851,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        53,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -23
+      ],
+      "sha256": "708071558dc616839e0086169d4d8cfb494f62165e797d460fd789af4b76d954",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_06.png",
+      "width": 6,
+      "height": 13,
+      "texture_px": [
+        6,
+        13
+      ],
+      "offset": 6916,
+      "length": 78,
+      "trim_origin_top_left_px": [
+        52,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -23
+      ],
+      "sha256": "482ff619dd6f4a400d554dd8023497279ab04db22f71ba7b67ef5278b6445fd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_07.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 6994,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        54,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -22
+      ],
+      "sha256": "873e59a0b03b8e4110c46f23312260b754f2940aa40a02f103717c0f0afc23fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_08.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 7064,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        55,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -21
+      ],
+      "sha256": "a0cae25d1f6fb619988eacc5dd2d3aad565f1328804730cb70df08e0c88438b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_09.png",
+      "width": 5,
+      "height": 14,
+      "texture_px": [
+        5,
+        14
+      ],
+      "offset": 7134,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        57,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -19
+      ],
+      "sha256": "a8b6437eaf711e3bef596754926a28092492a404236bb1eaec716bbea339ac71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_10.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 7204,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        59,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -19
+      ],
+      "sha256": "51b8f9f61b1841e18c551621fe37736d2842dbb9a37c316a218d7d56d4e59307",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_11.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 7269,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        59,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -19
+      ],
+      "sha256": "51b8f9f61b1841e18c551621fe37736d2842dbb9a37c316a218d7d56d4e59307",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_12.png",
+      "width": 5,
+      "height": 13,
+      "texture_px": [
+        5,
+        13
+      ],
+      "offset": 7334,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        59,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -19
+      ],
+      "sha256": "51b8f9f61b1841e18c551621fe37736d2842dbb9a37c316a218d7d56d4e59307",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_13.png",
+      "width": 7,
+      "height": 16,
+      "texture_px": [
+        7,
+        16
+      ],
+      "offset": 7399,
+      "length": 112,
+      "trim_origin_top_left_px": [
+        55,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -17
+      ],
+      "sha256": "58919776cb479e2ef72bd450cb1433319fe5b1afc5908179e7177791b095f541",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_14.png",
+      "width": 10,
+      "height": 19,
+      "texture_px": [
+        10,
+        19
+      ],
+      "offset": 7511,
+      "length": 190,
+      "trim_origin_top_left_px": [
+        50,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -18
+      ],
+      "sha256": "3e1dc662cbd2e77e463368bebf4cfb0027cba15b98f6f829025edc2faef8767d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_15.png",
+      "width": 12,
+      "height": 22,
+      "texture_px": [
+        12,
+        22
+      ],
+      "offset": 7701,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        46,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -17
+      ],
+      "sha256": "5bbefba02b8247e6b8f48d4f26920985de48833697d3dafc7d20af3a2b177384",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_16.png",
+      "width": 6,
+      "height": 22,
+      "texture_px": [
+        6,
+        22
+      ],
+      "offset": 7965,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        51,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -17
+      ],
+      "sha256": "7355c04c265f5b86f06cbb4f6cae2777949f972ce30d2e1618c5d582c1ba6c67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_17.png",
+      "width": 4,
+      "height": 22,
+      "texture_px": [
+        4,
+        22
+      ],
+      "offset": 8097,
+      "length": 88,
+      "trim_origin_top_left_px": [
+        54,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -17
+      ],
+      "sha256": "cb420a85540732de6c36fed3f2c5d9597d33071040243cd5c8efeb8241d9faae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_18.png",
+      "width": 8,
+      "height": 16,
+      "texture_px": [
+        8,
+        16
+      ],
+      "offset": 8185,
+      "length": 128,
+      "trim_origin_top_left_px": [
+        55,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -19
+      ],
+      "sha256": "b0b153e340d17f1dfd1e82b88174a147f1eb4fba80b06d0f8fcdd578a1aa16da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_19.png",
+      "width": 7,
+      "height": 12,
+      "texture_px": [
+        7,
+        12
+      ],
+      "offset": 8313,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        55,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -22
+      ],
+      "sha256": "f586d455975b81ea10f33e3b097229d5991b3c1714601646ff29092c2d0861d0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_20.png",
+      "width": 9,
+      "height": 11,
+      "texture_px": [
+        9,
+        11
+      ],
+      "offset": 8397,
+      "length": 99,
+      "trim_origin_top_left_px": [
+        56,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -22
+      ],
+      "sha256": "de2aa04dbe0fc968cf2cf393ffe0381961910366d44386e8f5f1e41c135dd4b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_21.png",
+      "width": 15,
+      "height": 14,
+      "texture_px": [
+        15,
+        14
+      ],
+      "offset": 8496,
+      "length": 210,
+      "trim_origin_top_left_px": [
+        53,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -20
+      ],
+      "sha256": "015e5441186f8c1f9b5f370c51d18e0e092a67146b2752e67124d27f04250e1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_22.png",
+      "width": 20,
+      "height": 14,
+      "texture_px": [
+        20,
+        14
+      ],
+      "offset": 8706,
+      "length": 280,
+      "trim_origin_top_left_px": [
+        51,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -20
+      ],
+      "sha256": "3115ab02f7f2f395de42ffc694e03c25f7b50ab8dc19715169d754c832564106",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sw_23.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 8986,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        49,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -19
+      ],
+      "sha256": "6c6d7605b2eb767e5f323c0b48bbf4de8e829eae5b405f6c7f097196f7b4ea2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_00.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 9316,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -28
+      ],
+      "sha256": "d7e3656612d6852f05ce4ce056c6a04a8f4627dcb44c6a6c4c35b143efce0341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_01.png",
+      "width": 22,
+      "height": 6,
+      "texture_px": [
+        22,
+        6
+      ],
+      "offset": 9484,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -30
+      ],
+      "sha256": "14163053938ed6da942c5e0088eea4acc15446660c365cf78d094db339389e0e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_02.png",
+      "width": 17,
+      "height": 6,
+      "texture_px": [
+        17,
+        6
+      ],
+      "offset": 9616,
+      "length": 102,
+      "trim_origin_top_left_px": [
+        50,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -34
+      ],
+      "sha256": "6f078f40ee973709043d0f922feefb7d9e659c4a70970f3227d8772895f43201",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_03.png",
+      "width": 9,
+      "height": 9,
+      "texture_px": [
+        9,
+        9
+      ],
+      "offset": 9718,
+      "length": 81,
+      "trim_origin_top_left_px": [
+        54,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -34
+      ],
+      "sha256": "9c8976c8344b640b29bc398e6b9c1b8364561da307a07c54e77761f1d778aef8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_04.png",
+      "width": 7,
+      "height": 11,
+      "texture_px": [
+        7,
+        11
+      ],
+      "offset": 9799,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        55,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -31
+      ],
+      "sha256": "908b6042965a64934d3fcdf999fb167e6419bcd2bbf35ff054b6aa6336d94443",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_05.png",
+      "width": 12,
+      "height": 11,
+      "texture_px": [
+        12,
+        11
+      ],
+      "offset": 9876,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        49,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -32
+      ],
+      "sha256": "07039fd93201489f781cf372dcd82bf3b80c2920ec5fdf97ce3ff24bbf55a373",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_06.png",
+      "width": 13,
+      "height": 11,
+      "texture_px": [
+        13,
+        11
+      ],
+      "offset": 10008,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        48,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -32
+      ],
+      "sha256": "8a2bad947535a0f96db5aa51ccf6bed2fdf0b9a139a53bcf9e50fbfcc5da9543",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_07.png",
+      "width": 12,
+      "height": 12,
+      "texture_px": [
+        12,
+        12
+      ],
+      "offset": 10151,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        50,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -30
+      ],
+      "sha256": "beccc7b0e57386e4e76cdd1424e37bb08ce6b45e413c19158151c986bd9d1bc5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_08.png",
+      "width": 12,
+      "height": 13,
+      "texture_px": [
+        12,
+        13
+      ],
+      "offset": 10295,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        51,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -28
+      ],
+      "sha256": "21ddb01945bd2bc4a123856f4d98b397e320eadc7e6451dd46a80b5e4ceecab7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_09.png",
+      "width": 12,
+      "height": 12,
+      "texture_px": [
+        12,
+        12
+      ],
+      "offset": 10451,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        53,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -26
+      ],
+      "sha256": "0455a3c912c02d3de546da88d79066499e20a0ce0ed8531b1c547e1ffcd952b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_10.png",
+      "width": 12,
+      "height": 12,
+      "texture_px": [
+        12,
+        12
+      ],
+      "offset": 10595,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        54,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -25
+      ],
+      "sha256": "fa7d871eca99114a81c82ccf8890a4d5ab5030860a75d188d3511100f22d2b3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_11.png",
+      "width": 12,
+      "height": 12,
+      "texture_px": [
+        12,
+        12
+      ],
+      "offset": 10739,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        54,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -25
+      ],
+      "sha256": "fa7d871eca99114a81c82ccf8890a4d5ab5030860a75d188d3511100f22d2b3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_12.png",
+      "width": 12,
+      "height": 12,
+      "texture_px": [
+        12,
+        12
+      ],
+      "offset": 10883,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        54,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -25
+      ],
+      "sha256": "fa7d871eca99114a81c82ccf8890a4d5ab5030860a75d188d3511100f22d2b3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_13.png",
+      "width": 14,
+      "height": 13,
+      "texture_px": [
+        14,
+        13
+      ],
+      "offset": 11027,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        51,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -25
+      ],
+      "sha256": "06a6c8f52a4ce0bd8b6cec0d84bc9a622b9be8f26bace8b037d65b73ca93c1a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_14.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 11209,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        46,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -26
+      ],
+      "sha256": "ce592fadcd1c9758b199216efbd5e2d725aee8dc99dc02e02db0b3e665147028",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_15.png",
+      "width": 19,
+      "height": 16,
+      "texture_px": [
+        19,
+        16
+      ],
+      "offset": 11529,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        45,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -28
+      ],
+      "sha256": "21115dcae4a5a086cfd6feea7dceae436a3fb75ecbbdeccb61ba41f112d657bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_16.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 11833,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        47,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -25
+      ],
+      "sha256": "7611d96e786952ec74f2d5d92c4e866142086d2f6ab57b953e463d828960f154",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_17.png",
+      "width": 9,
+      "height": 23,
+      "texture_px": [
+        9,
+        23
+      ],
+      "offset": 12153,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        53,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -23
+      ],
+      "sha256": "d1ab07b565efee52c11cc99eb605397fd255d08cf763ce02442872724de27a3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_18.png",
+      "width": 4,
+      "height": 18,
+      "texture_px": [
+        4,
+        18
+      ],
+      "offset": 12360,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        58,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -24
+      ],
+      "sha256": "e53961f6c40452e4f09ea63d53529a43a0b292d3daba64bda07eb4206bec140d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_19.png",
+      "width": 8,
+      "height": 13,
+      "texture_px": [
+        8,
+        13
+      ],
+      "offset": 12432,
+      "length": 104,
+      "trim_origin_top_left_px": [
+        57,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -28
+      ],
+      "sha256": "0c5a5f7d347b441d792b606fee634e568a1a8f5284499ed24a1fa590b5ddee39",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_20.png",
+      "width": 16,
+      "height": 10,
+      "texture_px": [
+        16,
+        10
+      ],
+      "offset": 12536,
+      "length": 160,
+      "trim_origin_top_left_px": [
+        53,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -29
+      ],
+      "sha256": "1c881879dc8de492627845ad77a37d5600d2f908dc1bf9b89d0f155fc320f122",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_21.png",
+      "width": 22,
+      "height": 8,
+      "texture_px": [
+        22,
+        8
+      ],
+      "offset": 12696,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -28
+      ],
+      "sha256": "5bcbcd89697d43a289016a4fecac576af0f25b49f567cacb3cb1f5a049d92d02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_22.png",
+      "width": 20,
+      "height": 6,
+      "texture_px": [
+        20,
+        6
+      ],
+      "offset": 12872,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        51,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "9de92ec0397968c053488e6de42624aa165f21be8ec7d783606f39c4fcb960f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wsw_23.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 12992,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -28
+      ],
+      "sha256": "d7e3656612d6852f05ce4ce056c6a04a8f4627dcb44c6a6c4c35b143efce0341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_00.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 13160,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "71003843da0b723c082e7e78491430906c32adab810b2436495e96f1cd18ba3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_01.png",
+      "width": 21,
+      "height": 2,
+      "texture_px": [
+        21,
+        2
+      ],
+      "offset": 13194,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        53,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -37
+      ],
+      "sha256": "2f245002c1b02e124e4741945faacfb6370db60361f049b1093c38f1a3e04549",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_02.png",
+      "width": 23,
+      "height": 5,
+      "texture_px": [
+        23,
+        5
+      ],
+      "offset": 13236,
+      "length": 115,
+      "trim_origin_top_left_px": [
+        52,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -40
+      ],
+      "sha256": "71d2b4d6a7c27ba50a938441ae6bd2556f2c1e2892d1cb46c55e54bdffacad5f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_03.png",
+      "width": 15,
+      "height": 7,
+      "texture_px": [
+        15,
+        7
+      ],
+      "offset": 13351,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        54,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -41
+      ],
+      "sha256": "3b9e6da98c4186fc993910e0da9415ac53f44f8ed1c96ad7a33f6661660c1660",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_04.png",
+      "width": 14,
+      "height": 9,
+      "texture_px": [
+        14,
+        9
+      ],
+      "offset": 13456,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        54,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -39
+      ],
+      "sha256": "6a2ed9b89c8f28f5776dcc2bca3a66853b487af9ecdccefb10c460eb1445337f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_05.png",
+      "width": 17,
+      "height": 8,
+      "texture_px": [
+        17,
+        8
+      ],
+      "offset": 13582,
+      "length": 136,
+      "trim_origin_top_left_px": [
+        50,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -41
+      ],
+      "sha256": "05eb9767f12606d77da9ec35723d46d288a21b22465d2cd56716d100d94296bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_06.png",
+      "width": 18,
+      "height": 7,
+      "texture_px": [
+        18,
+        7
+      ],
+      "offset": 13718,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        50,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -41
+      ],
+      "sha256": "080913cb0bb72fd2938aa184e367ad8ecfbe843df55b43f770f3a342d5d183d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_07.png",
+      "width": 18,
+      "height": 9,
+      "texture_px": [
+        18,
+        9
+      ],
+      "offset": 13844,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        51,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -38
+      ],
+      "sha256": "556c80d6adf7b5d8ab05ac19dd552497e3942d3b5afe95dfc26edf2613890ab7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_08.png",
+      "width": 23,
+      "height": 8,
+      "texture_px": [
+        23,
+        8
+      ],
+      "offset": 14006,
+      "length": 184,
+      "trim_origin_top_left_px": [
+        51,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -37
+      ],
+      "sha256": "094681e7b5562e31938f7cb99df02b0bcd0d6f172b1a113663d1ef438e74ccee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_09.png",
+      "width": 19,
+      "height": 8,
+      "texture_px": [
+        19,
+        8
+      ],
+      "offset": 14190,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        52,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -34
+      ],
+      "sha256": "ff3c84bef9b177f757d9e20466afc99d4b6b7c00a4d24cd7d4bf44b675308d32",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_10.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 14342,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        53,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -32
+      ],
+      "sha256": "80ca436e80aea16a625d10f02e84f7f509276b3a28298d8d6ecf18366281cc23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_11.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 14549,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        53,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -32
+      ],
+      "sha256": "80ca436e80aea16a625d10f02e84f7f509276b3a28298d8d6ecf18366281cc23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_12.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 14756,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        53,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -32
+      ],
+      "sha256": "80ca436e80aea16a625d10f02e84f7f509276b3a28298d8d6ecf18366281cc23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_13.png",
+      "width": 24,
+      "height": 8,
+      "texture_px": [
+        24,
+        8
+      ],
+      "offset": 14963,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        51,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -34
+      ],
+      "sha256": "c664039fb7d4a888273920414a2455a048ca42a6b71ea8563ca4a078a3f258e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_14.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 15155,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        48,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -36
+      ],
+      "sha256": "289bb94d6c9491dc8d8e7cb78da2eb7c0e233aadab4209b8b812a2ad145f3f17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_15.png",
+      "width": 26,
+      "height": 11,
+      "texture_px": [
+        26,
+        11
+      ],
+      "offset": 15415,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        47,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -37
+      ],
+      "sha256": "a6d1ad8db2690cde74330ff82de37bffde312caecac497c434a9ddacc0764a3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_16.png",
+      "width": 23,
+      "height": 15,
+      "texture_px": [
+        23,
+        15
+      ],
+      "offset": 15701,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        49,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -35
+      ],
+      "sha256": "28fc782ac92609252354cb165d024c5e437351d84a0b40b7a2e63d3c894e0f7b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_17.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 16046,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        53,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -31
+      ],
+      "sha256": "18ca6f724c7327b955794893b134290abdc7358d743ab18f1f973db0c5a23f17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_18.png",
+      "width": 12,
+      "height": 17,
+      "texture_px": [
+        12,
+        17
+      ],
+      "offset": 16388,
+      "length": 204,
+      "trim_origin_top_left_px": [
+        57,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -30
+      ],
+      "sha256": "2984112214e83d7d397505f6554cdb74f0d2bad07c8ea10ea1563d20fb56a2a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_19.png",
+      "width": 13,
+      "height": 11,
+      "texture_px": [
+        13,
+        11
+      ],
+      "offset": 16592,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        56,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "48de1886bf69dec98424d14a5dbf2a8a66601c3ef83aac77c9806179ed00737b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_20.png",
+      "width": 19,
+      "height": 6,
+      "texture_px": [
+        19,
+        6
+      ],
+      "offset": 16735,
+      "length": 114,
+      "trim_origin_top_left_px": [
+        54,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -37
+      ],
+      "sha256": "18588663e19526f069491d07076e24387cdf629125efc141519011384f48a7aa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_21.png",
+      "width": 20,
+      "height": 3,
+      "texture_px": [
+        20,
+        3
+      ],
+      "offset": 16849,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        54,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -36
+      ],
+      "sha256": "c178f05b8396dacb2eb41edf6c978072e5ff7758300fbe9cb199bfa3821a846d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_22.png",
+      "width": 18,
+      "height": 2,
+      "texture_px": [
+        18,
+        2
+      ],
+      "offset": 16909,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        55,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -35
+      ],
+      "sha256": "d347b1653a5e7ed6ccd8f05eb7f775f812b88eb3b852df7826bd3f8ece94b097",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_w_23.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 16945,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "71003843da0b723c082e7e78491430906c32adab810b2436495e96f1cd18ba3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_00.png",
+      "width": 24,
+      "height": 9,
+      "texture_px": [
+        24,
+        9
+      ],
+      "offset": 16979,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -34
+      ],
+      "sha256": "fbc3f386078a7ae04b4b4c769c894b3653fb862c1031df438e3681b4ed2a7511",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_01.png",
+      "width": 14,
+      "height": 6,
+      "texture_px": [
+        14,
+        6
+      ],
+      "offset": 17195,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -40
+      ],
+      "sha256": "fdf927d3258bcb840ddc5ff2d4f43596f685f3f5fac589b39aca2a649ed99d8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_02.png",
+      "width": 19,
+      "height": 7,
+      "texture_px": [
+        19,
+        7
+      ],
+      "offset": 17279,
+      "length": 133,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -43
+      ],
+      "sha256": "e23b21ea9deea2aafc5e22049032c2c895bb9ad61414c0bb60475c147302c6ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_03.png",
+      "width": 17,
+      "height": 4,
+      "texture_px": [
+        17,
+        4
+      ],
+      "offset": 17412,
+      "length": 68,
+      "trim_origin_top_left_px": [
+        58,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -47
+      ],
+      "sha256": "9823e6b6780bc70fd5b6820236fe77353457706b818fd717c57550ed8041b70b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_04.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 17480,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        58,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -45
+      ],
+      "sha256": "dd46237f05dabb62d68c4d6362747a6426536d4687712e4bc84e0f339c5e5144",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_05.png",
+      "width": 20,
+      "height": 6,
+      "texture_px": [
+        20,
+        6
+      ],
+      "offset": 17588,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        56,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -45
+      ],
+      "sha256": "8a8eae6a6278f88f69a5ec3cf80b4b1fccabc039de1d98db8853991e45938c1c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_06.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 17708,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        56,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -45
+      ],
+      "sha256": "ec654d0f29906889710d0f81c47204f3fd6f9d5f773e1153195fbd7675d9ff14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_07.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 17864,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        56,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -43
+      ],
+      "sha256": "938d281d66bbf205f7ce0cf790a36139d24330ae602ef2f66b0df4602cfde284",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_08.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 18020,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        57,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -41
+      ],
+      "sha256": "79d2e2ba2559531826c296ce75fd9115d089177d22d7630869914be1b21513b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_09.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 18176,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        56,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -38
+      ],
+      "sha256": "151f7cf09f7433cc3ae664912a7e3e4831bc28b40915d34b886190bbd41e13cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_10.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 18338,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        56,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -37
+      ],
+      "sha256": "7918b7797846532014dc263d5024ff7e3374b8d46d750ea6e1ce5b8f502c77e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_11.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 18473,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        56,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -37
+      ],
+      "sha256": "6882b9924ce21e6efe09e64561b450ce419b8d628114e1833f58f7960af18860",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_12.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 18608,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        56,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -37
+      ],
+      "sha256": "a2fa075c1ac2558fa2ee88451af9ab1515b89e27e99afc18b2c666d6f263a5b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_13.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 18743,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        56,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -39
+      ],
+      "sha256": "4814afaafc89e6675cc8c855c104098c2aae1e2398ce3519a26bc91c7c8c1fa5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_14.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 18905,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        55,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -43
+      ],
+      "sha256": "d44fedfb25bc17ff373fbea49c88453165209fbe9e312bba2a54ffb6a2bd1173",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_15.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 19040,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        55,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -45
+      ],
+      "sha256": "331f9e1b5004be9fad15fd40fbbd793834957f0943f0ada5dfc0d77303c964dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_16.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 19175,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        55,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -43
+      ],
+      "sha256": "a376beb3a8cdbac6207786480dd507073b234d0f0f327125e3e0b00aa6824579",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_17.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 19391,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -39
+      ],
+      "sha256": "7756cf5ee1e82ac38b63a73237606e7c8f382d9200d1df97fab4fd02382b21d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_18.png",
+      "width": 21,
+      "height": 14,
+      "texture_px": [
+        21,
+        14
+      ],
+      "offset": 19679,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        59,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -37
+      ],
+      "sha256": "f49dc49544250d941b08a77496746451d0d5e05b0a8a524a9a12c34121728356",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_19.png",
+      "width": 17,
+      "height": 7,
+      "texture_px": [
+        17,
+        7
+      ],
+      "offset": 19973,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -41
+      ],
+      "sha256": "44fe3a87428630151f48e9568583c7e44f0f27053c3bbacec33059ea45e7e7bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_20.png",
+      "width": 13,
+      "height": 3,
+      "texture_px": [
+        13,
+        3
+      ],
+      "offset": 20092,
+      "length": 39,
+      "trim_origin_top_left_px": [
+        59,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -42
+      ],
+      "sha256": "860c19d66a772fe5f3f1c95d94c48e19660e35f17e792399f06155c97e35d66c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_21.png",
+      "width": 15,
+      "height": 5,
+      "texture_px": [
+        15,
+        5
+      ],
+      "offset": 20131,
+      "length": 75,
+      "trim_origin_top_left_px": [
+        60,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -39
+      ],
+      "sha256": "a12ffe9457ffc7eaccab88e2f6228662e6a280a483aaa7574e8ff8c1e0ebace6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_22.png",
+      "width": 25,
+      "height": 9,
+      "texture_px": [
+        25,
+        9
+      ],
+      "offset": 20206,
+      "length": 225,
+      "trim_origin_top_left_px": [
+        63,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -34
+      ],
+      "sha256": "8f0bd87191d511f3565f5763eab952dcd8954570e5a1e97eaf5ab189f1a1ccff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_wnw_23.png",
+      "width": 24,
+      "height": 9,
+      "texture_px": [
+        24,
+        9
+      ],
+      "offset": 20431,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -34
+      ],
+      "sha256": "fbc3f386078a7ae04b4b4c769c894b3653fb862c1031df438e3681b4ed2a7511",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_00.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 20647,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "9769074a91b0df6a209c8ea35da72b3d785082b1ccdbfebad0c4bedad3368504",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_01.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 20935,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -33
+      ],
+      "sha256": "d7d5346251ddf5cd52468f70625cac020718fb70b2135ffe0a781c4bec38a126",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_02.png",
+      "width": 19,
+      "height": 9,
+      "texture_px": [
+        19,
+        9
+      ],
+      "offset": 21292,
+      "length": 171,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -46
+      ],
+      "sha256": "01943890ff4197fb317bda41c87979c55bce2cce820a98c6fa922e234b17b2a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_03.png",
+      "width": 19,
+      "height": 10,
+      "texture_px": [
+        19,
+        10
+      ],
+      "offset": 21463,
+      "length": 190,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -45
+      ],
+      "sha256": "dd0b77272a686d1693dfc57deeba72e5c9f1587b3567d83d6f71dfca2b8dec23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_04.png",
+      "width": 20,
+      "height": 8,
+      "texture_px": [
+        20,
+        8
+      ],
+      "offset": 21653,
+      "length": 160,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -44
+      ],
+      "sha256": "19410ba8c8771568d38d8085d61a418e2d7ac9a83b0f075af3dc576a0bebd251",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_05.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 21813,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        65,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -45
+      ],
+      "sha256": "85c1a6efa477638414c8fa91ce8cdb8ba899fa57f99ef920b5c053f7032c597f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_06.png",
+      "width": 27,
+      "height": 11,
+      "texture_px": [
+        27,
+        11
+      ],
+      "offset": 22073,
+      "length": 297,
+      "trim_origin_top_left_px": [
+        65,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -44
+      ],
+      "sha256": "491cc314e65058fca1ab4c98ce9baf57a31b47fad133953bc9c3f3a26ea004a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_07.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 22370,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -43
+      ],
+      "sha256": "f9fb165eaaf90eb27d4bdde7233235c40c7f22ddaf832ebb155864f4f45ad95d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_08.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 22630,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -41
+      ],
+      "sha256": "8878cd100b8f187534002588d6da196b0225fa74f44de7d2c887cd502aaf8d50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_09.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 22890,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -39
+      ],
+      "sha256": "75164e4365ddabb8dc22153b9ecb110390073f0659b9fffd3691eedb74d73536",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_10.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 23124,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "19277cd74664f686fc428c57ae4d61a4de542ae557c6e5a5fe942d341bb316d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_11.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 23358,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "19277cd74664f686fc428c57ae4d61a4de542ae557c6e5a5fe942d341bb316d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_12.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 23592,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "19277cd74664f686fc428c57ae4d61a4de542ae557c6e5a5fe942d341bb316d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_13.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 23826,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -39
+      ],
+      "sha256": "2113bd3b9a42901cb15e3e48136df1580ecfacb8b860638a3e54185c91961323",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_14.png",
+      "width": 26,
+      "height": 8,
+      "texture_px": [
+        26,
+        8
+      ],
+      "offset": 24060,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -43
+      ],
+      "sha256": "ffb50332052e53205e086f7458b9f5fc253e2a71ab70acf2088857046cadd8df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_15.png",
+      "width": 25,
+      "height": 7,
+      "texture_px": [
+        25,
+        7
+      ],
+      "offset": 24268,
+      "length": 175,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -45
+      ],
+      "sha256": "ec38182f292e43f04ed9e2ff5a23668385758935e37ebd49cf1bbaa75a989a29",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_16.png",
+      "width": 28,
+      "height": 6,
+      "texture_px": [
+        28,
+        6
+      ],
+      "offset": 24443,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -45
+      ],
+      "sha256": "ef1c034ef5894dcbc6b8f35551e74d6226ef71ac1cc0dc07cea40ec836cdff18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_17.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 24611,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -44
+      ],
+      "sha256": "17ddf8045284cdf6585d362c207c94bdabc1a97d8ab6f100d260b3fc36a75abb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_18.png",
+      "width": 27,
+      "height": 9,
+      "texture_px": [
+        27,
+        9
+      ],
+      "offset": 24800,
+      "length": 243,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -42
+      ],
+      "sha256": "4a2b23f97527733b649a65a6f27727f97b01a7a5eb51ebb27abe34691c1aad34",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_19.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 25043,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -42
+      ],
+      "sha256": "5529c6e24fa7846b589b4a52fca17e2f28b427b6901a00db0b382b7f0b1cbe03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_20.png",
+      "width": 15,
+      "height": 7,
+      "texture_px": [
+        15,
+        7
+      ],
+      "offset": 25169,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -43
+      ],
+      "sha256": "409567cc08d0e8bf08557ab4299a9b53ba8ab2830cca8230c42164bb8869105d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_21.png",
+      "width": 23,
+      "height": 15,
+      "texture_px": [
+        23,
+        15
+      ],
+      "offset": 25274,
+      "length": 345,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -33
+      ],
+      "sha256": "b36444973a59ad886ad235be9108a576c0c46f1740e76389123c2d2bceaad701",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_22.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 25619,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        74,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -30
+      ],
+      "sha256": "cf7f5056be189d25118814ac5109e6b5cc0abcfa0af2ccb7e7adc070b9556880",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nw_23.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 25942,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "9769074a91b0df6a209c8ea35da72b3d785082b1ccdbfebad0c4bedad3368504",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_00.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 26230,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "49048ccf0487f3d6c4a09a07680333bbae2c534f1457734d43239892c70a0052",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_01.png",
+      "width": 11,
+      "height": 19,
+      "texture_px": [
+        11,
+        19
+      ],
+      "offset": 26260,
+      "length": 209,
+      "trim_origin_top_left_px": [
+        85,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -29
+      ],
+      "sha256": "df75e1fa624896d4456802f7bd949391dc69e84233410aa41b0fc8e346149a7f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_02.png",
+      "width": 16,
+      "height": 14,
+      "texture_px": [
+        16,
+        14
+      ],
+      "offset": 26469,
+      "length": 224,
+      "trim_origin_top_left_px": [
+        79,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -43
+      ],
+      "sha256": "42675fd213114485b1955a72f77909cfa7bc0ab2c94de0d43571cb424c2432d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_03.png",
+      "width": 20,
+      "height": 14,
+      "texture_px": [
+        20,
+        14
+      ],
+      "offset": 26693,
+      "length": 280,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -43
+      ],
+      "sha256": "3b724d00517ce4c7f37f76505273df5d291a40304aaa78150ef9eec6a7f025bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_04.png",
+      "width": 21,
+      "height": 13,
+      "texture_px": [
+        21,
+        13
+      ],
+      "offset": 26973,
+      "length": 273,
+      "trim_origin_top_left_px": [
+        74,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -42
+      ],
+      "sha256": "77e02d6c1cf40b0f3fd06c7e0182a7223a660f2e47188a09515daec03aa88c06",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_05.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 27246,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        77,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -41
+      ],
+      "sha256": "7625e7f50b92173abf65edd1fd5c49de9bbfc52ddfaf3a602578f00c46366ad3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_06.png",
+      "width": 23,
+      "height": 18,
+      "texture_px": [
+        23,
+        18
+      ],
+      "offset": 27637,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        77,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -40
+      ],
+      "sha256": "44b45a6abac3910eb3acd6a8ed097f8f29c6c84bbbd28c2c31d844c6ed77e654",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_07.png",
+      "width": 23,
+      "height": 16,
+      "texture_px": [
+        23,
+        16
+      ],
+      "offset": 28051,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        76,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -39
+      ],
+      "sha256": "976aadde61448cbf078e907a0b9ff7e7a2040ec12a035bcc3b793d81bbb00383",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_08.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 28419,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        75,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "097be889b75d3d72d50fc0f11c5221507cee39d09d2c8073cef35a6e0c79b168",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_09.png",
+      "width": 22,
+      "height": 16,
+      "texture_px": [
+        22,
+        16
+      ],
+      "offset": 28810,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        74,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "a71cba2108581dc941a516b3a8c58648851642a06fdccd9d332e75816046cef9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_10.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 29162,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "428d9d3fc2c4cf404a047dfc4def864722fb9e068043ede0a324ed630e6aca3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_11.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 29498,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "428d9d3fc2c4cf404a047dfc4def864722fb9e068043ede0a324ed630e6aca3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_12.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 29834,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        74,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "428d9d3fc2c4cf404a047dfc4def864722fb9e068043ede0a324ed630e6aca3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_13.png",
+      "width": 22,
+      "height": 16,
+      "texture_px": [
+        22,
+        16
+      ],
+      "offset": 30170,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        75,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "a14db484128b095aacfcf298d6289c3f6f5205bfd0cd7b7719ccf76b973da25b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_14.png",
+      "width": 20,
+      "height": 14,
+      "texture_px": [
+        20,
+        14
+      ],
+      "offset": 30522,
+      "length": 280,
+      "trim_origin_top_left_px": [
+        79,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -39
+      ],
+      "sha256": "5caf2256c46a63de3f6ea4ccd847b7ae0786d1d72f13ae6c9cdfe43a6fb74837",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_15.png",
+      "width": 19,
+      "height": 13,
+      "texture_px": [
+        19,
+        13
+      ],
+      "offset": 30802,
+      "length": 247,
+      "trim_origin_top_left_px": [
+        81,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -41
+      ],
+      "sha256": "34741ff7ffdc7175200c6f84b74316d1aad51ff6574459cb831c36bd54a158a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_16.png",
+      "width": 23,
+      "height": 10,
+      "texture_px": [
+        23,
+        10
+      ],
+      "offset": 31049,
+      "length": 230,
+      "trim_origin_top_left_px": [
+        77,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -42
+      ],
+      "sha256": "4e8a59a304e936231021787bc481ffd5cb6c342a5593737cb14fff114d4e4c44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_17.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 31279,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        73,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -42
+      ],
+      "sha256": "dcdcf0a46c4b16899298dd2517f36e501b9819934e5168a3ba06a676d5a5e0c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_18.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 31468,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        72,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -42
+      ],
+      "sha256": "1f9a2fefeac42ed93c15aa7b1d9305c73826cd0e1d3507a20ba9a6a7371b5d5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_19.png",
+      "width": 21,
+      "height": 11,
+      "texture_px": [
+        21,
+        11
+      ],
+      "offset": 31630,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        73,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -40
+      ],
+      "sha256": "4adaa683db8141c155b1fba8f088867f661b88472c8ea3bdc6f4329745c04009",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_20.png",
+      "width": 7,
+      "height": 6,
+      "texture_px": [
+        7,
+        6
+      ],
+      "offset": 31861,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        82,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -42
+      ],
+      "sha256": "2f19f87819e310b981d1c2ae36e7689a43339f00bc356b3f3dba6cb4765adfa2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_21.png",
+      "width": 14,
+      "height": 18,
+      "texture_px": [
+        14,
+        18
+      ],
+      "offset": 31903,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        83,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -29
+      ],
+      "sha256": "be07367c178da07a1bb1ab53979ccd06b78b5d6a79425ce929c44f7d8f9f949a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_22.png",
+      "width": 11,
+      "height": 21,
+      "texture_px": [
+        11,
+        21
+      ],
+      "offset": 32155,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        85,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -26
+      ],
+      "sha256": "3a1e33980b8d4be328a27cfdad1d9287faecceb6cd226f777e1a63a061ce9bd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nnw_23.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 32386,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "49048ccf0487f3d6c4a09a07680333bbae2c534f1457734d43239892c70a0052",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_00.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 32416,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "9f8a537a955936b5e2aa9b96a9b97c24f1f561bb068e701932c4e5d0be94864d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_01.png",
+      "width": 4,
+      "height": 24,
+      "texture_px": [
+        4,
+        24
+      ],
+      "offset": 32521,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        94,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -24
+      ],
+      "sha256": "1adfafc1dee3eccee7ff2717b3d6a581083a533efa5dbe32da10bd1366925124",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_02.png",
+      "width": 12,
+      "height": 19,
+      "texture_px": [
+        12,
+        19
+      ],
+      "offset": 32617,
+      "length": 228,
+      "trim_origin_top_left_px": [
+        90,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -37
+      ],
+      "sha256": "73a39d4c7013ee00e0f1397dc1b6f5e70e9ee8aaafebd005eb07d8a9f614e0e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_03.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 32845,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        85,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -36
+      ],
+      "sha256": "748a3a0aaaccae8ed310e21e80297d57be1fd98453a6a989faec7fd93ff91cad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_04.png",
+      "width": 21,
+      "height": 19,
+      "texture_px": [
+        21,
+        19
+      ],
+      "offset": 33244,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        84,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -36
+      ],
+      "sha256": "68276d0e9fd87516b1a528f200fd4ffc604d5d0b322b1ca5a505403d27ff7641",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_05.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 33643,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        88,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -35
+      ],
+      "sha256": "dfd9d3d8676b00919e5f49657e8caa1cafa8f7760462fc4d33b108f06013bea6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 34017,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        89,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -34
+      ],
+      "sha256": "6fcf70711453f79a9791a66b725fc879e3f8273154f787ad308540eacd7a4b89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_07.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 34385,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        88,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -33
+      ],
+      "sha256": "63f90311e8e0246f1c75f85a29b7a9835d103084b6621ba873d5cf9127e1149c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_08.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 34700,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        87,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -32
+      ],
+      "sha256": "638844f3ffe11dad37e396ab33bc944a2ae231d82705b4a27065201de08cb653",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_09.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 35015,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        85,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -30
+      ],
+      "sha256": "cb622630d6730b0fb09a772e7fdd2a7776d17c2faac25e0b9a375b370e586690",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_10.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 35330,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        83,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -29
+      ],
+      "sha256": "b092520585a1644c3aebdeabae1f86d75dde9a65868e4934774b25918a630959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_11.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 35666,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        83,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -29
+      ],
+      "sha256": "b092520585a1644c3aebdeabae1f86d75dde9a65868e4934774b25918a630959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_12.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 36002,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        83,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -29
+      ],
+      "sha256": "b092520585a1644c3aebdeabae1f86d75dde9a65868e4934774b25918a630959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_13.png",
+      "width": 14,
+      "height": 21,
+      "texture_px": [
+        14,
+        21
+      ],
+      "offset": 36338,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        86,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -30
+      ],
+      "sha256": "f0d29b76c5ca40c06d8e2d94190633ce82828de36c4959bc143b769897d418e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_14.png",
+      "width": 11,
+      "height": 18,
+      "texture_px": [
+        11,
+        18
+      ],
+      "offset": 36632,
+      "length": 198,
+      "trim_origin_top_left_px": [
+        92,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -33
+      ],
+      "sha256": "c73263f61a1a1f80c8f094bf16a71de4ea6266ec53043ccef879d8025c4dd0d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_15.png",
+      "width": 10,
+      "height": 17,
+      "texture_px": [
+        10,
+        17
+      ],
+      "offset": 36830,
+      "length": 170,
+      "trim_origin_top_left_px": [
+        95,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -34
+      ],
+      "sha256": "0e5ada45aa596beed01d2f3e768f690f05919d7363c7a712a88b89b460a2121f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_16.png",
+      "width": 16,
+      "height": 15,
+      "texture_px": [
+        16,
+        15
+      ],
+      "offset": 37000,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        90,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -36
+      ],
+      "sha256": "e2ce827a7180f7256ad3f63516a981f1d77b80a8881cd3906aa08c69e835e6d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_17.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 37240,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        84,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -37
+      ],
+      "sha256": "124ba3db42e05c622cd3428fc0809b0f817fe2d5d5e74005888368adea23317c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_18.png",
+      "width": 26,
+      "height": 11,
+      "texture_px": [
+        26,
+        11
+      ],
+      "offset": 37504,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        80,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -37
+      ],
+      "sha256": "a0c057ee73e2641f718c57c9e3d17ef4aaa43fd43c47a83c945596d00ae85e6d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_19.png",
+      "width": 22,
+      "height": 18,
+      "texture_px": [
+        22,
+        18
+      ],
+      "offset": 37790,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        82,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -34
+      ],
+      "sha256": "d7de7f5b09aa57837459ee28710d84a4cb82105dd3635f338ea7e667ec89e229",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_20.png",
+      "width": 10,
+      "height": 16,
+      "texture_px": [
+        10,
+        16
+      ],
+      "offset": 38186,
+      "length": 160,
+      "trim_origin_top_left_px": [
+        87,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -36
+      ],
+      "sha256": "ce622c761f380bf9dc1e21f083bfbb2c0f8abac69e072565e8919c7176fd8e74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_21.png",
+      "width": 8,
+      "height": 25,
+      "texture_px": [
+        8,
+        25
+      ],
+      "offset": 38346,
+      "length": 200,
+      "trim_origin_top_left_px": [
+        91,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -23
+      ],
+      "sha256": "9707afd51e6fbd9379c85aabcacfaca1bc09a1fc022617fa596e4641c9a8a0cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_22.png",
+      "width": 4,
+      "height": 22,
+      "texture_px": [
+        4,
+        22
+      ],
+      "offset": 38546,
+      "length": 88,
+      "trim_origin_top_left_px": [
+        95,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -22
+      ],
+      "sha256": "44c507614c3d763c87f3ec00e0d59225ad58164196a8bcf4009dafd7577a4555",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_n_23.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 38634,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "9f8a537a955936b5e2aa9b96a9b97c24f1f561bb068e701932c4e5d0be94864d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_00.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 38739,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "183ea3a43de775fd78ad720773331a255f467b0c23048830a0d18a39eb137f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_01.png",
+      "width": 9,
+      "height": 24,
+      "texture_px": [
+        9,
+        24
+      ],
+      "offset": 39009,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        95,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -19
+      ],
+      "sha256": "e9d6c30b0b6e4c1f3b2c998aeb8cebeffc01b0f62f01afd642691dd245630f10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_02.png",
+      "width": 6,
+      "height": 28,
+      "texture_px": [
+        6,
+        28
+      ],
+      "offset": 39225,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        99,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -24
+      ],
+      "sha256": "b4dc6923b91e4be3ed6ef9c36584891feb7a0244a9fb62054a7ef0f8e6c1f6a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_03.png",
+      "width": 11,
+      "height": 26,
+      "texture_px": [
+        11,
+        26
+      ],
+      "offset": 39393,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        95,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -28
+      ],
+      "sha256": "607505e7d4303391802ea22fd11172dc9ef491eea5a26e13d4afe63427c1bf25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_04.png",
+      "width": 14,
+      "height": 24,
+      "texture_px": [
+        14,
+        24
+      ],
+      "offset": 39679,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        93,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -28
+      ],
+      "sha256": "53927e77c0fa37ba66c45b1d2ce7e0246e1f5a774bc5a43c3b12762e1b3566d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_05.png",
+      "width": 8,
+      "height": 26,
+      "texture_px": [
+        8,
+        26
+      ],
+      "offset": 40015,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        99,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -27
+      ],
+      "sha256": "93ca18e6e199824a2e1cd3cdde2b6d9f4f96f6e7ff8dd2ee343a92ea6218ca5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_06.png",
+      "width": 6,
+      "height": 26,
+      "texture_px": [
+        6,
+        26
+      ],
+      "offset": 40223,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        100,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        -26
+      ],
+      "sha256": "7ad79683951173fcd19e6aa29ec7090c58c8af3c28f31cd1e12e70d4ebe8b1a0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_07.png",
+      "width": 7,
+      "height": 25,
+      "texture_px": [
+        7,
+        25
+      ],
+      "offset": 40379,
+      "length": 175,
+      "trim_origin_top_left_px": [
+        98,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -26
+      ],
+      "sha256": "f42375295a91007db8f35b6e081b88d0ccaedaeb225573d8e0b960778fde843c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_08.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 40554,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        97,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -25
+      ],
+      "sha256": "44532bbb784c8d1693cb5af5c0bee4353331aa917a8f8ef38eda9047a098330e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_09.png",
+      "width": 6,
+      "height": 22,
+      "texture_px": [
+        6,
+        22
+      ],
+      "offset": 40698,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        95,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -24
+      ],
+      "sha256": "60af892082c9a6145d00021b5230ecc0811e91821740141e90f03cd326bd83b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_10.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 40830,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        93,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -23
+      ],
+      "sha256": "56ab671a2e945c220af260b644807061a5948065964e5b6a47f0a0d33dfc31d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_11.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 40974,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        93,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -23
+      ],
+      "sha256": "56ab671a2e945c220af260b644807061a5948065964e5b6a47f0a0d33dfc31d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_12.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 41118,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        93,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -23
+      ],
+      "sha256": "56ab671a2e945c220af260b644807061a5948065964e5b6a47f0a0d33dfc31d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_13.png",
+      "width": 4,
+      "height": 19,
+      "texture_px": [
+        4,
+        19
+      ],
+      "offset": 41262,
+      "length": 76,
+      "trim_origin_top_left_px": [
+        97,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -24
+      ],
+      "sha256": "d8b544f3a294beea10007be08a8f5c1197dd6fb749080a39cde71ded9257e59b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_14.png",
+      "width": 2,
+      "height": 13,
+      "texture_px": [
+        2,
+        13
+      ],
+      "offset": 41338,
+      "length": 26,
+      "trim_origin_top_left_px": [
+        102,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        -26
+      ],
+      "sha256": "c5199e9b2d24475b381cb2b749eec8b12672a01b18503961f9d8683b0cca8ba3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_15.png",
+      "width": 2,
+      "height": 11,
+      "texture_px": [
+        2,
+        11
+      ],
+      "offset": 41364,
+      "length": 22,
+      "trim_origin_top_left_px": [
+        104,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -24,
+        -27
+      ],
+      "sha256": "4ed965b584861f181d6ebbc8d4c2cba858c1a4b89edddd2ee39b26f08835657f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_16.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 41386,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        101,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -21,
+        -28
+      ],
+      "sha256": "b334397d79599c95507feaf47d6fd5d58132c5505c6963afc08bfd481bf42854",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_17.png",
+      "width": 14,
+      "height": 17,
+      "texture_px": [
+        14,
+        17
+      ],
+      "offset": 41494,
+      "length": 238,
+      "trim_origin_top_left_px": [
+        94,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -29
+      ],
+      "sha256": "83c66dcb28b11e8c2f316e21c433c8bfd77a8348e4343317309e68e2cd6ebd4f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_18.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 41732,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        89,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -29
+      ],
+      "sha256": "51b21db512dea1d679bdb140212d52736601876d4e27d428684822b269ec1fce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_19.png",
+      "width": 14,
+      "height": 23,
+      "texture_px": [
+        14,
+        23
+      ],
+      "offset": 42055,
+      "length": 322,
+      "trim_origin_top_left_px": [
+        91,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "569ed32c5a9dec2d76ad30d7fd02daae48f41f8df451f15801090805a31681cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_20.png",
+      "width": 7,
+      "height": 26,
+      "texture_px": [
+        7,
+        26
+      ],
+      "offset": 42377,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        96,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -22
+      ],
+      "sha256": "8c0e7be57d9fe1ec5acfa37517687b0d84850fddc4af28d6d5ab32c6c1a24b6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_21.png",
+      "width": 5,
+      "height": 25,
+      "texture_px": [
+        5,
+        25
+      ],
+      "offset": 42559,
+      "length": 125,
+      "trim_origin_top_left_px": [
+        96,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -18
+      ],
+      "sha256": "85b2bd0b77d76d977bd7e40b034a41738616925b997aee1a3c4169c3f0864161",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_22.png",
+      "width": 13,
+      "height": 21,
+      "texture_px": [
+        13,
+        21
+      ],
+      "offset": 42684,
+      "length": 273,
+      "trim_origin_top_left_px": [
+        93,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -17
+      ],
+      "sha256": "f121afdcd024f287e69928bd4bc2bcf7a09d4b7f11694f2544634ec421a4388c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_nne_23.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 42957,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "183ea3a43de775fd78ad720773331a255f467b0c23048830a0d18a39eb137f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_00.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 43227,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        89,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -14
+      ],
+      "sha256": "06e6b0bb544f62c74156a7e2b7750a7ad44b8db880b2139484790cd83b603417",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 43513,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -15
+      ],
+      "sha256": "e51fe4fb380d7ef6c614ae530371eee775e136e8a96c68f3731be749ce563418",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_02.png",
+      "width": 10,
+      "height": 26,
+      "texture_px": [
+        10,
+        26
+      ],
+      "offset": 43853,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        98,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -18
+      ],
+      "sha256": "5f5f46d42723496d3eac0ee1c359accf55400756cdb0785a3a29776a791149bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_03.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 44113,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        100,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        -21
+      ],
+      "sha256": "f824cd5e33d61b51952e805b08cad974978f51e034f985a306e8e63ab320b68b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_04.png",
+      "width": 7,
+      "height": 27,
+      "texture_px": [
+        7,
+        27
+      ],
+      "offset": 44302,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        100,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        -20
+      ],
+      "sha256": "8c236d4a7afa04217e904db79b3ea69401e505bb24294e7f6d56a06845755497",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_05.png",
+      "width": 5,
+      "height": 26,
+      "texture_px": [
+        5,
+        26
+      ],
+      "offset": 44491,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        102,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        -19
+      ],
+      "sha256": "ea1f69e0ff4896a17ee366feaad0873cb4ca65967674ad4a6da1abc36447c6db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_06.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 44621,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        102,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        -19
+      ],
+      "sha256": "0a9b2ed8e5dbe45ba5c983d22142abcd313cbf2c149145a3b54df5d985038980",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_07.png",
+      "width": 5,
+      "height": 23,
+      "texture_px": [
+        5,
+        23
+      ],
+      "offset": 44765,
+      "length": 115,
+      "trim_origin_top_left_px": [
+        101,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -21,
+        -19
+      ],
+      "sha256": "9516f30286e95a907a7f9f02bcb1044bacab49263cd531952e64632a734e2cac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_08.png",
+      "width": 6,
+      "height": 24,
+      "texture_px": [
+        6,
+        24
+      ],
+      "offset": 44880,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        99,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -19
+      ],
+      "sha256": "c35016dd01a22043c29552e27ae0cc0b5743a41a717b35ccdf78f6fe6206723a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_09.png",
+      "width": 6,
+      "height": 25,
+      "texture_px": [
+        6,
+        25
+      ],
+      "offset": 45024,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        97,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -18
+      ],
+      "sha256": "91a0f40f089e2c70d39842e7aaa524ce506f26cee984ade85d466799d08495c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_10.png",
+      "width": 6,
+      "height": 23,
+      "texture_px": [
+        6,
+        23
+      ],
+      "offset": 45174,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        95,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -18
+      ],
+      "sha256": "f217cafbeec4e8e2fb4206611ce700a71940e35e6e85cfbfca5f85eab3e1d4ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_11.png",
+      "width": 6,
+      "height": 23,
+      "texture_px": [
+        6,
+        23
+      ],
+      "offset": 45312,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        95,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -18
+      ],
+      "sha256": "f217cafbeec4e8e2fb4206611ce700a71940e35e6e85cfbfca5f85eab3e1d4ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_12.png",
+      "width": 6,
+      "height": 23,
+      "texture_px": [
+        6,
+        23
+      ],
+      "offset": 45450,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        95,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -18
+      ],
+      "sha256": "f217cafbeec4e8e2fb4206611ce700a71940e35e6e85cfbfca5f85eab3e1d4ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_13.png",
+      "width": 7,
+      "height": 20,
+      "texture_px": [
+        7,
+        20
+      ],
+      "offset": 45588,
+      "length": 140,
+      "trim_origin_top_left_px": [
+        97,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -19
+      ],
+      "sha256": "29638bd688e4eea3e0b82d01694c0b2ba49a2e0712a018ccc74d37451cb998a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_14.png",
+      "width": 12,
+      "height": 19,
+      "texture_px": [
+        12,
+        19
+      ],
+      "offset": 45728,
+      "length": 228,
+      "trim_origin_top_left_px": [
+        99,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -19,
+        -19
+      ],
+      "sha256": "0e8cead793b0ba3e4a08b383e2228ab8784e1d18657435c00f2cb04d2e84fe4f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_15.png",
+      "width": 13,
+      "height": 16,
+      "texture_px": [
+        13,
+        16
+      ],
+      "offset": 45956,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        101,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -21,
+        -20
+      ],
+      "sha256": "116032ece4c5dea738018658adffc6ac925dbe104c7a4adde6ee33628b3c20a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_16.png",
+      "width": 6,
+      "height": 16,
+      "texture_px": [
+        6,
+        16
+      ],
+      "offset": 46164,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        103,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -23,
+        -21
+      ],
+      "sha256": "94fb066c7ae6731d758e67971a1492def207ac7e46820bc70e5fb3a878996e65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_17.png",
+      "width": 4,
+      "height": 19,
+      "texture_px": [
+        4,
+        19
+      ],
+      "offset": 46260,
+      "length": 76,
+      "trim_origin_top_left_px": [
+        102,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -22,
+        -21
+      ],
+      "sha256": "3fb94470bd98084ae4430094028dd1afa65ccbca2d1f44ac54a65d9c406757d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_18.png",
+      "width": 10,
+      "height": 20,
+      "texture_px": [
+        10,
+        20
+      ],
+      "offset": 46336,
+      "length": 200,
+      "trim_origin_top_left_px": [
+        96,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -22
+      ],
+      "sha256": "7778f446d8f07ff1b3e976115b0f7f67588cd2210603b38e12a453593390f2bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_19.png",
+      "width": 7,
+      "height": 26,
+      "texture_px": [
+        7,
+        26
+      ],
+      "offset": 46536,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        98,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -19
+      ],
+      "sha256": "eab18d50fafbc639aced08234a5ba7fa0bb36499c5cde5e9c5e47e427706500b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_20.png",
+      "width": 9,
+      "height": 26,
+      "texture_px": [
+        9,
+        26
+      ],
+      "offset": 46718,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        95,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -16
+      ],
+      "sha256": "5d60a724e6ae3b7bb3261d42ad10270c5c566d5bf94824575c634ec080d1abee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_21.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 46952,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        92,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -14
+      ],
+      "sha256": "59f0ff2f63564e7048efa0323fb70331cefe172f2c0877ee3159d25a8ffd6633",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_22.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 47282,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        89,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -14
+      ],
+      "sha256": "236e6d16b9f0820000ebc3ed7c4e5ec99935d69a3e3217b89841dcecbfd0e6e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ne_23.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 47618,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        89,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -14
+      ],
+      "sha256": "06e6b0bb544f62c74156a7e2b7750a7ad44b8db880b2139484790cd83b603417",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_00.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 47904,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "1ab025cdcd7bc40b7af83dc353487f2235ce00d4c982a94a2e03119594f97d82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_01.png",
+      "width": 25,
+      "height": 14,
+      "texture_px": [
+        25,
+        14
+      ],
+      "offset": 48093,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        86,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -12
+      ],
+      "sha256": "57f83f9c49cca66d2ecf0fc0508185589256f9907161c40b6aea783078dbe63b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_02.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 48443,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        93,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -13
+      ],
+      "sha256": "5c3eef7a2de40486191fb5234ffc2a37cc82481849799bfee87b3e57af09b5bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_03.png",
+      "width": 9,
+      "height": 27,
+      "texture_px": [
+        9,
+        27
+      ],
+      "offset": 48817,
+      "length": 243,
+      "trim_origin_top_left_px": [
+        97,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -14
+      ],
+      "sha256": "1d1622d66799391a12ea54dfddb9f652b70c83c812785a4faa2e30a233acf73f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_04.png",
+      "width": 8,
+      "height": 26,
+      "texture_px": [
+        8,
+        26
+      ],
+      "offset": 49060,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        97,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -14
+      ],
+      "sha256": "1a10f97425de3820d18b4bfc62482ffa69c4ef65974591c6d83f098cfac5b8b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_05.png",
+      "width": 14,
+      "height": 24,
+      "texture_px": [
+        14,
+        24
+      ],
+      "offset": 49268,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        97,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -13
+      ],
+      "sha256": "b66a50998e6924e69124143e3b4a6f3247229501aadccf0752df77511aa67ff2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_06.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 49604,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        96,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -13
+      ],
+      "sha256": "2df923d7a20f4118652b3c6ba6aba620d44ef1e4e96b06957a6a34df3671e3c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_07.png",
+      "width": 13,
+      "height": 18,
+      "texture_px": [
+        13,
+        18
+      ],
+      "offset": 49934,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        95,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -14
+      ],
+      "sha256": "13e7f6eef16eef257030124953a21c6e980033234c80bb10c61962b8eb61c11d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_08.png",
+      "width": 14,
+      "height": 20,
+      "texture_px": [
+        14,
+        20
+      ],
+      "offset": 50168,
+      "length": 280,
+      "trim_origin_top_left_px": [
+        94,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -14
+      ],
+      "sha256": "bb55fc0cf8c9af1c21730d908713c67d6253cd5e1e0df6ac07b4ed41bb7f9d92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_09.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 50448,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -14
+      ],
+      "sha256": "5499ec3ac5aae2824a671ca0ffef5cec5724182d9d7c2b4bb77f94f3eff88e1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_10.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 50763,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        91,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -14
+      ],
+      "sha256": "d177a3076b54ca854f0d7a5e525c12e770a900a2d6cdb721c2d3ae2a02a0b220",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_11.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 51078,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        91,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -14
+      ],
+      "sha256": "d177a3076b54ca854f0d7a5e525c12e770a900a2d6cdb721c2d3ae2a02a0b220",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_12.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 51393,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        91,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -14
+      ],
+      "sha256": "d177a3076b54ca854f0d7a5e525c12e770a900a2d6cdb721c2d3ae2a02a0b220",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_13.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 51708,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        92,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -14
+      ],
+      "sha256": "c12fcb3f72183d819e5136581f251246088c9779ebbd992e49abb61575519524",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_14.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 52012,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        94,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -14
+      ],
+      "sha256": "f7b1c3012ea58c89d7b93714a2a1120e40610ee2874e747654a4e1ec6ec4cbfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_15.png",
+      "width": 21,
+      "height": 12,
+      "texture_px": [
+        21,
+        12
+      ],
+      "offset": 52312,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        95,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -14
+      ],
+      "sha256": "09dde8c98b7814d4262317cfcf8924dd553a6c5427c790cb1aac9fe958ab96e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_16.png",
+      "width": 14,
+      "height": 14,
+      "texture_px": [
+        14,
+        14
+      ],
+      "offset": 52564,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        97,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -14
+      ],
+      "sha256": "144c6db53f01535c48151049fc118bfb603b102545d99c0c8e9577ea7a16a5ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_17.png",
+      "width": 8,
+      "height": 16,
+      "texture_px": [
+        8,
+        16
+      ],
+      "offset": 52760,
+      "length": 128,
+      "trim_origin_top_left_px": [
+        98,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -15
+      ],
+      "sha256": "426a32448f357177606725e0bdf6f7ea08ed64dfb70e9bd81077db694cb26f2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_18.png",
+      "width": 4,
+      "height": 21,
+      "texture_px": [
+        4,
+        21
+      ],
+      "offset": 52888,
+      "length": 84,
+      "trim_origin_top_left_px": [
+        98,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -18,
+        -15
+      ],
+      "sha256": "8165408ca6cf3772b2b528c51006e38bad821a749612f4b20ad0082efd79dc46",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_19.png",
+      "width": 8,
+      "height": 26,
+      "texture_px": [
+        8,
+        26
+      ],
+      "offset": 52972,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        95,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -13
+      ],
+      "sha256": "d4c2f787a3504113190012255c820a854ba7f9ab7325ebbac9e5f919bb482024",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_20.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 53180,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        91,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -12
+      ],
+      "sha256": "eac87d6553095507d340c0761c9cb74240a303df7c3d6329592be2774351b720",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_21.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 53548,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        87,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -11
+      ],
+      "sha256": "08c981c5c1d3666caed21ada866575ae92223d14ead0536b6cb36fd368433d5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_22.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 53922,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        84,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -11
+      ],
+      "sha256": "ec32210145293ba4d438069254bdeca2c8ac5ca3d6c96f499594c9adc4f10471",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ene_23.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 54182,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "1ab025cdcd7bc40b7af83dc353487f2235ce00d4c982a94a2e03119594f97d82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_00.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 54371,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "29841e8fb2dc887190c589557eec6c9c08a12f0fe1ffeec4dcaf2224b2f22e43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_01.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 54567,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        80,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -10
+      ],
+      "sha256": "582c03837f9bebda0e23bed7bf33de37359e855cb0370dc862350046facbb0bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_02.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 54783,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        85,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -10
+      ],
+      "sha256": "ed990ea68407c60edd118e439574354b352cf55b3aa63453084cd04794472d7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_03.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 55174,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        89,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "7b56401fbeb18ceba2bb94becd5eebf1eda16fb87831cc728c8d6dbc9b6c3d0f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_04.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 55565,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        89,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "793c2f4d9f20e71ca16f0c88034d385fbc47decfc3c894aa367a8eb73316dbf8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_05.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 55956,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        89,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -9
+      ],
+      "sha256": "16348017d1d245a2a19d34b5fe40ae71f8e63d1a56e0e68e9014186cc8148ba3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_06.png",
+      "width": 17,
+      "height": 13,
+      "texture_px": [
+        17,
+        13
+      ],
+      "offset": 56298,
+      "length": 221,
+      "trim_origin_top_left_px": [
+        88,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -10
+      ],
+      "sha256": "a94e301ea449dc2b8a8d85cc2db4f13a97ba0f65e41db8be95294aa04fb05b9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_07.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 56519,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        87,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -10
+      ],
+      "sha256": "7b91662cbdacb25526591e84eaf3becbb9da558bf10d8e43ef98deeb826b08eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_08.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 56893,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        86,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -10
+      ],
+      "sha256": "3b6a61e3b049eace49e174beeb24dc72baf76f0561e03365f3039506279762e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_09.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 57267,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        85,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -11
+      ],
+      "sha256": "f6136ddac85455db154a786c5514bf6fd48b3aba67e3675fecdb691c4fd780a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_10.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 57658,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        84,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -11
+      ],
+      "sha256": "d92c0cd32880b4eafb9f20dc4a55eebba4300b1ed8b20c244325a2f09594470e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_11.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 58049,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        84,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -11
+      ],
+      "sha256": "d92c0cd32880b4eafb9f20dc4a55eebba4300b1ed8b20c244325a2f09594470e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_12.png",
+      "width": 23,
+      "height": 17,
+      "texture_px": [
+        23,
+        17
+      ],
+      "offset": 58440,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        84,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -11
+      ],
+      "sha256": "d92c0cd32880b4eafb9f20dc4a55eebba4300b1ed8b20c244325a2f09594470e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_13.png",
+      "width": 24,
+      "height": 14,
+      "texture_px": [
+        24,
+        14
+      ],
+      "offset": 58831,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        85,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -11
+      ],
+      "sha256": "4f6baf544726c75f10d546dd08313db97821cf3d5121ef379f90267f12c26429",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_14.png",
+      "width": 26,
+      "height": 8,
+      "texture_px": [
+        26,
+        8
+      ],
+      "offset": 59167,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        86,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -11
+      ],
+      "sha256": "4de1b27fd5185b28f6522e6426d1b61aa48efeb4c75d284566420a6e709d87c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_15.png",
+      "width": 26,
+      "height": 5,
+      "texture_px": [
+        26,
+        5
+      ],
+      "offset": 59375,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        87,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -11
+      ],
+      "sha256": "3cc42ee0892de0ff541d0789220154126b8446713d4d56910669035a5bcffdc5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_16.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 59505,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        88,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -11
+      ],
+      "sha256": "d2ff91571e2bb87c9909cfc1def5b68c0877f21811eec750d049cc623df140be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_17.png",
+      "width": 16,
+      "height": 14,
+      "texture_px": [
+        16,
+        14
+      ],
+      "offset": 59712,
+      "length": 224,
+      "trim_origin_top_left_px": [
+        89,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -10
+      ],
+      "sha256": "3f60d4de24d3873df43e7b7ad33a386d6e871ae30ac32df045fa9b990670561d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_18.png",
+      "width": 13,
+      "height": 18,
+      "texture_px": [
+        13,
+        18
+      ],
+      "offset": 59936,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        90,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -11
+      ],
+      "sha256": "ae28e69af56d3ac334957d24352e279e9d80326b01158183aaab29a0171d13b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_19.png",
+      "width": 16,
+      "height": 22,
+      "texture_px": [
+        16,
+        22
+      ],
+      "offset": 60170,
+      "length": 352,
+      "trim_origin_top_left_px": [
+        88,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -10
+      ],
+      "sha256": "475adecd884be3785ea1653acc32634f4ea4704788ef7b108755f77c9946f259",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_20.png",
+      "width": 23,
+      "height": 18,
+      "texture_px": [
+        23,
+        18
+      ],
+      "offset": 60522,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        83,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -9
+      ],
+      "sha256": "8f02153b2ddcae1d729aad4a56a2b259830e9204dfbf56094b6a9fb052410040",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_21.png",
+      "width": 26,
+      "height": 11,
+      "texture_px": [
+        26,
+        11
+      ],
+      "offset": 60936,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        80,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -9
+      ],
+      "sha256": "4fa20afda3ad663d1c0b06d7cec750117616be5178eac91eea1eb7f323170301",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_22.png",
+      "width": 28,
+      "height": 6,
+      "texture_px": [
+        28,
+        6
+      ],
+      "offset": 61222,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        78,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -9
+      ],
+      "sha256": "481541b5c1d42b066169333a36db3c2fcb6fd67efac26e325bd8c9e571b6980e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_e_23.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 61390,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "29841e8fb2dc887190c589557eec6c9c08a12f0fe1ffeec4dcaf2224b2f22e43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_00.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 61586,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        72,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -3
+      ],
+      "sha256": "1ea39f2015eb4e24498926a0c1932c6e86dbe6d2ba890fc67b028f1374af3e03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_01.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 61874,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        73,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -9
+      ],
+      "sha256": "99344787c1528340003dfa5ae7dc16f3fe96804bad765952481181cf4844388d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_02.png",
+      "width": 24,
+      "height": 10,
+      "texture_px": [
+        24,
+        10
+      ],
+      "offset": 62036,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -10
+      ],
+      "sha256": "37930744bf1b625bd18c1051e99694ff060cf74ac23bf7a35bd88bb434760f2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_03.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 62276,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        80,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -9
+      ],
+      "sha256": "a83c6a4a0a28d1b9476512240e88961f062250fa14d46774d9a4eb26824781cd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_04.png",
+      "width": 22,
+      "height": 18,
+      "texture_px": [
+        22,
+        18
+      ],
+      "offset": 62633,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        80,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -8
+      ],
+      "sha256": "af0d21f7294e9457f2793630fcecd10dc6161604ec07dc9b9326c2c13d1fcc80",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_05.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 63029,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        79,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -8
+      ],
+      "sha256": "42eb9452d60bdf1306ca168fd06bdf7472351f8ac303fb09720864152a50b226",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_06.png",
+      "width": 25,
+      "height": 10,
+      "texture_px": [
+        25,
+        10
+      ],
+      "offset": 63317,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        78,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -8
+      ],
+      "sha256": "dc8e01f9527a9a8017b0f6c56adb97485c345cb3410c2a4ef1ddf182d985f0cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_07.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 63567,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        78,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -9
+      ],
+      "sha256": "c422787669cefc65b4c52342a71561757d17560ff0b7a755137fbfa27f0b3547",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_08.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 63827,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        77,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -10
+      ],
+      "sha256": "daf44a2f8868a994e4648b707e7d5f0a7bc1e0597cad2ab3a9c12a1b0ff8dad4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_09.png",
+      "width": 27,
+      "height": 9,
+      "texture_px": [
+        27,
+        9
+      ],
+      "offset": 64061,
+      "length": 243,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -11
+      ],
+      "sha256": "8f19dce9bc62ccf976064d0f8d70ec132c810aa37faea42316ee9de32e7f4005",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_10.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 64304,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -11
+      ],
+      "sha256": "4ad0f617b5f656d4e9d3533b1509ffcbcef8a47e0bf87c7053da6395d9e5de6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_11.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 64538,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -11
+      ],
+      "sha256": "4ad0f617b5f656d4e9d3533b1509ffcbcef8a47e0bf87c7053da6395d9e5de6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_12.png",
+      "width": 26,
+      "height": 9,
+      "texture_px": [
+        26,
+        9
+      ],
+      "offset": 64772,
+      "length": 234,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -11
+      ],
+      "sha256": "4ad0f617b5f656d4e9d3533b1509ffcbcef8a47e0bf87c7053da6395d9e5de6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_13.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 65006,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        77,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -11
+      ],
+      "sha256": "9958cb14e5161c60b7b3fffb1bc8d87af3e831434ef5772e119ce2af04938020",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_14.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 65168,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        78,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -8
+      ],
+      "sha256": "0aa4572861ee36c704c822b5dd825382a7417c31d7e0e435a154895472f8f278",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_15.png",
+      "width": 27,
+      "height": 5,
+      "texture_px": [
+        27,
+        5
+      ],
+      "offset": 65330,
+      "length": 135,
+      "trim_origin_top_left_px": [
+        78,
+        88
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -7
+      ],
+      "sha256": "08f1e47954150d0f6b9f174fd8dbba99d6730d7cb8f06057165262544796eca5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_16.png",
+      "width": 27,
+      "height": 4,
+      "texture_px": [
+        27,
+        4
+      ],
+      "offset": 65465,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        78,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -9
+      ],
+      "sha256": "70c7a7d4d4cdbaf6bdfbf4be1e707fc2b3c058289671e8f5fff8109735285350",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_17.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 65573,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        79,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -9
+      ],
+      "sha256": "5fe92a902f6fef3c33ccf3827f4c30609a87248312e274abd45ba918e6feb3f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_18.png",
+      "width": 19,
+      "height": 13,
+      "texture_px": [
+        19,
+        13
+      ],
+      "offset": 65741,
+      "length": 247,
+      "trim_origin_top_left_px": [
+        80,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -9
+      ],
+      "sha256": "50f74981c76082ff95c3950c6beb43edf979e97595cfacf4ab920703705a1ed5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_19.png",
+      "width": 22,
+      "height": 17,
+      "texture_px": [
+        22,
+        17
+      ],
+      "offset": 65988,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        78,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -8
+      ],
+      "sha256": "5f50fd04f7b82d3cf9428b16ceb02e4d7a99c4edcaac482356f7a62f6e9fce81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_20.png",
+      "width": 26,
+      "height": 11,
+      "texture_px": [
+        26,
+        11
+      ],
+      "offset": 66362,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        75,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -9
+      ],
+      "sha256": "1ebbdc496d293b2bde3191cd0b7d2ce9ac77d000cf6b41f24de72dd08db38e02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_21.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 66648,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        73,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -8
+      ],
+      "sha256": "56aaaca85f64f901ef25e5fe5df75bf198346fa3f183d6799c7a15fedb1a7654",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_22.png",
+      "width": 26,
+      "height": 10,
+      "texture_px": [
+        26,
+        10
+      ],
+      "offset": 66837,
+      "length": 260,
+      "trim_origin_top_left_px": [
+        72,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -5
+      ],
+      "sha256": "af0cd38f325416b065c192e0f42b320c86340c02a09ef84fef9301d14aaa4608",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_ese_23.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 67097,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        72,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -3
+      ],
+      "sha256": "1ea39f2015eb4e24498926a0c1932c6e86dbe6d2ba890fc67b028f1374af3e03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_00.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 67385,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "b5860d227872e226aa14d49588844a4dc6c72d045b472b6fae2352755fcee1ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_01.png",
+      "width": 18,
+      "height": 10,
+      "texture_px": [
+        18,
+        10
+      ],
+      "offset": 67641,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        71,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -6
+      ],
+      "sha256": "c1af8f1b57d2cb5fa275e301bcb2e8c8672bbff841fc30aca7426426d7243fa6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_02.png",
+      "width": 23,
+      "height": 6,
+      "texture_px": [
+        23,
+        6
+      ],
+      "offset": 67821,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "ba4c1f80050e2af33bd7d0503e14ddba76bd45ddc75a5803400099202716049a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_03.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 67959,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        70,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "b019a680d02df2dce9c2639c0b7906d3656b5b4137122b8ff6f3e70c59d20750",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_04.png",
+      "width": 23,
+      "height": 10,
+      "texture_px": [
+        23,
+        10
+      ],
+      "offset": 68212,
+      "length": 230,
+      "trim_origin_top_left_px": [
+        69,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "5c2f76b4cbe315a49905088498bae65138dfb6e94629ff17aea714da9b6353b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_05.png",
+      "width": 22,
+      "height": 5,
+      "texture_px": [
+        22,
+        5
+      ],
+      "offset": 68442,
+      "length": 110,
+      "trim_origin_top_left_px": [
+        69,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "8e88c9b5fa0a464ca7239c75b2046814b993cc290598b238dbf501d5c5bdcb01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_06.png",
+      "width": 26,
+      "height": 3,
+      "texture_px": [
+        26,
+        3
+      ],
+      "offset": 68552,
+      "length": 78,
+      "trim_origin_top_left_px": [
+        68,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "bf0828846745654bf4197286e9ca08544b2132097e260e299f1b5e2823dc50fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_07.png",
+      "width": 25,
+      "height": 4,
+      "texture_px": [
+        25,
+        4
+      ],
+      "offset": 68630,
+      "length": 100,
+      "trim_origin_top_left_px": [
+        69,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "276c92c18b5dbfcb5c8862a6f2fdf80bc34c6f01defab07adacb8229e659c659",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_08.png",
+      "width": 26,
+      "height": 4,
+      "texture_px": [
+        26,
+        4
+      ],
+      "offset": 68730,
+      "length": 104,
+      "trim_origin_top_left_px": [
+        69,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "9a6c2cbd7bcecb554b4025331b9f6d3efe1f76d82962b9783a4d9a92714c3259",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_09.png",
+      "width": 25,
+      "height": 5,
+      "texture_px": [
+        25,
+        5
+      ],
+      "offset": 68834,
+      "length": 125,
+      "trim_origin_top_left_px": [
+        70,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "7a6ef6a1fe05d648cf55f87a8689d00d234c82ab88d1f84541f65fdcb19223f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_10.png",
+      "width": 26,
+      "height": 5,
+      "texture_px": [
+        26,
+        5
+      ],
+      "offset": 68959,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        70,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "1ae0220811c5da6c8be044d3e9f0935a6d6b35f2d1c2d2b78f75fd08de753a23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_11.png",
+      "width": 26,
+      "height": 5,
+      "texture_px": [
+        26,
+        5
+      ],
+      "offset": 69089,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        70,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "8ae80345a7e0eef4b11c7b223508ec07f83ca019c6a048b4d8243bd0e03a4257",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_12.png",
+      "width": 26,
+      "height": 5,
+      "texture_px": [
+        26,
+        5
+      ],
+      "offset": 69219,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        70,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "8ae80345a7e0eef4b11c7b223508ec07f83ca019c6a048b4d8243bd0e03a4257",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_13.png",
+      "width": 26,
+      "height": 5,
+      "texture_px": [
+        26,
+        5
+      ],
+      "offset": 69349,
+      "length": 130,
+      "trim_origin_top_left_px": [
+        70,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "dac1ff68d7a1c63fbe021508d28d1ce8bac7f507cbf11405e5cb4e0655a2a8e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_14.png",
+      "width": 25,
+      "height": 10,
+      "texture_px": [
+        25,
+        10
+      ],
+      "offset": 69479,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        69,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -4
+      ],
+      "sha256": "ff1701af5316550116761379621dd9d863aee5b095cbc931f6e764cb831b52e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_15.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 69729,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        68,
+        86
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -1
+      ],
+      "sha256": "b6c5f658f4163f4800be4727e7ccfabeda8d37cd6d9dde23c2e39eee118e0602",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_16.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 70054,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        68,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -5
+      ],
+      "sha256": "d99d34c7244e0dbe2a97551155938f26a88cbd619da532c110a276cf62da2ccd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_17.png",
+      "width": 26,
+      "height": 3,
+      "texture_px": [
+        26,
+        3
+      ],
+      "offset": 70270,
+      "length": 78,
+      "trim_origin_top_left_px": [
+        69,
+        87
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "481459c29ac5b532cd5d3481b1363f2bbce3bd711fb64f8b7d60dff861c8d4cd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_18.png",
+      "width": 24,
+      "height": 7,
+      "texture_px": [
+        24,
+        7
+      ],
+      "offset": 70348,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        69,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "36b195694cb0988fb8484cfa64341fb2ae2a1e7959acb0157c540ed174d0e540",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_19.png",
+      "width": 25,
+      "height": 10,
+      "texture_px": [
+        25,
+        10
+      ],
+      "offset": 70516,
+      "length": 250,
+      "trim_origin_top_left_px": [
+        69,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "57d0b877d70ff6ebf8d8e6bb89bf76439b38aa8e80bf8a7aeae63fe04f207468",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_20.png",
+      "width": 25,
+      "height": 6,
+      "texture_px": [
+        25,
+        6
+      ],
+      "offset": 70766,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "25b8d7ee45a02ca7439945327e1befe21ef1fd6f84822823ef2346694a11e672",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_21.png",
+      "width": 19,
+      "height": 9,
+      "texture_px": [
+        19,
+        9
+      ],
+      "offset": 70916,
+      "length": 171,
+      "trim_origin_top_left_px": [
+        71,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "ee07fb69485657e9d38e76bc2fef0b93495fb616cdd72493f4037d3faddf37fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_22.png",
+      "width": 17,
+      "height": 13,
+      "texture_px": [
+        17,
+        13
+      ],
+      "offset": 71087,
+      "length": 221,
+      "trim_origin_top_left_px": [
+        70,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -2
+      ],
+      "sha256": "bf32cb97f79e4a5743ce7bb890f1d1c23f3a668cd32c8550f05dfb30f34b94a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_se_23.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 71308,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "b5860d227872e226aa14d49588844a4dc6c72d045b472b6fae2352755fcee1ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_00.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 71564,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "ac135f01b729665f174867d293f0cdbb274c62eee97faa8aa98013ad844a4dcc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_01.png",
+      "width": 13,
+      "height": 14,
+      "texture_px": [
+        13,
+        14
+      ],
+      "offset": 71726,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        64,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -5
+      ],
+      "sha256": "93c8218791471d11629cae5b6a84701fbd12c534d8843c2a457af718de90521c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_02.png",
+      "width": 16,
+      "height": 6,
+      "texture_px": [
+        16,
+        6
+      ],
+      "offset": 71908,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        65,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "0823b6960481afcb57a0d08f4b5b1eaa9a8d1b2793503c653978367f1b4aab75",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_03.png",
+      "width": 22,
+      "height": 4,
+      "texture_px": [
+        22,
+        4
+      ],
+      "offset": 72004,
+      "length": 88,
+      "trim_origin_top_left_px": [
+        61,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -14
+      ],
+      "sha256": "020fb7e69f2c87222237f3b9b3cdf5cbf301fc2da6c935dd252fa4f338c8c093",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_04.png",
+      "width": 22,
+      "height": 3,
+      "texture_px": [
+        22,
+        3
+      ],
+      "offset": 72092,
+      "length": 66,
+      "trim_origin_top_left_px": [
+        61,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -14
+      ],
+      "sha256": "3338b2cc7a0b9ba76ae7c502925fbfce16adb6d205f3927ed942a90b74349574",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_05.png",
+      "width": 18,
+      "height": 3,
+      "texture_px": [
+        18,
+        3
+      ],
+      "offset": 72158,
+      "length": 54,
+      "trim_origin_top_left_px": [
+        60,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -12
+      ],
+      "sha256": "7e3fd11f5fb96cbfe493c114e43ee42c74791daf23d904c632d7049744309546",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_06.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 72212,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        60,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -10
+      ],
+      "sha256": "be27ca145d15b3e5202fbffe7357bfa5f354e94e5afc8a59ecd94c80b7ddc8d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_07.png",
+      "width": 23,
+      "height": 7,
+      "texture_px": [
+        23,
+        7
+      ],
+      "offset": 72338,
+      "length": 161,
+      "trim_origin_top_left_px": [
+        61,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -10
+      ],
+      "sha256": "516b36533feca69f94cd8e93527c680128e2a3ec1dbd59b3c232f46fd9721290",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_08.png",
+      "width": 19,
+      "height": 7,
+      "texture_px": [
+        19,
+        7
+      ],
+      "offset": 72499,
+      "length": 133,
+      "trim_origin_top_left_px": [
+        66,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -10
+      ],
+      "sha256": "7800c3420239d7a93b98d44fd7236bee697b60e85e7f1176bde191b9d6415569",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_09.png",
+      "width": 18,
+      "height": 8,
+      "texture_px": [
+        18,
+        8
+      ],
+      "offset": 72632,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        68,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "e5e74559b02f063bec56e404c36ad213a850c847ad6359e2d59970879eb50140",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_10.png",
+      "width": 18,
+      "height": 8,
+      "texture_px": [
+        18,
+        8
+      ],
+      "offset": 72776,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        69,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "72e34396b0ddba9657ef8bc41ea3a47b3b8cc69edecd35127190555ddfa7b4cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_11.png",
+      "width": 18,
+      "height": 8,
+      "texture_px": [
+        18,
+        8
+      ],
+      "offset": 72920,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        69,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "72e34396b0ddba9657ef8bc41ea3a47b3b8cc69edecd35127190555ddfa7b4cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_12.png",
+      "width": 18,
+      "height": 8,
+      "texture_px": [
+        18,
+        8
+      ],
+      "offset": 73064,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        69,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "72e34396b0ddba9657ef8bc41ea3a47b3b8cc69edecd35127190555ddfa7b4cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_13.png",
+      "width": 17,
+      "height": 10,
+      "texture_px": [
+        17,
+        10
+      ],
+      "offset": 73208,
+      "length": 170,
+      "trim_origin_top_left_px": [
+        68,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "e8a9a64925627c51a204565be48e033fc2b9b66ca7be79e419dead6bca0e568e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_14.png",
+      "width": 19,
+      "height": 16,
+      "texture_px": [
+        19,
+        16
+      ],
+      "offset": 73378,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        62,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -2
+      ],
+      "sha256": "a03dee8a0152ac1c322fa0e3543aff2946f720b32609c12cc2d7f9954a905a30",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_15.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 73682,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        61,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        0
+      ],
+      "sha256": "cccd87adac4dcb93aa1500bb405f389ede409e34481959548455773809792808",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_16.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 74006,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        60,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -3
+      ],
+      "sha256": "c99b3d6e9dcd3b68bd7cb8fc2c8565fb28329aabad1d15fd946912bf3de88808",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_17.png",
+      "width": 23,
+      "height": 8,
+      "texture_px": [
+        23,
+        8
+      ],
+      "offset": 74336,
+      "length": 184,
+      "trim_origin_top_left_px": [
+        60,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -9
+      ],
+      "sha256": "9706ad66c5a5591a66191bf9285b175e31504132195a3745310ae873c13d2ebb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_18.png",
+      "width": 22,
+      "height": 2,
+      "texture_px": [
+        22,
+        2
+      ],
+      "offset": 74520,
+      "length": 44,
+      "trim_origin_top_left_px": [
+        61,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -14
+      ],
+      "sha256": "fc6870db4305ead44e306dbc0c8e13f423c5568ee1694cf13918898c9c82b8c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_19.png",
+      "width": 25,
+      "height": 3,
+      "texture_px": [
+        25,
+        3
+      ],
+      "offset": 74564,
+      "length": 75,
+      "trim_origin_top_left_px": [
+        61,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -14
+      ],
+      "sha256": "99198600e3cb8ac26008bb953d2c10d7bf2f16d379782db22ca3a5ace7165cf7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_20.png",
+      "width": 18,
+      "height": 6,
+      "texture_px": [
+        18,
+        6
+      ],
+      "offset": 74639,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        65,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "055e341567648145203003ca22b296064c4b22c958bb1088fd84ca53dac9dda7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_21.png",
+      "width": 14,
+      "height": 12,
+      "texture_px": [
+        14,
+        12
+      ],
+      "offset": 74747,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        65,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -6
+      ],
+      "sha256": "3940f1a1d924a7863f84e108f207752a2bec182cedbdba2ce945aec10aa9af9d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_22.png",
+      "width": 11,
+      "height": 16,
+      "texture_px": [
+        11,
+        16
+      ],
+      "offset": 74915,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -2
+      ],
+      "sha256": "9e5aa535fbb44a97c9597dbbbdd9ffca5267dd5ef887c5d355505f727afc07d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanTripReactionSword.atlas",
+      "name": "tripfall_sse_23.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 75091,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "ac135f01b729665f174867d293f0cdbb274c62eee97faa8aa98013ad844a4dcc",
+      "empty": false
+    }
+  ],
+  "source_authority": "TripReactionOct08/TripReaction_Authored.blend"
+}

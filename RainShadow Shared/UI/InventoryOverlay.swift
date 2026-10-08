@@ -60,6 +60,8 @@ final class InventoryOverlay: SKNode {
     private var walletPence = CurrencyAmount.startingWalletPence
     private var currentHealth = 0
     private var maximumHealth = 0
+    private(set) var bearForm: BearFormReadout?
+    private let bearFigure = SKSpriteNode()
     private var held: HeldItem?
     private var selectedPresentationID: String?
 
@@ -141,14 +143,16 @@ final class InventoryOverlay: SKNode {
         inventory: CharacterInventory,
         catalog: ItemCatalog,
         currentHealth: Int,
-        maximumHealth: Int
+        maximumHealth: Int,
+        bearForm: BearFormReadout? = nil
     ) {
         applyInventory(
             walletPence: walletPence,
             inventory: inventory,
             catalog: catalog,
             currentHealth: currentHealth,
-            maximumHealth: maximumHealth
+            maximumHealth: maximumHealth,
+            bearForm: bearForm
         )
         removeAllActions()
         isHidden = false
@@ -176,8 +180,10 @@ final class InventoryOverlay: SKNode {
         inventory: CharacterInventory,
         catalog: ItemCatalog,
         currentHealth: Int,
-        maximumHealth: Int
+        maximumHealth: Int,
+        bearForm: BearFormReadout? = nil
     ) {
+        self.bearForm = bearForm
         self.catalog = catalog
         self.inventory = inventory
         self.walletPence = max(0, pence)
@@ -292,6 +298,14 @@ final class InventoryOverlay: SKNode {
     }
 
     private func handleEquipmentClick(slot: EquipmentSlot) {
+        if bearForm != nil {
+            if let stack = inventory.item(in: slot) {
+                selectedPresentationID = InventoryItemPresentation.presentationID(authoredID: stack.id, slot: slot)
+                refreshSelection()
+            }
+            showFeedback(InventoryRefusal.equipmentMergedInBearForm.description, tone: Palette.amber)
+            return
+        }
         if let held {
             place(held, intoEquipment: slot)
             return
@@ -468,6 +482,7 @@ final class InventoryOverlay: SKNode {
         content.addChild(divider)
 
         let profession = Self.label(size: 18, color: Palette.paper, weight: .demibold)
+        profession.name = "inventory.form-label"
         profession.text = "HIRED FINDER"
         profession.horizontalAlignmentMode = .left
         profession.position = CGPoint(x: band.x + 18, y: band.y)
@@ -593,6 +608,17 @@ final class InventoryOverlay: SKNode {
             assertionFailure("Missing voss_paperdoll_chmf.png")
         }
 
+        if let texture = GameArt.texture(named: "bear_paperdoll_guardian") {
+            texture.filteringMode = .linear
+            let source = texture.size(), slot = InventoryScreenLayout.paperdollBodySize
+            let scale = min(slot.width / source.width, slot.height / source.height)
+            bearFigure.texture = texture
+            bearFigure.size = CGSize(width: source.width * scale, height: source.height * scale)
+        } else { assertionFailure("Missing bear inventory figure") }
+        bearFigure.name = "inventory.paperdoll.bear"
+        bearFigure.position = InventoryScreenLayout.chamberOffset
+        bearFigure.isHidden = true
+        root.addChild(bearFigure)
         paperdollSlotsRoot.zPosition = 2
         root.addChild(paperdollSlotsRoot)
         content.addChild(root)
@@ -639,6 +665,7 @@ final class InventoryOverlay: SKNode {
         }
 
         let valueLabel = Self.label(size: 24, color: Palette.paper, weight: .demibold)
+        valueLabel.name = "inventory.stat.\(row).value"
         valueLabel.verticalAlignmentMode = .center
         valueLabel.position = CGPoint(x: badgeX, y: 1)
         valueLabel.zPosition = 2
@@ -789,6 +816,9 @@ final class InventoryOverlay: SKNode {
     }
 
     private func rebuildEquippedSlots() {
+        paperdollFigure.isHidden = bearForm != nil
+        bearFigure.isHidden = bearForm == nil
+        (content.childNode(withName: "//inventory.form-label") as? SKLabelNode)?.text = bearForm == nil ? "HIRED FINDER" : "BEAR FORM"
         let appearance = VossWeaponAppearance.equipped(in: inventory, catalog: catalog)
         paperdollWeapon.texture = appearance.flatMap { GameArt.texture(named: $0.paperdollArt) }
         paperdollWeapon.texture?.filteringMode = .linear
@@ -833,6 +863,7 @@ final class InventoryOverlay: SKNode {
     private func equipmentSlotNode(_ slot: EquipmentSlot, size: CGSize) -> SKNode {
         let root = SKNode()
         root.name = slot.nodeName
+        root.alpha = bearForm == nil ? 1 : 0.45
         root.zPosition = 2
 
         let lifted: Bool
@@ -1008,6 +1039,19 @@ final class InventoryOverlay: SKNode {
     }
 
     private func refreshStats() {
+        if let form = bearForm {
+            setStat(.defence, value: "\(form.defence)",
+                    lines: ["Bear defence: \(form.defence)", "Movement: \(form.movementFeet) ft"])
+            setStat(.vitality, value: "\(form.endurance)/\(BearFormRules.maximumEndurance)",
+                    lines: ["Bear endurance: \(form.endurance) / \(BearFormRules.maximumEndurance)",
+                            "Human health: \(form.humanHealth) / \(form.humanMaximumHealth)"])
+            setStat(.resolve, value: "\(GameSession.detectiveLore)",
+                    lines: ["Resolve: \(GameSession.detectiveLore)", "\(form.turnsRemaining) turns of Bear Form remain."])
+            let damage = "\(BearFormRules.damageMin)–\(BearFormRules.damageMax)"
+            setStat(.damage, value: damage,
+                    lines: ["Claws: \(damage) damage", "Attack bonus: \(form.attackBonus >= 0 ? "+" : "")\(form.attackBonus)"])
+            return
+        }
         let defence = inventory.defenceBonus(catalog: catalog)
         setStat(
             .defence,
@@ -1102,10 +1146,10 @@ final class InventoryOverlay: SKNode {
     }
 
     private func clearDescription() {
-        itemCategoryLabel.text = ""
-        itemNameLabel.text = ""
-        itemDescriptionLabel.text = ""
-        itemNoteLabel.text = ""
+        itemCategoryLabel.text = bearForm == nil ? "" : "TRANSFORMED"
+        itemNameLabel.text = bearForm == nil ? "" : "Bear Form"
+        itemDescriptionLabel.text = bearForm == nil ? "" : "Claws • Goading Roar • Return to human form"
+        itemNoteLabel.text = bearForm == nil ? "" : "Equipment is preserved and returns with your human form."
     }
 
     private func showFeedback(_ message: String, tone: SKColor) {

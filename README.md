@@ -27,6 +27,11 @@ and verification.
 
 ## Verification
 
+During combat, press **I** or click the inventory/character button or portrait
+to open the inventory. Combat pauses while it is open; **I**, **Escape**,
+**Enter**, or the close button returns to the same turn. An existing tactical
+pause stays active after closing the inventory.
+
 Bear Form is available in the Wharf Ladder combat encounters. Open
 `Play Bear Form.command` for an isolated playtest save; press **4** in combat
 to transform on open ground, or to revert. See

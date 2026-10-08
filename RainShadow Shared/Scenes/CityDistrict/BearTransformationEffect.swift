@@ -190,7 +190,8 @@ final class BearTransformationEffect: SKNode {
     /// Original synthesized breath, low impact and creature-like rumble. No
     /// borrowed game audio. One player owns the complete cue so pause resumes
     /// exactly where it stopped rather than retriggering the landing.
-    private static func soundData(reverting: Bool) -> Data {
+    static func roarSoundData() -> Data { soundData(reverting: false, roar: true) }
+    private static func soundData(reverting: Bool, roar: Bool = false) -> Data {
         let rate = 44100, count = Int(duration * 44100)
         var pcm = Data(capacity: count * 2)
         var seed: UInt32 = 7319
@@ -205,7 +206,9 @@ final class BearTransformationEffect: SKNode {
             let tail = t >= impactTime ? exp(-impact * 7) * ramp(t, impactTime, impactTime + 0.015) : 0
             phase += 2 * .pi * (57 + 25 * exp(-impact * 8)) / Double(rate)
             let rumble = (sin(phase) + 0.35 * sin(phase * 1.98) + 0.18 * sin(phase * 3.02)) * (0.7 + 0.3 * sin(t * 51))
-            let cue = low * gather * 0.8 + tail * (low * 0.7 + rumble * (reverting ? 0.08 : 0.35))
+            let roarEnvelope = ramp(t, 0.40, 0.49) * (1 - ramp(t, 0.85, 1.17))
+            let cue = roar ? roarEnvelope * (low * 0.85 + rumble * 0.45)
+                : low * gather * 0.8 + tail * (low * 0.7 + rumble * (reverting ? 0.08 : 0.35))
             var sample = Int16(max(-1, min(1, cue)) * 28000).littleEndian
             withUnsafeBytes(of: &sample) { pcm.append(contentsOf: $0) }
         }

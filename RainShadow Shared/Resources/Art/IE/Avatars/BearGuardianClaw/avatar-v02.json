@@ -1,0 +1,8500 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "BearGuardianClaw",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "29c31ef6b19545d2f000290f2c06268e6e044dd46c186ca2deeb48e20e8e50e1",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    128,
+    128
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    64,
+    53.416996002197266
+  ],
+  "compatibility_display_size": [
+    180,
+    180
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.40625,
+    1.40625
+  ],
+  "colors": [
+    22,
+    154,
+    8,
+    13,
+    164,
+    114,
+    39
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "none; complete bear render family",
+  "frames": [
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_00.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 16,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "bd95ec7ac5e29b75b4ad23ecfdccb18d5b04369cf6b05dfccf41c24f7bf06fb7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_01.png",
+      "width": 71,
+      "height": 41,
+      "texture_px": [
+        71,
+        41
+      ],
+      "offset": 2956,
+      "length": 2911,
+      "trim_origin_top_left_px": [
+        28,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "0c127d50733fad1cd0ba7cab8188321c8f63d5c565cd5dee59f2fe3a5b4bb55d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_02.png",
+      "width": 71,
+      "height": 41,
+      "texture_px": [
+        71,
+        41
+      ],
+      "offset": 5867,
+      "length": 2911,
+      "trim_origin_top_left_px": [
+        27,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "3a28d53ac17312edbc96d23577fd7e3e7b12497fba3c98878cad572fc3f8a38d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_03.png",
+      "width": 71,
+      "height": 41,
+      "texture_px": [
+        71,
+        41
+      ],
+      "offset": 8778,
+      "length": 2911,
+      "trim_origin_top_left_px": [
+        26,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        11.416996002197266
+      ],
+      "sha256": "404503c5a1cf08d8f696a3c9824f4d10c929046d857ac82a1114e02a77982c91",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_04.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 11689,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        27,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "4b004b7e8a05aee042bcb7bac182a5312bd8d1e43e47d5e161022fbd7927f4d5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_05.png",
+      "width": 69,
+      "height": 48,
+      "texture_px": [
+        69,
+        48
+      ],
+      "offset": 14629,
+      "length": 3312,
+      "trim_origin_top_left_px": [
+        27,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "3cff436d12529bd38b0c261c2133fe5f8d7bf5b4be46a23fef6a07c975c0a088",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_06.png",
+      "width": 63,
+      "height": 55,
+      "texture_px": [
+        63,
+        55
+      ],
+      "offset": 17941,
+      "length": 3465,
+      "trim_origin_top_left_px": [
+        28,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "2979a27cbc6e4435f5db5dd6cc5d8e40b4e67f105fd38d8ad11d20743c34fada",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_07.png",
+      "width": 54,
+      "height": 60,
+      "texture_px": [
+        54,
+        60
+      ],
+      "offset": 21406,
+      "length": 3240,
+      "trim_origin_top_left_px": [
+        30,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "c2fa49864d9b35188895515dda1cd7ab325977981ac4e5067e99d9ca353175ca",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_08.png",
+      "width": 50,
+      "height": 62,
+      "texture_px": [
+        50,
+        62
+      ],
+      "offset": 24646,
+      "length": 3100,
+      "trim_origin_top_left_px": [
+        30,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "a8bdfefd6c06756e7eb29de5ba062ae64b4bd5343678d037016eb405c1aaf843",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_09.png",
+      "width": 50,
+      "height": 61,
+      "texture_px": [
+        50,
+        61
+      ],
+      "offset": 27746,
+      "length": 3050,
+      "trim_origin_top_left_px": [
+        30,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "99077845b85976fa0df45f8dcb530a34b939d7d6d5fa77234c433769ba1dcb96",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_10.png",
+      "width": 50,
+      "height": 62,
+      "texture_px": [
+        50,
+        62
+      ],
+      "offset": 30796,
+      "length": 3100,
+      "trim_origin_top_left_px": [
+        30,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "cb203e85c702552965d3fcfa33c14edf951853d621e494795278a5f99feb7350",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_11.png",
+      "width": 60,
+      "height": 56,
+      "texture_px": [
+        60,
+        56
+      ],
+      "offset": 33896,
+      "length": 3360,
+      "trim_origin_top_left_px": [
+        29,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "33c2b517995b5975beb2fc38d1242fda17f93f493f2019be5949b7baa6f4cbcb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_12.png",
+      "width": 67,
+      "height": 53,
+      "texture_px": [
+        67,
+        53
+      ],
+      "offset": 37256,
+      "length": 3551,
+      "trim_origin_top_left_px": [
+        28,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "0105c4baf9a0dd3a503852ba0b6244af4c9b68a0f14d0bb81eef88e7f610fa70",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_13.png",
+      "width": 67,
+      "height": 53,
+      "texture_px": [
+        67,
+        53
+      ],
+      "offset": 40807,
+      "length": 3551,
+      "trim_origin_top_left_px": [
+        28,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "58c4b1976c3576cbc55d6c30e99d650984b86572261c334d749bf8914357546d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_14.png",
+      "width": 69,
+      "height": 49,
+      "texture_px": [
+        69,
+        49
+      ],
+      "offset": 44358,
+      "length": 3381,
+      "trim_origin_top_left_px": [
+        27,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "47026ede02981d988f6407a402f4b1ad3ce203d54b95f28ada0f9d9845e942d0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_15.png",
+      "width": 70,
+      "height": 46,
+      "texture_px": [
+        70,
+        46
+      ],
+      "offset": 47739,
+      "length": 3220,
+      "trim_origin_top_left_px": [
+        27,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "8e5be80cb9352375a5ff8876f08344f43fd08f2bc79a392abaf54c841ec396d0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_16.png",
+      "width": 71,
+      "height": 43,
+      "texture_px": [
+        71,
+        43
+      ],
+      "offset": 50959,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        26,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        11.416996002197266
+      ],
+      "sha256": "c277c2fb1eb4bc6fe2b7c9877edb872b3bb2332096273619afc8841eccd9d77c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_17.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 54012,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        26,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        11.416996002197266
+      ],
+      "sha256": "326238a6eee40e8ade92fd4fc890a827fc603dd3924e7bf911eecc0501333476",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_18.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 56994,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        26,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        11.416996002197266
+      ],
+      "sha256": "03b6609359eb2894957336e5f0e8d962a75713cbb2f4caf737568407ffad70f7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_19.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 59976,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        27,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        11.416996002197266
+      ],
+      "sha256": "52be85e0a435442b7484ee115bc49d14694ef5a2e51561bfaf957b99033256fe",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_20.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 62958,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        28,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "99a3a6782920f9fe7f5da4a631b5aac70365d26fc60ad2a09ef6662df8fb7d61",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_21.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 65898,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        28,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "719e23945e18e3c837b9cc3b8abb96b82b37c8003be97bd8df832505a7a45765",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_22.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 68880,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        28,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "78eb9a9b51810e3912b9d98950b1b6e8392caa325ac25c8ebd6ea0575b1ace79",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_e_23.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 71862,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "bd95ec7ac5e29b75b4ad23ecfdccb18d5b04369cf6b05dfccf41c24f7bf06fb7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_00.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 74802,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "0a020f9ef0c8154ca45a1412ac2f49f6bf5a7081e0263330aca8adec6e227e3a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_01.png",
+      "width": 68,
+      "height": 55,
+      "texture_px": [
+        68,
+        55
+      ],
+      "offset": 78666,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "e610fd585ea5f5ffa27d094afed3cc20cda0d39f14e1e45d380108312b1534bc",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_02.png",
+      "width": 67,
+      "height": 54,
+      "texture_px": [
+        67,
+        54
+      ],
+      "offset": 82406,
+      "length": 3618,
+      "trim_origin_top_left_px": [
+        28,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "29973a9624926601c90119fbdc85587c52e8c29aa4c3c514978f7ffd2e39609f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_03.png",
+      "width": 67,
+      "height": 52,
+      "texture_px": [
+        67,
+        52
+      ],
+      "offset": 86024,
+      "length": 3484,
+      "trim_origin_top_left_px": [
+        28,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "83374bce5c496d0fa57a5cf9f2e17059d9ac4fd7ad3f273401489c778b36aa6b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_04.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 89508,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "a61a3f7c28488471608e794f34cff85bbdde6eed7c444086f113c50b1f2cc46a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_05.png",
+      "width": 66,
+      "height": 61,
+      "texture_px": [
+        66,
+        61
+      ],
+      "offset": 93193,
+      "length": 4026,
+      "trim_origin_top_left_px": [
+        28,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "eaa8c18dc38bb55f8c7a95d69c87c92ceaa2e36e50a2fde791a14507da45ceff",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_06.png",
+      "width": 62,
+      "height": 66,
+      "texture_px": [
+        62,
+        66
+      ],
+      "offset": 97219,
+      "length": 4092,
+      "trim_origin_top_left_px": [
+        28,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "228a9c1c46696ab07cab34be99511a21b051274be18ce676738c7efa75edadde",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_07.png",
+      "width": 56,
+      "height": 69,
+      "texture_px": [
+        56,
+        69
+      ],
+      "offset": 101311,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        28,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "3643d34c02b7ca0b537bcf76dfacef2bf92164d9f559568134feb87047837857",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_08.png",
+      "width": 53,
+      "height": 69,
+      "texture_px": [
+        53,
+        69
+      ],
+      "offset": 105175,
+      "length": 3657,
+      "trim_origin_top_left_px": [
+        28,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "bdf5f005448d90c8bd468b139b2a67d679a7ec2650280570706ec60be6f646fd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_09.png",
+      "width": 53,
+      "height": 69,
+      "texture_px": [
+        53,
+        69
+      ],
+      "offset": 108832,
+      "length": 3657,
+      "trim_origin_top_left_px": [
+        28,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "d916b2a2227e253c0f9b4e08e608e823131ccedf5df648a01e0cbde5235ff711",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_10.png",
+      "width": 53,
+      "height": 70,
+      "texture_px": [
+        53,
+        70
+      ],
+      "offset": 112489,
+      "length": 3710,
+      "trim_origin_top_left_px": [
+        28,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "adbd86fc124d031c4a963e0acaa6be69dbf205b5dc4211023e309b0b29041910",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_11.png",
+      "width": 60,
+      "height": 66,
+      "texture_px": [
+        60,
+        66
+      ],
+      "offset": 116199,
+      "length": 3960,
+      "trim_origin_top_left_px": [
+        28,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "ab7fb0fc6503cfe08abdc55a052ce15d07277f677d67c274eb80c409962ea0e1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_12.png",
+      "width": 65,
+      "height": 64,
+      "texture_px": [
+        65,
+        64
+      ],
+      "offset": 120159,
+      "length": 4160,
+      "trim_origin_top_left_px": [
+        28,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "ba0dcb1c85a991af1fc659e6e6f6edb72d8a19b9c6774b38b86b1c93533e84ab",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_13.png",
+      "width": 63,
+      "height": 64,
+      "texture_px": [
+        63,
+        64
+      ],
+      "offset": 124319,
+      "length": 4032,
+      "trim_origin_top_left_px": [
+        28,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "d976d9d3fce2c66dfdc59f5850731cc23263b180cb745e51964652a49bc24c1f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_14.png",
+      "width": 65,
+      "height": 62,
+      "texture_px": [
+        65,
+        62
+      ],
+      "offset": 128351,
+      "length": 4030,
+      "trim_origin_top_left_px": [
+        28,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "c91e80539364e1d90ae9bd30b8e7798ed97e53981eae84b5246e30de74f6ca14",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_15.png",
+      "width": 66,
+      "height": 58,
+      "texture_px": [
+        66,
+        58
+      ],
+      "offset": 132381,
+      "length": 3828,
+      "trim_origin_top_left_px": [
+        28,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "309d3e1475c55a5053efe59305f7d122a3049197b9be673a08ee47746a875bb2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_16.png",
+      "width": 66,
+      "height": 56,
+      "texture_px": [
+        66,
+        56
+      ],
+      "offset": 136209,
+      "length": 3696,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "349d9b932674e7c515a480d8b88e82c12e46287becfb26f1cc384dab903d0fd0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_17.png",
+      "width": 66,
+      "height": 55,
+      "texture_px": [
+        66,
+        55
+      ],
+      "offset": 139905,
+      "length": 3630,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "fc070e4a1d2a774ac7c4844264d10a9d2adf6ea2e8b1b495464fcf13a54ed2fe",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_18.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 143535,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "d1b0ad25061c6523859b030d9f2fbe5ffed4e484719b84b1c49eda0716df9a5d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_19.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 147220,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "c523fa0133d7316452b47c64c0db3f3f6e8bfc16b42c1c63db58f11ef89b6879",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_20.png",
+      "width": 68,
+      "height": 56,
+      "texture_px": [
+        68,
+        56
+      ],
+      "offset": 150905,
+      "length": 3808,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "af26034ac05151f77d233d57fa154195763541de671ec8051a6ac5c36dcd4d93",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_21.png",
+      "width": 68,
+      "height": 56,
+      "texture_px": [
+        68,
+        56
+      ],
+      "offset": 154713,
+      "length": 3808,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "bdcafc6baba9c9175c15a28245f37b07f774e6d7df236160f015f52b8189dc6f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_22.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 158521,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "6e9c2fac8821cb7b3006ef5b6d5bb93684ccac95f33875520ff7cd81a7ce089f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ene_23.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 162385,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        28,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        18.416996002197266
+      ],
+      "sha256": "0a020f9ef0c8154ca45a1412ac2f49f6bf5a7081e0263330aca8adec6e227e3a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_00.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 166249,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        28,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "a06ad9bfd496f2b0c95b02b97fa4ed6561a47c3c53b779ce444f30584b251307",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_01.png",
+      "width": 68,
+      "height": 46,
+      "texture_px": [
+        68,
+        46
+      ],
+      "offset": 169309,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "4537dd61ef7b65caa72aed0345ce90018f3ff577da8d1818937cf7a7b6e18cb7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_02.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 172437,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "b15db5a1eb67f2e4011851f9f32176563812dcda5eba3e4ca57b97a164c7e88d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_03.png",
+      "width": 66,
+      "height": 47,
+      "texture_px": [
+        66,
+        47
+      ],
+      "offset": 175519,
+      "length": 3102,
+      "trim_origin_top_left_px": [
+        28,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "69c18d5631ec9e24d42b31b5a6fac3f41237f5402b5a7b57482f641fb7a3c00e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_04.png",
+      "width": 66,
+      "height": 45,
+      "texture_px": [
+        66,
+        45
+      ],
+      "offset": 178621,
+      "length": 2970,
+      "trim_origin_top_left_px": [
+        28,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        9.416996002197266
+      ],
+      "sha256": "e50f2be1a2147673d48554288b068cdb8b7a101bc139292c6a54d55243f14ccc",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_05.png",
+      "width": 64,
+      "height": 41,
+      "texture_px": [
+        64,
+        41
+      ],
+      "offset": 181591,
+      "length": 2624,
+      "trim_origin_top_left_px": [
+        28,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        4.416996002197266
+      ],
+      "sha256": "ceacb33702b2caf80dbb08ee58fcff7d7eec492c53c8d788566d198bc4aaa046",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_06.png",
+      "width": 59,
+      "height": 44,
+      "texture_px": [
+        59,
+        44
+      ],
+      "offset": 184215,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        28,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        4.416996002197266
+      ],
+      "sha256": "d2ff197ccc36cffff96903304e6abe83f1e6e701a37a1f0f4af946f2b3431b4e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_07.png",
+      "width": 53,
+      "height": 50,
+      "texture_px": [
+        53,
+        50
+      ],
+      "offset": 186811,
+      "length": 2650,
+      "trim_origin_top_left_px": [
+        28,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        3.4169960021972656
+      ],
+      "sha256": "b1d9559084525feb360f266797958dd0c959c5ac41f6928b8d1065375e256d09",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_08.png",
+      "width": 52,
+      "height": 54,
+      "texture_px": [
+        52,
+        54
+      ],
+      "offset": 189461,
+      "length": 2808,
+      "trim_origin_top_left_px": [
+        28,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        3.4169960021972656
+      ],
+      "sha256": "f34bb4878a18d4bfb9d22f9fd60f04084d290a8fa9409405b5c0534705602507",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_09.png",
+      "width": 53,
+      "height": 55,
+      "texture_px": [
+        53,
+        55
+      ],
+      "offset": 192269,
+      "length": 2915,
+      "trim_origin_top_left_px": [
+        28,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        4.416996002197266
+      ],
+      "sha256": "84a05f6dc80409d7bc2f199a9287e27fde5961358402d293355a70b7ba585cfd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_10.png",
+      "width": 54,
+      "height": 56,
+      "texture_px": [
+        54,
+        56
+      ],
+      "offset": 195184,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        28,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        4.416996002197266
+      ],
+      "sha256": "c782053cf4ec010848135c9b4ba0978332f7e8933acf3383e947afdfcb09eeab",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_11.png",
+      "width": 62,
+      "height": 46,
+      "texture_px": [
+        62,
+        46
+      ],
+      "offset": 198208,
+      "length": 2852,
+      "trim_origin_top_left_px": [
+        28,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        4.416996002197266
+      ],
+      "sha256": "1a2c78fe2e1856338f8f9522a4dd4848134904620ab85b5677926799511393d0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_12.png",
+      "width": 65,
+      "height": 41,
+      "texture_px": [
+        65,
+        41
+      ],
+      "offset": 201060,
+      "length": 2665,
+      "trim_origin_top_left_px": [
+        28,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        5.416996002197266
+      ],
+      "sha256": "2ead7a6030075ffffbcbeed7779276c148d86c8227f7fc461c336368a4b34f3e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_13.png",
+      "width": 67,
+      "height": 42,
+      "texture_px": [
+        67,
+        42
+      ],
+      "offset": 203725,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        28,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        6.416996002197266
+      ],
+      "sha256": "ac175d5a58cc9be8d210962ebfcbc3344f64bbb6ea1f97a80532cbaa3dea342c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_14.png",
+      "width": 68,
+      "height": 43,
+      "texture_px": [
+        68,
+        43
+      ],
+      "offset": 206539,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        8.416996002197266
+      ],
+      "sha256": "0b4dcb3479a7f191899ce62880c4ae1b1c383871f223c751bf5f29558556c16a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_15.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 209463,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        10.416996002197266
+      ],
+      "sha256": "1d2643ac802ff8522f327510a0539314e83562e1c37dff7a2d69ba9ca7e4eb62",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_16.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 212523,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "1a08391dbca024309035e4cfea70554c92584ad5a4f909e2a9c86c135a42e60f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_17.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 215605,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "e8e4e919a16bb768c65ff59601c1e4956897bfef994a9e4642ed8ae177d68903",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_18.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 218687,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "d1df09adf771f00d32c873887d893342080118736d33ae0af239c0b34878d143",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_19.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 221769,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "345fb7434f7f95874f1af7b9f2b7c81f1310fcdc4aa76befe8c44fdb1205a9f9",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_20.png",
+      "width": 68,
+      "height": 46,
+      "texture_px": [
+        68,
+        46
+      ],
+      "offset": 224851,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        28,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "7ed2115974cff550fa7a8f631d138e2f1b62b974acd3181e2f4690f020c2c196",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_21.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 227979,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        28,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "eee9f023d1467433cabd223fb0d51cdc2b1f7ad830775022e721adafab71a4e1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_22.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 231039,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        28,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "45b812683bb8af07062a720fd35df4d4b120e9d13c99d4157718cdae2aa112bd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ese_23.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 234099,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        28,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        11.416996002197266
+      ],
+      "sha256": "a06ad9bfd496f2b0c95b02b97fa4ed6561a47c3c53b779ce444f30584b251307",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_00.png",
+      "width": 32,
+      "height": 70,
+      "texture_px": [
+        32,
+        70
+      ],
+      "offset": 237159,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "23ad9a0506d63836ffc854c2f5bcabe4db02cc52720a416f35837e191586246d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_01.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 239399,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "92c4dd2905d88f56d30b3e33807830a738acbcb047f41eeb33ed86730bcef4af",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_02.png",
+      "width": 32,
+      "height": 67,
+      "texture_px": [
+        32,
+        67
+      ],
+      "offset": 241607,
+      "length": 2144,
+      "trim_origin_top_left_px": [
+        48,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "2ae584d890af8db355b44ffdefb10285cb4152532114f2d6b950f6cefe33ac4f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_03.png",
+      "width": 32,
+      "height": 66,
+      "texture_px": [
+        32,
+        66
+      ],
+      "offset": 243751,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        48,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "330fd182c3c0e9a03620ec76628019989aa59e288570c46e409bc30f6ab13707",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_04.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 245863,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "27905f23af97f3304756fabf9dd421f60279aa279bf04de22bade31272be24fd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_05.png",
+      "width": 33,
+      "height": 77,
+      "texture_px": [
+        33,
+        77
+      ],
+      "offset": 248071,
+      "length": 2541,
+      "trim_origin_top_left_px": [
+        47,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        24.416996002197266
+      ],
+      "sha256": "2343f00e57d9d8dd6c17dbf6ba061cc3575636721695c344c11978b630e93a60",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_06.png",
+      "width": 37,
+      "height": 82,
+      "texture_px": [
+        37,
+        82
+      ],
+      "offset": 250612,
+      "length": 3034,
+      "trim_origin_top_left_px": [
+        43,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        24.416996002197266
+      ],
+      "sha256": "f26e9e7c3b71b66616f74af0f1ca31a4075026ef7b46e649de0f36b53d2a87ce",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_07.png",
+      "width": 40,
+      "height": 84,
+      "texture_px": [
+        40,
+        84
+      ],
+      "offset": 253646,
+      "length": 3360,
+      "trim_origin_top_left_px": [
+        40,
+        15
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "3d0fdf35e08d6445679222c030790674a5f1581015b291ed444c18c4e3a3d8de",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_08.png",
+      "width": 41,
+      "height": 84,
+      "texture_px": [
+        41,
+        84
+      ],
+      "offset": 257006,
+      "length": 3444,
+      "trim_origin_top_left_px": [
+        39,
+        15
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "b2cc434d3b7504990983d5a1f3b6002b60792b4c05b048d1abae5e8429fb6119",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_09.png",
+      "width": 41,
+      "height": 83,
+      "texture_px": [
+        41,
+        83
+      ],
+      "offset": 260450,
+      "length": 3403,
+      "trim_origin_top_left_px": [
+        39,
+        16
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "6d2c11e1d7dd0490e3b76df4ee21eafae49b50e60d53fd53689e2ecd9ef8a908",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_10.png",
+      "width": 42,
+      "height": 82,
+      "texture_px": [
+        42,
+        82
+      ],
+      "offset": 263853,
+      "length": 3444,
+      "trim_origin_top_left_px": [
+        38,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        24.416996002197266
+      ],
+      "sha256": "ef6fbff525ae3859a9dcb5ed441b86d2650b009af028d4bb3bac943c0f3751be",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_11.png",
+      "width": 33,
+      "height": 82,
+      "texture_px": [
+        33,
+        82
+      ],
+      "offset": 267297,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        47,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        24.416996002197266
+      ],
+      "sha256": "2eb862c8961a4024488fc902cdf9e72d24885afb49d51f2a8a7a79e4064a78f5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_12.png",
+      "width": 32,
+      "height": 78,
+      "texture_px": [
+        32,
+        78
+      ],
+      "offset": 270003,
+      "length": 2496,
+      "trim_origin_top_left_px": [
+        48,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "abf6b62e932335a2e44a3af41074dea9e1e1452c641acfafcdec8b827a20d1c6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_13.png",
+      "width": 32,
+      "height": 77,
+      "texture_px": [
+        32,
+        77
+      ],
+      "offset": 272499,
+      "length": 2464,
+      "trim_origin_top_left_px": [
+        48,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "63f66504f24bdad33a0044217a190984c198db407e8c284217992c91bde43307",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_14.png",
+      "width": 32,
+      "height": 74,
+      "texture_px": [
+        32,
+        74
+      ],
+      "offset": 274963,
+      "length": 2368,
+      "trim_origin_top_left_px": [
+        48,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "4d404af7fdf51646326862b8abdf25542a0985a7e16ea5a95cf3f7b6c36b1e99",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_15.png",
+      "width": 32,
+      "height": 71,
+      "texture_px": [
+        32,
+        71
+      ],
+      "offset": 277331,
+      "length": 2272,
+      "trim_origin_top_left_px": [
+        48,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "e9568d2bea9b847b388cc468ec6481ee088376161a3a99a004d11057bbbff060",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_16.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 279603,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "86e0821c3449d5b984311bf67acff810d11e084ee7bc689d39ccd08b70ddc37e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_17.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 281811,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "58128a56e0308da9e953c2fa7bfbedbccafa45667b3837d6cc0a511182c5962a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_18.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 284019,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "63db35c9b045e619c9f9289ed3c228df5fbbbeadf0e12ee58210d4d729fbe011",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_19.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 286227,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "fe7aab83ba37ed8741c311934ab95ef18147b3589b1704e123a754aeebea5e14",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_20.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 288435,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "67e5fe4706773f216a50d4da7681914fe750495ccdfe8a0da26943bcc11e3377",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_21.png",
+      "width": 32,
+      "height": 70,
+      "texture_px": [
+        32,
+        70
+      ],
+      "offset": 290643,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "fb05a8bd298a2cc8a4f476de33114ea99c08e19ed0a5ee022d686b202bdfccc6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_22.png",
+      "width": 32,
+      "height": 70,
+      "texture_px": [
+        32,
+        70
+      ],
+      "offset": 292883,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "518a66bd7f6151f68055261e9e886cb7ad3c00a292509eaaa3a870f38766e0ef",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_n_23.png",
+      "width": 32,
+      "height": 70,
+      "texture_px": [
+        32,
+        70
+      ],
+      "offset": 295123,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        24.416996002197266
+      ],
+      "sha256": "23ad9a0506d63836ffc854c2f5bcabe4db02cc52720a416f35837e191586246d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_00.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 297363,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        31,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "016b7416dbc9735c3980862a7df61169ec8551a1723af8302d3bea34ad3d281b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_01.png",
+      "width": 58,
+      "height": 66,
+      "texture_px": [
+        58,
+        66
+      ],
+      "offset": 301249,
+      "length": 3828,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "a83ce46ef5d4dfd5c963d8a01e8928cd8a238521a635c5410f7e9ca3382da43b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_02.png",
+      "width": 58,
+      "height": 64,
+      "texture_px": [
+        58,
+        64
+      ],
+      "offset": 305077,
+      "length": 3712,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "9e591a97f140aad4216af956a7ee1af830e0cfc7383fbfaee67ee34e2f5bffa5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_03.png",
+      "width": 58,
+      "height": 63,
+      "texture_px": [
+        58,
+        63
+      ],
+      "offset": 308789,
+      "length": 3654,
+      "trim_origin_top_left_px": [
+        31,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "be83dae9996c3bb2553a248aab1078860dfa06a9c70d731678d9c7ff2457f0e6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_04.png",
+      "width": 58,
+      "height": 66,
+      "texture_px": [
+        58,
+        66
+      ],
+      "offset": 312443,
+      "length": 3828,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "c069421d80cd135e6cf87f72365256991dc9fc310c850d5cf7daec7f629d0445",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_05.png",
+      "width": 58,
+      "height": 71,
+      "texture_px": [
+        58,
+        71
+      ],
+      "offset": 316271,
+      "length": 4118,
+      "trim_origin_top_left_px": [
+        31,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "d398761c7ef9b161079e2114b4f88735dd507d50f7ed14df14c74e9d8e2520ff",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_06.png",
+      "width": 54,
+      "height": 75,
+      "texture_px": [
+        54,
+        75
+      ],
+      "offset": 320389,
+      "length": 4050,
+      "trim_origin_top_left_px": [
+        31,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "bf2d00eb7a6808d75f0198649440d8d4a2c3b904c2dcaf609cd48a1ed89f5e2d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_07.png",
+      "width": 50,
+      "height": 78,
+      "texture_px": [
+        50,
+        78
+      ],
+      "offset": 324439,
+      "length": 3900,
+      "trim_origin_top_left_px": [
+        31,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "399e4fc6139f5e47a1d66847f0051d47148ce3e17c9534fd56d661fd7a75acdd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_08.png",
+      "width": 48,
+      "height": 78,
+      "texture_px": [
+        48,
+        78
+      ],
+      "offset": 328339,
+      "length": 3744,
+      "trim_origin_top_left_px": [
+        31,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "752959370b7ae09edee7148ab5e4f1b76eb604d676feafe84c05ebd38430a1a8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_09.png",
+      "width": 48,
+      "height": 78,
+      "texture_px": [
+        48,
+        78
+      ],
+      "offset": 332083,
+      "length": 3744,
+      "trim_origin_top_left_px": [
+        31,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "73526a086f013e9c8ff7c7516b0ee6ebfb6e69b813dc975bf1a366dab48e5043",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_10.png",
+      "width": 48,
+      "height": 76,
+      "texture_px": [
+        48,
+        76
+      ],
+      "offset": 335827,
+      "length": 3648,
+      "trim_origin_top_left_px": [
+        31,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "eed3a4fc4af745959b165b5017bed866894b4e6ee25c16ea4c9917efda38d0f5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_11.png",
+      "width": 52,
+      "height": 75,
+      "texture_px": [
+        52,
+        75
+      ],
+      "offset": 339475,
+      "length": 3900,
+      "trim_origin_top_left_px": [
+        31,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "4e5488e2262c11bd34abf81ed83b94748f85d0acf97aa3cb217b98a0f054c910",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_12.png",
+      "width": 56,
+      "height": 73,
+      "texture_px": [
+        56,
+        73
+      ],
+      "offset": 343375,
+      "length": 4088,
+      "trim_origin_top_left_px": [
+        31,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "bafb6e9340d97f4839bbac04844b16f4ceca98e6c993f1edda2a54b3b4bdaba3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_13.png",
+      "width": 55,
+      "height": 73,
+      "texture_px": [
+        55,
+        73
+      ],
+      "offset": 347463,
+      "length": 4015,
+      "trim_origin_top_left_px": [
+        31,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "429e6984128bbb8380f10cba5ac3dd6adee5f365fb3485b67dae1cfb68d92e82",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_14.png",
+      "width": 54,
+      "height": 71,
+      "texture_px": [
+        54,
+        71
+      ],
+      "offset": 351478,
+      "length": 3834,
+      "trim_origin_top_left_px": [
+        31,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "e593e61d59aea71787811924dccf0ec285067e203e0d1a62a5bd06f23baf66d1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_15.png",
+      "width": 55,
+      "height": 68,
+      "texture_px": [
+        55,
+        68
+      ],
+      "offset": 355312,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        31,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "a827c6c2939c5bd9edd111326b6351f60a9d1fbffaccf9613e3f17fdf8abde71",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_16.png",
+      "width": 56,
+      "height": 66,
+      "texture_px": [
+        56,
+        66
+      ],
+      "offset": 359052,
+      "length": 3696,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "8fd6d5b3eea6788e75ce820ac83a754edaf1f2472ce2a41645b926a14f13babc",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_17.png",
+      "width": 56,
+      "height": 66,
+      "texture_px": [
+        56,
+        66
+      ],
+      "offset": 362748,
+      "length": 3696,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "672b160d345bb3f9a54dae2ef5cf21f87f37b06c8c042230d88035d08c4bf41f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_18.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 366444,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "cec73021791011f06ab50ca6a072c9810d806b132abcbfcf60b94e882c097f21",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_19.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 370206,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "d9faef9b28b1407417cc39c1492847765c41dcff276a17b867e860387c1579f4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_20.png",
+      "width": 58,
+      "height": 66,
+      "texture_px": [
+        58,
+        66
+      ],
+      "offset": 373968,
+      "length": 3828,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "728b345dcbe17439a20925e72fe363d6fcc1f2c23e9b043440b9678fe5fe304e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_21.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 377796,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        31,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "43edd71fedae1fa3ae912f80d08fad54c62802d4cde9c6ffeb60a15ff6d37dd4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_22.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 381682,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        31,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "a556e00fc25eeb7f2d5d4dfeddc3ec32f84bcb540c8bb2be1692203f310e84d9",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ne_23.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 385568,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        31,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        24.416996002197266
+      ],
+      "sha256": "016b7416dbc9735c3980862a7df61169ec8551a1723af8302d3bea34ad3d281b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_00.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 389454,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "8ed053baad5c896993fc1f06c244b21c1e490d5893527381885000990f46f7dd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_01.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 392550,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "ffac3fb3f28ce928c293fc8173a93f49de4b9cde979032c42d282c03202b0d0e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_02.png",
+      "width": 43,
+      "height": 69,
+      "texture_px": [
+        43,
+        69
+      ],
+      "offset": 395603,
+      "length": 2967,
+      "trim_origin_top_left_px": [
+        38,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "e69ee9f70f3aa9e225e2d28b838d48fddf7de97fdcb2604138a2f91a74a0c1e1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_03.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 398570,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        38,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "da316ba7e760b53866705889216a75ec46b4152b868adb6d49e5058acfef21a3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_04.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 401494,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "2a4cf4ad3440858005bf51247e4982f51efda6252b61b9c05cc98378c2ed91d6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_05.png",
+      "width": 43,
+      "height": 76,
+      "texture_px": [
+        43,
+        76
+      ],
+      "offset": 404547,
+      "length": 3268,
+      "trim_origin_top_left_px": [
+        38,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "b710695fcd16c153572908828263e2ea7b1298058918611402d404a2babe13bd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_06.png",
+      "width": 42,
+      "height": 82,
+      "texture_px": [
+        42,
+        82
+      ],
+      "offset": 407815,
+      "length": 3444,
+      "trim_origin_top_left_px": [
+        38,
+        19
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "565117779572ba5269624a3f9409fbe40aca8aa21122831c28249b9167327be2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_07.png",
+      "width": 41,
+      "height": 84,
+      "texture_px": [
+        41,
+        84
+      ],
+      "offset": 411259,
+      "length": 3444,
+      "trim_origin_top_left_px": [
+        38,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "f75e310590cb3d51a600517d4f2e4c3a50129366e35b0e3ee90520210ae25cff",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_08.png",
+      "width": 42,
+      "height": 84,
+      "texture_px": [
+        42,
+        84
+      ],
+      "offset": 414703,
+      "length": 3528,
+      "trim_origin_top_left_px": [
+        37,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        26.416996002197266
+      ],
+      "sha256": "8af57382fa585a58716e1ebfe2ba7504280e33c73496c2c80f66e6f74111bc8b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_09.png",
+      "width": 43,
+      "height": 83,
+      "texture_px": [
+        43,
+        83
+      ],
+      "offset": 418231,
+      "length": 3569,
+      "trim_origin_top_left_px": [
+        36,
+        18
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        26.416996002197266
+      ],
+      "sha256": "1e9dfc9f6f9b29a5ed86a251446a4c330eb24a8d6f8f4eaefdaef63ff136d2d2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_10.png",
+      "width": 43,
+      "height": 82,
+      "texture_px": [
+        43,
+        82
+      ],
+      "offset": 421800,
+      "length": 3526,
+      "trim_origin_top_left_px": [
+        36,
+        19
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        26.416996002197266
+      ],
+      "sha256": "3532508471822a8a862039736f6b9786c2191e36bb491c79ee80146f83498484",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_11.png",
+      "width": 43,
+      "height": 81,
+      "texture_px": [
+        43,
+        81
+      ],
+      "offset": 425326,
+      "length": 3483,
+      "trim_origin_top_left_px": [
+        38,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "40c04c68a9c694d9efba5aea0d6a8f3a3c47300b51c15fdc63a2bc334f7c6977",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_12.png",
+      "width": 45,
+      "height": 79,
+      "texture_px": [
+        45,
+        79
+      ],
+      "offset": 428809,
+      "length": 3555,
+      "trim_origin_top_left_px": [
+        38,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "999fac2fb54b9689de3eb10d3b3da8185854cfe2c5ebb59601163aa421c519f8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_13.png",
+      "width": 44,
+      "height": 78,
+      "texture_px": [
+        44,
+        78
+      ],
+      "offset": 432364,
+      "length": 3432,
+      "trim_origin_top_left_px": [
+        38,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "26c649421dcbea097b300ef6269071726e035199d8ee517f65b9e5ea6c5c8adf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_14.png",
+      "width": 43,
+      "height": 75,
+      "texture_px": [
+        43,
+        75
+      ],
+      "offset": 435796,
+      "length": 3225,
+      "trim_origin_top_left_px": [
+        38,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "4ef02aa9fdd894945b3b7542b010baf6bf8f3fe09fb90c51adcb1dc0fb06e609",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_15.png",
+      "width": 42,
+      "height": 72,
+      "texture_px": [
+        42,
+        72
+      ],
+      "offset": 439021,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "6afd9c6217ddb8ced4d3e4d534a9e32bb3d979c3190fc92fe4df660e63916a31",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_16.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 442045,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "b8d7b71ac613531f75791948c8735fe6f73358131f70efd12338a01d427d6107",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_17.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 444985,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "108c89241238fa57fba51f12fd16003abc839801a637a7768681fd3956457ecc",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_18.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 447925,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "5477213efdf73212572945c5d2014228650d79b8ff016744695e4da448ca1b77",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_19.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 450865,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "118de1482b55f95c049706274f6f07a6cf77a3e3dd5e2fcca07bab3882327156",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_20.png",
+      "width": 42,
+      "height": 71,
+      "texture_px": [
+        42,
+        71
+      ],
+      "offset": 453805,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "23ae70b102200403a60e9bc14662baabdc6dba34b56fa60c95282cfabd0568c1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_21.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 456787,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "14efb4578fc4af458fd76a8e7ee021c0c265e86894507da68c37f6fa2beb5bc1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_22.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 459840,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "1aa259ddb2e32efbfa1d1f78b7c5170ef05ab9e21ee92abd135a1007c9b4e3fb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nne_23.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 462936,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "8ed053baad5c896993fc1f06c244b21c1e490d5893527381885000990f46f7dd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_00.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 466032,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "9b18a3a6f1b9383473d866ca50575104875d3780059a990b78b0fe6bd471d90d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_01.png",
+      "width": 42,
+      "height": 71,
+      "texture_px": [
+        42,
+        71
+      ],
+      "offset": 469128,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "2b8e4812aa4dee02b5fbd52a1043df3e703d202857a45bf1b87747a76c34e102",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_02.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 472110,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        48,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "68655e3f833462e6a2c55b72ecc6c725b4d22b0e43091cad85c35094c96f459b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_03.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 475008,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        48,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "dd1872664d111d7593c40d0360f91e7caf691ce752e45e9c2a35a02fccb1c5e2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_04.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 477906,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        47,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "6ebb48c5e7718fbd79087e34432fb603b7e7a24a02dcf58432c7d79b8814f390",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_05.png",
+      "width": 45,
+      "height": 78,
+      "texture_px": [
+        45,
+        78
+      ],
+      "offset": 480959,
+      "length": 3510,
+      "trim_origin_top_left_px": [
+        45,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        26.416996002197266
+      ],
+      "sha256": "83265f6061864c43895ddedf4dbc5111d957b3d4e576147311736ad052cb7494",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_06.png",
+      "width": 48,
+      "height": 83,
+      "texture_px": [
+        48,
+        83
+      ],
+      "offset": 484469,
+      "length": 3984,
+      "trim_origin_top_left_px": [
+        42,
+        18
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        26.416996002197266
+      ],
+      "sha256": "152e7251afdd1c39baa28398060ce7a88ab54d5a176fce6660479dc677140fcf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_07.png",
+      "width": 50,
+      "height": 86,
+      "texture_px": [
+        50,
+        86
+      ],
+      "offset": 488453,
+      "length": 4300,
+      "trim_origin_top_left_px": [
+        40,
+        15
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        26.416996002197266
+      ],
+      "sha256": "4d3de2c51607578ebc87f630bdd07f4e5a955cac75a321023acfa3e09b34a45a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_08.png",
+      "width": 51,
+      "height": 86,
+      "texture_px": [
+        51,
+        86
+      ],
+      "offset": 492753,
+      "length": 4386,
+      "trim_origin_top_left_px": [
+        39,
+        15
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        26.416996002197266
+      ],
+      "sha256": "08187ce5065b3d56a547468531296aface3172a1e922b05f0261dc1880bb1312",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_09.png",
+      "width": 51,
+      "height": 86,
+      "texture_px": [
+        51,
+        86
+      ],
+      "offset": 497139,
+      "length": 4386,
+      "trim_origin_top_left_px": [
+        39,
+        15
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        26.416996002197266
+      ],
+      "sha256": "2fdb487d10511e1f262415b57df4b2d9f5bd6efbb74d4894da39515f67cff12f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_10.png",
+      "width": 52,
+      "height": 85,
+      "texture_px": [
+        52,
+        85
+      ],
+      "offset": 501525,
+      "length": 4420,
+      "trim_origin_top_left_px": [
+        38,
+        16
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        26.416996002197266
+      ],
+      "sha256": "59ad94835d8e38861eeab12c02c638efc7bf2854d5033f1dde0b65567c2e0459",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_11.png",
+      "width": 46,
+      "height": 83,
+      "texture_px": [
+        46,
+        83
+      ],
+      "offset": 505945,
+      "length": 3818,
+      "trim_origin_top_left_px": [
+        44,
+        18
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        26.416996002197266
+      ],
+      "sha256": "68a3782934967ba6f0f5437fb8e9a3d1755d0dd0a1c7f3bc90285ceea008c9c6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_12.png",
+      "width": 42,
+      "height": 78,
+      "texture_px": [
+        42,
+        78
+      ],
+      "offset": 509763,
+      "length": 3276,
+      "trim_origin_top_left_px": [
+        48,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "1842d8440ffd6ec011f0b6a0a46acdaebddddaf4609e51713eeb5c193f9ebe44",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_13.png",
+      "width": 44,
+      "height": 76,
+      "texture_px": [
+        44,
+        76
+      ],
+      "offset": 513039,
+      "length": 3344,
+      "trim_origin_top_left_px": [
+        46,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        26.416996002197266
+      ],
+      "sha256": "aeff8bb0e2f5e932dc4e42f0f7d3508ff71b0ea7b09c564d44dc8affaad13d33",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_14.png",
+      "width": 44,
+      "height": 73,
+      "texture_px": [
+        44,
+        73
+      ],
+      "offset": 516383,
+      "length": 3212,
+      "trim_origin_top_left_px": [
+        46,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        26.416996002197266
+      ],
+      "sha256": "729aa831902cc41ead8353b33cd20592db8c36a1396da2ed36f7183e87e1221c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_15.png",
+      "width": 44,
+      "height": 71,
+      "texture_px": [
+        44,
+        71
+      ],
+      "offset": 519595,
+      "length": 3124,
+      "trim_origin_top_left_px": [
+        46,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        26.416996002197266
+      ],
+      "sha256": "bf5509ad92568740e1c8b44dc191a262e50c98e7c54c6fcba01eeec2e44120af",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_16.png",
+      "width": 43,
+      "height": 70,
+      "texture_px": [
+        43,
+        70
+      ],
+      "offset": 522719,
+      "length": 3010,
+      "trim_origin_top_left_px": [
+        47,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "cfbbb96ec5c5f189ec9105f89c1af26b760b5e9b46d2e08520fcebc5b873cc60",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_17.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 525729,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "3acd23f7bf25553f46df0a5735542ea5000074b1c72d7a49ef57020585b4354b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_18.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 528669,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "018996b687cbb86253f0dcec41a54800a578f827ff5fa9764af57cc37d9baa04",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_19.png",
+      "width": 42,
+      "height": 70,
+      "texture_px": [
+        42,
+        70
+      ],
+      "offset": 531609,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "c89ab217d3912036eca2565b50f677ded18fb089f51fd626fd37976db29ec1b1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_20.png",
+      "width": 42,
+      "height": 71,
+      "texture_px": [
+        42,
+        71
+      ],
+      "offset": 534549,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        26.416996002197266
+      ],
+      "sha256": "6c699a3d698a2c557a779b7b520723c67cdd5f4e7e15f742b2d4c430775e7b14",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_21.png",
+      "width": 43,
+      "height": 71,
+      "texture_px": [
+        43,
+        71
+      ],
+      "offset": 537531,
+      "length": 3053,
+      "trim_origin_top_left_px": [
+        47,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "7025924b15f09eda31d940ae9e5172d72eec46a98c36d484cd43128a8c1e34d1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_22.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 540584,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "fd9c2136e5c5f03fef1765180a2aea7b2e292db23bfb2a96440e4f1c4fa4592c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nnw_23.png",
+      "width": 43,
+      "height": 72,
+      "texture_px": [
+        43,
+        72
+      ],
+      "offset": 543680,
+      "length": 3096,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        26.416996002197266
+      ],
+      "sha256": "9b18a3a6f1b9383473d866ca50575104875d3780059a990b78b0fe6bd471d90d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_00.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 546776,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        39,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "8d88330c5daa2df71fe493307a566fc7be86b4464a9c719a52ac6f8e4068ba5d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_01.png",
+      "width": 58,
+      "height": 66,
+      "texture_px": [
+        58,
+        66
+      ],
+      "offset": 550662,
+      "length": 3828,
+      "trim_origin_top_left_px": [
+        39,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "32129274d73559a3894d3740d9f90ae95cb57a68e27db554d858debe3062b8ac",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_02.png",
+      "width": 57,
+      "height": 65,
+      "texture_px": [
+        57,
+        65
+      ],
+      "offset": 554490,
+      "length": 3705,
+      "trim_origin_top_left_px": [
+        40,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "fe8794eb007718b36fdefd7b817a4250eace9d4bf50585adac1e6126e0be4462",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_03.png",
+      "width": 56,
+      "height": 64,
+      "texture_px": [
+        56,
+        64
+      ],
+      "offset": 558195,
+      "length": 3584,
+      "trim_origin_top_left_px": [
+        41,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        24.416996002197266
+      ],
+      "sha256": "882bc2f6d668fecd665a1627bc6671ce49995924977239688f1d0e38c7ac2968",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_04.png",
+      "width": 56,
+      "height": 67,
+      "texture_px": [
+        56,
+        67
+      ],
+      "offset": 561779,
+      "length": 3752,
+      "trim_origin_top_left_px": [
+        41,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        24.416996002197266
+      ],
+      "sha256": "e308903952a922e400c2b7ef84ad19f80c442b9a503ac49aaa698c2067ef4155",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_05.png",
+      "width": 54,
+      "height": 73,
+      "texture_px": [
+        54,
+        73
+      ],
+      "offset": 565531,
+      "length": 3942,
+      "trim_origin_top_left_px": [
+        43,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        24.416996002197266
+      ],
+      "sha256": "cf19399199bf3e1c48a29799d9b89d1bbcacdfe256d193c29299291b9472960e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_06.png",
+      "width": 53,
+      "height": 78,
+      "texture_px": [
+        53,
+        78
+      ],
+      "offset": 569473,
+      "length": 4134,
+      "trim_origin_top_left_px": [
+        44,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        24.416996002197266
+      ],
+      "sha256": "8b1897d8d3fb8c86f5410f664b74e5ce04b2b36e079c079289d27f98d4b7d3b0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_07.png",
+      "width": 54,
+      "height": 82,
+      "texture_px": [
+        54,
+        82
+      ],
+      "offset": 573607,
+      "length": 4428,
+      "trim_origin_top_left_px": [
+        43,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        24.416996002197266
+      ],
+      "sha256": "dcc58516814616c7ea508c5839ca852dc43826c2a66f2a1249846c4ef0c95222",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_08.png",
+      "width": 55,
+      "height": 82,
+      "texture_px": [
+        55,
+        82
+      ],
+      "offset": 578035,
+      "length": 4510,
+      "trim_origin_top_left_px": [
+        42,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        24.416996002197266
+      ],
+      "sha256": "65eaea5603d32a5e598517894d5bf754207031c9403b6d5fda9c24d5b4059545",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_09.png",
+      "width": 55,
+      "height": 82,
+      "texture_px": [
+        55,
+        82
+      ],
+      "offset": 582545,
+      "length": 4510,
+      "trim_origin_top_left_px": [
+        42,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        24.416996002197266
+      ],
+      "sha256": "11b83d2f9308427e73650f1cb296e9d871856964d6d089b7f519045436975605",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_10.png",
+      "width": 56,
+      "height": 82,
+      "texture_px": [
+        56,
+        82
+      ],
+      "offset": 587055,
+      "length": 4592,
+      "trim_origin_top_left_px": [
+        41,
+        17
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        24.416996002197266
+      ],
+      "sha256": "50f7e9cd089d8e1d06125d0f6d15af0ca8f640ec676cda5a8cf04c3d4f220752",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_11.png",
+      "width": 58,
+      "height": 78,
+      "texture_px": [
+        58,
+        78
+      ],
+      "offset": 591647,
+      "length": 4524,
+      "trim_origin_top_left_px": [
+        39,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "418c00b5d563d29b3ac019155d3df4d4920ab3720dde60a55bdaea2263aed1fe",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_12.png",
+      "width": 57,
+      "height": 72,
+      "texture_px": [
+        57,
+        72
+      ],
+      "offset": 596171,
+      "length": 4104,
+      "trim_origin_top_left_px": [
+        40,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "28157bcf553e9c10223e657d292cecce9e9286fdc381bed93190292337787bdf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_13.png",
+      "width": 59,
+      "height": 70,
+      "texture_px": [
+        59,
+        70
+      ],
+      "offset": 600275,
+      "length": 4130,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        24.416996002197266
+      ],
+      "sha256": "f3fae69ef4b42aca4ff954d46260e20c157748f970cf032e67a255b8494ed4e4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_14.png",
+      "width": 59,
+      "height": 68,
+      "texture_px": [
+        59,
+        68
+      ],
+      "offset": 604405,
+      "length": 4012,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        24.416996002197266
+      ],
+      "sha256": "e00dc72c20bbf919a69daf1cf148167d3982769cb5c6b7c02851fcfa658bff9c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_15.png",
+      "width": 59,
+      "height": 66,
+      "texture_px": [
+        59,
+        66
+      ],
+      "offset": 608417,
+      "length": 3894,
+      "trim_origin_top_left_px": [
+        38,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        24.416996002197266
+      ],
+      "sha256": "4f08bacdc22c0e8e2e52d3e8bbffc56cf309c4a8ac7694871f53383ed786b42b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_16.png",
+      "width": 58,
+      "height": 65,
+      "texture_px": [
+        58,
+        65
+      ],
+      "offset": 612311,
+      "length": 3770,
+      "trim_origin_top_left_px": [
+        39,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "2c92c122a5231a20d4e294c06f9a1a4887ad41235cb9f4852cdbf44861cc780f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_17.png",
+      "width": 57,
+      "height": 65,
+      "texture_px": [
+        57,
+        65
+      ],
+      "offset": 616081,
+      "length": 3705,
+      "trim_origin_top_left_px": [
+        40,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "7ad706ddd3e07265449fac4b4091cc72e35c65180c2a5b1e797e62b22b9473bf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_18.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 619786,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        40,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "c42673cc320005fa6f748acbfbd769847be3b9b3402e32b6212a94cdb9f9f09b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_19.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 623548,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        40,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "c40d0f47b77261f15bf7bec60a4d5174a6657a0a12a092c60950d1ef3c3d342b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_20.png",
+      "width": 57,
+      "height": 66,
+      "texture_px": [
+        57,
+        66
+      ],
+      "offset": 627310,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        40,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        24.416996002197266
+      ],
+      "sha256": "16d8b02e1ad1c68ad92e8114ad890a1be2d1c6178cd4643788cec973d6524400",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_21.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 631072,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        39,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "d189e5f915eff81e1479b6ea52608b9c430859cceaeb4023e686eedcfc418883",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_22.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 634958,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        39,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "fef6848b394db8f4a1853b539e18cd3364c67c738c04e66c98f0b1a60400a187",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_nw_23.png",
+      "width": 58,
+      "height": 67,
+      "texture_px": [
+        58,
+        67
+      ],
+      "offset": 638844,
+      "length": 3886,
+      "trim_origin_top_left_px": [
+        39,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        24.416996002197266
+      ],
+      "sha256": "8d88330c5daa2df71fe493307a566fc7be86b4464a9c719a52ac6f8e4068ba5d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_00.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 642730,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "e93caadfeb6d54e5074ee4e89ec12dc312a4f8d97f2e11e8ac7680a1990a5f24",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_01.png",
+      "width": 32,
+      "height": 57,
+      "texture_px": [
+        32,
+        57
+      ],
+      "offset": 644522,
+      "length": 1824,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "3052e9ba72287e3a3473567f85024ce5513652ebb95ce7e0c88652b1c64e8e43",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_02.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 646346,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        48,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "66184f470b18a6ffe35cce014647f702163ae923e9359a868ebec4717e928dd3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_03.png",
+      "width": 32,
+      "height": 59,
+      "texture_px": [
+        32,
+        59
+      ],
+      "offset": 648202,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        48,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "b5724954136aba8e384c85f639fa050cf850d18769e57909519f3a67077dd553",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_04.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 650090,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8.416996002197266
+      ],
+      "sha256": "df966f694697c2fc8eab016b7e6da55e2cfd8623df87dd5b14ffd98efe344f76",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_05.png",
+      "width": 33,
+      "height": 50,
+      "texture_px": [
+        33,
+        50
+      ],
+      "offset": 651882,
+      "length": 1650,
+      "trim_origin_top_left_px": [
+        48,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        2.4169960021972656
+      ],
+      "sha256": "f9c0aefe2c17be44f1fd533181aca0b5d27f9ed1e613c8c012c2563aedc2fb8a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_06.png",
+      "width": 37,
+      "height": 43,
+      "texture_px": [
+        37,
+        43
+      ],
+      "offset": 653532,
+      "length": 1591,
+      "trim_origin_top_left_px": [
+        48,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -4.583003997802734
+      ],
+      "sha256": "d996031bcd3f46476a66213262a48b1d5381e2cf7db98b03cd5c253c80079188",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_07.png",
+      "width": 40,
+      "height": 38,
+      "texture_px": [
+        40,
+        38
+      ],
+      "offset": 655123,
+      "length": 1520,
+      "trim_origin_top_left_px": [
+        48,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10.583003997802734
+      ],
+      "sha256": "96b9ce73d769709a3ece041197d653801f688bd95dce9ab0ccfd0533035f5df2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_08.png",
+      "width": 41,
+      "height": 38,
+      "texture_px": [
+        41,
+        38
+      ],
+      "offset": 656643,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        48,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13.583003997802734
+      ],
+      "sha256": "3a060a95b6a8a4f7efb018dab483a1e8dbb84be1b0197e17b9319f005dc964e8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_09.png",
+      "width": 41,
+      "height": 38,
+      "texture_px": [
+        41,
+        38
+      ],
+      "offset": 658201,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        48,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13.583003997802734
+      ],
+      "sha256": "d66143f1fd05617517ada8ba46bedf7490b80bd09f07756ee3c97e17fa8bd4e0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_10.png",
+      "width": 42,
+      "height": 37,
+      "texture_px": [
+        42,
+        37
+      ],
+      "offset": 659759,
+      "length": 1554,
+      "trim_origin_top_left_px": [
+        48,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13.583003997802734
+      ],
+      "sha256": "d052fd7fcef7dbd0ac6e19befec669a1babc80e01e56fdb11ab74f69ef7491c0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_11.png",
+      "width": 32,
+      "height": 42,
+      "texture_px": [
+        32,
+        42
+      ],
+      "offset": 661313,
+      "length": 1344,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -3.5830039978027344
+      ],
+      "sha256": "edc0bd72f96ad337162d9ecafd9e6945460fc07c079939c9e77ffffb3c1bdd03",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_12.png",
+      "width": 32,
+      "height": 53,
+      "texture_px": [
+        32,
+        53
+      ],
+      "offset": 662657,
+      "length": 1696,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8.416996002197266
+      ],
+      "sha256": "07c3b3f977af34eb33c95b6c9b5acb22ea39fe378d42520d759115bf7904e34b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_13.png",
+      "width": 32,
+      "height": 54,
+      "texture_px": [
+        32,
+        54
+      ],
+      "offset": 664353,
+      "length": 1728,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8.416996002197266
+      ],
+      "sha256": "a4fd23458420f1e5a3254abd0da4bd661da0de39d5a6606bc874e37df59c180e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_14.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 666081,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10.416996002197266
+      ],
+      "sha256": "fcc5a9aac4e7888021f6d0d7a6c7b76a11ef972a795268c20f48c620acaf59ea",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_15.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 667873,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "2612b7f9a5d8e570fd0b10a8cc097f64b938666b93313688c09fb9da530b92cf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_16.png",
+      "width": 32,
+      "height": 61,
+      "texture_px": [
+        32,
+        61
+      ],
+      "offset": 669729,
+      "length": 1952,
+      "trim_origin_top_left_px": [
+        48,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14.416996002197266
+      ],
+      "sha256": "33d7ab7028b85a81c3ec07eadf53352a9945e7b0d9cfecb7ff3d388fce32863e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_17.png",
+      "width": 32,
+      "height": 59,
+      "texture_px": [
+        32,
+        59
+      ],
+      "offset": 671681,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        48,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "f3302d85220169affc588c89b0abf570131fb98f7545ee165d2250c056e7ea9a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_18.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 673569,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        48,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "a06cb9129a7d9ff9a2f8d79788a2a1e8607df70a243ad032f8c17265dfc80178",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_19.png",
+      "width": 32,
+      "height": 57,
+      "texture_px": [
+        32,
+        57
+      ],
+      "offset": 675425,
+      "length": 1824,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "637b0d359e4c12a215666693102c92f39068941bd175ebda9b07a16a3011e7f1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_20.png",
+      "width": 32,
+      "height": 57,
+      "texture_px": [
+        32,
+        57
+      ],
+      "offset": 677249,
+      "length": 1824,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "c80d4d499d4c6c72ad4ab399c58c1f0a11ef21169baff9a8c9298d7beeaf9d48",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_21.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 679073,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "b1f0994c9cb9b6ccdc687694d26f83d20dc52928372174fe681f33b3eea42706",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_22.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 680865,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "a440ab7e42d43bf65ac5be0fb4a826a8518b01cc17eeae3f890410212ec92df1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_s_23.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 682657,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "e93caadfeb6d54e5074ee4e89ec12dc312a4f8d97f2e11e8ac7680a1990a5f24",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_00.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 684449,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        31,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "07f7065111061640c0f9c2c64eaeb2797e11899ee49644cac263ba3263a4d530",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_01.png",
+      "width": 58,
+      "height": 52,
+      "texture_px": [
+        58,
+        52
+      ],
+      "offset": 687407,
+      "length": 3016,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "aacc1fc2516b09ee9611659707321dc4cb695b6d647e956859d04e634a55b226",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_02.png",
+      "width": 57,
+      "height": 53,
+      "texture_px": [
+        57,
+        53
+      ],
+      "offset": 690423,
+      "length": 3021,
+      "trim_origin_top_left_px": [
+        31,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "d4e2605f1a29d03dc06ba88b2574f1e637a9471fc384000dacb0453639f98a2f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_03.png",
+      "width": 56,
+      "height": 53,
+      "texture_px": [
+        56,
+        53
+      ],
+      "offset": 693444,
+      "length": 2968,
+      "trim_origin_top_left_px": [
+        31,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "71256a6519bb09093f085dd86a7ba4524920151e1e270e78782bfdaab03248c0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_04.png",
+      "width": 55,
+      "height": 51,
+      "texture_px": [
+        55,
+        51
+      ],
+      "offset": 696412,
+      "length": 2805,
+      "trim_origin_top_left_px": [
+        31,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        10.416996002197266
+      ],
+      "sha256": "4d622a7a01b2dce865714f223bbcc448333dfe25fe0ba01335610cdc0fc3a495",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_05.png",
+      "width": 54,
+      "height": 47,
+      "texture_px": [
+        54,
+        47
+      ],
+      "offset": 699217,
+      "length": 2538,
+      "trim_origin_top_left_px": [
+        31,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        5.416996002197266
+      ],
+      "sha256": "a420b01443264bdc9d96681a96aa5bc9a571e668b26a0f514e8d974438f7ee41",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_06.png",
+      "width": 54,
+      "height": 42,
+      "texture_px": [
+        54,
+        42
+      ],
+      "offset": 701755,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        31,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -0.5830039978027344
+      ],
+      "sha256": "6367aa77bda973fd8939fa61704f39ae546379280ffa78bb687135d80f214817",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_07.png",
+      "width": 54,
+      "height": 43,
+      "texture_px": [
+        54,
+        43
+      ],
+      "offset": 704023,
+      "length": 2322,
+      "trim_origin_top_left_px": [
+        31,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -3.5830039978027344
+      ],
+      "sha256": "0344e5f13dd622f8d97a78c768d928fd994e2a13ce40b98d85e7991912ccaa0a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_08.png",
+      "width": 54,
+      "height": 47,
+      "texture_px": [
+        54,
+        47
+      ],
+      "offset": 706345,
+      "length": 2538,
+      "trim_origin_top_left_px": [
+        31,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -3.5830039978027344
+      ],
+      "sha256": "1ae2ba51bd0958f61fa019f2149154b1b7e114e13544262b7bb63b9d29d3213e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_09.png",
+      "width": 55,
+      "height": 47,
+      "texture_px": [
+        55,
+        47
+      ],
+      "offset": 708883,
+      "length": 2585,
+      "trim_origin_top_left_px": [
+        31,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -3.5830039978027344
+      ],
+      "sha256": "94282d56bd466a25123c5bd8cedaaa83de7ba506afa218c28bf3b7454046184a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_10.png",
+      "width": 56,
+      "height": 47,
+      "texture_px": [
+        56,
+        47
+      ],
+      "offset": 711468,
+      "length": 2632,
+      "trim_origin_top_left_px": [
+        31,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -3.5830039978027344
+      ],
+      "sha256": "d9ecb640ddc4e957eda66328513e05ed183de0982370cbf237ec939c195148d0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_11.png",
+      "width": 58,
+      "height": 40,
+      "texture_px": [
+        58,
+        40
+      ],
+      "offset": 714100,
+      "length": 2320,
+      "trim_origin_top_left_px": [
+        31,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -0.5830039978027344
+      ],
+      "sha256": "3847c2fe3e4ca1b26596b0628a65df9ce21af89c40c1053841d70d2dd2233d82",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_12.png",
+      "width": 56,
+      "height": 46,
+      "texture_px": [
+        56,
+        46
+      ],
+      "offset": 716420,
+      "length": 2576,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        6.416996002197266
+      ],
+      "sha256": "4c3dcda7482abe71e4c3aff4de7a6004bd1c9887e75c513975b0ef628b6972f3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_13.png",
+      "width": 59,
+      "height": 48,
+      "texture_px": [
+        59,
+        48
+      ],
+      "offset": 718996,
+      "length": 2832,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        8.416996002197266
+      ],
+      "sha256": "4c1b0deeac8a7823b8ba36ef308887c96a1dd090eee223ec844da4604ed56e4b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_14.png",
+      "width": 59,
+      "height": 50,
+      "texture_px": [
+        59,
+        50
+      ],
+      "offset": 721828,
+      "length": 2950,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        10.416996002197266
+      ],
+      "sha256": "5f1660111b15eba0473937da70e1150d4a49f2016c9080adb510ab2e86f6a1e6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_15.png",
+      "width": 59,
+      "height": 51,
+      "texture_px": [
+        59,
+        51
+      ],
+      "offset": 724778,
+      "length": 3009,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "c89960d9bdf33abcad369ed8f79de58452da3a4b6488e267303440a6f8246162",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_16.png",
+      "width": 58,
+      "height": 52,
+      "texture_px": [
+        58,
+        52
+      ],
+      "offset": 727787,
+      "length": 3016,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "9daee381452a4ef3ff3cfeeb8ccc7a8ef1a191030a71aa7407be034f21e913e5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_17.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 730803,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "37871241a229fb87022b02f749759e451bc92ab5802190267bc3e68c4c56ef52",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_18.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 733767,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "bc132e8479c7da46d7df25681b78b69f23c2389d354fad7c12d512b08416fe62",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_19.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 736731,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "a2e2d3577ae378260f105adf24a3ab8b37bfa45cffe94ebf8c3400a6de8098e1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_20.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 739695,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        31,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "677bf02e69dc4dbf27f8b1651d19847256e278d08115b7baeb2a47541e1ae293",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_21.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 742659,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        31,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "c5d5a4374de58b669911357f37c73be8aafdfe70e5926521878944eb31ecd2ef",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_22.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 745617,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        31,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "763ac7d09c46159c532c08b7e0d332ed05fed6f3f7ef46ddfc370073559dba06",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_se_23.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 748575,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        31,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        12.416996002197266
+      ],
+      "sha256": "07f7065111061640c0f9c2c64eaeb2797e11899ee49644cac263ba3263a4d530",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_00.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 751533,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        38,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "db8c391a4cbf6fee015caa84b5005bfa9c2e4464b6aa838441b539b2b3e5492e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_01.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 753898,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "91999a16c018cc017ab01c7df53eb2b97ad1d668e2861380312bca225ecea7b6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_02.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 756250,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "853e77dc57ce7c7b3059c8455e1b5a6f95cd2294f68c60a89949b12d88d130e8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_03.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 758686,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "40f834f2ebbe6306794e3c28e5875553597138bd0fbc5ebcae886afa7b900b67",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_04.png",
+      "width": 43,
+      "height": 56,
+      "texture_px": [
+        43,
+        56
+      ],
+      "offset": 761122,
+      "length": 2408,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        10.416996002197266
+      ],
+      "sha256": "1f0773548c637bef2b39084c7ae6dcbe5aae8c82ab86f37b14c40843dc795239",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_05.png",
+      "width": 45,
+      "height": 50,
+      "texture_px": [
+        45,
+        50
+      ],
+      "offset": 763530,
+      "length": 2250,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        4.416996002197266
+      ],
+      "sha256": "898247a7e332aca2a6ae221072ae1174e1590f1689629a696573e37284f302e4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_06.png",
+      "width": 48,
+      "height": 43,
+      "texture_px": [
+        48,
+        43
+      ],
+      "offset": 765780,
+      "length": 2064,
+      "trim_origin_top_left_px": [
+        38,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -2.5830039978027344
+      ],
+      "sha256": "01844d3ceca6e215456a0262bf1b3990beb861a89d7fbfd622b71446ef1a3f0c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_07.png",
+      "width": 50,
+      "height": 40,
+      "texture_px": [
+        50,
+        40
+      ],
+      "offset": 767844,
+      "length": 2000,
+      "trim_origin_top_left_px": [
+        38,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -7.583003997802734
+      ],
+      "sha256": "43c13cf06c37eda58157e6fc7636e1059309a48d5cf721decf37294f7cd56964",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_08.png",
+      "width": 51,
+      "height": 40,
+      "texture_px": [
+        51,
+        40
+      ],
+      "offset": 769844,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        38,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -10.583003997802734
+      ],
+      "sha256": "cc15793c89cf20183317b58d849236196bebf7f16be472849869b2b564d24b82",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_09.png",
+      "width": 51,
+      "height": 40,
+      "texture_px": [
+        51,
+        40
+      ],
+      "offset": 771884,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        38,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -10.583003997802734
+      ],
+      "sha256": "7ac0cc04bea3fd9007c9bea1ff49a31a4b955bcb7ef69d9f05b2de0d80cbcc85",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_10.png",
+      "width": 52,
+      "height": 39,
+      "texture_px": [
+        52,
+        39
+      ],
+      "offset": 773924,
+      "length": 2028,
+      "trim_origin_top_left_px": [
+        38,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -10.583003997802734
+      ],
+      "sha256": "3ec7b635c433cc4fc9e9240709b55a976f547a6633a72a06a5a3fa38610af1f2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_11.png",
+      "width": 46,
+      "height": 43,
+      "texture_px": [
+        46,
+        43
+      ],
+      "offset": 775952,
+      "length": 1978,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -1.5830039978027344
+      ],
+      "sha256": "97a7987992e37d85817737219db2554c31104d13a16b9acacc9edac036ba8555",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_12.png",
+      "width": 42,
+      "height": 51,
+      "texture_px": [
+        42,
+        51
+      ],
+      "offset": 777930,
+      "length": 2142,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        7.416996002197266
+      ],
+      "sha256": "a884d6c7541006a5f306eb1ead582f31d6ce06acb1aa9f0cdc918b95e3990a44",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_13.png",
+      "width": 44,
+      "height": 52,
+      "texture_px": [
+        44,
+        52
+      ],
+      "offset": 780072,
+      "length": 2288,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        8.416996002197266
+      ],
+      "sha256": "6670f43e1e2ff4e451fdb6f0315bfec79eb74d693b0e2542db04ca9be2e86b09",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_14.png",
+      "width": 45,
+      "height": 54,
+      "texture_px": [
+        45,
+        54
+      ],
+      "offset": 782360,
+      "length": 2430,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        10.416996002197266
+      ],
+      "sha256": "6a176ae3f8764390fbc73de50f30683bc7eb125260bddffeb0fa4051a55edad5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_15.png",
+      "width": 44,
+      "height": 57,
+      "texture_px": [
+        44,
+        57
+      ],
+      "offset": 784790,
+      "length": 2508,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "d9331fdf82d348fba639e1f2690bfdbb573848c82410d51286ab83d38f83dce7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_16.png",
+      "width": 43,
+      "height": 57,
+      "texture_px": [
+        43,
+        57
+      ],
+      "offset": 787298,
+      "length": 2451,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "8bfdad3eb72ba6f5aba2a7ca061e8ca3d92de20307421ef522dcdabf74cbfaab",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_17.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 789749,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "61b393cd4e6e53b2800d843a66b0af81910025d0452102922d500507b8ee654f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_18.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 792143,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "63149ceb5cad2e4c7858fe6406f06fe221d1778059f970b9555a9da25027fa41",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_19.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 794537,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        38,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "e11d861b4e73a10f942b477eb69f9f20d3f1e24c8fbf0e0037bca7e59d1c13d4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_20.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 796931,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "45c23a37e692b5fa4d7fb372949070419717a2728f5f1da4b1f0ce3e2d187e4e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_21.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 799283,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "24ecac5c2d86512b721851a8e2536e36065109d92dff90dada3e065c6baa8524",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_22.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 801635,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        38,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "01c17024d456e984e37cac07f27ea54757c8c9148c62ab09919ab777db8de90c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sse_23.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 804000,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        38,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12.416996002197266
+      ],
+      "sha256": "db8c391a4cbf6fee015caa84b5005bfa9c2e4464b6aa838441b539b2b3e5492e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_00.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 806365,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        47,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "b8bf750bf29dc01c1dddbbc2d7fd510fe214380c3d606c4279621271dec55ce0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_01.png",
+      "width": 43,
+      "height": 56,
+      "texture_px": [
+        43,
+        56
+      ],
+      "offset": 808730,
+      "length": 2408,
+      "trim_origin_top_left_px": [
+        47,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "078c2c333f66142523bf107ccde99f4a81b396c388af3238f2f399dc33814c72",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_02.png",
+      "width": 43,
+      "height": 58,
+      "texture_px": [
+        43,
+        58
+      ],
+      "offset": 811138,
+      "length": 2494,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "d88241a4b0f7f5e6fa35dbc1ffd8ff151decd532a80d6b77a874d506347ba2f2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_03.png",
+      "width": 43,
+      "height": 58,
+      "texture_px": [
+        43,
+        58
+      ],
+      "offset": 813632,
+      "length": 2494,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "c31c5eddc550c2eead6d1f0c27512ae276beb3b01307e2dd82d66e1b23c2694f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_04.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 816126,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9.416996002197266
+      ],
+      "sha256": "36ddf1e23971c9d5fd3868ea22d049289a5f0fc47b75650ffb010f879b603fc2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_05.png",
+      "width": 43,
+      "height": 47,
+      "texture_px": [
+        43,
+        47
+      ],
+      "offset": 818491,
+      "length": 2021,
+      "trim_origin_top_left_px": [
+        47,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        1.4169960021972656
+      ],
+      "sha256": "2ab65db31359afbc6e38e41b1e4a2bbbf9f7ebab3d3887c921e6bc2273a3d54f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_06.png",
+      "width": 41,
+      "height": 38,
+      "texture_px": [
+        41,
+        38
+      ],
+      "offset": 820512,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7.583003997802734
+      ],
+      "sha256": "ca60e9b66e5dcb644d484e97f3f35aba742e8ca698a8712ab4544d3d068160e7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_07.png",
+      "width": 41,
+      "height": 38,
+      "texture_px": [
+        41,
+        38
+      ],
+      "offset": 822070,
+      "length": 1558,
+      "trim_origin_top_left_px": [
+        49,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10.583003997802734
+      ],
+      "sha256": "6c6cc5a91ad20110dfe63eaa79596257ec989d16bbf581755b0f34905a8f77df",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_08.png",
+      "width": 42,
+      "height": 41,
+      "texture_px": [
+        42,
+        41
+      ],
+      "offset": 823628,
+      "length": 1722,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10.583003997802734
+      ],
+      "sha256": "38b0d35d14a623fb1a281744d40b436b8e4b2b27cce8f37c36d0cda4b035d390",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_09.png",
+      "width": 43,
+      "height": 41,
+      "texture_px": [
+        43,
+        41
+      ],
+      "offset": 825350,
+      "length": 1763,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10.583003997802734
+      ],
+      "sha256": "5fff7f88b0d6d42a12b869896d41129606cb1f12a75614d9fb64192efb2f255c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_10.png",
+      "width": 43,
+      "height": 40,
+      "texture_px": [
+        43,
+        40
+      ],
+      "offset": 827113,
+      "length": 1720,
+      "trim_origin_top_left_px": [
+        49,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10.583003997802734
+      ],
+      "sha256": "afc4f3ec864d051c49c1a343da739c0fb5600c4619ace130e9c52f30cd8a9b4f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_11.png",
+      "width": 43,
+      "height": 41,
+      "texture_px": [
+        43,
+        41
+      ],
+      "offset": 828833,
+      "length": 1763,
+      "trim_origin_top_left_px": [
+        47,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -3.5830039978027344
+      ],
+      "sha256": "4877575a4d062dc0ff022bf1206cb710e163a4d18f17fe5978fd3b7ede362d1e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_12.png",
+      "width": 45,
+      "height": 51,
+      "texture_px": [
+        45,
+        51
+      ],
+      "offset": 830596,
+      "length": 2295,
+      "trim_origin_top_left_px": [
+        45,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        7.416996002197266
+      ],
+      "sha256": "c1c3079b74d2c55772b016e4f3b82d7d1ddafff1754bdd5790b22747978cdeab",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_13.png",
+      "width": 44,
+      "height": 51,
+      "texture_px": [
+        44,
+        51
+      ],
+      "offset": 832891,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        46,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        7.416996002197266
+      ],
+      "sha256": "ac1d761776b50cb0c2960c5467019f5df4534b9b59063f316c43872b3eeb1b7e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_14.png",
+      "width": 43,
+      "height": 52,
+      "texture_px": [
+        43,
+        52
+      ],
+      "offset": 835135,
+      "length": 2236,
+      "trim_origin_top_left_px": [
+        47,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8.416996002197266
+      ],
+      "sha256": "664714437804317a4e9fdb10a6631347f24c8bc646ed6e68c7f32c8b6fda5880",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_15.png",
+      "width": 42,
+      "height": 55,
+      "texture_px": [
+        42,
+        55
+      ],
+      "offset": 837371,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10.416996002197266
+      ],
+      "sha256": "29fa4906a0d44262e50aa78d240824e7808da2a8a856423629f18d27c5129bc1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_16.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 839681,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        13.416996002197266
+      ],
+      "sha256": "76f81d5d8088e0a140136e143806621acf0c624cee6f2517f182e8875694f82c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_17.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 842117,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "80c7889dace38e919e7d590ac03fcc15315e15e6d09f9ff284c63ebbaec347fd",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_18.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 844511,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "1ce87a58ce875b29d58960ecd5628945994461a402f7c4e27f51cc5c68ba7157",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_19.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 846905,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        48,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "4cafeb332ceb0e350c9ee14ed0e0d52ab652e0e74ff3f6f476d1ae471da6a76c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_20.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 849299,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "1828e7b1e8a16ad38cf7ac24c458e2845389c21cf90217142f0e58516b997d76",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_21.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 851651,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12.416996002197266
+      ],
+      "sha256": "306f61ebaeca656b812f57a4850d7952dee5d538c91003ab6fa236ae0f78a2e6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_22.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 854003,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        47,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "1883046f791470988706b8a7fe3a570ad1ba15059b3ebe5dc4fbae58afb989ac",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_ssw_23.png",
+      "width": 43,
+      "height": 55,
+      "texture_px": [
+        43,
+        55
+      ],
+      "offset": 856368,
+      "length": 2365,
+      "trim_origin_top_left_px": [
+        47,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12.416996002197266
+      ],
+      "sha256": "b8bf750bf29dc01c1dddbbc2d7fd510fe214380c3d606c4279621271dec55ce0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_00.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 858733,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        39,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "046ec9466efb1068216cba75430df143298ea1187a6b829c406b61613e0ff36a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_01.png",
+      "width": 58,
+      "height": 52,
+      "texture_px": [
+        58,
+        52
+      ],
+      "offset": 861691,
+      "length": 3016,
+      "trim_origin_top_left_px": [
+        39,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "4dce1c02ea3f3505b23d6042791b573021ac8e234d9924bbcba90f9914ca2cde",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_02.png",
+      "width": 58,
+      "height": 53,
+      "texture_px": [
+        58,
+        53
+      ],
+      "offset": 864707,
+      "length": 3074,
+      "trim_origin_top_left_px": [
+        39,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "5d696d585d7bb98309432c57fe092e54329a31e7047e10ee66a7ad9c513510d6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_03.png",
+      "width": 58,
+      "height": 53,
+      "texture_px": [
+        58,
+        53
+      ],
+      "offset": 867781,
+      "length": 3074,
+      "trim_origin_top_left_px": [
+        39,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "c199696d0afd61c545139197a8cda8b6bf8113051ae9b18b9924d5d54f852c1a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_04.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 870855,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        39,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10.416996002197266
+      ],
+      "sha256": "ebbfbcea280434540411495fd29259215d5606b73a44fe353aa0651cc83261d9",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_05.png",
+      "width": 57,
+      "height": 45,
+      "texture_px": [
+        57,
+        45
+      ],
+      "offset": 873813,
+      "length": 2565,
+      "trim_origin_top_left_px": [
+        40,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        3.4169960021972656
+      ],
+      "sha256": "1adef00ff6e0d885c4dc760e2e1a1511c859abb810cb365f82c819905f443d4f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_06.png",
+      "width": 54,
+      "height": 39,
+      "texture_px": [
+        54,
+        39
+      ],
+      "offset": 876378,
+      "length": 2106,
+      "trim_origin_top_left_px": [
+        43,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -3.5830039978027344
+      ],
+      "sha256": "3b59eedcc793a3d7de032e4d2886723e26d8822e78d658566ce6aec9afe917ec",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_07.png",
+      "width": 50,
+      "height": 45,
+      "texture_px": [
+        50,
+        45
+      ],
+      "offset": 878484,
+      "length": 2250,
+      "trim_origin_top_left_px": [
+        47,
+        26
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -3.5830039978027344
+      ],
+      "sha256": "0f38fed9153e2b8c748cd7ee31ffecaf32defb1db23cec5ea758e0b9fffc4c3d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_08.png",
+      "width": 48,
+      "height": 48,
+      "texture_px": [
+        48,
+        48
+      ],
+      "offset": 880734,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -3.5830039978027344
+      ],
+      "sha256": "d4c58e205ff11813fea31dff10cf1354df35ab6e6908c13a5a9e7e0650037284",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_09.png",
+      "width": 48,
+      "height": 48,
+      "texture_px": [
+        48,
+        48
+      ],
+      "offset": 883038,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -3.5830039978027344
+      ],
+      "sha256": "c08060efbde08f93d2f670555f76dc80bd3142184495ea74c8d96dcfafac2a73",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_10.png",
+      "width": 48,
+      "height": 48,
+      "texture_px": [
+        48,
+        48
+      ],
+      "offset": 885342,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        49,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -3.5830039978027344
+      ],
+      "sha256": "24c07f56eea820f87562282eddd24fac2ab99b586e95fa0863d63087fd847735",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_11.png",
+      "width": 53,
+      "height": 38,
+      "texture_px": [
+        53,
+        38
+      ],
+      "offset": 887646,
+      "length": 2014,
+      "trim_origin_top_left_px": [
+        44,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -3.5830039978027344
+      ],
+      "sha256": "71c30afb1c2745c5fe81650c5981cce8b19713d37bccbd52e0aa65b76a5ab311",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_12.png",
+      "width": 56,
+      "height": 42,
+      "texture_px": [
+        56,
+        42
+      ],
+      "offset": 889660,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        41,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        2.4169960021972656
+      ],
+      "sha256": "c45319debbbc8a0ef9a4abb2cd239eb98eb10b24fb413977a899e26b160a954b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_13.png",
+      "width": 54,
+      "height": 42,
+      "texture_px": [
+        54,
+        42
+      ],
+      "offset": 892012,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        43,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        2.4169960021972656
+      ],
+      "sha256": "8a618b0fae3576dd6b6eb0da00ace32d10af7b7b5f84f5d91956f1aff6d78086",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_14.png",
+      "width": 54,
+      "height": 43,
+      "texture_px": [
+        54,
+        43
+      ],
+      "offset": 894280,
+      "length": 2322,
+      "trim_origin_top_left_px": [
+        43,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        3.4169960021972656
+      ],
+      "sha256": "113b852dea3d01c8daf673d771feee4aa6b63a1a3b594596523076cad0667afb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_15.png",
+      "width": 55,
+      "height": 46,
+      "texture_px": [
+        55,
+        46
+      ],
+      "offset": 896602,
+      "length": 2530,
+      "trim_origin_top_left_px": [
+        42,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        6.416996002197266
+      ],
+      "sha256": "4c9c6953189928f6c10b93da8cd70b4ef077bf3e26587ee2050d9e08337ed452",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_16.png",
+      "width": 55,
+      "height": 50,
+      "texture_px": [
+        55,
+        50
+      ],
+      "offset": 899132,
+      "length": 2750,
+      "trim_origin_top_left_px": [
+        42,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10.416996002197266
+      ],
+      "sha256": "b9ac44783a9d325ec74732e4e6a59027f6bf209a4c88f063281d7e5f2c121769",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_17.png",
+      "width": 56,
+      "height": 52,
+      "texture_px": [
+        56,
+        52
+      ],
+      "offset": 901882,
+      "length": 2912,
+      "trim_origin_top_left_px": [
+        41,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12.416996002197266
+      ],
+      "sha256": "4efc5ca808d590f4797041424fc9faa345e322c3a2855a791aa4c8d3010d0de0",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_18.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 904794,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        40,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12.416996002197266
+      ],
+      "sha256": "f26d12e8622736b2a4194063774c86b8f64e06ec77e088ad7eadcb1e12c2fd3f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_19.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 907758,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        40,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12.416996002197266
+      ],
+      "sha256": "6dd494b32d5fdce2cd313ed33252c978be498c43054e2e10e1ee733f8eb9c218",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_20.png",
+      "width": 57,
+      "height": 52,
+      "texture_px": [
+        57,
+        52
+      ],
+      "offset": 910722,
+      "length": 2964,
+      "trim_origin_top_left_px": [
+        40,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12.416996002197266
+      ],
+      "sha256": "a4b58d6a0214a415dd5aa7b0eab3ef1f54c166af3c5846f38129f5b45f34f42d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_21.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 913686,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        39,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "b6c2eb67e3d2ef8a6354e9f7d67d9364a33e9f5d150471eb9c65ffaa71ce4388",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_22.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 916644,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        39,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "949990ded0f6412530f6a6eebb47e1e2e559392086ace48b791d8e64b5895c7c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_sw_23.png",
+      "width": 58,
+      "height": 51,
+      "texture_px": [
+        58,
+        51
+      ],
+      "offset": 919602,
+      "length": 2958,
+      "trim_origin_top_left_px": [
+        39,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        12.416996002197266
+      ],
+      "sha256": "046ec9466efb1068216cba75430df143298ea1187a6b829c406b61613e0ff36a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_00.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 922560,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "1b50ff98e72ea870398653deb26835799b094191592385920bcf0b52e15717bf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_01.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 925500,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "4f462f2a72e12da145324c19b3178cc9df992d027421cb06e22cdf86624c9fbf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_02.png",
+      "width": 71,
+      "height": 41,
+      "texture_px": [
+        71,
+        41
+      ],
+      "offset": 928482,
+      "length": 2911,
+      "trim_origin_top_left_px": [
+        30,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "1726a8c692a6f89d3d0de450a18754ac17cf0d0cad275d91cbdc8fc928098adc",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_03.png",
+      "width": 71,
+      "height": 41,
+      "texture_px": [
+        71,
+        41
+      ],
+      "offset": 931393,
+      "length": 2911,
+      "trim_origin_top_left_px": [
+        31,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "ebc6e47838ed8a3f1da3e2fdfc36abb3bcc4ab531904fdf10c8ebad891697aeb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_04.png",
+      "width": 70,
+      "height": 44,
+      "texture_px": [
+        70,
+        44
+      ],
+      "offset": 934304,
+      "length": 3080,
+      "trim_origin_top_left_px": [
+        31,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "ac6f058e5060798573f0fdc84fe2fe65e1e143cb05506422d9e9d52f61ddb106",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_05.png",
+      "width": 69,
+      "height": 51,
+      "texture_px": [
+        69,
+        51
+      ],
+      "offset": 937384,
+      "length": 3519,
+      "trim_origin_top_left_px": [
+        32,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11.416996002197266
+      ],
+      "sha256": "356cacf9de0068e5d0360a6dc0239d651d5f044c4cd13af6426610b694fab1e8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_06.png",
+      "width": 62,
+      "height": 59,
+      "texture_px": [
+        62,
+        59
+      ],
+      "offset": 940903,
+      "length": 3658,
+      "trim_origin_top_left_px": [
+        38,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        11.416996002197266
+      ],
+      "sha256": "ff8f3306385b9b0dedd5643326b9c5ae4f3c57116e4a8a415e2865be100d293e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_07.png",
+      "width": 54,
+      "height": 64,
+      "texture_px": [
+        54,
+        64
+      ],
+      "offset": 944561,
+      "length": 3456,
+      "trim_origin_top_left_px": [
+        44,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11.416996002197266
+      ],
+      "sha256": "06ede45617e964ad67a7f68507f3a6d6a6b24c8612a16b33a815cbbd7c2bbbab",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_08.png",
+      "width": 50,
+      "height": 66,
+      "texture_px": [
+        50,
+        66
+      ],
+      "offset": 948017,
+      "length": 3300,
+      "trim_origin_top_left_px": [
+        48,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "f513330d034b0832998abc17480d90475188ce6497cb2d0198c4662668706948",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_09.png",
+      "width": 50,
+      "height": 66,
+      "texture_px": [
+        50,
+        66
+      ],
+      "offset": 951317,
+      "length": 3300,
+      "trim_origin_top_left_px": [
+        48,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "d9e4d3941ae7791e4d5c0b10aa3aa91647895200d4973c7eccb451714cf7ce75",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_10.png",
+      "width": 50,
+      "height": 66,
+      "texture_px": [
+        50,
+        66
+      ],
+      "offset": 954617,
+      "length": 3300,
+      "trim_origin_top_left_px": [
+        48,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11.416996002197266
+      ],
+      "sha256": "a87ad549e8be301ce1216e99bf1453d18e9e172857db943f69636cdcaf5d41e4",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_11.png",
+      "width": 60,
+      "height": 59,
+      "texture_px": [
+        60,
+        59
+      ],
+      "offset": 957917,
+      "length": 3540,
+      "trim_origin_top_left_px": [
+        39,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        11.416996002197266
+      ],
+      "sha256": "35350dee1401b4e429b89f274b81da74389c8a0b23052c08d11bd99ab9bc516b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_12.png",
+      "width": 67,
+      "height": 50,
+      "texture_px": [
+        67,
+        50
+      ],
+      "offset": 961457,
+      "length": 3350,
+      "trim_origin_top_left_px": [
+        33,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "42640fd17d1f19f5e63ae765f4aa93f45ea19e7151b0710ec43ffd32cd012cae",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_13.png",
+      "width": 67,
+      "height": 47,
+      "texture_px": [
+        67,
+        47
+      ],
+      "offset": 964807,
+      "length": 3149,
+      "trim_origin_top_left_px": [
+        33,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "4fbf09c35cb105dd13acc861623a874dc750fb6785954628216ae52a3f021245",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_14.png",
+      "width": 70,
+      "height": 44,
+      "texture_px": [
+        70,
+        44
+      ],
+      "offset": 967956,
+      "length": 3080,
+      "trim_origin_top_left_px": [
+        31,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "9779916615c2a45434f32b176a4d49150d75726235d589c961214377ad42756b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_15.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 971036,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        31,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "436b9532ae4e2627ecdaafb4a3de7862f4fd39dd1a13d8ccfd53245f84df8cf2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_16.png",
+      "width": 70,
+      "height": 41,
+      "texture_px": [
+        70,
+        41
+      ],
+      "offset": 973976,
+      "length": 2870,
+      "trim_origin_top_left_px": [
+        31,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "ae1678742fa5073ca760b1903d78e7e64697080324de2352ff79e058d153e073",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_17.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 976846,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        31,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "0ffbf56842e75735ca236689ae1ba6384e31e7db304bd956c26db428ee547e6d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_18.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 979828,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        31,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "8aebff2c712383367daef5296298f66fa13f5221ae85ff5e947a27a86c50f197",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_19.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 982768,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        31,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "55df9e65eac61db14fe2b4774cf5faa09794dd524b8eb80e2f667b921fac58a5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_20.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 985708,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        30,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        11.416996002197266
+      ],
+      "sha256": "d960a583f9c1d066eaa1bb3d764e02eceb40ba24761a02b490154204a752d076",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_21.png",
+      "width": 71,
+      "height": 42,
+      "texture_px": [
+        71,
+        42
+      ],
+      "offset": 988648,
+      "length": 2982,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "beb8ad8ffd75fc0126191e0d6742db70f8c5e80d64e0d29ad22000d39f206ba3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_22.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 991630,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "6873007464bc1d9f8b5a872a3ea33aa6bfb819d66ef7d74baf1d0ff6eabae743",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_w_23.png",
+      "width": 70,
+      "height": 42,
+      "texture_px": [
+        70,
+        42
+      ],
+      "offset": 994570,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        29,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        11.416996002197266
+      ],
+      "sha256": "1b50ff98e72ea870398653deb26835799b094191592385920bcf0b52e15717bf",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_00.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 997510,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        31,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        18.416996002197266
+      ],
+      "sha256": "cfbfa7f02987a9f3d44c6a8eac78bb3f78cf5103391db59c7325fd15e03fc767",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_01.png",
+      "width": 68,
+      "height": 55,
+      "texture_px": [
+        68,
+        55
+      ],
+      "offset": 1001374,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        32,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        18.416996002197266
+      ],
+      "sha256": "500d909de5e4279200ae5755308a481c104f8b3ab25b0efdd3f5ac9ce8f4679f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_02.png",
+      "width": 67,
+      "height": 54,
+      "texture_px": [
+        67,
+        54
+      ],
+      "offset": 1005114,
+      "length": 3618,
+      "trim_origin_top_left_px": [
+        33,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "dfa239601e752ef9c069a1aaf25c0893c2a3160258018082b29c83dc99aa36ca",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_03.png",
+      "width": 66,
+      "height": 54,
+      "texture_px": [
+        66,
+        54
+      ],
+      "offset": 1008732,
+      "length": 3564,
+      "trim_origin_top_left_px": [
+        34,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        18.416996002197266
+      ],
+      "sha256": "31317c3dae5232821ba38484d566ddf3bf4f0841dd83db038b04a565c9abd63b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_04.png",
+      "width": 66,
+      "height": 57,
+      "texture_px": [
+        66,
+        57
+      ],
+      "offset": 1012296,
+      "length": 3762,
+      "trim_origin_top_left_px": [
+        34,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        18.416996002197266
+      ],
+      "sha256": "3657221ed7662b044a28b9f4d8b7d7559e2bf6d656a6290ad05a5c01726f9cf6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_05.png",
+      "width": 64,
+      "height": 63,
+      "texture_px": [
+        64,
+        63
+      ],
+      "offset": 1016058,
+      "length": 4032,
+      "trim_origin_top_left_px": [
+        36,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        18.416996002197266
+      ],
+      "sha256": "1047aa751e620c155ff176426844591043de2934e7655f91ad7e55e1fb522358",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_06.png",
+      "width": 59,
+      "height": 69,
+      "texture_px": [
+        59,
+        69
+      ],
+      "offset": 1020090,
+      "length": 4071,
+      "trim_origin_top_left_px": [
+        41,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        18.416996002197266
+      ],
+      "sha256": "734db8c3c54bb9711c77bc26d8475d2209dd6406fe78be4ecc9ddf586d663275",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_07.png",
+      "width": 53,
+      "height": 72,
+      "texture_px": [
+        53,
+        72
+      ],
+      "offset": 1024161,
+      "length": 3816,
+      "trim_origin_top_left_px": [
+        47,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        18.416996002197266
+      ],
+      "sha256": "cd55b98d5a6efddcf5b159e9cbc8bf1866ca19ec300cdefa334e80cdf3e398f8",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_08.png",
+      "width": 52,
+      "height": 73,
+      "texture_px": [
+        52,
+        73
+      ],
+      "offset": 1027977,
+      "length": 3796,
+      "trim_origin_top_left_px": [
+        48,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        18.416996002197266
+      ],
+      "sha256": "ce6695673ffa9f168d46a3b8c4826e98b74eabfd4062ade3d0d5527d54876810",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_09.png",
+      "width": 53,
+      "height": 73,
+      "texture_px": [
+        53,
+        73
+      ],
+      "offset": 1031773,
+      "length": 3869,
+      "trim_origin_top_left_px": [
+        47,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        18.416996002197266
+      ],
+      "sha256": "9ebf546e364ee35ef89e722aca3ff5bc4ba80ace78eeb63f4d8895a139baec5a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_10.png",
+      "width": 53,
+      "height": 73,
+      "texture_px": [
+        53,
+        73
+      ],
+      "offset": 1035642,
+      "length": 3869,
+      "trim_origin_top_left_px": [
+        47,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        18.416996002197266
+      ],
+      "sha256": "becf53197e8b8f911c40944744a069ab68a40eed2bbcf786470d118b995752e5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_11.png",
+      "width": 62,
+      "height": 69,
+      "texture_px": [
+        62,
+        69
+      ],
+      "offset": 1039511,
+      "length": 4278,
+      "trim_origin_top_left_px": [
+        38,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        18.416996002197266
+      ],
+      "sha256": "492fac258636367de3fb1043783e710fa78153d97358bb5420d57f51d9a613d6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_12.png",
+      "width": 65,
+      "height": 62,
+      "texture_px": [
+        65,
+        62
+      ],
+      "offset": 1043789,
+      "length": 4030,
+      "trim_origin_top_left_px": [
+        35,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        18.416996002197266
+      ],
+      "sha256": "e68dd1e66cfe46852a36c0b718a155dccd7cf92bbef89ad31436e3257888f8eb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_13.png",
+      "width": 67,
+      "height": 59,
+      "texture_px": [
+        67,
+        59
+      ],
+      "offset": 1047819,
+      "length": 3953,
+      "trim_origin_top_left_px": [
+        33,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "7d3d64e54cf04256f7a2bb6a92081bad22893371b24c0bc09e98eadc0349d035",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_14.png",
+      "width": 68,
+      "height": 57,
+      "texture_px": [
+        68,
+        57
+      ],
+      "offset": 1051772,
+      "length": 3876,
+      "trim_origin_top_left_px": [
+        32,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        18.416996002197266
+      ],
+      "sha256": "44234907d10a77a8cb2f6dfa09593eeddd36672a5d527b3231ed112010a9590b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_15.png",
+      "width": 68,
+      "height": 55,
+      "texture_px": [
+        68,
+        55
+      ],
+      "offset": 1055648,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        32,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        18.416996002197266
+      ],
+      "sha256": "f2e7069e4af1e7e0c9944404863c55a58c51e3748ec85582c302c632f4e18efe",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_16.png",
+      "width": 67,
+      "height": 54,
+      "texture_px": [
+        67,
+        54
+      ],
+      "offset": 1059388,
+      "length": 3618,
+      "trim_origin_top_left_px": [
+        33,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "0bd63e9e4802de062ecafb54ae26ea2be5d7999e1ca33c7ad401dd9eb79b4df6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_17.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 1063006,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        33,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "757b996ecc760b2b61831da9c20c1b0c47f68a3212f277979ae970147d44f16c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_18.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 1066691,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        33,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "4318bab0aacc50703a78867d4f1b0159c3fde5426daa84811acde32b5ec2eb7e",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_19.png",
+      "width": 67,
+      "height": 55,
+      "texture_px": [
+        67,
+        55
+      ],
+      "offset": 1070376,
+      "length": 3685,
+      "trim_origin_top_left_px": [
+        33,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        18.416996002197266
+      ],
+      "sha256": "29e5244e22e9bd9d3405425e2f24990a71b0c4b05a1df93f14f774d611afb1b3",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_20.png",
+      "width": 68,
+      "height": 55,
+      "texture_px": [
+        68,
+        55
+      ],
+      "offset": 1074061,
+      "length": 3740,
+      "trim_origin_top_left_px": [
+        32,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        18.416996002197266
+      ],
+      "sha256": "0865246d9ef74fe1f96ba4f96c9c59829627811cfaf3e84e1858daa4e4af772c",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_21.png",
+      "width": 68,
+      "height": 56,
+      "texture_px": [
+        68,
+        56
+      ],
+      "offset": 1077801,
+      "length": 3808,
+      "trim_origin_top_left_px": [
+        32,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        18.416996002197266
+      ],
+      "sha256": "c57f852a8132fecc73c62756f6aae15056de3bf1c77b15043f37abb9abf2b127",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_22.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 1081609,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        31,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        18.416996002197266
+      ],
+      "sha256": "c7f81ec98e97c6acb67373569fb6bb7c99a33c08b3fd31cb7757ccf403f8f7b7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wnw_23.png",
+      "width": 69,
+      "height": 56,
+      "texture_px": [
+        69,
+        56
+      ],
+      "offset": 1085473,
+      "length": 3864,
+      "trim_origin_top_left_px": [
+        31,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        18.416996002197266
+      ],
+      "sha256": "cfbfa7f02987a9f3d44c6a8eac78bb3f78cf5103391db59c7325fd15e03fc767",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_00.png",
+      "width": 69,
+      "height": 45,
+      "texture_px": [
+        69,
+        45
+      ],
+      "offset": 1089337,
+      "length": 3105,
+      "trim_origin_top_left_px": [
+        31,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "e801ead3c4db7a37aec7011eb606941cbcc368d20e2ca8709c89d1f682ba8b04",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_01.png",
+      "width": 68,
+      "height": 46,
+      "texture_px": [
+        68,
+        46
+      ],
+      "offset": 1092442,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        32,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11.416996002197266
+      ],
+      "sha256": "11831e87c656ee0f81ae386f26bcca4c99ffbe2011e80b2bf35257440442d2a9",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_02.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 1095570,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        33,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "52b334b4e8ef6243e2e0cd11558db265400255f2844550891f7e993e1e8294b5",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_03.png",
+      "width": 67,
+      "height": 47,
+      "texture_px": [
+        67,
+        47
+      ],
+      "offset": 1098652,
+      "length": 3149,
+      "trim_origin_top_left_px": [
+        33,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "96bc33634f29b76e267bd67850be6e7ae78a67944c20c3d9d3addc0991224b23",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_04.png",
+      "width": 67,
+      "height": 44,
+      "texture_px": [
+        67,
+        44
+      ],
+      "offset": 1101801,
+      "length": 2948,
+      "trim_origin_top_left_px": [
+        33,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        8.416996002197266
+      ],
+      "sha256": "64bbdc77fded84fcc84d5f7ad371ac06c753d127b7c5cfe09833aa7ae03996ec",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_05.png",
+      "width": 66,
+      "height": 40,
+      "texture_px": [
+        66,
+        40
+      ],
+      "offset": 1104749,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        34,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        3.4169960021972656
+      ],
+      "sha256": "e6cf3db9da23571363d4f07c960baf4664da49913f4f55693b7f341ccb3ac7f6",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_06.png",
+      "width": 62,
+      "height": 47,
+      "texture_px": [
+        62,
+        47
+      ],
+      "offset": 1107389,
+      "length": 2914,
+      "trim_origin_top_left_px": [
+        38,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        3.4169960021972656
+      ],
+      "sha256": "f914cc3cdd07f2d17df78c130f74a473f2fe346d04de24b54497624e9a9bbcdb",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_07.png",
+      "width": 56,
+      "height": 54,
+      "texture_px": [
+        56,
+        54
+      ],
+      "offset": 1110303,
+      "length": 3024,
+      "trim_origin_top_left_px": [
+        44,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        3.4169960021972656
+      ],
+      "sha256": "0e8669b89a6b775015e10a1fdce4652702cb163f912fc4ea137d0f2fd7b1901a",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_08.png",
+      "width": 53,
+      "height": 57,
+      "texture_px": [
+        53,
+        57
+      ],
+      "offset": 1113327,
+      "length": 3021,
+      "trim_origin_top_left_px": [
+        47,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        3.4169960021972656
+      ],
+      "sha256": "7d98717ee6930be1faf2336317794ad257d07361fe3b12bce91ed9af5f9e60af",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_09.png",
+      "width": 53,
+      "height": 57,
+      "texture_px": [
+        53,
+        57
+      ],
+      "offset": 1116348,
+      "length": 3021,
+      "trim_origin_top_left_px": [
+        47,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        3.4169960021972656
+      ],
+      "sha256": "4d05308aaa45192b86599a7d95f00da89acf3ace41fef650dec97a4cfbb80ea2",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_10.png",
+      "width": 53,
+      "height": 58,
+      "texture_px": [
+        53,
+        58
+      ],
+      "offset": 1119369,
+      "length": 3074,
+      "trim_origin_top_left_px": [
+        47,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        4.416996002197266
+      ],
+      "sha256": "dd5cb1fb0112321b9d1f2fe8668beef71bc26d66e77002bb199e918c13ebeb2d",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_11.png",
+      "width": 60,
+      "height": 49,
+      "texture_px": [
+        60,
+        49
+      ],
+      "offset": 1122443,
+      "length": 2940,
+      "trim_origin_top_left_px": [
+        40,
+        30
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        4.416996002197266
+      ],
+      "sha256": "165035dee55fe22630ec1cbfb8e50210ee4c670dfc230a9ad9a9f630eac74ed7",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_12.png",
+      "width": 65,
+      "height": 39,
+      "texture_px": [
+        65,
+        39
+      ],
+      "offset": 1125383,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        35,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        4.416996002197266
+      ],
+      "sha256": "446f977460b161e06f77def7a0879ed25d21c7d04c39f5f2282f9df768361137",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_13.png",
+      "width": 63,
+      "height": 39,
+      "texture_px": [
+        63,
+        39
+      ],
+      "offset": 1127918,
+      "length": 2457,
+      "trim_origin_top_left_px": [
+        37,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        4.416996002197266
+      ],
+      "sha256": "4e7590c66d202dc49aa6ac533a5d67c72930fa7ceabd3ba39f0103b6d05650ff",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_14.png",
+      "width": 64,
+      "height": 39,
+      "texture_px": [
+        64,
+        39
+      ],
+      "offset": 1130375,
+      "length": 2496,
+      "trim_origin_top_left_px": [
+        36,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        4.416996002197266
+      ],
+      "sha256": "da125512e8de336cbb29d4cf05013309890c137f4a3cf8777dadffe6117992b9",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_15.png",
+      "width": 66,
+      "height": 39,
+      "texture_px": [
+        66,
+        39
+      ],
+      "offset": 1132871,
+      "length": 2574,
+      "trim_origin_top_left_px": [
+        34,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        4.416996002197266
+      ],
+      "sha256": "6fcc2f37181f3126feea4ecbf7444688136bfe39404c643b9b6c7b655a514c30",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_16.png",
+      "width": 66,
+      "height": 40,
+      "texture_px": [
+        66,
+        40
+      ],
+      "offset": 1135445,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        34,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        5.416996002197266
+      ],
+      "sha256": "e27aff6c841e3e134f2a684f8bf123d6afd73bacb92a9aabb4798d1d69eafbc1",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_17.png",
+      "width": 66,
+      "height": 44,
+      "texture_px": [
+        66,
+        44
+      ],
+      "offset": 1138085,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        34,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        9.416996002197266
+      ],
+      "sha256": "8f1b70e58bf096d414dec66d764762c88efc90c1500fcf04071dbd04e5845e4b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_18.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 1140989,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        33,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "3111bfe826827953eb66b73147fe35ed6599497fc2ac8511685ff5e83c4efa92",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_19.png",
+      "width": 67,
+      "height": 46,
+      "texture_px": [
+        67,
+        46
+      ],
+      "offset": 1144071,
+      "length": 3082,
+      "trim_origin_top_left_px": [
+        33,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        11.416996002197266
+      ],
+      "sha256": "6eeca2384a773966f5b505db4887a6120883598496d525b9178b5bd8cefba67b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_20.png",
+      "width": 68,
+      "height": 46,
+      "texture_px": [
+        68,
+        46
+      ],
+      "offset": 1147153,
+      "length": 3128,
+      "trim_origin_top_left_px": [
+        32,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11.416996002197266
+      ],
+      "sha256": "c4767a419d280a10d70c8d8bc7f8c8dc3b255fc24593efed1797d667c7c8f542",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_21.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 1150281,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        32,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11.416996002197266
+      ],
+      "sha256": "ed6f5be57178543e4dcf592e05e20619cde37d49e84f8da08481f11f22dfeb2b",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_22.png",
+      "width": 68,
+      "height": 45,
+      "texture_px": [
+        68,
+        45
+      ],
+      "offset": 1153341,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        32,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        11.416996002197266
+      ],
+      "sha256": "e9daf22779c54ba8d45c1d858b0933fe5b3959d42bfd9ca64daba35c27dcea2f",
+      "empty": false
+    },
+    {
+      "atlas": "BearGuardianClaw.atlas",
+      "name": "attack_wsw_23.png",
+      "width": 69,
+      "height": 45,
+      "texture_px": [
+        69,
+        45
+      ],
+      "offset": 1156401,
+      "length": 3105,
+      "trim_origin_top_left_px": [
+        31,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        11.416996002197266
+      ],
+      "sha256": "e801ead3c4db7a37aec7011eb606941cbcc368d20e2ca8709c89d1f682ba8b04",
+      "empty": false
+    }
+  ],
+  "source_authority": "Bear_Claw_Animated.blend, October 8, 2026"
+}

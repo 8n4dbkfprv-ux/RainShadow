@@ -39,7 +39,8 @@ Tactical pause freezes the motion and poses together. The turn stays locked
 until recovery finishes. Chain explosions choose one reaction per survivor.
 
 These falls are cosmetic recovery; no extra prone status, action charge or
-damage is introduced. Knocked-out actors retain the existing removal behavior.
+damage is introduced. Knocked-out actors now use the collapse and held ground pose
+documented in `CombatDefeatOct08.md`.
 Bear form retains its own hit clip while using the new displacement trajectory.
 
 ## Art authority

@@ -969,14 +969,19 @@ class BaseGameScene: SKScene {
         if presented { present() } else { hideOverlay(overlay) }
     }
 
+    var inventoryBearForm: BearFormReadout? { nil }
+    var inventoryCurrentHealth: Int { context.session.currentHealth }
+    var inventoryMaximumHealth: Int { context.session.maximumHealth }
+
     func setInventoryPresented(_ presented: Bool) {
         setOverlay(.inventory, presented: presented, refreshesWhenAlreadyPresented: true) {
             inventoryOverlay.present(
                 walletPence: context.session.walletPence,
                 inventory: context.session.characterInventory,
                 catalog: context.session.itemCatalog,
-                currentHealth: context.session.currentHealth,
-                maximumHealth: context.session.maximumHealth
+                currentHealth: inventoryCurrentHealth,
+                maximumHealth: inventoryMaximumHealth,
+                bearForm: inventoryBearForm
             )
         }
     }
@@ -1170,8 +1175,9 @@ class BaseGameScene: SKScene {
             walletPence: context.session.walletPence,
             inventory: context.session.characterInventory,
             catalog: context.session.itemCatalog,
-            currentHealth: context.session.currentHealth,
-            maximumHealth: context.session.maximumHealth
+            currentHealth: inventoryCurrentHealth,
+            maximumHealth: inventoryMaximumHealth,
+            bearForm: inventoryBearForm
         )
         syncDetectiveEncumbrance()
     }
