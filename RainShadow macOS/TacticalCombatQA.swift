@@ -125,6 +125,11 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_INITIATIVE_ONLY"] == "1" {
+                checks += try CombatInitiativeQA.run(in: view, output: output)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT_INVENTORY_ONLY"] == "1" {
                 let director = scene.combatDirector!
                 scene.handleInventoryInput()

@@ -10,8 +10,7 @@ final class TacticalCombatDirector {
     private let completion: () -> Void
     private(set) var combat: TacticalCombat
     private let hud = SKNode()
-    private let header = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-    private let order = SKLabelNode(fontNamed: "AvenirNext-Medium")
+    let initiativeBar = CombatInitiativeBar()
     private let message = SKLabelNode(fontNamed: "AvenirNext-Medium")
     private let history = SKLabelNode(fontNamed: "AvenirNext-Regular")
     private let panel = SKShapeNode()
@@ -121,7 +120,9 @@ final class TacticalCombatDirector {
             shape.strokeColor = SKColor(red: 0.55, green: 0.45, blue: 0.28, alpha: 1)
             hud.addChild(shape)
         }
-        for label in [header, order, message, history] {
+        turnPanel.fillColor = .clear; turnPanel.strokeColor = .clear
+        hud.addChild(initiativeBar)
+        for label in [message, history] {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
@@ -198,14 +199,14 @@ final class TacticalCombatDirector {
         let height: CGFloat = 140 + CGFloat(rows) * 48
         panel.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -height / 2, width: width, height: height), cornerWidth: 8, cornerHeight: 8, transform: nil)
         panel.position.y = -scene.size.height / 2 + height / 2 + 24
-        turnPanel.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -30, width: width, height: 60), cornerWidth: 8, cornerHeight: 8, transform: nil)
-        turnPanel.position.y = scene.size.height / 2 - 48
-        header.position.y = turnPanel.position.y + 11
-        order.position.y = turnPanel.position.y - 13
+        turnPanel.path = CGPath(rect: CGRect(x: -width / 2, y: -72, width: width, height: 138), transform: nil)
+        turnPanel.position.y = scene.size.height / 2 - 78
+        initiativeBar.position = turnPanel.position
+        initiativeBar.layout(width: width)
         message.position.y = panel.position.y + height / 2 - (width < 660 ? 40 : 22)
         history.position.y = panel.position.y + height / 2 - (width < 660 ? 104 : 51)
-        header.fontSize = 17; order.fontSize = 13; message.fontSize = 14; history.fontSize = 12
-        for label in [message, history, order] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
+        message.fontSize = 14; history.fontSize = 12
+        for label in [message, history] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
         message.numberOfLines = width < 660 ? 4 : 2
         for (i, button) in visible.enumerated() {
             let spacing = min(158, (width - 20) / CGFloat(columns))
@@ -222,8 +223,7 @@ final class TacticalCombatDirector {
     private func refresh() {
         if laidOutBearForm != combat.isBear { layout() }
         let shown = presentedCombat
-        header.text = "ROUND \(shown.round)  •  \(shown.current.name.uppercased())\(scene.pause.isPausedByPlayer ? " — PAUSED [Space]" : "")"
-        order.text = shown.actors.filter(\.conscious).map { "\($0.id == shown.current.id ? "▶ " : "")\($0.name) \($0.initiative)" }.joined(separator: "   →   ")
+        initiativeBar.update(combat: shown, paused: scene.pause.isPausedByPlayer)
         let move = Int(combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) / 8)
         message.text = combat.isPlayerTurn
             ? "\(feedback)  |  Strike: \(combat.budget.canAttack ? "ready" : "spent") • Move: \(move) ft"

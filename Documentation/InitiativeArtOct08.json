@@ -1,0 +1,15 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "path": "RainShadow Shared/Resources/Art/UI/HUD/initiative_portrait_frame_v01.png",
+      "transparent_background": true,
+      "prompt": "Use case: ui-mockup. Asset type: production game UI portrait frame, a single reusable raster asset for an initiative tracker in a dark fantasy RPG. Create ONE straight-on square empty portrait frame, centred, on a genuinely transparent background with fully transparent square interior. A restrained aged bronze and dark iron rim, fine engraved medieval corner details, lightly worn hand-painted metal, warm gold edge highlights. Outer frame occupies 90% of square canvas; the central transparent aperture occupies 76% of canvas, perfectly square. All four edges straight and symmetrical, narrow robust readable border at small screen sizes. No portrait, no scene, no lettering, no numbers, no icons, no drop shadow outside frame, no extra objects. This is frame artwork only; the game will add live portraits, team colour outlines and active-turn markers."
+    },
+    {
+      "path": "RainShadow Shared/Resources/Art/UI/HUD/initiative_dockhand_portrait_v01.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Asset type: square in-game portrait for a dockside enemy in a dark fantasy RPG initiative tracker, realistic painterly portrait. Close head and shoulders of a rugged young adult male dockhand, tousled short brown hair, clean shaven, pale weathered skin, wearing a plain off-white medieval linen tunic with a loose collar. Alert stern expression, looking slightly left of camera. Face is large and readable even as a 64 pixel game icon, crown of head and shoulders within canvas. Muted warm oil-paint rendering, natural anatomy, soft side lighting, very dark neutral brown background. No border, no text, no weapon in front of face, no modern clothing, no logos. This is one reusable portrait for the game's human dockhand enemy archetype."
+    }
+  ]
+}

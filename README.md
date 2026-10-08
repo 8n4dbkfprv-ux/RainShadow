@@ -25,6 +25,18 @@ move, click an opponent to strike, and use Defend, End Turn or Yield. See the
 [TemplePlus combat integration](Documentation/TemplePlusCombatOct06.md) for scope
 and verification.
 
+Combat turn order appears as a portrait initiative bar. Blue borders identify
+Voss, red borders identify enemies, and a gold marker identifies the active
+turn. Completed turns dim until the next round; defeated combatants leave the
+bar. Portraits show rolled initiative, health and current conditions, and Voss's
+portrait changes with Bear Form. The bar uses the presented combat state so
+damage and defeats appear at the animation's impact marker.
+The initiative UI playtest runs with `RAINSHADOW_QA_INITIATIVE_ONLY=1` alongside
+`RAINSHADOW_QA_COMBAT=<output-directory>`.
+Frame and dockhand portrait artwork were created with the built-in image
+generator; [exact prompts and installed paths](Documentation/InitiativeArtOct08.json)
+are recorded alongside the code. Voss and bear portraits reuse their existing art.
+
 ## Verification
 
 During combat, press **I** or click the inventory/character button or portrait
