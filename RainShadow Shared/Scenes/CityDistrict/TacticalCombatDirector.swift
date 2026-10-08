@@ -19,7 +19,7 @@ final class TacticalCombatDirector {
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
     private var activeButtons: [SKShapeNode] {
-        combat.isBear ? [14, 15, 3, 0, 11, 1, 2].map { buttons[$0] } : Array(buttons.prefix(14))
+        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : Array(buttons.prefix(14))
     }
     private let routePreview = SKShapeNode()
     private let sightPreview = SKNode()
@@ -78,18 +78,28 @@ final class TacticalCombatDirector {
     var roarSoundIsPlaying: Bool { roarSound?.isPlaying == true }
     private var playerBowNode: CharacterAppearanceNode?
     private var playerMeleeNode: CharacterAppearanceNode?
+    struct WardCast {
+        let before: TacticalCombat
+        let node: CharacterAppearanceNode
+        let facing: ActorFacing
+        var elapsed = 0.0
+        var impactPresented = false
+    }
+    private(set) var wardCast: WardCast?
+    private(set) var wardEffects: [String: BladeWardVisual] = [:]
     private(set) var barrelNodes: [String: CombatBarrelVisual] = [:]
     private(set) var knockbacks: [TacticalCombat.Displacement] = []
     private(set) var knockbackElapsed: TimeInterval = 0
     private(set) var blasts: [BarrelBlastVisual] = []
     var presentedCombat: TacticalCombat {
-        bearAbility.flatMap { $0.impactPresented ? nil : $0.before }
+        wardCast.flatMap { $0.impactPresented ? nil : $0.before }
+            ?? bearAbility.flatMap { $0.impactPresented ? nil : $0.before }
             ?? shovePresentation.flatMap { $0.impactPresented ? nil : $0.before }
             ?? meleeAttack.flatMap { $0.impactPresented ? nil : $0.before }
             ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat
     }
     private(set) var meleeAttack: MeleeAttackPresentation?
-    func isStriking(_ id: String) -> Bool { bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
+    func isStriking(_ id: String) -> Bool { wardCast?.before.current.id == id || bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
     func isShooting(_ id: String) -> Bool { rangedShot?.actor.definition.id == id }
     private(set) var bearNode: CharacterAppearanceNode?
@@ -108,7 +118,7 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
@@ -126,7 +136,7 @@ final class TacticalCombatDirector {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
-        let commands = [("combat.defend", "Defend [1]"), ("combat.end", "End turn [Enter]"), ("combat.yield", "Yield [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
+        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.yield", "Yield [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
         for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]")] {
             let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
@@ -230,6 +240,7 @@ final class TacticalCombatDirector {
             : "\(combat.current.name) is taking their turn…"
         history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
+        buttons[0].alpha = combat.isPlayerTurn && !busy && combat.canCastBladeWard ? 1 : 0.35
         (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
         for (index, maneuver) in CombatManeuver.allCases.enumerated() {
@@ -256,7 +267,7 @@ final class TacticalCombatDirector {
         (buttons[15].children.first as? SKLabelNode)?.text = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading roar [6]"
         for actor in shown.actors {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
-            badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.defending ? " +4" : "")"
+            badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.hasBladeWard ? " · Ward \(actor.bladeWardTurns!)t" : "")"
             if actor.player, shown.isBear, let form = shown.bearForm {
                 badges[actor.id]?.text = "Bear Health: \(form.temporaryHP)/\(BearFormRules.maximumEndurance) • \(form.turnsRemaining)t"
             }
@@ -350,8 +361,8 @@ final class TacticalCombatDirector {
         if digit != 5 { aimingFireArrow = false; routePreview.path = nil }
         switch digit {
         case 1:
-            if combat.defend() { feedback = "Guard raised. Move or end your turn."; checkpoint() }
-            else { feedback = "No standard action remains."; refresh() }
+            if combat.canCastBladeWard { castBladeWard() }
+            else { feedback = "Blade Ward needs a standard action in human form."; refresh() }
         case 2:
             endCombatTurn(); delay = 0.5; feedback = "Click ground to move • Click a rival to strike"; checkpoint()
         case 3:
@@ -563,6 +574,58 @@ final class TacticalCombatDirector {
         for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
             decoration?.removeFromParent()
             if let decoration { node.addChild(decoration) }
+        }
+    }
+    private func castBladeWard() {
+        guard combat.canCastBladeWard, let node = meleeActor(for: combat.current) else { return }
+        let before = combat
+        let facing = scene.detective.currentFacing
+        do { try node.present(action: .ward, facing: facing, phase: 0) }
+        catch { feedback = "Blade Ward artwork could not load."; refresh(); return }
+        guard combat.castBladeWard() else { return }
+        cancelTargeting()
+        beginMeleePresentation(before.current, node: node)
+        wardCast = WardCast(before: before, node: node, facing: facing)
+        feedback = "Casting Blade Ward…"
+        checkpoint(synchronize: false)
+    }
+    private func updateWardCast(delta: Double) {
+        guard var cast = wardCast else { return }
+        cast.elapsed += delta
+        try? cast.node.present(action: .ward, facing: cast.facing,
+                               phase: BladeWardAnimationSet.phase(elapsed: cast.elapsed))
+        if cast.elapsed >= BladeWardAnimationSet.impactTime { cast.impactPresented = true }
+        if cast.elapsed >= BladeWardAnimationSet.duration {
+            cast.node.isHidden = true
+            scene.detective.isHidden = false
+            for decoration in [badges[cast.before.current.id], rings[cast.before.current.id]] as [SKNode?] {
+                decoration?.removeFromParent()
+                if let decoration { scene.detective.addChild(decoration) }
+            }
+            wardCast = nil
+            feedback = "Blade Ward: half physical damage for two turns. Move or end your turn."
+            checkpoint()
+        } else { wardCast = cast }
+    }
+    private func updateWards(delta: Double) {
+        let shown = presentedCombat
+        let castingID = wardCast?.before.current.id
+        let protected = Set(shown.actors.filter { $0.hasBladeWard || $0.id == castingID }.map(\.id))
+        for id in Array(wardEffects.keys) where !protected.contains(id) {
+            wardEffects.removeValue(forKey: id)?.removeFromParent()
+        }
+        for actor in shown.actors where protected.contains(actor.id) {
+            let effect: BladeWardVisual
+            if let existing = wardEffects[actor.id] { effect = existing }
+            else {
+                effect = BladeWardVisual(); scene.depthWorldRoot.addChild(effect)
+                wardEffects[actor.id] = effect
+            }
+            let body = actor.id == castingID ? wardCast?.node : actorNode(actor.id)
+            effect.position = body?.position ?? actor.position
+            scene.updateDepth(of: effect); effect.zPosition += 0.5
+            effect.advance(delta: delta, castTime: actor.id == castingID ? wardCast?.elapsed : nil,
+                           bear: actor.player && shown.isBear)
         }
     }
     private func meleeActor(for actor: Combatant) -> CharacterAppearanceNode? {
@@ -829,9 +892,10 @@ final class TacticalCombatDirector {
     }
 
     private func presentImpact(_ result: TacticalCombat.Strike, target: Combatant, reacts: Bool = true) {
-        if reacts && result.damage > 0 && !result.knockedOut { beginReaction(result, target: target, kind: result.maneuver == .tripAttack ? .tripFall : .hit) }
+        if result.wardAbsorbed > 0 { wardEffects[target.id]?.struck() }
+        if reacts && result.landed && !result.knockedOut { beginReaction(result, target: target, kind: result.maneuver == .tripAttack ? .tripFall : .hit) }
         // Immediate bear attacks have no human wind-up presentation to anticipate.
-        if reacts && result.damage == 0 && hitReactions[target.id] == nil { beginReaction(result, target: target, kind: .dodge) }
+        if reacts && !result.landed && hitReactions[target.id] == nil { beginReaction(result, target: target, kind: .dodge) }
         // Accepted damage is revealed by the action presentation at its hit marker.
         let effect = SKShapeNode(ellipseOf: CGSize(width: 52, height: 38))
         effect.position = CGPoint(x: target.position.x, y: target.position.y + (target.isProne || result.maneuver == .tripAttack ? 20 : 45))
@@ -839,8 +903,8 @@ final class TacticalCombatDirector {
         scene.depthWorldRoot.addChild(effect)
         effect.run(.sequence([.group([.scale(to: 1.8, duration: 0.3), .fadeOut(withDuration: 0.4)]), .removeFromParent()]))
         let number = SKLabelNode(fontNamed: "AvenirNext-Bold")
-        number.text = result.damage > 0 ? "−\(result.damage)" : "MISS"
-        if result.damage > 0, !result.knockedOut {
+        number.text = result.landed ? (result.damage > 0 ? "−\(result.damage)" : "WARDED") : "MISS"
+        if result.landed, !result.knockedOut {
             if result.fireArrow { number.text! += " · Burning" }
             if result.maneuver == .feintingCut { number.text! += " · Weakened" }
             if result.maneuver == .pinningShot { number.text! += " · Slowed" }
@@ -1231,7 +1295,7 @@ final class TacticalCombatDirector {
         blasts.removeAll(where: \.finished)
         if let attack = meleeAttack {
             attack.advance(delta: delta)
-            if !attack.dodgePresented, attack.barrelDestruction == nil, attack.result.damage == 0,
+            if !attack.dodgePresented, attack.barrelDestruction == nil, !attack.result.landed,
                attack.elapsed >= attack.impactTime - CombatRecoil.dodgeLeadTime {
                 attack.dodgePresented = true
                 beginReaction(attack.result, target: attack.target, kind: .dodge,
@@ -1264,7 +1328,7 @@ final class TacticalCombatDirector {
         }
         if let shot = rangedShot {
             shot.advance(delta: delta)
-            if !shot.dodgePresented, shot.explosions.isEmpty, shot.result.damage == 0,
+            if !shot.dodgePresented, shot.explosions.isEmpty, !shot.result.landed,
                shot.elapsed >= shot.impactTime - CombatRecoil.dodgeLeadTime {
                 shot.dodgePresented = true
                 beginReaction(shot.result, target: shot.target, kind: .dodge,
@@ -1333,10 +1397,12 @@ final class TacticalCombatDirector {
             enemyMover = mover
             if !mover.isMoving { movementCompleted() }
         }
+        updateWardCast(delta: delta)
+        updateWards(delta: delta)
         updateStealth(delta: delta)
         updateDefeats(delta: delta)
         updateBurning(delta: delta)
-        guard bearAbility == nil, bearAction == nil, shovePresentation == nil, !defeatsAnimating, hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, !reactionsAnimating else { return }
+        guard wardCast == nil, bearAbility == nil, bearAction == nil, shovePresentation == nil, !defeatsAnimating, hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, !reactionsAnimating else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
@@ -1388,6 +1454,7 @@ final class TacticalCombatDirector {
         if let profile = preSneakMovementProfile { scene.detective.movementProfile = profile; preSneakMovementProfile = nil }
         stealthNodes.values.forEach { $0.removeFromParent() }; stealthNodes.removeAll(); hideTransitions.removeAll()
         burningNodes.values.forEach { $0.removeFromParent() }; burningNodes.removeAll()
+        wardEffects.values.forEach { $0.removeFromParent() }; wardEffects.removeAll(); wardCast = nil
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
@@ -1446,7 +1513,7 @@ final class TacticalCombatDirector {
     private func updateBearAbility(delta: Double) {
         guard var ability = bearAbility else { return }
         ability.elapsed += delta
-        if let strike = ability.strike, strike.damage == 0,
+        if let strike = ability.strike, !strike.landed,
            ability.elapsed >= ability.impactTime - CombatRecoil.dodgeLeadTime,
            hitReactions[strike.target] == nil, !ability.impactPresented {
             beginReaction(strike, target: ability.targets[0], kind: .dodge,

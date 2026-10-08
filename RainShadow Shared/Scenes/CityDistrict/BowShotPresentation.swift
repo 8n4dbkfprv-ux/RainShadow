@@ -35,7 +35,7 @@ final class BowShotPresentation {
             ? WeaponTechniqueAnimationSet.pinningMuzzle(facing: facing) : BowAttackAnimationSet.muzzleOffset(facing: facing)
         origin = CGPoint(x: actor.position.x + offset.x,
                          y: actor.position.y + offset.y + actor.visualHeightOffset)
-        destination = CGPoint(x: target.position.x + (result.damage == 0 ? 22 : 0),
+        destination = CGPoint(x: target.position.x + (!result.landed ? 22 : 0),
                               y: target.position.y + (target.isProne ? 15 : result.maneuver == .pinningShot ? 15 : targetHeight))
         releaseTime = StealthAnimationSet.usesAttack(result) ? StealthAnimationSet.bowRelease : WeaponTechniqueMotion.bowRelease(result.maneuver)
         impactTime = releaseTime + BowAttackRules.flightDuration(from: actor.position, to: target.position)
@@ -58,7 +58,7 @@ final class BowShotPresentation {
         let next = BowAttackRules.arrowPosition(from: origin, to: destination, progress: min(1, progress + 0.01))
         arrow.zRotation = atan2(next.y - arrow.position.y, next.x - arrow.position.x)
         fire.sample(time: elapsed, release: releaseTime, impact: impactTime,
-                    origin: origin, destination: destination, burst: result.fireArrow && result.damage > 0)
+                    origin: origin, destination: destination, burst: result.fireArrow && result.landed)
     }
     private func present(phase: Int) {
         if isSneakAttack { try? actor.presentStealth(.sneakshoot, facing: facing, phase: phase) }

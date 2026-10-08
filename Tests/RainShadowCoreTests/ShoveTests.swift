@@ -74,7 +74,7 @@ struct ShoveTests {
         #expect(old.isValid && old.canShove && old.physique(of: old.current) == .voss)
     }
     @Test func shoveStillWorksAfterTheStandardActionWasSpent() throws {
-        var game = fight(); _ = game.defend()
+        var game = fight(); _ = game.castBladeWard()
         #expect(!game.budget.canAttack && game.canShove)
         let result = game.shove(target: "crew", clearLine: true, destination: end)
         #expect(result != nil && !game.budget.canAttack)

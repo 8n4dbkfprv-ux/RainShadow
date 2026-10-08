@@ -71,7 +71,7 @@ struct BurningCombatTests {
         _ = combat.endTurn(); _ = combat.endTurn()
         #expect(combat.current.hp == 40)
         var spent = fight(playerBurn: 2)
-        #expect({ spent.defend() }())
+        #expect({ spent.castBladeWard() }())
         let before = spent
         #expect({ !spent.extinguish() }()); #expect(spent == before)
         var blocked = fight()

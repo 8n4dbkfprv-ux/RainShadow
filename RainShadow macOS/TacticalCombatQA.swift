@@ -125,6 +125,11 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BLADE_WARD_ONLY"] == "1" {
+                checks += try await BladeWardQA.run(in: view, output: output, initial: beforeChromeClick)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_INITIATIVE_ONLY"] == "1" {
                 checks += try CombatInitiativeQA.run(in: view, output: output)
                 try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
@@ -1424,10 +1429,11 @@ import SpriteKit
             try check(scene.combatDirector!.combat == beforeChromeClick && !scene.combatDirector!.busy,
                       "Sidebar clicks cannot issue ground movement")
             scene.handleDialogueChoiceDigit(1)
-            try check(scene.combatDirector!.combat.current.defending, "Defend spends a standard action and raises guard")
+            try check(scene.combatDirector!.combat.current.hasBladeWard, "Blade Ward spends a standard action and grants resistance")
             let savedGuard = scene.combatDirector!.combat
             let reloadSession = GameSession(saveStore: store)
             try check(reloadSession.tacticalCombat == savedGuard, "SaveStore persists complete tactical state")
+            try await wait { scene.combatDirector?.busy == false }
             scene.handleConfirmInput()
             scene.handleTacticalPauseInput()
             let paused = scene.combatDirector!.combat

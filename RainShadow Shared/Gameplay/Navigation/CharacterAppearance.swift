@@ -47,6 +47,9 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
         case .attack:
             guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
             return MeleeAttackAnimationSet.frames
+        case .ward:
+            guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
+            return BladeWardAnimationSet.frames
         case .shove:
             guard self == .humanMale01 else { throw CharacterAppearanceError.unsupportedAction(self, action) }
             return ShoveAnimationSet.frames
@@ -67,7 +70,7 @@ enum CharacterBodyCode: String, Codable, CaseIterable, Sendable {
 }
 
 enum CharacterVisualAction: String, Codable, Sendable {
-    case idle, walk, attack, hit, die, shoot, shove
+    case idle, walk, attack, hit, die, shoot, shove, ward
     case seatedIdle = "seated_idle"
     case revert, roar
     case standUp = "stand_up"

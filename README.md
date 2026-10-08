@@ -21,7 +21,7 @@ Voss uses the current Baldur’s Gate reference character in every area, includi
 Playable nonlethal Wharf Ladder combat is available through normal city travel.
 For direct access, open [Play Combat.command](Play%20Combat.command); it uses a
 separate persistent save at the shipping-office entrance. Click the ground to
-move, click an opponent to strike, and use Defend, End Turn or Yield. See the
+move, click an opponent to strike, and use Blade Ward, End Turn or Yield. See the
 [TemplePlus combat integration](Documentation/TemplePlusCombatOct06.md) for scope
 and verification.
 
@@ -36,6 +36,13 @@ The initiative UI playtest runs with `RAINSHADOW_QA_INITIATIVE_ONLY=1` alongside
 Frame and dockhand portrait artwork were created with the built-in image
 generator; [exact prompts and installed paths](Documentation/InitiativeArtOct08.json)
 are recorded alongside the code. Voss and bear portraits reuse their existing art.
+
+Blade Ward replaces Defend: **1** casts the protective cantrip for one standard
+action. It halves incoming physical attack damage (rounded down) until the start
+of the caster's second following turn. Burning and barrel fire damage are unchanged.
+The hand gesture forms a ward at its midpoint; the persistent shimmer flashes on
+blocked hits, pauses with combat/inventory, and ends with the condition. A ward
+can carry into Bear Form, but the bear cannot cast it. Existing saves remain readable.
 
 ## Verification
 

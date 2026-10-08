@@ -67,23 +67,23 @@ struct TacticalCombatTests {
         #expect(result53)
         #expect(combat == after)
     }
-    @Test func guardExpiresOnOwnNextTurnAndBudgetResets() {
+    @Test func bladeWardPersistsThroughTheNextTurnAndBudgetResets() {
         var combat = fight()
-        let result58 = combat.defend()
+        let result58 = combat.castBladeWard()
         #expect(result58)
-        #expect(combat.current.defending)
+        #expect(combat.current.bladeWardTurns == 2)
         #expect(!combat.budget.canAttack)
         let result61 = combat.endTurn()
         #expect(result61)
-        #expect(combat.actors.first(where: \.player)!.defending)
+        #expect(combat.actors.first(where: \.player)!.bladeWardTurns == 2)
         let result63 = combat.endTurn()
         #expect(result63)
         #expect(combat.round == 2)
-        #expect(!combat.current.defending && combat.budget.state == 4)
+        #expect(combat.current.bladeWardTurns == 1 && combat.budget.state == 4)
     }
     @Test func checkpointPreservesNextRollAndOlderSavesHaveNoCombat() throws {
         var combat = fight()
-        let result69 = combat.defend()
+        let result69 = combat.castBladeWard()
         #expect(result69)
         _ = combat.endTurn()
         let snapshot = SaveSnapshot(tacticalCombat: try JSONEncoder().encode(combat))
@@ -122,7 +122,7 @@ struct TacticalCombatTests {
         var combat = fight()
         combat.yield()
         #expect(combat.outcome == .lost && combat.isValid)
-        let result102 = !combat.defend()
+        let result102 = !combat.castBladeWard()
         #expect(result102)
     }
     @Test func rasterWallBlocksMeleeAndMovementCostUsesGroundProjection() {

@@ -52,7 +52,7 @@ final class CombatInitiativeBar: SKNode {
             guard actor.conscious else { return nil }
             let bear = actor.player && combat.isBear
             let status = [actor.conditions?.label, actor.isBurning ? "Burning" : nil,
-                          actor.hidden == true ? "Hidden" : nil, actor.defending ? "Guard" : nil]
+                          actor.hidden == true ? "Hidden" : nil, actor.hasBladeWard ? "Ward \(actor.bladeWardTurns!)t" : nil]
                 .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " · ")
             return Entry(id: actor.id, name: actor.name, initiative: actor.initiative,
                          allied: actor.player, active: actor.id == combat.current.id,

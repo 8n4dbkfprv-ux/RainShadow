@@ -195,3 +195,57 @@ save/reload. Melee impact, bow impact, blocked Hide and movement-exposure
 captures were visually reviewed. iOS was compiled, not interactively exercised.
 The existing player/enemy weapon-technique playtest also passed all 160 checks
 in `output/sneak-technique-regression-qa/report.json` after the change.
+
+## October 8 — Blade Ward replaces Defend
+
+The human action bar and key **1** now cast Blade Ward for one standard action.
+The previous +4 defence action is removed. Inspired by
+[BG3 Blade Ward](https://bg3.wiki/wiki/Blade_Ward), the spell halves physical
+attack damage, rounded down, including weapon techniques, Sneak Attack, arrows
+and claws. Fire-arrow impact is physical; subsequent burning and barrel
+explosions are fire and bypass the ward. A one-point physical hit becomes zero
+damage and displays `WARDED`, with a hit/ward reaction rather than a dodge.
+
+Duration is stored separately from turn-cleared weapon conditions: two turns
+at cast, one at the next caster turn, removed at the start of the following
+caster turn. Recasting refreshes two turns without stacking. Casting reveals a
+hidden caster. The spell is granted directly to Voss in this prototype, without
+a class-selection or spell-learning system. It cannot be cast in Bear Form;
+an existing ward remains during transformation. This is a scoped adaptation,
+not a complete BG3 spell system.
+
+`bladeWardTurns` is optional in checkpoints. Old `defending` values remain
+readable but no longer grant armour. The accepted cast is saved once; its UI
+status remains on the prior presented state until the half-second cast marker.
+Reload restores the ward without replaying the casting action.
+
+The new 16-frame, 16-fps casting action draws the free palm inward, traces
+outward, holds and recovers with planted feet. It has all 16 facings and matching
+sword, mail and helmet layers. Bow/arrow layers are stowed during the gesture.
+The actor, head, proportions, mesh, weights and skeleton are unchanged.
+Authored through live Blender MCP in a private scene copied from the reviewed
+human rig; incremental backup and reproduction scripts live in
+`ArtSource/Blender/BladeWardOct08/`. The source action is
+`BladeWard_Authored.blend`; `author_ward.py` and `render_mcp_source.py` reproduce
+poses/rendering, and `ArtSource/Processing/package_human_ward.py` packages them.
+The four additive `HumanBladeWard*` bundles retain the original palette and
+pivot; `BladeWardAnimationSet` pins their hashes. Approved VossCHMF and bear
+payloads remain unchanged.
+
+`BladeWardVisual` uses the director's pause-aware clock for formation, rising
+particles, persistent shimmer and blocked-hit flash. It follows the protected
+actor, changes size with Bear Form, and disappears on expiry or defeat.
+
+Validation: 68 tests across seven combat suites passed. All 1,280 render jobs
+completed, body/material masks overlap exactly, all facings contain at least
+13 distinct poses, and rest endpoints match. Both macOS Debug and iOS Simulator
+Debug builds passed; all four shipped bundle hashes match in both builds.
+The live ward playtest passed 22 checks, including casting/impact timing,
+pause, inventory, damage reduction, expiry and save/reload. Casting and hit
+captures were reviewed visually. iOS was build-tested only.
+Run with `RAINSHADOW_QA_BLADE_WARD_ONLY=1` and
+`RAINSHADOW_QA_COMBAT=<output-directory>`.
+Report/captures: `output/blade-ward-oct08/`; animation preview:
+`output/blade-ward-oct08/cast-animation.gif`.
+The bear-form regression playtest also passed all 110 checks with its updated
+action bar; report: `output/blade-ward-bear-oct08/report.json`.

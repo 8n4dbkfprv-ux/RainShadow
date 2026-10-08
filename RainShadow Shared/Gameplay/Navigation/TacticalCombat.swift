@@ -95,7 +95,10 @@ struct Combatant: Codable, Equatable {
     var initiative = 0
     var speed: Double = 240
     var rangedWeapon: CombatRangedWeapon? = nil
+    /// Legacy checkpoint field. Defend has been replaced by Blade Ward.
     var defending = false
+    var bladeWardTurns: Int? = nil
+    var hasBladeWard: Bool { conscious && (bladeWardTurns ?? 0) > 0 }
     // Optional fields keep checkpoints from before weapon techniques readable.
     var usedManeuvers: [CombatManeuver]? = nil
     var conditions: CombatConditions? = nil
@@ -184,6 +187,7 @@ struct TacticalCombat: Codable, Equatable {
             && $0.hp >= 0 && $0.hp <= $0.maximumHP && $0.speed.isFinite && $0.speed >= 0
             && Set($0.usedManeuvers ?? []).count == ($0.usedManeuvers ?? []).count
             && ($0.burningTurns.map { (1...2).contains($0) } ?? true)
+            && ($0.bladeWardTurns.map { (1...2).contains($0) } ?? true)
             && ($0.shoveProfile?.isValid ?? true)
             && ($0.conditions?.goadedBy == nil || ($0.conditions?.goadedBy == Self.playerID && !$0.player && isBear))
             && (0...6).contains($0.sneakDamageDice)
@@ -234,6 +238,10 @@ struct TacticalCombat: Codable, Equatable {
             if turn == 0 { round += 1 }
         } while !current.conscious
         actors[turn].defending = false
+        if let turns = current.bladeWardTurns {
+            actors[turn].bladeWardTurns = turns > 1 ? turns - 1 : nil
+            if !current.hasBladeWard { note("\(current.name)'s Blade Ward fades.") }
+        }
         actors[turn].hideUsed = nil
         actors[turn].shoveSpent = nil
         budget = CombatBudget()
@@ -312,10 +320,16 @@ struct TacticalCombat: Codable, Equatable {
         note("\(current.name) extinguishes the flames (standard action).")
         return true
     }
-    @discardableResult mutating func defend() -> Bool {
-        guard outcome == nil, budget.spend(2) else { return false }
-        actors[turn].defending = true
-        note("\(current.name) guards: +4 defence until their next turn.")
+    var canCastBladeWard: Bool {
+        outcome == nil && current.conscious && !current.isProne
+            && !(current.player && isBear) && budget.canAttack
+    }
+    @discardableResult mutating func castBladeWard() -> Bool {
+        guard canCastBladeWard, budget.spend(2) else { return false }
+        actors[turn].bladeWardTurns = 2
+        actors[turn].defending = false
+        reveal(current.id)
+        note("\(current.name) casts Blade Ward: physical damage halved for two turns.")
         return true
     }
     /// The caller supplies a route certified by CombatNavigation/SearchMap.
@@ -396,6 +410,9 @@ struct TacticalCombat: Codable, Equatable {
         var requestedSneakAttack = false
         var attackRolls: [Int] = []
         var fireArrow = false
+        var wardAbsorbed = 0
+        /// A fully resisted one-point hit must not play a miss or dodge.
+        var landed: Bool { damage > 0 || wardAbsorbed > 0 }
     }
     struct BarrelExplosion: Equatable {
         let barrel: CombatBarrel
@@ -576,7 +593,7 @@ struct TacticalCombat: Codable, Equatable {
             - (actor.conditions?.weakened == true ? 3 : 0)
     }
     func defence(for actor: Combatant) -> Int {
-        (actor.player && isBear ? BearFormRules.defence : actor.defence) + (actor.defending ? 4 : 0)
+        actor.player && isBear ? BearFormRules.defence : actor.defence
     }
     /// Deterministic choices use visible conditions, never future rolls.
     /// The director checks range/terrain before requesting a technique.
@@ -646,6 +663,8 @@ struct TacticalCombat: Codable, Equatable {
             for _ in 0..<(current.sneakDamageDice * (die == 20 ? 2 : 1)) { sneakDamage += roll(6) }
             damage += sneakDamage; actors[turn].sneakSpent = true
         }
+        let wardAbsorbed = actors[target].hasBladeWard ? damage - damage / 2 : 0
+        damage -= wardAbsorbed
         if hit { reveal(actors[target].id) }
         var injury = damage
         if actors[target].player, isBear {
@@ -678,10 +697,11 @@ struct TacticalCombat: Codable, Equatable {
         }
         if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,
-                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow)
+                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed)
         note("\(current.name)\(maneuver.map { " — " + $0.title } ?? (ranged ? " fires" : "")): d20 \(die) + \(attackBonus) vs \(defence) — " +
              (hit ? "\(damage) to \(actors[target].name)." : "miss."))
         if sneakDamage > 0 { note("Sneak Attack: +\(sneakDamage) damage\(die == 20 ? " (critical)" : "").") }
+        if wardAbsorbed > 0 { note("Blade Ward prevented \(wardAbsorbed) physical damage.") }
         if edge != 0 { note("\(edge > 0 ? "Advantage" : "Disadvantage"): rolled \(attackRolls[0]) / \(attackRolls[1]), kept \(die).") }
         if hit, !result.knockedOut, maneuver == .feintingCut || maneuver == .pinningShot {
             note("\(actors[target].name): \(maneuver == .feintingCut ? "Weakened (−3 accuracy)" : "Slowed (half movement)") through their next turn.")

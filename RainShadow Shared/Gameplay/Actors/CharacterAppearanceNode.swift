@@ -53,6 +53,8 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let bowShot: IEAvatarFrameLibrary?
         let tripBody: IEAvatarFrameLibrary?
         let tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let wardBody: IEAvatarFrameLibrary?
+        let wardEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let shoveBody: IEAvatarFrameLibrary?
         let shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let defeatBody: IEAvatarFrameLibrary?
@@ -92,6 +94,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             }
             self.equipment = equipment
             var tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var wardEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var defeatEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var stealthEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
@@ -109,6 +112,15 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
                     try TripAnimationSet.validate(layer.sprite, character: name)
                     tripEquipment[item] = layer
+                }
+                let ward = try IEAvatarFrameLibrary.shared(character: BladeWardAnimationSet.body, colors: body.colors)
+                try BladeWardAnimationSet.validate(ward.sprite, character: BladeWardAnimationSet.body)
+                wardBody = ward
+                for (item, base) in equipment where item != .elvenCourtArrow && item != .elvenCourtBow {
+                    let name = BladeWardAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try BladeWardAnimationSet.validate(layer.sprite, character: name)
+                    wardEquipment[item] = layer
                 }
                 let shove = try IEAvatarFrameLibrary.shared(character: ShoveAnimationSet.body, colors: body.colors)
                 try ShoveAnimationSet.validate(shove.sprite, character: ShoveAnimationSet.body)
@@ -179,9 +191,10 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                         techniqueEquipment[item] = technique
                     }
                 }
-            } else { tripReactionBody = nil; tripBody = nil; meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil; defeatBody = nil; shoveBody = nil }
+            } else { tripReactionBody = nil; tripBody = nil; meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil; defeatBody = nil; shoveBody = nil; wardBody = nil }
             self.tripReactionEquipment = tripReactionEquipment
             self.tripEquipment = tripEquipment
+            self.wardEquipment = wardEquipment
             self.shoveEquipment = shoveEquipment
             self.defeatEquipment = defeatEquipment
             self.stealthEquipment = stealthEquipment
@@ -283,6 +296,19 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                         guard let overlay = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
                         overlays[item] = overlay
                     }
+                }
+                return (frame, overlays)
+            }
+            if action == .ward, let library = wardBody {
+                let name = try BladeWardAnimationSet.name(facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: BladeWardAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(BladeWardAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in wardEquipment {
+                    let atlas = BladeWardAnimationSet.equipment(item) + ".atlas"
+                    guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = frame
                 }
                 return (frame, overlays)
             }

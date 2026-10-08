@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanBladeWardHelmet",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "28aa1ccb5965196b47eb051e6d6412e27cdbc6ec550a53b283a13b76ff29a147",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_00.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 16,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "61492485f4babd25cd02214589aee0076899829212687fa32508c62ba7933330",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_01.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 336,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -41
+      ],
+      "sha256": "30d022d2fd644393fa1e615a87ff2b5d05ffbe3d293d694e602b91af2d894a04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_02.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 636,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3dd3ebf0f630df2e9570871b622fe2ade39db21be6db288efbeefdecb8004b22",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_03.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 996,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "02c82fbc55e4323860b8594c18b1517b6a5aa92b22effd62796f789b0f83173d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_04.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1356,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3a3c27992796e842aa80e6fb44d1ebd83f882886107f96124de95312bcf2f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_05.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 1716,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "08a7a015e55806bbdda670c757d3207d685583aa58bd96332b7d6b523d03542c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_06.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 2076,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "c85837292576c7b9c15887a2e552a19175034938a12807db6cde997a5780a054",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_07.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 2436,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3a3c27992796e842aa80e6fb44d1ebd83f882886107f96124de95312bcf2f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_08.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 2796,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3a3c27992796e842aa80e6fb44d1ebd83f882886107f96124de95312bcf2f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_09.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 3156,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3a3c27992796e842aa80e6fb44d1ebd83f882886107f96124de95312bcf2f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_10.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 3516,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "3a3c27992796e842aa80e6fb44d1ebd83f882886107f96124de95312bcf2f6bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_11.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 3876,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "9a6aa690c66db8360037bad62f1a7b62a2b94bfb675b60900354c1a4164c4a1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_12.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 4236,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "75a094addfe16253953f9de4b8d371b330512ccc2a034c2da29e6a5faabf04fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_13.png",
+      "width": 20,
+      "height": 18,
+      "texture_px": [
+        20,
+        18
+      ],
+      "offset": 4596,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "9e30bf35645e73d5fae20d1f749218c9e07ba1786b8b659ac39769ace14e8a70",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_14.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 4956,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -41
+      ],
+      "sha256": "76bfcc36e3e6b6396994689c9838640b9b4d1a4e47087bc599a616c3e7cb6ef6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_s_15.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 5256,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "61492485f4babd25cd02214589aee0076899829212687fa32508c62ba7933330",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5576,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "6906dac91303206b403d1c9c746dacb3299f39b766821772a9194a505521c51f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_01.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5937,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "982b9b48d11f1f2477afe049c8b22faba9ced9f9ff1d705976b0fad9c9dc4080",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_02.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 6298,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "7c1215cd72211d15c0785d6ae1a077c5fb1ad4c409b5783e2cf8cc4e1b4d78b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_03.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 6659,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "4fda82aa502d0cf5f1348143beb214bfa02162a13b284e3b8197ae2166d592e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_04.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 7001,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "86e81af61d681ddb84cf1e4185352730805aa9ec05cec89361d13fb7b9612f53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_05.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 7307,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "86e81af61d681ddb84cf1e4185352730805aa9ec05cec89361d13fb7b9612f53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_06.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 7613,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "90581179eda076ec9fd2ef7a95cf936385549e846b3236126ae3124c1b5ab312",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_07.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 7919,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "65c343b405cb828c32b0d4e4fb538b4fa6e24ced153e4f12761b8d1b9cf765e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_08.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 8225,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "5a70fd0016203e3c5b7fef2d9f4852a8554e89e102ce88c1ba1329426428c177",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_09.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 8531,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "5a70fd0016203e3c5b7fef2d9f4852a8554e89e102ce88c1ba1329426428c177",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_10.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 8837,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "5a70fd0016203e3c5b7fef2d9f4852a8554e89e102ce88c1ba1329426428c177",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_11.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 9143,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "d779ebcd85c96f6af041262a3fa504f198fb55f7e540a19ab4f8bbd5b40109df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_12.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 9485,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "bbbc4f2383355ee43fb85e2a7c5f8a7993e8ac6b5804119bbf7b9bd6b0f90a9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_13.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 9846,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "48b1729b26121f8872c29765cc83e1a30b474f27a923c1763d81ed8fbd0d2418",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_14.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 10207,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "6defacaeae4a2bf2154d765d62e3fcd40911e134f489cde4cc32f8c2b5a1f4cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ssw_15.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 10568,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "6906dac91303206b403d1c9c746dacb3299f39b766821772a9194a505521c51f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_00.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 10929,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "fd8bbb1afc595763bb5c665574d23e70f6b0f0718823695112892179206ed19b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_01.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 11265,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "a569512716f57180c9923a7e04a7667b1a229689cface806b8474c14dda3c14f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_02.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 11585,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "38abd4f6f8138f1d8b66bd7aadd5555de9a9dea08a5a8da3609bef0aab5a654f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_03.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 11900,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "633cbaec8afb46dbf09e7f3a383954b50e1863a9b9c2840080d3e02d74c7f526",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_04.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 12215,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "119393715a0413b500c781e7eb505cbf8e1e3a73f3f17c66801ba5bdec5d5253",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_05.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 12530,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "21c91f27e8070c95f6a6f7ec2f046c5cec8f7a4072a84326b1d5b7ce78190586",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_06.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 12845,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "92bd071e047b32ba701eeb28ac567331a5c97a326e241ca0a37fe3f4ce247e83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_07.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 13160,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "e7faaffd6068c2d1fadad9963410d423886cbe32d56d1d2e651e4e9c739ca812",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_08.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 13475,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "dbdbc1310bb2a7031be83f98e92616260597ab0d957f8ba006ddcc7b6aa45d36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_09.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 13790,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "dbdbc1310bb2a7031be83f98e92616260597ab0d957f8ba006ddcc7b6aa45d36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_10.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 14105,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "dbdbc1310bb2a7031be83f98e92616260597ab0d957f8ba006ddcc7b6aa45d36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_11.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 14420,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "c03b064263a4986b3419481171b1bc565cc9cf33a2dfea471582f309f0ec5cb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_12.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 14735,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "80d337130f45c844a4d6ed6af2c4d4af1beda6580d0c36a0cd507c105b300c16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_13.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 15050,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "8c6ff6767627fc07fc330ca0cc47e15025fb717d047fe3b4a8472148728d6484",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_14.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 15365,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "74f540b0f18ffc00c8fee90782d3593f5306e2c04175644c7f82ca21c73ea410",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sw_15.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 15685,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "fd8bbb1afc595763bb5c665574d23e70f6b0f0718823695112892179206ed19b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 16021,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "50b0b65e842e26e2144bf09b8da76d08e3119ead6d4e59b3d119686e4745dd6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_01.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 16378,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f65f4fd682e6eef71de7aeaef0467b7c5dcf572e0e7a6f4d533b08a3d6457822",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_02.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 16735,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "4014c83d1525fb310a95a0f1148e8e57b05fe3686ae60d5dff581723c0de4efc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_03.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17092,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "028e1069a267b746f11b31c148f3c46f0bad9e9c9e51e856d62c509b69a219a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_04.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17449,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "de32eb97cca353f70ed94268962d0ebd24f767db686efecd7cffcc782324e987",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_05.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 17806,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "0c74e817f85b7887dca7a6f97fbefd0ad604f51ef277c37b0b9d1c522280259e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_06.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 18163,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "46d7bc6957a80e52ad440ea2674f7b4608f883c593a5f14f4228466675eec9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_07.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 18520,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "49fa2498f32637ac0f1e021a151c1b4d8e2c4cbfd2ee661fb8dc849dd3011327",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_08.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 18877,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "4da0d62a4da1eadc22ee8023b0f776bda2a534c94d11bd9a6d7cec4909ddd97d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_09.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 19234,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "4da0d62a4da1eadc22ee8023b0f776bda2a534c94d11bd9a6d7cec4909ddd97d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 19591,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "4da0d62a4da1eadc22ee8023b0f776bda2a534c94d11bd9a6d7cec4909ddd97d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 19948,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "17b55f0ba84ad35d4576299fc7cc7b29691aae0c8152b6074a399d26a8a53c12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_12.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 20305,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "24a8895f934b33d9b6730f21c1a0f99a86862b0b23ba24afab6c43c5e2e73436",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_13.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 20662,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "71ad53a93b154947b2cb51d235ed66ad3d34f985d76193d5fb93ce6f6103bf65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_14.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 21019,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f2ef0673c47afbe5595bead0eb46f2f265ebc58124470136096c912d494731cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wsw_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 21376,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "50b0b65e842e26e2144bf09b8da76d08e3119ead6d4e59b3d119686e4745dd6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_00.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 21733,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "854976fd1ffbbd6c532eeaf9c38a54b281207fdac606ad54dfde19d6f93474b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_01.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 22111,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "226c2a6c18d22868a174cbab39aefb0abf25be92ae398e360b0faf6e6d98519b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_02.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 22489,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "f758f3f7f41df8f02175ceac604cacb660e9be3a6ba18fbaf96f24edfc14e1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 22867,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "14c588e05bc59fda44868df39d58dc8e8d5cc474540b18e0b842ee0004b999e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 23263,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "c2c695f45265897e0d62c9fdbb2ef4f2669d04af4c8fcb16058b0ebb33abaeb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_05.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 23659,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "7af091472aee8aa80aafb185cd754e71ccc75d04a1754ed2738683b06f7fcb05",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_06.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 24055,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "61ff5811187020c0cfea1f1d48f86b0e9c6bb1c660764639c6eef393fff80474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_07.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 24451,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "da6293bc0f3dbdea4e2aeba30b2ca5d2fe81230f00d5bd484cfd30158738ec02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 24847,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "756b6003d2a7c8b8e21adcc3c3ee83202796f9e8190de3097578cd164feeb995",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_09.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 25243,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "756b6003d2a7c8b8e21adcc3c3ee83202796f9e8190de3097578cd164feeb995",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_10.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 25639,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "756b6003d2a7c8b8e21adcc3c3ee83202796f9e8190de3097578cd164feeb995",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_11.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 26035,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "82a3750573232917b6b4ade37ebd40d19d8b78c3a25d19e2cf7556be8f7f2d0c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_12.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 26431,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        70,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "c6124b613b965025149ee5b5adbfba37bec8eb12d0ee805b6448027611f9719d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_13.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 26827,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "3610425af70dc642bc74d002620c02daf3fa67d707933c32b88fd18be822b09a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_14.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 27205,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "126a48abaa490db611214985dc4815baecf7d82f2d40e27aa7a0d0fd83e9e6b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_w_15.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 27583,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "854976fd1ffbbd6c532eeaf9c38a54b281207fdac606ad54dfde19d6f93474b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_00.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 27961,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "032b45dd65f8d3be9f329f5d9fca325e162ff93e6b198908b757e8a9e3ec0eae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_01.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 28369,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "c29c2fd6a01e569a9a422194dad0ae7576fcdcbd3f3a1e98ff9270be345c2283",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_02.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 28777,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "2fec9af0c5b6fb35130e509cb9a67e25c5f167347c900972cd10469d184a02f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_03.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 29185,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "a95c2a521d44fb8a7d89c052833bfaa59bda58bb6c9ceca7974d2cb88ce1a111",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_04.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 29576,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "8a7fbe6f10ac00cff34a239bc955c717dd266191833ff5dd28d6705846dbb740",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_05.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 29967,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "7dfc8e0e016b1a14944410588265c8e88ca21b603a9315b44618afdab2a28252",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 30358,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "892f8063ea90493bf778fdbb10cab3f09e5c9537501af73f3af9a779da12bccb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_07.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 30749,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "aa5b13e17bc9b36121a20a3964b911ce966043ee59293b45112c1fb97bdd986d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_08.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 31140,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "279a4c1b102a5ade6052f54996c5e5d7567bfa7071fcfb07677384f8dd6ae793",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_09.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 31531,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "279a4c1b102a5ade6052f54996c5e5d7567bfa7071fcfb07677384f8dd6ae793",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_10.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 31922,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "279a4c1b102a5ade6052f54996c5e5d7567bfa7071fcfb07677384f8dd6ae793",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_11.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 32313,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "fdbde0e97d17825962cc7eb342d7ae49c906f201bf0288b8750479652a8d65a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_12.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 32704,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "1b4ecb1749b5f4151fe522c505f56aae5db4d2c2aea2ea41950ce6a2e3ffde60",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_13.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 33112,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "abe0da6742a6c411867beb939cdf0212a06d4022c49e9f4e13ed3b3f53da76a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_14.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 33503,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "2b5600995e89c2722ca85d9d57ff54a14c347a5c32bb61b0b8c0fc67ccab9ff0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_wnw_15.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 33911,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "032b45dd65f8d3be9f329f5d9fca325e162ff93e6b198908b757e8a9e3ec0eae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_00.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 34319,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "1ee46291d98f47331155898d41a6c4b5e7f72120fbfde689bebd5834c0a5d2e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_01.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 34687,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "9a3e540e1791d9ad781869467e7bc75f8197bce7be9fbfc96af4d2b6e60d7e7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_02.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 35055,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "68e4ba5fad394407ac3f1731359feb2b6f17ce3db239388465aa74556de2277a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_03.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 35423,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "746dbce1a7e593ce18ac88fecec187eb9d5dae8dc05312b44de483bbabc86b19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 35791,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "6b067e2b501e5bdb2d389201d702709510da8d842a376d42b064ccbfe00102f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_05.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 36159,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "fb6d6fe971ff2136e4163a573ce5683ece43ddcd866e586a209df3443ed9463a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 36527,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "6b067e2b501e5bdb2d389201d702709510da8d842a376d42b064ccbfe00102f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 36895,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "7becd490e49d806a3ee6995632429cb7c315453ace4ce2b8b6ac9a6a6e178f2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_08.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 37263,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "7becd490e49d806a3ee6995632429cb7c315453ace4ce2b8b6ac9a6a6e178f2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_09.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 37631,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "7becd490e49d806a3ee6995632429cb7c315453ace4ce2b8b6ac9a6a6e178f2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_10.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 37999,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "7becd490e49d806a3ee6995632429cb7c315453ace4ce2b8b6ac9a6a6e178f2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_11.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 38367,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "e74d23de12dc03d709a56969e0f13d1b889cea6ed6fdb23666eded8b6201b722",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_12.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 38735,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "7862bea0f291cbd745be1dba00cfca6ed236f8bc04e773819a5b7a44b3873fec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_13.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 39103,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "295be6ef2a12e4a398bdc6275cb94ffec4e1694c8151c69bbc300e9682cc7dc8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_14.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 39471,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "100ffd350c5fca7be8bb0531b7f913dde96c0b774874c61c5a7c59624b6996c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nw_15.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 39839,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "1ee46291d98f47331155898d41a6c4b5e7f72120fbfde689bebd5834c0a5d2e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_00.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 40207,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a683c9aadbfb50f803fd5aaff7cf8f9c68fa7b84042ac82f2784214576df3557",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_01.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 40625,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "0948c45436705a3b6a743c4a8dc421c3719e5e9c5e095f2744c6e253120c7d92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_02.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 41043,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "35525f28095dd2af0b74ec46d6dc54d0d0060fe358aa4022cc485107f4b06e0d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_03.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 41461,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e6fc4ffc371f918fc784fdd7e67a7d6733d9c11ff6386b3b54b796b4434427a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_04.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 41879,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "c473f8dcffa7aa5b9406b3fabc0a3f23b52d4fd2e33172b05f2e6bceac02c590",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_05.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 42278,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "c473f8dcffa7aa5b9406b3fabc0a3f23b52d4fd2e33172b05f2e6bceac02c590",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_06.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 42677,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "75c8fe003bb650aba909d491a410f257e91dcfef1ef34e1e58120445a9bdee2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_07.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 43076,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "75c8fe003bb650aba909d491a410f257e91dcfef1ef34e1e58120445a9bdee2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_08.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 43475,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a6cc37e57071ceb7621b645db25cb4b9ac6d9341fccb2e189198f768b5f0f457",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_09.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 43874,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a6cc37e57071ceb7621b645db25cb4b9ac6d9341fccb2e189198f768b5f0f457",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_10.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 44273,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a6cc37e57071ceb7621b645db25cb4b9ac6d9341fccb2e189198f768b5f0f457",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_11.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 44672,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "3359c5a37b1250a6c79c403b37161c4df95919c58882f550ad4138b2fbdb89f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_12.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 45090,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "52fefa5ddbb0b3faa39a378dbbd7759fa04c29d0493964a0f308755e2c2a164a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_13.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 45508,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "3ce9121557f8e19278d51f432273e80927d5ef347e7e054541964115babaf03c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_14.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 45926,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d933b8406c85eafaf79c23bf57957e856fc1f2f9dc2886b64398df08cee0acb8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nnw_15.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 46344,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "a683c9aadbfb50f803fd5aaff7cf8f9c68fa7b84042ac82f2784214576df3557",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_00.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 46762,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "6f8d686845475b0fbd7ce276ef43e6816a01f26ea905d4aa5e54a41feff34632",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_01.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 47162,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "552747c32e896e7a398378f5b36a679d572f3a6caa94fec7b7f132e124e07274",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_02.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 47562,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "c917446b90910a8f292d4c6864cb4b77405e58e61405155c3c7fe5ddc403c454",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_03.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 47962,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "af3cd578635ef1c2c3d1822be1e79e1e7304c1fd5dd9a012eac28cac5238b716",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_04.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 48362,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "3a5fd9c7aed3f37ac3d910160bc7a2e6e5a47468c98fc2c1fd7df5bb97e2df77",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_05.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 48762,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "3a5fd9c7aed3f37ac3d910160bc7a2e6e5a47468c98fc2c1fd7df5bb97e2df77",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_06.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 49162,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "570c3e99fa6afada2f0b29c3af99b75a5364171b189994bb907f3c73ce1d69c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_07.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 49562,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e74fa9e601ccb9461ce69ab724e9ae6fcd5b03a584f57292969ad1d7d563a298",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_08.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 49962,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e74fa9e601ccb9461ce69ab724e9ae6fcd5b03a584f57292969ad1d7d563a298",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_09.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 50362,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e74fa9e601ccb9461ce69ab724e9ae6fcd5b03a584f57292969ad1d7d563a298",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_10.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 50762,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "e74fa9e601ccb9461ce69ab724e9ae6fcd5b03a584f57292969ad1d7d563a298",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_11.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 51162,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "4a7044711d26b2962fa6b6ee86d4e3b9c81c4f558567008782e242dcc15355d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_12.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 51562,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "3c37b256c3347d8afe017e68834b8895348aa82d3b80afc1006eb7b5ef1ebee8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_13.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 51962,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "5a50a3e8c6e094e3bcfe723e740cd575de2a0afe07293508fdebfb9634b826ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_14.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 52362,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "655bf14f7649eb84ae703ad091d6fcb060fb0dce81a27415a60c9d311a5616cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_n_15.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 52762,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "6f8d686845475b0fbd7ce276ef43e6816a01f26ea905d4aa5e54a41feff34632",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 53162,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "72238efb83d082ac91b512c4a12adfe2a892b89b525326e24f4c14e969825335",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_01.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 53561,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "c49b9d84c53b0da798813f5bb77b1834f48c587db52a6e435700dee634a83f14",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_02.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 53960,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "f5f2aad9ae55b57b41b38470570dbb50fc37a4cf340f6dc173d70a4ce61bedbb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 54378,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "7c87a61515a1209c2228b37803fc71b6af710716d35e1a30040cc0d91c0fa8ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_04.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 54774,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_05.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 55170,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_06.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 55566,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_07.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 55962,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 56358,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_09.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 56754,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_10.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 57150,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "671208b3a4e433a038c82c373e33df0a21c12986106cb9464ce7eac7722d8fc0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_11.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 57546,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "3d6d13635b0196c02046bf35f1c102a432161a62c1db77c2dbf63e5e72ded353",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_12.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 57942,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "8725f5021670ee7a9ab42e5a7503f646351f84fff657a0d1e02a63823647f710",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_13.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 58360,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "0fc0fcaac5cd357124cf928a2653beb9e98fff13a20068b774ae77c9fa061bf0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_14.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 58778,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "fc9853aa937a3dca05b68f165e1b380b6bbf999675c7e338232fed0f81e781b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_nne_15.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 59177,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "72238efb83d082ac91b512c4a12adfe2a892b89b525326e24f4c14e969825335",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_00.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 59576,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "c4e7d991b820218c23d0404d7957b0b8f6e66041db70fd90fafb0900230c944e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_01.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 59960,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "fc39d1f96d8573bb11ee72207463159f58d06a204e9eca1c277f493fef61b5c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_02.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 60328,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "a9ca8a2f6c9e9d4efa242eeb2bd3b8ceb5f5bad068f7d83e3f429bed52dd9cf1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_03.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 60696,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "2a36d1a4560ba1ee4352f4f759b8e568830aaa3e6f69cbbe4602086fc7844165",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_04.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 61064,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "0d3eabd5915dd8f32c1ec603eee5d4eefbc56015d11a91d91fedb8b6fdf8d56a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_05.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 61432,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "3f5ad89cf692b23e9a5aa728663f355c84dd4d3e718cd63dbed1e0a6260f6688",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_06.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 61800,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "3f5ad89cf692b23e9a5aa728663f355c84dd4d3e718cd63dbed1e0a6260f6688",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_07.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 62168,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "3f5ad89cf692b23e9a5aa728663f355c84dd4d3e718cd63dbed1e0a6260f6688",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_08.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 62536,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "0e699fa7a5ddefdf7cfa31e4c9b5ff1bedca627ac00fa3d275d7db0e787c3aad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_09.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 62904,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "0e699fa7a5ddefdf7cfa31e4c9b5ff1bedca627ac00fa3d275d7db0e787c3aad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_10.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 63272,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "0e699fa7a5ddefdf7cfa31e4c9b5ff1bedca627ac00fa3d275d7db0e787c3aad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_11.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 63640,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "ed450a400b102997908e5a032ef51d1c75c71d6be4eac129b025eeb7d18e3e72",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_12.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 64008,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "780cdcaeb5f2dcf738dc53be087746dcf3459c8383b6a2c02c31e17652b340fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_13.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 64376,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "d010dc28df4484926cc805752f732890eee9d79ff56e7c7084a19f752a99cff6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_14.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 64744,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "d8a4698ff7a9e6bf4a56347b757c3531e97dbfa3b30771077c14d08e9fff8a5d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ne_15.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 65128,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "c4e7d991b820218c23d0404d7957b0b8f6e66041db70fd90fafb0900230c944e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_00.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 65512,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "920528d97159525c849cc0edc496e9117b0ce6d3db046fbe462bd7794a083a03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 65903,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "7dcab05f14924cc255d3971a50228c1c4908be2e074b7c9c1a244866a215d486",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_02.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 66294,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "a18746285fd3db69851c0283a5b620dbbd460c28155496b6f580e376c8a4a204",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_03.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 66685,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "1112a7c7901919bf4796ea45ba27fc119b470f943819046b370ed1bc606d25e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_04.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 67093,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "173d8e0f8a4476184b9e950d0ae54331167a06d15be14d87749a67027956ff6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_05.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 67501,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "173d8e0f8a4476184b9e950d0ae54331167a06d15be14d87749a67027956ff6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_06.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 67909,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "173d8e0f8a4476184b9e950d0ae54331167a06d15be14d87749a67027956ff6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_07.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 68317,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "d5ae4c748975a74920bc797065d9b3ec4886da94d5e025293e4851cb5ebaea28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_08.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 68725,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "d5ae4c748975a74920bc797065d9b3ec4886da94d5e025293e4851cb5ebaea28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_09.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 69133,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "d5ae4c748975a74920bc797065d9b3ec4886da94d5e025293e4851cb5ebaea28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_10.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 69541,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "d5ae4c748975a74920bc797065d9b3ec4886da94d5e025293e4851cb5ebaea28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_11.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 69949,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "480d5e4d5ee15b9578247cdbd126d50540cf314e5da7483d5d641db71f8609d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_12.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 70357,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "54d862c4c9093c5cecde1da1b5c8f786506e96af79211c1af49c6b4acd1adcce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_13.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 70748,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "dd62db04855889f83a63ba886a931c9599a5d6cafd3f6d9d50ad2a34c933c759",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_14.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 71139,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "60b18cf265d295891ce9d07359ecce5f8eb2c0e861c79bb7fc4aa2e8bb19b290",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ene_15.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 71530,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "920528d97159525c849cc0edc496e9117b0ce6d3db046fbe462bd7794a083a03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 71921,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "0f94ac35133cb4943749d1643fbd331c8e23f20e1b706e0fe32ea189ff8e344b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_01.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 72278,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "bc40c390474960dad1dadaff700ce6828c81ce0a752a51302020a4c3661d648e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_02.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 72652,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "4765e37b48586cb79222fc1aa5fc3191884f0d9895e2b9faae7cc6f00d839099",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_03.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 73030,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "2611a4157a7d1018f6a60e51e0c318643b2a859b252bc81533b5d57e5c6dc773",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_04.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 73408,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "7ee1ef002a6f3c26135fc69cd7298512e355fae90c26c7c18016902ca428489c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_05.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 73786,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "7ee1ef002a6f3c26135fc69cd7298512e355fae90c26c7c18016902ca428489c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_06.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 74164,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "e375d898919cd31f7de076722e9aacd801dc52a32f2b94ddea2d4696dc372a83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_07.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 74542,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "89e47a2992204d0545be1f46c19a69c64045f2484add78a0ccfd142706115343",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_08.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 74920,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "89e47a2992204d0545be1f46c19a69c64045f2484add78a0ccfd142706115343",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 75298,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "89e47a2992204d0545be1f46c19a69c64045f2484add78a0ccfd142706115343",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_10.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 75676,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "89e47a2992204d0545be1f46c19a69c64045f2484add78a0ccfd142706115343",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_11.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 76054,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "6095e93d199f3c6d1c16b016f53f862274d01fba273e394bf7f89085daebb3be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_12.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 76432,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        72,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "9629b75776c1b94a1528e83f6a7d941e740e55627706de4c53d99adc232cf0ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_13.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 76792,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "58a4c91e395401307d08186e856cf06fd2d42e5a14e47aa844d05cc4f2d3436b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_14.png",
+      "width": 17,
+      "height": 22,
+      "texture_px": [
+        17,
+        22
+      ],
+      "offset": 77149,
+      "length": 374,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "ca7aaf79d6d19569c42639493c4ccd6d4b7be76bdd989eb592f61c6891c8f4c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_e_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 77523,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "0f94ac35133cb4943749d1643fbd331c8e23f20e1b706e0fe32ea189ff8e344b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 77880,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_01.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 78237,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "cce941a9595e5c67e3606623414614e6813aeab5b69e53627636148fe8cd0470",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_02.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 78594,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "c5126c8b52f4ec0817c26ae89ae732e6f36ea5821a0535932e646a2e9a301b5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_03.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 78934,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6da3a0fe10ea81090b2f8607da25b22a1b27e17c9bd049283ba952430b079394",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_04.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 79240,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "30c217613696cbb3325d726e799677d6ac55a3520caf1500c78cd2ddadd7232d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_05.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 79546,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "f4c1b0f1e513bafaae0e4770af6c67dc6f435cb2d6b43a556bb1d4bad699c16c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_06.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 79852,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9ae1ceb3aece765587b4f351d725fb750bdfd03d05a633af86b960d7adc40029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_07.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 80158,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9ae1ceb3aece765587b4f351d725fb750bdfd03d05a633af86b960d7adc40029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_08.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 80464,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9ae1ceb3aece765587b4f351d725fb750bdfd03d05a633af86b960d7adc40029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_09.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 80770,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9ae1ceb3aece765587b4f351d725fb750bdfd03d05a633af86b960d7adc40029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_10.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 81076,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9ae1ceb3aece765587b4f351d725fb750bdfd03d05a633af86b960d7adc40029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_11.png",
+      "width": 17,
+      "height": 18,
+      "texture_px": [
+        17,
+        18
+      ],
+      "offset": 81382,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        71,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "f7aadf4436a7a991dab8ab90d9a14fcfea1fd21a9b1b1a835e6e947e2ba8ff2e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_12.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 81688,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        71,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "b11b195ca3031c28d14b89bb8406eaa8f759a78d9195e1e97dd8352bdf604f21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_13.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 82011,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "e786970354edb33e2319871f6fa4ad33de50aeb83f2d4c1e48cbf26d4e364fcd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_14.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 82351,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "9f4f245e49e133eb667923141ce264e5c3ee7888ee4e90ff1176ab55c0bc322d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_ese_15.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 82708,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_00.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 83065,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_01.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 83395,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "55bf916bf5015fe2d8944df6793e3bd76de8563c1fdf21ab64cc316908ac406a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 83695,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "ca8eb82ffe4832be4596f5ed0431e8a01909d7878183301449f6173e5914ed0c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_03.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 84015,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "2c77a5b8aa4f86ed81f612845ee1ca92960448c9fa07d8836603af6b8802a62e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_04.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 84319,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "0ca058f8b99e0b750818eb3c66f8f9739f66ba56aaa6fb5e871203c2edbff53f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_05.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 84623,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_06.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 84927,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_07.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 85231,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_08.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 85535,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_09.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 85839,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_10.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 86143,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "8f3983c15677161d1955c64b74f65d4ab880199f0888104207518044966767e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_11.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 86447,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "003842414cec59e874367cf50c81100aa7f8248e744a096beb94c7fec4428b4e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_12.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 86751,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -38
+      ],
+      "sha256": "438c14559b9c4d118adf799f9fa93f4db69ba0a9940f073db632ee1a3d25bf63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_13.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 87071,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -37
+      ],
+      "sha256": "954f1f4196d584c559f21c1815ceaea0a3f8eb80bc514e13932fd3eb834fae23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_14.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 87407,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "71deadcf1f780e25bd1f4466352a9e7d986ae827d65f4103d7fde7f86141cdb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_se_15.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 87722,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 88052,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_01.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 88413,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "f304a60f48f94158e3c48ca9a4f6532bad08bdcc7b03513de8c04194e2367e90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_02.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 88774,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "79013f82dcac387fd527867832c57a58376d8f5e9d3b92e5f2d594ef4ad6ce53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_03.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 89135,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "b4b5479396d4537f128db58262b28670c1bf8c57cf0fd614e432cb366f7307ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_04.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 89496,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "b4fae17369d967011e99b0551fbdc902b3678204b6f27e831992601cdc596549",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_05.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 89819,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "66116287009a00591231e2635b4fde2f564c4f3d3e449af86a2911a7699ad463",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_06.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 90142,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "da879c1425883dd758d6f2a60f3c132bb19709a820f77ed95efdca843bf95c57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_07.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 90465,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "da879c1425883dd758d6f2a60f3c132bb19709a820f77ed95efdca843bf95c57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_08.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 90788,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "c2a5e709a36d134decf172e4355524ccd016e6a71a593d6513f967efdc4420f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_09.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 91111,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "c2a5e709a36d134decf172e4355524ccd016e6a71a593d6513f967efdc4420f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_10.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 91434,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "c2a5e709a36d134decf172e4355524ccd016e6a71a593d6513f967efdc4420f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_11.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 91757,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "6545f6dd82bdde2f351b920df5e2e94ef310a5465b52dc5b6fbdc9497352c0d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_12.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 92118,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "cb1c678003ca8e73382cef09aede26c7a173219464b554bcc0c3c9f151a8bc09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_13.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 92479,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "49bd0ee679b37531d0fcadb4f778cdf7f39fb744de77b669e6942ce3ae63224a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_14.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 92840,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "4458c787d3200794745a30ee68d52df8ad3409d179b2bac72ad6ac7cf407074c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardHelmet.atlas",
+      "name": "ward_sse_15.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 93201,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "ec06870a011228161049cb0a8a085b71d2b40c8fd18840ee99d0e9bae2efea43",
+      "empty": false
+    }
+  ],
+  "source_authority": "BladeWardOct08/BladeWard_Authored.blend"
+}

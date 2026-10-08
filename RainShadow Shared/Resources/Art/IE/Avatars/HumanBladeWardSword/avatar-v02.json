@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanBladeWardSword",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "d9de2ddcd9a49fcd226f658191b86b2117692ffc3b8fe98135b775478aa588e1",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_00.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 16,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "1dc2996a7319a827553216fa612579e4bcce14d98b9c5c816c631784e69fd78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_01.png",
+      "width": 6,
+      "height": 22,
+      "texture_px": [
+        6,
+        22
+      ],
+      "offset": 124,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        61,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "41ac1bb15c5610f8f2e619b0b9c867f13b927d163de721c449a095c0b6c5ae01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_02.png",
+      "width": 7,
+      "height": 17,
+      "texture_px": [
+        7,
+        17
+      ],
+      "offset": 256,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "24f5ca47c46ba2178ae69eae01099ca79a5e67aaaebf4fa0372a705c4038160e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_03.png",
+      "width": 7,
+      "height": 17,
+      "texture_px": [
+        7,
+        17
+      ],
+      "offset": 375,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "82f32eecb0f4d973d70c16754bb02407d5c5359fa4cf6c21c001a4537d9509c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_04.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 494,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_05.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 648,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_06.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 802,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_07.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 956,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_08.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 1110,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_09.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 1264,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_10.png",
+      "width": 7,
+      "height": 22,
+      "texture_px": [
+        7,
+        22
+      ],
+      "offset": 1418,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        60,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "73ce0a576fa37cf43295f0622b97580fc292d0571501c2a73578f0619921d9e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_11.png",
+      "width": 7,
+      "height": 17,
+      "texture_px": [
+        7,
+        17
+      ],
+      "offset": 1572,
+      "length": 119,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -5
+      ],
+      "sha256": "cedb1c439d9dd65ccf832f1f6d6c4ddea78594e42be6831bdb6b430faeff388c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_12.png",
+      "width": 7,
+      "height": 18,
+      "texture_px": [
+        7,
+        18
+      ],
+      "offset": 1691,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        60,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -4
+      ],
+      "sha256": "500ef6765ce7bde6ddb344970cdda689b2279fe65aadc40f25b816d141eb0101",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_13.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 1817,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "d1dcc6ff2854a8d2ddaba88f8fcced014e5310f89fa44b10d847306c4a729de8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_14.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 1925,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "bed800f86a516141bc81939b2e6f1db18dd9df93c975f85c6c95962b9e3f742c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_s_15.png",
+      "width": 6,
+      "height": 18,
+      "texture_px": [
+        6,
+        18
+      ],
+      "offset": 2033,
+      "length": 108,
+      "trim_origin_top_left_px": [
+        61,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -4
+      ],
+      "sha256": "1dc2996a7319a827553216fa612579e4bcce14d98b9c5c816c631784e69fd78c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_00.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 2141,
+      "length": 285,
+      "trim_origin_top_left_px": [
+        53,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "d07bf59856d16d3a45b7fb25dfb22f768fa5e09eaf8c5986d05552368c89b541",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_01.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 2426,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        53,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "d44e881bf79656bd3760510e0f8a8cf3017374737588448addf192a264b68de4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_02.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 2726,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        53,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "35877b32a399d7605e01e6c8e3fb9e6cdfe1c5057632ec12b7c61cbefb8b4e03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_03.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 3026,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "293d1c0644e40da6480e45e42e6c87361203da6ee1bc3a64a0d0e598d9b38b94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_04.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 3330,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_05.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 3634,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_06.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 3938,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_07.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 4242,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_08.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 4546,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_09.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 4850,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_10.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 5154,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "f88db7fb6a0e00dcc0b4e1e6e54aacc92f01eddd9a55cabb30fe091cdb4ce0c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_11.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 5458,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -12
+      ],
+      "sha256": "c50b979a1e6d01c3dd5f8b23d4bd7bd2c06985fa70056fd3e380e0d8090c259a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_12.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 5762,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        52,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -11
+      ],
+      "sha256": "f426cb77844395cc93fc65c676548404034c477baedc1506c869ad630168dafa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_13.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 6082,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        53,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "1a83a8c649d9438735ac186ad84811d4f6c16b70ac46d1f917a6eebcda4482e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_14.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 6382,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        53,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "92dbcacc4b174401f19523d40c3cb592922e58de43a14307ab629034865ff8b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ssw_15.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 6682,
+      "length": 285,
+      "trim_origin_top_left_px": [
+        53,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -11
+      ],
+      "sha256": "d07bf59856d16d3a45b7fb25dfb22f768fa5e09eaf8c5986d05552368c89b541",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_00.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 6967,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        49,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -19
+      ],
+      "sha256": "6c6d7605b2eb767e5f323c0b48bbf4de8e829eae5b405f6c7f097196f7b4ea2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_01.png",
+      "width": 21,
+      "height": 14,
+      "texture_px": [
+        21,
+        14
+      ],
+      "offset": 7297,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        50,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -20
+      ],
+      "sha256": "c88080176a24a9b08fb0aee1d59a2846b978969c6d566e5dd2616ad63a23fd62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_02.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 7591,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -20
+      ],
+      "sha256": "5e6ab9268ecf84fe89476f6dd0fd7ed3570cc7b593760a9c1c48fc1c3f59fbc8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_03.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 7877,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "81da50abaee99ac0098f21062825d8c1802349177224a2ecd71d84be2dd6a123",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_04.png",
+      "width": 20,
+      "height": 11,
+      "texture_px": [
+        20,
+        11
+      ],
+      "offset": 8141,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        49,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "ba1832af06cac761bcd14e8cd39a035382d26fc8f60a7877b887599d46728a6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_05.png",
+      "width": 20,
+      "height": 11,
+      "texture_px": [
+        20,
+        11
+      ],
+      "offset": 8361,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        49,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "ff73e8a720aba45b31135a51d390df51ecd777c7f4694f4a997ffb0e0218be55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_06.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 8581,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "88fa88803a2430af07d3a207162092056f87ab0e59112526e5a3c40c5e94dd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_07.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 8845,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "88fa88803a2430af07d3a207162092056f87ab0e59112526e5a3c40c5e94dd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_08.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 9109,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "88fa88803a2430af07d3a207162092056f87ab0e59112526e5a3c40c5e94dd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_09.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 9373,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "88fa88803a2430af07d3a207162092056f87ab0e59112526e5a3c40c5e94dd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_10.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 9637,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "88fa88803a2430af07d3a207162092056f87ab0e59112526e5a3c40c5e94dd25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_11.png",
+      "width": 22,
+      "height": 12,
+      "texture_px": [
+        22,
+        12
+      ],
+      "offset": 9901,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -21
+      ],
+      "sha256": "a38fbe0707fae3fadfb64b7e806feaa7a5d4b56268b044f71aba154482c15299",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_12.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 10165,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -20
+      ],
+      "sha256": "bfcd776c235ed23d4cf380e55b48d0b2cc4ab1ddb94996e9dffe09b3989f20ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_13.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 10451,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        49,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -20
+      ],
+      "sha256": "1c1b334fd8065fe773b95db0808fc1668742e2c83ad724538579d49819396d19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_14.png",
+      "width": 21,
+      "height": 14,
+      "texture_px": [
+        21,
+        14
+      ],
+      "offset": 10737,
+      "length": 294,
+      "trim_origin_top_left_px": [
+        50,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -20
+      ],
+      "sha256": "28ac1f4eb78ae806cd0689b5f682874685edfac33e5ad3b135939311ebd0e35b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sw_15.png",
+      "width": 22,
+      "height": 15,
+      "texture_px": [
+        22,
+        15
+      ],
+      "offset": 11031,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        49,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -19
+      ],
+      "sha256": "6c6d7605b2eb767e5f323c0b48bbf4de8e829eae5b405f6c7f097196f7b4ea2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_00.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 11361,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -28
+      ],
+      "sha256": "d7e3656612d6852f05ce4ce056c6a04a8f4627dcb44c6a6c4c35b143efce0341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_01.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 11529,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "3d64c3c0ca0cb482fd332f981466019a02f9294714ea42a05f77c8ef4134a2e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_02.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 11676,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "2f6ecba47538419e1faca79d247cbe41b125c82d5d249282bf4a369773344588",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_03.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 11823,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "7fbf81e269c7a616f9e7039ed2a8e5ffaab05b7327bd033f42f3cf7bb51cc3f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_04.png",
+      "width": 16,
+      "height": 4,
+      "texture_px": [
+        16,
+        4
+      ],
+      "offset": 11970,
+      "length": 64,
+      "trim_origin_top_left_px": [
+        51,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "31c3ebfb90beb51398c323727838e927b74a3b1904950ebbd3adb7fbd7200c68",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_05.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12034,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "e5e9c7d29a071e5bfa76b5b812bc0f1f677390398cfd39573a8e28d939d1f0fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_06.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12160,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "a58594a4e38482a1cbe6339e11419ccd1dc33d7556a6b61c804c4761a47d53c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_07.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12286,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "c20bf2fb5861a4f59bb391811d5b596c398fdd5d87acf39c4b6cfbf3e0bc77fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_08.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12412,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "c20bf2fb5861a4f59bb391811d5b596c398fdd5d87acf39c4b6cfbf3e0bc77fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_09.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12538,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "c20bf2fb5861a4f59bb391811d5b596c398fdd5d87acf39c4b6cfbf3e0bc77fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_10.png",
+      "width": 21,
+      "height": 6,
+      "texture_px": [
+        21,
+        6
+      ],
+      "offset": 12664,
+      "length": 126,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -30
+      ],
+      "sha256": "c20bf2fb5861a4f59bb391811d5b596c398fdd5d87acf39c4b6cfbf3e0bc77fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_11.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 12790,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "66b0344bd28436778fe7374d9232e18ec9ba8e74c167e1bf5774b614dc0187b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_12.png",
+      "width": 22,
+      "height": 7,
+      "texture_px": [
+        22,
+        7
+      ],
+      "offset": 12937,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -29
+      ],
+      "sha256": "534d33ff598a3c9f4801129f0baefab9228ca691eee8146002b7b3586395fd8f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_13.png",
+      "width": 21,
+      "height": 7,
+      "texture_px": [
+        21,
+        7
+      ],
+      "offset": 13091,
+      "length": 147,
+      "trim_origin_top_left_px": [
+        51,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -29
+      ],
+      "sha256": "f475e978749f666d7c1f88d626d94a926e506a675b9a2d9315e2be5032facf1f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_14.png",
+      "width": 22,
+      "height": 8,
+      "texture_px": [
+        22,
+        8
+      ],
+      "offset": 13238,
+      "length": 176,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -28
+      ],
+      "sha256": "9d19bf3e205e276e56fc1c8718a0c8066b16fb16824b7059e90693af34243ff7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wsw_15.png",
+      "width": 21,
+      "height": 8,
+      "texture_px": [
+        21,
+        8
+      ],
+      "offset": 13414,
+      "length": 168,
+      "trim_origin_top_left_px": [
+        50,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -28
+      ],
+      "sha256": "d7e3656612d6852f05ce4ce056c6a04a8f4627dcb44c6a6c4c35b143efce0341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_00.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 13582,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "71003843da0b723c082e7e78491430906c32adab810b2436495e96f1cd18ba3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_01.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 13616,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "30db0a611804feadaab663f8a2a34b306c7ab53aec35de4b1618a949f6ede0e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_02.png",
+      "width": 17,
+      "height": 3,
+      "texture_px": [
+        17,
+        3
+      ],
+      "offset": 13650,
+      "length": 51,
+      "trim_origin_top_left_px": [
+        56,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "8a1f41e92c3d242b7e0615ee37e2a003bb158f448c645155e9a3fb852e9f994d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_03.png",
+      "width": 17,
+      "height": 3,
+      "texture_px": [
+        17,
+        3
+      ],
+      "offset": 13701,
+      "length": 51,
+      "trim_origin_top_left_px": [
+        56,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "ed978fc7fc312ee79bd961e4eebf37b78aa8bb43bde1d43dcd6dc8cb064f9330",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_04.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13752,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "9cfb926e6b70f23553fd8296a6cfbd2fb6f97f62d7cbb048ef78d523ed64171e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_05.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13784,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "d8269270488e732100189c555e736efcfb77d36402b2e0ab986d808448d5315f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_06.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13816,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "98928bfb2e4f836ae12bb1ef2d221ae8bbfbd5ffe8027a2151e85c18f0475c28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_07.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13848,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "9b55caacc4b39753060f7b4a8faa8ec3290eeecd5dba469ddb1de25738d37152",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_08.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13880,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "9b55caacc4b39753060f7b4a8faa8ec3290eeecd5dba469ddb1de25738d37152",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_09.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13912,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "9b55caacc4b39753060f7b4a8faa8ec3290eeecd5dba469ddb1de25738d37152",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_10.png",
+      "width": 16,
+      "height": 2,
+      "texture_px": [
+        16,
+        2
+      ],
+      "offset": 13944,
+      "length": 32,
+      "trim_origin_top_left_px": [
+        57,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -36
+      ],
+      "sha256": "9b55caacc4b39753060f7b4a8faa8ec3290eeecd5dba469ddb1de25738d37152",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_11.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 13976,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -36
+      ],
+      "sha256": "7115ca72dd0f4bebea54f19eab0d2ed918064ff1784bf8679ea592d29e2500e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_12.png",
+      "width": 17,
+      "height": 3,
+      "texture_px": [
+        17,
+        3
+      ],
+      "offset": 14010,
+      "length": 51,
+      "trim_origin_top_left_px": [
+        56,
+        62
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "c1ca92393ad057d5a24cfe48f60ac5f106fdc103c1783b0c1754f43056d7b1f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_13.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 14061,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "ef95c4b9c985e0577f467f4893449c5400da29b6a1a69217c78d3e5a7190e194",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_14.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 14095,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "22614762a32bb9d63a1720e6905223796005c33873aa79452e898162336d24ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_w_15.png",
+      "width": 17,
+      "height": 2,
+      "texture_px": [
+        17,
+        2
+      ],
+      "offset": 14129,
+      "length": 34,
+      "trim_origin_top_left_px": [
+        56,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -35
+      ],
+      "sha256": "71003843da0b723c082e7e78491430906c32adab810b2436495e96f1cd18ba3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_00.png",
+      "width": 24,
+      "height": 9,
+      "texture_px": [
+        24,
+        9
+      ],
+      "offset": 14163,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -34
+      ],
+      "sha256": "fbc3f386078a7ae04b4b4c769c894b3653fb862c1031df438e3681b4ed2a7511",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_01.png",
+      "width": 23,
+      "height": 9,
+      "texture_px": [
+        23,
+        9
+      ],
+      "offset": 14379,
+      "length": 207,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -34
+      ],
+      "sha256": "7750fe1b30bc2cf632cd235e3da1ce96ad7baa54e949929ad2b9d081753347e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_02.png",
+      "width": 24,
+      "height": 10,
+      "texture_px": [
+        24,
+        10
+      ],
+      "offset": 14586,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -33
+      ],
+      "sha256": "4a7930ec2d6c735cc17aedcb588c6ae8c1b41ce4b6ce1a057f4e4c7e5603e50a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_03.png",
+      "width": 24,
+      "height": 11,
+      "texture_px": [
+        24,
+        11
+      ],
+      "offset": 14826,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -33
+      ],
+      "sha256": "e22cfb2d7db9d93bc6b1f577abd224689dceb341ce3e36e20f0b9c165ccc0219",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_04.png",
+      "width": 19,
+      "height": 9,
+      "texture_px": [
+        19,
+        9
+      ],
+      "offset": 15090,
+      "length": 171,
+      "trim_origin_top_left_px": [
+        70,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -33
+      ],
+      "sha256": "a46e36326f544b4ffe14b56e82a13e705f50ad063f4c1d7266bd909042e35f97",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_05.png",
+      "width": 22,
+      "height": 10,
+      "texture_px": [
+        22,
+        10
+      ],
+      "offset": 15261,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -33
+      ],
+      "sha256": "db56ed9597cb462689ec9e1d9a5207fa4b6db5d310bdee678b3e1f448d7200cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_06.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 15481,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "c0261c52aa45d5fcac7d55dc4a68043528e3822837626a21444e49c86d136fd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_07.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 15734,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "c0261c52aa45d5fcac7d55dc4a68043528e3822837626a21444e49c86d136fd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_08.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 15987,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "c0261c52aa45d5fcac7d55dc4a68043528e3822837626a21444e49c86d136fd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_09.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 16240,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "c0261c52aa45d5fcac7d55dc4a68043528e3822837626a21444e49c86d136fd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_10.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 16493,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "c0261c52aa45d5fcac7d55dc4a68043528e3822837626a21444e49c86d136fd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_11.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 16746,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "0df56b606fddcc864cb0fd5c66b9aec8fbc8065ba8a40444cbb5cdec41e98695",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_12.png",
+      "width": 23,
+      "height": 10,
+      "texture_px": [
+        23,
+        10
+      ],
+      "offset": 16999,
+      "length": 230,
+      "trim_origin_top_left_px": [
+        66,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -33
+      ],
+      "sha256": "17c64cbca42e4c858150542bae5c105120b5325d606d6f21ae7227dd0f4e6ac6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_13.png",
+      "width": 24,
+      "height": 10,
+      "texture_px": [
+        24,
+        10
+      ],
+      "offset": 17229,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -33
+      ],
+      "sha256": "92200a3dd07d8308228b6d3c2c4a0da4ed0cf2cb5aeae2779115a3466b250057",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_14.png",
+      "width": 24,
+      "height": 9,
+      "texture_px": [
+        24,
+        9
+      ],
+      "offset": 17469,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -34
+      ],
+      "sha256": "82d407abeb765d5509bd5a430ec74c5b4b628c0770ea97cbafe19514bc0115e5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_wnw_15.png",
+      "width": 24,
+      "height": 9,
+      "texture_px": [
+        24,
+        9
+      ],
+      "offset": 17685,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -34
+      ],
+      "sha256": "fbc3f386078a7ae04b4b4c769c894b3653fb862c1031df438e3681b4ed2a7511",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_00.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 17901,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "9769074a91b0df6a209c8ea35da72b3d785082b1ccdbfebad0c4bedad3368504",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_01.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 18189,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "8159bdde8a0fdd7aaec4a33bd1fe9ad8d22fa9d8a58c712636e536065f2603fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_02.png",
+      "width": 17,
+      "height": 16,
+      "texture_px": [
+        17,
+        16
+      ],
+      "offset": 18477,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        76,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -30
+      ],
+      "sha256": "8fd58065fc3fdf4910c9a5a7a8356852fdb69f642795c7302f778ef7a54fdc86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_03.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 18749,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "028116be9ad005312e6595a7a5c05fec6f19d6ae4dd1729fbff7bc078e6c1d46",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_04.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 19038,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_05.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 19327,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_06.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 19616,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_07.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 19905,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_08.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 20194,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_09.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 20483,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_10.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 20772,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "7d7fa853f0dbc2e880fa8a9a127f1e7d63c6bb4d426ef6813c34a1b0cab33bb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_11.png",
+      "width": 17,
+      "height": 17,
+      "texture_px": [
+        17,
+        17
+      ],
+      "offset": 21061,
+      "length": 289,
+      "trim_origin_top_left_px": [
+        77,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -29
+      ],
+      "sha256": "b4317d8aef4132f94e1a2e7b8199060851b0f61b885e42331678b23db9cb6925",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_12.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 21350,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        76,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -29
+      ],
+      "sha256": "fec0c7472a8f2f42b3a3caa4dd13167e3664123e1013a9d4aeccfc684b6c3322",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_13.png",
+      "width": 17,
+      "height": 16,
+      "texture_px": [
+        17,
+        16
+      ],
+      "offset": 21674,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        76,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -30
+      ],
+      "sha256": "450cd11cc22643a6c39bf314c0ef937e652e34641fe34fdddbacfc2d152dbe49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_14.png",
+      "width": 17,
+      "height": 16,
+      "texture_px": [
+        17,
+        16
+      ],
+      "offset": 21946,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        76,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -30
+      ],
+      "sha256": "d43858a7442664623d3e0da8df411dac48083f8e4e66b9db56f14625f6baadbb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nw_15.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 22218,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        75,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -30
+      ],
+      "sha256": "9769074a91b0df6a209c8ea35da72b3d785082b1ccdbfebad0c4bedad3368504",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_00.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 22506,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "49048ccf0487f3d6c4a09a07680333bbae2c534f1457734d43239892c70a0052",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_01.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 22536,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "7a4069e32c1dbb3bba26e0e6b9f8992e8c450f342a795976a826ebf31cc6370e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_02.png",
+      "width": 6,
+      "height": 6,
+      "texture_px": [
+        6,
+        6
+      ],
+      "offset": 22566,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "fddf70080f809b454c283b49e17db93d89911771db5d8ba2fcac73c01ecaa52c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_03.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22602,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "173dabe71f600f7ae08b7b1e861e9ac0b411c62549f6e0c82b32154d55907cc2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_04.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22644,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_05.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22686,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_06.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22728,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_07.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22770,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_08.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22812,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_09.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22854,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_10.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22896,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "b7ec0e5c5a6beaf396a1c3f6990af3b5753641e9df77bef0c024ea4553fa5a2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_11.png",
+      "width": 6,
+      "height": 7,
+      "texture_px": [
+        6,
+        7
+      ],
+      "offset": 22938,
+      "length": 42,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -25
+      ],
+      "sha256": "9ebe97a2ccce8736e4ff5b2e8781e7744530ca7615fca22559c41c00a648ccfb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_12.png",
+      "width": 6,
+      "height": 6,
+      "texture_px": [
+        6,
+        6
+      ],
+      "offset": 22980,
+      "length": 36,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "7caf32816327dc4aec68b92b60c904c8884e2c9e91deb5a13ddf5e65a4d50900",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_13.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 23016,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "a5efaa2efddac011da3eb9a1eca88befeb3b81e6a6e2340fbe34172bf2b51a38",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_14.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 23046,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "caf1a763dca55f5eb064731accd45badb21849c8f00d3e6d61a14fa83b8c7c24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nnw_15.png",
+      "width": 5,
+      "height": 6,
+      "texture_px": [
+        5,
+        6
+      ],
+      "offset": 23076,
+      "length": 30,
+      "trim_origin_top_left_px": [
+        91,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -26
+      ],
+      "sha256": "49048ccf0487f3d6c4a09a07680333bbae2c534f1457734d43239892c70a0052",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_00.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 23106,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "9f8a537a955936b5e2aa9b96a9b97c24f1f561bb068e701932c4e5d0be94864d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_01.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 23211,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "db75201641d6101cd1bf02576d0203dda937c0f1a260e7e27937438572032d67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_02.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23316,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "34a4e957c9fe9dd10f03bfa8eb50623de2903c84e180db30b5cadb645e77b8cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_03.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23436,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "2a64f32c096b611ec335df672ee6b00457944774e7df5208225a0ddc5c7f66b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_04.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23556,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_05.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23676,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_06.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23796,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_07.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 23916,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_08.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 24036,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_09.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 24156,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_10.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 24276,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "31c045ec015cdc4d9624cf2fb0d22ffaba404b2ab31ad63e2e68cc16feaa9626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_11.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 24396,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "e3c090c727a067926988178f6c87ee1396502832aa076d2e1d9303928f39d3d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_12.png",
+      "width": 6,
+      "height": 20,
+      "texture_px": [
+        6,
+        20
+      ],
+      "offset": 24516,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        94,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "ab1230f129701609c98caeb7fdc7aeedbd66e053348abcc07639ec2f8c6ed3e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_13.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 24636,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "87c3d67d9f67ba073dc4621b245055b6bc905bd164aa465e60bc8f5ebd573433",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_14.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 24741,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "fe1083d377d5d112ed77dfc5e7bf75c9b7a963b7819e25ea4d09ebe02e9c0ef0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_n_15.png",
+      "width": 5,
+      "height": 21,
+      "texture_px": [
+        5,
+        21
+      ],
+      "offset": 24846,
+      "length": 105,
+      "trim_origin_top_left_px": [
+        94,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -21
+      ],
+      "sha256": "9f8a537a955936b5e2aa9b96a9b97c24f1f561bb068e701932c4e5d0be94864d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_00.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 24951,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "183ea3a43de775fd78ad720773331a255f467b0c23048830a0d18a39eb137f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_01.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 25221,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "8ac31fdc5e8a3283e311cdda69a37b9c904b27b1bae9507156fad7c66dd9245e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_02.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 25491,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "145de310533766633c87dc740844b48bdec776eaa6053a43138ded497cafa3a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_03.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 25761,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "2e60993bee47cd912ea2c7b1779ff6d5a44ef253b8da29fce424b3518775be24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_04.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 26033,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_05.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 26305,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_06.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 26577,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_07.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 26849,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_08.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 27121,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_09.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 27393,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_10.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 27665,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "bb7a3e50851a4e33462a73160f813ff8b3f9d24cc48df452c8b7f3120f9b2e64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_11.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 27937,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        92,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "576986361861e5a4e886bb67a7f026914cfe40326b68208752fedfdcc55a1101",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_12.png",
+      "width": 16,
+      "height": 18,
+      "texture_px": [
+        16,
+        18
+      ],
+      "offset": 28209,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "d45de96636db301051ec2b3fbb1878329dca0fe739a9c12131c9a88715406cb4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_13.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 28497,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "8c8198c947675063dc518680abc6da4041d356b54df5d3c42fe1c609294a09b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_14.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 28767,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "a19944cd810ef7bba31c84135bae0dde7778d1a9ddfe0e24c5f5187d8ee328de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_nne_15.png",
+      "width": 15,
+      "height": 18,
+      "texture_px": [
+        15,
+        18
+      ],
+      "offset": 29037,
+      "length": 270,
+      "trim_origin_top_left_px": [
+        92,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -17
+      ],
+      "sha256": "183ea3a43de775fd78ad720773331a255f467b0c23048830a0d18a39eb137f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_00.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 29307,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        89,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -14
+      ],
+      "sha256": "06e6b0bb544f62c74156a7e2b7750a7ad44b8db880b2139484790cd83b603417",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_01.png",
+      "width": 23,
+      "height": 13,
+      "texture_px": [
+        23,
+        13
+      ],
+      "offset": 29593,
+      "length": 299,
+      "trim_origin_top_left_px": [
+        88,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "e2b4372d8eec7ec5ded01cd3499df4400732ef1d75cac0f02929ad08724d673d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_02.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 29892,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "9e35ff127de02ae18fe68ea0b406e73247ad08002cd08575a3a89c5fc33c5b87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_03.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 30168,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "3a2ff0bb69f7fbd205b2219bf785efea877de106b3e6106e73897b549692c0d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_04.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 30444,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_05.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 30720,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_06.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 30996,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_07.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 31272,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_08.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 31548,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_09.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 31824,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_10.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 32100,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -13
+      ],
+      "sha256": "d20fdb7b26c8e62cb3396ba8d13e7203b82de8f20a0c22d6d9fad2367acbf481",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_11.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 32376,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "c25b2ea2904690ec21dbd64cb50b4f7c4ada63789f6c2281c9d3c674a117fed9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_12.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 32629,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "9d9c0d35ba7651580647e48f1cc8713b8b868fb02773774582d00b4495f38169",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_13.png",
+      "width": 23,
+      "height": 12,
+      "texture_px": [
+        23,
+        12
+      ],
+      "offset": 32905,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        88,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "1eda4df68f278df0bfee8fb9daf4f8fcffb88a3df60f2c6acb5208d374623cdd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_14.png",
+      "width": 23,
+      "height": 13,
+      "texture_px": [
+        23,
+        13
+      ],
+      "offset": 33181,
+      "length": 299,
+      "trim_origin_top_left_px": [
+        88,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -14
+      ],
+      "sha256": "a88ad36f34cea916d6d5bc5bbca5aca256a6b70508db89e267d5dcb9c26d0d60",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ne_15.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 33480,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        89,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -14
+      ],
+      "sha256": "06e6b0bb544f62c74156a7e2b7750a7ad44b8db880b2139484790cd83b603417",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_00.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 33766,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "1ab025cdcd7bc40b7af83dc353487f2235ce00d4c982a94a2e03119594f97d82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_01.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 33955,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "4bc553bbda02007d7dc724a5075908a4f0a1906d354b75ea3b3bbd8b29bc7924",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_02.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 34144,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -10
+      ],
+      "sha256": "656dbe677f85ed26436a5329a2149c64a25d3123fa1cd07e95a7757bf2a14333",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_03.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 34333,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -10
+      ],
+      "sha256": "17b8683d2770d839c3a4cdf8cf6b91c7a7c7d7132c70e223d87ce0b83de5854f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_04.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 34522,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_05.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 34718,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_06.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 34914,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_07.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 35110,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_08.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 35306,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_09.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 35502,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_10.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 35698,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        82,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -10
+      ],
+      "sha256": "4d7c5fe28e76a23a8e4e34c41d9e977d929933d3b0b5b3b6fbcf1c18032919c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_11.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 35894,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -10
+      ],
+      "sha256": "ced7382932e7a2239240926d69aa7dec31248e1a7a321b250b4fa337c683f5e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_12.png",
+      "width": 27,
+      "height": 6,
+      "texture_px": [
+        27,
+        6
+      ],
+      "offset": 36083,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        83,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "96861c2173134a19e871d1997b31555f2f8dff99b132f3abbdafd4210965cfd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_13.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 36245,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -10
+      ],
+      "sha256": "2b397ad0ccd216bf0441884ba97840ee9f5df60599a2ab75fc39ade1b61301fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_14.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 36461,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "af1ced3f6265e2d7626ff31b658268bc43f2f6c14374b13e42e2861976de3c23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ene_15.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 36650,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -11
+      ],
+      "sha256": "1ab025cdcd7bc40b7af83dc353487f2235ce00d4c982a94a2e03119594f97d82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_00.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 36839,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "29841e8fb2dc887190c589557eec6c9c08a12f0fe1ffeec4dcaf2224b2f22e43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_01.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 37035,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "69a7bb28c0af3c95f59db58bba7941e95f1d117d27296f4b4b4d2bd5b58012dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_02.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 37231,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "6669ef9234ebac9967fba55dc271b6e9c8b1829843d352c8e4b2960b973eb919",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_03.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 37427,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "b653ac800a1465b3f79dee11c0b571833ebc45fcfd86ec5d2dc49bec849eba52",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_04.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 37616,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_05.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 37832,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_06.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 38048,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_07.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 38264,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_08.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 38480,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_09.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 38696,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_10.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 38912,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -7
+      ],
+      "sha256": "be2d3e4a256340cf726251c171d9abb725472eeb578ad7756e3a6f42eaacb469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_11.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 39128,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "4113e7ec8d036c6563e8bae1dd84968df4aa3fcc8d40852a97a9a7ce5cb81e55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_12.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 39317,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "1fd8d31b79aaa25db4733634ffbe18cdc3a630e2fc486112781c15899e4a739d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_13.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 39506,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "2ee80658bdda6c8e3edf367d58aadd10c5492c5cc8cb6713f6659002f0ba85bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_14.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 39702,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "67e62b51f0fea12589a1389664eb8071d9809097b2d1848959681933d109b370",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_e_15.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 39898,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        77,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -8
+      ],
+      "sha256": "29841e8fb2dc887190c589557eec6c9c08a12f0fe1ffeec4dcaf2224b2f22e43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_00.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 40094,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        72,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -3
+      ],
+      "sha256": "40735c13de7d955ac7f1c15bc9f9c69062c0583b2b03ba869dbe4cfac3315326",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_01.png",
+      "width": 25,
+      "height": 12,
+      "texture_px": [
+        25,
+        12
+      ],
+      "offset": 40382,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -3
+      ],
+      "sha256": "9f94877f6e87d4bb5ec584feda19adea5ab58aa2e8129579835b4064ee3301e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_02.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 40682,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "b3be139b1bb87a7067aaa5c74f9cc272401cc2cc8445a71239ccedd48315bf37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_03.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 41007,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "aa9ee762af60de2f8e124aae06d8e6079e6fc10cebc521502863498108600735",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_04.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 41319,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_05.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 41631,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_06.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 41943,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_07.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 42255,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_08.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 42567,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_09.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 42879,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_10.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 43191,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "a1beb5259979bcecb681449653e35a85c86cba35206421a746d64dcedee89c9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_11.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 43503,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "cf309db5ba0ceee737c73c28a159b9971834c4f3f09458dc140b118342c77275",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_12.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 43815,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "2b835948389cb350395eefc6ee301fcd5131c3740c9ed8fa6e27835fd93ebf04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_13.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 44127,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -2
+      ],
+      "sha256": "ee73ee0be03fe33d8848e24f5fec0d5d0998663a6204ddef95d69890cd0644c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_14.png",
+      "width": 25,
+      "height": 12,
+      "texture_px": [
+        25,
+        12
+      ],
+      "offset": 44452,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        71,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -3
+      ],
+      "sha256": "849b520ac178a5c56f73f52679926402df0ffe9af072ab52a6b55ad866a2fae4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_ese_15.png",
+      "width": 24,
+      "height": 12,
+      "texture_px": [
+        24,
+        12
+      ],
+      "offset": 44752,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        72,
+        85
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -3
+      ],
+      "sha256": "40735c13de7d955ac7f1c15bc9f9c69062c0583b2b03ba869dbe4cfac3315326",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_00.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 45040,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "b8d599ef6ee1056914398c88ead14e2f4b5c4699e7f4ee66c85a4e76cdba80e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_01.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 45296,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "54a39af3c6b66a96b3fddc71e20df8ebbb89dc6cbcbb50c0e445f6b2d05a4951",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_02.png",
+      "width": 15,
+      "height": 16,
+      "texture_px": [
+        15,
+        16
+      ],
+      "offset": 45552,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "1590235b21f29186e25e1c867a8194b28fed15be14fb891a301c89115b86295d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_03.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 45792,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "9ca0ad1ff6c785ebb57b52d409746c0bb60d5e36e59a6b4f064ae477885e5fa8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_04.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 46064,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_05.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 46319,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_06.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 46574,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_07.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 46829,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_08.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 47084,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_09.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 47339,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_10.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 47594,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "ffda5d6287566c27ab990d1ab1d7ff8751dfe70b799d39e484a3fa68bce0c89b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_11.png",
+      "width": 15,
+      "height": 17,
+      "texture_px": [
+        15,
+        17
+      ],
+      "offset": 47849,
+      "length": 255,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        1
+      ],
+      "sha256": "a7f6a6815733174076c9561a45da375d86516e0f5e4a3346c8a6dd0a70c516a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_12.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 48104,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        68,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        0
+      ],
+      "sha256": "85db38771af21ce61c9d91eccf78cc0ed5ba6963cace42b4bc4ca7e1fbc4ef30",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_13.png",
+      "width": 15,
+      "height": 16,
+      "texture_px": [
+        15,
+        16
+      ],
+      "offset": 48360,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "c1913a2ed044105ce0d91d4e07ff19f6e806b7bf681c6b82f4f3b860eedd1f90",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_14.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 48600,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "6643e2526866cfce24103c9c422a7b2de262f5a3b7b4dce28357900bd593d760",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_se_15.png",
+      "width": 16,
+      "height": 16,
+      "texture_px": [
+        16,
+        16
+      ],
+      "offset": 48856,
+      "length": 256,
+      "trim_origin_top_left_px": [
+        69,
+        84
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        0
+      ],
+      "sha256": "b8d599ef6ee1056914398c88ead14e2f4b5c4699e7f4ee66c85a4e76cdba80e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_00.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 49112,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "e2b1a72208b397c5fb191592a08b3cbd86cd46327d6126c564ce896d20cef794",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_01.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 49274,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "9b79cd37fb462a7c65d3ba4cffd146b8f43b3ebe9c42e1ebcaf4003d0841f5ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_02.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 49436,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "a639dc6c49751d5ac3306df152341c09ddae2711582b08b8a92d746b59794206",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_03.png",
+      "width": 8,
+      "height": 17,
+      "texture_px": [
+        8,
+        17
+      ],
+      "offset": 49598,
+      "length": 136,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -1
+      ],
+      "sha256": "ce7376820ea3f54360e4e9ff43186a407cfa40c2a7e0193f2e00a1ea57ce094a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_04.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 49734,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_05.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 49886,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_06.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 50038,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_07.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 50190,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_08.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 50342,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_09.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 50494,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_10.png",
+      "width": 8,
+      "height": 19,
+      "texture_px": [
+        8,
+        19
+      ],
+      "offset": 50646,
+      "length": 152,
+      "trim_origin_top_left_px": [
+        63,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "3503d5edc643a460795a2621b2d75be3c3d75de42a3c6a483d16fe6afcf854d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_11.png",
+      "width": 8,
+      "height": 17,
+      "texture_px": [
+        8,
+        17
+      ],
+      "offset": 50798,
+      "length": 136,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -1
+      ],
+      "sha256": "46116e2ee5e112079d0d0e395c8f25331ef27067a37eca748139399f80c6b300",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_12.png",
+      "width": 9,
+      "height": 17,
+      "texture_px": [
+        9,
+        17
+      ],
+      "offset": 50934,
+      "length": 153,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -1
+      ],
+      "sha256": "847b8e711a249c85fca5920edb741281ee21d65bace8e992de1174c2418407c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_13.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 51087,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        0
+      ],
+      "sha256": "20a9bfe2be6e0af3fd89bd678ae6325db1de42b6b528dc57e1a57b7f0b4ac236",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_14.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 51249,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "e502c3d842a8554cc5e0fe60408c02d188ce9f9035d5ff91b4c6111e6c8b4c0d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanBladeWardSword.atlas",
+      "name": "ward_sse_15.png",
+      "width": 9,
+      "height": 18,
+      "texture_px": [
+        9,
+        18
+      ],
+      "offset": 51411,
+      "length": 162,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        0
+      ],
+      "sha256": "e2b1a72208b397c5fb191592a08b3cbd86cd46327d6126c564ce896d20cef794",
+      "empty": false
+    }
+  ],
+  "source_authority": "BladeWardOct08/BladeWard_Authored.blend"
+}
