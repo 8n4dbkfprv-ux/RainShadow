@@ -13,7 +13,7 @@ struct LampWardIntegrationTests {
     }
     func receipt(_ id: AreaID) throws -> Receipt {
         let url = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
-            .appendingPathComponent("Fixtures/LampWard/\(id.rawValue).validation.json")
+            .appendingPathComponent("Fixtures/LampWard/\(id.resourceName).validation.json")
         return try JSONDecoder().decode(Receipt.self, from: Data(contentsOf: url))
     }
 

@@ -8,15 +8,21 @@ public enum AreaResourceID {
         "city_sable_row": "RS0100", "office_suite": "RS0101",
         "city_wharf_ladder": "RS0200", "interior_shipping_office": "RS0201",
         "city_riverside": "RS0300", "interior_iron_stairs": "RS0301",
-        "city_lamp_ward": "RS0400", "interior_lamphouse": "RS0401",
+        "city_lamp_ward": "RS0400", "interior_watchhouse": "RS0401",
         "city_lila_street": "RS0500", "interior_lila_rooms": "RS0501",
         "city_civic_records": "RS0600", "interior_records_annex": "RS0601",
         "city_harborpoint_pd": "RS0700", "interior_police_station": "RS0701",
         "sable_court": "RS9900", "sable_noir": "RS9901"
     ]
 
+    /// Retired resource basenames that still name a live code. Kept out of
+    /// `codes` so each code has exactly one resource name.
+    public static let retiredNames: [String: String] = [
+        "interior_lamphouse": "RS0401"
+    ]
+
     public static func canonical(_ name: String) -> String {
-        if let code = codes[name.lowercased()] { return code }
+        if let code = codes[name.lowercased()] ?? retiredNames[name.lowercased()] { return code }
         let upper = name.uppercased()
         return codes.values.contains(upper) ? upper : name
     }
@@ -162,12 +168,14 @@ struct PersistedExploredFog: Codable, Equatable {
 /// them). Portal ids, district and interior raw values are never persisted, so
 /// only area ids and renamed item ids need mapping.
 enum LegacySaveIDs {
-    /// Harborpoint PD became Lamp Ward; its station became the Lamphouse.
+    /// Harborpoint PD became Lamp Ward; its station became the Lamphouse, and
+    /// the Lamphouse's internal id then became the Watch-house.
     /// `AreaResourceID` then folds those names onto RS0400 / RS0401.
     /// Lila's Street stays the central district on the restored map.
     static let areaIDs: [String: String] = [
         "city_harborpoint_pd": "city_lamp_ward",
-        "interior_police_station": "interior_lamphouse"
+        "interior_police_station": "interior_watchhouse",
+        "interior_lamphouse": "interior_watchhouse"
     ]
 
     static func areaID(_ id: String) -> String {

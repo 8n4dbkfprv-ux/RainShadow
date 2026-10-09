@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "plateTextureName": "lamphouse_v12",
+  "plateTextureName": "watchhouse_v12",
   "worldSize": {
     "w": 1664,
     "h": 1248
@@ -13,7 +13,7 @@
   "pages": [
     {
       "id": "c00_r00",
-      "textureName": "lamphouse_v12_c00_r00",
+      "textureName": "watchhouse_v12_c00_r00",
       "fileExtension": "jpg",
       "worldRect": {
         "x": 0.0,
@@ -27,7 +27,7 @@
     },
     {
       "id": "c01_r00",
-      "textureName": "lamphouse_v12_c01_r00",
+      "textureName": "watchhouse_v12_c01_r00",
       "fileExtension": "jpg",
       "worldRect": {
         "x": 832.0,
@@ -41,7 +41,7 @@
     },
     {
       "id": "c00_r01",
-      "textureName": "lamphouse_v12_c00_r01",
+      "textureName": "watchhouse_v12_c00_r01",
       "fileExtension": "jpg",
       "worldRect": {
         "x": 0.0,
@@ -55,7 +55,7 @@
     },
     {
       "id": "c01_r01",
-      "textureName": "lamphouse_v12_c01_r01",
+      "textureName": "watchhouse_v12_c01_r01",
       "fileExtension": "jpg",
       "worldRect": {
         "x": 832.0,

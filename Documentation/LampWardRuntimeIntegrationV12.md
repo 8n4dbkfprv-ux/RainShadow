@@ -1,12 +1,13 @@
 # Lamp Ward and Lamphouse runtime integration — V12
 
-The accepted V11 Blender artwork is installed as two playable areas: `city_lamp_ward` and `interior_lamphouse`. Lamp Ward occupies the former Harborpoint PD world-map position, south of Sable Row and east of Riverside. The Lamphouse is the Lantern Company's civic/watch hall. No case evidence, testimony, journal state, or NPC dialogue was added.
+The accepted V11 Blender artwork is installed as two playable areas: `city_lamp_ward` and `interior_watchhouse`. Lamp Ward occupies the former Harborpoint PD world-map position, south of Sable Row and east of Riverside. The Lamphouse is the Lantern Company's civic/watch hall. No case evidence, testimony, journal state, or NPC dialogue was added.
 
 Open `Play Lamp Ward.command` for direct access at the Lamphouse forecourt with a separate save. Normal city travel also reaches Lamp Ward. Click the facade doorway to enter; click the narrow interior entrance strip to return. The three cells remain barred and closed. These are baked travel entrances, not animated door leaves. On macOS, N switches the ward between day and night.
 
 ## Installed assets and authority
 
-- `RainShadow Shared/Resources/Areas/city_lamp_ward.*` and `interior_lamphouse.*`: area records, search, light and height maps.
+- `RainShadow Shared/Resources/Areas/city_lamp_ward.*` and `interior_watchhouse.*`: area records, search, light and height maps.
+- Interior plate `RainShadow Shared/Resources/Art/Areas/LampWardV12/watchhouse_v12*`. The interior area record and plate were renamed from `interior_lamphouse` / `lamphouse_v12` to match the Watch canon (display name unchanged: THE WATCH-HOUSE); saves that still hold `interior_lamphouse` load into RS0401. The street door keeps its id `portal.lamphouseEntrance`.
 - `RainShadow Shared/Resources/Art/Areas/LampWardV12/`: native cropped 2048-pixel pages, page manifests with SHA-256 hashes, and map previews. Both Xcode application targets include every asset.
 - Source: `ArtSource/Generated/CityDistrict/LampWardNoirFantasySep27/RuntimeIntegrationV12/lamp_ward_lamphouse_runtime_v12.blend`. Its text block `export_runtime_v12.py` preserves the live MCP geometry export. V11 remains untouched.
 - Converter: `ArtSource/Processing/integrate_lamp_ward_v12.py stage` then `install` (Pillow, numpy, Shapely 2.1). Source and native renders remain local under ArtSource, as with the existing art pipeline.

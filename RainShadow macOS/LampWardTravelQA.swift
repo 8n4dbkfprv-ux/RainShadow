@@ -57,14 +57,14 @@ import SpriteKit
             try capture(street, "02_lamp_ward_night")
             street.setExtendedNight(false)
             street.handlePointerMoved(GamePointerEvent(location: door, kind: .mouse))
-            try check(street.hoveredHighlightID == region.id, "Painted Lamphouse doorway is identified by mouse hover")
+            try check(street.hoveredHighlightID == region.id, "Painted Watch-house doorway is identified by mouse hover")
             click(street, door, touch: true)
             try await waitUntil({ (view.scene as? GameAreaScene)?.area.id == LampWardAreas.interiorID })
             try await waitUntil({ !context.router.isTransitioning })
             let room = view.scene as! CityDistrictScene
             try check(room.detective.position == room.area.spawnPoint(entrance: "from.street"), "Travel arrives at the shared interior door strip")
             try check(room.detective.state == .standingIdle, "Voss arrives standing and controllable")
-            try capture(room, "03_lamphouse_arrival")
+            try capture(room, "03_watchhouse_arrival")
             for (name, point) in [("property_log", CGPoint(x: 513, y: 524)), ("night_books", CGPoint(x: 782, y: 811)), ("cell_corridor", CGPoint(x: 1217, y: 502)), ("property_store", CGPoint(x: 983, y: 344))] {
                 try check(room.navigation.isOrderableFloor(point), "\(name) accepts a floor click")
                 click(room, point)
@@ -77,7 +77,7 @@ import SpriteKit
             try await waitUntil({ (view.scene as? GameAreaScene)?.area.id == LampWardAreas.exteriorID })
             try await waitUntil({ !context.router.isTransitioning })
             let returned = view.scene as! CityDistrictScene
-            try check(returned.detective.position == region.approachPoint!.cgPoint, "Leaving returns to the Lamphouse forecourt")
+            try check(returned.detective.position == region.approachPoint!.cgPoint, "Leaving returns to the Watch-house forecourt")
             try capture(returned, "05_return_to_ward")
             click(returned, door)
             try await waitUntil({ (view.scene as? GameAreaScene)?.area.id == LampWardAreas.interiorID })

@@ -10,7 +10,7 @@ runtime; see [current character authority](VossCurrentRuntime.md).
 | Sable Row | `city_sable_row`, promoted from V30 `sable_noir` | Current `office_suite`, return via `from.office` |
 | Wharf Ladder | `city_wharf_ladder` | Reviewed `interior_shipping_office` |
 | Riverside | `city_riverside` | Reviewed `interior_iron_stairs` (Riverside Rooms) |
-| Lamp Ward (retained) | `city_lamp_ward` | `interior_lamphouse` |
+| Lamp Ward (retained) | `city_lamp_ward` | `interior_watchhouse` |
 
 Lila's Street and Civic Records retain their existing areas. This restoration
 does not claim those areas have received the new fantasy architecture.

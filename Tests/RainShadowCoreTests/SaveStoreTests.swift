@@ -118,8 +118,8 @@ struct SaveStoreTests {
         #expect(store.load() == SaveSnapshot())
     }
 
-    /// Harborpoint PD was renamed Lamp Ward (and its station the Lamphouse)
-    /// after saves existed. Load folds those names onto the restored area
+    /// Harborpoint PD was renamed Lamp Ward (and its station the Lamphouse,
+    /// whose internal id later became the Watch-house) after saves existed. Load folds those names onto the restored area
     /// codes, and a value already under a new id wins.
     @Test func legacyAreaIDsLoadUnderTheirRenamedIDs() throws {
         let suiteName = "RainShadowTests.\(UUID().uuidString)"
@@ -136,6 +136,7 @@ struct SaveStoreTests {
                 "city_harborpoint_pd/visited": flag,
                 "city_lila_street/VISITED": flag,
                 "interior_police_station/door.seen": flag,
+                "interior_lamphouse/counter.seen": flag,
                 "city_sable_row/visited": flag
             ]
         ))
@@ -153,6 +154,11 @@ struct SaveStoreTests {
         #expect(loaded.areaVariables["city_harborpoint_pd/visited"] == nil)
         #expect(loaded.areaVariables["city_lila_street/VISITED"] == nil)
         #expect(loaded.areaVariables["interior_police_station/door.seen"] == nil)
+        #expect(loaded.areaVariables["RS0401/counter.seen"] == flag)
+        #expect(loaded.areaVariables["interior_lamphouse/counter.seen"] == nil)
+        #expect(loaded.areaVariables["interior_watchhouse/counter.seen"] == nil)
+        #expect(LegacySaveIDs.areaID("interior_lamphouse") == "interior_watchhouse")
+        #expect(AreaResourceID.canonical("interior_lamphouse") == "RS0401")
 
         let newer = PersistedAreaVariable(kind: "integer", integer: 2)
         #expect(LegacySaveIDs.rekeyedAreaVariables([
