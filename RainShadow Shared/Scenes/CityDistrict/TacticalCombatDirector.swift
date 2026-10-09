@@ -155,7 +155,7 @@ final class TacticalCombatDirector {
         }
         let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        let glyphs = [2, 19, 15, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
+        let glyphs = [2, 19, CombatActionButton.fleeGlyph, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
         let shortcuts = ["1", "", "3", "4", "5", "6", "7", "8", "9", "", "", "", "", "", "5", "6", "", "", ""]
         let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn. Shortcut: Enter.",
             "Escape when every conscious enemy is at least 60 ft away.", "Standard action. Change between human and bear form.",

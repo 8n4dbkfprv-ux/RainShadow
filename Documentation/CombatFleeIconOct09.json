@@ -1,0 +1,7 @@
+{
+  "tool": "built-in image_gen",
+  "asset": "RainShadow Shared/Resources/Art/UI/HUD/combat_flee_inkwash_v01.png",
+  "reference": "RainShadow Shared/Resources/Art/UI/HUD/combat_action_inkwash_v02.png",
+  "prompt": "Use case: stylized-concept\nAsset type: ONE standalone square combat action icon for RainShadow, to replace Flee Combat.\nReference image: supplied atlas is STYLE REFERENCE ONLY. Match its black and grey ink-wash silhouettes, visible brush grain and diluted pigment gradients. Do not recreate the atlas.\nSubject: an open arched doorway, with one bold horizontal arrow pointing RIGHT, exiting the doorway. A simple fantasy doorway outline on the left, pale empty doorway interior, arrow shaft crosses the opening toward a large unmistakable arrowhead outside on the right. Readable at 40 pixels. Communicate escape / leave combat. No person, no full body, no footsteps, no weapons.\nComposition: one centered compact symbol occupying about 80 percent of a square canvas, generous even margins. Doorway and arrow must remain distinct with clear white gaps. Mostly bold black/charcoal brush strokes, some medium grey watery ink facets. Pure white background (#FFFFFF) and white negative space, no parchment texture (the game supplies parchment). No text, letters, border, drop shadow, bevel, colored gradients or decorative scenery.",
+  "rendering": "Existing ink-density shader removes white and retains ink-wash density on parchment. Flee uses standalone glyph 20 in human and bear form; Dash retains atlas glyph 15."
+}

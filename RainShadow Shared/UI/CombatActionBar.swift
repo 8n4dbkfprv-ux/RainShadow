@@ -11,6 +11,7 @@ final class CombatActionButton: SKShapeNode {
     private let key = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
     private let endTitle = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private(set) var glyphIndex = -1
+    static let fleeGlyph = 20
     private static let sheet = GameArt.texture(named: "combat_action_inkwash_v02")
     private static var glyphTextures: [Int: SKTexture] = [:]
     private static let paper = UIPaintedChrome.parchmentSurface()
@@ -82,6 +83,13 @@ final class CombatActionButton: SKShapeNode {
         guard index != glyphIndex else { return }
         glyphIndex = index
         if let cached = Self.glyphTextures[index] { glyph.texture = cached; return }
+        if index == Self.fleeGlyph {
+            let texture = GameArt.texture(named: "combat_flee_inkwash_v01")
+            texture?.filteringMode = .linear
+            Self.glyphTextures[index] = texture
+            glyph.texture = texture
+            return
+        }
         if let sheet = Self.sheet {
             // Isolate each painted cell and cache it with local 0–1 shader UVs.
             let image = sheet.cgImage()

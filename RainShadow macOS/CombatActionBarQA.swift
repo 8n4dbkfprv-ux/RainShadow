@@ -90,6 +90,19 @@ import SpriteKit
             proof.addChild(glyph)
         }
         try capture(proof, "ink-symbol-detail")
+        let escapeProof = SKNode()
+        let escapePaper = SKSpriteNode(texture: UIPaintedChrome.parchmentSurface())
+        escapePaper.size = CGSize(width: 300, height: 150); escapeProof.addChild(escapePaper)
+        for (index, name) in ["flee", "dash"].enumerated() {
+            let glyph = try button(name).glyph.copy() as! SKSpriteNode
+            glyph.setScale(2.2); glyph.position = CGPoint(x: index == 0 ? -75 : 75, y: 12)
+            escapeProof.addChild(glyph)
+            let label = SKLabelNode(fontNamed: UITheme.Font.overlayTitle)
+            label.text = index == 0 ? "Flee Combat" : "Dash"
+            label.fontSize = 16; label.fontColor = UITheme.Color.ink
+            label.position = CGPoint(x: glyph.position.x, y: -56); escapeProof.addChild(label)
+        }
+        try capture(escapeProof, "flee-and-dash-icons")
         let saved = director.combat
         director.pointer(at: scene.convert(CGPoint(x: 0, y: -65), from: director.actionBar))
         try check(director.combat == saved, "Empty painted chrome cannot issue world movement")
