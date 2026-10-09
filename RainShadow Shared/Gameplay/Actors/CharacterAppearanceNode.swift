@@ -245,7 +245,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             }
             var overlays = clip == .sneakshoot ? try bowOverlays(name: name) : [:]
             if clip != .sneakshoot {
-                // Sneak stab is a shortsword move; the bow uses its separate crouched shot.
+                // Sneak stab is a shortsword move; the bow uses its separate jumping shot.
                 for (item, library) in stealthEquipment where clip != .sneakstab || (item != .elvenCourtBow && item != .elvenCourtArrow) {
                     let atlas = StealthAnimationSet.equipment(item) + ".atlas"
                     guard let layer = library.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
@@ -430,8 +430,13 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let replacement = try Resources(appearance: definition.appearance)
         let changedBody = definition.appearance.body != self.definition.appearance.body
         let phase = changedBody ? 0 : currentPhase
-        let frames = try replacement.frames(appearance: definition.appearance, action: currentAction,
+        let frames: (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame])
+        if !changedBody, let currentStealth {
+            frames = try replacement.stealthFrames(currentStealth, facing: currentFacing, phase: phase)
+        } else {
+            frames = try replacement.frames(appearance: definition.appearance, action: currentAction,
                                             facing: currentFacing, phase: phase, technique: currentTechnique)
+        }
         resources = replacement
         self.definition = definition
         name = definition.id

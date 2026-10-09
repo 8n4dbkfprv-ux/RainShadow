@@ -4,6 +4,21 @@ import CoreGraphics
 @testable import RainShadowCore
 
 struct WeaponTechniqueMotionTests {
+    @Test func pinningBracesBelowTheNormalDrawInEveryFacing() throws {
+        let normal = try IEIndexedSprite.load(character: BowAttackAnimationSet.character)
+        let pinning = try IEIndexedSprite.load(character: WeaponTechniqueAnimationSet.pinning)
+        for facing in ActorFacing.allCases {
+            func top(_ sprite: IEIndexedSprite, _ name: String) throws -> Int {
+                let frame = try #require(sprite.frame(atlas: sprite.character + ".atlas", name: name))
+                let first = try #require(frame.indices.firstIndex(where: { $0 > 1 }))
+                return frame.trimOriginTopLeft.height + first / frame.nativeSize.width
+            }
+            let normalName = String(format: "shoot_%@_09.png", VossAnimationSet.direction(facing))
+            let pinningName = try WeaponTechniqueAnimationSet.name(.pinningShot, facing: facing, phase: 9)
+            // The brace must visibly lower the silhouette, including rear views.
+            #expect(try top(pinning, pinningName) - top(normal, normalName) >= 8)
+        }
+    }
     @Test func distinctMeleeMarkersKeepWindupImpactAndRecoveryOrdered() {
         #expect(WeaponTechniqueMotion.meleeImpact(.powerStrike) > MeleeAttackAnimationSet.impactTime)
         #expect(WeaponTechniqueMotion.meleeDuration(.feintingCut) < MeleeAttackAnimationSet.recoveryTime)

@@ -5,7 +5,7 @@ import CoreGraphics
 enum StealthClip: String, CaseIterable {
     case hide, sneakidle, sneakwalk, sneakstab, sneakshoot
     var frames: Int {
-        switch self { case .hide: 8; case .sneakidle: 6; case .sneakwalk: 12; case .sneakstab, .sneakshoot: 18 }
+        switch self { case .hide: 8; case .sneakidle: 6; case .sneakwalk: 12; case .sneakstab: 18; case .sneakshoot: 24 }
     }
     var action: CharacterVisualAction {
         switch self { case .sneakwalk: .walk; case .sneakstab: .attack; case .sneakshoot: .shoot; default: .idle }
@@ -17,10 +17,11 @@ enum StealthAnimationSet {
     static let fps = 15.0
     static let stabImpact = 9.0 / fps
     static let stabDuration = 18.0 / fps
-    static let bowHold = 0.25
-    static let bowRelease = BowAttackRules.releaseTime + bowHold
-    static let bowDuration = BowAttackRules.recoveryTime + bowHold
-    // Reviewed October 7 live-Blender renders, verified before installation.
+    // Continuous jump: anticipation, takeoff, airborne release, then landing.
+    static let bowReleasePhase = 12
+    static let bowRelease = Double(bowReleasePhase) / fps
+    static let bowDuration = Double(StealthClip.sneakshoot.frames) / fps
+    // Live-Blender renders: October 7 stealth poses and October 9 jumping bow shot.
     static let hashes: [String: String] = [
         "HumanStealth": "bcceff48a55f03e2b37e7a04ec7725fdba2117561af0d88b8a72927fa48991e8",
         "HumanStealthSword": "d544412b3179c7e4419aba3cb6451ec3b7b661acacc4d19798400fb3b7f7cd59",
@@ -28,7 +29,7 @@ enum StealthAnimationSet {
         "HumanStealthHelmet": "6ec640bceb07e5e06e9c51794f4483ebdd7ef57271bdf26f3e99725bc6a92e15",
         "HumanStealthBow": "05c89e307fbd04fae6ccf66d991a8071b206209c136db1ebda69eba7ad5f3765",
         "HumanStealthArrow": "0dd456432c154454f4bcab06a419f7bc920eb309947a08dbd1a187444ec998e9",
-        "HumanSneakShot": "77000bfedcbd8645c138c182a6f25eec991f7bfdac5089ad0f5eb8d834c47475",
+        "HumanSneakShot": "49b583a67d2fea34c9d2b354d975170b53f56a9a2619f999b774d775c07b0674",
     ]
     static func equipment(_ item: CharacterEquipmentCode) -> String {
         CombatReactionAnimationSet.equipment(item).replacingOccurrences(of: CombatReactionAnimationSet.body, with: body)
@@ -38,8 +39,7 @@ enum StealthAnimationSet {
         return String(format: "%@_%@_%02d.png", clip.rawValue, VossAnimationSet.direction(facing), phase)
     }
     static func phase(_ clip: StealthClip, elapsed: Double, looping: Bool = false) -> Int {
-        let sample = clip == .sneakshoot && elapsed > 9 / fps ? max(9 / fps, elapsed - bowHold) : elapsed
-        let frame = max(0, Int(sample * fps + 1e-9))
+        let frame = max(0, Int(elapsed * fps + 1e-9))
         return looping ? frame % clip.frames : min(clip.frames - 1, frame)
     }
     static func usesAttack(_ strike: TacticalCombat.Strike) -> Bool {
@@ -49,7 +49,9 @@ enum StealthAnimationSet {
     static func muzzleOffset(facing: ActorFacing) -> CGPoint {
         let angle = Double(facing.rawValue) * .pi / 8
         let density = (1024 / 1.72 * 0.07465790639916813) * (140.625 / 128)
-        let x = 0.10000021, y = -0.95111811, z = 1.23376787
+        // Last nocked tip, carried down 4 cm with the root at release (phase 12).
+        // Excludes the source arrow's forward motion; the projectile owns flight.
+        let x = 0.10000031, y = -0.95111811, z = 2.03376790
         return CGPoint(x: density * (cos(angle) * x + sin(angle) * y),
             y: density * (sqrt(1 - 0.75 * 0.75) * z - 0.75 * (sin(angle) * x - cos(angle) * y)))
     }

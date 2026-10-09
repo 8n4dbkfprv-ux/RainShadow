@@ -89,7 +89,7 @@ import SpriteKit
                 definition.appearance.equipment = bow + gear.map { .init(item: $0) }
                 try actor.apply(definition)
                 for clip in ["shoot", "pin", "sneakshoot"] {
-                    for facing in ActorFacing.allCases { for phase in 0..<18 {
+                    for facing in ActorFacing.allCases { for phase in 0..<(clip == "sneakshoot" ? StealthClip.sneakshoot.frames : BowAttackRules.frames) {
                         if clip == "sneakshoot" { try actor.presentStealth(.sneakshoot, facing: facing, phase: phase) }
                         else { try actor.presentTechnique(clip == "pin" ? .pinningShot : nil, action: .shoot, facing: facing, phase: phase) }
                         let key = String(format: "%@_%@_%02d.png", clip, VossAnimationSet.direction(facing), phase)
@@ -100,7 +100,7 @@ import SpriteKit
                             }
                         }
                     } }
-                    try check(true, "All 288 " + clip + " frames load for outfit " + gear.map(\.rawValue).joined(separator: "+"))
+                    try check(true, "All \((clip == "sneakshoot" ? StealthClip.sneakshoot.frames : BowAttackRules.frames) * 16) " + clip + " frames load for outfit " + gear.map(\.rawValue).joined(separator: "+"))
                 }
             }
         }
@@ -191,22 +191,43 @@ import SpriteKit
                   "Fire arrow consumes one item and ignites the barrel")
         try await wait { !director.busy }
         try capture("fire-barrel")
-        if armored {
+        if armored || ProcessInfo.processInfo.environment["RAINSHADOW_QA_BOW_MOTION"] == "1" {
+            let outfit = armored ? "Armored" : "Unarmored"
             for action in ["aimedShot", "pinningShot", "sneak"] {
                 var fight = model(hitSeed)
                 if action == "sneak" { _ = fight.hide(observed: false) }
                 director = try await open(fight, count: 2)
                 try press("combat." + action, director); target(director, at: point)
-                guard let shot = director.rangedShot else { throw TacticalCombatQA.Failure(message: "Armored " + action + " rejected: " + director.targetingFeedback) }
+                guard let shot = director.rangedShot else { throw TacticalCombatQA.Failure(message: outfit + " " + action + " rejected: " + director.targetingFeedback) }
+                try check(director.isShooting(TacticalCombat.playerID), outfit + " " + action + " keeps the combat identity while using a visual bow proxy")
                 try await wait { shot.actor.currentPhase >= 8 }
                 let clip = action == "pinningShot" ? "pin" : action == "sneak" ? "sneakshoot" : "shoot"
-                try verifyArmor(shot.actor, key: String(format: "%@_%@_%02d.png", clip, VossAnimationSet.direction(shot.facing), shot.actor.currentPhase))
+                if action == "sneak" {
+                    try await wait { shot.actor.currentPhase >= 11 }
+                    try check(scene.detective.isHidden && director.stealthNodes[TacticalCombat.playerID]?.isHidden != false,
+                              outfit + " jump hides both the exploration body and the crouched stealth body")
+                    let body = shot.actor.childNode(withName: "appearance.body") as! IEAvatarNode
+                    try check(body.currentFrame?.id?.name == String(format: "sneakshoot_%@_%02d.png", VossAnimationSet.direction(shot.facing), shot.actor.currentPhase), outfit + " sneak uses the jumping frame")
+                    try check(shot.arrow.isHidden && shot.releaseTime == StealthAnimationSet.bowRelease,
+                              outfit + " jump keeps the arrow nocked until the airborne release marker")
+                    try capture(outfit.lowercased() + "-jump-apex")
+                    scene.handleTacticalPauseInput()
+                    let paused = shot.elapsed
+                    try await Task.sleep(for: .milliseconds(180))
+                    try check(shot.elapsed == paused, outfit + " airborne pose and projectile clock pause together")
+                    scene.handleTacticalPauseInput()
+                    try await wait { !shot.arrow.isHidden }
+                    try check(hypot(shot.origin.x - shot.actor.position.x - StealthAnimationSet.muzzleOffset(facing: shot.facing).x,
+                                    shot.origin.y - shot.actor.position.y - shot.actor.visualHeightOffset - StealthAnimationSet.muzzleOffset(facing: shot.facing).y) < 0.001,
+                              outfit + " projectile starts at the raised airborne bow muzzle")
+                }
+                if armored { try verifyArmor(shot.actor, key: String(format: "%@_%@_%02d.png", clip, VossAnimationSet.direction(shot.facing), shot.actor.currentPhase)) }
                 try check(action == "sneak" ? shot.isSneakAttack : shot.result.maneuver?.rawValue == action,
-                          "Armored " + action + " uses its authored combat animation")
-                try check(director.fireArrowCount == 2 && !shot.result.fireArrow, "Armored " + action + " preserves special ammunition")
-                try capture("armored-" + action)
+                          outfit + " " + action + " uses its authored combat animation")
+                try check(director.fireArrowCount == 2 && !shot.result.fireArrow, outfit + " " + action + " preserves special ammunition")
+                try capture(outfit.lowercased() + "-" + action)
                 try await wait { !director.busy }
-                try check(!scene.detective.isHidden, "Armored " + action + " returns to the equipped exploration actor")
+                try check(!scene.detective.isHidden, outfit + " " + action + " returns to the equipped exploration actor")
             }
         }
         return checks

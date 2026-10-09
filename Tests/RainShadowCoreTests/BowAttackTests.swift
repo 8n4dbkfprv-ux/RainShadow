@@ -73,7 +73,7 @@ struct BowAttackTests {
             let character = try #require(BowAttackAnimationSet.equipment(item))
             let sprite = try IEIndexedSprite.load(character: character)
             try BowAttackAnimationSet.validateEquipment(sprite, character: character)
-            #expect(sprite.frames.count == 864)
+            #expect(sprite.frames.count == 960)
         }
         #expect(BowAttackAnimationSet.equipment(.lanternShortsword) == nil)
         try BowAttackAnimationSet.validate(IEIndexedSprite.load(character: BowAttackAnimationSet.character))

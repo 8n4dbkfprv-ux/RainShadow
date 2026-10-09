@@ -11,6 +11,7 @@ final class TacticalCombatDirector {
     private(set) var combat: TacticalCombat
     private let hud = SKNode()
     let initiativeBar = CombatInitiativeBar()
+    private(set) var startBanner: CombatStartBanner?
     private let message = SKLabelNode(fontNamed: "AvenirNext-Medium")
     private let history = SKLabelNode(fontNamed: "AvenirNext-Regular")
     private let panel = SKShapeNode()
@@ -105,7 +106,9 @@ final class TacticalCombatDirector {
     private(set) var meleeAttack: MeleeAttackPresentation?
     func isStriking(_ id: String) -> Bool { wardCast?.before.current.id == id || bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
-    func isShooting(_ id: String) -> Bool { rangedShot?.actor.definition.id == id }
+    // The player bow proxy uses the visual definition "voss", while combat uses
+    // "detective.voss". Presentation ownership follows the accepted strike.
+    func isShooting(_ id: String) -> Bool { rangedShot?.result.attacker == id }
     private(set) var bearNode: CharacterAppearanceNode?
     private var displayingBear = false
     private var formTransition: (toBear: Bool, elapsed: TimeInterval)?
@@ -122,10 +125,10 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { startBanner != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
-    init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
+    init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
         self.scene = scene; self.combat = combat; self.crew = crew; self.completion = completion
         self.combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
         hud.name = "combat.hud"; hud.zPosition = 900
@@ -137,6 +140,11 @@ final class TacticalCombatDirector {
         }
         turnPanel.fillColor = .clear; turnPanel.strokeColor = .clear
         hud.addChild(initiativeBar)
+        if isNewEncounter, combat.outcome == nil {
+            let banner = CombatStartBanner()
+            startBanner = banner
+            hud.addChild(banner)
+        }
         for label in [message, history] {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
@@ -218,6 +226,7 @@ final class TacticalCombatDirector {
         turnPanel.position.y = scene.size.height / 2 - 78
         initiativeBar.position = turnPanel.position
         initiativeBar.layout(width: width)
+        startBanner?.layout(width: max(1, scene.size.width - left - right - 24), sceneHeight: scene.size.height)
         message.position.y = panel.position.y + height / 2 - (width < 660 ? 40 : 22)
         history.position.y = panel.position.y + height / 2 - (width < 660 ? 104 : 51)
         message.fontSize = 14; history.fontSize = 12
@@ -243,6 +252,7 @@ final class TacticalCombatDirector {
         message.text = combat.isPlayerTurn
             ? "\(feedback)  |  Strike: \(combat.budget.canAttack ? "ready" : "spent") • Move: \(move) ft"
             : "\(combat.current.name) is taking their turn…"
+        if startBanner != nil { message.text = "Combat begins…" }
         history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
         buttons[2].alpha = combat.isPlayerTurn && !busy && combat.fleeUnavailableReason == nil ? 1 : 0.35
@@ -1400,6 +1410,11 @@ final class TacticalCombatDirector {
             if !roarSound.isPlaying { roarSound.play() }
         }
         guard !presentationPaused else { return }
+        if let startBanner {
+            startBanner.advance(delta: delta)
+            if startBanner.finished { self.startBanner = nil }
+            return
+        }
         for id in Array(hitReactions.keys) {
             hitReactions[id]?.elapsed += delta
             if presentedCombat.actors.contains(where: { $0.id == id && $0.isProne }), hitReactions[id]?.kind == .tripFall {
@@ -1571,6 +1586,7 @@ final class TacticalCombatDirector {
     func finish() {
         guard !finished, !defeatsAnimating, combat.outcome != nil else { return }
         finished = true
+        startBanner?.removeFromParent(); startBanner = nil
         scene.detective.setCombatRecoil(0)
         crew.forEach { $0.setCombatRecoil(0) }; bearNode?.setCombatRecoil(0)
         hitReactions.removeAll(); reactionFacings.removeAll()

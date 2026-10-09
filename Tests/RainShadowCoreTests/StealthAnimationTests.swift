@@ -42,13 +42,35 @@ struct StealthAnimationTests {
             #expect(landed - apex >= 10)
         }
     }
-    @Test func holdAndImpactMarkersFollowTheirNewPoses() {
+    @Test func rangedSneakJumpSeparatesFromTheGroundAndReturnsInEveryFacing() throws {
+        let sprite = try IEIndexedSprite.load(character: StealthAnimationSet.bow)
+        for facing in ActorFacing.allCases {
+            func bottom(_ phase: Int) throws -> Int {
+                let frame = try #require(sprite.frame(atlas: StealthAnimationSet.bow + ".atlas",
+                    name: StealthAnimationSet.name(.sneakshoot, facing: facing, phase: phase)))
+                let last = try #require(frame.indices.lastIndex(where: { $0 > 1 }))
+                return frame.trimOriginTopLeft.height + last / frame.nativeSize.width
+            }
+            let apex = try bottom(11), start = try bottom(0), landing = try bottom(23)
+            #expect(start - apex >= 14)
+            #expect(landing - apex >= 14)
+            #expect(try bottom(StealthAnimationSet.bowReleasePhase) < landing - 10)
+            // The floor shadow is fixed while the actual body rises above it.
+            for phase in [0, 11, 12, 23] {
+                let frame = try #require(sprite.frame(atlas: StealthAnimationSet.bow + ".atlas",
+                    name: StealthAnimationSet.name(.sneakshoot, facing: facing, phase: phase)))
+                #expect(frame.indices.contains(1))
+            }
+        }
+        #expect(StealthAnimationSet.bowRelease < StealthAnimationSet.bowDuration)
+    }
+    @Test func releaseAndImpactMarkersFollowTheirNewPoses() {
         #expect(StealthAnimationSet.phase(.hide, elapsed: 10) == 7)
         #expect(StealthAnimationSet.phase(.sneakwalk, elapsed: 1, looping: true) == 3)
         #expect(StealthAnimationSet.phase(.sneakstab, elapsed: StealthAnimationSet.stabImpact) == 9)
-        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowRelease - 0.001) == 9)
-        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowRelease) == 10)
-        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowDuration) == 17)
+        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowRelease - 0.001) == 11)
+        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowRelease) == 12)
+        #expect(StealthAnimationSet.phase(.sneakshoot, elapsed: StealthAnimationSet.bowDuration) == 23)
     }
     @Test func explicitMissesAndAutomaticBonusesUseStealthButTechniquesKeepTheirOwnPose() {
         var strike = TacticalCombat.Strike(attacker: "a", target: "b", roll: 1, damage: 0, knockedOut: false)

@@ -10,7 +10,7 @@ enum WeaponTechniqueAnimationSet {
         "HumanTechniquesSword": "43780086b9eef812376a292899446977c4f89e89269e7d56b40cf5fec83e5b67",
         "HumanTechniquesMail": "97b1bb344664b57494c4eda4734b45ee76448b989fbdcede0f1260aea26b8fa1",
         "HumanTechniquesHelmet": "08fad5ca7dae6f0e6fed1e906f597322dfa150fad09656f5c67481cff1eb69a9",
-        "HumanPinningShot": "313713687a53ebc2968667e2f3aa3bb055570f00d525232ba938d73e4ebb56dd",
+        "HumanPinningShot": "6f385292e5d0343be7dc940be3da7c5fc676642ef5ea00dfed353de77b80ffbe",
     ]
     static func equipment(_ item: CharacterEquipmentCode) -> String? {
         switch item {
@@ -48,8 +48,8 @@ enum WeaponTechniqueAnimationSet {
         }
     }
     static func pinningMuzzle(facing: ActorFacing) -> CGPoint {
-        // Rotated with the baked upper body and bow about spine.02 at release.
-        let x = 0.1000000015, y = -0.9563003182, z = 1.2426881790
+        // Last nocked arrow tip in the October 9 low braced pose (phase 9).
+        let x = 0.10000011, y = -0.99130034, z = 0.84268808
         let angle = Double(facing.rawValue) * .pi / 8
         let density = (1024 / 1.72 * 0.07465790639916813) * (140.625 / 128)
         return CGPoint(x: density * (cos(angle) * x + sin(angle) * y),

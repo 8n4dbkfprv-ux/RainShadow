@@ -120,6 +120,65 @@ import SpriteKit
                 driveDialogue(scene); try await Task.sleep(for: .milliseconds(300))
             }
             try check(!scene.cutsceneDirector.isPlaying, "Dialogue starts playable combat without auto-resolution")
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BANNER_ONLY"] == "1" {
+                let director = scene.combatDirector!
+                let banner = try require(director.startBanner, "New encounter must show its combat banner")
+                try check(GameArt.standaloneTexture(named: "combat_start_banner_v01") != nil,
+                          "Generated banner art is present in the app bundle")
+                let initial = director.combat
+                director.command(2)
+                director.pointer(at: scene.convert(scene.detective.position, from: scene.depthWorldRoot))
+                try check(director.busy && director.combat == initial,
+                          "Banner blocks turn commands and world orders")
+                try await wait { banner.elapsed >= 0.5 }
+                scene.handleTacticalPauseInput()
+                let pausedTime = banner.elapsed
+                try await Task.sleep(for: .milliseconds(300))
+                try check(banner.elapsed == pausedTime && director.combat == initial,
+                          "Tactical pause freezes the banner and enemy turn")
+                try capture("combat-banner")
+                scene.handleTacticalPauseInput()
+                scene.handleInventoryInput()
+                try check(scene.inventoryIsPresented && banner.parent?.isHidden == true,
+                          "Inventory opens above and hides the combat banner")
+                let inventoryTime = banner.elapsed
+                try await Task.sleep(for: .milliseconds(250))
+                try check(banner.elapsed == inventoryTime, "Inventory freezes the banner clock")
+                scene.handleCancelInput()
+                if scene.pause.isPausedByPlayer { scene.handleTacticalPauseInput() }
+                try await wait { director.startBanner == nil }
+                try check(banner.parent == nil && banner.finished && director.combat == initial,
+                          "Banner removes itself before combat advances without changing initiative or RNG")
+                try await wait { director.combat.isPlayerTurn && !director.busy }
+                try check(director.startBanner == nil, "Enemy turn proceeds after the banner and does not replay it")
+                try capture("combat-banner-cleared")
+                let sample = CombatStartBanner()
+                sample.advance(delta: 0.15)
+                let entranceAlpha = sample.alpha
+                sample.advance(delta: 0.45)
+                try check(entranceAlpha > 0 && entranceAlpha < sample.alpha && sample.alpha == 1,
+                          "Banner fades in to a readable hold")
+                for width: CGFloat in [680, 320] {
+                    sample.layout(width: width, sceneHeight: 800)
+                    try check(sample.calculateAccumulatedFrame().width <= width + 1,
+                              "Banner fits available width \(Int(width)) without stretching")
+                    let image = try require(view.texture(from: sample)?.cgImage(), "Banner preview capture")
+                    let bitmap = NSBitmapImageRep(cgImage: image)
+                    try bitmap.representation(using: .png, properties: [:])?.write(to: output.appendingPathComponent("banner-\(Int(width)).png"))
+                }
+                sample.advance(delta: 1.1)
+                try check(sample.alpha > 0 && sample.alpha < 1, "Banner fades out after the hold")
+                sample.advance(delta: 1)
+                try check(sample.finished && sample.alpha == 0, "Banner completes after 1.9 seconds")
+                context = GameContext(saveStore: store)
+                context.router.start(in: view)
+                try await wait { (view.scene as? CityDistrictScene)?.combatDirector != nil && !context.router.isTransitioning }
+                scene = view.scene as! CityDistrictScene
+                try check(scene.combatDirector?.startBanner == nil,
+                          "Loading the saved encounter does not replay Combat Begins")
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             scene.handleMapInput(); scene.handleJournalInput()
             try check(!scene.anyOverlayIsPresented, "Combat still blocks map and journal input")
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }

@@ -1,5 +1,10 @@
 # Armored Voss bow attacks — October 9
 
+This records the initial armor integration. The subsequent
+[distinct bow animation update](DistinctBowAnimationsOct09.md) replaces Pinning
+Shot and ranged Sneak Attack, expands the bow equipment bundles to 960 frames,
+and records the current hashes and validation. Ordinary-shot frames are retained.
+
 Ranged Attack, Aimed Shot, Pinning Shot and ranged Sneak Attack now keep equipped
 splint mail and the iron helmet visible throughout their authored animation.
 Either piece can be worn independently. The player bow proxy refreshes its
@@ -52,7 +57,7 @@ and successful macOS/iOS simulator builds. Live captures and the report are in
 outfit combinations. An old generic appearance test still classified human death
 as unsupported; it now explicitly verifies the existing death clip instead.
 
-Approved indexed payload hashes:
+Initial indexed payload hashes (superseded by the distinct-animation update):
 
 - Mail: `93bd4dfba9291a969ecf0bebf512357d7163d8f236ca66d5f76202d5236a3684`
 - Helmet: `06f5a90553701b8e1fc94c62817767d62e4e230b73281c29a525d991ef701a9c`

@@ -144,7 +144,7 @@ final class WharfLadderDirector {
             actors: actors, seed: seed, barrels: encounter == .gate
                 ? CombatNavigation.gateBarrels(in: scene.navigation, actors: actors) : [])
         scene.pause.clearPlayerPause()
-        combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew) { [weak self] in
+        combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew, isNewEncounter: restored == nil) { [weak self] in
             guard let self else { return }
             self.fallenBodies += self.combatDirector?.defeatNodes.values.map { $0 } ?? []
             let escaped = self.combatDirector?.combat.outcome == .fled
