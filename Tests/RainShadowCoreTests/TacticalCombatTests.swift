@@ -39,6 +39,9 @@ struct TacticalCombatTests {
         #expect(result33)
         #expect(budget == spent)
         var doubleMove = CombatBudget()
+        do { let result = !doubleMove.move(distance: 400, speed: 240); #expect(result) }
+        #expect(doubleMove == CombatBudget())
+        do { let result = doubleMove.dash(speed: 240); #expect(result) }
         let result36 = doubleMove.move(distance: 400, speed: 240)
         #expect(result36)
         #expect(!doubleMove.canAttack)

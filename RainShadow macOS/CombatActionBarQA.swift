@@ -57,7 +57,7 @@ import SpriteKit
         }
         try check(director.actionBar.height == 150, "Desktop combat uses a compact two-row bar")
         let visible = director.actionBar.children.compactMap { $0 as? CombatActionButton }.filter { !$0.isHidden }
-        try check(visible.count == 16, "All sixteen human commands remain available")
+        try check(visible.count == 17, "All seventeen human commands remain available")
         for (name, index) in [("melee", 0), ("ranged", 1), ("powerStrike", 4), ("feintingCut", 5), ("aimedShot", 6), ("pinningShot", 7), ("sneak", 9), ("tripAttack", 12)] {
             try check(try button(name).glyphIndex == index, "Correct weapon symbol: " + name)
         }
@@ -112,8 +112,8 @@ import SpriteKit
         var bear = human
         try check(bear.transformToBear(hasClearance: true), "Bear fixture transforms")
         director = try await open(bear)
-        try check(director.visibleCombatCommands == ["combat.claw", "combat.roar", "combat.bear", "combat.extinguish", "combat.end", "combat.flee"],
-                  "Bear form displays only its six actions")
+        try check(director.visibleCombatCommands == ["combat.claw", "combat.roar", "combat.bear", "combat.dash", "combat.extinguish", "combat.end", "combat.flee"],
+                  "Bear form displays only its seven actions")
         try check(try button("bear").glyphIndex == 16 && button("claw").glyphIndex == 13 && button("roar").glyphIndex == 14,
                   "Bear abilities and human-return use their own symbols")
         try capture(scene, "action-bar-bear")

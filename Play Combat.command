@@ -12,9 +12,13 @@ if ! xcodebuild -project RainShadow.xcodeproj -scheme 'RainShadow macOS' \
     exit 1
 fi
 echo "Click the shipping-office door, then its opening, and choose a dialogue reply."
-echo "In combat: click ground to move; click a rival to strike; 1 defends; Enter ends turn; 3 yields."
+echo "In combat: click ground to move; use the sword icon then click a rival for Melee Attack."
+echo "1 casts Blade Ward; Enter ends your turn; 3 flees when all enemies are at least 60 ft away."
 echo "4 activates Bear Form or reverts. Transformation needs a standard action and open ground."
-echo "5 selects Fire arrow: click a rival or oil barrel. Orange circles preview the blast; everyone inside can be hit."
+echo "5 selects Ranged Attack: click a rival or oil barrel. Equip a bow in inventory first."
+echo "Use the ammunition icon to switch Normal / Fire arrows. Fire arrows consume inventory."
+echo "Orange circles preview barrel explosions; everyone inside can be hit."
+echo "Hover over the parchment action icons for names and descriptions; select an attack, then its target."
 echo "I opens inventory, including during combat; the encounter pauses until you close it."
 echo "Ready the Lantern shortsword in inventory to use the player sword animation."
 echo "The gate lookout shoots from range and switches to a shortsword when engaged."

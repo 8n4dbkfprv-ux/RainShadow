@@ -24,14 +24,22 @@ struct CombatBudget: Codable, Equatable {
         return true
     }
     func availableMovement(speed: Double) -> Double {
+        guard speed.isFinite, speed > 0 else { return 0 }
         var copy = self
-        var result = movementRemaining
-        while copy.spend(1) { result += speed }
-        return result
+        // RainShadow adaptation: offer only the move charge that preserves the
+        // standard action. Converting that action to movement requires Dash.
+        let hasMove = copy.spend(1) && copy.canAttack == canAttack
+        return movementRemaining + (hasMove ? speed : 0)
+    }
+    mutating func dash(speed: Double) -> Bool {
+        guard speed.isFinite, speed > 0, canAttack, spend(2) else { return false }
+        movementRemaining += speed
+        return true
     }
     /// Like TurnBasedStatusUpdate, reject on a copy so failure spends nothing.
     mutating func move(distance: Double, speed: Double) -> Bool {
         guard distance.isFinite, distance > 0, speed.isFinite, speed > 0 else { return false }
+        guard distance <= availableMovement(speed: speed) + 0.0001 else { return false }
         var copy = self
         while copy.movementRemaining + 0.0001 < distance {
             guard copy.spend(1) else { return false }
@@ -330,6 +338,15 @@ struct TacticalCombat: Codable, Equatable {
     var canCastBladeWard: Bool {
         outcome == nil && current.conscious && !current.isProne
             && !(current.player && isBear) && budget.canAttack
+    }
+    var canDash: Bool {
+        outcome == nil && current.conscious && !current.isProne && budget.canAttack
+            && movementSpeed(for: current) > 0
+    }
+    @discardableResult mutating func dash() -> Bool {
+        guard canDash, budget.dash(speed: movementSpeed(for: current)) else { return false }
+        note("\(current.name) uses Dash: +\(Int(movementSpeed(for: current) / 8)) ft (standard action).")
+        return true
     }
     @discardableResult mutating func castBladeWard() -> Bool {
         guard canCastBladeWard, budget.spend(2) else { return false }

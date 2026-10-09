@@ -1,0 +1,6 @@
+{
+  "tool": "built-in image_gen",
+  "asset": "RainShadow Shared/Resources/Art/UI/HUD/combat_destination_ring_v01.png",
+  "transparent_background": true,
+  "prompt": "Use case: stylized-concept\nAsset type: isolated transparent game UI destination marker texture, square canvas.\nPrimary request: one elegant movement destination ring for RainShadow, a parchment-and-ink fantasy RPG. Original design: a very thin continuous warm ivory circular ink stroke, a second finer weathered antique-brass ring immediately outside it, with four tiny diamond notches at the cardinal points. Fine organic engraved/ink edges, restrained and readable at 64 pixels wide. Empty transparent center and transparent surroundings. Perfect circular overhead view, centered, outer diameter 80% of the canvas; runtime will project it onto the ground. Flat graphic asset, not a physical object.\nPalette: pale ivory ink, muted warm gold, very subtle dark brown contour for contrast. Keep the ring luminous enough to read over dark stone but no bloom.\nConstraints: only this single ring, truly transparent background and center, no text, no letters, no ground, no scene, no drop shadow, no large flourishes, no runes, no symbols inside the ring, no perspective."
+}

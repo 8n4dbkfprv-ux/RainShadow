@@ -21,9 +21,10 @@ final class TacticalCombatDirector {
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
     private var activeButtons: [CombatActionButton] {
-        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
+        combat.isBear ? [14, 15, 3, 18, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17], buttons[18]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
     }
     private let routePreview = SKShapeNode()
+    let movementPreview = CombatMovementPreview()
     private let sightPreview = SKNode()
     private var showingSight = false
     private(set) var selectingMelee = false
@@ -154,8 +155,8 @@ final class TacticalCombatDirector {
         }
         let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        let glyphs = [2, 19, 15, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17]
-        let shortcuts = ["1", "", "3", "4", "5", "6", "7", "8", "9", "", "", "", "", "", "5", "6", "", ""]
+        let glyphs = [2, 19, 15, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
+        let shortcuts = ["1", "", "3", "4", "5", "6", "7", "8", "9", "", "", "", "", "", "5", "6", "", "", ""]
         let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn. Shortcut: Enter.",
             "Escape when every conscious enemy is at least 60 ft away.", "Standard action. Change between human and bear form.",
             "Standard action. Select a rival or barrel; uses selected ammunition."]
@@ -164,8 +165,8 @@ final class TacticalCombatDirector {
                "Standard action. Put out the flames on yourself.", "Bonus action. Push a nearby rival away.",
                "Standard action · once per fight. " + CombatManeuver.tripAttack.detail,
                "Standard action. Select a nearby rival for a bear claw attack.", "Standard action · once per form. Draw nearby enemies toward the bear.",
-               "Standard action. Select a nearby rival for a sword attack.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited."]
-        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal")]
+               "Standard action. Select a nearby rival for a sword attack.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited.", "Action. Add your movement speed to this turn’s remaining movement. Available in human and bear form."]
+        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash")]
         for (index, entry) in allCommands.enumerated() {
             let button = CombatActionButton(name: entry.0, title: entry.1, glyph: glyphs[index], shortcut: shortcuts[index], detail: details[index])
             actionBar.addChild(button); buttons.append(button)
@@ -173,6 +174,8 @@ final class TacticalCombatDirector {
         routePreview.name = "combat.routePreview"
         routePreview.strokeColor = .cyan; routePreview.lineWidth = 2; routePreview.zPosition = 10000
         scene.depthWorldRoot.addChild(routePreview)
+        movementPreview.zPosition = SceneLayer.hud.rawValue - SceneLayer.depthWorld.rawValue - 10
+        scene.depthWorldRoot.addChild(movementPreview)
         sightPreview.zPosition = -0.2; scene.depthWorldRoot.addChild(sightPreview)
         scene.detective.cancelMovement()
         for actor in combat.actors {
@@ -259,6 +262,8 @@ final class TacticalCombatDirector {
         if startBanner != nil { message.text = "Combat begins…" }
         history.text = presentedCombat.log.last
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
+        buttons[18].alpha = combat.isPlayerTurn && !busy && combat.canDash ? 1 : 0.35
+        buttons[18].badge.text = "Dash"
         buttons[2].alpha = combat.isPlayerTurn && !busy && combat.fleeUnavailableReason == nil ? 1 : 0.35
         buttons[16].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
         buttons[16].strokeColor = selectingMelee ? CombatActionButton.selectionColor : UITheme.Color.engraved
@@ -320,7 +325,7 @@ final class TacticalCombatDirector {
         scene.context.session.checkpointCombat(combat)
         if synchronize { synchronizeForm() }
         drawSight()
-        routePreview.path = nil
+        routePreview.path = nil; movementPreview.clear()
         refresh()
     }
     /// Inventory owns input and presentation while open; keep the player's
@@ -337,9 +342,18 @@ final class TacticalCombatDirector {
     private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented }
 
     func command(_ input: Int) {
+        movementPreview.clear()
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
-        if combat.isBear && ![1, 2, 3, 4, 12, 15, 16].contains(digit) { return }
+        if combat.isBear && ![1, 2, 3, 4, 12, 15, 16, 19].contains(digit) { return }
+        if digit == 19 {
+            cancelTargeting()
+            if combat.dash() {
+                feedback = "Dash: extra movement ready. Click ground to move."
+                checkpoint()
+            } else { feedback = "Dash requires an available action."; refresh() }
+            return
+        }
         if digit == 18 {
             guard canUsePlayerBow() else { refresh(); return }
             if selectedAmmunition == .fire { selectedAmmunition = .normal }
@@ -453,7 +467,7 @@ final class TacticalCombatDirector {
         routePreview.zPosition = 10000
         selectingShove = false
         selectingSneakAttack = false; showingSight = false; sightPreview.removeAllChildren()
-        selectedManeuver = nil; aimingRangedAttack = false; routePreview.path = nil
+        selectedManeuver = nil; aimingRangedAttack = false; routePreview.path = nil; movementPreview.clear()
         feedback = "Click ground to move • Click a rival to strike"; refresh()
     }
     private var playerHasSword: Bool {
@@ -518,17 +532,18 @@ final class TacticalCombatDirector {
             feedback = selectedManeuver.map { "\($0.title): \($0.detail). Select a rival." }
                 ?? "Choose a rival or oil barrel, or press 5 to cancel."; refresh()
         } else if let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) {
-            if !move(path) { feedback = "That destination exceeds your movement allowance."; refresh() }
+            if !move(path) { feedback = combat.canDash ? "Not enough movement. Choose Dash to spend an action for more." : "That destination exceeds your movement allowance."; refresh() }
         } else { feedback = "No clear route to that point."; refresh() }
     }
     func hover(at scenePoint: CGPoint) {
+        movementPreview.clear()
         let actionPoint = actionBar.convert(scenePoint, from: scene)
         let hovered = scene.anyOverlayIsPresented ? nil : activeButtons.first { $0.contains(actionPoint) }
         actionBar.showTooltip(hovered)
         if hovered != nil { routePreview.path = nil; return }
-        guard combat.isPlayerTurn, !busy, !scene.anyOverlayIsPresented else { routePreview.path = nil; return }
+        guard combat.isPlayerTurn, !busy, !presentationPaused else { routePreview.path = nil; return }
         let hudPoint = hud.convert(scenePoint, from: scene)
-        guard !panel.contains(hudPoint), !turnPanel.contains(hudPoint), !existingChromeContains(hudPoint) else { routePreview.path = nil; return }
+        guard !actionBar.containsChrome(at: actionPoint), !panel.contains(hudPoint), !turnPanel.contains(hudPoint), !existingChromeContains(hudPoint) else { routePreview.path = nil; return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
         if selectingShove {
             if let target = shoveTarget(at: world) { previewShove(target) } else { routePreview.path = nil }
@@ -545,15 +560,16 @@ final class TacticalCombatDirector {
         }
         if selectedManeuver != nil || selectingSneakAttack || selectingClaw { routePreview.path = nil; return }
         if let barrel = barrel(at: world) { preview(barrel); return }
+        // A click on a rival's sprite attacks rather than moving to that ground
+        // point. Do not promise a movement route beneath an attack hit area.
+        if meleeTarget(at: world) != nil { routePreview.path = nil; return }
         if aimingRangedAttack { routePreview.path = nil; return }
         guard let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) else {
             routePreview.path = nil; return
         }
-        let drawing = CGMutablePath(); drawing.move(to: combat.current.position)
-        path.remainingPoints.forEach { drawing.addLine(to: $0) }
-        routePreview.path = drawing
-        routePreview.strokeColor = CombatNavigation.length(path, from: combat.current.position)
-            <= combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) ? .cyan : .red
+        routePreview.path = nil
+        movementPreview.show(path: path, actor: combat.current, budget: combat.budget,
+                             speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
     }
     private func existingChromeContains(_ point: CGPoint) -> Bool {
         let rootPoint = scene.hudRoot.convert(point, from: hud)
@@ -1416,6 +1432,14 @@ final class TacticalCombatDirector {
         if combat.budget.canAttack,
            let path = CombatNavigation.approach(in: scene.navigation, actor: actor, target: target,
                    limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))), move(path) { return }
+        // Explicitly choose Dash only when a certified route can close distance
+        // and no attack can be made. Never silently convert an attack in move().
+        var dashed = combat
+        if distance > TacticalCombat.meleeReach, dashed.dash(),
+           let path = CombatNavigation.approach(in: scene.navigation, actor: actor, target: target,
+               limit: dashed.budget.availableMovement(speed: dashed.movementSpeed(for: actor))), combat.dash() {
+            if move(path) { return }
+        }
         endCombatTurn(); delay = 0.5; checkpoint()
     }
     func update(at time: TimeInterval) {
@@ -1423,6 +1447,8 @@ final class TacticalCombatDirector {
         guard !finished else { return }
         let delta = min(0.1, max(0, time - (lastTime ?? time)))
         refresh()
+        if busy || !combat.isPlayerTurn || presentationPaused { movementPreview.clear() }
+        movementPreview.advance(delta: presentationPaused ? 0 : delta, cameraScale: scene.playCameraScale)
         formEffect?.setPaused(presentationPaused)
         if presentationPaused { roarSound?.pause() }
         else if let roarSound, let ability = bearAbility, ability.action == .roar {
@@ -1616,7 +1642,7 @@ final class TacticalCombatDirector {
         burningNodes.values.forEach { $0.removeFromParent() }; burningNodes.removeAll()
         wardEffects.values.forEach { $0.removeFromParent() }; wardEffects.removeAll(); wardCast = nil
         scene.context.session.finishCombat(combat)
-        hud.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
+        hud.removeFromParent(); movementPreview.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
         rangedShot?.stop(); rangedShot = nil
         playerBowNode?.removeFromParent()
