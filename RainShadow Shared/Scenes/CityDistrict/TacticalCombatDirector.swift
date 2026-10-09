@@ -11,15 +11,16 @@ final class TacticalCombatDirector {
     private(set) var combat: TacticalCombat
     private let hud = SKNode()
     let initiativeBar = CombatInitiativeBar()
+    let actionBar = CombatActionBar()
     private(set) var startBanner: CombatStartBanner?
     private let message = SKLabelNode(fontNamed: "AvenirNext-Medium")
     private let history = SKLabelNode(fontNamed: "AvenirNext-Regular")
     private let panel = SKShapeNode()
     private let turnPanel = SKShapeNode()
-    private var buttons: [SKShapeNode] = []
+    private var buttons: [CombatActionButton] = []
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
-    private var activeButtons: [SKShapeNode] {
+    private var activeButtons: [CombatActionButton] {
         combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
     }
     private let routePreview = SKShapeNode()
@@ -139,6 +140,8 @@ final class TacticalCombatDirector {
             hud.addChild(shape)
         }
         turnPanel.fillColor = .clear; turnPanel.strokeColor = .clear
+        panel.fillColor = .clear; panel.strokeColor = .clear
+        hud.addChild(actionBar)
         hud.addChild(initiativeBar)
         if isNewEncounter, combat.outcome == nil {
             let banner = CombatStartBanner()
@@ -151,14 +154,21 @@ final class TacticalCombatDirector {
         }
         let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal")] {
-            let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
-            button.name = name
-            button.fillColor = SKColor(white: 0.17, alpha: 1)
-            button.strokeColor = SKColor(white: 0.5, alpha: 1)
-            let text = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-            text.text = title; text.fontSize = 14; text.verticalAlignmentMode = .center
-            button.addChild(text); hud.addChild(button); buttons.append(button)
+        let glyphs = [2, 19, 15, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17]
+        let shortcuts = ["1", "", "3", "4", "5", "6", "7", "8", "9", "", "", "", "", "", "5", "6", "", ""]
+        let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn. Shortcut: Enter.",
+            "Escape when every conscious enemy is at least 60 ft away.", "Standard action. Change between human and bear form.",
+            "Standard action. Select a rival or barrel; uses selected ammunition."]
+            + CombatManeuver.allCases.filter { $0 != .tripAttack }.map { "Standard action · once per fight. " + $0.detail }
+            + ["Hide outside enemy sight to gain advantage.", "Standard action. Advantage or an adjacent ally enables +1d6 damage.",
+               "Standard action. Put out the flames on yourself.", "Bonus action. Push a nearby rival away.",
+               "Standard action · once per fight. " + CombatManeuver.tripAttack.detail,
+               "Standard action. Select a nearby rival for a bear claw attack.", "Standard action · once per form. Draw nearby enemies toward the bear.",
+               "Standard action. Select a nearby rival for a sword attack.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited."]
+        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal")]
+        for (index, entry) in allCommands.enumerated() {
+            let button = CombatActionButton(name: entry.0, title: entry.1, glyph: glyphs[index], shortcut: shortcuts[index], detail: details[index])
+            actionBar.addChild(button); buttons.append(button)
         }
         routePreview.name = "combat.routePreview"
         routePreview.strokeColor = .cyan; routePreview.lineWidth = 2; routePreview.zPosition = 10000
@@ -215,29 +225,22 @@ final class TacticalCombatDirector {
         for button in buttons { button.isHidden = !visible.contains { $0 === button } }
         let left = HUDChromeLayout.leftRailClearance(for: scene.size)
         let right = HUDChromeLayout.rightRailClearance(for: scene.size)
-        let width = max(260, min(820, scene.size.width - left - right - 16))
+        let width = max(260, min(920, scene.size.width - left - right - 16))
         hud.position.x = (left - right) / 2
-        let columns = width >= 760 ? 5 : width >= 460 ? 3 : 2
-        let rows = Int(ceil(Double(visible.count) / Double(columns)))
-        let height: CGFloat = 140 + CGFloat(rows) * 48
-        panel.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -height / 2, width: width, height: height), cornerWidth: 8, cornerHeight: 8, transform: nil)
-        panel.position.y = -scene.size.height / 2 + height / 2 + 24
+        actionBar.layout(width: width, buttons: visible)
+        let height = actionBar.height
+        actionBar.position.y = -scene.size.height / 2 + height / 2 + 12
+        panel.path = CGPath(rect: CGRect(x: -width / 2, y: -height / 2, width: width, height: height + 70), transform: nil)
+        panel.position = actionBar.position
         turnPanel.path = CGPath(rect: CGRect(x: -width / 2, y: -72, width: width, height: 138), transform: nil)
         turnPanel.position.y = scene.size.height / 2 - 78
         initiativeBar.position = turnPanel.position
         initiativeBar.layout(width: width)
         startBanner?.layout(width: max(1, scene.size.width - left - right - 24), sceneHeight: scene.size.height)
-        message.position.y = panel.position.y + height / 2 - (width < 660 ? 40 : 22)
-        history.position.y = panel.position.y + height / 2 - (width < 660 ? 104 : 51)
-        message.fontSize = 14; history.fontSize = 12
+        message.position.y = panel.position.y + height / 2 + 42
+        history.position.y = panel.position.y + height / 2 + 13
+        message.fontSize = 12; history.fontSize = 10
         for label in [message, history] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
-        message.numberOfLines = width < 660 ? 4 : 2
-        for (i, button) in visible.enumerated() {
-            let spacing = min(158, (width - 20) / CGFloat(columns))
-            button.setScale(min(1, spacing / 154))
-            button.position = CGPoint(x: (CGFloat(i % columns) - CGFloat(columns - 1) / 2) * spacing,
-                y: panel.position.y - height / 2 + 28 + CGFloat(rows - 1 - i / columns) * 48)
-        }
         hud.setScale(1)
     }
 
@@ -248,47 +251,54 @@ final class TacticalCombatDirector {
         if laidOutBearForm != combat.isBear { layout() }
         let shown = presentedCombat
         initiativeBar.update(combat: shown, paused: scene.pause.isPausedByPlayer)
+        actionBar.update(combat: shown)
         let move = Int(combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) / 8)
         message.text = combat.isPlayerTurn
             ? "\(feedback)  |  Strike: \(combat.budget.canAttack ? "ready" : "spent") • Move: \(move) ft"
             : "\(combat.current.name) is taking their turn…"
         if startBanner != nil { message.text = "Combat begins…" }
-        history.text = presentedCombat.log.suffix(2).joined(separator: "\n")
+        history.text = presentedCombat.log.last
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
         buttons[2].alpha = combat.isPlayerTurn && !busy && combat.fleeUnavailableReason == nil ? 1 : 0.35
         buttons[16].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
-        buttons[16].strokeColor = selectingMelee ? .cyan : SKColor(white: 0.5, alpha: 1)
+        buttons[16].strokeColor = selectingMelee ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[0].alpha = combat.isPlayerTurn && !busy && combat.canCastBladeWard ? 1 : 0.35
-        (buttons[3].children.first as? SKLabelNode)?.text = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
+        buttons[3].titleText = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
+        buttons[3].setGlyph(combat.isBear ? 16 : 3)
+        buttons[3].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
         for (index, maneuver) in CombatManeuver.allCases.enumerated() {
             let button = buttons[maneuver == .tripAttack ? 13 : index + 5]
             let spent = (combat.current.usedManeuvers ?? []).contains(maneuver)
-            (button.children.first as? SKLabelNode)?.text = spent ? maneuver.title + " · spent" : maneuver == .tripAttack ? "Trip attack" : "\(maneuver.title) [\(index + 6)]"
+            button.titleText = spent ? maneuver.title + " · spent" : maneuver == .tripAttack ? "Trip attack" : "\(maneuver.title) [\(index + 6)]"
             let gear = !maneuver.ranged || playerBowSupported
             button.alpha = combat.isPlayerTurn && !busy && gear && combat.canUse(maneuver, hasSword: playerHasSword) ? 1 : 0.35
-            button.strokeColor = selectedManeuver == maneuver ? .cyan : SKColor(white: 0.5, alpha: 1)
+            button.strokeColor = selectedManeuver == maneuver ? CombatActionButton.selectionColor : UITheme.Color.engraved
         }
         buttons[9].alpha = combat.isPlayerTurn && !busy && combat.canHide ? 1 : 0.35
-        (buttons[9].children.first as? SKLabelNode)?.text = combat.current.hidden == true ? "Hidden" : combat.current.hideUsed == true ? "Hide · spent" : "Hide"
+        buttons[9].titleText = combat.current.hidden == true ? "Hidden" : combat.current.hideUsed == true ? "Hide · spent" : "Hide"
         buttons[10].alpha = combat.isPlayerTurn && !busy && !combat.isBear && combat.budget.canAttack && combat.current.sneakSpent != true && (playerHasSword || playerBowSupported) ? 1 : 0.35
-        buttons[10].strokeColor = selectingSneakAttack ? .cyan : SKColor(white: 0.5, alpha: 1)
-        (buttons[10].children.first as? SKLabelNode)?.text = combat.current.sneakSpent == true ? "Sneak · spent" : "Sneak attack +1d6"
+        buttons[10].strokeColor = selectingSneakAttack ? CombatActionButton.selectionColor : UITheme.Color.engraved
+        buttons[10].titleText = combat.current.sneakSpent == true ? "Sneak · spent" : "Sneak attack +1d6"
         buttons[11].alpha = combat.isPlayerTurn && !busy && combat.canExtinguish ? 1 : 0.35
         buttons[12].alpha = combat.isPlayerTurn && !busy && combat.canShove ? 1 : 0.35
-        buttons[12].strokeColor = selectingShove ? .cyan : SKColor(white: 0.5, alpha: 1)
-        (buttons[12].children.first as? SKLabelNode)?.text = combat.current.shoveSpent == true ? "Shove · spent" : "Shove · bonus"
+        buttons[12].strokeColor = selectingShove ? CombatActionButton.selectionColor : UITheme.Color.engraved
+        buttons[12].titleText = combat.current.shoveSpent == true ? "Shove · spent" : "Shove · bonus"
         if selectedAmmunition == .fire && fireArrowCount == 0 { selectedAmmunition = .normal }
-        (buttons[17].children.first as? SKLabelNode)?.text = selectedAmmunition == .normal
+        buttons[17].titleText = selectedAmmunition == .normal
             ? "Normal · Fire ×\(fireArrowCount)" : "Fire Arrow ×\(fireArrowCount)"
-        buttons[17].strokeColor = selectedAmmunition == .fire ? .orange : SKColor(white: 0.5, alpha: 1)
+        buttons[17].strokeColor = selectedAmmunition == .fire ? .orange : UITheme.Color.engraved
+        buttons[17].setGlyph(selectedAmmunition == .fire ? 18 : 17)
+        buttons[17].badge.text = selectedAmmunition == .fire ? "×\(fireArrowCount)" : "∞"
         buttons[17].alpha = combat.isPlayerTurn && !busy && playerBowSupported ? 1 : 0.35
         buttons[4].alpha = combat.isPlayerTurn && !busy && playerBowSupported && combat.budget.canAttack ? 1 : 0.35
-        buttons[4].strokeColor = aimingRangedAttack ? .cyan : SKColor(white: 0.5, alpha: 1)
+        buttons[4].strokeColor = aimingRangedAttack ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[14].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
-        buttons[14].strokeColor = selectingClaw ? .cyan : SKColor(white: 0.5, alpha: 1)
+        buttons[14].strokeColor = selectingClaw ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[15].alpha = combat.canGoadingRoar && !busy ? 1 : 0.35
-        (buttons[15].children.first as? SKLabelNode)?.text = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading roar [6]"
+        buttons[15].titleText = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading roar [6]"
+        buttons.forEach { $0.updateSelectionAppearance() }
+        actionBar.refreshTooltip()
         for actor in shown.actors {
             let shortName = actor.player ? "" : actor.name.replacingOccurrences(of: "Hand ", with: "") + " · "
             badges[actor.id]?.text = "\(shortName)\(actor.hp)/\(actor.maximumHP)\(actor.hasBladeWard ? " · Ward \(actor.bladeWardTurns!)t" : "")"
@@ -317,6 +327,7 @@ final class TacticalCombatDirector {
     /// explicit pause independent so closing the bag cannot clear it.
     func setInventoryPresented(_ presented: Bool) {
         hud.isHidden = presented
+        actionBar.showTooltip(nil)
         if presented { cancelTargeting() }
         else {
             combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
@@ -455,8 +466,13 @@ final class TacticalCombatDirector {
     func pointer(at scenePoint: CGPoint) {
         guard !scene.anyOverlayIsPresented else { return }
         let point = hud.convert(scenePoint, from: scene)
-        for (i, button) in buttons.enumerated() where !button.isHidden && button.contains(point) { command(i + 1); return }
-        if panel.contains(point) || turnPanel.contains(point) || existingChromeContains(point) { return }
+        let actionPoint = actionBar.convert(scenePoint, from: scene)
+        for (i, button) in buttons.enumerated() where !button.isHidden && button.contains(actionPoint) {
+            command(i + 1); actionBar.showTooltip(button); return
+        }
+        let onActionChrome = actionBar.containsChrome(at: actionPoint)
+        actionBar.showTooltip(nil)
+        if onActionChrome || panel.contains(point) || turnPanel.contains(point) || existingChromeContains(point) { return }
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
         if selectingShove {
@@ -506,6 +522,10 @@ final class TacticalCombatDirector {
         } else { feedback = "No clear route to that point."; refresh() }
     }
     func hover(at scenePoint: CGPoint) {
+        let actionPoint = actionBar.convert(scenePoint, from: scene)
+        let hovered = scene.anyOverlayIsPresented ? nil : activeButtons.first { $0.contains(actionPoint) }
+        actionBar.showTooltip(hovered)
+        if hovered != nil { routePreview.path = nil; return }
         guard combat.isPlayerTurn, !busy, !scene.anyOverlayIsPresented else { routePreview.path = nil; return }
         let hudPoint = hud.convert(scenePoint, from: scene)
         guard !panel.contains(hudPoint), !turnPanel.contains(hudPoint), !existingChromeContains(hudPoint) else { routePreview.path = nil; return }
