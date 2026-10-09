@@ -114,6 +114,16 @@ final class SceneRouter {
             return
         }
         #if DEBUG
+        if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "interior",
+           let name = ProcessInfo.processInfo.environment["RAINSHADOW_START_INTERIOR"],
+           let interior = CityInteriorID(rawValue: name) {
+            context.session.markOpeningSeen()
+            context.session.markCityTravelOpen()
+            context.session.markOfficeCaseIntroCompleted()
+            context.session.setCurrentCityDistrict(interior.exteriorDistrict)
+            present(.cityInterior(interior), transition: nil)
+            return
+        }
         if ProcessInfo.processInfo.environment["RAINSHADOW_START_SCENE"] == "sable_blender" {
             isSableBlenderPlaytest = true
             // This launch has its own save. A doorway test should enter free

@@ -1,144 +1,5967 @@
 {
-  "area" : {
-    "actors" : [
-
-    ],
-    "agentProfile" : {
-      "halfHeight" : 4,
-      "halfWidth" : 16,
-      "visualRangeInCells" : 14
+  "schemaVersion": 1,
+  "area": {
+    "id": "RS0501",
+    "displayName": "LILA'S ROOMS",
+    "kind": "interior",
+    "areaType": [],
+    "arrivalHint": "The warded doorway, inner room and back stair offer two ways through the house.",
+    "worldOrigin": {
+      "x": 0,
+      "y": 0
     },
-    "ambients" : [
+    "worldSize": {
+      "w": 626.0036809499707,
+      "h": 547.7532208312243
+    },
+    "plateTextureName": "lila_rooms_oct09",
+    "mapTextureName": "map_lila_rooms_oct09",
+    "searchMapName": "interior_lila_rooms.sr",
+    "heightMapName": "interior_lila_rooms.ht",
+    "lightMapName": "interior_lila_rooms.lm",
+    "defaultTerrain": "wood",
+    "agentProfile": {
+      "halfWidth": 16,
+      "halfHeight": 4,
+      "visualRangeInCells": 14
+    },
+    "entrances": [
       {
-        "assetName" : "amb_rain_exterior",
-        "id" : "amb.rain.outside",
-        "isLooping" : true,
-        "point" : {
-          "x" : 1410,
-          "y" : 230
-        },
-        "radius" : 620,
-        "schedule" : 15728703,
-        "volume" : 0.12
-      }
-    ],
-    "areaType" : [
-
-    ],
-    "arrivalHint" : "The rain dims behind the frosted street door.",
-    "containers" : [
-
-    ],
-    "defaultTerrain" : "stone",
-    "displayName" : "LILA STREET ROOMS",
-    "doors" : [
-      {
-        "approachPoints" : [
-          {
-            "x" : 1410,
-            "y" : 300
-          },
-          {
-            "x" : 1410,
-            "y" : 264
-          }
-        ],
-        "blocksSight" : true,
-        "closeSound" : "sfx_door_close",
-        "closedObstacle" : {
-          "h" : 12,
-          "w" : 16,
-          "x" : 1395,
-          "y" : 205
-        },
-        "id" : "portal.return",
-        "openSound" : "sfx_door_open",
-        "startsClosed" : true
-      }
-    ],
-    "entrances" : [
-      {
-        "name" : "default",
-        "point" : {
-          "x" : 1390,
-          "y" : 335
+        "name": "default",
+        "point": {
+          "x": 295,
+          "y": 347
         }
       },
       {
-        "name" : "from.street",
-        "point" : {
-          "x" : 1390,
-          "y" : 335
+        "name": "from.stairs",
+        "point": {
+          "x": 295,
+          "y": 347
+        }
+      },
+      {
+        "name": "from.street",
+        "point": {
+          "x": 295,
+          "y": 347
+        }
+      },
+      {
+        "name": "from.back",
+        "point": {
+          "x": 430,
+          "y": 242
         }
       }
     ],
-    "id" : "RS0501",
-    "kind" : "interior",
-    "lightMapName" : "city_building_interior_v01.lm",
-    "mapTextureName" : "map_city_building_interior_v01",
-    "notes" : [
-
-    ],
-    "obstacles" : [
+    "regions": [
       {
-        "h" : 150,
-        "w" : 500,
-        "x" : 930,
-        "y" : 720
-      }
-    ],
-    "plateTextureName" : "city_building_interior_v01",
-    "props" : [
-
-    ],
-    "regions" : [
-      {
-        "approachPoint" : {
-          "x" : 1410,
-          "y" : 300
-        },
-        "id" : "portal.return",
-        "kind" : "travel",
-        "label" : "STREET",
-        "polygon" : [
+        "id": "portal.return",
+        "kind": "travel",
+        "label": "Down to the entrance hall",
+        "cursor": "travel",
+        "polygon": [
           {
-            "x" : 1315,
-            "y" : 180
+            "x": 233.6587,
+            "y": 342.4449
           },
           {
-            "x" : 1505,
-            "y" : 180
+            "x": 289.1989,
+            "y": 300.7897
           },
           {
-            "x" : 1505,
-            "y" : 330
+            "x": 312.1667,
+            "y": 318.0155
           },
           {
-            "x" : 1315,
-            "y" : 330
+            "x": 256.6264,
+            "y": 359.6707
           }
         ],
-        "travel" : {
-          "destination" : "RS0500",
-          "entrance" : "from.portal.lilaRooms"
+        "approachPoint": {
+          "x": 295,
+          "y": 347
+        },
+        "travel": {
+          "destination": "RS0502",
+          "entrance": "from.rooms"
         }
+      },
+      {
+        "id": "lila.backstairs",
+        "kind": "travel",
+        "label": "Escape by the back stair",
+        "cursor": "travel",
+        "polygon": [
+          {
+            "x": 436.1926,
+            "y": 287.6355
+          },
+          {
+            "x": 490.48,
+            "y": 246.9199
+          },
+          {
+            "x": 490.48,
+            "y": 329.7324
+          },
+          {
+            "x": 436.1926,
+            "y": 370.448
+          }
+        ],
+        "approachPoint": {
+          "x": 430,
+          "y": 242
+        },
+        "travel": {
+          "destination": "RS0500",
+          "entrance": "from.lila.backstairs"
+        }
+      },
+      {
+        "id": "lila.room.desk",
+        "kind": "info",
+        "label": "Writing desk",
+        "cursor": "info",
+        "polygon": [
+          {
+            "x": 342,
+            "y": 270
+          },
+          {
+            "x": 378,
+            "y": 270
+          },
+          {
+            "x": 378,
+            "y": 305
+          },
+          {
+            "x": 342,
+            "y": 305
+          }
+        ],
+        "approachPoint": {
+          "x": 360,
+          "y": 270
+        },
+        "observation": "Ordinary copying work, a few books, and an ink-stained sheet."
+      },
+      {
+        "id": "lila.room.bed",
+        "kind": "info",
+        "label": "Sleeping room",
+        "cursor": "info",
+        "polygon": [
+          {
+            "x": 326,
+            "y": 186
+          },
+          {
+            "x": 362,
+            "y": 186
+          },
+          {
+            "x": 362,
+            "y": 221
+          },
+          {
+            "x": 326,
+            "y": 221
+          }
+        ],
+        "approachPoint": {
+          "x": 344,
+          "y": 186
+        },
+        "observation": "A narrow bed and a packed chest. The second door has fittings for an inside bar."
+      },
+      {
+        "id": "lila.room.ward",
+        "kind": "info",
+        "label": "Warded threshold",
+        "cursor": "info",
+        "polygon": [
+          {
+            "x": 310,
+            "y": 294
+          },
+          {
+            "x": 346,
+            "y": 294
+          },
+          {
+            "x": 346,
+            "y": 329
+          },
+          {
+            "x": 310,
+            "y": 329
+          }
+        ],
+        "approachPoint": {
+          "x": 328,
+          "y": 294
+        },
+        "observation": "The ward is worked into the threshold. It holds only when the door is closed from within."
       }
     ],
-    "searchMapName" : "city_building_interior_v01.sr",
-    "sightPermeableObstacles" : [
-
+    "obstacles": [],
+    "wallPolygons": [
+      {
+        "id": "lila_rooms.cover.0",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          },
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 177.7856,
+            "y": 225.3424
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.1",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 167.7633,
+            "y": 256.7506
+          },
+          {
+            "x": 168.1176,
+            "y": 253.1847
+          },
+          {
+            "x": 167.7633,
+            "y": 253.7819
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.2",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 168.1176,
+            "y": 253.1847
+          },
+          {
+            "x": 167.7633,
+            "y": 256.7506
+          },
+          {
+            "x": 168.1176,
+            "y": 257.3478
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.3",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 245.9337
+          },
+          {
+            "x": 177.1377,
+            "y": 264.1129
+          },
+          {
+            "x": 177.7856,
+            "y": 264.1313
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.4",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          },
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          },
+          {
+            "x": 287.7569,
+            "y": 289.4171
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.5",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 193.863,
+            "y": 213.2844
+          },
+          {
+            "x": 193.863,
+            "y": 218.9966
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.6",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 241.717,
+            "y": 188.9366
+          },
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 235.6226,
+            "y": 187.6838
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.7",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 252.744,
+            "y": 169.1236
+          },
+          {
+            "x": 252.744,
+            "y": 178.1325
+          },
+          {
+            "x": 253.0984,
+            "y": 178.7297
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.8",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 253.0984,
+            "y": 178.7297
+          },
+          {
+            "x": 267.4839,
+            "y": 189.3605
+          },
+          {
+            "x": 270.2012,
+            "y": 187.4809
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.9",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 271.338,
+            "y": 186.6283
+          },
+          {
+            "x": 270.7076,
+            "y": 187.8606
+          },
+          {
+            "x": 271.1505,
+            "y": 187.8606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.10",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 271.1505,
+            "y": 187.8606
+          },
+          {
+            "x": 271.7896,
+            "y": 187.1742
+          },
+          {
+            "x": 271.338,
+            "y": 186.6283
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.11",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 288.5754,
+            "y": 173.7002
+          },
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 271.338,
+            "y": 186.6283
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.12",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          },
+          {
+            "x": 289.3033,
+            "y": 174.1471
+          },
+          {
+            "x": 289.9423,
+            "y": 173.7668
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.13",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 289.9423,
+            "y": 173.7668
+          },
+          {
+            "x": 290.1638,
+            "y": 173.3935
+          },
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.14",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          },
+          {
+            "x": 292.727,
+            "y": 170.5866
+          },
+          {
+            "x": 293.0813,
+            "y": 169.9893
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.15",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 293.0813,
+            "y": 152.1768
+          },
+          {
+            "x": 292.727,
+            "y": 151.5796
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.16",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 331.4455,
+            "y": 115.8392
+          },
+          {
+            "x": 335.2585,
+            "y": 118.699
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.17",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 353.2151,
+            "y": 132.1664
+          },
+          {
+            "x": 347.5382,
+            "y": 131.0361
+          },
+          {
+            "x": 347.5382,
+            "y": 149.1755
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.18",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 329.936,
+            "y": 116.9714
+          },
+          {
+            "x": 335.2585,
+            "y": 118.699
+          },
+          {
+            "x": 331.4455,
+            "y": 115.8392
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.19",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 335.2585,
+            "y": 118.699
+          },
+          {
+            "x": 329.936,
+            "y": 116.9714
+          },
+          {
+            "x": 329.5816,
+            "y": 117.5686
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.20",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 315.2138,
+            "y": 142.1494
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.21",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 309.537,
+            "y": 132.602
+          },
+          {
+            "x": 315.0838,
+            "y": 132.3314
+          },
+          {
+            "x": 309.8914,
+            "y": 132.0048
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.22",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.0838,
+            "y": 132.3314
+          },
+          {
+            "x": 312.3755,
+            "y": 130.3001
+          },
+          {
+            "x": 309.8914,
+            "y": 132.0048
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.23",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 142.1494
+          },
+          {
+            "x": 309.537,
+            "y": 132.602
+          },
+          {
+            "x": 309.537,
+            "y": 146.407
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.24",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 309.537,
+            "y": 146.407
+          },
+          {
+            "x": 308.1166,
+            "y": 147.4724
+          },
+          {
+            "x": 307.7622,
+            "y": 148.0696
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.25",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 307.7622,
+            "y": 155.7258
+          },
+          {
+            "x": 307.9993,
+            "y": 156.1523
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.26",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 306.3418,
+            "y": 160.7774
+          },
+          {
+            "x": 306.1175,
+            "y": 157.722
+          },
+          {
+            "x": 305.9875,
+            "y": 160.1802
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.27",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 306.3418,
+            "y": 160.7774
+          },
+          {
+            "x": 329.9777,
+            "y": 178.5043
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.28",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 329.9777,
+            "y": 178.5043
+          },
+          {
+            "x": 330.6864,
+            "y": 178.5043
+          },
+          {
+            "x": 337.9585,
+            "y": 173.0502
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.29",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 346.2062,
+            "y": 169.8714
+          },
+          {
+            "x": 343.0687,
+            "y": 171.677
+          },
+          {
+            "x": 343.9094,
+            "y": 171.594
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.30",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 343.9094,
+            "y": 171.594
+          },
+          {
+            "x": 345.3655,
+            "y": 170.9635
+          },
+          {
+            "x": 346.2062,
+            "y": 169.8714
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.31",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 341.1628,
+            "y": 171.1884
+          },
+          {
+            "x": 346.6937,
+            "y": 166.4988
+          },
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.33",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 356.0559,
+            "y": 159.0829
+          },
+          {
+            "x": 356.6346,
+            "y": 156.156
+          },
+          {
+            "x": 353.2151,
+            "y": 153.4331
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.34",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.7184,
+            "y": 174.9128
+          },
+          {
+            "x": 404.671,
+            "y": 172.5851
+          },
+          {
+            "x": 403.8922,
+            "y": 172.5325
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.35",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.3641,
+            "y": 175.51
+          },
+          {
+            "x": 404.671,
+            "y": 172.5851
+          },
+          {
+            "x": 400.7184,
+            "y": 174.9128
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.36",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 410.6345,
+            "y": 195.688
+          },
+          {
+            "x": 400.3641,
+            "y": 175.51
+          },
+          {
+            "x": 400.4675,
+            "y": 257.6003
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.37",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 349.4567,
+            "y": 241.2399
+          },
+          {
+            "x": 349.4567,
+            "y": 222.6461
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.38",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.4423,
+            "y": 219.2463
+          },
+          {
+            "x": 349.1024,
+            "y": 222.0489
+          },
+          {
+            "x": 343.9039,
+            "y": 218.3084
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.39",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.4423,
+            "y": 219.2463
+          },
+          {
+            "x": 341.6704,
+            "y": 219.1988
+          },
+          {
+            "x": 338.4967,
+            "y": 221.5791
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.40",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 336.6157,
+            "y": 221.315
+          },
+          {
+            "x": 336.2613,
+            "y": 220.7178
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.41",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 336.6157,
+            "y": 251.2021
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.42",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 285.0641,
+            "y": 182.3199
+          },
+          {
+            "x": 282.2256,
+            "y": 183.9172
+          },
+          {
+            "x": 281.8713,
+            "y": 184.5144
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.43",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 296.5274,
+            "y": 377.8678
+          },
+          {
+            "x": 286.3605,
+            "y": 377.5367
+          },
+          {
+            "x": 286.4639,
+            "y": 379.747
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.44",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.2613,
+            "y": 301.4435
+          },
+          {
+            "x": 333.4229,
+            "y": 303.0408
+          },
+          {
+            "x": 334.1316,
+            "y": 303.0408
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.45",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 333.4229,
+            "y": 303.0408
+          },
+          {
+            "x": 336.2613,
+            "y": 301.4435
+          },
+          {
+            "x": 336.6157,
+            "y": 300.8463
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.46",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.2458,
+            "y": 304.2666
+          },
+          {
+            "x": 337.7247,
+            "y": 304.9888
+          },
+          {
+            "x": 337.7247,
+            "y": 309.5201
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.47",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.2458,
+            "y": 304.2666
+          },
+          {
+            "x": 338.0791,
+            "y": 310.1173
+          },
+          {
+            "x": 344.5303,
+            "y": 314.7974
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.48",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 411.0521,
+            "y": 260.2017
+          },
+          {
+            "x": 404.2465,
+            "y": 260.629
+          },
+          {
+            "x": 411.0521,
+            "y": 264.733
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.49",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 404.2465,
+            "y": 260.629
+          },
+          {
+            "x": 411.0521,
+            "y": 260.2017
+          },
+          {
+            "x": 410.531,
+            "y": 259.4795
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.50",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 410.6345,
+            "y": 195.688
+          },
+          {
+            "x": 419.4827,
+            "y": 188.8934
+          },
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.51",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          },
+          {
+            "x": 492.2959,
+            "y": 242.6886
+          },
+          {
+            "x": 491.5872,
+            "y": 242.6886
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.52",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 488.0592,
+            "y": 247.5586
+          },
+          {
+            "x": 488.4135,
+            "y": 245.0689
+          },
+          {
+            "x": 488.0592,
+            "y": 245.6661
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.53",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 436.507,
+            "y": 287.4439
+          },
+          {
+            "x": 436.8613,
+            "y": 285.9567
+          },
+          {
+            "x": 436.507,
+            "y": 286.5539
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.54",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 436.1926,
+            "y": 287.6797
+          },
+          {
+            "x": 433.8958,
+            "y": 286.1155
+          },
+          {
+            "x": 430.7873,
+            "y": 288.2885
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.55",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 425.4649,
+            "y": 287.4258
+          },
+          {
+            "x": 430.433,
+            "y": 287.4258
+          },
+          {
+            "x": 428.3032,
+            "y": 285.8285
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.56",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 428.3032,
+            "y": 285.8285
+          },
+          {
+            "x": 427.5946,
+            "y": 285.8285
+          },
+          {
+            "x": 425.4649,
+            "y": 287.4258
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.57",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 430.7873,
+            "y": 288.2885
+          },
+          {
+            "x": 425.1105,
+            "y": 288.023
+          },
+          {
+            "x": 425.1105,
+            "y": 295.9913
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.58",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 412.1018,
+            "y": 277.4035
+          },
+          {
+            "x": 417.07,
+            "y": 277.4035
+          },
+          {
+            "x": 414.2315,
+            "y": 275.8062
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.59",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.07,
+            "y": 277.4035
+          },
+          {
+            "x": 414.9402,
+            "y": 275.8062
+          },
+          {
+            "x": 414.2315,
+            "y": 275.8062
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.60",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 278.0007
+          },
+          {
+            "x": 412.1018,
+            "y": 277.4035
+          },
+          {
+            "x": 411.7474,
+            "y": 278.0007
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.61",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 411.7474,
+            "y": 292.6546
+          },
+          {
+            "x": 410.8532,
+            "y": 291.9839
+          },
+          {
+            "x": 410.1445,
+            "y": 291.9839
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.62",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          },
+          {
+            "x": 407.5451,
+            "y": 292.8355
+          },
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.63",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 401.3293,
+            "y": 289.5544
+          },
+          {
+            "x": 406.5218,
+            "y": 289.881
+          },
+          {
+            "x": 404.1678,
+            "y": 287.9571
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.64",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 404.1678,
+            "y": 287.9571
+          },
+          {
+            "x": 403.4591,
+            "y": 287.9571
+          },
+          {
+            "x": 401.3293,
+            "y": 289.5544
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.65",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          },
+          {
+            "x": 400.975,
+            "y": 290.1516
+          },
+          {
+            "x": 400.975,
+            "y": 293.8003
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.66",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.975,
+            "y": 293.9117
+          },
+          {
+            "x": 400.4736,
+            "y": 294.1764
+          },
+          {
+            "x": 400.524,
+            "y": 294.2499
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.67",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 395.3902,
+            "y": 294.0087
+          },
+          {
+            "x": 400.4736,
+            "y": 294.1764
+          },
+          {
+            "x": 397.8743,
+            "y": 292.3041
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.68",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.524,
+            "y": 294.2499
+          },
+          {
+            "x": 395.0359,
+            "y": 294.606
+          },
+          {
+            "x": 395.0359,
+            "y": 298.2547
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.69",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          },
+          {
+            "x": 391.5739,
+            "y": 300.8512
+          },
+          {
+            "x": 391.2195,
+            "y": 301.4484
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.70",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 390.3686,
+            "y": 314.5834
+          },
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.71",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 390.3686,
+            "y": 314.5834
+          },
+          {
+            "x": 390.6314,
+            "y": 314.3863
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.73",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 393.1572,
+            "y": 316.6748
+          },
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          },
+          {
+            "x": 387.9761,
+            "y": 320.5607
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.74",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 382.4293,
+            "y": 299.8163
+          },
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 387.846,
+            "y": 299.8163
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.75",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.846,
+            "y": 299.8163
+          },
+          {
+            "x": 385.1376,
+            "y": 297.785
+          },
+          {
+            "x": 382.4293,
+            "y": 299.8163
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.76",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 379.2239,
+            "y": 315.1744
+          },
+          {
+            "x": 378.8695,
+            "y": 315.7716
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.77",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 378.8695,
+            "y": 315.7716
+          },
+          {
+            "x": 378.8695,
+            "y": 323.4279
+          },
+          {
+            "x": 379.0771,
+            "y": 323.0521
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.78",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 379.2239,
+            "y": 324.0251
+          },
+          {
+            "x": 379.0771,
+            "y": 323.0521
+          },
+          {
+            "x": 378.8695,
+            "y": 323.4279
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.79",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          },
+          {
+            "x": 379.2239,
+            "y": 324.0251
+          },
+          {
+            "x": 380.936,
+            "y": 325.3092
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.80",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 380.936,
+            "y": 325.3092
+          },
+          {
+            "x": 381.6447,
+            "y": 325.3092
+          },
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.81",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          },
+          {
+            "x": 380.465,
+            "y": 326.5939
+          },
+          {
+            "x": 380.1107,
+            "y": 327.1911
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.82",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 358.7226,
+            "y": 342.1732
+          },
+          {
+            "x": 354.9702,
+            "y": 339.359
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.83",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 348.9366,
+            "y": 343.7258
+          },
+          {
+            "x": 348.5822,
+            "y": 344.3231
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.84",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          },
+          {
+            "x": 296.6309,
+            "y": 295.7775
+          },
+          {
+            "x": 296.2765,
+            "y": 295.1803
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.85",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 296.2765,
+            "y": 295.1803
+          },
+          {
+            "x": 292.7484,
+            "y": 292.6926
+          },
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.86",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          },
+          {
+            "x": 288.6965,
+            "y": 290.4532
+          },
+          {
+            "x": 287.7569,
+            "y": 289.4171
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.87",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 251.2021
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 300.4602,
+            "y": 278.3187
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.88",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.4639,
+            "y": 379.747
+          },
+          {
+            "x": 285.9429,
+            "y": 380.4692
+          },
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.89",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 285.0641,
+            "y": 182.3199
+          },
+          {
+            "x": 281.8713,
+            "y": 184.5144
+          },
+          {
+            "x": 281.8713,
+            "y": 210.0045
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.90",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 262.7374,
+            "y": 204.7019
+          },
+          {
+            "x": 272.4191,
+            "y": 211.5046
+          },
+          {
+            "x": 271.0335,
+            "y": 202.659
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.92",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 272.2776,
+            "y": 211.857
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 272.4191,
+            "y": 211.5046
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.93",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 272.4191,
+            "y": 211.5046
+          },
+          {
+            "x": 262.7374,
+            "y": 204.7019
+          },
+          {
+            "x": 272.2776,
+            "y": 211.857
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.94",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 271.0335,
+            "y": 202.659
+          },
+          {
+            "x": 265.3959,
+            "y": 198.3861
+          },
+          {
+            "x": 262.7374,
+            "y": 204.7019
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.95",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 241.717,
+            "y": 178.7581
+          },
+          {
+            "x": 241.0285,
+            "y": 177.9103
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.96",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 193.863,
+            "y": 213.2844
+          },
+          {
+            "x": 199.9575,
+            "y": 210.0778
+          },
+          {
+            "x": 199.2689,
+            "y": 209.2299
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.97",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 225.3424
+          },
+          {
+            "x": 193.863,
+            "y": 218.9966
+          },
+          {
+            "x": 190.0549,
+            "y": 216.1405
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.98",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.99",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 106.1047,
+            "y": 353.3086
+          },
+          {
+            "x": 105.7503,
+            "y": 353.9058
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.100",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 105.7503,
+            "y": 357.6558
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.101",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          },
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 284.5421,
+            "y": 491.5495
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.102",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          },
+          {
+            "x": 292.1436,
+            "y": 494.9634
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.103",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 522.0025,
+            "y": 331.5548
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 522.1325,
+            "y": 335.5754
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.104",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 522.0025,
+            "y": 331.5548
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.105",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          },
+          {
+            "x": 519.0006,
+            "y": 235.174
+          },
+          {
+            "x": 518.6462,
+            "y": 234.5768
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.106",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.107",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          },
+          {
+            "x": 324.2136,
+            "y": 94.3899
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.108",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 190.0549,
+            "y": 216.1405
+          },
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          },
+          {
+            "x": 177.7856,
+            "y": 225.3424
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.109",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.1377,
+            "y": 264.1129
+          },
+          {
+            "x": 168.1176,
+            "y": 253.1847
+          },
+          {
+            "x": 168.1176,
+            "y": 257.3478
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.110",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          },
+          {
+            "x": 193.863,
+            "y": 213.2844
+          },
+          {
+            "x": 199.2689,
+            "y": 209.2299
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.111",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 241.0285,
+            "y": 177.9103
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.112",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 271.338,
+            "y": 186.6283
+          },
+          {
+            "x": 253.0984,
+            "y": 178.7297
+          },
+          {
+            "x": 270.2012,
+            "y": 187.4809
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.113",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 270.7076,
+            "y": 187.8606
+          },
+          {
+            "x": 271.338,
+            "y": 186.6283
+          },
+          {
+            "x": 270.2012,
+            "y": 187.4809
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.115",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 289.3033,
+            "y": 174.1471
+          },
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          },
+          {
+            "x": 288.5754,
+            "y": 173.7002
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.116",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 293.0813,
+            "y": 169.9893
+          },
+          {
+            "x": 293.0813,
+            "y": 152.1768
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.117",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 349.4021,
+            "y": 129.3067
+          },
+          {
+            "x": 353.2151,
+            "y": 132.1664
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.118",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 329.5816,
+            "y": 131.3736
+          },
+          {
+            "x": 335.2585,
+            "y": 118.699
+          },
+          {
+            "x": 329.5816,
+            "y": 117.5686
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.119",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 142.1494
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 329.5816,
+            "y": 131.3736
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.120",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.0838,
+            "y": 132.3314
+          },
+          {
+            "x": 309.537,
+            "y": 132.602
+          },
+          {
+            "x": 315.2138,
+            "y": 142.1494
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.121",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 307.7622,
+            "y": 148.0696
+          },
+          {
+            "x": 307.7622,
+            "y": 155.7258
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.122",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 306.1175,
+            "y": 157.722
+          },
+          {
+            "x": 306.3418,
+            "y": 160.7774
+          },
+          {
+            "x": 307.9993,
+            "y": 156.1523
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.123",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 343.0687,
+            "y": 171.677
+          },
+          {
+            "x": 346.2062,
+            "y": 169.8714
+          },
+          {
+            "x": 341.1628,
+            "y": 171.1884
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.124",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 356.0559,
+            "y": 159.0829
+          },
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          },
+          {
+            "x": 346.6937,
+            "y": 166.4988
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.125",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 410.531,
+            "y": 259.4795
+          },
+          {
+            "x": 400.4675,
+            "y": 257.6003
+          },
+          {
+            "x": 404.2446,
+            "y": 260.6268
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.127",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.1423,
+            "y": 222.4712
+          },
+          {
+            "x": 349.1024,
+            "y": 222.0489
+          },
+          {
+            "x": 342.4423,
+            "y": 219.2463
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.128",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.4423,
+            "y": 219.2463
+          },
+          {
+            "x": 338.4967,
+            "y": 221.5791
+          },
+          {
+            "x": 338.1423,
+            "y": 222.4712
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.129",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 281.8713,
+            "y": 210.0045
+          },
+          {
+            "x": 336.2613,
+            "y": 220.7178
+          },
+          {
+            "x": 285.0641,
+            "y": 182.3199
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.130",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 300.4602,
+            "y": 278.3187
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.131",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 333.4229,
+            "y": 303.0408
+          },
+          {
+            "x": 336.6157,
+            "y": 300.8463
+          },
+          {
+            "x": 300.4602,
+            "y": 278.3187
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.132",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.0791,
+            "y": 310.1173
+          },
+          {
+            "x": 338.2458,
+            "y": 304.2666
+          },
+          {
+            "x": 337.7247,
+            "y": 309.5201
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.133",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 411.0521,
+            "y": 264.733
+          },
+          {
+            "x": 404.2465,
+            "y": 260.629
+          },
+          {
+            "x": 410.6977,
+            "y": 265.3301
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.134",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 488.4135,
+            "y": 245.0689
+          },
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          },
+          {
+            "x": 491.5872,
+            "y": 242.6886
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.135",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 436.8613,
+            "y": 285.9567
+          },
+          {
+            "x": 436.507,
+            "y": 287.4439
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.136",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 430.433,
+            "y": 287.4258
+          },
+          {
+            "x": 425.4649,
+            "y": 287.4258
+          },
+          {
+            "x": 430.7873,
+            "y": 288.2885
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.137",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 412.1018,
+            "y": 277.4035
+          },
+          {
+            "x": 417.4243,
+            "y": 278.0007
+          },
+          {
+            "x": 417.07,
+            "y": 277.4035
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.138",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 278.0007
+          },
+          {
+            "x": 411.7474,
+            "y": 278.0007
+          },
+          {
+            "x": 411.7474,
+            "y": 292.6546
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.139",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 411.7474,
+            "y": 292.6546
+          },
+          {
+            "x": 410.1445,
+            "y": 291.9839
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.140",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 401.3293,
+            "y": 289.5544
+          },
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          },
+          {
+            "x": 406.5218,
+            "y": 289.881
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.141",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          },
+          {
+            "x": 401.3293,
+            "y": 289.5544
+          },
+          {
+            "x": 400.975,
+            "y": 290.1516
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.142",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.4736,
+            "y": 294.1764
+          },
+          {
+            "x": 400.975,
+            "y": 293.9117
+          },
+          {
+            "x": 400.975,
+            "y": 293.8003
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.143",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 395.0359,
+            "y": 294.606
+          },
+          {
+            "x": 400.4736,
+            "y": 294.1764
+          },
+          {
+            "x": 395.3902,
+            "y": 294.0087
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.144",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.4736,
+            "y": 294.1764
+          },
+          {
+            "x": 395.0359,
+            "y": 294.606
+          },
+          {
+            "x": 400.524,
+            "y": 294.2499
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.145",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 391.5739,
+            "y": 300.8512
+          },
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          },
+          {
+            "x": 395.0359,
+            "y": 298.2547
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.146",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 390.6314,
+            "y": 314.3863
+          },
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.148",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          },
+          {
+            "x": 393.1572,
+            "y": 316.6748
+          },
+          {
+            "x": 390.3686,
+            "y": 314.5834
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.149",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 382.2992,
+            "y": 312.8679
+          },
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.150",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 308.6103
+          },
+          {
+            "x": 382.4293,
+            "y": 299.8163
+          },
+          {
+            "x": 382.2992,
+            "y": 312.8679
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.151",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 378.8695,
+            "y": 315.7716
+          },
+          {
+            "x": 379.0771,
+            "y": 323.0521
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.152",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 379.2239,
+            "y": 324.0251
+          },
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          },
+          {
+            "x": 379.0771,
+            "y": 323.0521
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.153",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 380.465,
+            "y": 326.5939
+          },
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          },
+          {
+            "x": 382.2992,
+            "y": 325.2183
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.154",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.9366,
+            "y": 343.7258
+          },
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 354.9702,
+            "y": 339.359
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.155",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.3605,
+            "y": 377.5367
+          },
+          {
+            "x": 296.6309,
+            "y": 295.7775
+          },
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.156",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          },
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          },
+          {
+            "x": 287.7569,
+            "y": 289.4171
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.157",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          },
+          {
+            "x": 283.3222,
+            "y": 379.7368
+          },
+          {
+            "x": 286.3605,
+            "y": 377.5367
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.158",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 281.8713,
+            "y": 210.0045
+          },
+          {
+            "x": 271.0335,
+            "y": 202.659
+          },
+          {
+            "x": 272.4191,
+            "y": 211.5046
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.161",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 241.717,
+            "y": 178.7581
+          },
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 241.717,
+            "y": 188.9366
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.162",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 199.9575,
+            "y": 210.0778
+          },
+          {
+            "x": 193.863,
+            "y": 213.2844
+          },
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.163",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.164",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 105.7503,
+            "y": 357.6558
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 105.7503,
+            "y": 353.9058
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.165",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          },
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.166",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 436.1926,
+            "y": 287.6797
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 436.507,
+            "y": 287.4439
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.167",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.168",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 168.1176,
+            "y": 253.1847
+          },
+          {
+            "x": 177.1377,
+            "y": 264.1129
+          },
+          {
+            "x": 177.7856,
+            "y": 245.9337
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.169",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.170",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 253.0984,
+            "y": 178.7297
+          },
+          {
+            "x": 271.338,
+            "y": 186.6283
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.171",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          },
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 288.5754,
+            "y": 173.7002
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.173",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 335.2585,
+            "y": 118.699
+          },
+          {
+            "x": 329.5816,
+            "y": 131.3736
+          },
+          {
+            "x": 335.2585,
+            "y": 139.9656
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.174",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 315.2138,
+            "y": 142.1494
+          },
+          {
+            "x": 309.537,
+            "y": 146.407
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.175",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 306.3418,
+            "y": 160.7774
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 307.9993,
+            "y": 156.1523
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.176",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 346.6937,
+            "y": 166.4988
+          },
+          {
+            "x": 341.1628,
+            "y": 171.1884
+          },
+          {
+            "x": 346.2062,
+            "y": 169.8714
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.177",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 356.0559,
+            "y": 159.0829
+          },
+          {
+            "x": 346.6937,
+            "y": 166.4988
+          },
+          {
+            "x": 356.6346,
+            "y": 158.8848
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.178",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 400.3641,
+            "y": 175.51
+          },
+          {
+            "x": 410.6345,
+            "y": 195.688
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.180",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 349.1024,
+            "y": 222.0489
+          },
+          {
+            "x": 338.1423,
+            "y": 222.4712
+          },
+          {
+            "x": 349.4567,
+            "y": 222.6461
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.181",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 349.4567,
+            "y": 222.6461
+          },
+          {
+            "x": 338.1423,
+            "y": 222.4712
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.183",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 300.4602,
+            "y": 278.3187
+          },
+          {
+            "x": 336.6157,
+            "y": 300.8463
+          },
+          {
+            "x": 336.6157,
+            "y": 251.2021
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.184",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          },
+          {
+            "x": 338.2458,
+            "y": 304.2666
+          },
+          {
+            "x": 344.5303,
+            "y": 314.7974
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.185",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 488.4135,
+            "y": 245.0689
+          },
+          {
+            "x": 488.0592,
+            "y": 247.5586
+          },
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.186",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 425.1105,
+            "y": 288.023
+          },
+          {
+            "x": 430.7873,
+            "y": 288.2885
+          },
+          {
+            "x": 425.4649,
+            "y": 287.4258
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.187",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 278.0007
+          },
+          {
+            "x": 411.7474,
+            "y": 292.6546
+          },
+          {
+            "x": 417.4243,
+            "y": 301.756
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.188",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.975,
+            "y": 293.9117
+          },
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          },
+          {
+            "x": 400.975,
+            "y": 293.8003
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.191",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 390.6314,
+            "y": 314.3863
+          },
+          {
+            "x": 390.3686,
+            "y": 314.5834
+          },
+          {
+            "x": 393.1572,
+            "y": 316.6748
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.193",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 379.2239,
+            "y": 315.1744
+          },
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 382.2992,
+            "y": 312.8679
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.194",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 379.0771,
+            "y": 323.0521
+          },
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          },
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.195",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 348.5822,
+            "y": 344.3231
+          },
+          {
+            "x": 348.5822,
+            "y": 353.3875
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.196",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 296.6309,
+            "y": 295.7775
+          },
+          {
+            "x": 286.3605,
+            "y": 377.5367
+          },
+          {
+            "x": 296.5274,
+            "y": 377.8678
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.197",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 281.8713,
+            "y": 210.0045
+          },
+          {
+            "x": 272.4191,
+            "y": 211.5046
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.198",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 241.717,
+            "y": 188.9366
+          },
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 262.7374,
+            "y": 204.7019
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.199",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 241.717,
+            "y": 188.9366
+          },
+          {
+            "x": 235.6226,
+            "y": 187.6838
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.200",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 264.1313
+          },
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 193.863,
+            "y": 218.9966
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.201",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.202",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 425.1105,
+            "y": 295.9913
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 436.1926,
+            "y": 287.6797
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.203",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 193.863,
+            "y": 218.9966
+          },
+          {
+            "x": 177.7856,
+            "y": 245.9337
+          },
+          {
+            "x": 177.7856,
+            "y": 264.1313
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.204",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 253.0984,
+            "y": 178.7297
+          },
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 252.744,
+            "y": 169.1236
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.205",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 293.0813,
+            "y": 169.9893
+          },
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 289.7122,
+            "y": 172.8476
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.206",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 335.2585,
+            "y": 139.9656
+          },
+          {
+            "x": 329.5816,
+            "y": 131.3736
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.207",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 307.7622,
+            "y": 148.0696
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 309.537,
+            "y": 146.407
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.208",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 341.1628,
+            "y": 171.1884
+          },
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.209",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 356.6346,
+            "y": 156.156
+          },
+          {
+            "x": 356.0559,
+            "y": 159.0829
+          },
+          {
+            "x": 356.6346,
+            "y": 158.8848
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.211",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 404.2465,
+            "y": 260.629
+          },
+          {
+            "x": 400.4675,
+            "y": 257.6003
+          },
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.212",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 349.4567,
+            "y": 241.2399
+          },
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 348.4127,
+            "y": 242.3543
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.213",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 282.2256,
+            "y": 183.9172
+          },
+          {
+            "x": 285.0641,
+            "y": 182.3199
+          },
+          {
+            "x": 284.3554,
+            "y": 182.3199
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.214",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          },
+          {
+            "x": 336.6157,
+            "y": 251.2021
+          },
+          {
+            "x": 338.1423,
+            "y": 250.0571
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.215",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 436.8613,
+            "y": 285.9567
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 488.0592,
+            "y": 247.5586
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.216",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 436.1926,
+            "y": 287.6797
+          },
+          {
+            "x": 430.7873,
+            "y": 288.2885
+          },
+          {
+            "x": 425.1105,
+            "y": 295.9913
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.217",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 301.756
+          },
+          {
+            "x": 411.7474,
+            "y": 292.6546
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.218",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 406.6519,
+            "y": 291.8342
+          },
+          {
+            "x": 400.975,
+            "y": 293.9117
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.219",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 301.756
+          },
+          {
+            "x": 395.0359,
+            "y": 298.2547
+          },
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.220",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          },
+          {
+            "x": 393.4238,
+            "y": 316.8748
+          },
+          {
+            "x": 417.4243,
+            "y": 301.756
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.221",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          },
+          {
+            "x": 382.2992,
+            "y": 312.8679
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.222",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 316.3778
+          },
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 387.9761,
+            "y": 320.5607
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.223",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          },
+          {
+            "x": 306.2346,
+            "y": 385.1482
+          },
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.224",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          },
+          {
+            "x": 296.5274,
+            "y": 377.8678
+          },
+          {
+            "x": 286.4639,
+            "y": 379.747
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.225",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 272.2776,
+            "y": 211.857
+          },
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.226",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 262.7374,
+            "y": 204.7019
+          },
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 272.2776,
+            "y": 211.857
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.227",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          },
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          },
+          {
+            "x": 177.7856,
+            "y": 264.1313
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.228",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 283.3222,
+            "y": 379.7368
+          },
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.229",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4243,
+            "y": 301.756
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 425.1105,
+            "y": 295.9913
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.230",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 193.863,
+            "y": 218.9966
+          },
+          {
+            "x": 177.7856,
+            "y": 225.3424
+          },
+          {
+            "x": 177.7856,
+            "y": 245.9337
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.232",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 292.727,
+            "y": 151.5796
+          },
+          {
+            "x": 284.4315,
+            "y": 145.358
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.234",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 337.9585,
+            "y": 173.0502
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          },
+          {
+            "x": 329.9777,
+            "y": 178.5043
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.235",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 341.1628,
+            "y": 171.1884
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 337.9585,
+            "y": 173.0502
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.236",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          },
+          {
+            "x": 356.0559,
+            "y": 159.0829
+          },
+          {
+            "x": 353.2151,
+            "y": 153.4331
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.237",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.1423,
+            "y": 250.0571
+          },
+          {
+            "x": 348.4127,
+            "y": 242.3543
+          },
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.238",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 336.2613,
+            "y": 220.7178
+          },
+          {
+            "x": 281.8713,
+            "y": 210.0045
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.239",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 393.4238,
+            "y": 316.8748
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 417.4243,
+            "y": 301.756
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.240",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.241",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.524,
+            "y": 294.2499
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          },
+          {
+            "x": 400.975,
+            "y": 293.9117
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.242",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 393.1572,
+            "y": 316.6748
+          },
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          },
+          {
+            "x": 390.6314,
+            "y": 314.3863
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.243",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 393.4238,
+            "y": 316.8748
+          },
+          {
+            "x": 391.2195,
+            "y": 306.1777
+          },
+          {
+            "x": 393.1572,
+            "y": 316.6748
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.245",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          },
+          {
+            "x": 306.2346,
+            "y": 385.1482
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.246",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 296.5274,
+            "y": 377.8678
+          },
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          },
+          {
+            "x": 306.2346,
+            "y": 385.1482
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.247",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          },
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          },
+          {
+            "x": 272.2776,
+            "y": 211.857
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.248",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 177.7856,
+            "y": 264.1313
+          },
+          {
+            "x": 287.7569,
+            "y": 287.8462
+          },
+          {
+            "x": 199.9575,
+            "y": 214.4326
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.249",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          },
+          {
+            "x": 519.0006,
+            "y": 235.174
+          },
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.250",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 193.863,
+            "y": 213.2844
+          },
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          },
+          {
+            "x": 190.0549,
+            "y": 216.1405
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.251",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 252.744,
+            "y": 169.1236
+          },
+          {
+            "x": 275.0238,
+            "y": 162.4228
+          },
+          {
+            "x": 284.4315,
+            "y": 145.358
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.252",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 335.2585,
+            "y": 139.9656
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 347.5382,
+            "y": 149.1755
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.253",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 337.9585,
+            "y": 173.0502
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 315.2138,
+            "y": 154.2606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.254",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 347.5382,
+            "y": 131.0361
+          },
+          {
+            "x": 353.2151,
+            "y": 132.1664
+          },
+          {
+            "x": 349.4021,
+            "y": 129.3067
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.255",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 336.2613,
+            "y": 220.7178
+          },
+          {
+            "x": 279.6292,
+            "y": 217.4819
+          },
+          {
+            "x": 336.6157,
+            "y": 223.6163
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.256",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 395.0359,
+            "y": 298.2547
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          },
+          {
+            "x": 400.524,
+            "y": 294.2499
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.257",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 320.5607
+          },
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 387.9761,
+            "y": 320.9606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.258",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 288.6965,
+            "y": 295.5732
+          },
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          },
+          {
+            "x": 283.3222,
+            "y": 379.7368
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.259",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 235.6226,
+            "y": 181.9647
+          },
+          {
+            "x": 107.1332,
+            "y": 256.8271
+          },
+          {
+            "x": 199.2689,
+            "y": 209.2299
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.260",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 252.744,
+            "y": 169.1236
+          },
+          {
+            "x": 284.4315,
+            "y": 145.358
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.261",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 347.5382,
+            "y": 149.1755
+          },
+          {
+            "x": 329.5816,
+            "y": 143.4849
+          },
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.262",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.4127,
+            "y": 242.3543
+          },
+          {
+            "x": 338.1423,
+            "y": 250.0571
+          },
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.263",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 395.0359,
+            "y": 298.2547
+          },
+          {
+            "x": 417.4243,
+            "y": 301.756
+          },
+          {
+            "x": 407.5451,
+            "y": 293.9335
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.264",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 320.9606
+          },
+          {
+            "x": 382.2992,
+            "y": 320.6355
+          },
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.265",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 106.1047,
+            "y": 358.253
+          },
+          {
+            "x": 283.3222,
+            "y": 379.7368
+          },
+          {
+            "x": 177.7856,
+            "y": 300.5844
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.266",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 252.744,
+            "y": 169.1236
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 241.0285,
+            "y": 177.9103
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.267",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 353.2151,
+            "y": 153.4331
+          },
+          {
+            "x": 347.5382,
+            "y": 149.1755
+          },
+          {
+            "x": 346.7541,
+            "y": 166.0593
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.268",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 338.2458,
+            "y": 304.2666
+          },
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          },
+          {
+            "x": 338.1423,
+            "y": 250.0571
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.269",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          },
+          {
+            "x": 393.4238,
+            "y": 316.8748
+          },
+          {
+            "x": 387.9761,
+            "y": 320.9606
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.270",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 387.9761,
+            "y": 320.9606
+          },
+          {
+            "x": 382.2992,
+            "y": 324.8183
+          },
+          {
+            "x": 382.2992,
+            "y": 325.2183
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.271",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 283.3222,
+            "y": 379.7368
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.272",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 284.4315,
+            "y": 145.358
+          },
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.273",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 353.2151,
+            "y": 132.1664
+          },
+          {
+            "x": 347.5382,
+            "y": 149.1755
+          },
+          {
+            "x": 353.2151,
+            "y": 153.4331
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.274",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 410.6977,
+            "y": 265.3301
+          },
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          },
+          {
+            "x": 344.5303,
+            "y": 314.7974
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.275",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          },
+          {
+            "x": 387.9761,
+            "y": 320.9606
+          },
+          {
+            "x": 382.2992,
+            "y": 325.2183
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.276",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 306.2346,
+            "y": 385.1482
+          },
+          {
+            "x": 285.9429,
+            "y": 381.7023
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.277",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 331.4455,
+            "y": 115.8392
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.278",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 335.2585,
+            "y": 118.699
+          },
+          {
+            "x": 349.4021,
+            "y": 129.3067
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.279",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.4127,
+            "y": 296.6414
+          },
+          {
+            "x": 410.6977,
+            "y": 265.3301
+          },
+          {
+            "x": 404.2465,
+            "y": 260.629
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.280",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 393.4238,
+            "y": 316.8748
+          },
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.281",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 306.2346,
+            "y": 385.1482
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          },
+          {
+            "x": 348.5822,
+            "y": 353.3875
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.282",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 353.2151,
+            "y": 132.1664
+          },
+          {
+            "x": 405.8819,
+            "y": 171.6665
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.283",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.4675,
+            "y": 257.6003
+          },
+          {
+            "x": 410.531,
+            "y": 259.4795
+          },
+          {
+            "x": 410.6345,
+            "y": 195.688
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.284",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.5822,
+            "y": 353.3875
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          },
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.285",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 405.8819,
+            "y": 171.6665
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.286",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 400.3641,
+            "y": 175.51
+          },
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 404.671,
+            "y": 172.5851
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.287",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 358.8526,
+            "y": 345.6847
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 380.2388,
+            "y": 329.6451
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.288",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 404.671,
+            "y": 172.5851
+          },
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 405.8819,
+            "y": 171.6665
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.289",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 417.4243,
+            "y": 301.756
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.290",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.3761,
+            "y": 94.2825
+          },
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 518.6462,
+            "y": 234.5768
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.291",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 488.0592,
+            "y": 247.5586
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.292",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 518.6462,
+            "y": 234.5768
+          },
+          {
+            "x": 419.6128,
+            "y": 181.9647
+          },
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.293",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 519.0006,
+            "y": 235.174
+          },
+          {
+            "x": 494.2384,
+            "y": 244.1454
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.294",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 304.1488,
+            "y": 307.1889
+          },
+          {
+            "x": 304.0244,
+            "y": 306.9727
+          },
+          {
+            "x": 300.0567,
+            "y": 305.9037
+          },
+          {
+            "x": 299.8476,
+            "y": 306.03
+          },
+          {
+            "x": 299.972,
+            "y": 306.2463
+          },
+          {
+            "x": 303.9397,
+            "y": 307.3152
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.295",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 311.2415,
+            "y": 312.4116
+          },
+          {
+            "x": 307.1558,
+            "y": 311.228
+          },
+          {
+            "x": 306.9467,
+            "y": 311.3544
+          },
+          {
+            "x": 307.0711,
+            "y": 311.5706
+          },
+          {
+            "x": 311.0389,
+            "y": 312.6396
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.296",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 314.1702,
+            "y": 316.8949
+          },
+          {
+            "x": 318.138,
+            "y": 317.9639
+          },
+          {
+            "x": 318.3471,
+            "y": 317.8375
+          },
+          {
+            "x": 318.2227,
+            "y": 317.6213
+          },
+          {
+            "x": 314.2549,
+            "y": 316.5524
+          },
+          {
+            "x": 314.0458,
+            "y": 316.6787
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.297",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 325.4462,
+            "y": 323.1619
+          },
+          {
+            "x": 325.3218,
+            "y": 322.9457
+          },
+          {
+            "x": 321.354,
+            "y": 321.8767
+          },
+          {
+            "x": 321.145,
+            "y": 322.0031
+          },
+          {
+            "x": 321.2693,
+            "y": 322.2193
+          },
+          {
+            "x": 325.2371,
+            "y": 323.2883
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.298",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 328.2506,
+            "y": 327.429
+          },
+          {
+            "x": 332.3362,
+            "y": 328.6126
+          },
+          {
+            "x": 332.5453,
+            "y": 328.4862
+          },
+          {
+            "x": 332.4209,
+            "y": 328.27
+          },
+          {
+            "x": 328.4532,
+            "y": 327.201
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.299",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 339.5956,
+            "y": 333.8803
+          },
+          {
+            "x": 339.5201,
+            "y": 333.5944
+          },
+          {
+            "x": 335.5523,
+            "y": 332.5254
+          },
+          {
+            "x": 335.3432,
+            "y": 332.6518
+          },
+          {
+            "x": 335.4676,
+            "y": 332.868
+          }
+        ]
+      },
+      {
+        "id": "lila_rooms.cover.300",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.5667,
+            "y": 338.1923
+          },
+          {
+            "x": 346.5345,
+            "y": 339.2613
+          },
+          {
+            "x": 346.7436,
+            "y": 339.1349
+          },
+          {
+            "x": 346.6192,
+            "y": 338.9187
+          },
+          {
+            "x": 342.6514,
+            "y": 337.8497
+          },
+          {
+            "x": 342.4423,
+            "y": 337.9761
+          }
+        ]
+      }
     ],
-    "wallPolygons" : [
-
-    ],
-    "worldOrigin" : {
-      "x" : 0,
-      "y" : 0
-    },
-    "worldSize" : {
-      "h" : 1152,
-      "w" : 2048
-    }
-  },
-  "schemaVersion" : 1
+    "doors": [],
+    "props": [],
+    "actors": [],
+    "containers": [],
+    "notes": [],
+    "animations": [],
+    "ambients": [
+      {
+        "id": "lila.rain",
+        "assetName": "amb_rain_exterior",
+        "point": {
+          "x": 295,
+          "y": 347
+        },
+        "radius": 500,
+        "volume": 0.1,
+        "isLooping": true,
+        "isGlobal": true
+      }
+    ]
+  }
 }

@@ -65,6 +65,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
     case ironStairs = "iron_stairs"
     case policeStation = "police_station"
     case lilaRooms = "lila_rooms"
+    case lilaHall = "lila_hall"
     case recordsAnnex = "records_annex"
 
     var areaID: AreaID {
@@ -76,7 +77,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         case .shippingOffice: .wharfLadder
         case .ironStairs: .riverside
         case .policeStation: .harborpointPD
-        case .lilaRooms: .lilaStreet
+        case .lilaRooms, .lilaHall: .lilaStreet
         case .recordsAnnex: .civicRecords
         }
     }
@@ -86,7 +87,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         case .shippingOffice: "portal.shippingOffice"
         case .ironStairs: "portal.ironStairs"
         case .policeStation: "portal.lamphouseEntrance"
-        case .lilaRooms: "portal.lilaRooms"
+        case .lilaRooms, .lilaHall: "portal.lilaRooms"
         case .recordsAnnex: "portal.recordsEntrance"
         }
     }
@@ -97,6 +98,7 @@ enum CityInteriorID: String, CaseIterable, Equatable {
         case .ironStairs: "RIVERSIDE ROOMS"
         case .policeStation: "THE WATCH-HOUSE"
         case .lilaRooms: "LILA STREET ROOMS"
+        case .lilaHall: "LILA'S LODGING HOUSE"
         case .recordsAnnex: "CIVIC RECORDS ANNEX"
         }
     }
@@ -892,6 +894,7 @@ enum CityDistrictCatalog {
         mapTextureName: "map_city_lila_street_v02",
         actorStart: CityStreetPlan.arrivalPoint(from: .west),
         spawnByArrivalKey: [
+            "from.lila.backstairs": CGPoint(x: 2840, y: 690),
             "from.west": CityStreetPlan.arrivalPoint(from: .west),
             "from.north": CityStreetPlan.arrivalPoint(from: .north),
             "from.south": CityStreetPlan.arrivalPoint(from: .south),
@@ -944,7 +947,7 @@ enum CityDistrictCatalog {
                 hitArea: CityDistrictLayout.portalHitArea(
                     paintedAperture: CityDoorPaintedAperture.rect(for: "portal.lilaRooms")!.cgRect
                 ),
-                destination: .interior(.lilaRooms),
+                destination: .interior(.lilaHall),
                 requiresCityOpen: false,
                 lockedInspectLine: "Lila's rooms stay private. Watch the doorway posts instead."
             )

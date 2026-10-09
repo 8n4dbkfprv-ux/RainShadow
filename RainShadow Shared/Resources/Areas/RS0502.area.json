@@ -1,0 +1,3219 @@
+{
+  "schemaVersion": 1,
+  "area": {
+    "id": "RS0502",
+    "displayName": "LILA'S LODGING HOUSE",
+    "kind": "interior",
+    "areaType": [],
+    "arrivalHint": "The narrow stair leads to Lila's landing.",
+    "worldOrigin": {
+      "x": 0,
+      "y": 0
+    },
+    "worldSize": {
+      "w": 626.0036809499707,
+      "h": 547.7532208312243
+    },
+    "plateTextureName": "lila_hall_oct09",
+    "mapTextureName": "map_lila_hall_oct09",
+    "searchMapName": "interior_lila_hall.sr",
+    "heightMapName": "interior_lila_hall.ht",
+    "lightMapName": "interior_lila_hall.lm",
+    "defaultTerrain": "wood",
+    "agentProfile": {
+      "halfWidth": 16,
+      "halfHeight": 4,
+      "visualRangeInCells": 14
+    },
+    "entrances": [
+      {
+        "name": "default",
+        "point": {
+          "x": 265,
+          "y": 203
+        }
+      },
+      {
+        "name": "from.street",
+        "point": {
+          "x": 265,
+          "y": 203
+        }
+      },
+      {
+        "name": "from.rooms",
+        "point": {
+          "x": 184,
+          "y": 258
+        }
+      }
+    ],
+    "regions": [
+      {
+        "id": "portal.return",
+        "kind": "travel",
+        "label": "Lila Street",
+        "cursor": "travel",
+        "polygon": [
+          {
+            "x": 197.7454,
+            "y": 200.2536
+          },
+          {
+            "x": 257.044,
+            "y": 155.7797
+          },
+          {
+            "x": 257.044,
+            "y": 238.5922
+          },
+          {
+            "x": 197.7454,
+            "y": 283.0661
+          }
+        ],
+        "approachPoint": {
+          "x": 265,
+          "y": 203
+        },
+        "travel": {
+          "destination": "RS0500",
+          "entrance": "from.portal.lilaRooms"
+        }
+      },
+      {
+        "id": "lila.stairs.up",
+        "kind": "travel",
+        "label": "Up to Lila's rooms",
+        "cursor": "travel",
+        "polygon": [
+          {
+            "x": 171.0193,
+            "y": 294.2126
+          },
+          {
+            "x": 226.5595,
+            "y": 252.5574
+          },
+          {
+            "x": 348.4975,
+            "y": 440.8859
+          },
+          {
+            "x": 292.9572,
+            "y": 482.5411
+          }
+        ],
+        "approachPoint": {
+          "x": 184,
+          "y": 258
+        },
+        "travel": {
+          "destination": "RS0501",
+          "entrance": "from.stairs"
+        }
+      },
+      {
+        "id": "lila.house.ledger",
+        "kind": "info",
+        "label": "House ledger",
+        "cursor": "info",
+        "polygon": [
+          {
+            "x": 376,
+            "y": 239
+          },
+          {
+            "x": 412,
+            "y": 239
+          },
+          {
+            "x": 412,
+            "y": 274
+          },
+          {
+            "x": 376,
+            "y": 274
+          }
+        ],
+        "approachPoint": {
+          "x": 394,
+          "y": 239
+        },
+        "observation": "A ledger of rents and household expenses. The stair rises beside it."
+      },
+      {
+        "id": "lila.house.bench",
+        "kind": "info",
+        "label": "Waiting bench",
+        "cursor": "info",
+        "polygon": [
+          {
+            "x": 343,
+            "y": 206
+          },
+          {
+            "x": 379,
+            "y": 206
+          },
+          {
+            "x": 379,
+            "y": 241
+          },
+          {
+            "x": 343,
+            "y": 241
+          }
+        ],
+        "approachPoint": {
+          "x": 361,
+          "y": 206
+        },
+        "observation": "The bench is rubbed smooth by wet coats. Every step overhead carries through the timber."
+      }
+    ],
+    "obstacles": [],
+    "wallPolygons": [
+      {
+        "id": "lila_hall.cover.0",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          },
+          {
+            "x": 324.2136,
+            "y": 94.3899
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.1",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.5551,
+            "y": 218.7653
+          },
+          {
+            "x": 107.3575,
+            "y": 256.5005
+          },
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.2",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.6585,
+            "y": 280.1505
+          },
+          {
+            "x": 186.2675,
+            "y": 280.602
+          },
+          {
+            "x": 186.1375,
+            "y": 285.4039
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.3",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 193.2974,
+            "y": 290.5738
+          },
+          {
+            "x": 186.4918,
+            "y": 286.0011
+          },
+          {
+            "x": 192.5887,
+            "y": 290.5738
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.4",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.6585,
+            "y": 280.1505
+          },
+          {
+            "x": 193.2974,
+            "y": 290.5738
+          },
+          {
+            "x": 196.8255,
+            "y": 272.5252
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.5",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.5551,
+            "y": 218.7653
+          },
+          {
+            "x": 196.8255,
+            "y": 272.5252
+          },
+          {
+            "x": 196.8255,
+            "y": 211.0625
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.6",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 259.779,
+            "y": 234.7369
+          },
+          {
+            "x": 259.9457,
+            "y": 240.5876
+          },
+          {
+            "x": 260.3,
+            "y": 239.9904
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.7",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 260.3,
+            "y": 239.9904
+          },
+          {
+            "x": 260.3,
+            "y": 235.4591
+          },
+          {
+            "x": 259.779,
+            "y": 234.7369
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.8",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 479.8528,
+            "y": 240.3709
+          },
+          {
+            "x": 485.0453,
+            "y": 240.6975
+          },
+          {
+            "x": 482.3369,
+            "y": 238.6662
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.9",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 485.0453,
+            "y": 240.6975
+          },
+          {
+            "x": 479.8528,
+            "y": 240.3709
+          },
+          {
+            "x": 479.4985,
+            "y": 240.9681
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.10",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 462.7946,
+            "y": 228.4402
+          },
+          {
+            "x": 468.1171,
+            "y": 227.843
+          },
+          {
+            "x": 463.149,
+            "y": 227.843
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.11",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 468.1171,
+            "y": 227.843
+          },
+          {
+            "x": 465.6331,
+            "y": 226.1383
+          },
+          {
+            "x": 463.149,
+            "y": 227.843
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.12",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 468.4715,
+            "y": 228.4402
+          },
+          {
+            "x": 462.7946,
+            "y": 228.4402
+          },
+          {
+            "x": 462.7946,
+            "y": 244.1984
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.13",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 438.7197,
+            "y": 251.5206
+          },
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 440.6406,
+            "y": 250.0799
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.14",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 438.7197,
+            "y": 251.5206
+          },
+          {
+            "x": 438.3653,
+            "y": 252.1178
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.15",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 438.3653,
+            "y": 255.8678
+          },
+          {
+            "x": 438.7197,
+            "y": 256.465
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.16",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          },
+          {
+            "x": 437.9262,
+            "y": 261.8051
+          },
+          {
+            "x": 437.5719,
+            "y": 262.4023
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.17",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.4067,
+            "y": 262.3081
+          },
+          {
+            "x": 422.9536,
+            "y": 262.5787
+          },
+          {
+            "x": 422.5992,
+            "y": 261.9815
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.18",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 422.5992,
+            "y": 261.9815
+          },
+          {
+            "x": 420.1151,
+            "y": 260.2768
+          },
+          {
+            "x": 417.4067,
+            "y": 262.3081
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.19",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.2767,
+            "y": 278.3368
+          },
+          {
+            "x": 415.8563,
+            "y": 279.4021
+          },
+          {
+            "x": 415.502,
+            "y": 279.9993
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.20",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.2767,
+            "y": 278.3368
+          },
+          {
+            "x": 415.502,
+            "y": 287.6556
+          },
+          {
+            "x": 415.739,
+            "y": 288.0821
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.21",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 414.0815,
+            "y": 292.7072
+          },
+          {
+            "x": 413.8572,
+            "y": 289.6518
+          },
+          {
+            "x": 413.7271,
+            "y": 292.11
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.22",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 415.739,
+            "y": 288.0821
+          },
+          {
+            "x": 414.0815,
+            "y": 292.7072
+          },
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.23",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          },
+          {
+            "x": 359.8966,
+            "y": 341.9741
+          },
+          {
+            "x": 359.5423,
+            "y": 341.3768
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.24",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 256.8567,
+            "y": 272.1604
+          },
+          {
+            "x": 262.4095,
+            "y": 268.5273
+          },
+          {
+            "x": 261.7008,
+            "y": 268.5273
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.25",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 262.4095,
+            "y": 268.5273
+          },
+          {
+            "x": 256.8567,
+            "y": 272.1604
+          },
+          {
+            "x": 256.5024,
+            "y": 272.7576
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.26",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 250.6745,
+            "y": 280.3453
+          },
+          {
+            "x": 250.6745,
+            "y": 277.6258
+          },
+          {
+            "x": 250.0317,
+            "y": 276.9225
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.27",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 250.0317,
+            "y": 276.9225
+          },
+          {
+            "x": 250.3195,
+            "y": 276.4221
+          },
+          {
+            "x": 250.1894,
+            "y": 273.1827
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.28",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 241.7606,
+            "y": 264.2208
+          },
+          {
+            "x": 242.8654,
+            "y": 264.8494
+          },
+          {
+            "x": 242.4693,
+            "y": 264.2208
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.29",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 242.8654,
+            "y": 267.5689
+          },
+          {
+            "x": 241.7606,
+            "y": 264.2208
+          },
+          {
+            "x": 185.9698,
+            "y": 306.0639
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.30",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 257.0977
+          },
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 107.3575,
+            "y": 256.5005
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.31",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 107.0031,
+            "y": 257.0977
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.32",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 106.1047,
+            "y": 353.3086
+          },
+          {
+            "x": 105.7503,
+            "y": 353.9058
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.33",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 105.7503,
+            "y": 357.6558
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.34",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          },
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 284.5421,
+            "y": 491.5495
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.35",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          },
+          {
+            "x": 292.1436,
+            "y": 494.9634
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.36",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 347.4363,
+            "y": 474.3862
+          },
+          {
+            "x": 345.2978,
+            "y": 474.3958
+          },
+          {
+            "x": 345.7987,
+            "y": 474.7585
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.37",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 349.3823,
+            "y": 472.1831
+          },
+          {
+            "x": 347.4363,
+            "y": 474.3862
+          },
+          {
+            "x": 349.1485,
+            "y": 473.1021
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.38",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 349.1485,
+            "y": 473.1021
+          },
+          {
+            "x": 349.4828,
+            "y": 472.5861
+          },
+          {
+            "x": 349.3823,
+            "y": 472.1831
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.39",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 522.0025,
+            "y": 331.5548
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 522.1325,
+            "y": 335.5754
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.40",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 522.0025,
+            "y": 331.5548
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.41",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          },
+          {
+            "x": 519.0006,
+            "y": 235.174
+          },
+          {
+            "x": 518.6462,
+            "y": 234.5768
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.42",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          },
+          {
+            "x": 331.7304,
+            "y": 94.3899
+          },
+          {
+            "x": 331.0217,
+            "y": 94.3899
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.43",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 196.8255,
+            "y": 211.0625
+          },
+          {
+            "x": 107.3575,
+            "y": 256.5005
+          },
+          {
+            "x": 186.5551,
+            "y": 218.7653
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.44",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.4918,
+            "y": 286.0011
+          },
+          {
+            "x": 186.6585,
+            "y": 280.1505
+          },
+          {
+            "x": 186.1375,
+            "y": 285.4039
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.45",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 259.9457,
+            "y": 240.5876
+          },
+          {
+            "x": 196.8255,
+            "y": 272.5252
+          },
+          {
+            "x": 193.2974,
+            "y": 290.5738
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.46",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 249.7155,
+            "y": 232.8577
+          },
+          {
+            "x": 259.9457,
+            "y": 240.5876
+          },
+          {
+            "x": 259.779,
+            "y": 234.7369
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.47",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 485.0453,
+            "y": 240.6975
+          },
+          {
+            "x": 479.4985,
+            "y": 240.9681
+          },
+          {
+            "x": 485.1753,
+            "y": 250.9427
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.48",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 468.1171,
+            "y": 227.843
+          },
+          {
+            "x": 462.7946,
+            "y": 228.4402
+          },
+          {
+            "x": 468.4715,
+            "y": 228.4402
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.49",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 438.3653,
+            "y": 255.8678
+          },
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 438.3653,
+            "y": 252.1178
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.50",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 438.7197,
+            "y": 256.465
+          },
+          {
+            "x": 441.883,
+            "y": 258.8375
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.51",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 437.9262,
+            "y": 261.8051
+          },
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          },
+          {
+            "x": 441.883,
+            "y": 258.8375
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.52",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 422.9536,
+            "y": 262.5787
+          },
+          {
+            "x": 417.4067,
+            "y": 262.3081
+          },
+          {
+            "x": 422.9536,
+            "y": 274.0792
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.53",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 415.502,
+            "y": 287.6556
+          },
+          {
+            "x": 417.2767,
+            "y": 278.3368
+          },
+          {
+            "x": 415.502,
+            "y": 279.9993
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.54",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 413.8572,
+            "y": 289.6518
+          },
+          {
+            "x": 414.0815,
+            "y": 292.7072
+          },
+          {
+            "x": 415.739,
+            "y": 288.0821
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.55",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 359.5423,
+            "y": 341.3768
+          },
+          {
+            "x": 262.4095,
+            "y": 268.5273
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.56",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 262.4095,
+            "y": 268.5273
+          },
+          {
+            "x": 256.5024,
+            "y": 272.7576
+          },
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.57",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 250.0317,
+            "y": 276.9225
+          },
+          {
+            "x": 250.1894,
+            "y": 273.1827
+          },
+          {
+            "x": 242.8654,
+            "y": 267.5689
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.58",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 242.8654,
+            "y": 264.8494
+          },
+          {
+            "x": 241.7606,
+            "y": 264.2208
+          },
+          {
+            "x": 242.8654,
+            "y": 267.5689
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.59",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 127.6243,
+            "y": 262.9634
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.60",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 105.7503,
+            "y": 357.6558
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 105.7503,
+            "y": 353.9058
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.61",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          },
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.62",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          },
+          {
+            "x": 301.1004,
+            "y": 501.5226
+          },
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.63",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 347.4363,
+            "y": 474.3862
+          },
+          {
+            "x": 349.3823,
+            "y": 472.1831
+          },
+          {
+            "x": 345.2978,
+            "y": 474.3958
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.64",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          },
+          {
+            "x": 349.3823,
+            "y": 472.1831
+          },
+          {
+            "x": 346.5674,
+            "y": 467.5807
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.65",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          },
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.66",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 331.7304,
+            "y": 94.3899
+          },
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.67",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 249.6121,
+            "y": 171.4726
+          },
+          {
+            "x": 107.3575,
+            "y": 256.5005
+          },
+          {
+            "x": 196.8255,
+            "y": 211.0625
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.68",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.4918,
+            "y": 286.0011
+          },
+          {
+            "x": 193.2974,
+            "y": 290.5738
+          },
+          {
+            "x": 186.6585,
+            "y": 280.1505
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.69",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 259.9457,
+            "y": 240.5876
+          },
+          {
+            "x": 249.7155,
+            "y": 232.8577
+          },
+          {
+            "x": 196.8255,
+            "y": 272.5252
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.70",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 485.1753,
+            "y": 250.9427
+          },
+          {
+            "x": 479.4985,
+            "y": 240.9681
+          },
+          {
+            "x": 479.4985,
+            "y": 255.2003
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.71",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 468.4715,
+            "y": 228.4402
+          },
+          {
+            "x": 462.7946,
+            "y": 244.1984
+          },
+          {
+            "x": 468.4715,
+            "y": 252.7904
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.72",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 441.3493,
+            "y": 250.0799
+          },
+          {
+            "x": 441.883,
+            "y": 258.8375
+          },
+          {
+            "x": 448.151,
+            "y": 255.1811
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.73",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 422.9536,
+            "y": 274.0792
+          },
+          {
+            "x": 417.4067,
+            "y": 262.3081
+          },
+          {
+            "x": 417.2767,
+            "y": 278.3368
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.74",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 422.9536,
+            "y": 274.0792
+          },
+          {
+            "x": 415.739,
+            "y": 288.0821
+          },
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.75",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.5423,
+            "y": 341.3768
+          },
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.76",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 250.6745,
+            "y": 280.3453
+          },
+          {
+            "x": 250.0317,
+            "y": 276.9225
+          },
+          {
+            "x": 242.8654,
+            "y": 267.5689
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.77",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 185.9698,
+            "y": 306.0639
+          },
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.78",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          },
+          {
+            "x": 107.0031,
+            "y": 352.6348
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.79",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          },
+          {
+            "x": 291.8663,
+            "y": 494.5267
+          },
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.80",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 349.3823,
+            "y": 472.1831
+          },
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          },
+          {
+            "x": 345.2978,
+            "y": 474.3958
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.81",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 519.0006,
+            "y": 235.174
+          },
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.82",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 186.6585,
+            "y": 280.1505
+          },
+          {
+            "x": 196.8255,
+            "y": 272.5252
+          },
+          {
+            "x": 186.5551,
+            "y": 218.7653
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.83",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 249.6121,
+            "y": 171.4726
+          },
+          {
+            "x": 249.7155,
+            "y": 232.8577
+          },
+          {
+            "x": 259.779,
+            "y": 234.7369
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.84",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 475.5916,
+            "y": 258.1305
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 479.4985,
+            "y": 255.2003
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.85",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 468.4715,
+            "y": 252.7904
+          },
+          {
+            "x": 462.7946,
+            "y": 244.1984
+          },
+          {
+            "x": 448.151,
+            "y": 255.1811
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.86",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 448.151,
+            "y": 255.1811
+          },
+          {
+            "x": 441.883,
+            "y": 258.8375
+          },
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.87",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 415.739,
+            "y": 288.0821
+          },
+          {
+            "x": 422.9536,
+            "y": 274.0792
+          },
+          {
+            "x": 417.2767,
+            "y": 278.3368
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.88",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 185.9698,
+            "y": 306.0639
+          },
+          {
+            "x": 250.6745,
+            "y": 280.3453
+          },
+          {
+            "x": 242.8654,
+            "y": 267.5689
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.89",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 283.8334,
+            "y": 491.5495
+          },
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          },
+          {
+            "x": 106.1047,
+            "y": 358.253
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.90",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          },
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          },
+          {
+            "x": 346.5674,
+            "y": 467.5807
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.91",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 107.3575,
+            "y": 256.5005
+          },
+          {
+            "x": 249.6121,
+            "y": 171.4726
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.92",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 249.6121,
+            "y": 171.4726
+          },
+          {
+            "x": 259.779,
+            "y": 234.7369
+          },
+          {
+            "x": 259.8824,
+            "y": 163.7698
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.93",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 475.5916,
+            "y": 258.1305
+          },
+          {
+            "x": 468.4715,
+            "y": 252.7904
+          },
+          {
+            "x": 448.151,
+            "y": 255.1811
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.94",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 422.9536,
+            "y": 274.0792
+          },
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          },
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.95",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 185.9698,
+            "y": 306.0639
+          },
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 250.6745,
+            "y": 280.3453
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.96",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 342.8396,
+            "y": 470.3766
+          },
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.97",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 259.8824,
+            "y": 163.7698
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 249.6121,
+            "y": 171.4726
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.98",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          },
+          {
+            "x": 475.5916,
+            "y": 258.1305
+          },
+          {
+            "x": 448.151,
+            "y": 255.1811
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.99",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          },
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 185.6877,
+            "y": 306.5109
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.100",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 259.8824,
+            "y": 163.7698
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.101",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 437.7875,
+            "y": 262.9538
+          },
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          },
+          {
+            "x": 475.5916,
+            "y": 258.1305
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.102",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 256.5024,
+            "y": 284.6787
+          },
+          {
+            "x": 286.2195,
+            "y": 490.2915
+          },
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.103",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 323.505,
+            "y": 94.3899
+          },
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          },
+          {
+            "x": 327.6177,
+            "y": 96.9429
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.104",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          },
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.105",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 521.7782,
+            "y": 336.1726
+          },
+          {
+            "x": 359.8966,
+            "y": 344.9017
+          },
+          {
+            "x": 346.5674,
+            "y": 467.5807
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.106",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          },
+          {
+            "x": 331.7304,
+            "y": 94.3899
+          },
+          {
+            "x": 327.6177,
+            "y": 112.9684
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.107",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 421.7854,
+            "y": 298.4851
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 475.5916,
+            "y": 258.1305
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.108",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 331.7304,
+            "y": 94.3899
+          },
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          },
+          {
+            "x": 518.6462,
+            "y": 234.5768
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.109",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 479.4985,
+            "y": 255.2003
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 485.1753,
+            "y": 250.9427
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.110",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 485.1753,
+            "y": 250.9427
+          },
+          {
+            "x": 519.0006,
+            "y": 329.145
+          },
+          {
+            "x": 498.3794,
+            "y": 241.0396
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.111",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.7922,
+            "y": 169.1239
+          },
+          {
+            "x": 359.7922,
+            "y": 172.3649
+          },
+          {
+            "x": 370.0669,
+            "y": 164.6589
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.112",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 165.2528
+          },
+          {
+            "x": 359.7922,
+            "y": 165.4094
+          },
+          {
+            "x": 359.4379,
+            "y": 164.8122
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.113",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.9313,
+            "y": 164.6556
+          },
+          {
+            "x": 357.9345,
+            "y": 163.6847
+          },
+          {
+            "x": 357.2258,
+            "y": 163.6847
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.114",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.4379,
+            "y": 164.8122
+          },
+          {
+            "x": 355.9313,
+            "y": 164.6556
+          },
+          {
+            "x": 355.577,
+            "y": 165.2528
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.115",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          },
+          {
+            "x": 348.1646,
+            "y": 178.1761
+          },
+          {
+            "x": 348.1646,
+            "y": 180.7542
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.116",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          },
+          {
+            "x": 348.1646,
+            "y": 180.7542
+          },
+          {
+            "x": 348.519,
+            "y": 181.3514
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.117",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.519,
+            "y": 177.5788
+          },
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 355.577,
+            "y": 172.2853
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.118",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          },
+          {
+            "x": 348.519,
+            "y": 181.3514
+          },
+          {
+            "x": 416.42,
+            "y": 232.2772
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.119",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 431.2011,
+            "y": 206.737
+          },
+          {
+            "x": 438.901,
+            "y": 215.7896
+          },
+          {
+            "x": 438.6766,
+            "y": 212.3437
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.120",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 438.901,
+            "y": 215.7896
+          },
+          {
+            "x": 439.031,
+            "y": 212.9409
+          },
+          {
+            "x": 438.6766,
+            "y": 212.3437
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.121",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 426.9858,
+            "y": 194.3801
+          },
+          {
+            "x": 430.8467,
+            "y": 193.9395
+          },
+          {
+            "x": 427.3402,
+            "y": 193.7829
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.122",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 430.8467,
+            "y": 193.9395
+          },
+          {
+            "x": 428.9891,
+            "y": 192.7046
+          },
+          {
+            "x": 427.3402,
+            "y": 193.7829
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.123",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 431.2011,
+            "y": 194.5367
+          },
+          {
+            "x": 426.9858,
+            "y": 203.5756
+          },
+          {
+            "x": 431.2011,
+            "y": 206.737
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.124",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 372.2175,
+            "y": 152.4409
+          },
+          {
+            "x": 375.7241,
+            "y": 152.5975
+          },
+          {
+            "x": 374.2208,
+            "y": 151.47
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.125",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 372.2175,
+            "y": 152.4409
+          },
+          {
+            "x": 374.2208,
+            "y": 151.47
+          },
+          {
+            "x": 373.5121,
+            "y": 151.47
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.126",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 375.7241,
+            "y": 152.5975
+          },
+          {
+            "x": 372.2175,
+            "y": 152.4409
+          },
+          {
+            "x": 371.8632,
+            "y": 153.0382
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.127",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 371.8632,
+            "y": 162.2336
+          },
+          {
+            "x": 370.7756,
+            "y": 161.4179
+          },
+          {
+            "x": 370.0669,
+            "y": 161.4179
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.128",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 370.0669,
+            "y": 161.4179
+          },
+          {
+            "x": 359.7922,
+            "y": 169.1239
+          },
+          {
+            "x": 370.0669,
+            "y": 164.6589
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.129",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.7922,
+            "y": 165.4094
+          },
+          {
+            "x": 355.577,
+            "y": 165.2528
+          },
+          {
+            "x": 359.7922,
+            "y": 169.1239
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.130",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.9313,
+            "y": 164.6556
+          },
+          {
+            "x": 359.4379,
+            "y": 164.8122
+          },
+          {
+            "x": 357.9345,
+            "y": 163.6847
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.131",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 348.1646,
+            "y": 178.1761
+          },
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          },
+          {
+            "x": 348.519,
+            "y": 177.5788
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.132",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          },
+          {
+            "x": 416.42,
+            "y": 232.2772
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.133",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 438.901,
+            "y": 215.7896
+          },
+          {
+            "x": 431.2011,
+            "y": 206.737
+          },
+          {
+            "x": 417.1287,
+            "y": 232.2772
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.134",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 430.8467,
+            "y": 193.9395
+          },
+          {
+            "x": 426.9858,
+            "y": 194.3801
+          },
+          {
+            "x": 431.2011,
+            "y": 194.5367
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.135",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 375.7241,
+            "y": 152.5975
+          },
+          {
+            "x": 371.8632,
+            "y": 153.0382
+          },
+          {
+            "x": 376.0784,
+            "y": 153.1947
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.136",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 376.0784,
+            "y": 153.1947
+          },
+          {
+            "x": 371.8632,
+            "y": 153.0382
+          },
+          {
+            "x": 371.8632,
+            "y": 162.2336
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.137",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 371.8632,
+            "y": 162.2336
+          },
+          {
+            "x": 370.0669,
+            "y": 161.4179
+          },
+          {
+            "x": 370.0669,
+            "y": 164.6589
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.138",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 172.2853
+          },
+          {
+            "x": 359.7922,
+            "y": 169.1239
+          },
+          {
+            "x": 355.577,
+            "y": 165.2528
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.139",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.7922,
+            "y": 169.1239
+          },
+          {
+            "x": 355.577,
+            "y": 172.2853
+          },
+          {
+            "x": 359.7922,
+            "y": 172.3649
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.140",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 348.519,
+            "y": 177.5788
+          },
+          {
+            "x": 348.8733,
+            "y": 181.2229
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.141",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 376.0784,
+            "y": 165.395
+          },
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 416.42,
+            "y": 232.2772
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.142",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 426.9858,
+            "y": 203.5756
+          },
+          {
+            "x": 417.1287,
+            "y": 232.2772
+          },
+          {
+            "x": 431.2011,
+            "y": 206.737
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.143",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 426.9858,
+            "y": 203.5756
+          },
+          {
+            "x": 431.2011,
+            "y": 194.5367
+          },
+          {
+            "x": 426.9858,
+            "y": 194.3801
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.144",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 376.0784,
+            "y": 153.1947
+          },
+          {
+            "x": 371.8632,
+            "y": 162.2336
+          },
+          {
+            "x": 376.0784,
+            "y": 165.395
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.147",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 417.1287,
+            "y": 232.2772
+          },
+          {
+            "x": 426.9858,
+            "y": 203.5756
+          },
+          {
+            "x": 416.42,
+            "y": 232.2772
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.148",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 370.0669,
+            "y": 164.6589
+          },
+          {
+            "x": 376.0784,
+            "y": 165.395
+          },
+          {
+            "x": 371.8632,
+            "y": 162.2336
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.149",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 359.7922,
+            "y": 172.3649
+          },
+          {
+            "x": 355.577,
+            "y": 172.2853
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.150",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 376.0784,
+            "y": 165.395
+          },
+          {
+            "x": 416.42,
+            "y": 232.2772
+          },
+          {
+            "x": 426.9858,
+            "y": 203.5756
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.151",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 355.577,
+            "y": 176.1952
+          },
+          {
+            "x": 376.0784,
+            "y": 165.395
+          },
+          {
+            "x": 359.7922,
+            "y": 172.3649
+          }
+        ]
+      },
+      {
+        "id": "lila_hall.cover.152",
+        "coversActors": true,
+        "shadesBothSides": false,
+        "dithers": true,
+        "polygon": [
+          {
+            "x": 359.7922,
+            "y": 172.3649
+          },
+          {
+            "x": 376.0784,
+            "y": 165.395
+          },
+          {
+            "x": 370.0669,
+            "y": 164.6589
+          }
+        ]
+      }
+    ],
+    "doors": [],
+    "props": [],
+    "actors": [],
+    "containers": [],
+    "notes": [],
+    "animations": [],
+    "ambients": [
+      {
+        "id": "lila.rain",
+        "assetName": "amb_rain_exterior",
+        "point": {
+          "x": 265,
+          "y": 203
+        },
+        "radius": 500,
+        "volume": 0.1,
+        "isLooping": true,
+        "isGlobal": true
+      }
+    ]
+  }
+}

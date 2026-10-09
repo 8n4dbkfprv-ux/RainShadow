@@ -60,6 +60,13 @@ class GameViewController: NSViewController {
             }
             return
         }
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_LILA_INTERIORS"] {
+            Task { @MainActor in
+                guard let skView = self.view as? SKView else { return }
+                await LilaInteriorTravelQA.run(in: skView, output: URL(fileURLWithPath: output))
+            }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_CITY_RESTORE"] {
             Task { @MainActor in
                 guard let skView = self.view as? SKView else { return }

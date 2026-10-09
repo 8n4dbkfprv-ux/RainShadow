@@ -10,6 +10,7 @@ public enum AreaResourceID {
         "city_riverside": "RS0300", "interior_iron_stairs": "RS0301",
         "city_lamp_ward": "RS0400", "interior_lamphouse": "RS0401",
         "city_lila_street": "RS0500", "interior_lila_rooms": "RS0501",
+        "interior_lila_hall": "RS0502",
         "city_civic_records": "RS0600", "interior_records_annex": "RS0601",
         "city_harborpoint_pd": "RS0700", "interior_police_station": "RS0701",
         "sable_court": "RS9900", "sable_noir": "RS9901"
@@ -240,6 +241,7 @@ struct SaveSnapshot: Codable, Equatable {
 
     var cityLayoutRevision = 1
     var officeLayoutRevision = 1
+    var lilaLayoutRevision = 1
     /// Versioned tactical checkpoint; decoded by the combat core, which depends on persistence.
     var tacticalCombat: Data? = nil
     var currentHealth: Int = 12
@@ -367,6 +369,7 @@ struct SaveSnapshot: Codable, Equatable {
         hasReceivedFireArrows = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedFireArrows) ?? false
         cityLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .cityLayoutRevision) ?? 0
         officeLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .officeLayoutRevision) ?? 0
+        lilaLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .lilaLayoutRevision) ?? 0
         exploredFog = try container.decodeIfPresent([String: PersistedExploredFog].self, forKey: .exploredFog) ?? [:]
         schemaVersion = try container.decodeIfPresent(Int.self, forKey: .schemaVersion)
             ?? SaveSnapshot.currentSchemaVersion
@@ -492,6 +495,22 @@ final class SaveStore {
             snapshot.officeLayoutRevision = 1
             save(snapshot)
         }
+        if snapshot.lilaLayoutRevision < 1 {
+            let backupKey = key + ".BeforeLilaInteriorsOct09"
+            if defaults.data(forKey: backupKey) == nil { defaults.set(data, forKey: backupKey) }
+            for area in ["interior_lila_rooms", AreaResourceID.canonical("interior_lila_rooms")] {
+                snapshot.exploredFog.removeValue(forKey: area)
+                if let piles = snapshot.groundPiles[area] {
+                    snapshot.groundPiles[area] = piles.map { old in
+                        var item = old
+                        item.x = Self.lilaRoomsArrival.x; item.y = Self.lilaRoomsArrival.y
+                        return item
+                    }
+                }
+            }
+            snapshot.lilaLayoutRevision = 1
+            save(snapshot)
+        }
         let normalized = snapshot.withCanonicalAreaIDs()
         if normalized != snapshot {
             let backupKey = key + ".BeforeAreaCodesV1"
@@ -503,6 +522,7 @@ final class SaveStore {
 
     // OfficeRestoreTests checks this against the V19 ARE default entrance.
     static let restoredOfficeArrival = (x: 2163.2192390326964, y: 1377.3108219558917)
+    static let lilaRoomsArrival = (x: 295.0, y: 347.0)
 
     // Foundation-only mirror of the five restored ARE default entrances.
     // RebuiltCityAreaTests checks these against the actual navigation rasters.

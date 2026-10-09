@@ -126,6 +126,13 @@
         }
       },
       {
+        "name" : "from.lila.backstairs",
+        "point" : {
+          "x" : 2840,
+          "y" : 690
+        }
+      },
+      {
         "name" : "from.north",
         "point" : {
           "x" : 3368,
@@ -7575,7 +7582,7 @@
           }
         ],
         "travel" : {
-          "destination" : "RS0501",
+          "destination" : "RS0502",
           "entrance" : "from.street"
         }
       }

@@ -4,10 +4,11 @@ import CoreGraphics
 /// Stable district/interior IDs keep the world map and existing saves connected.
 enum RebuiltCityAreas {
     static let districts: Set<CityDistrictID> = [.sableRow, .wharfLadder, .riverside]
-    static let interiors: Set<CityInteriorID> = [.shippingOffice, .ironStairs]
+    static let interiors: Set<CityInteriorID> = [.shippingOffice, .ironStairs, .lilaRooms, .lilaHall]
     private static let records: [AreaID: AreaDefinition] = {
         let ids = ["city_sable_row", "city_wharf_ladder", "city_riverside",
-                   "interior_shipping_office", "interior_iron_stairs"]
+                   "interior_shipping_office", "interior_iron_stairs",
+                   "interior_lila_rooms", "interior_lila_hall"]
         return Dictionary(uniqueKeysWithValues: ids.map { name in
             let id = AreaID(name)
             do { return (id, try AreaCatalogLoader.load(id)) }

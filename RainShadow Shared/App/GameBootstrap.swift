@@ -906,6 +906,8 @@ final class GameContext {
             ? "RainShadow.QA.Weapon.Bootstrap"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_OFFICE_RESTORE"] != nil
             ? "RainShadow.QA.OfficeRestore.Bootstrap"
+            : ProcessInfo.processInfo.environment["RAINSHADOW_QA_LILA_INTERIORS"] != nil
+            ? "RainShadow.QA.Lila.Bootstrap"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_CITY_RESTORE"] != nil
             ? "RainShadow.QA.CityRestore.Bootstrap"
             : ProcessInfo.processInfo.environment["RAINSHADOW_QA_LAMP_WARD"] != nil

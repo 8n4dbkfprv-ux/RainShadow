@@ -345,6 +345,7 @@ enum HarborpointAreas {
     static let ironStairsInterior = CityInteriorID.ironStairs.areaID
     static let policeStationInterior = CityInteriorID.policeStation.areaID
     static let lilaRoomsInterior = CityInteriorID.lilaRooms.areaID
+    static let lilaHallInterior = CityInteriorID.lilaHall.areaID
     static let recordsAnnexInterior = CityInteriorID.recordsAnnex.areaID
 
     /// Every area that ships, in authored order.
@@ -361,6 +362,7 @@ enum HarborpointAreas {
         ironStairsInterior,
         policeStationInterior,
         lilaRoomsInterior,
+        lilaHallInterior,
         recordsAnnexInterior
     ]
 
