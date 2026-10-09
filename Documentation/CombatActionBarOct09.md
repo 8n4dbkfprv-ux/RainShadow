@@ -7,12 +7,14 @@ a return arrow; no action uses a full human figure. Bear, claw and roar retain
 animal symbols. These are original generated assets, not extracted BG3 art.
 
 `CombatActionBar.swift` reuses inventory's `ui_folio_strip_fantasy_v01` parchment
-master with nine-slicing. The 5×4 generated icon sheet is a luminance mask for
-dark sepia ink with a full deep-brown-to-warm-sepia gradient and restrained
-interior edge highlights. The source PNG is unchanged. Each cell is cached as a
-standalone runtime texture so the shader receives local 0–1 UV coordinates;
-sampling the shared atlas coordinates compressed the previous gradient into a
-different narrow band for each atlas row.
+master with nine-slicing. The current 5×4 icon sheet is
+`combat_action_inkwash_v02`: generated black-and-gray brushwork on white, with
+pooled pigment, dry-brush breaks and irregular tonal washes. The shader converts
+that painted density to warm ink opacity, revealing the actual parchment through
+diluted strokes. No metallic bevel, edge light or synthetic color ramp remains.
+Each cell is cached as a standalone runtime texture. The original flat symbols
+remain available as the composition reference; the current prompt and source
+paths are recorded in `CombatInkWashArtOct09.json`.
 Buttons use the shared folio paper surface with restrained ochre (melee), slate
 blue (ranged), plum (ward/stealth), moss (bear) and terracotta (End Turn) washes,
 reduced to 24% strength so the shaded symbols are the focus.
@@ -53,3 +55,8 @@ existing generated art; it introduces no new raster artwork.
 Icon-shading revision: both builds and all 43 live checks passed. Full-size and
 narrow renders were inspected in `output/combat-action-ink-gradients-oct09/`;
 the shading now spans each individual sword, arrow and ability symbol.
+
+Ink-wash artwork revision: macOS and iOS builds and all 43 live checks passed.
+Actual-size, narrow and enlarged live-shader captures were visually inspected in
+`output/combat-action-inkwash-oct09/`; `ink-symbol-detail.png` shows the painted
+pigment on the same parchment used at runtime.

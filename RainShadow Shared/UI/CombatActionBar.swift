@@ -11,24 +11,19 @@ final class CombatActionButton: SKShapeNode {
     private let key = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
     private let endTitle = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private(set) var glyphIndex = -1
-    private static let sheet = GameArt.texture(named: "combat_action_silhouettes_v01")
+    private static let sheet = GameArt.texture(named: "combat_action_inkwash_v02")
     private static var glyphTextures: [Int: SKTexture] = [:]
     private static let paper = UIPaintedChrome.parchmentSurface()
     static let selectionColor = SKColor(red: 0.13, green: 0.34, blue: 0.38, alpha: 1)
     private static var washes: [String: SKShader] = [:]
-    // The generated white-on-black sheet is a luminance mask. Sampling it here
-    // keeps the original pixels intact and avoids black rectangles around icons.
+    // The generated ink-on-white painting supplies actual pigment density.
+    // Diluted strokes reveal the parchment; no synthetic bevel or light ramp.
     private static let ink = SKShader(source: """
         void main() {
-            float coverage = smoothstep(0.12, 0.88, texture2D(u_texture, v_tex_coord).r);
-            float light = smoothstep(0.20, 0.80, dot(v_tex_coord, vec2(0.2, 0.8)));
-            vec3 ink = mix(vec3(0.075, 0.035, 0.018), vec3(0.36, 0.18, 0.065), smoothstep(0.0, 0.6, light));
-            ink = mix(ink, vec3(0.64, 0.40, 0.17), smoothstep(0.5, 1.0, light));
-            // Restrained edge lighting stays inside the silhouette's alpha mask.
-            float upperEdge = max(0.0, coverage - texture2D(u_texture, v_tex_coord + vec2(-0.008, 0.008)).r);
-            float lowerEdge = max(0.0, coverage - texture2D(u_texture, v_tex_coord + vec2(0.008, -0.008)).r);
-            ink = mix(ink, vec3(0.73, 0.51, 0.26), upperEdge * 0.55);
-            ink = mix(ink, vec3(0.065, 0.03, 0.015), lowerEdge * 0.5);
+            vec3 sampleColor = texture2D(u_texture, v_tex_coord).rgb;
+            float density = 1.0 - dot(sampleColor, vec3(0.299, 0.587, 0.114));
+            float coverage = smoothstep(0.035, 0.98, density);
+            vec3 ink = vec3(0.12, 0.085, 0.055);
             gl_FragColor = vec4(ink * coverage, coverage) * v_color_mix.a;
         }
         """)
@@ -88,8 +83,7 @@ final class CombatActionButton: SKShapeNode {
         glyphIndex = index
         if let cached = Self.glyphTextures[index] { glyph.texture = cached; return }
         if let sheet = Self.sheet {
-            // Flatten each atlas cell so shader UVs run from 0 to 1 per icon.
-            // Atlas UVs otherwise give each row only a quarter of the gradient.
+            // Isolate each painted cell and cache it with local 0–1 shader UVs.
             let image = sheet.cgImage()
             let w = Double(image.width) / 5, h = Double(image.height) / 4
             guard let cell = image.cropping(to: CGRect(x: Double(index % 5) * w,

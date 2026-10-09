@@ -52,7 +52,7 @@ import SpriteKit
             director.pointer(at: scene.convert(.zero, from: node))
         }
         var director = try await open(human)
-        for name in ["ui_folio_strip_fantasy_v01", "ui_folio_card_fantasy_v01", "combat_action_silhouettes_v01"] {
+        for name in ["ui_folio_strip_fantasy_v01", "ui_folio_card_fantasy_v01", "combat_action_inkwash_v02"] {
             try check(GameArt.standaloneTexture(named: name) != nil, "Bundled art: " + name)
         }
         try check(director.actionBar.height == 150, "Desktop combat uses a compact two-row bar")
@@ -80,6 +80,16 @@ import SpriteKit
                   "Normal ammo restores the arrow bundle")
         director.actionBar.showTooltip(nil)
         try capture(scene, "action-bar-human")
+        // Enlarged capture uses the same live textures and shader as the bar.
+        let proof = SKNode()
+        let paper = SKSpriteNode(texture: UIPaintedChrome.parchmentSurface())
+        paper.size = CGSize(width: 840, height: 150); proof.addChild(paper)
+        for (index, name) in ["melee", "ranged", "bladeWard", "bear", "powerStrike", "feintingCut", "aimedShot", "sneak"].enumerated() {
+            let glyph = try button(name).glyph.copy() as! SKSpriteNode
+            glyph.setScale(2.5); glyph.position = CGPoint(x: CGFloat(index) * 102 - 357, y: 0)
+            proof.addChild(glyph)
+        }
+        try capture(proof, "ink-symbol-detail")
         let saved = director.combat
         director.pointer(at: scene.convert(CGPoint(x: 0, y: -65), from: director.actionBar))
         try check(director.combat == saved, "Empty painted chrome cannot issue world movement")
