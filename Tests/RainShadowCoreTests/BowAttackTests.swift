@@ -68,4 +68,18 @@ struct BowAttackTests {
             #expect(muzzle.x.isFinite && muzzle.y.isFinite)
         }
     }
+    @Test func armorCoversEveryBowPoseWithoutReplacingApprovedBody() throws {
+        for item in [CharacterEquipmentCode.splintMail, .ironHelmet] {
+            let character = try #require(BowAttackAnimationSet.equipment(item))
+            let sprite = try IEIndexedSprite.load(character: character)
+            try BowAttackAnimationSet.validateEquipment(sprite, character: character)
+            #expect(sprite.frames.count == 864)
+        }
+        #expect(BowAttackAnimationSet.equipment(.lanternShortsword) == nil)
+        try BowAttackAnimationSet.validate(IEIndexedSprite.load(character: BowAttackAnimationSet.character))
+        try StealthAnimationSet.validate(IEIndexedSprite.load(character: StealthAnimationSet.bow), character: StealthAnimationSet.bow)
+        try WeaponTechniqueAnimationSet.validate(IEIndexedSprite.load(character: WeaponTechniqueAnimationSet.pinning), character: WeaponTechniqueAnimationSet.pinning)
+        try VossAnimationSet.validate(IEIndexedSprite.load(character: VossAnimationSet.character))
+    }
+
 }

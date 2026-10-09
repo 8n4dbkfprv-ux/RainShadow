@@ -7,7 +7,7 @@ struct ExplosiveBarrelTests {
     private func actor(_ id: String, player: Bool = false, x: Double, hp: Int = 20) -> Combatant {
         Combatant(id: id, name: id, player: player, position: CGPoint(x: x, y: 100), hp: hp,
             maximumHP: hp, defence: 10, attackBonus: 2, damageMin: 1, damageMax: 3,
-            initiativeBonus: player ? 100 : 0, rangedWeapon: .bow)
+            initiativeBonus: player ? 100 : 0, rangedWeapon: .bow, fireArrows: 3)
     }
     private func fight(playerX: Double = 0, hp: Int = 20) -> TacticalCombat {
         TacticalCombat(encounterID: "gate", areaID: "city_wharf_ladder", actors: [

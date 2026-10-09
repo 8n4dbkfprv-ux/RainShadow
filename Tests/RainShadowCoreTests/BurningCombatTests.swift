@@ -19,7 +19,7 @@ struct BurningCombatTests {
         var hits = 0, misses = 0
         for seed in 1...60 {
             var combat = fight(seed: UInt64(seed))
-            let strike = try #require({ combat.attack(target: "crew", clearLine: true, ranged: true) }())
+            let strike = try #require({ combat.attack(target: "crew", clearLine: true, ranged: true, ammunition: .fire) }())
             #expect(strike.fireArrow)
             let victim = combat.actors.first { $0.id == "crew" }!
             #expect(victim.hp == 40 - strike.damage)
@@ -83,7 +83,7 @@ struct BurningCombatTests {
         var tested = false
         for seed in 1...30 {
             var combat = fight(seed: UInt64(seed), enemyBurn: 1)
-            let hit = try #require({ combat.attack(target: "crew", clearLine: true, ranged: true) }())
+            let hit = try #require({ combat.attack(target: "crew", clearLine: true, ranged: true, ammunition: .fire) }())
             guard hit.damage > 0 else { continue }
             #expect(combat.actors[1].burningTurns == 2 && combat.actors[1].hp == 38)
             tested = true; break

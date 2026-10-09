@@ -115,9 +115,10 @@ final class WharfLadderDirector {
                       defence: 11, attackBonus: rattled ? 0 : 2, damageMin: 1, damageMax: 3,
                       initiativeBonus: 1)
         }
-        actors[0].rangedWeapon = .bow
+        actors[0].rangedWeapon = scene.context.session.characterInventory.hasEquippedBow ? .bow : nil
         if restored == nil, encounter == .gate, actors.count > 2 {
             actors[2].rangedWeapon = .bow
+            actors[2].fireArrows = 3
             actors[2].name = "Lookout"
             if let path = CombatNavigation.firingPosition(in: scene.navigation, actor: actors[2], target: actors[0], limit: 400),
                let point = path.destination {

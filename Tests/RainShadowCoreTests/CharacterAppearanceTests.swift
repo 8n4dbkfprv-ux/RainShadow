@@ -95,8 +95,10 @@ struct CharacterAppearanceTests {
     }
 
     @Test func missingAnimationCannotSilentlyFallBackToIdleOrAnotherBody() throws {
+        // Human death now has an authored clip; unsupported hit requests still fail.
+        #expect(try CharacterBodyCode.humanMale01.frameCount(for: .die, facing: .south) == DefeatAnimationSet.frames)
         for body in [CharacterBodyCode.humanMale01, .humanFemale01] {
-            for action in (body == .humanMale01 ? [CharacterVisualAction.hit, .die] : [.attack, .hit, .die]) {
+            for action in (body == .humanMale01 ? [CharacterVisualAction.hit] : [.attack, .hit, .die]) {
                 #expect(throws: CharacterAppearanceError.unsupportedAction(body, action)) {
                     try body.frameCount(for: action, facing: .south)
                 }

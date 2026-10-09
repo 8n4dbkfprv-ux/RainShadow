@@ -27,6 +27,15 @@ enemy; escape preserves remaining health and leaves the encounter unresolved. Se
 [TemplePlus combat integration](Documentation/TemplePlusCombatOct06.md) for scope
 and verification.
 
+**Ranged Attack [5]** requires an Elven Court Bow in an equipped weapon slot.
+Normal arrows are unlimited. The adjacent ammunition button switches between
+Normal and carried Fire Arrows, showing the remaining count. A fire shot consumes
+one arrow even on a miss; invalid or cancelled shots consume nothing. Fire arrows
+can be carried in the backpack or quiver. Three are granted once to new/existing
+saves with space, and do not refill on reload. Normal arrows break oil barrels;
+fire arrows ignite them. Bow attacks also support Voss’s equipped splint mail and
+iron helmet, including Aimed Shot, Pinning Shot and ranged Sneak Attack.
+
 Combat turn order appears as a portrait initiative bar. Blue borders identify
 Voss, red borders identify enemies, and a gold marker identifies the active
 turn. Completed turns dim until the next round; defeated combatants leave the

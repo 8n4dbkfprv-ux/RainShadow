@@ -95,6 +95,8 @@ struct Combatant: Codable, Equatable {
     var initiative = 0
     var speed: Double = 240
     var rangedWeapon: CombatRangedWeapon? = nil
+    /// NPC-owned special ammunition. Older encounters start with none.
+    var fireArrows: Int? = nil
     /// Legacy checkpoint field. Defend has been replaced by Blade Ward.
     var defending = false
     var bladeWardTurns: Int? = nil
@@ -190,6 +192,7 @@ struct TacticalCombat: Codable, Equatable {
             $0.position.x.isFinite && $0.position.y.isFinite && $0.maximumHP > 0
             && $0.hp >= 0 && $0.hp <= $0.maximumHP && $0.speed.isFinite && $0.speed >= 0
             && Set($0.usedManeuvers ?? []).count == ($0.usedManeuvers ?? []).count
+            && ($0.fireArrows.map { (0...99).contains($0) } ?? true)
             && ($0.burningTurns.map { (1...2).contains($0) } ?? true)
             && ($0.bladeWardTurns.map { (1...2).contains($0) } ?? true)
             && ($0.shoveProfile?.isValid ?? true)
@@ -351,6 +354,10 @@ struct TacticalCombat: Codable, Equatable {
         guard let index = actors.firstIndex(where: { $0.id == id }) else { return }
         actors[index].position = point.rounded
     }
+    mutating func setPlayerBowEquipped(_ equipped: Bool) {
+        guard let index = actors.firstIndex(where: \.player) else { return }
+        actors[index].rangedWeapon = equipped ? .bow : nil
+    }
     var nearestEnemyDistance: Double? {
         guard let player = actors.first(where: \.player) else { return nil }
         return actors.filter { !$0.player && $0.conscious }
@@ -456,10 +463,13 @@ struct TacticalCombat: Codable, Equatable {
         let to: CGPoint
     }
     /// A physical strike spills the contents without igniting them.
-    mutating func breakBarrel(_ id: String, clearLine: Bool) -> Bool {
+    mutating func breakBarrel(_ id: String, clearLine: Bool, ranged: Bool = false) -> Bool {
         guard outcome == nil, clearLine, goadingTarget(for: current) == nil,
               let index = barrels?.firstIndex(where: { $0.id == id && !$0.isBroken }),
-              CombatNavigation.distance(current.position, barrels![index].position) <= Self.meleeReach,
+              ranged ? ((!current.player || !isBear) && current.rangedWeapon == .bow
+                && CombatNavigation.distance(current.position, barrels![index].position) > Self.meleeReach
+                && CombatNavigation.distance(current.position, barrels![index].position) <= BowAttackRules.range)
+                : CombatNavigation.distance(current.position, barrels![index].position) <= Self.meleeReach,
               budget.spend(2) else { return false }
         reveal(current.id)
         barrels![index].broken = true
@@ -489,12 +499,13 @@ struct TacticalCombat: Codable, Equatable {
     mutating func igniteBarrel(_ id: String, clearShot: Bool,
                                visible: (CGPoint, CGPoint) -> Bool) -> [BarrelExplosion]? {
         guard outcome == nil, !isBear || !current.player, goadingTarget(for: current) == nil,
-              current.rangedWeapon == .bow,
+              current.rangedWeapon == .bow, current.player || (current.fireArrows ?? 0) > 0,
               let barrel = liveBarrels.first(where: { $0.id == id }), clearShot,
               CombatNavigation.distance(current.position, barrel.position) <= BowAttackRules.range,
               CombatNavigation.distance(current.position, barrel.position) > Self.meleeReach,
               budget.spend(2) else { return nil }
         reveal(current.id)
+        if !current.player { actors[turn].fireArrows = (current.fireArrows ?? 0) - 1 }
         let attacker = current.id
         let chain = explosionChain(startingAt: id, visible: visible)
         var explosions: [BarrelExplosion] = []
@@ -648,13 +659,16 @@ struct TacticalCombat: Codable, Equatable {
     /// Ascending defence, natural 1/20 and flat damage bands are RainShadow
     /// adaptations. TemplePlus supplies the unchanged action-cost transitions.
     mutating func attack(target id: String, clearLine: Bool, ranged: Bool = false,
+                         ammunition: CombatAmmunition = .normal,
                          maneuver: CombatManeuver? = nil, hasSword: Bool = false,
                          requireSneakAttack: Bool = false,
                          allyLine: (Combatant, Combatant) -> Bool = { _, _ in true }) -> Strike? {
         let sneakEligible = actors.first(where: { $0.id == id }).map {
             sneakAttackReason(target: $0, ranged: ranged, hasSword: hasSword, clearLine: clearLine, allyLine: allyLine) == nil
         } ?? false
-        guard outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
+        guard ammunition != .fire || (ranged && maneuver == nil && !requireSneakAttack
+                && (current.player || (current.fireArrows ?? 0) > 0)),
+              outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
               actors[target].conscious, actors[target].hidden != true, actors[target].player != current.player,
               clearLine,
               maneuver != .tripAttack || (!actors[target].isProne && !(actors[target].player && isBear)),
@@ -665,6 +679,7 @@ struct TacticalCombat: Codable, Equatable {
               ranged ? BowAttackRules.canShoot(attacker: current, target: actors[target], clearLine: clearLine)
                   : CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
               budget.spend(maneuver?.cost ?? 2) else { return nil }
+        if ammunition == .fire && !current.player { actors[turn].fireArrows = (current.fireArrows ?? 0) - 1 }
         if let maneuver {
             actors[turn].usedManeuvers = (actors[turn].usedManeuvers ?? []) + [maneuver]
         }
@@ -717,7 +732,7 @@ struct TacticalCombat: Codable, Equatable {
                 actors[target].conditions?.slowed = true
             }
         }
-        let fireArrow = ranged && maneuver == nil && !requireSneakAttack
+        let fireArrow = ranged && ammunition == .fire
         if hit && fireArrow && actors[target].conscious {
             actors[target].burningTurns = 2
             note("\(actors[target].name) is Burning: 1–4 damage at the end of each of their next two turns. Extinguish uses a standard action.")

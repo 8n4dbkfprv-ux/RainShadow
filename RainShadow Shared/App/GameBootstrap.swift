@@ -71,6 +71,7 @@ final class GameSession {
     private(set) var hasReceivedArmorKit: Bool
     private(set) var hasReceivedElvenCourtBow: Bool
     private(set) var hasReceivedElvenCourtArrow: Bool
+    private(set) var hasReceivedFireArrows: Bool
 
     /// The case bag. Kept as a passthrough so every existing reader — the loot
     /// panel, both scenes, the inventory window — keeps working unchanged.
@@ -172,6 +173,11 @@ final class GameSession {
         ).map { CarriedItemStack(id: $0, quantity: 1) }
         hasReceivedElvenCourtArrow = snapshot.hasReceivedElvenCourtArrow
             || existingIDs.union(stacks.map(\.id)).contains(HarborpointItems.elvenCourtArrowID)
+        hasReceivedFireArrows = snapshot.hasReceivedFireArrows || existingIDs.contains(CombatAmmunition.fireItemID)
+        if !hasReceivedFireArrows && stacks.count < CarriedInventoryState.defaultTotalSlotCapacity {
+            stacks.append(.init(id: CombatAmmunition.fireItemID, quantity: 3))
+            hasReceivedFireArrows = true
+        }
         var inventory = CharacterInventory(
             backpack: CarriedInventoryState(stacks: stacks)
         )
@@ -199,10 +205,15 @@ final class GameSession {
         persist()
     }
 
-    func checkpointCombat(_ combat: TacticalCombat) {
+    @discardableResult
+    func checkpointCombat(_ combat: TacticalCombat, consumingFireArrow: Bool = false) -> Bool {
         precondition(combat.isValid)
+        var inventory = characterInventory
+        if consumingFireArrow && !inventory.consumeFireArrow() { return false }
+        characterInventory = inventory
         tacticalCombat = combat
-        persist()
+        persist() // Inventory and accepted shot share one save transaction.
+        return true
     }
 
     /// Completion and checkpoint removal share one save transaction.
@@ -719,6 +730,7 @@ final class GameSession {
         saveStore.save(SaveSnapshot(
             tacticalCombat: tacticalCombat.flatMap { try? JSONEncoder().encode($0) },
             currentHealth: currentHealth,
+            hasReceivedFireArrows: hasReceivedFireArrows,
             hasSeenOpening: hasSeenOpening,
             hasSeenOfficeHint: hasSeenOfficeHint,
             hasCompletedOfficeCaseIntro: hasCompletedOfficeCaseIntro,

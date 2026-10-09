@@ -5,6 +5,11 @@ import CoreGraphics
 /// are independent: NPCs own a quiver; this does not spend the player's arrows.
 enum CombatRangedWeapon: String, Codable { case bow }
 
+enum CombatAmmunition: String, Codable {
+    case normal, fire
+    static let fireItemID = "fire-arrow"
+}
+
 enum BowAttackRules {
     static let range: Double = 640
     static let frames = 18

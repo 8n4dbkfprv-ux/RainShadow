@@ -28,12 +28,12 @@ import SpriteKit
                     }
                     if !sawArrowFlight && !shot.arrow.isHidden {
                         try capture("arrow-flight")
-                        if shot.result.maneuver == nil {
+                        if shot.result.fireArrow || !shot.explosions.isEmpty {
                             try check(shot.fire.parent != nil && !shot.fire.isHidden
                                 && shot.fire.children.filter { !$0.isHidden && $0.alpha > 0 }.count > 2,
                                 "Flying arrow carries a burning head and visible flame particles")
                         } else {
-                            try check(shot.fire.parent == nil, "Weapon techniques use ordinary arrows")
+                            try check(shot.fire.parent == nil, "Ordinary shots and weapon techniques have no flame trail")
                         }
                         try check(director.presentedCombat == shot.before,
                             "Arrow damage stays hidden until impact")
@@ -125,6 +125,11 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_AMMUNITION_ONLY"] == "1" {
+                checks += try await RangedAmmunitionQA.run(in: view, output: output, initial: beforeChromeClick)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_ESCAPE_ONLY"] == "1" {
                 checks += try await CombatEscapeQA.run(in: view, output: output, initial: beforeChromeClick)
                 try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
@@ -539,7 +544,7 @@ import SpriteKit
                         try await wait { !director.busy }
                         if mode == "burning" { director.command(2) }
                         else {
-                            if ranged { director.command(5) }
+                            if ranged { if mode == "blast" { director.command(18) }; director.command(5) }
                             click(scene, world: mode == "blast" ? CGPoint(x: source.position.x, y: source.position.y + 30) : site)
                         }
                     }
@@ -831,7 +836,7 @@ import SpriteKit
                         actors[i].hp = 50; actors[i].maximumHP = 50; actors[i].conditions = nil; actors[i].burningTurns = nil
                         actors[i].hidden = nil; actors[i].sneakSpent = nil
                         actors[i].damageMin = 2; actors[i].damageMax = 2; actors[i].attackBonus = 100
-                        actors[i].rangedWeapon = .bow; actors[i].usedManeuvers = CombatManeuver.allCases
+                        actors[i].rangedWeapon = .bow; actors[i].fireArrows = 3; actors[i].usedManeuvers = CombatManeuver.allCases
                         actors[i].initiativeBonus = actors[i].player != playerTarget ? 100 : -100
                     }
                     let victim = actors[playerTarget ? 0 : 1]
@@ -840,13 +845,13 @@ import SpriteKit
                         let trial = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
                             actors: actors, seed: UInt64(seed))
                         var probe = trial
-                        if probe.attack(target: victim.id, clearLine: true, ranged: true)?.damage == 2 { fixture = trial; break }
+                        if probe.attack(target: victim.id, clearLine: true, ranged: true, ammunition: .fire)?.damage == 2 { fixture = trial; break }
                     }
                     guard let fixture else { throw Failure(message: "No deterministic hit fixture") }
                     try await openFireFight(fixture)
                     var director = scene.combatDirector!
                     if !playerTarget {
-                        try await wait { !director.busy }; director.command(5)
+                        try await wait { !director.busy }; director.command(18); director.command(5)
                         click(scene, world: CGPoint(x: victim.position.x, y: victim.position.y + 40))
                     }
                     try await wait { director.rangedShot != nil }
@@ -989,7 +994,7 @@ import SpriteKit
                     actors[1].position = playerTarget ? player.position : sites[kind]!
                     for i in actors.indices {
                         actors[i].hp = 100; actors[i].maximumHP = 100; actors[i].conditions = nil
-                        actors[i].rangedWeapon = .bow; actors[i].usedManeuvers = CombatManeuver.allCases
+                        actors[i].rangedWeapon = .bow; actors[i].fireArrows = 3; actors[i].usedManeuvers = CombatManeuver.allCases
                         actors[i].initiativeBonus = actors[i].player != playerTarget ? 100 : -100
                     }
                     let victim = actors[playerTarget ? 0 : 1]
@@ -1007,7 +1012,7 @@ import SpriteKit
                     let director = scene.combatDirector!
                     if !playerTarget {
                         try await wait { !director.busy }
-                        scene.handleDialogueChoiceDigit(5)
+                        scene.combatDirector?.command(18); scene.handleDialogueChoiceDigit(5)
                         click(scene, world: CGPoint(x: source.position.x, y: source.position.y + 30))
                     }
                     try await wait { director.rangedShot != nil }
@@ -1675,7 +1680,9 @@ import SpriteKit
                 actors: barrelActors, seed: 42, barrels: beforeChromeClick.barrels ?? [])
             try check(!barrelFight.liveBarrels.isEmpty, "Gate stages targetable oil barrels on clear ground")
             barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(barrelFight),
-                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true,
+                equippedItems: ["weapon1": .init(id: "lantern-shortsword", quantity: 1), "weapon2": .init(id: "elven-court-bow", quantity: 1)],
+                hasSeededStarterKit: true, hasReceivedArmorKit: true))
             context = GameContext(saveStore: barrelStore); context.router.start(in: view)
             try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
             scene = view.scene as! CityDistrictScene
@@ -1684,8 +1691,9 @@ import SpriteKit
                       CombatNavigation.clearLine(in: scene.navigation, from: barrelDirector.combat.current.position,
                           to: $0.position, excluding: [TacticalCombat.playerID, $0.id])
                   }) else { throw Failure(message: "No player barrel firing lane") }
+            barrelDirector.command(18)
             scene.handleDialogueChoiceDigit(5)
-            try check(barrelDirector.aimingFireArrow, "Player can select Fire arrow through scene input")
+            try check(barrelDirector.aimingRangedAttack, "Player can select Fire arrow through scene input")
             let barrelPoint = CGPoint(x: barrel.position.x, y: barrel.position.y + 30)
             barrelDirector.hover(at: scene.convert(barrelPoint, from: scene.depthWorldRoot))
             try capture("barrel-preview")
@@ -1855,10 +1863,13 @@ import SpriteKit
             let spillFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
                 actors: spillActors, seed: 42, barrels: savedSpill.barrels ?? [])
             barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(spillFight),
-                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true))
+                hasSeenOpening: true, hasCompletedOfficeCaseIntro: true,
+                equippedItems: ["weapon1": .init(id: "lantern-shortsword", quantity: 1), "weapon2": .init(id: "elven-court-bow", quantity: 1)],
+                hasSeededStarterKit: true, hasReceivedArmorKit: true))
             context = GameContext(saveStore: barrelStore); context.router.start(in: view)
             try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
             scene = view.scene as! CityDistrictScene
+            scene.combatDirector?.command(18)
             scene.handleDialogueChoiceDigit(5)
             click(scene, world: CGPoint(x: smashPoint.x, y: smashPoint.y + 10))
             let spillDirector = scene.combatDirector!

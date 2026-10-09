@@ -51,6 +51,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let bearClaw: IEAvatarFrameLibrary?
         let equipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let bowShot: IEAvatarFrameLibrary?
+        let bowEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let tripBody: IEAvatarFrameLibrary?
         let tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let wardBody: IEAvatarFrameLibrary?
@@ -202,7 +203,8 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             self.knockbackEquipment = knockbackEquipment
             self.techniqueEquipment = techniqueEquipment
             self.meleeEquipment = meleeEquipment
-            if appearance.body == .humanMale01 && Set(equipment.keys) == [.elvenCourtBow, .elvenCourtArrow] {
+            var bowEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            if appearance.body == .humanMale01 && equipment[.elvenCourtBow] != nil && equipment[.elvenCourtArrow] != nil {
                 let library = try IEAvatarFrameLibrary.shared(character: BowAttackAnimationSet.character,
                     colors: body.colors)
                 try BowAttackAnimationSet.validate(library.sprite)
@@ -213,7 +215,26 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                 let pin = try IEAvatarFrameLibrary.shared(character: WeaponTechniqueAnimationSet.pinning, colors: body.colors)
                 try WeaponTechniqueAnimationSet.validate(pin.sprite, character: WeaponTechniqueAnimationSet.pinning)
                 pinningShot = pin
+                for (item, base) in equipment {
+                    guard let name = BowAttackAnimationSet.equipment(item) else { continue }
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try BowAttackAnimationSet.validateEquipment(layer.sprite, character: name)
+                    bowEquipment[item] = layer
+                }
             } else { bowShot = nil; pinningShot = nil; stealthBow = nil }
+            self.bowEquipment = bowEquipment
+        }
+
+        private func bowOverlays(name: String) throws -> [CharacterEquipmentCode: IEAvatarVisualFrame] {
+            var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+            for (item, library) in bowEquipment {
+                let atlas = BowAttackAnimationSet.equipment(item)! + ".atlas"
+                guard let frame = library.frame(atlas: atlas, name: name) else {
+                    throw CharacterAppearanceError.missingFrame(atlas, name)
+                }
+                overlays[item] = frame
+            }
+            return overlays
         }
 
         func stealthFrames(_ clip: StealthClip, facing: ActorFacing, phase: Int) throws -> (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame]) {
@@ -222,7 +243,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             guard let frame = (clip == .sneakshoot ? stealthBow : stealthBody)?.frame(atlas: character + ".atlas", name: name) else {
                 throw CharacterAppearanceError.missingFrame(character, name)
             }
-            var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+            var overlays = clip == .sneakshoot ? try bowOverlays(name: name) : [:]
             if clip != .sneakshoot {
                 // Sneak stab is a shortsword move; the bow uses its separate crouched shot.
                 for (item, library) in stealthEquipment where clip != .sneakstab || (item != .elvenCourtBow && item != .elvenCourtArrow) {
@@ -289,7 +310,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                 guard let frame = library.frame(atlas: character + ".atlas", name: name) else {
                     throw CharacterAppearanceError.missingFrame(character, name)
                 }
-                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                var overlays = isBow ? try bowOverlays(name: name) : [:]
                 if !isBow {
                     for (item, layer) in techniqueEquipment {
                         let atlas = WeaponTechniqueAnimationSet.equipment(item)! + ".atlas"
@@ -361,7 +382,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                 guard let frame = library.frame(atlas: BowAttackAnimationSet.atlas, name: name) else {
                     throw CharacterAppearanceError.missingFrame(BowAttackAnimationSet.atlas, name)
                 }
-                return (frame, [:])
+                return (frame, try bowOverlays(name: name))
             }
             let name = try appearance.body.frameName(action: action, facing: facing, phase: phase)
             guard let frame = body.frame(atlas: appearance.body.atlas, name: name) else {

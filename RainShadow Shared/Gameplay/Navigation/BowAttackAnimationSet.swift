@@ -18,6 +18,36 @@ enum BowAttackAnimationSet {
             }
         }}
     }
+    /// All three bow clips share equipment bundles, with independently rendered
+    /// holdouts for the bow, string, arrow and body at each authored pose.
+    static let armorHashes: [String: String] = [
+        "HumanBowMail": "93bd4dfba9291a969ecf0bebf512357d7163d8f236ca66d5f76202d5236a3684",
+        "HumanBowHelmet": "06f5a90553701b8e1fc94c62817767d62e4e230b73281c29a525d991ef701a9c",
+    ]
+    static func equipment(_ item: CharacterEquipmentCode) -> String? {
+        switch item {
+        case .splintMail: "HumanBowMail"
+        case .ironHelmet: "HumanBowHelmet"
+        default: nil
+        }
+    }
+    static func validateEquipment(_ sprite: IEIndexedSprite, character: String) throws {
+        guard sprite.character == character, sprite.blobSHA256 == armorHashes[character],
+              sprite.paletteLayout == .bgeeMixed, sprite.frames.count == 3 * BowAttackRules.frames * 16,
+              sprite.sourceCanvasSize == .init(width: 160, height: 160),
+              sprite.sourcePivotFromCanvasBottomLeft == .init(x: 80, y: 60),
+              sprite.compatibilityDisplaySize == .init(x: 175.78125, y: 175.78125) else {
+            throw IEIndexedSpriteError.malformedManifest(reason: "Expected the reviewed armored bow equipment")
+        }
+        for clip in ["shoot", "pin", "sneakshoot"] {
+            for direction in VossAnimationSet.directions { for phase in 0..<BowAttackRules.frames {
+                let name = String(format: "%@_%@_%02d.png", clip, direction, phase)
+                guard let frame = sprite.frame(atlas: character + ".atlas", name: name), !frame.isEmpty else {
+                    throw CharacterAppearanceError.missingFrame(character, name)
+                }
+            } }
+        }
+    }
     /// Authored arrow tip immediately before release, projected with the same
     /// camera/density as the clip. The runtime flight starts here, not at feet.
     static func muzzleOffset(facing: ActorFacing) -> CGPoint {

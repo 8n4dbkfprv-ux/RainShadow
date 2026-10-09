@@ -287,3 +287,57 @@ Verification: 60 focused core/persistence tests passed; the live escape/melee
 harness passed 24 checks and the bear regression passed 110 checks. Final macOS
 and iOS Simulator builds succeeded (iOS build-only). Screenshots and reports are
 in `output/flee-melee-oct08/` and `output/flee-bear-oct08/`.
+
+## October 9 — ranged attacks and inventory ammunition
+
+`Ranged Attack [5]` replaces the fire-only command. The adjacent ammunition
+selector starts on Normal, shows the Fire Arrow quantity, and toggles to Fire
+when stock exists. This follows BG3's distinction between unlimited ordinary
+shots and inventory-backed special arrows ([BG3 ammunition reference](https://bg3.wiki/wiki/Arrows)).
+
+A bow must occupy an equipped weapon slot; carrying one in the bag or restoring
+an old checkpoint with a hard-coded bow no longer grants ranged attacks. Both
+melee and bow loadouts can occupy weapon slots. Closing inventory synchronizes
+the combat weapon availability. Ordinary arrows do not need a quiver item; the
+existing Elven Court Arrow item remains a cosmetic carry overlay. Fire Arrows
+use that existing inventory icon and arrow mesh, with the authored name/count
+and the existing fire particles distinguishing them.
+
+The new `fire-arrow` item stacks to 20 in the backpack or quiver. Successful
+shot acceptance consumes one, including misses; invalid targets and cancellation
+are inert. Quiver stock is used before backpack stock, preserving remaining
+stack metadata. The item decrement and accepted combat result are persisted
+in one transaction before presentation; reload never replays consumption.
+The last fire arrow returns the selector to Normal. Weapon techniques and
+explicit ranged Sneak Attack continue to use ordinary ammunition.
+
+Three starter fire arrows are granted once. The saved grant flag prevents
+refills; an existing stack anywhere in the saved inventory, equipment, ground
+piles or containers also prevents duplication. A full bag defers the grant.
+Lookouts start with three fire arrows in their own checkpointed inventory field,
+then use normal shots when depleted; older NPC checkpoints default to none.
+NPCs do not consume player inventory.
+
+Normal arrows break barrels into the existing physical debris and spill oil
+without ignition. Fire ammunition retains the existing burning and explosion
+mechanics, including blast knockback. The fire damage model is unchanged; this
+is an ammunition/UI change, not a complete port of BG3's Arrow of Fire damage
+and surface rules. The initial ammunition release required unarmored Voss, explicitly
+reported by the action feedback. No base actor art, rig or pinned atlas changed.
+
+Focused live harness: `RAINSHADOW_QA_AMMUNITION_ONLY=1` with
+`RAINSHADOW_QA_COMBAT=<output directory>`; captures and reports live under
+`output/ranged-ammunition-oct09/`.
+
+Verification: 134 core/inventory/persistence/asset tests passed across 12 suites;
+29 live macOS checks passed, including ordinary projectiles, fire hits and
+misses, cancellation, empty stock, in-flight inventory pause, atomic saved
+consumption, starter-grant idempotence, normal barrel breakage, and fire barrel
+ignition. Final macOS and iOS Simulator builds succeeded; iOS was build-only.
+
+## October 9 — armored bow animation
+
+Bow attacks now retain Voss’s equipped splint mail and iron helmet through the
+normal shot, Aimed Shot, Pinning Shot and ranged Sneak Attack. Armor no longer
+blocks those actions. The new layers cover all 16 facings and preserve the
+approved corrected body/bow actions. See [Armored Voss bow production](ArmoredVossBowOct09.md).

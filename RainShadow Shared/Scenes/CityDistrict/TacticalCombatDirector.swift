@@ -19,7 +19,7 @@ final class TacticalCombatDirector {
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
     private var activeButtons: [SKShapeNode] {
-        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : [buttons[16]] + Array(buttons.prefix(14))
+        combat.isBear ? [14, 15, 3, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
     }
     private let routePreview = SKShapeNode()
     private let sightPreview = SKNode()
@@ -62,7 +62,9 @@ final class TacticalCombatDirector {
         var impactPresented = false
     }
     private(set) var shovePresentation: ShovePresentation?
-    private(set) var aimingFireArrow = false
+    private(set) var aimingRangedAttack = false
+    private(set) var selectedAmmunition: CombatAmmunition = .normal
+    var fireArrowCount: Int { scene.context.session.characterInventory.quantity(of: CombatAmmunition.fireItemID) }
     private(set) var selectingClaw = false
     struct BearAbilityPresentation {
         let before: TacticalCombat
@@ -125,6 +127,7 @@ final class TacticalCombatDirector {
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], completion: @escaping () -> Void) {
         self.scene = scene; self.combat = combat; self.crew = crew; self.completion = completion
+        self.combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
         hud.name = "combat.hud"; hud.zPosition = 900
         scene.hudRoot.addChild(hud)
         for shape in [panel, turnPanel] {
@@ -138,9 +141,9 @@ final class TacticalCombatDirector {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
-        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.fire", "Fire arrow [5]")]
+        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack")] {
+        for (name, title) in commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal")] {
             let button = SKShapeNode(rectOf: CGSize(width: 150, height: 44), cornerRadius: 6)
             button.name = name
             button.fillColor = SKColor(white: 0.17, alpha: 1)
@@ -265,7 +268,13 @@ final class TacticalCombatDirector {
         buttons[12].alpha = combat.isPlayerTurn && !busy && combat.canShove ? 1 : 0.35
         buttons[12].strokeColor = selectingShove ? .cyan : SKColor(white: 0.5, alpha: 1)
         (buttons[12].children.first as? SKLabelNode)?.text = combat.current.shoveSpent == true ? "Shove · spent" : "Shove · bonus"
-        buttons[4].strokeColor = aimingFireArrow ? .cyan : SKColor(white: 0.5, alpha: 1)
+        if selectedAmmunition == .fire && fireArrowCount == 0 { selectedAmmunition = .normal }
+        (buttons[17].children.first as? SKLabelNode)?.text = selectedAmmunition == .normal
+            ? "Normal · Fire ×\(fireArrowCount)" : "Fire Arrow ×\(fireArrowCount)"
+        buttons[17].strokeColor = selectedAmmunition == .fire ? .orange : SKColor(white: 0.5, alpha: 1)
+        buttons[17].alpha = combat.isPlayerTurn && !busy && playerBowSupported ? 1 : 0.35
+        buttons[4].alpha = combat.isPlayerTurn && !busy && playerBowSupported && combat.budget.canAttack ? 1 : 0.35
+        buttons[4].strokeColor = aimingRangedAttack ? .cyan : SKColor(white: 0.5, alpha: 1)
         buttons[14].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
         buttons[14].strokeColor = selectingClaw ? .cyan : SKColor(white: 0.5, alpha: 1)
         buttons[15].alpha = combat.canGoadingRoar && !busy ? 1 : 0.35
@@ -299,6 +308,10 @@ final class TacticalCombatDirector {
     func setInventoryPresented(_ presented: Bool) {
         hud.isHidden = presented
         if presented { cancelTargeting() }
+        else {
+            combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
+            checkpoint()
+        }
     }
     private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented }
 
@@ -306,6 +319,14 @@ final class TacticalCombatDirector {
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
         if combat.isBear && ![1, 2, 3, 4, 12, 15, 16].contains(digit) { return }
+        if digit == 18 {
+            guard canUsePlayerBow() else { refresh(); return }
+            if selectedAmmunition == .fire { selectedAmmunition = .normal }
+            else if fireArrowCount > 0 { selectedAmmunition = .fire }
+            else { feedback = "No Fire Arrows in your backpack or quiver. Normal arrows are unlimited."; refresh(); return }
+            feedback = selectedAmmunition == .fire ? "Fire Arrow selected: one consumed per shot, including misses." : "Normal arrows selected: unlimited ammunition."
+            refresh(); return
+        }
         if digit == 17 {
             if selectingMelee { cancelTargeting(); return }
             guard !combat.isBear, combat.budget.canAttack else {
@@ -340,7 +361,7 @@ final class TacticalCombatDirector {
             return
         }
         if digit == 10 {
-            selectingSneakAttack = false; selectedManeuver = nil; aimingFireArrow = false; showingSight = true
+            selectingSneakAttack = false; selectedManeuver = nil; aimingRangedAttack = false; showingSight = true
             if combat.hide(observed: isObserved(combat.current, at: combat.current.position)) {
                 hideTransitions[combat.current.id] = 0
                 updateStealth(delta: 0)
@@ -358,8 +379,8 @@ final class TacticalCombatDirector {
                   playerHasSword || playerBowSupported else {
                 feedback = "Sneak Attack needs human form, a shortsword or bow, and an unspent attack."; refresh(); return
             }
-            selectingSneakAttack = true; selectedManeuver = nil; aimingFireArrow = false; showingSight = true
-            feedback = "Sneak Attack +1d6: choose a rival. Hide for advantage; an adjacent ally also qualifies."
+            selectingSneakAttack = true; selectedManeuver = nil; aimingRangedAttack = false; showingSight = true
+            feedback = "Sneak Attack +1d6: choose a rival. Hide for advantage; an adjacent ally also qualifies. Ranged Sneak Attack uses normal arrows."
             drawSight(); refresh(); return
         }
         selectingSneakAttack = false
@@ -367,15 +388,15 @@ final class TacticalCombatDirector {
             let maneuver = digit == 14 ? CombatManeuver.tripAttack : CombatManeuver.allCases[digit - 6]
             if selectedManeuver == maneuver { cancelTargeting(); return }
             guard combat.canUse(maneuver, hasSword: playerHasSword), !maneuver.ranged || playerBowSupported else {
-                feedback = "\(maneuver.title): \((combat.current.usedManeuvers ?? []).contains(maneuver) ? "spent this encounter" : combat.isBear ? "requires human form" : maneuver.ranged && !playerBowSupported ? "requires a bow and no armor" : !maneuver.ranged && !playerHasSword ? "equip a sword before combat" : "not enough actions remaining")."
+                feedback = "\(maneuver.title): \((combat.current.usedManeuvers ?? []).contains(maneuver) ? "spent this encounter" : combat.isBear ? "requires human form" : maneuver.ranged && !playerBowSupported ? "requires an equipped bow" : !maneuver.ranged && !playerHasSword ? "equip a sword before combat" : "not enough actions remaining")."
                 refresh(); return
             }
-            selectedManeuver = maneuver; aimingFireArrow = false; routePreview.path = nil
-            feedback = "\(maneuver.title) · 1 use/fight: \(maneuver.detail). Select a rival; select this action again to cancel."
+            selectedManeuver = maneuver; aimingRangedAttack = false; routePreview.path = nil
+            feedback = "\(maneuver.title) · 1 use/fight: \(maneuver.detail). Select a rival; select this action again to cancel.\(maneuver.ranged ? " Uses normal arrows." : "")"
             refresh(); return
         }
         selectedManeuver = nil
-        if digit != 5 { aimingFireArrow = false; routePreview.path = nil }
+        if digit != 5 { aimingRangedAttack = false; routePreview.path = nil }
         switch digit {
         case 1:
             if combat.canCastBladeWard { castBladeWard() }
@@ -398,9 +419,9 @@ final class TacticalCombatDirector {
                 if combat.transformToBear(hasClearance: true) { checkpoint() }
             } else { feedback = combat.bearForm == nil ? "Bear Form needs a standard action." : "Bear Form is spent for this encounter."; refresh() }
         case 5:
-            guard aimingFireArrow || canUsePlayerBow() else { refresh(); return }
-            aimingFireArrow.toggle()
-            feedback = aimingFireArrow ? "Fire arrow: hit a rival to burn them for 2 turns, or ignite a barrel. Blasts hit everyone." : "Click ground to move • Click a rival to strike"
+            guard aimingRangedAttack || canUsePlayerBow() else { refresh(); return }
+            aimingRangedAttack.toggle()
+            feedback = aimingRangedAttack ? "Ranged Attack: choose a rival or barrel. Use the ammunition button to select Normal or Fire." : "Click ground to move • Click a rival to strike"
             routePreview.path = nil; refresh()
         default: break
         }
@@ -411,7 +432,7 @@ final class TacticalCombatDirector {
         routePreview.zPosition = 10000
         selectingShove = false
         selectingSneakAttack = false; showingSight = false; sightPreview.removeAllChildren()
-        selectedManeuver = nil; aimingFireArrow = false; routePreview.path = nil
+        selectedManeuver = nil; aimingRangedAttack = false; routePreview.path = nil
         feedback = "Click ground to move • Click a rival to strike"; refresh()
     }
     private var playerHasSword: Bool {
@@ -419,8 +440,7 @@ final class TacticalCombatDirector {
             catalog: scene.context.session.itemCatalog) == .lanternShortsword
     }
     private var playerBowSupported: Bool {
-        !combat.isBear && combat.current.rangedWeapon == .bow
-            && !VossArmorAppearance.allCases.contains { $0.isEquipped(in: scene.context.session.characterInventory) }
+        !combat.isBear && scene.context.session.characterInventory.hasEquippedBow
     }
     func pointer(at scenePoint: CGPoint) {
         guard !scene.anyOverlayIsPresented else { return }
@@ -436,8 +456,8 @@ final class TacticalCombatDirector {
         }
         if let barrel = barrel(at: world) {
             if selectingMelee { smashBarrel(barrel); return }
-            if selectedManeuver != nil || selectingSneakAttack { feedback = "Weapon techniques target rivals. Use Fire arrow [5] for barrels."; refresh(); return }
-            if aimingFireArrow {
+            if selectedManeuver != nil || selectingSneakAttack { feedback = "Weapon techniques target rivals. Use Ranged Attack [5] for barrels."; refresh(); return }
+            if aimingRangedAttack {
                 guard canUsePlayerBow() else { refresh(); return }
                 shootBarrel(barrel)
             } else { smashBarrel(barrel) }
@@ -460,7 +480,7 @@ final class TacticalCombatDirector {
                     feedback = reason; refresh(); return
                 }
                 if ranged { shoot(target, requireSneakAttack: true) } else { strike(target, requireSneakAttack: true) }
-            } else if aimingFireArrow || selectedManeuver?.ranged == true { shoot(target, maneuver: selectedManeuver) }
+            } else if aimingRangedAttack || selectedManeuver?.ranged == true { shoot(target, maneuver: selectedManeuver) }
             else { strike(target, maneuver: selectedManeuver) }
         } else if selectingMelee {
             feedback = "Choose a rival for Melee Attack; select Melee Attack again or Escape to move."; refresh()
@@ -468,7 +488,7 @@ final class TacticalCombatDirector {
             feedback = "Choose a nearby rival, or select Claw Attack again to move."; refresh()
         } else if selectingSneakAttack {
             feedback = "Choose a rival for Sneak Attack, or click Sneak attack again to move."; refresh()
-        } else if aimingFireArrow || selectedManeuver != nil {
+        } else if aimingRangedAttack || selectedManeuver != nil {
             feedback = selectedManeuver.map { "\($0.title): \($0.detail). Select a rival." }
                 ?? "Choose a rival or oil barrel, or press 5 to cancel."; refresh()
         } else if let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) {
@@ -495,7 +515,7 @@ final class TacticalCombatDirector {
         }
         if selectedManeuver != nil || selectingSneakAttack || selectingClaw { routePreview.path = nil; return }
         if let barrel = barrel(at: world) { preview(barrel); return }
-        if aimingFireArrow { routePreview.path = nil; return }
+        if aimingRangedAttack { routePreview.path = nil; return }
         guard let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) else {
             routePreview.path = nil; return
         }
@@ -982,9 +1002,15 @@ final class TacticalCombatDirector {
         let line = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position, to: target.position,
             excluding: [attacker.id, target.id])
         let before = combat
-        guard let result = combat.attack(target: target.id, clearLine: line, ranged: true, maneuver: maneuver, requireSneakAttack: requireSneakAttack, allyLine: sneakLine) else {
-            feedback = "\(maneuver?.title ?? "Fire arrow"): needs \(maneuver == .aimedShot ? "a full turn" : "a standard action"), range beyond melee, and a clear shot."; refresh(); return
+        let ammunition: CombatAmmunition = maneuver != nil || requireSneakAttack ? .normal
+            : attacker.player ? selectedAmmunition : (attacker.fireArrows ?? 0) > 0 ? .fire : .normal
+        guard !attacker.player || ammunition == .normal || fireArrowCount > 0 else {
+            feedback = "No Fire Arrows remain."; refresh(); return
         }
+        guard let result = combat.attack(target: target.id, clearLine: line, ranged: true, ammunition: ammunition, maneuver: maneuver, requireSneakAttack: requireSneakAttack, allyLine: sneakLine) else {
+            feedback = "\(maneuver?.title ?? "Ranged Attack"): needs \(maneuver == .aimedShot ? "a full turn" : "a standard action"), range beyond melee, and a clear shot."; refresh(); return
+        }
+        guard commitAmmunition(ammunition, before: before) else { return }
         beginBowPresentation(attacker)
         rangedShot = BowShotPresentation(before: before, result: result, target: target, actor: node,
             parent: scene.depthWorldRoot, targetHeight: (before.isBear ? 30 : 54) + scene.detective.visualHeightOffset)
@@ -992,36 +1018,46 @@ final class TacticalCombatDirector {
         // Save the accepted outcome, but reveal its damage/form changes at impact.
         checkpoint(synchronize: false)
     }
-    private func canUsePlayerBow() -> Bool {
-        guard !combat.isBear, combat.current.rangedWeapon == .bow else {
-            feedback = "Fire arrows require human form and a bow."; return false
+    private func commitAmmunition(_ ammunition: CombatAmmunition, before: TacticalCombat) -> Bool {
+        guard before.current.player && ammunition == .fire else { return true }
+        guard scene.context.session.checkpointCombat(combat, consumingFireArrow: true) else {
+            combat = before; feedback = "No Fire Arrows remain."; refresh(); return false
         }
-        guard !VossArmorAppearance.allCases.contains(where: { $0.isEquipped(in: scene.context.session.characterInventory) }) else {
-            feedback = "This bow clip supports unarmored Voss. Change armor before combat."; return false
+        return true
+    }
+    private func canUsePlayerBow() -> Bool {
+        guard !combat.isBear, scene.context.session.characterInventory.hasEquippedBow else {
+            feedback = "Ranged Attack requires a bow in an equipped weapon slot and human form."; return false
         }
         return true
     }
     private func bowActor(for actor: Combatant) -> CharacterAppearanceNode? {
         guard actor.player else { return actorNode(actor.id) as? CharacterAppearanceNode }
         guard canUsePlayerBow() else { refresh(); return nil }
-        if playerBowNode == nil {
-            var definition = CharacterDefinition.voss
-            definition.appearance.equipment = [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
-            do {
+        var definition = CharacterDefinition.voss
+        definition.appearance.equipment = [.init(item: .elvenCourtBow), .init(item: .elvenCourtArrow)]
+        definition.appearance.equipment += VossArmorAppearance.allCases.compactMap {
+            guard $0.isEquipped(in: scene.context.session.characterInventory),
+                  let item = CharacterEquipmentCode(rawValue: $0.rawValue) else { return nil }
+            return .init(item: item)
+        }
+        do {
+            if let playerBowNode { try playerBowNode.apply(definition) }
+            else {
                 let node = try CharacterAppearanceNode(definition: definition)
                 node.isHidden = true
                 node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
                 scene.depthWorldRoot.addChild(node); playerBowNode = node
-            } catch { feedback = "Bow artwork could not load."; refresh(); return nil }
-        }
+            }
+        } catch { feedback = "Bow artwork could not load."; refresh(); return nil }
         playerBowNode?.position = actor.position
         playerBowNode?.visualHeightOffset = scene.detective.visualHeightOffset
-        if let node = playerBowNode { scene.updateDepth(of: node); scene.applyActorCover(to: node, at: actor.position) }
+        if let node = playerBowNode { scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: actor.position) }
         return playerBowNode
     }
     private func beginBowPresentation(_ actor: Combatant) {
         selectingSneakAttack = false
-        aimingFireArrow = false; selectedManeuver = nil
+        aimingRangedAttack = false; selectedManeuver = nil
         feedback = "Click ground to move • Click a rival to strike"
         if actor.player {
             scene.detective.isHidden = true; playerBowNode?.isHidden = false
@@ -1053,8 +1089,8 @@ final class TacticalCombatDirector {
         let clear = CombatNavigation.clearLine(in: scene.navigation, from: combat.current.position,
             to: barrel.position, excluding: [combat.current.id, barrel.id])
         guard combat.breakBarrel(barrel.id, clearLine: clear) else {
-            feedback = barrel.isBroken ? "Oil spill: use Fire arrow [5] to ignite it."
-                : "Move within melee reach to break it, or use Fire arrow [5]."
+            feedback = barrel.isBroken ? "Oil spill: select Fire ammunition to ignite it."
+                : "Move within melee reach to break it, or use Ranged Attack [5]."
             refresh(); return
         }
         selectingMelee = false
@@ -1087,31 +1123,52 @@ final class TacticalCombatDirector {
         let before = combat
         let clear = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position,
             to: barrel.position, excluding: [attacker.id, barrel.id])
-        guard let explosions = combat.igniteBarrel(barrel.id, clearShot: clear, visible: blastVisible) else {
-            feedback = "Fire arrow needs a standard action, range beyond melee, and a clear shot."; refresh(); return
+        let ammunition: CombatAmmunition = attacker.player ? selectedAmmunition : .fire
+        guard !attacker.player || ammunition == .normal || fireArrowCount > 0 else {
+            feedback = "No Fire Arrows remain."; refresh(); return
+        }
+        let explosions: [TacticalCombat.BarrelExplosion]
+        if ammunition == .fire {
+            guard let blasts = combat.igniteBarrel(barrel.id, clearShot: clear, visible: blastVisible) else {
+                feedback = "Fire Arrow needs an action, range beyond melee, and a clear shot."; refresh(); return
+            }
+            explosions = blasts
+        } else {
+            guard combat.breakBarrel(barrel.id, clearLine: clear, ranged: true) else {
+                feedback = barrel.isBroken ? "Normal arrows cannot ignite spilled oil. Select Fire ammunition."
+                    : "Ranged Attack needs an action, range beyond melee, and a clear shot."; refresh(); return
+            }
+            explosions = []
         }
         let displacements = combat.applyExplosionKnockback(explosions) { actor, source, actors in
             CombatNavigation.knockbackDestination(in: scene.navigation, actor: actor, awayFrom: source,
                 actors: actors, destroyedBarrels: explosions.map { $0.barrel.id }, bear: actor.player && before.isBear)
         }
         var destructions: [String: BarrelDestruction] = [:]
+        if ammunition == .normal {
+            let destruction = BarrelDestruction(barrel: barrel, explosion: false,
+                impactFrom: attacker.position, searchMap: scene.navigation.searchMap)
+            combat.recordBarrelDebris(barrel.id, poses: destruction.finalPoses)
+            destructions[barrel.id] = destruction
+        }
         for explosion in explosions {
             let destruction = BarrelDestruction(barrel: explosion.barrel, explosion: true,
                 impactFrom: attacker.position, searchMap: scene.navigation.searchMap)
             combat.recordBarrelDebris(explosion.barrel.id, poses: destruction.finalPoses)
             destructions[explosion.barrel.id] = destruction
         }
+        guard commitAmmunition(ammunition, before: before) else { return }
         beginBowPresentation(attacker)
         let target = Combatant(id: barrel.id, name: barrel.name, player: !attacker.player,
             position: barrel.position, hp: 1, maximumHP: 1, defence: 0, attackBonus: 0,
             damageMin: 1, damageMax: 1, initiativeBonus: 0)
         rangedShot = BowShotPresentation(before: before,
-            result: .init(attacker: attacker.id, target: barrel.id, roll: 0, damage: 1, knockedOut: true),
+            result: .init(attacker: attacker.id, target: barrel.id, roll: 0, damage: 1, knockedOut: true, fireArrow: ammunition == .fire),
             target: target, actor: node, parent: scene.depthWorldRoot, targetHeight: barrel.isBroken ? 4 : 32, explosions: explosions, displacements: displacements, destructions: destructions)
         delay = 0.25; checkpoint(synchronize: false)
     }
     private func usefulBarrel(for actor: Combatant) -> CombatBarrel? {
-        guard combat.budget.canAttack else { return nil }
+        guard combat.budget.canAttack, (actor.fireArrows ?? 0) > 0 else { return nil }
         return combat.liveBarrels.first { barrel in
             let distance = CombatNavigation.distance(actor.position, barrel.position)
             guard distance > TacticalCombat.meleeReach && distance <= BowAttackRules.range,
@@ -1398,7 +1455,13 @@ final class TacticalCombatDirector {
             if shot.elapsed >= shot.impactTime && !shot.impactPresented {
                 shot.impactPresented = true
                 if shot.before.isBear && combat.isBear && shot.result.damage > 0 { bearAction = (.hit, 0) }
-                if shot.explosions.isEmpty { presentImpact(shot.result, target: shot.target) }
+                if shot.explosions.isEmpty {
+                    if let destruction = shot.destructions[shot.target.id],
+                       let remains = combat.barrels?.first(where: { $0.id == shot.target.id }) {
+                        barrelNodes[remains.id]?.apply(remains, destruction: destruction)
+                        scene.navigation.unregisterActor(id: remains.id)
+                    } else { presentImpact(shot.result, target: shot.target) }
+                }
                 else {
                     for explosion in shot.explosions {
                         if let remains = combat.barrels?.first(where: { $0.id == explosion.barrel.id }) {

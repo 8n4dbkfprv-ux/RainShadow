@@ -125,7 +125,7 @@ enum VossAmmunitionAppearance: String, Sendable {
         guard VossWeaponAppearance.equipped(in: inventory, catalog: catalog) == .elvenCourtBow else { return nil }
         return EquipmentSlot.quiverSlots.lazy.compactMap { slot -> Self? in
             guard let stack = inventory.equipped[slot], stack.quantity > 0 else { return nil }
-            return Self(rawValue: stack.id)
+            return stack.id == CombatAmmunition.fireItemID ? .elvenCourtArrow : Self(rawValue: stack.id)
         }.first
     }
 

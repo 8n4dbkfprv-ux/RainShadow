@@ -35,8 +35,19 @@
       "valuePence": 24,
       "maxStack": 20,
       "iconArtName": "inventory_item_elven_court_arrow_v01",
-      "identifiedDescription": "An ash shaft with a silver leaf-shaped point, ivory and charcoal feathers, and a horn nock. Equip it in an ammunition slot while the Elven Court Bow is readied to carry it in the free hand.",
+      "identifiedDescription": "An ash shaft with a silver leaf-shaped point, ivory and charcoal feathers, and a horn nock. Equip it in an ammunition slot while the Elven Court Bow is readied to carry it in the free hand. Normal ranged attacks do not consume this stack.",
       "note": "Bow ammunition · carried in the left hand"
+    },
+    {
+      "id": "fire-arrow",
+      "identifiedName": "Fire Arrow",
+      "category": "AMMUNITION",
+      "weightOunces": 2,
+      "valuePence": 36,
+      "maxStack": 20,
+      "iconArtName": "inventory_item_elven_court_arrow_v01",
+      "identifiedDescription": "A prepared incendiary arrow. Select Fire ammunition for a ranged attack to ignite a rival or an oil barrel. One arrow is consumed when fired, even on a miss. Ordinary ranged attacks use unlimited normal arrows.",
+      "note": "Special ammunition · single use · backpack or quiver"
     },
     {
       "id": "case-notes",

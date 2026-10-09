@@ -84,6 +84,25 @@ struct CharacterInventory: Equatable, Sendable {
         return worn + carried
     }
 
+    var hasEquippedBow: Bool {
+        EquipmentSlot.weaponSlots.contains { equipped[$0]?.id == HarborpointItems.elvenCourtBowID }
+    }
+
+    /// Consume one special arrow, preferring quiver slots; preserve stack metadata.
+    @discardableResult mutating func consumeFireArrow() -> Bool {
+        let id = CombatAmmunition.fireItemID
+        if let slot = EquipmentSlot.quiverSlots.first(where: { equipped[$0]?.id == id }), let stack = equipped[slot] {
+            equipped[slot] = stack.quantity == 1 ? nil : CarriedItemStack(id: id, quantity: stack.quantity - 1,
+                isIdentified: stack.isIdentified, charges: stack.charges)
+            return true
+        }
+        guard let index = backpack.stacks.firstIndex(where: { $0.id == id }), let stack = backpack.stack(at: index) else { return false }
+        if stack.quantity == 1 { backpack.takeStack(at: index) }
+        else { _ = backpack.replace(at: index, with: .init(id: id, quantity: stack.quantity - 1,
+            isIdentified: stack.isIdentified, charges: stack.charges)) }
+        return true
+    }
+
     /// The ready-weapon slot holding a two-handed weapon, if any. BG blocks the
     /// off-hand whenever one is in the quick-weapon bar, readied or not.
     func twoHandedWeaponSlot(catalog: ItemCatalog) -> EquipmentSlot? {

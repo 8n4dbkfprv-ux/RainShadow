@@ -11,7 +11,7 @@ struct BladeWardTests {
                 initiativeBonus: 100, burningTurns: burning ? 2 : nil),
             Combatant(id: "crew", name: "Crew", player: false, position: CGPoint(x: ranged ? 460 : 240, y: 120),
                 hp: 100, maximumHP: 100, defence: 10, attackBonus: 100, damageMin: damage, damageMax: damage,
-                initiativeBonus: 0, rangedWeapon: ranged ? .bow : nil)
+                initiativeBonus: 0, rangedWeapon: ranged ? .bow : nil, fireArrows: 3)
         ], seed: seed)
     }
     @Test func wardSpendsAnActionAndExpiresOnTheSecondFollowingTurn() {
@@ -28,7 +28,7 @@ struct BladeWardTests {
         for ranged in [false, true] { for damage in [1, 7, 8] {
             var game = fight(damage: damage, ranged: ranged)
             #expect({ game.castBladeWard() }()); _ = game.endTurn()
-            let attempt = game.attack(target: TacticalCombat.playerID, clearLine: true, ranged: ranged)
+            let attempt = game.attack(target: TacticalCombat.playerID, clearLine: true, ranged: ranged, ammunition: ranged ? .fire : .normal)
             let result = try #require(attempt)
             #expect(result.landed && result.damage == damage / 2 && result.wardAbsorbed == damage - damage / 2)
             let candidate = game.actors.first(where: \.player)
