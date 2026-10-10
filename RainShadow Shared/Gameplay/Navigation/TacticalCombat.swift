@@ -683,18 +683,10 @@ struct TacticalCombat: Codable, Equatable {
         let sneakEligible = actors.first(where: { $0.id == id }).map {
             sneakAttackReason(target: $0, ranged: ranged, hasSword: hasSword, clearLine: clearLine, allyLine: allyLine) == nil
         } ?? false
-        guard ammunition != .fire || (ranged && maneuver == nil && !requireSneakAttack
-                && (current.player || (current.fireArrows ?? 0) > 0)),
-              outcome == nil, let target = actors.firstIndex(where: { $0.id == id }),
-              actors[target].conscious, actors[target].hidden != true, actors[target].player != current.player,
-              clearLine,
-              maneuver != .tripAttack || (!actors[target].isProne && !(actors[target].player && isBear)),
-              !requireSneakAttack || sneakAttackReason(target: actors[target], ranged: ranged,
-                  hasSword: hasSword, clearLine: clearLine, allyLine: allyLine) == nil,
-              maneuver.map({ $0.ranged == ranged && canUse($0, hasSword: hasSword) }) ?? true,
-              !(ranged && current.player && isBear),
-              ranged ? BowAttackRules.canShoot(attacker: current, target: actors[target], clearLine: clearLine)
-                  : CombatNavigation.distance(current.position, actors[target].position) <= Self.meleeReach,
+        guard let target = actors.firstIndex(where: { $0.id == id }),
+              attackUnavailableReason(target: actors[target], clearLine: clearLine, ranged: ranged,
+                  ammunition: ammunition, maneuver: maneuver, hasSword: hasSword,
+                  requireSneakAttack: requireSneakAttack, allyLine: allyLine) == nil,
               budget.spend(maneuver?.cost ?? 2) else { return nil }
         if ammunition == .fire && !current.player { actors[turn].fireArrows = (current.fireArrows ?? 0) - 1 }
         if let maneuver {
@@ -706,17 +698,11 @@ struct TacticalCombat: Codable, Equatable {
         let die = edge > 0 ? attackRolls.max()! : edge < 0 ? attackRolls.min()! : attackRolls[0]
         face(current.id, toward: actors[target].position)
         reveal(current.id)
-        let bearAttacker = current.player && isBear
         let attackBonus = attackBonus(for: current) + (maneuver?.accuracy ?? 0)
         let defence = defence(for: actors[target])
-        let hit = die == 20 || (die != 1 && die + attackBonus >= defence)
-        let minimum = bearAttacker ? BearFormRules.damageMin : current.damageMin
-        let maximum = bearAttacker ? BearFormRules.damageMax : current.damageMax
-        var damage = hit ? minimum + roll(maximum - minimum + 1) - 1 : 0
-        if hit {
-            if maneuver == .powerStrike { damage += 3 }
-            if maneuver == .feintingCut || maneuver == .pinningShot || maneuver == .tripAttack { damage = max(1, damage / 2) }
-        }
+        let hit = Self.attackHits(die: die, bonus: attackBonus, defence: defence)
+        let band = weaponDamageRange
+        var damage = hit ? Self.weaponDamage(band.lowerBound + roll(band.upperBound - band.lowerBound + 1) - 1, maneuver: maneuver) : 0
         var sneakDamage = 0
         if hit && sneakEligible {
             for _ in 0..<(current.sneakDamageDice * (die == 20 ? 2 : 1)) { sneakDamage += roll(6) }

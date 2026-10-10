@@ -35,16 +35,30 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
-    #if DEBUG && os(macOS)
+    #if os(macOS)
+    #if DEBUG
     private var playtestNight = false
+    #endif
 
     override func keyDown(with event: NSEvent) {
+        if let combatDirector, !anyOverlayIsPresented,
+           event.modifierFlags.intersection([.command, .control, .option]).isEmpty {
+            if event.keyCode == 49 && event.modifierFlags.contains(.shift) {
+                if !event.isARepeat { handleTacticalPauseInput() }; return
+            }
+            let key = event.charactersIgnoringModifiers?.lowercased() ?? ""
+            if [" ", "c", "v", "r", "g", "f", "t"].contains(key) {
+                if !event.isARepeat { _ = combatDirector.shortcut(key) }; return
+            }
+        }
+        #if DEBUG
         if area.nightPlateTextureName != nil, event.keyCode == 45, !event.isARepeat {
             playtestNight.toggle()
             setExtendedNight(playtestNight)
             detective.applySceneLighting(playtestNight ? .cityNight : .cityDay)
             return
         }
+        #endif
         super.keyDown(with: event)
     }
     #endif

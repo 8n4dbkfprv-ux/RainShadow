@@ -10,6 +10,10 @@ final class TacticalCombatDirector {
     private let completion: () -> Void
     private(set) var combat: TacticalCombat
     private let hud = SKNode()
+    let targetPanel = CombatTargetPanel()
+    private var hoveredTargetID: String?
+    private var pendingAttack: CombatAttackOrder?
+    private var cachedAttackPlan: (combat: TacticalCombat, order: CombatAttackOrder, plan: CombatAttackPlan)?
     let initiativeBar = CombatInitiativeBar()
     let actionBar = CombatActionBar()
     private(set) var startBanner: CombatStartBanner?
@@ -143,6 +147,7 @@ final class TacticalCombatDirector {
         turnPanel.fillColor = .clear; turnPanel.strokeColor = .clear
         panel.fillColor = .clear; panel.strokeColor = .clear
         hud.addChild(actionBar)
+        hud.addChild(targetPanel)
         hud.addChild(initiativeBar)
         if isNewEncounter, combat.outcome == nil {
             let banner = CombatStartBanner()
@@ -153,19 +158,19 @@ final class TacticalCombatDirector {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
-        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
+        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Space / Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
         let glyphs = [2, 19, CombatActionButton.fleeGlyph, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
-        let shortcuts = ["1", "", "3", "4", "5", "6", "7", "8", "9", "", "", "", "", "", "5", "6", "", "", ""]
-        let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn. Shortcut: Enter.",
+        let shortcuts = ["1", "Space", "3", "4", "5", "6", "7", "8", "9", "C", "R", "", "V", "", "5", "6", "F", "", "G"]
+        let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn: Space / Enter. Pause: Shift+Space.",
             "Escape when every conscious enemy is at least 60 ft away.", "Standard action. Change between human and bear form.",
             "Standard action. Select a rival or barrel; uses selected ammunition."]
-            + CombatManeuver.allCases.filter { $0 != .tripAttack }.map { "Standard action · once per fight. " + $0.detail }
+            + CombatManeuver.allCases.filter { $0 != .tripAttack }.map { "Once per fight. " + $0.detail }
             + ["Hide outside enemy sight to gain advantage.", "Standard action. Advantage or an adjacent ally enables +1d6 damage.",
                "Standard action. Put out the flames on yourself.", "Bonus action. Push a nearby rival away.",
                "Standard action · once per fight. " + CombatManeuver.tripAttack.detail,
                "Standard action. Select a nearby rival for a bear claw attack.", "Standard action · once per form. Draw nearby enemies toward the bear.",
-               "Standard action. Select a nearby rival for a sword attack.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited.", "Action. Add your movement speed to this turn’s remaining movement. Available in human and bear form."]
+               "Standard action. Select a nearby rival for a sword attack. F switches melee / ranged targeting.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited.", "Action. Add your movement speed to this turn’s remaining movement. Available in human and bear form."]
         let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash")]
         for (index, entry) in allCommands.enumerated() {
             let button = CombatActionButton(name: entry.0, title: entry.1, glyph: glyphs[index], shortcut: shortcuts[index], detail: details[index])
@@ -244,6 +249,8 @@ final class TacticalCombatDirector {
         history.position.y = panel.position.y + height / 2 + 13
         message.fontSize = 12; history.fontSize = 10
         for label in [message, history] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
+        targetPanel.panelWidth = min(330, width)
+        targetPanel.position = CGPoint(x: width / 2 - targetPanel.panelWidth, y: scene.size.height / 2 - 158)
         hud.setScale(1)
     }
 
@@ -317,11 +324,13 @@ final class TacticalCombatDirector {
             if actor.hidden == true { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Hidden" }
             badges[actor.id]?.fontColor = actor.player ? .cyan : SKColor(red: 1, green: 0.7, blue: 0.55, alpha: 1)
             rings[actor.id]?.strokeColor = selectingMelee && !actor.player && actor.conscious
-                ? (meleeUnavailableReason(actor) == nil ? .cyan : .red)
+                ? (meleeUnavailableReason(actor) == nil || (cachedAttackPlan?.order.targetID == actor.id && cachedAttackPlan?.plan.reason == nil) ? .cyan : .red)
                 : actor.id == shown.current.id ? .yellow : actor.player ? .cyan : .red
         }
     }
     private func checkpoint(synchronize: Bool = true) {
+        cachedAttackPlan = nil
+        targetPanel.clear(); hoveredTargetID = nil
         scene.context.session.checkpointCombat(combat)
         if synchronize { synchronizeForm() }
         drawSight()
@@ -333,17 +342,18 @@ final class TacticalCombatDirector {
     func setInventoryPresented(_ presented: Bool) {
         hud.isHidden = presented
         actionBar.showTooltip(nil)
-        if presented { cancelTargeting() }
+        if presented { targetPanel.clear(); cancelTargeting() }
         else {
             combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
             checkpoint()
         }
     }
-    private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented }
+    private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented || targetPanel.examining }
 
     func command(_ input: Int) {
         movementPreview.clear()
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
+        targetPanel.clear()
         let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
         if combat.isBear && ![1, 2, 3, 4, 12, 15, 16, 19].contains(digit) { return }
         if digit == 19 {
@@ -368,7 +378,7 @@ final class TacticalCombatDirector {
                 feedback = "Melee Attack needs an unspent standard action."; refresh(); return
             }
             cancelTargeting(); selectingMelee = true
-            feedback = "Melee Attack: choose a rival. Cyan targets are in reach; red targets are unavailable."
+            feedback = "Melee Attack: hover a rival to preview the attack and any approach. Click to commit."
             refresh(); return
         }
         if selectingMelee { cancelTargeting() }
@@ -462,6 +472,10 @@ final class TacticalCombatDirector {
         }
     }
     func cancelTargeting() {
+        pendingAttack = nil
+        cachedAttackPlan = nil
+        if targetPanel.examining { targetPanel.clear(); return }
+        targetPanel.clear(); hoveredTargetID = nil
         selectingMelee = false
         selectingClaw = false
         routePreview.zPosition = 10000
@@ -479,6 +493,10 @@ final class TacticalCombatDirector {
     }
     func pointer(at scenePoint: CGPoint) {
         guard !scene.anyOverlayIsPresented else { return }
+        let targetPoint = targetPanel.convert(scenePoint, from: scene)
+        if targetPanel.footerContains(targetPoint) { toggleExamine(); return }
+        if targetPanel.containsPanelPoint(targetPoint) || targetPanel.examining { return }
+        targetPanel.clear()
         let point = hud.convert(scenePoint, from: scene)
         let actionPoint = actionBar.convert(scenePoint, from: scene)
         for (i, button) in buttons.enumerated() where !button.isHidden && button.contains(actionPoint) {
@@ -506,22 +524,7 @@ final class TacticalCombatDirector {
         if let target = combat.actors.filter({ !$0.player && $0.conscious }).min(by: {
             hypot(world.x - $0.position.x, world.y - $0.position.y - 70) < hypot(world.x - $1.position.x, world.y - $1.position.y - 70)
         }), CGRect(x: target.position.x - 48, y: target.position.y - 20, width: 96, height: 110).contains(world) {
-            if selectingMelee {
-                if let reason = meleeUnavailableReason(target) { feedback = reason; refresh() }
-                else { strike(target) }
-            } else if selectingSneakAttack {
-                let wasHidden = combat.current.hidden == true
-                revealObservedActors()
-                if wasHidden && combat.current.hidden != true { checkpoint() }
-                let ranged = !playerHasSword || CombatNavigation.distance(combat.current.position, target.position) > TacticalCombat.meleeReach
-                if ranged && !playerBowSupported { feedback = "Move into shortsword reach, or equip a supported bow."; refresh(); return }
-                let line = sneakLine(combat.current, target)
-                if let reason = combat.sneakAttackReason(target: target, ranged: ranged, hasSword: playerHasSword, clearLine: line, allyLine: sneakLine) {
-                    feedback = reason; refresh(); return
-                }
-                if ranged { shoot(target, requireSneakAttack: true) } else { strike(target, requireSneakAttack: true) }
-            } else if aimingRangedAttack || selectedManeuver?.ranged == true { shoot(target, maneuver: selectedManeuver) }
-            else { strike(target, maneuver: selectedManeuver) }
+            requestAttack(target)
         } else if selectingMelee {
             feedback = "Choose a rival for Melee Attack; select Melee Attack again or Escape to move."; refresh()
         } else if selectingClaw {
@@ -537,6 +540,8 @@ final class TacticalCombatDirector {
     }
     func hover(at scenePoint: CGPoint) {
         movementPreview.clear()
+        if targetPanel.examining || targetPanel.containsPanelPoint(targetPanel.convert(scenePoint, from: scene)) { return }
+        targetPanel.clear(); hoveredTargetID = nil
         let actionPoint = actionBar.convert(scenePoint, from: scene)
         let hovered = scene.anyOverlayIsPresented ? nil : activeButtons.first { $0.contains(actionPoint) }
         actionBar.showTooltip(hovered)
@@ -549,20 +554,13 @@ final class TacticalCombatDirector {
             if let target = shoveTarget(at: world) { previewShove(target) } else { routePreview.path = nil }
             return
         }
-        if selectingMelee {
-            guard let target = meleeTarget(at: world) else { routePreview.path = nil; return }
-            let reason = meleeUnavailableReason(target)
-            routePreview.path = CGPath(ellipseIn: CGRect(x: target.position.x - 36, y: target.position.y - 27,
-                width: 72, height: 54), transform: nil)
-            routePreview.strokeColor = reason == nil ? .cyan : .red
-            feedback = reason ?? "Melee Attack: \(target.name) • standard action • click to strike."
-            refresh(); return
+        if let target = meleeTarget(at: world), target.hidden != true {
+            hoveredTargetID = target.id
+            showAttackPreview(target)
+            return
         }
-        if selectedManeuver != nil || selectingSneakAttack || selectingClaw { routePreview.path = nil; return }
+        if selectedManeuver != nil || selectingSneakAttack || selectingClaw || selectingMelee { routePreview.path = nil; return }
         if let barrel = barrel(at: world) { preview(barrel); return }
-        // A click on a rival's sprite attacks rather than moving to that ground
-        // point. Do not promise a movement route beneath an attack hit area.
-        if meleeTarget(at: world) != nil { routePreview.path = nil; return }
         if aimingRangedAttack { routePreview.path = nil; return }
         guard let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: world, bear: combat.isBear) else {
             routePreview.path = nil; return
@@ -571,6 +569,119 @@ final class TacticalCombatDirector {
         movementPreview.show(path: path, actor: combat.current, budget: combat.budget,
                              speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
     }
+    private func showAttackPreview(_ target: Combatant) {
+        let order = attackOrder(for: target)
+        guard let plan = attackPlan(order) else { return }
+        let preview = plan.preview
+        let ammo = order.ammunition
+        let reason = order.ranged && !playerBowSupported ? "Equip a bow in human form."
+            : ammo == .fire && fireArrowCount == 0 ? "No Fire Arrows remain." : plan.reason
+        let ranged = order.ranged
+        let title = selectedManeuver?.title ?? (selectingSneakAttack ? "Sneak Attack" : combat.isBear ? "Claw Attack" : ranged ? "Ranged Attack" : "Melee Attack")
+        let chance = String(format: "%.2f", preview.hitChance * 100).replacingOccurrences(of: ".00", with: "")
+        var lines = [title + " · " + preview.cost,
+                     reason == nil ? "\(chance)% hit · \(preview.damage.lowerBound)–\(preview.damage.upperBound) damage on hit" : "Unavailable · " + reason!]
+        if plan.path != nil {
+            lines.insert(String(format: "Approach: %.1f ft · hit chance from stopping position", plan.movement / 8), at: 1)
+            movementPreview.show(path: plan.path!, actor: combat.current, budget: combat.budget,
+                speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
+        }
+        if reason != nil { lines.append("On hit: \(preview.damage.lowerBound)–\(preview.damage.upperBound) damage") }
+        if preview.edge != 0 { lines.append(preview.edge > 0 ? "Advantage · roll twice, keep higher" : "Disadvantage · roll twice, keep lower") }
+        if preview.sneakDice > 0 {
+            lines.append("Includes Sneak +\(preview.sneakDice)d6; critical: \(preview.criticalDamage.lowerBound)–\(preview.criticalDamage.upperBound)")
+        }
+        if target.hasBladeWard { lines.append("Blade Ward halves physical damage (included)") }
+        if ammo == .fire { lines.append("Consumes 1 Fire Arrow · Burning: 1–4/turn, 2 turns") }
+        if let maneuver = selectedManeuver {
+            if maneuver == .tripAttack { lines.append("On surviving hit: Prone until target’s turn") }
+            if maneuver == .feintingCut { lines.append("On surviving hit: Weakened (−3 attack)") }
+            if maneuver == .pinningShot { lines.append("On surviving hit: Slowed (half movement)") }
+        }
+        targetPanel.show(title: target.name, lines: lines)
+        routePreview.path = CGPath(ellipseIn: CGRect(x: target.position.x - 36, y: target.position.y - 27, width: 72, height: 54), transform: nil)
+        routePreview.strokeColor = reason == nil ? .cyan : .red
+    }
+
+    private func attackOrder(for target: Combatant) -> CombatAttackOrder {
+        // Keep the selected Sneak Attack weapon fixed throughout the approach.
+        let ranged = selectingSneakAttack ? (!playerHasSword || CombatNavigation.distance(combat.current.position, target.position) > TacticalCombat.meleeReach)
+            : aimingRangedAttack || selectedManeuver?.ranged == true
+        return CombatAttackOrder(targetID: target.id, ranged: ranged,
+            ammunition: ranged && selectedManeuver == nil && !selectingSneakAttack ? selectedAmmunition : .normal,
+            maneuver: selectedManeuver, hasSword: playerHasSword, sneak: selectingSneakAttack)
+    }
+    private func attackPlan(_ order: CombatAttackOrder, fresh: Bool = false) -> CombatAttackPlan? {
+        if !fresh, let cached = cachedAttackPlan, cached.combat == combat, cached.order == order { return cached.plan }
+        guard let plan = CombatAttackPlanner.plan(combat: combat, order: order, map: scene.navigation) else { return nil }
+        cachedAttackPlan = (combat, order, plan)
+        return plan
+    }
+    private func requestAttack(_ target: Combatant) {
+        revealObservedActors()
+        let order = attackOrder(for: target)
+        guard !order.ranged || playerBowSupported else { feedback = "Equip a bow in human form."; refresh(); return }
+        guard order.ammunition != .fire || fireArrowCount > 0 else { feedback = "No Fire Arrows remain."; refresh(); return }
+        guard let plan = attackPlan(order, fresh: true) else { return }
+        if let reason = plan.reason { feedback = reason; refresh(); return }
+        if let path = plan.path {
+            pendingAttack = order
+            if !move(path) { pendingAttack = nil; feedback = "That approach is no longer available."; refresh() }
+            else { feedback = "Moving into attack position… Escape cancels the follow-up attack."; refresh() }
+        } else { executeAttack(order) }
+    }
+    private func executeAttack(_ order: CombatAttackOrder) {
+        guard !finished, combat.isPlayerTurn, combat.outcome == nil,
+              let target = combat.actors.first(where: { $0.id == order.targetID }) else { return }
+        let preview = combat.attackPreview(target: target, clearLine: sneakLine(combat.current, target),
+            ranged: order.ranged, ammunition: order.ammunition, maneuver: order.maneuver,
+            hasSword: playerHasSword, requireSneakAttack: order.sneak, allyLine: sneakLine)
+        if let reason = preview.unavailableReason { feedback = "Attack cancelled: " + reason; refresh(); return }
+        if order.ranged {
+            selectedAmmunition = order.ammunition
+            shoot(target, maneuver: order.maneuver, requireSneakAttack: order.sneak)
+        } else { strike(target, maneuver: order.maneuver, requireSneakAttack: order.sneak) }
+    }
+
+    func toggleExamine() {
+        if targetPanel.examining { targetPanel.clear(); return }
+        guard !scene.anyOverlayIsPresented, !busy,
+              let id = hoveredTargetID, let target = combat.actors.first(where: { $0.id == id && $0.hidden != true }) else { return }
+        var lines = ["Health: \(target.hp) / \(target.maximumHP) · Defence: \(combat.defence(for: target))",
+                     "Attack bonus: \(combat.attackBonus(for: target)) · Damage: \(target.damageMin)–\(target.damageMax)",
+                     "Movement: \(Int(combat.movementSpeed(for: target) / 8)) ft per turn",
+                     "Weapon: \(target.rangedWeapon == .bow ? "bow (80 ft) and melee" : "melee")"]
+        let conditions = [target.conditions?.label,
+            target.conditions?.attackAdvantage == true ? "Attack advantage" : nil,
+            target.conditions?.attackDisadvantage == true ? "Attack disadvantage" : nil]
+            .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " · ")
+        lines.append("Conditions: " + (conditions.isEmpty ? "none" : conditions))
+        if target.hasBladeWard { lines.append("Blade Ward: physical damage halved · \(target.bladeWardTurns!) turns") }
+        if target.isBurning { lines.append("Burning: 1–4 fire damage at turn end · \(target.burningTurns!) turns") }
+        if target.isProne { lines.append("Prone: nearby attacks gain advantage; stands on own turn") }
+        lines.append("Spent techniques: " + ((target.usedManeuvers ?? []).isEmpty ? "none" : target.usedManeuvers!.map(\.title).joined(separator: ", ")))
+        targetPanel.show(title: "Examine · " + target.name, lines: lines, examining: true)
+        movementPreview.clear(); routePreview.path = nil; actionBar.showTooltip(nil)
+    }
+
+    /// Combat-only bindings; camera movement and inventory retain their existing keys.
+    @discardableResult func shortcut(_ key: String) -> Bool {
+        if key == "t" { toggleExamine(); return true }
+        if targetPanel.examining { return true }
+        let index: Int?
+        switch key {
+        case " ": index = 2
+        case "c": index = 10
+        case "v": index = 13
+        case "r": index = 11
+        case "g": index = 19
+        case "f": index = combat.isBear ? 15 : aimingRangedAttack ? 17 : 5
+        default: index = nil
+        }
+        guard let index else { return false }
+        command(index); return true
+    }
+
     private func existingChromeContains(_ point: CGPoint) -> Bool {
         let rootPoint = scene.hudRoot.convert(point, from: hud)
         return HUDChromeLayout.leftRailLayout(for: scene.size).plateFrame.contains(rootPoint)
@@ -622,6 +733,10 @@ final class TacticalCombatDirector {
             scene.navigation.updateActor(id: id, position: actor.position, isMoving: false)
         }
         checkpoint()
+        if let order = pendingAttack {
+            pendingAttack = nil
+            executeAttack(order)
+        }
     }
     private func meleeTarget(at point: CGPoint) -> Combatant? {
         combat.actors.filter { !$0.player && $0.conscious }.min {
@@ -800,6 +915,13 @@ final class TacticalCombatDirector {
         path.addEllipse(in: CGRect(x: end.x - 24, y: end.y - 18, width: 48, height: 36))
         routePreview.zPosition = SceneLayer.hud.rawValue - SceneLayer.depthWorld.rawValue - 1
         routePreview.path = path; routePreview.strokeColor = preview == nil ? .red : .cyan
+        hoveredTargetID = target.hidden == true ? nil : target.id
+        if target.hidden != true {
+            targetPanel.show(title: target.name, lines: ["Shove · 1 bonus action",
+                preview.map { "\($0.chance)% success · no direct damage" }
+                    ?? ("Unavailable · " + (combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove.")),
+                "Push distance: \(Int(CombatNavigation.distance(target.position, end) / 8)) ft"])
+        }
         feedback = preview.map { "Shove \($0.chance)% · \(Int(CombatNavigation.distance(target.position, end) / 8)) ft · bonus action" }
             ?? combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove."
         refresh()
@@ -1447,7 +1569,10 @@ final class TacticalCombatDirector {
         guard !finished else { return }
         let delta = min(0.1, max(0, time - (lastTime ?? time)))
         refresh()
-        if busy || !combat.isPlayerTurn || presentationPaused { movementPreview.clear() }
+        if busy || !combat.isPlayerTurn || presentationPaused {
+            movementPreview.clear()
+            if !targetPanel.examining { targetPanel.clear(); hoveredTargetID = nil }
+        }
         movementPreview.advance(delta: presentationPaused ? 0 : delta, cameraScale: scene.playCameraScale)
         formEffect?.setPaused(presentationPaused)
         if presentationPaused { roarSound?.pause() }

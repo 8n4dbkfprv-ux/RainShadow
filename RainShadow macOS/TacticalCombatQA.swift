@@ -184,6 +184,16 @@ import SpriteKit
             try await wait { scene.combatDirector?.combat.isPlayerTurn == true && scene.combatDirector?.busy == false }
             try capture("combat-start")
             let beforeChromeClick = scene.combatDirector!.combat
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPROACH_ONLY"] == "1" {
+                checks += try await CombatApproachQA.run(in: view, output: output, initial: beforeChromeClick)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_TARGETING_ONLY"] == "1" {
+                checks += try await CombatTargetingQA.run(in: view, output: output, initial: beforeChromeClick)
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_PATHLINE_ONLY"] == "1" {
                 checks += try await CombatMovementPreviewQA.run(in: view, output: output)
                 try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
