@@ -23,6 +23,14 @@ import Testing
         }
     }
 
+    /// The Watch-house interior was first shipped as `interior_lamphouse`.
+    @Test func retiredLamphouseNameStillResolvesToTheWatchHouse() throws {
+        #expect(AreaID("interior_watchhouse") == LampWardAreas.interiorID)
+        #expect(AreaID("interior_lamphouse") == LampWardAreas.interiorID)
+        #expect(LampWardAreas.interiorID.resourceName == "interior_watchhouse")
+        #expect(try AreaCatalogLoader.load(AreaID("interior_lamphouse")).plateTextureName == "watchhouse_v12")
+    }
+
     @MainActor @Test func aliasesMigrateAllAreaStateAndMergeWithoutRepeatedItems() throws {
         let suite = "RainShadow.AreaCodes.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suite))

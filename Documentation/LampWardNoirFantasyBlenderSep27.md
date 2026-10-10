@@ -8,7 +8,7 @@ The file contains `Lamp_Ward_Day`, `Lamp_Ward_Dusk`, and `Lamphouse_Interior`, w
 
 The main checkout was stale. The current definitions were retrieved directly from [GitHub PR 28](https://github.com/8n4dbkfprv-ux/RainShadow/pull/28), commit `0f2a6af37576b44f2cecf3fb81c58b47ae5eeeec`. Exact GDD, journal, district catalog, and both area records are pinned in the package's `References/` directory.
 
-- Lamp Ward is `city_lamp_ward`; its landmark is `interior_lamphouse`, entered through `portal.lamphouseEntrance`.
+- Lamp Ward is `city_lamp_ward`; its landmark is `interior_watchhouse`, entered through `portal.lamphouseEntrance`.
 - The Lamphouse belongs to the Lantern Company of Harborpoint: lanternmen, river lanterns, and lamp-sergeants. It is a civic law-and-investigation institution, not a lamplighters' guild.
 - The district catalog establishes a walled landmark and forecourt. The model retains those features, adding an oil-lit gate, hand-rung bell tower, public notice board, adjoining night-books annex, neighboring trades, and service lanes.
 - The journal directs Voss to request the Lamphouse property log. The interior provides a public counter and log, lamp-sergeant's desk, night-books room, and secured property store. The coat remains in Lantern custody and unexamined; the key stays with Voss. No identified culprit, key destination, new testimony, or resolution of Lillian's fate is implied.

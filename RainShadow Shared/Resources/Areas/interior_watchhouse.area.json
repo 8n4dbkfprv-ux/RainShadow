@@ -14,11 +14,11 @@
       "w": 1664,
       "h": 1248
     },
-    "plateTextureName": "lamphouse_v12",
-    "mapTextureName": "lamphouse_v12_map",
-    "searchMapName": "interior_lamphouse.sr",
-    "heightMapName": "interior_lamphouse.ht",
-    "lightMapName": "interior_lamphouse.lm",
+    "plateTextureName": "watchhouse_v12",
+    "mapTextureName": "watchhouse_v12_map",
+    "searchMapName": "interior_watchhouse.sr",
+    "heightMapName": "interior_watchhouse.ht",
+    "lightMapName": "interior_watchhouse.lm",
     "defaultTerrain": "stone",
     "obstacles": [],
     "agentProfile": {
