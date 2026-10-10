@@ -1,0 +1,4276 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanDashHelmet",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "56ac0abbb6c9e8c61e53b7a1faf77e81ceee2bb83399f00abaa59636aaf73c06",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_00.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 16,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 336,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_00.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 697,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "001bd5453ef12a4e74c9940c41840d9cd4125953596c0637d0fc711e1a90f3fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 1033,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "0ffd03bdd7c8c3d87993adbd37939824f38869f66b496ac2b9bb84fd09d93f3b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_00.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 1390,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "ec0d98186d8e9f9dddbad9311aac1bb893608d39d23ebd0f496ed8bd59559c6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_00.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 1768,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "f879ebcea6eaf21f79472a8c6ca6c65298ff5b7cbde48d715aba3d9151ca82a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_00.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 2176,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "706eef8a88f56e8d16ab0a2c9349062123093e97f8bed76776180ce839747ff7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_00.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 2544,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "8e42c11283e6836648dab10fd9f302e9a5cb6aa1e6a8f6b8532c2b4b26322344",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_00.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 2962,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_00.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 3362,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "147f2ddbd0ee90a6e77a8e93b3771c5f72e686dc2aa85be7d77cb9b5fe4d85d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_00.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 3761,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "bc22a300323f97660ab071e34116094fa6aa9ffc52b24b4f99a193dec814b5e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_00.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 4145,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "80a52d8cfdfb357fc251e8d9ce5eba56cbc5a0ab9075b1102637f1c78dc805a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 4536,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "6adcd4e876148a4ee3136e5f7a203375141a22928eb1b933b88411ce6322e680",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_00.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 4893,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_00.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 5250,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_00.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 5580,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "9fcf246f7a1aa78b8f6f9b704440086fea988dee13bfe76e1f8c3548a1c89b5f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_01.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 5941,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "dee4a4e1689d63c562d10e06f7c7eaaa283869bf65b578219c706812323e697e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_01.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 6241,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "6c48b3c908317a95df583af27eb83513b6a4e3f9244651c12b83ec1e8a30dbff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_01.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 6583,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -40
+      ],
+      "sha256": "66eb30c4de4b2b177ae1720db123b8c4c3b80c02b6a23f04d81338da230cf3ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_01.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 6903,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -41
+      ],
+      "sha256": "ac31cc1d457089630044ac5a7e530c3c7bcd084eeb607076b6f1e935a750b51f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_01.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 7226,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        69,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "7b4cd75971708b963bceaa025201a16ab2f9c087436539511d4f855eda63306a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_01.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 7604,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        71,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "7c32829459f0923d9aa75da42d4e56745c7d2f984aa2a54b552fa85c2706020b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_01.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 8018,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "6f6e5293d4a6e2d7b8da8dbd75345bde5415f9e7ff54a3a7a423a6ce00111ac7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_01.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 8402,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "4e944d8273f327e466579110190e039544e9716901017fd1ed32074219ca8bad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_01.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 8820,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "25a8d4343672e4bee1bec2940c01aedb8fef48c1d982109c82de965dee070664",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_01.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 9240,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        74,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "9bb70e5462a2e6d389e60a03c1a09e8e99cb61862b7ec033502d907fd9d1964e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_01.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 9636,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "bee42e3c31dbde9559e7bbf9c05906c8acffdbddccec16314e30c290d95cbda1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_01.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 10044,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "9c2a9310fd130c48898f306e2e5a41e980a04ede93802eb45d2d1831cc80fc25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_01.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 10435,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "25bcf07718f57a60b723d92a2535a143b25e000528490ba4001b81cedad3683b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_01.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 10831,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -37
+      ],
+      "sha256": "2cf0caf53e0ee03d9ba4c18ac114db29beaf0278b31b0808148490253fe6f557",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_01.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 11171,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -36
+      ],
+      "sha256": "53653051946419cd3966dfb0e0b6d7c5a1eb71b781446a5dc4872de73bda03d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_01.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 11486,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "6f467662dbf0f2606731dcb0702bfe30d75ed6515e17e2be5bc122eaddec6719",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_02.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 11809,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "affdb1ee7d8fe944cd048389ec39c1a377528a1f705178295ec4666c9f3fcb87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_02.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 12109,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "93031f0f4d0881dfb5ddc7a3fd84ba53fec27d7c92a095b3a5d217fbc49bbbfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_02.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 12433,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "e8752cb36ecbd31ec1a0cc94cf6b620ba81a0caf484ce5d1a2bf54ff9011e02a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_02.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 12737,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "3007925f80fc6e7bf46c58ee2ec22b9ea44f43c5dc5fc76725d8ceaae21c34ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_02.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 13097,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1f5e73caddde2cf795b7541f7e5232d523b7c1a12985a047d9d656233e0b2c17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_02.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 13475,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "656da8fbae960738ec6f5a02095ec3cd7c89bf9075076be0ea0319daa58eba18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_02.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 13889,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "13d3c45c86926b45c5ee64a45f6498cfec0604d0d663c92586f00fc019fd891b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_02.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 14297,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -37
+      ],
+      "sha256": "05ba77c1139074538965e392532fd8214613a6b303111087ac74c49538809982",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_02.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 14734,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "8d5e8c043c4f22237ed6b7a19f895682557e011c7b79104570ee2d90990bf2e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_02.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 15154,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "9c5f5021c8c1e73c341f46ddc1f553d6ea60e16380bd75c9e1744e9ed0060c62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_02.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 15568,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        75,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "918541565c88627aee4cc159adab17dcff39a8d94e89553dafd8fca268514a2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_02.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 15976,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        75,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "5df45cd676d4398f129361a8af7fd1fe83d5585bfac285b59e0350a5eef4cc96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_02.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 16408,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "4870b5db14c594fd7f7200bb17ee053f58dcf2bd954aff88519a6d95d6bbef6d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_02.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 16786,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        73,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "78aa8508e5a9361b5da7e0f2d8c4926feef883734cbd763b5db533b7757c3184",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_02.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 17128,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        72,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -34
+      ],
+      "sha256": "060640af9979d7cec199c2e7adb7513633f19983519cb49abc76121525753668",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_02.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 17448,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        69,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -34
+      ],
+      "sha256": "dc4d28c8095930d05bc0f81adcb6c9fc16c3a8e45e7917a426b7114c0ea963e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_03.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 17790,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -34
+      ],
+      "sha256": "0f4fa0fe4356e4153390824b524b1014dde303d665eb266bcecff3b1f758702e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_03.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 18090,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -34
+      ],
+      "sha256": "f3e85ed5b69586e8256eb5ba024fa9befb965dd08476f6101159595a19f4550e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_03.png",
+      "width": 16,
+      "height": 18,
+      "texture_px": [
+        16,
+        18
+      ],
+      "offset": 18432,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        68,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -37
+      ],
+      "sha256": "c86e5775a5a3087b5275141a327cbbb080491782fc7cc655af6cffff42973975",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_03.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 18720,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "71dd02d032d713cee64066b3c913e6b1d3a217dff2f064c986e405b24f2b58fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 19080,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        67,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "208a63de9f2d5070acea9d4eee21c4d572d665aea6149c586f83393838902312",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_03.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 19476,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        69,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "3100884690ec6619d81eea651af3b0a01d2703d6f132b3e6e50ab0865d139a78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_03.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 19890,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        72,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "821dbb7d0127286f46bd0ddd0c47dc3854ff6be3fdb89c5d211622b241ce226f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_03.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 20274,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -37
+      ],
+      "sha256": "fdb48d89fdb69d19c11965d8b50fd053920b6baba74379a38393ae64b2747e5a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_03.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 20688,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "3d563aebefc27fdb5fefd741bff849471487d4d972ab311d62c7317b36977b0e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_03.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 21108,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "1cac028aa60b5ef379ae29d3537807d7e1d32ac4a8720d37c97d3fa2b8433c3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_03.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 21545,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "f2f6655d99181908a1fd6ef81dfeb8095455dfa92617798f8b6a22ca111dc786",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_03.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 21936,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        75,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "ce972956fe8ff51614673eaab498b00fce275841d5833e9f4424134efb677d9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_03.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 22373,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "305bea114371b84f72d1d8a7412a8feab84032d87f26a15e43516447918b25f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_03.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 22769,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        73,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -34
+      ],
+      "sha256": "915a55e5e9af603ab0c272d8d959201fc6d31f3e2876fa993e82ce171e497d31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_03.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 23111,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        72,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -33
+      ],
+      "sha256": "6924cb039c068e5fee170ed877c85577fa1919112dfd7c7a28d06e12270310f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_03.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 23415,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        70,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -34
+      ],
+      "sha256": "51e2e3db11d39b02ad623acaa87d41fd9e3cb8da2baa8b6b29f126512da605bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_04.png",
+      "width": 20,
+      "height": 14,
+      "texture_px": [
+        20,
+        14
+      ],
+      "offset": 23738,
+      "length": 280,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -34
+      ],
+      "sha256": "9bb18b77859f52974a1bc9955e7bb06c2924de50e1db75f03dfbd3c9c4459323",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_04.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 24018,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -34
+      ],
+      "sha256": "c2d27335d1015d99785e5cacd5d4faceaaae9c6d6833ceea7ec4ba0785882474",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_04.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 24360,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "e937cfd9af03433ef359c744f4166dab304dc558890a8a3a8f9918ab771dfaf5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_04.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 24680,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "5d3294567bc1352f6b45656ccb19ce336f0c99ab7375faa21ea95c26acbff1e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_04.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 25022,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -39
+      ],
+      "sha256": "3e2ed8254857d42825cec4b3a9da604be88e1b82416d603eaa7e9973afea5983",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_04.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 25440,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        68,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "05f13a530c51077535a2608b64f7bd54c9ee6a4fb5034453ec1798bd7ecad0ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_04.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 25854,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "c023fb4abaa5e23f0a7e51075d008f3e49ba4662e9a4f7c201718f47f3ceace0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_04.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 26262,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        71,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "ce1b2914059eb2d0716577a8832f389edcfe0993cdeb2310e1782cd5bf4a7a07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_04.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 26680,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "0b2af6029657c64f2ce9bcc508f308e7d979608d0bfd0a21903311676e10693e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_04.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 27100,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        75,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -36
+      ],
+      "sha256": "3acca29dd3a5b799c5627751741aaf410f5f55a6f499ffdc2e1b4d73c85462c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_04.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 27537,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        76,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "e4ab120b4c161262df781e8a5d692f07808768adbe4f573715d419c5b9872a21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_04.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 27945,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        76,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "ac67bea010d79b7a3c0fc4f63aa4aa1a319a8128c39c8d4b93b4653de253161e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_04.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 28359,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        75,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "f0c03f748fdd7d046d83a98c92a4d252d5781b5f18aa716c9bea342a3ec0f814",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_04.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 28777,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        74,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "b2a5fa294e0357daa036ab6fb88f3ba9d22a9b0b358c71b6b58d9dbe9cbd5337",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_04.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 29119,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        73,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -33
+      ],
+      "sha256": "1efa76946bfb3bfcb24cff4eaf187d23fa1b05610c99043c286c94626c78e68b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_04.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 29439,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -33
+      ],
+      "sha256": "860560f23fa5bb2932ab3f84daccfb8bbb529da5ac981e38ea0556dd575ad082",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_05.png",
+      "width": 21,
+      "height": 16,
+      "texture_px": [
+        21,
+        16
+      ],
+      "offset": 29762,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -31
+      ],
+      "sha256": "532537e6fc6dd2cd78869a330d9aaa27588e38a9c05e1ebfa9c0a5646bf7f69a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_05.png",
+      "width": 18,
+      "height": 17,
+      "texture_px": [
+        18,
+        17
+      ],
+      "offset": 30098,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -34
+      ],
+      "sha256": "e2bf759877761dce50300471e2a0b3ac16f1ca89fefe27cbca2404ffda9ae653",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_05.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 30404,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -35
+      ],
+      "sha256": "5753449a6b6bf22f6004c86254756f6254d7182cb294328d5eb84908882247c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_05.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 30744,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        64,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -37
+      ],
+      "sha256": "bc934d7acf3c5c31feba6f5fd98199a46918ffe93caad3042990963a9f201d42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_05.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 31143,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        64,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -39
+      ],
+      "sha256": "e19333badacabc98ebb6f3cac3eb86ef9626eff32cc50ab3111c7184e191f9ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_05.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 31561,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        66,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -40
+      ],
+      "sha256": "5a90c322bd77f9af6f3d6373ba5e05a9b187d49f0a4e16b04162e3a70c61d6e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_05.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 31998,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        69,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "a1f01a8aa83f0c5e50f36dd081ae69731ca40de2eeb0f0d30b13961d61eeb23a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_05.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 32430,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -39
+      ],
+      "sha256": "cb97c89af5a97c52b6c5b9702f40996bfe4e2b038de832b19b76725dddd7b551",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_05.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 32867,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "a4557735de147ca7b8bcdb662e379a4c372a7bea5ae8682d35cc99ba34f5c6a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_05.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 33308,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "78f096106da41eeac0eb84db32d604e50abe59cc70d8437f36f7e0f2bb16f888",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_05.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 33745,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        77,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -37
+      ],
+      "sha256": "11d07759b69c2d743879dd6c9a1b692ded112b9bb33d968eb4d42153423477f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_05.png",
+      "width": 19,
+      "height": 24,
+      "texture_px": [
+        19,
+        24
+      ],
+      "offset": 34136,
+      "length": 456,
+      "trim_origin_top_left_px": [
+        77,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -36
+      ],
+      "sha256": "001eb78aa7c6c55b1428858c39f71774abc5f6bba4b6a43dd7e6062a580179f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_05.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 34592,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        77,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -36
+      ],
+      "sha256": "37f0c1836033225b74e2ef3507fd9bb4f36095476aac6e2d751f59f8ee5f12a9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_05.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 34988,
+      "length": 380,
+      "trim_origin_top_left_px": [
+        75,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -34
+      ],
+      "sha256": "cf0e5cac45e07b7d982da38cd3d6d8baed60ee669a405acb8b9f1ea5162a8fbd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_05.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 35368,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        74,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -33
+      ],
+      "sha256": "c5bb4e6c18e37045e390caaaf4c6f9cb5eb918abe06ed868b9c6658b148914c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_05.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 35691,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -32
+      ],
+      "sha256": "dc1f427e7bda03778dbf160c413d1d7641e3b92315a6bb7847981a1d3f91a768",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_06.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 36014,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -32
+      ],
+      "sha256": "74289ba8300fb1eb23fd6ec884ec1222f58805aa340f0884913eae505307abb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_06.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 36334,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -34
+      ],
+      "sha256": "e227b63d4e6d331c9a0a4c79a4c225c24819741323dd08ae4b8994425579e136",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_06.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 36676,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -37
+      ],
+      "sha256": "0e05a26efc66875172b01db83ce9ad40cd9aae42868c025f7ebee115819d2c28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_06.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 36999,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        65,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -38
+      ],
+      "sha256": "c8c5f784bacf46b885c339f9ae046cbdb47ecbd48242f787b03fa01fd99b422f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_06.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 37339,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        64,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -40
+      ],
+      "sha256": "f992a5126acfa34a2478895ffccd70769706bc48b34e0a2dee08e86159a37350",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_06.png",
+      "width": 19,
+      "height": 24,
+      "texture_px": [
+        19,
+        24
+      ],
+      "offset": 37757,
+      "length": 456,
+      "trim_origin_top_left_px": [
+        66,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -40
+      ],
+      "sha256": "58aedf49770664d851ba78632c13c8671e5aef2110aa96df8f860310fe5f5b66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_06.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 38213,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        69,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -40
+      ],
+      "sha256": "59590b454852f5f9dce19371fe3327c4c437d2248c4ccf4481db565f79a0b8bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_06.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 38621,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "a602e32d087bc284ac412d59c5711bdbe6fa496b3839a077c259ff64d85f361a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_06.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 39039,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "86c2d95a5dfa2552bd51661fdf4bfcd20fcf6ad530763974fa1f6fef394efa39",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_06.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 39459,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        75,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -38
+      ],
+      "sha256": "5ece9b250d446df2aa611a1de3c69fc7ce444360befa62db55fa7670e5acf213",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_06.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 39896,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        77,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -38
+      ],
+      "sha256": "707ddae550a83d7840dd4f4aacddb8424b9d73f95889707a5360b5ed6d831c81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_06.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 40287,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        77,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -37
+      ],
+      "sha256": "663cddf6db7442c30b1181039d7a317f0c22994612bc8bb2d43fc7f9fbb702ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_06.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 40719,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        77,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -37
+      ],
+      "sha256": "3fdff68fe4918ef0de2772e0e6af14e610e407cb0258c00391481f63c6f28220",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_06.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 41118,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        76,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -35
+      ],
+      "sha256": "e03a18f03ca72e896c15ab9a013a90b7c36924e8685b5bcb3656e41ce3693d4b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_06.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 41478,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        74,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -34
+      ],
+      "sha256": "9a3433d95efc5203cdb06b9e698868bf6e6af80cd7828298d6fffc29dcfd3ee1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_06.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 41801,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -32
+      ],
+      "sha256": "f3313f79fa97f3924fcee32261b7fea2c256474a22c458aff479c8aefdf9a862",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_07.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 42143,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -34
+      ],
+      "sha256": "3ff4ee181b9fe63a7012d25f4efbaa88912469fcd52f99ca2e23d76b6eea5bc4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_07.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 42500,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "451e76903582ff82fd311d7542085ed05565001b68166c9b08c80bc77072d620",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_07.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 42842,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "e4937810b94a6658ad430ef1a385f255c64f0c06804454277bce42eaf6fc6fa0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_07.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 43162,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -39
+      ],
+      "sha256": "26642bf222a7361ee260780e333450501652bc3991ab3a99d6b84c1abad98b78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_07.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 43522,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        66,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -41
+      ],
+      "sha256": "2de0836ff026d5cfb3d4f9304bc8afde4cde8f9088de87a01e11797aeb97573b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_07.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 43918,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        68,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -41
+      ],
+      "sha256": "0d97fcd8cecfc55b48bdc92bf75c48b18c60758e39604682b6437eb4a3d49bf6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_07.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 44332,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        71,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "52ce134605646323b2d476f9b444b445d006eafa0ed88d30809c1cda9595bdd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_07.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 44716,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -39
+      ],
+      "sha256": "bf3385ca941d558c6d17f38f7ac01bb174aed7af707290285c0e7c5f60b1cacc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_07.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 45153,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "cc8435eb96fbd4c73055437bacd10b1cb456b62bc342dac958e10a296cef268c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_07.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 45553,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -38
+      ],
+      "sha256": "d96f009d4820b7019786ac060d524354997a282c1dc2254ece68bf7b7879b1cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_07.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 45949,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        76,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -37
+      ],
+      "sha256": "6a7a29a9ff09b0192d81770f744f9d108dbeedd5a5d89883b5fb0a45c8255982",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_07.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 46333,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        76,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -37
+      ],
+      "sha256": "d4f1779332317c8bc817fc9bed2d0627dee344a67629df8b8a1df2cd63b00714",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_07.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 46765,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        76,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -37
+      ],
+      "sha256": "9a9ff5b3a344481a511f1d36d798e8a610cd7ee4d3c6f431bd8217be529b4a83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_07.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 47161,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "f8cf1d47f761502101e71f07fd37ccfd2c09d17e0e5887671f95075285c5ec86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_07.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 47539,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        73,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -35
+      ],
+      "sha256": "7242793b3d5fafff74dc525362592f36416413bf94ff06d03127336d7677b5a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_07.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 47859,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        70,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -34
+      ],
+      "sha256": "efdc0a22ea3447cb6563e1c81867f6f2e6b2af754a63b241776997434086f59a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_08.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 48220,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -35
+      ],
+      "sha256": "db936804a09ff048d631dd21a2169b80088de071494e64c72a2082dbbba2c3f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_08.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 48577,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -38
+      ],
+      "sha256": "859ba9b8c171ccac5f7db705d43de16250e9a0c6b9787301af5a7f87ce2074b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_08.png",
+      "width": 16,
+      "height": 19,
+      "texture_px": [
+        16,
+        19
+      ],
+      "offset": 48919,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "e47e13f8bca171ddcbe526a0ea8f7642069a683b143ac2dc4dda3827987cb554",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 49223,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        67,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "74f0c41ad77bb4f289f40e9af6142e1480c6157b4b8809c8533effc24b32ed9a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 49583,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        67,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -41
+      ],
+      "sha256": "4247d78d9d404bc3492992d2740988cdb02c576aed7967d7e72d6a56d6d72b28",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_08.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 49979,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        69,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -40
+      ],
+      "sha256": "08ad4dc9c03c147fcd74b0f852e7d5e09232354805c3e06226e342f7803cede5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_08.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 50411,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        72,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "0aa561ee211fd6acfea5f4d8b8659b058883e62a1448e90a25ba59c28d73c489",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 50795,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        72,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -39
+      ],
+      "sha256": "d88e15f93c3c935a2fed88abab3865b0bcc348a83ccb1fb78ebee8d7d52e7a3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_08.png",
+      "width": 21,
+      "height": 21,
+      "texture_px": [
+        21,
+        21
+      ],
+      "offset": 51191,
+      "length": 441,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "981032299e48b7f9a5e6f385dadfd8572a9dc3626f33041bf526c2d26429e467",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_08.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 51632,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "6a1e8df8ecbac9e03df4aa86e2fe08b88257412518b7cec6460d087d1c24a0a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_08.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 52050,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "ae929087fd6413f0b85f03e947f0fc61e929e71f39e4c6fd91c5b4e27938ccb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_08.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 52441,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "9bb2273c5730201076f26b87edde9f2157e431a3c505a7c78c56fae529a081d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_08.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 52855,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        75,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -37
+      ],
+      "sha256": "f34d262f49000976b2d9148d9a02bde8707d988299675d886860fc4a8236ee2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 53251,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        73,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "e3c5d20ddadbc6a9a658cbebcc5c7b48221bcdf1ee14af68e86cc585b9637ce8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_08.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 53611,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        72,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -35
+      ],
+      "sha256": "22e3cee433300912ae7980ac1d9a941a32eae5b992a0e5af2ffb763647531539",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_08.png",
+      "width": 18,
+      "height": 18,
+      "texture_px": [
+        18,
+        18
+      ],
+      "offset": 53947,
+      "length": 324,
+      "trim_origin_top_left_px": [
+        70,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -36
+      ],
+      "sha256": "24ea4e91392fda5b3b102a97b7d46febe090e9d7434a06992109c9cbd7c0a3d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_09.png",
+      "width": 21,
+      "height": 17,
+      "texture_px": [
+        21,
+        17
+      ],
+      "offset": 54271,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -36
+      ],
+      "sha256": "404a3a39fdca263e19c710b32deb6ca6a0819138201ad8a8d866f8fc1e738154",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_09.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 54628,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        67,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -39
+      ],
+      "sha256": "bb88ccea9e6498ce1aad0bf4c4ad6319e563827251bf037fb9d09a37ade66347",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_09.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 54970,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        69,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "cccaed3499edc075be79ae4110a46b824cd1fcd27ac947a273d5dd131a3a9960",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_09.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 55285,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -41
+      ],
+      "sha256": "a5e311687e7ec0c5f92391d8fa90ec50828f9debf5c082aac73a0ca1897fab09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 55608,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        68,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -42
+      ],
+      "sha256": "dc7ec8a16c8c664a3983fd3f38e5b8e9bf36b06183b70c29e796529581822bd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_09.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 55986,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "a3e271c6a3489fa5ba64a1446201fcacf478ddd7b7071d244f977ee81571cbe7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_09.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 56400,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        73,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -39
+      ],
+      "sha256": "d39c7cf7c16028ac3fde3dd8b30662eb064a5be0ff50a2da14321a2487ea40a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_09.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 56784,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        72,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "4412fc6eeac832d0b40b1e4f53452cbb2a2c66ba9bb7e8b72cac29e488e43243",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_09.png",
+      "width": 21,
+      "height": 20,
+      "texture_px": [
+        21,
+        20
+      ],
+      "offset": 57221,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        72,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "8c83a83bc8ebc4203df2663fff3930d910cecd11069c7a4075bbe214dbb85524",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_09.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 57641,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "c6ce6cc741d4871b4836487784c0711da345852b893625726ba3c30b7afa1537",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_09.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 58059,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        75,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -36
+      ],
+      "sha256": "e4a41d7e8d5ac7485da4ca0b3a615a640c42944533556261f695197983fbf234",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_09.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 58443,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        74,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -37
+      ],
+      "sha256": "ab0caca88ca958a262b14e3528dcfd6c1a4d04090f3ab48368f006e87f35bb5f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_09.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 58857,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -38
+      ],
+      "sha256": "f59314a700f3361174cc47815940882d62e3045779b8007277eeb2fa59e09388",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_09.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 59235,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "151ebc5de7432ae484b5af6668e08cf222fa4898087e0f5994e286a0edbbd8f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_09.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 59575,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        72,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -36
+      ],
+      "sha256": "278d6a188cd36cd707a30890e00400f92e58c149434d2370fb33f1599a228493",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_09.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 59890,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        69,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -36
+      ],
+      "sha256": "1e2d79e7244dd9a7d01b4519968204489cfb59bb88d6202d8104396a195bdac2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_10.png",
+      "width": 20,
+      "height": 15,
+      "texture_px": [
+        20,
+        15
+      ],
+      "offset": 60251,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "4d4a4eb93c163b398984593e98ae05c5dbae3d81d05877447365b66801e3137e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_10.png",
+      "width": 18,
+      "height": 19,
+      "texture_px": [
+        18,
+        19
+      ],
+      "offset": 60551,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "e3edc64972e41597fbe19843eb268ab430a132d14564ab8a0877fa87b932bda8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_10.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 60893,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        70,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -40
+      ],
+      "sha256": "f6296f693e4cd6763b018bba7c8196b2c0059480f6a9a20cdbf4a8b13add4921",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 61208,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        69,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -42
+      ],
+      "sha256": "3b9d9e6d4bf1db9e8323517a39c050e0484047317ca86049fb87fa072fe38198",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 61565,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "1f8d2291def2996a6afe5e9624ebd7f529d2d2400286ca0f4ae1e4e9621df087",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_10.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 61922,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        71,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -40
+      ],
+      "sha256": "f669bd13b7fde373f4fca81dc5b5fd568631b880aad092dd52a31040a98dd8b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_10.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 62354,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "3fa641c44368efef34497ed3626a3110a301b3cc36e6ed51336c324e4b0c4e67",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_10.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 62722,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -38
+      ],
+      "sha256": "66cd558f47116348676daf4c39a0f940fe36779d42011f63445052dd702daed7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_10.png",
+      "width": 20,
+      "height": 21,
+      "texture_px": [
+        20,
+        21
+      ],
+      "offset": 63121,
+      "length": 420,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "47526efa5d2619367f2375479c4eac09fb89e3f50149744cf095ef0a114895b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_10.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 63541,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "e7687fbc22ff1c6f6ee630bb09ae4b42d32fe9c6f46887343851d41f5a4505c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_10.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 63959,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -36
+      ],
+      "sha256": "0678b046d9b173c6e45d74da541da9838048851d8b7529a8eab74e80565c8087",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_10.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 64327,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        73,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "123151eacb276b2345b32be5d09e02ec1a41b6c1417d8c0c568daef6814698dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 64759,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -38
+      ],
+      "sha256": "fba8487f29b4d5d9e26aeabf0ac789ca9411f905ff1d1cdc867ee373c2d9d8ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_10.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 65116,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "985f20f8bd68e5118e18af2cb2d322f72d49997cfc69638d21ec8177e48cd255",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_10.png",
+      "width": 15,
+      "height": 21,
+      "texture_px": [
+        15,
+        21
+      ],
+      "offset": 65473,
+      "length": 315,
+      "trim_origin_top_left_px": [
+        71,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "4c2bca6017b5eeb0d83707fb1a3609a3bc76fca7256158d3cc28613ef8c5b72b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_10.png",
+      "width": 19,
+      "height": 17,
+      "texture_px": [
+        19,
+        17
+      ],
+      "offset": 65788,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "968d62d499da411691f7fb46648fb61320a6a37354dcb3934e38e63a883641c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_s_11.png",
+      "width": 20,
+      "height": 16,
+      "texture_px": [
+        20,
+        16
+      ],
+      "offset": 66111,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        67,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -40
+      ],
+      "sha256": "dec8aa6239c25edb70385efa65f8967e96bfde17f1bdcb4913c80d68cbeac959",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ssw_11.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 66431,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -40
+      ],
+      "sha256": "1348a4405eb6b7a376d08cde67ee59c5d4beccd0081a2d0e323798af389aa157",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sw_11.png",
+      "width": 16,
+      "height": 21,
+      "texture_px": [
+        16,
+        21
+      ],
+      "offset": 66792,
+      "length": 336,
+      "trim_origin_top_left_px": [
+        70,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -41
+      ],
+      "sha256": "001bd5453ef12a4e74c9940c41840d9cd4125953596c0637d0fc711e1a90f3fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wsw_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 67128,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "0ffd03bdd7c8c3d87993adbd37939824f38869f66b496ac2b9bb84fd09d93f3b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_w_11.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 67485,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        70,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -42
+      ],
+      "sha256": "ec0d98186d8e9f9dddbad9311aac1bb893608d39d23ebd0f496ed8bd59559c6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_wnw_11.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 67863,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -40
+      ],
+      "sha256": "f879ebcea6eaf21f79472a8c6ca6c65298ff5b7cbde48d715aba3d9151ca82a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nw_11.png",
+      "width": 16,
+      "height": 23,
+      "texture_px": [
+        16,
+        23
+      ],
+      "offset": 68271,
+      "length": 368,
+      "trim_origin_top_left_px": [
+        74,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -39
+      ],
+      "sha256": "706eef8a88f56e8d16ab0a2c9349062123093e97f8bed76776180ce839747ff7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nnw_11.png",
+      "width": 19,
+      "height": 22,
+      "texture_px": [
+        19,
+        22
+      ],
+      "offset": 68639,
+      "length": 418,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "8e42c11283e6836648dab10fd9f302e9a5cb6aa1e6a8f6b8532c2b4b26322344",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_n_11.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 69057,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -37
+      ],
+      "sha256": "d8981aa3a57568060624355e3533ad54c7ddfb993a79f1e12d27ca90a63135c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_nne_11.png",
+      "width": 19,
+      "height": 21,
+      "texture_px": [
+        19,
+        21
+      ],
+      "offset": 69457,
+      "length": 399,
+      "trim_origin_top_left_px": [
+        73,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "147f2ddbd0ee90a6e77a8e93b3771c5f72e686dc2aa85be7d77cb9b5fe4d85d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ne_11.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 69856,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        74,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "bc22a300323f97660ab071e34116094fa6aa9ffc52b24b4f99a193dec814b5e2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ene_11.png",
+      "width": 17,
+      "height": 23,
+      "texture_px": [
+        17,
+        23
+      ],
+      "offset": 70240,
+      "length": 391,
+      "trim_origin_top_left_px": [
+        73,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -36
+      ],
+      "sha256": "80a52d8cfdfb357fc251e8d9ce5eba56cbc5a0ab9075b1102637f1c78dc805a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_e_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 70631,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        72,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -38
+      ],
+      "sha256": "6adcd4e876148a4ee3136e5f7a203375141a22928eb1b933b88411ce6322e680",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_ese_11.png",
+      "width": 17,
+      "height": 21,
+      "texture_px": [
+        17,
+        21
+      ],
+      "offset": 70988,
+      "length": 357,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -38
+      ],
+      "sha256": "6cf1f847d10de4d603972f84d8ac3989f71a63fe88b694a02e139a2bf1755cb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_se_11.png",
+      "width": 15,
+      "height": 22,
+      "texture_px": [
+        15,
+        22
+      ],
+      "offset": 71345,
+      "length": 330,
+      "trim_origin_top_left_px": [
+        71,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -37
+      ],
+      "sha256": "7b12b87aa10feee0fbd58d253e0ca87846dde9d432f582708138301a67bc021b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashHelmet.atlas",
+      "name": "dash_sse_11.png",
+      "width": 19,
+      "height": 19,
+      "texture_px": [
+        19,
+        19
+      ],
+      "offset": 71675,
+      "length": 361,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -38
+      ],
+      "sha256": "9fcf246f7a1aa78b8f6f9b704440086fea988dee13bfe76e1f8c3548a1c89b5f",
+      "empty": false
+    }
+  ],
+  "source_authority": "DashOct10/Dash_Authored.blend"
+}

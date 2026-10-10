@@ -54,11 +54,12 @@ struct CombatDashTests {
         let speed = model.movementSpeed(for: model.current)
         #expect(model.budget.availableMovement(speed: speed) == speed * 2)
         let restored = try JSONDecoder().decode(TacticalCombat.self, from: JSONEncoder().encode(model))
-        #expect(restored == model && !restored.canDash)
+        #expect(restored == model && !restored.canDash && restored.budget.usesRunningGait)
         do { let result = model.endTurn(); #expect(result) }
+        #expect(!model.budget.usesRunningGait)
         do { let result = !model.current.player && model.canDash && model.dash(); #expect(result) }
         do { let result = model.endTurn(); #expect(result) }
-        #expect(model.current.player && model.canDash)
+        #expect(model.current.player && model.canDash && !model.budget.usesRunningGait)
         #expect(model.budget.availableMovement(speed: speed) == speed)
     }
     @Test func bearAndSlowedActorsDashAtTheirCurrentSpeed() {

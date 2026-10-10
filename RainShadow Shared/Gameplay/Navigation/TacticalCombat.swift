@@ -8,6 +8,9 @@ import CoreGraphics
 struct CombatBudget: Codable, Equatable {
     private(set) var state = 4
     private(set) var movementRemaining: Double = 0
+    /// Optional for pre-running-cycle saves; resets with the next turn budget.
+    private(set) var dashed: Bool?
+    var usesRunningGait: Bool { dashed == true }
     static let transitions = [
         [0, -1, -1, -1, -1], [1, 0, -1, -1, -1], [2, 0, 0, -1, -1],
         [3, 0, 0, 0, -1], [4, 2, 1, -1, 0], [5, 2, 2, -1, 0], [6, 5, 2, -1, 3]
@@ -34,6 +37,7 @@ struct CombatBudget: Codable, Equatable {
     mutating func dash(speed: Double) -> Bool {
         guard speed.isFinite, speed > 0, canAttack, spend(2) else { return false }
         movementRemaining += speed
+        dashed = true
         return true
     }
     /// Like TurnBasedStatusUpdate, reject on a copy so failure spends nothing.

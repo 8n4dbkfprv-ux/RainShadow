@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanRunMail",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "df862c7f8324c5fa57d44550b821c74b634a294038cab68a72d7b62337c6a22e",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_00.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 16,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        66,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -7
+      ],
+      "sha256": "b470b3068e009acc3a8730c90e86e1fd8d3a43ef23ee4eed99726184ec11eb9d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_01.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 1031,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "08349a764e985be90396a2c1a90f32df9f562eea9d5fdfddf1e3ce3559af13bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_02.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 2081,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "4400e7bd9fa010233f499372a20c3d9795c8457c2a19820da307d76cb13809ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_03.png",
+      "width": 30,
+      "height": 34,
+      "texture_px": [
+        30,
+        34
+      ],
+      "offset": 3131,
+      "length": 1020,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "bc1ec54eafab91fc937883d6833152a72db52ecc9f47304761fa68a301a32efa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_04.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 4151,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "d1546888155d19a4abd8c5ad512866f8dfebf3a04841d9b50a4f53d7f90a53a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_05.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 5201,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "c5cef85c1a2ff0108dccc9f8549d08599447808830e5e9176e0bcee7c618378a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_06.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 6251,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "c3ad43982f56d5bb776ba57a1c641396f262662e31f550e117fa322d0553c81c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_07.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 7331,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "ddaf3a85a7e69b82fddf7abb02f37e1a9c85bb682118c6c79e95db40bbcf650a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_08.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 8381,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "e85ff31f3885ccfa2e8e63d37c2f360e77a818fe0acca1b398b2344d86e5d319",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_09.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 9431,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "a9c32ffe681e48e53b6ac851cc9e033a836cb3ba7a88184a5a56e72383157505",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_10.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 10481,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "c71a84e80322af672e12c071867d98d274f63f75d12bd54c5d7929bee0e849f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_11.png",
+      "width": 30,
+      "height": 34,
+      "texture_px": [
+        30,
+        34
+      ],
+      "offset": 11531,
+      "length": 1020,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "d2fe9c3c613db7d2dee28677dfc2f540c6ea47facf17df73e58e60d88360b6e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_12.png",
+      "width": 30,
+      "height": 34,
+      "texture_px": [
+        30,
+        34
+      ],
+      "offset": 12551,
+      "length": 1020,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "2f66ad78853367a850b09a45ea5a797f8b0dc3e19939c475f6ee3b8472bfea7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_13.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 13571,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "d06f76191a68a52addc2f8b01e2bb2ebee7542fa61b21a92cf81dbfdc48ec10e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_14.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 14621,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "fe2b3104fe7173c8b59d4ea8c53a9f3c761dcb6b3b7fc3c05104267c32636fbf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_15.png",
+      "width": 30,
+      "height": 34,
+      "texture_px": [
+        30,
+        34
+      ],
+      "offset": 15671,
+      "length": 1020,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "2c6d3f54cb2ecc501e3595709dd56051364bb7ee824de755929be4fe4d6084fc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_00.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 16691,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "a7398d21a409d21364080763370e6fe997fec9630c43df636d0a5311fb4c9483",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_01.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 17671,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "e5458d2fb303442d8c4d3fc262ac4c3f94eecec6bba1853d6171a7634d8de443",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_02.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 18686,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "58ae5db7d5d23a40d88bf5a52c2ed6531f12469dfd1e7389a983eb7dee8d0b1a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_03.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 19701,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "42db03c8061aabea906a3def083c2ba8979ab5eddc1ad9d1f6115c49b9e1e19f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_04.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 20709,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "1f66a8d03db0ddd2118742fbeab172dcbc58f8b3eb201b7486db0179b629c782",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_05.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 21717,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "8c979e9d14f2862f064460460ac1cb5a0f4a670d414e52eaddd9bc0b336e1d34",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_06.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 22753,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "8ad917393664e59c912acd968b3abfa748697cd77bdf151a27120e551ccee98a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_07.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 23761,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "2cf42f17943cb73991afc4d5fdbc961302ac726be434b519388fa3745d3d7b63",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_08.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 24769,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -6
+      ],
+      "sha256": "9df2ef89d8dc6497dc25c47df3e9d656a0a83356bc58f2c7ef1cb004e537a3b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 25813,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -6
+      ],
+      "sha256": "e0ec4c3c6b49aca6d24ec6c8b319dae812461ed8c9e6f2e2fd42827fa873a949",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_10.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 26849,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "4ece0e0b6734eb0860fa6e4f40ebfb149844e9859983e5fb26560d2974628d88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 27857,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "2eaaa7bbcf15de48f64408fcc8bba5d9eb1a15d83721202255224de1882e82ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_12.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 28865,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "d18b2cb246eb353cb9c6aab33b94de0eaa6d71f95e0bae211c0b210eec8fbf17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_13.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 29845,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "02a7b7314a8ec6e7f90a1c2bf670f20d3fd332ff732318bb9f28cdd2f485d4cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_14.png",
+      "width": 29,
+      "height": 34,
+      "texture_px": [
+        29,
+        34
+      ],
+      "offset": 30825,
+      "length": 986,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "a931362c34ed947554d27cedf69581821b5117500f80c7a457665fe44f071eb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_15.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 31811,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "d12c024d4a3df25ea33f3a5e948fcce0f285d21bdb201ea21484af645f5aab57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_00.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 32826,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "d10302f53cb06703e5fc3c59090e8960d7e643845b80a528c5d2d9dbbb8ef9c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_01.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 33814,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "e666ba73507f38f9a5a8e1578c8cbede0fffd96f4470e45022d9119d7a15b3f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_02.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 34802,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "332294f77b4746640f132f7d77edfcbfb355cc3e68947fa79904e090b60a64d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_03.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 35816,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "4e7f4e24cb8e1bf7953829919a6d88cfa58e3196e975c5ff2b05dac7ef77fb51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_04.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 36869,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "56986c1cb013fb17073932c29fada525aeaa1bdc2a922d229f00be5386fd7c66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_05.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 37961,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "48f6b97ccba8d33f925f97767f15740fa5e4ddf4a3299b7524d0498361e8729c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_06.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 39053,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "dc5695024d7f2e8d36047a1d5a58fc70868243b01be04ab892fb0397ec75d3b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_07.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 40145,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "9bcbf58dc2c8d51869d5f61f4969b9e46fdf42e284de1ab698477624f64a6b21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_08.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 41247,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -6
+      ],
+      "sha256": "f0731fb55af33d0d22bb003559189f5915bf6327899f841283ce32ead194da89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_09.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 42339,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -6
+      ],
+      "sha256": "f0a1fe80843219091b7244d609d24cdd5f97a7c8ea7ce98129d453f6eeb1ec35",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_10.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 43431,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "8f658846d25099ed094b6540fc182ce5da9870f99e4be769e8e51a3a136a6e41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_11.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 44484,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "a29f627f24c71472fc28528eff11d0439f849dc2cd74b7de3b0e7b1e410a251e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_12.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 45510,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "7703198f1fb84929e651189d6440446f62d411d3e87b9bf2ce1a8a7c1e33feeb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_13.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 46524,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "45074b3b3d0b4d5ae6d0f77c808861140ce88ce2c83e5efa1e12e431ad5335a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_14.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 47460,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "5b67279567d3b8d667ad01b7ab73c755a44d9fe53cd7be3c39eac690a621e7ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_15.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 48448,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "ed02dee0e4dba61e3c0aacd6396bb56883311f95134ff55ae80dee7a72cf3742",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_00.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 49436,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "65bdad6d369511982e4228afdee0989c0e96e1563988a03dfefa9907b2db22e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_01.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 50476,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "25b49eeda1fc31c5ab6fef0e829e7ed902f538cd90101328b372d70e885141ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_02.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 51476,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "fce4106dd2b95a245c6e2e674466ba08bc806b3a788c85303c516aa5799a4982",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_03.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 52476,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "cb627be3fcb2af0d4b83a264169dc6551a03aff435141caa0496741255d39b17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_04.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 53542,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "bfcb1fca05d68627af5ace3490a34f5a93d05ed0a17421bd31da465730fcf4f1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_05.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 54649,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "f74fc0fc82fd01b90e0583a64754754b67e6810b85a513e74fc44373dcde9501",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_06.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 55729,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "603a03a8b440ea754d661395c5bfe5a698f09923024fa6aacbcc95df6ea5a68f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_07.png",
+      "width": 30,
+      "height": 40,
+      "texture_px": [
+        30,
+        40
+      ],
+      "offset": 56877,
+      "length": 1200,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "aaff6c027be90274782f1b89e055fed802ecc689eb15917c046bb5babe03664a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_08.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 58077,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "ef052278137fc07794d0c442fda5f4870e6448e568bb88c7d800d51c828c66b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_09.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 59197,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "8c8b47654bcf76405fff5d20260ccd0061ffbc4899e96f6a6f01f4247ad12beb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_10.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 60317,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "ae5b1bc6fe3c48268603f21785b5fb1a559addb64a7c0321f27964fbc56e937f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_11.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 61383,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "9f8269536b91316fbc62a003e031eb52b7e55eda196d2fc2f097f4b37476c9a6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_12.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 62383,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "20e57fd49d3ac91b2362c82a597dbd45d1105829936471ed76e5fd5d50f963ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_13.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 63383,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "e9dbff712eec35aa59fd93ec767ae349b86a06c256dbdae7f39c4eed80fd86ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_14.png",
+      "width": 24,
+      "height": 39,
+      "texture_px": [
+        24,
+        39
+      ],
+      "offset": 64383,
+      "length": 936,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "4bc17041d98f370c3740e8eed9d866459257816ccc33d4c462158180c9a84026",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_15.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 65319,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "fd07b519bd2777b1ffb780b0c19362ed8a7f2445ee4458433105cc951e6c43fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_00.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 66294,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "e65b11a308b7567d77529cbebe21db86d495c77690cd32295dbcad848cfbd8b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_01.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 67334,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "bd68f5111f065188be2ac27421c4d9fbaa590c0e1c7ee3897507de46f44e5c7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_02.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 68387,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "3ca70a382627ed3528972c701010371dee994608b174a39c8047d0fb3439b265",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_03.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 69387,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "3ba5ac74a5e454a69413fd46f6ea99114f582184d9990d0114df8730e5eeed6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_04.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 70387,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "8ac1abe80c6747fdc7db9c9e886ed6c089e2b77e730c87a65f3a44582875fe0d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_05.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 71494,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "b851dd413f5460337ce5e0dd30b72a525a416351613b1770a2d5b6a34ae76231",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_06.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 72601,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "7992e1bb4c1b299c0d4a124112707bf8e20b650253f74d0c77903d80471860d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_07.png",
+      "width": 29,
+      "height": 42,
+      "texture_px": [
+        29,
+        42
+      ],
+      "offset": 73708,
+      "length": 1218,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "029fe83020985a295b3923fdc37f448f3eca79e5872b8566ccdaa7f2feb19e79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_08.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 74926,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "9ca8f8182a5864d9b569664b32dc46e817dd58ed8af904797688e959e8ac964c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_09.png",
+      "width": 26,
+      "height": 42,
+      "texture_px": [
+        26,
+        42
+      ],
+      "offset": 76033,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -7
+      ],
+      "sha256": "5f36fd82de4d91bddc312bf344f986e71efadd62a636a2d5a5477c042a78b183",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_10.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 77125,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "e09066930a5e0ca2163b4d0b67a0e8e1b0244bfae248d51bd0be11a7e71b7798",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_11.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 78191,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "d03a9735a807fdc8e2033b0cb0f5868ffc20eca36fa893632fdb8a3ef8932698",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_12.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 79257,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "5dcb9c31b2b69ef6e61bc749078f9dc4de0525c99718cca5ebb3cfb1871b234e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_13.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 80337,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -11
+      ],
+      "sha256": "b3ecbd7773c500059816ebe306a3028477d30935769d9e9418b55d798ec5d590",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_14.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 81325,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -11
+      ],
+      "sha256": "3253e7a5eb7780dbd8ec7c4a0fd63281d6e53cbe274284955efcd6e4e3d694d4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_15.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 82351,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "35039ec5938f13e451a8f17bf23f771c1e24cd8d4156cdfac637e07c435143d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_00.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 83453,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "e5aa5fe245b43b9dce133b6c56bd586522a37e496ef7df49415de0d9a52bfeac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_01.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 84545,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "38d7f7c46901bd5edfd2977144965785edba375eac3359a213584930371246ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_02.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 85637,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "4f3fffa87309158811de1676e530850baa8fe73e6a2de187cde4831b20e82094",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_03.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 86729,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "c77e7782f7f6ead26f3e873c9f5c76f0aca4b76c4d94058bbc9d28392e072ca0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_04.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 87769,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "6ec79935eed76b0fc7997d5f98249ae16baa1d234f19ac44740a34f1f2d10fdc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_05.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 88769,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "d47186502f70a142b55b4e6e5f922f8dfb1dbe4446492dd38d88b30565c9c834",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_06.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 89794,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "da89112e9edf27e7b6eb3eb8a1588dac4b44a107d4b55f1c1125a939900a864c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_07.png",
+      "width": 26,
+      "height": 42,
+      "texture_px": [
+        26,
+        42
+      ],
+      "offset": 90860,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "dc233a2a575e6fb1313d11eb9e474f1928559226692dfff354f8619fce525f36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_08.png",
+      "width": 25,
+      "height": 42,
+      "texture_px": [
+        25,
+        42
+      ],
+      "offset": 91952,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "4f49c5c0513379f26cd29ae8bb20a90262761e1fdb6cb2ebf192e11c2d07e8a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_09.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 93002,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "0c84204f1d442ab9d673349ba64b9c405c0469559b92d265125ef6536a79d3b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_10.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 94027,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "9bdd9adeb2a55241453505e6df2522300e2e95baa2be08becbce24ad4a79ed2a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_11.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 95067,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -11
+      ],
+      "sha256": "355dd3d95f324ee5d10e171e635519292ba28ced9d9d66cdf215c1933baacc3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_12.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 96159,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -12
+      ],
+      "sha256": "4e3445a7839e46d4b30cecbd589e39faf24fda5f38ee34bd39ee24d58405e797",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_13.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 97223,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -13
+      ],
+      "sha256": "bed9d6421234eda758035a8148d0b51ee018a05ed24071783259bb0c70f08fd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_14.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 98296,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -13
+      ],
+      "sha256": "0a149970f4af5c6edcd272bbd8c35a23518b6d563265ff146e68f68a83bd0aa0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_15.png",
+      "width": 31,
+      "height": 37,
+      "texture_px": [
+        31,
+        37
+      ],
+      "offset": 99340,
+      "length": 1147,
+      "trim_origin_top_left_px": [
+        61,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -12
+      ],
+      "sha256": "056e653ffc2b212896da2bf8dc809d9824469f207d4f7f86bac40f134e33cf8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_00.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 100487,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "968c49a21e7f494e0bc4096562ee0a63ab9d9405f2930a34399b62ead21ed7e4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_01.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 101495,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "7e8cfa37342e316a0e0c46cc713d8f218cc394f898de394db4471b301a4396b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_02.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 102531,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -12
+      ],
+      "sha256": "9f9a463ece44e1b2ead15aa6d8dda339cb5b3fd7227d1813503531a9fe046449",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_03.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 103567,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "1eeee0f5326509c9649f45cad578886abf53f3b58057e510df87e94741d09a79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_04.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 104555,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "dff84f493309a0f4a2623c4ee419448cf95ef1a648f78f1246b913bf9aa8675c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_05.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 105530,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "4a966f448f82eff46aa976c23db0cf96515cc1f342e54eb6155184dc1a7a93ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_06.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 106544,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "a725ff5a1deb34ce63520d7128b53f1775a1cc132e0e2a280e8134d3c29d7d6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_07.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 107584,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "73ebef775259f37396b4c371cdc7622e468b37612bae6892c266af8f0245fcd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_08.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 108624,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "5f0a6a842bcea984f8a18924f1a7558bff11d13f11eaa34e3df0c3dbc84472ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_09.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 109664,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "854322035fb9706e93c39b2b1c907c3ee9ab455996d28730b8427bd058d26cbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 110678,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "e82278fa36d620d29eda09b7d952a0eb0114c2e4bc7d3b7fa7f03598017b2783",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 111692,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -13
+      ],
+      "sha256": "6d712e770899eabbc71759ce379bb98539cfcbd6a13fc52523563f138363ff52",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_12.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 112700,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -14
+      ],
+      "sha256": "6eef65d2297616ed4a2335378a283d9afa85bc6e27a1fb63949625732c42e5c1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_13.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 113708,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -14
+      ],
+      "sha256": "4ab79c0840ec1e625744bf2a0b75ec2ac240e1035d4dfd01a4c58bd3dcc4e90c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_14.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 114752,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "478ec7b34043b91a1f5d98c848ec3a41992633e592fad2dadbf397c6c936db9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nw_15.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 115796,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -12
+      ],
+      "sha256": "c43fab6dbfcfa9be9e6cada559f336861533267ea32e26d56d2c25e607e9382c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_00.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 116906,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "2bf25aea73bfe3e488d48a79047f96f830158d7dfcd474bd6ff28d5b77d3ae2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_01.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 118008,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "6f66eaefd908c2fdbb4114b4fa7419620e8d1c409d05de889ca0aa998b5632c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_02.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 119110,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13
+      ],
+      "sha256": "62332b3cc3e2f327b358a80b54ac2073f9c3ecdd7225209aad9dd681a24d695b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_03.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 120154,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13
+      ],
+      "sha256": "d38ab2b225a9d15129e1f4b6167a780cc5488e53e9a70a340a6d6d9c20f32d79",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_04.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 121227,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "cef0e0e661ef0d8ba016306019693fa051c6f55e0acc04c43934bcb7b9443ee0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_05.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 122329,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "da791aa8a773955ab6a5f1388bc0acced6e278f6f1fefda20d7aa33c6d8e02f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_06.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 123421,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "75a29f2e07d47e76264817b92d2c50713351342a08656b67e2c50356e2d0dd6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_07.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 124541,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "84f158484d2005f99180b4d4252594abc3a9121c5d22c8c8be6b38d39b8de80f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_08.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 125661,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "9f105cda03b6cc22cdbbced9eba02cb5245f8961f51e23d53724298e77681e62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_09.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 126741,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "867f4693243f2d5cc11ceb3848a1fd1e633fd79347dbb4c434a82bfac6549750",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 127833,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "29d360400131f9a831a00956d086fafa4500f7f1d36f5c06ffadd36c3b3b5671",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 128897,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -14
+      ],
+      "sha256": "e4a69d428c5db2069ed35a4061b9631c6cb143cd7629e8c23d9fcb43c209a41c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_12.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 129905,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -13
+      ],
+      "sha256": "05b1bf0f65b958c219d404056c128604bf5abfcdb11bbca5bfc2d77d8ca18d19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_13.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 130978,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "f7820563b61b335c3dbe275d690c52e6dbe1d1b32e43c60d12e0f0a3c5e512a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_14.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 132080,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "8cf2b7a657e0bc15f9e52bcc499b0e2b919adc3b105099faa6d87112ee0a0a65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nnw_15.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 133182,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "984caa4a51159a0a727d5ab7e1f9aa5fe6e770f415166372b805f1a1a7a7f930",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_00.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 134313,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -9
+      ],
+      "sha256": "f6dcf8563872cf63c8fcf29828ffd50b3a01ab384f898fdf4059ee46cffb1745",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_01.png",
+      "width": 30,
+      "height": 38,
+      "texture_px": [
+        30,
+        38
+      ],
+      "offset": 135444,
+      "length": 1140,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "6e9a43aec63e47ce4bfd37aa68d7213ce615b73574d4c9b4ab8425c1d9acaea3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_02.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 136584,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "15ddd284db747d162463f2b97fc2ed599d2befd0fd5d8cfd72f3d628f327daed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_03.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 137628,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "8bedbe5e0423e82368a4cbffaebf3f6d59f2ffd0c6d2fe500d490802133075c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_04.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 138672,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "b7fdf735b14acb8cb0217bc4c2a9e4092f1d84fe6834d4def6331a45215ac6ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_05.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 139745,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "2dbbdd0fd6d63744aca54ae065056dbf882f3764b3f8426a2ab7e74dea06c204",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_06.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 140847,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "29968356545094a542ce2c96042b054ee851030892adf61dd108bb7a47e3dc2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_07.png",
+      "width": 30,
+      "height": 39,
+      "texture_px": [
+        30,
+        39
+      ],
+      "offset": 141978,
+      "length": 1170,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "fb4564e2d177d46b484893648188ce88d0b046c9db7551cfb502a5b98438658b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_08.png",
+      "width": 30,
+      "height": 39,
+      "texture_px": [
+        30,
+        39
+      ],
+      "offset": 143148,
+      "length": 1170,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "17f3e3953d5d0efee997e8011a7896f03050b27824846837cd933d2c3a3282ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_09.png",
+      "width": 30,
+      "height": 38,
+      "texture_px": [
+        30,
+        38
+      ],
+      "offset": 144318,
+      "length": 1140,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "47091ab0ff28cf4e12d7b6d97983c0f6cf5e6d5cbb57a0836ee8d022ae440c4f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_10.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 145458,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "0ee0cb056d81c77c2ab230c3f4e011e37c13fdfe46b768215a9baee58884774c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_11.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 146531,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "d4201953e25d9bbb7a25ee08242baabcdae6515924aa10834d93cdf7f57ad2f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_12.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 147575,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "fe18045e6b2658693007a3e5c20de7fa13752ca83186e9294cd176f6f55e2e9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_13.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 148648,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "8c50affa99146107861e0a681e3edcf2202f869f7c8dfb82e519806be501c8c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_14.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 149750,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "e95fe4d190341a0d8db77975a30409fc2f9bc7d31eec5e6792892ab97677c991",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_15.png",
+      "width": 30,
+      "height": 39,
+      "texture_px": [
+        30,
+        39
+      ],
+      "offset": 150852,
+      "length": 1170,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "db9be91b469fe62d8d0008832c29cbfe4914d3033558867f5e5ee636ce217c39",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_00.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 152022,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "6963893c64e8cfcefe65f4c3869f88bd8526e1870db85ac10440e8627f25777d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_01.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 153062,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "f3400902b8d841e41861efb2297b0dd951670a1621c884daa9959403b0b2bd9c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_02.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 154076,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "ee792badf7d665e0b3b3dfbbe92222532f5cded4551ae1d7417d9e4a461d0136",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_03.png",
+      "width": 27,
+      "height": 36,
+      "texture_px": [
+        27,
+        36
+      ],
+      "offset": 155075,
+      "length": 972,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -14
+      ],
+      "sha256": "8bb2cca9bf1a69eefa853b744273dc0f7860146998a1bbc80fa5ca3da2218f8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_04.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 156047,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "de67f6b189f30776bbdfbde9717129824fbaf940bb859accec4dcf0ed39f0fe0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_05.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 157083,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "7e370b8b62f245a5f9dc60bb6a9ebdbd4902940e3e732e711de9e16754164e0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_06.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 158147,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "d40504f946d481601b7671aaf2a0f481217bb3e9247253bda16d9aac66fbc4ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_07.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 159278,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -10
+      ],
+      "sha256": "2c8c46b1e2647e5d325ca200a62d1f91597c2bed188ec2e807d4765ba97b56ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_08.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 160409,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -10
+      ],
+      "sha256": "2c2050f63c75ebc2db47e4da9a8a0e8dc76de8f0856c16342e42ec9a741b83d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_09.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 161540,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "4ad8f24b724775d0c9772f33d429e7bfda3f5776ae3d6bdd30a0b6527322e324",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_10.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 162642,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "b9eb9b2adb888470ddba580f86931d900e33baa5c129c3f9a17febcf0a5d2a08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_11.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 163715,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "041e9a320a0389b9f02a01de340052942d152780376743e08d6db06086ab6a9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_12.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 164751,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "88eb687cea053672463c188366d26c1be924d7ed1aacd9b933e6cb6906fae7e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_13.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 165815,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "53564e84fd1fc856e95b44e297401c35e422a3ec14e78a7a47910767ab3b8125",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_14.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 166868,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "3b8d5fb32928bca0cefa6a730b979cccc5dd41cf59bd1e881bd8d6797c555a81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_15.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 167882,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "8e15b355919c4d6aa490c5cce6ac0dbeb63a3afd5e6547c58111f73b373d9b23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_00.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 168922,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "1b9cdab7836cf4425447c0795eed291fbb615355e07004872d5b77315d0122da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_01.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 169947,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "39629ab2e7483119095c873a4aa989ae330dbaaa5570ba4e569aaa01d1076fd4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_02.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 170947,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "7335f9c6ef67eaa6e2c080300ffe76b450773079814deb616eef8c7cab8339ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_03.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 171935,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -13
+      ],
+      "sha256": "6520d3142055ee695198aa8f9cb41f574aecfbd06fa144860b7b88d4f479e11a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_04.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 172934,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -14
+      ],
+      "sha256": "0eb63690fd7012dd7aa39fc5e0ab53fff083ae100edca96df59a56420078f13f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_05.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 173942,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -14
+      ],
+      "sha256": "a5471a2da44ef9389793fc5c17b2e49b21ddec5c825da73c6c9ef125002f6d27",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_06.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 174986,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -13
+      ],
+      "sha256": "77902132b6462748b28b462c501babaef3f0c5f3969e89ae427530fc26571c2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_07.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 176059,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "9b1dd81990f98a6efbfbed3729c74df98b63383b8f322393b2cbe1f3aa1d62bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_08.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 177169,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "f025e3000a43e2d04137249f57279b80bbd6524072385f49dd6c1effe674c09b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 178205,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "fe9c36105c5c43eca1987be82b38dc860cd1f10e9ed07e9ae49e5debe3ff9945",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_10.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 179241,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "2eb1c4c50f76e0c93f4db34696003290dac225b61b2e82ee71cf12918baf7785",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_11.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 180267,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "644c110a87c8ada72e64503bed13a3bad7e4f147107ec868d74430d72497cf19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_12.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 181293,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "0863107c973019bdec5312765303119c3d8b8f7be67682e55d9443b6dc92d4c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_13.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 182307,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "5b1014272759deabdf9eb2424ed4cb4a4b0edd4b1657a12d0e0aa41bdb34c62e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_14.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 183307,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "cb895c0d8e0930fe43f79ea3fbbdc05932e3e73508decc3aabe9650088d2f83e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_15.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 184347,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "11cf16e2d2c420ad2f50d40088cf0f91be24ba16687c9a86a0a7279d92fae70d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_00.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 185372,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "9f2ce4ab134fe5afd1f1fa5bd9dca09411612043ea995c45e9d120476bfad04b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_01.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 186397,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "5e058031b245a96915b47602a3e9fb4d0d38c5bc5dbf4d107f4b2dfc643a0bc4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_02.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 187422,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "7a9da25bc9881b0fedfaa10f89edd7e71d58afa698258d6006c4eb07d5cd3700",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_03.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 188422,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -11
+      ],
+      "sha256": "c1eea9f19713b97c338da22ad1cba0efaae4904c15e8f267d785a7875355c98f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_04.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 189436,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -13
+      ],
+      "sha256": "9e871a0ef86e100be4849b6a5a15cd9e78b55772eb052beff55419513db46337",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_05.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 190472,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -13
+      ],
+      "sha256": "ea66e7aa22f2faef0edc557f0ceb3af4bb21bea97d30213a2f0f569159f85d85",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_06.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 191471,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -13
+      ],
+      "sha256": "f735063f8f38bced2d39b0dcb235c720b6f59657a1dc464f33163e7961790eb9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_07.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 192507,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "66d50917a38cec631e343a7571266a8bcc4b087c02b0464f667c8e4871091ba9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_08.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 193617,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "984a9d667e1fe08dbec57685e2d8dd3abb01465dc581653ce0f7ae156116a306",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_09.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 194709,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -10
+      ],
+      "sha256": "0f875bd4cb84bb624e94f5c308501d74a5b0cb0156a5914815ecc07e55638942",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_10.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 195801,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "cbb04757d59ef5899997db64dd6802308d1b946e6658db58fe0cf6368aff56d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_11.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 196841,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "962113a6691ef083f6e478f3237a9144af0076a49ce3c31006ddbce30087e3b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_12.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 197841,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "8a5d512eb520d1bbac15342d9541345f67b78d4987503290d7016bdcf1dbdc42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_13.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 198841,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "486504bcafd187b10197b59be1242ccd49b1f602e491a6c40bd2b4b9dbb862d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_14.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 199866,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "abd2764e2ae0e2c0f21aac70ae0c327db1b154c6d8dc54e30e403f544576d5fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ene_15.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 200866,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "5b4a05c3bf964178ec95cd9aa139aa2d1410a352276b0d69ac64c88ad39372a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_00.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 201932,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "1b50449e3465c8d651e8a819bb94d4c9f2bb4efe307c7045096d40dd986681dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_01.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 203080,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "6004b606d3cad3c9f5dece92d69968de027ba103f95988c8a32bc483a4f2f9ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_02.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 204160,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "1e1d4b87ce539bb748bcb9e4ed0c6f56e82b81dff8c58a4f4313338eb13c4631",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_03.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 205200,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "7ead11e55f9e534ea14475a7e73a42cf5c268ded4d1bc72c7f86c7512a028a06",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_04.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 206240,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        71,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -11
+      ],
+      "sha256": "152c108b4c54e18aab4912ef4722d4ede16f9a99801c63c9b78939ea701809dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_05.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 207320,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -11
+      ],
+      "sha256": "db22c81dacd004a94ea8cb590bcd86177dc23cc9795e41415eb7e7e969a41d1b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_06.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 208373,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -11
+      ],
+      "sha256": "1afa907dd673d71cd0014684061d54b6992c2fb1e0601bdf246c9c4963a2c5d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_07.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 209426,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "4c9045af3085fb2f38e9bfbafab1312b387ef4dd5b87922e87d6549c7ce9f3d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_08.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 210557,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "dff72be26dc92d1d115696f8582452f518a7f08259972137defc65d777ae44dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_09.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 211637,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "d0ca463f240a2c85262a64c9e0d7faabc254750a50749227807dc2b676f1db0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_10.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 212717,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "4a30b829218a71ed82d22b4942a5c092318178f4c1b3117bfc4c2d25367e2a4a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_11.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 213783,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "4258bb24df68b9ef7e3402b34818754e5e6fbff606ce3941a08ae1462c50b2c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_12.png",
+      "width": 27,
+      "height": 42,
+      "texture_px": [
+        27,
+        42
+      ],
+      "offset": 214849,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        71,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "c194f3e8851a628301f20830139c80896cc34848317cc7a4b4d96d139efd7235",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_13.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 215983,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "17c156e3f8c403e776f74e3361d1540fb4730437dfbaf9099814228aadbf0f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_14.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 217090,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "692caf420a13f69407e7c9e6834f6752376042131ea9a513b944792fb7c6aebb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_15.png",
+      "width": 29,
+      "height": 41,
+      "texture_px": [
+        29,
+        41
+      ],
+      "offset": 218197,
+      "length": 1189,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "e6addb1c5381d132b2a2036d3ead63141a20824177066822be2ed8aee67541ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_00.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 219386,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "b6cf27d0cd2f9a018dc2e32e19afc22aeb1b008e6583ed7fdf32615599262f17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_01.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 220506,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "7ebdd3f1b1867a8fbe5a34f077f7fb2c6c212152ff033fd3dad7ad6bd2182f0b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_02.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 221626,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "0ce079e748f2e0d536361b563a9202450291ee6fd6415938a4cbc8cb6ffe145a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_03.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 222746,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "8db9620ae72640e9faf92b4d9e9dfd9800cdaca8220b475a98049b4a673a5ead",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_04.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 223786,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "c6e64c76e065fc029c446b9df4499d56178c124503f163cfd65fade3a721a571",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_05.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 224811,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -10
+      ],
+      "sha256": "be7c1433bf7706f59515085a17a0df4d094cf6f5b19c19daea7feb13c0c9af2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_06.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 225811,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        72,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -9
+      ],
+      "sha256": "c9e7078396671053a9fdff0a16187f1b7da7dc126b2bbda40d66630389ee2207",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_07.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 226771,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "4b53ff71bcc29f2ab68c98a5be73403329cf730f3502ef139e7b990c4dad8e3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_08.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 227771,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "6d8e3f024d508e6262c91a382e30765d9a7036f48ce884e6f3643cad59f0c075",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 228811,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "622d65fbfa8e54f6487ac89ff1cbe0fa62d4b52eea23f52a7525f09498663fae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_10.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 229851,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        72,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "30b9139406c211fe13134bee91c3f0238bcda7f47964b2aab30bbda9fc3f152a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_11.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 230835,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "a19bc6cf72c5ebccc54284894bf1c212c6601aab120ef130cf39726d019ca662",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_12.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 231942,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "1f4ceab2de220b4c49411301075d45870d5e1f4d9363c9bfb4d9f6a08f2181b1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_13.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 233090,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "5ac3552de143f449a9529ac159e419bf85802064d68f7f4a50324fa89c1501c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_14.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 234238,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "bbca68724a59e26a345e2e5e6c2e446ed5e5cd3ccb41b3af70e2e53432845d6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_15.png",
+      "width": 30,
+      "height": 40,
+      "texture_px": [
+        30,
+        40
+      ],
+      "offset": 235358,
+      "length": 1200,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "c4a4b9412ac1344a311e18826ced538c91d08c571a8abe4d1454c9b2a8a18e41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 236558,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        69,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "3db7b45e6fb300b5b305ddcec4fe666d1853c68d6651a4c7d75c09448de55b80",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_01.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 237622,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "7429dffa36f0d2a270a06fdc241ec61f9d62b73f5e20b913d744e8bdb551878d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_02.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 238658,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "eaae6a80da7f77daee844ac213387673f128f010b286c518228c058ab3dae9f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_03.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 239711,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "fcc6eef43ae566866baf331d0c81e334d3e3594d1c7844f8fc468d2efe8a1c92",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_04.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 240699,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "3e40506f2177915b417fce63df97af4dbbc51c49519a29e864e6b72c88bfb938",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_05.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 241713,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "baa0fa0b1b95e8e3af9b9f961d6d79eb07ccf232e6265f647ad59b2174c7f12e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_06.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 242701,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "cc33eb3715e8d627c7a548b4f3e7926323a80d3f91488f9dfd48ffcbde9202ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_07.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 243689,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "5888e0fa97565f68bc9d8007a2ea1dffe919b06331482c9075ff50540e203daa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_08.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 244715,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "b2069b33465f8bfc74fc677bae7110acc7a44fd198bc9428f763ab1a6521642e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_09.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 245768,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "8f7a0adda670685d12022ae22e8a1d312844a66ba430d63fcff24089ce1f85db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 246794,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "b8ef92701b0b1539b6f5787731a383778c308347404b92996f80bd38f5181b6d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 247808,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "85bef8614ae2740ddd1ca23ed3c1d3bc21529cb04036a15a3b91932888c6725d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_12.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 248861,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "7d38388db95a7f804115c9e4176fd79da75d9cdebaf667a7db2e1f9d1b23ed2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_13.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 249941,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "d1bd33d3bd7b298ab8aa9ab66f0126b3b14ab34e5bedcd4b1c3bd45b182952a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_14.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 251033,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        69,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "197d7fd18c42faac1e3c334e77478819c162ff2794fa193d0cfb95330cfbbca5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_15.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 252125,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "b289679cb3c91c321f2092877a6a45eacb4ba79d3fb4f87f52d97b742deb784d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_00.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 253198,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "282e73c961730a10f42b8d9cf6a88a5fbd85af82a494702ad873d49e04c06a05",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_01.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 254278,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "eb139839554421255c4356998d9e9f879482dc4e4d864ff0719de426e07c95bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_02.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 255358,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "a195abf86fef132fbac8c0e3d7a57e4ab4372ac8ab4a1f507fb41027eeab16f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_03.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 256408,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -9
+      ],
+      "sha256": "53acf958c2b48551d35747c67ed1086231862bdfd503e9fef1b0823d964ed2ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_04.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 257423,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        67,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -9
+      ],
+      "sha256": "8fbd58812c30a03e330699cd14e9cf6650134541ecf2f005d4f3cfb8c86facd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_05.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 258467,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "b87a813d187f69f149e49ac9222fc8230bc85bbd509135b1228baae8a5cb2f84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_06.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 259447,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "7179934fd5320f4035cca4e150c0ee0ab8f45c567e884cb0f29f09531b843fbe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_07.png",
+      "width": 28,
+      "height": 34,
+      "texture_px": [
+        28,
+        34
+      ],
+      "offset": 260427,
+      "length": 952,
+      "trim_origin_top_left_px": [
+        68,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "a19db4aeb0a00711be15e8d80533e35ef7cb5166d9f677dc20a0c301775d13d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_08.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 261379,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        68,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "2f918b92337344e6d141456460e772bacf63b7a644be5b08d1344138600c8c62",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_09.png",
+      "width": 28,
+      "height": 35,
+      "texture_px": [
+        28,
+        35
+      ],
+      "offset": 262359,
+      "length": 980,
+      "trim_origin_top_left_px": [
+        68,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "c18ce62a035089a0bd261344fc0a661452673ab2813f85ccc004c3e7c6b2a068",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_10.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 263339,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "64c58661211c7618d078592cb69fa67fdb09297d89e0a73708766094765065fd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 264347,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        68,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "9c67fb302812aeec29dc76a60e3bd4464b2851ad1d3304067fad04c12bd4efe0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_12.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 265355,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        67,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "4041f688c83a522680fa2be87ce70ec2efd91956a80796eec912798e969efab1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_13.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 266428,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "49c937c7668278898fe305c57a9099f4db2072a5d0ba4dca990104f7f3d275b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_14.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 267472,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "bb28c84132007aedb3c9426a349ab3d392318062641b7ded3e7857d62df0fd3e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_15.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 268552,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        67,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "487dee54e5dac53091f02a4c283aeffd3f2cecf9ba356adc8f705350f648c8a4",
+      "empty": false
+    }
+  ],
+  "source_authority": "RunOct10/Human_Run_Animated.blend"
+}

@@ -1,0 +1,4276 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanDashBow",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "349659eba60f3e743a07e9f71271f6a6e96ff88e531029f7d22da89c36ad7986",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_00.png",
+      "width": 5,
+      "height": 12,
+      "texture_px": [
+        5,
+        12
+      ],
+      "offset": 16,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        62,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "2126ddef55d5ba86789d28d1821accaecdc2ae946200240aa5e43e039b62cc21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_00.png",
+      "width": 15,
+      "height": 12,
+      "texture_px": [
+        15,
+        12
+      ],
+      "offset": 76,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        53,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -17
+      ],
+      "sha256": "0e6ef541d779be06e53bc908268d9b404b442c5330dee6e47e5436007d72f60a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_00.png",
+      "width": 20,
+      "height": 11,
+      "texture_px": [
+        20,
+        11
+      ],
+      "offset": 256,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        48,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -23
+      ],
+      "sha256": "bed9b0527629abb16e92d4973b839f81f97140f2d2da8cc2e202a7554dca858a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_00.png",
+      "width": 25,
+      "height": 14,
+      "texture_px": [
+        25,
+        14
+      ],
+      "offset": 476,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        47,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -27
+      ],
+      "sha256": "75b78f3b03a0606a0f234f64fbf969156e633e28ff5f124bca75f36a30e69c3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_00.png",
+      "width": 43,
+      "height": 34,
+      "texture_px": [
+        43,
+        34
+      ],
+      "offset": 826,
+      "length": 1462,
+      "trim_origin_top_left_px": [
+        50,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -17
+      ],
+      "sha256": "f00c1ebce82fba105a9a86005eeed5d24388b1c270d7e8e62f7a6f8c49564f3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_00.png",
+      "width": 39,
+      "height": 45,
+      "texture_px": [
+        39,
+        45
+      ],
+      "offset": 2288,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -13
+      ],
+      "sha256": "6efb3f826be87b2753da9834f3e8ef512a490454066052011e5e6fcdc94da7f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_00.png",
+      "width": 30,
+      "height": 55,
+      "texture_px": [
+        30,
+        55
+      ],
+      "offset": 4043,
+      "length": 1650,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "d98155e8ccbc7b8374fa1b468b19775bad931b1cbc38c03a37d75ccf213ceee3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_00.png",
+      "width": 17,
+      "height": 62,
+      "texture_px": [
+        17,
+        62
+      ],
+      "offset": 5693,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        84,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -1
+      ],
+      "sha256": "50f67c10df8b0a162d4102544d572863e0d0a5e674b3a8333e04a8d11d226874",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_00.png",
+      "width": 5,
+      "height": 64,
+      "texture_px": [
+        5,
+        64
+      ],
+      "offset": 6747,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        93,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        4
+      ],
+      "sha256": "f25725f04c6aadc1d3d9bde4953812fd9a514846c613d80dd4ed3ebf3cc4452c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_00.png",
+      "width": 17,
+      "height": 62,
+      "texture_px": [
+        17,
+        62
+      ],
+      "offset": 7067,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        90,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        8
+      ],
+      "sha256": "b192eb426ac05af2214de6597233b0f50c76d1fef847c6d2dce6c56a71bc7e10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_00.png",
+      "width": 30,
+      "height": 56,
+      "texture_px": [
+        30,
+        56
+      ],
+      "offset": 8121,
+      "length": 1680,
+      "trim_origin_top_left_px": [
+        83,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        11
+      ],
+      "sha256": "6de60a6581e55deddc270c1832b58f5fff38da169c1a21e57037957c62a0f820",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_00.png",
+      "width": 39,
+      "height": 45,
+      "texture_px": [
+        39,
+        45
+      ],
+      "offset": 9801,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        75,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        10
+      ],
+      "sha256": "9291b1070c44052a53db21182b2fcd26b1bb8ced10bd2421666b63e9b881738f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_00.png",
+      "width": 41,
+      "height": 33,
+      "texture_px": [
+        41,
+        33
+      ],
+      "offset": 11556,
+      "length": 1353,
+      "trim_origin_top_left_px": [
+        68,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        8
+      ],
+      "sha256": "290d0f0edf437573c20a0dfb2f03701f7f4e3cc7e894baf07ead5707cdba38e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_00.png",
+      "width": 38,
+      "height": 24,
+      "texture_px": [
+        38,
+        24
+      ],
+      "offset": 12909,
+      "length": 912,
+      "trim_origin_top_left_px": [
+        62,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        4
+      ],
+      "sha256": "a8212cf0811555729d181ad09d5eeaf8a51180a8d0eb836dc20d10ccacdaa7a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_00.png",
+      "width": 30,
+      "height": 17,
+      "texture_px": [
+        30,
+        17
+      ],
+      "offset": 13821,
+      "length": 510,
+      "trim_origin_top_left_px": [
+        59,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -2
+      ],
+      "sha256": "415de59ab03a48ec1bf1acf6be4a484365b6425acedff5dd084cc20700ef0102",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_00.png",
+      "width": 16,
+      "height": 13,
+      "texture_px": [
+        16,
+        13
+      ],
+      "offset": 14331,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        60,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -8
+      ],
+      "sha256": "2fd22bb73e7361a5ce16873320ee814e334d211124636b31c0cb3d63659b3e33",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_01.png",
+      "width": 11,
+      "height": 12,
+      "texture_px": [
+        11,
+        12
+      ],
+      "offset": 14539,
+      "length": 132,
+      "trim_origin_top_left_px": [
+        58,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -13
+      ],
+      "sha256": "d4f1655c9f9b76fad6be21cac9a27ff9ef7e9cd109241e709db0a906636af59f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_01.png",
+      "width": 19,
+      "height": 12,
+      "texture_px": [
+        19,
+        12
+      ],
+      "offset": 14671,
+      "length": 228,
+      "trim_origin_top_left_px": [
+        49,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        31,
+        -18
+      ],
+      "sha256": "d166cb9e16432f78708315c716230a5afae9a954ac012e0bb52100771d64dc1c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_01.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 14899,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        45,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -23
+      ],
+      "sha256": "2ec2790c06aef2e5f50436d940b42b65ecb85bbf68f086709316aa0f4f67e309",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_01.png",
+      "width": 43,
+      "height": 29,
+      "texture_px": [
+        43,
+        29
+      ],
+      "offset": 15224,
+      "length": 1247,
+      "trim_origin_top_left_px": [
+        45,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -16
+      ],
+      "sha256": "acd2a439e9c0ec3da5c50438e504f2cfe4239e8763a8ed2d026f76f44330f586",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_01.png",
+      "width": 41,
+      "height": 41,
+      "texture_px": [
+        41,
+        41
+      ],
+      "offset": 16471,
+      "length": 1681,
+      "trim_origin_top_left_px": [
+        52,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -13
+      ],
+      "sha256": "ed0e0a8b25b7a5589a9d78b72456a203d4c5d2eaf58f7b21968e80607dfa8353",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_01.png",
+      "width": 34,
+      "height": 53,
+      "texture_px": [
+        34,
+        53
+      ],
+      "offset": 18152,
+      "length": 1802,
+      "trim_origin_top_left_px": [
+        62,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "907d3dd52362e67478d09a32387fffad0658cd04c449e674cd9f7f57963b12d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_01.png",
+      "width": 22,
+      "height": 60,
+      "texture_px": [
+        22,
+        60
+      ],
+      "offset": 19954,
+      "length": 1320,
+      "trim_origin_top_left_px": [
+        75,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -4
+      ],
+      "sha256": "013e4926106442dfd397ad9dc7f1ae12d3eeffb41b6c46097f8dff3e46300811",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_01.png",
+      "width": 7,
+      "height": 64,
+      "texture_px": [
+        7,
+        64
+      ],
+      "offset": 21274,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        88,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        1
+      ],
+      "sha256": "8bc991f08ef00a6fff0aa5330cb614c083d27fc19f09b25620617f9126f96c76",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_01.png",
+      "width": 12,
+      "height": 63,
+      "texture_px": [
+        12,
+        63
+      ],
+      "offset": 21722,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        90,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        4
+      ],
+      "sha256": "89322578580ccbc1f7fd33fe4492b4c6e2c3ea371a76b04aa10cece6cfdd12a3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_01.png",
+      "width": 26,
+      "height": 59,
+      "texture_px": [
+        26,
+        59
+      ],
+      "offset": 22478,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        85,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        7
+      ],
+      "sha256": "af143cc2d3928f96c0aedefc6f5de18a429563580c8cf657c825c181bcade098",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_01.png",
+      "width": 38,
+      "height": 49,
+      "texture_px": [
+        38,
+        49
+      ],
+      "offset": 24012,
+      "length": 1862,
+      "trim_origin_top_left_px": [
+        78,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        7
+      ],
+      "sha256": "357ee8d021d4e58c1ebce485d1de982bf7c3c71cd2668d9c0ea719e7841440ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_01.png",
+      "width": 43,
+      "height": 38,
+      "texture_px": [
+        43,
+        38
+      ],
+      "offset": 25874,
+      "length": 1634,
+      "trim_origin_top_left_px": [
+        72,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        6
+      ],
+      "sha256": "6b8fb43fde836ea0d81c1865cc9d07b6a08826d2217d4e5c2eed96054275719f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_01.png",
+      "width": 42,
+      "height": 25,
+      "texture_px": [
+        42,
+        25
+      ],
+      "offset": 27508,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        67,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        3
+      ],
+      "sha256": "7f0685dd5e73529c644f3d2fea85ab1881e267cbb431cb0ad35cd6803e4bb99b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_01.png",
+      "width": 34,
+      "height": 17,
+      "texture_px": [
+        34,
+        17
+      ],
+      "offset": 28558,
+      "length": 578,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -1
+      ],
+      "sha256": "82fab18884af6a0d06d6fd1b1dd1bb0b89c49119b51810cb635b5f8411751c31",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_01.png",
+      "width": 22,
+      "height": 13,
+      "texture_px": [
+        22,
+        13
+      ],
+      "offset": 29136,
+      "length": 286,
+      "trim_origin_top_left_px": [
+        63,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -5
+      ],
+      "sha256": "314a0f8161f5717f0b0a18909e0d2f47f95ae470267b838c1594372e1dc34f66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_01.png",
+      "width": 7,
+      "height": 11,
+      "texture_px": [
+        7,
+        11
+      ],
+      "offset": 29422,
+      "length": 77,
+      "trim_origin_top_left_px": [
+        65,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "e4e8f47f50a5f71dc0069b94e6cc40a8fcab97e2a2a4ed5083c3ce4a683f982d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_02.png",
+      "width": 24,
+      "height": 17,
+      "texture_px": [
+        24,
+        17
+      ],
+      "offset": 29499,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        45,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -12
+      ],
+      "sha256": "e616417a65a1ea7678a42dd0c8e75b2cb5428a76f82b5196dbcc3c0e256a5620",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_02.png",
+      "width": 50,
+      "height": 10,
+      "texture_px": [
+        50,
+        10
+      ],
+      "offset": 29907,
+      "length": 500,
+      "trim_origin_top_left_px": [
+        37,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        43,
+        -22
+      ],
+      "sha256": "08e541f22d990d82c107af0f2b9df28801ae045668b3c509729fe553b3739072",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_02.png",
+      "width": 57,
+      "height": 20,
+      "texture_px": [
+        57,
+        20
+      ],
+      "offset": 30407,
+      "length": 1140,
+      "trim_origin_top_left_px": [
+        36,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -19
+      ],
+      "sha256": "295fa6729fbdef49ec03e7d4e27e5507adde2ff31026d9b32b0ddb012ceb47e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_02.png",
+      "width": 55,
+      "height": 35,
+      "texture_px": [
+        55,
+        35
+      ],
+      "offset": 31547,
+      "length": 1925,
+      "trim_origin_top_left_px": [
+        41,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -14
+      ],
+      "sha256": "7441890c7765c947c917bbb8457015e0b7586e60d9cdce58d04e69fc58c86d58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_02.png",
+      "width": 44,
+      "height": 50,
+      "texture_px": [
+        44,
+        50
+      ],
+      "offset": 33472,
+      "length": 2200,
+      "trim_origin_top_left_px": [
+        52,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -9
+      ],
+      "sha256": "4bd65356d7f678ede8cd37b02f34390d399fa0baa11d03d807c97f2049422f94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_02.png",
+      "width": 25,
+      "height": 60,
+      "texture_px": [
+        25,
+        60
+      ],
+      "offset": 35672,
+      "length": 1500,
+      "trim_origin_top_left_px": [
+        68,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -5
+      ],
+      "sha256": "cac067fa63f41aae79bfb7cba108cfc4c09d8d069e46e0e7e1909e71daadd296",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_02.png",
+      "width": 6,
+      "height": 64,
+      "texture_px": [
+        6,
+        64
+      ],
+      "offset": 37172,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        85,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -2
+      ],
+      "sha256": "7f26678dff5988a88ad4d6c2d812372c056126620985a5410d3fa0d57244d01e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_02.png",
+      "width": 20,
+      "height": 60,
+      "texture_px": [
+        20,
+        60
+      ],
+      "offset": 37556,
+      "length": 1200,
+      "trim_origin_top_left_px": [
+        82,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -1
+      ],
+      "sha256": "fb74fffbe788a3aa86f7c82503cfa99a3c1610c45e8e74d3c186c498e9644b5a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_02.png",
+      "width": 39,
+      "height": 52,
+      "texture_px": [
+        39,
+        52
+      ],
+      "offset": 38756,
+      "length": 2028,
+      "trim_origin_top_left_px": [
+        76,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -1
+      ],
+      "sha256": "d5f5959c7581c9d87e51cf254a1f5faa1fa83a632cb6ad07f5e729e7f919eaf0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_02.png",
+      "width": 51,
+      "height": 38,
+      "texture_px": [
+        51,
+        38
+      ],
+      "offset": 40784,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        71,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -3
+      ],
+      "sha256": "1c518b40574b10c629b2d25b9d912e7d454c43844d48a390f395004fcf2b242e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_02.png",
+      "width": 58,
+      "height": 23,
+      "texture_px": [
+        58,
+        23
+      ],
+      "offset": 42722,
+      "length": 1334,
+      "trim_origin_top_left_px": [
+        66,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -6
+      ],
+      "sha256": "620cc1d43f76fc3dbe7b28c54ed889b8461f47d0739df7728d453d042c412c5d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_02.png",
+      "width": 54,
+      "height": 9,
+      "texture_px": [
+        54,
+        9
+      ],
+      "offset": 44056,
+      "length": 486,
+      "trim_origin_top_left_px": [
+        64,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "a2e03b6e92cd380f29473c8a17b30f23ded618ec6398bfbe1166d0ae90b32d5e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_02.png",
+      "width": 43,
+      "height": 12,
+      "texture_px": [
+        43,
+        12
+      ],
+      "offset": 44542,
+      "length": 516,
+      "trim_origin_top_left_px": [
+        64,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -6
+      ],
+      "sha256": "c86c447952ce3d7267a1cfd05bcff5d2c531f53cdbaf2da55986bcef0661950f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_02.png",
+      "width": 19,
+      "height": 18,
+      "texture_px": [
+        19,
+        18
+      ],
+      "offset": 45058,
+      "length": 342,
+      "trim_origin_top_left_px": [
+        73,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        0
+      ],
+      "sha256": "20ba498b7a2f7eb8c061e9c4bb344fdcc7837ce132e4755f74fc18d7ee148581",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_02.png",
+      "width": 6,
+      "height": 23,
+      "texture_px": [
+        6,
+        23
+      ],
+      "offset": 45400,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        69,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        1
+      ],
+      "sha256": "2bb1267050d8b1a5cb834867d485908932f1740e69734da674d15799e4e57ed8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_02.png",
+      "width": 11,
+      "height": 21,
+      "texture_px": [
+        11,
+        21
+      ],
+      "offset": 45538,
+      "length": 231,
+      "trim_origin_top_left_px": [
+        58,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        -3
+      ],
+      "sha256": "d3fb2c4734cdf2bb1ee231ef7397f92dee96642135314651fc19ea0936d8ebe1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_03.png",
+      "width": 50,
+      "height": 21,
+      "texture_px": [
+        50,
+        21
+      ],
+      "offset": 45769,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        39,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -10
+      ],
+      "sha256": "ce9b042c9198c1a3ea49f704030831cf698f5d5fc7f5ead1d4b7563a13f38408",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_03.png",
+      "width": 54,
+      "height": 11,
+      "texture_px": [
+        54,
+        11
+      ],
+      "offset": 46819,
+      "length": 594,
+      "trim_origin_top_left_px": [
+        33,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -23
+      ],
+      "sha256": "cb6a4cc2c9f3ca1a20dc784853371ca937f8e7ac1e040116d0b259b28f699fc2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_03.png",
+      "width": 63,
+      "height": 19,
+      "texture_px": [
+        63,
+        19
+      ],
+      "offset": 47413,
+      "length": 1197,
+      "trim_origin_top_left_px": [
+        34,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -22
+      ],
+      "sha256": "06a449dc3089942963ff425b32d5552b88789555872540d365f172a0735a13b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_03.png",
+      "width": 56,
+      "height": 34,
+      "texture_px": [
+        56,
+        34
+      ],
+      "offset": 48610,
+      "length": 1904,
+      "trim_origin_top_left_px": [
+        42,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -16
+      ],
+      "sha256": "8ff69b5855d6ac953e76d757293cd1c6dd6b027e335464e8c4eb5aa742af232c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_03.png",
+      "width": 40,
+      "height": 48,
+      "texture_px": [
+        40,
+        48
+      ],
+      "offset": 50514,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        56,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -11
+      ],
+      "sha256": "f8a18001234f96d70ed1ca18d49bea573e3efed60fe00a1a98367e7a8dd0f616",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_03.png",
+      "width": 19,
+      "height": 56,
+      "texture_px": [
+        19,
+        56
+      ],
+      "offset": 52434,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        73,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -8
+      ],
+      "sha256": "ed88ef6fb00fe31db81ea1259255fbec859a22874f9512466f6ec1c2d6496834",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_03.png",
+      "width": 9,
+      "height": 55,
+      "texture_px": [
+        9,
+        55
+      ],
+      "offset": 53498,
+      "length": 495,
+      "trim_origin_top_left_px": [
+        84,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -7
+      ],
+      "sha256": "dd13a2c641aa1ff6fdc56655b4532437a526b1ade05b4d9bc3f5c6c087e4f877",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_03.png",
+      "width": 31,
+      "height": 52,
+      "texture_px": [
+        31,
+        52
+      ],
+      "offset": 53993,
+      "length": 1612,
+      "trim_origin_top_left_px": [
+        78,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -5
+      ],
+      "sha256": "61692572f08d91d176d8c337cb3b8194737ac17f1668c09c6592237170e0ac6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_03.png",
+      "width": 50,
+      "height": 41,
+      "texture_px": [
+        50,
+        41
+      ],
+      "offset": 55605,
+      "length": 2050,
+      "trim_origin_top_left_px": [
+        71,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -6
+      ],
+      "sha256": "292e91bee64a88f2b0f467bf3ba181d8a4adaa3a5ab87a0cf61b0ba3a162ace2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_03.png",
+      "width": 61,
+      "height": 24,
+      "texture_px": [
+        61,
+        24
+      ],
+      "offset": 57655,
+      "length": 1464,
+      "trim_origin_top_left_px": [
+        66,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -10
+      ],
+      "sha256": "4ab70273ec4ec22c0710cd790e325240ebcd47f18884e66b6e1381ea4f9fc12a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_03.png",
+      "width": 63,
+      "height": 8,
+      "texture_px": [
+        63,
+        8
+      ],
+      "offset": 59119,
+      "length": 504,
+      "trim_origin_top_left_px": [
+        63,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -14
+      ],
+      "sha256": "95ce7cde98c05b5e7562d0a1055b49f9998dbef2e2b59b0d1aef5d0c3ef1d341",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_03.png",
+      "width": 56,
+      "height": 14,
+      "texture_px": [
+        56,
+        14
+      ],
+      "offset": 59623,
+      "length": 784,
+      "trim_origin_top_left_px": [
+        62,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -7
+      ],
+      "sha256": "a8bc64cbc12481a704ef273ba0021409227e183e3e413ab7525512e6bf000aaf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_03.png",
+      "width": 40,
+      "height": 27,
+      "texture_px": [
+        40,
+        27
+      ],
+      "offset": 60407,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        2
+      ],
+      "sha256": "f6a8269ea98eb7e0f5efc13930b7faf0f839ea4d1c3c0a0f9ce31e941f43eda6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_03.png",
+      "width": 18,
+      "height": 36,
+      "texture_px": [
+        18,
+        36
+      ],
+      "offset": 61487,
+      "length": 648,
+      "trim_origin_top_left_px": [
+        69,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        7
+      ],
+      "sha256": "4ad86904bcd823ff1b1a6fe32b5b3fd4789a16eee1cfca3ff7c6af0d41f0b863",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_03.png",
+      "width": 6,
+      "height": 32,
+      "texture_px": [
+        6,
+        32
+      ],
+      "offset": 62135,
+      "length": 192,
+      "trim_origin_top_left_px": [
+        67,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        6
+      ],
+      "sha256": "530259bd4895789529446776c7e445b6939a61fc4dc0a64bb1bca4215720defa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_03.png",
+      "width": 19,
+      "height": 28,
+      "texture_px": [
+        19,
+        28
+      ],
+      "offset": 62327,
+      "length": 532,
+      "trim_origin_top_left_px": [
+        51,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        0
+      ],
+      "sha256": "6a8ff98940033d1c13ff6881214d0313ce9b0121cce444be58d33cc754cdc4c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_04.png",
+      "width": 59,
+      "height": 12,
+      "texture_px": [
+        59,
+        12
+      ],
+      "offset": 62859,
+      "length": 708,
+      "trim_origin_top_left_px": [
+        32,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -15
+      ],
+      "sha256": "fa29dd5df362eb1c60339cb2436ad6a3eed73c36e0f44ad675e6ffe9937a2792",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_04.png",
+      "width": 59,
+      "height": 23,
+      "texture_px": [
+        59,
+        23
+      ],
+      "offset": 63567,
+      "length": 1357,
+      "trim_origin_top_left_px": [
+        29,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -13
+      ],
+      "sha256": "69287a03d58fb529cd63577f8ca850173106bfae33f6389271ca1b03b55b08bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_04.png",
+      "width": 53,
+      "height": 39,
+      "texture_px": [
+        53,
+        39
+      ],
+      "offset": 64924,
+      "length": 2067,
+      "trim_origin_top_left_px": [
+        33,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        47,
+        -10
+      ],
+      "sha256": "323cebab2221fb8ccbf1ff8ce082bc6891406db909081a8a091e04abea0d9757",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_04.png",
+      "width": 37,
+      "height": 51,
+      "texture_px": [
+        37,
+        51
+      ],
+      "offset": 66991,
+      "length": 1887,
+      "trim_origin_top_left_px": [
+        45,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -10
+      ],
+      "sha256": "77f0507d6351b322f8f653a5649fe6b9e5537b83213e1e11eabe6cb1ba2c0621",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_04.png",
+      "width": 16,
+      "height": 60,
+      "texture_px": [
+        16,
+        60
+      ],
+      "offset": 68878,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        62,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "6cfe7f4c321cc0479d78232816ce9c1b6602615ae90d5c9cf5303bf93ee324c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_04.png",
+      "width": 12,
+      "height": 60,
+      "texture_px": [
+        12,
+        60
+      ],
+      "offset": 69838,
+      "length": 720,
+      "trim_origin_top_left_px": [
+        72,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -11
+      ],
+      "sha256": "8bef03b2e7e73af50b4bc3404a583419622ada7139fc358b8e224d9b88418d87",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_04.png",
+      "width": 32,
+      "height": 54,
+      "texture_px": [
+        32,
+        54
+      ],
+      "offset": 70558,
+      "length": 1728,
+      "trim_origin_top_left_px": [
+        69,
+        33
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -13
+      ],
+      "sha256": "25ff88eb403072cd67c38c4bda0956a04225e3108d109d8deda3f566e560916d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_04.png",
+      "width": 49,
+      "height": 42,
+      "texture_px": [
+        49,
+        42
+      ],
+      "offset": 72286,
+      "length": 2058,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -17
+      ],
+      "sha256": "2f4fcba81f19980160b9dc862be833a150a363dcb8304ab95c7e07dce40253c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_04.png",
+      "width": 59,
+      "height": 26,
+      "texture_px": [
+        59,
+        26
+      ],
+      "offset": 74344,
+      "length": 1534,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -20
+      ],
+      "sha256": "490b6f2e9158346fb612c48701d992a8a48e5fe5c27bacf07f9a8477c464deda",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_04.png",
+      "width": 61,
+      "height": 9,
+      "texture_px": [
+        61,
+        9
+      ],
+      "offset": 75878,
+      "length": 549,
+      "trim_origin_top_left_px": [
+        70,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -23
+      ],
+      "sha256": "28238b67b8e97172a6ccd7cd3650b49d2f456a844fa07c4a93a4f1dccbddde00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_04.png",
+      "width": 52,
+      "height": 11,
+      "texture_px": [
+        52,
+        11
+      ],
+      "offset": 76427,
+      "length": 572,
+      "trim_origin_top_left_px": [
+        74,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -16
+      ],
+      "sha256": "d388b6e10cac58a7f58184953519d636ccf9363ae10f2d5e47264cabbc6b21a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_04.png",
+      "width": 25,
+      "height": 17,
+      "texture_px": [
+        25,
+        17
+      ],
+      "offset": 76999,
+      "length": 425,
+      "trim_origin_top_left_px": [
+        90,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -4
+      ],
+      "sha256": "dc4e7fc8cef6d329792c79bef87b2c95138a2bccfe46a3bf00de6947b3e4f7cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_04.png",
+      "width": 15,
+      "height": 24,
+      "texture_px": [
+        15,
+        24
+      ],
+      "offset": 77424,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        83,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        3
+      ],
+      "sha256": "6fdc2f1eb6f1dd4271c61e5ee173047ebcc0460cf0efd787553d03230eb3365a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_04.png",
+      "width": 12,
+      "height": 31,
+      "texture_px": [
+        12,
+        31
+      ],
+      "offset": 77784,
+      "length": 372,
+      "trim_origin_top_left_px": [
+        76,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        6
+      ],
+      "sha256": "11ffd3b574436b1f00c84962935d27407ff25023b674cef923b567767a341ce9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_04.png",
+      "width": 31,
+      "height": 26,
+      "texture_px": [
+        31,
+        26
+      ],
+      "offset": 78156,
+      "length": 806,
+      "trim_origin_top_left_px": [
+        59,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        2
+      ],
+      "sha256": "ba779669d895e2858f44091db1b8bf12a0420fa4ff36ecc95a8721da47dbcdd3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_04.png",
+      "width": 48,
+      "height": 18,
+      "texture_px": [
+        48,
+        18
+      ],
+      "offset": 78962,
+      "length": 864,
+      "trim_origin_top_left_px": [
+        43,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        -6
+      ],
+      "sha256": "ec6fdc655fa0596f7363f0f5caa46460b07bc955245be855486b493896045e55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_05.png",
+      "width": 56,
+      "height": 30,
+      "texture_px": [
+        56,
+        30
+      ],
+      "offset": 79826,
+      "length": 1680,
+      "trim_origin_top_left_px": [
+        32,
+        69
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        -1
+      ],
+      "sha256": "03ca27d5e87709c6ae22c94db631b4851daf20860a20daf2833a3dc24f5d17b9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_05.png",
+      "width": 48,
+      "height": 45,
+      "texture_px": [
+        48,
+        45
+      ],
+      "offset": 81506,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        30,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        0
+      ],
+      "sha256": "7d618d78492b26ac7eb1bc9a07e8b08608d6d42a772b28ad456079d7ff75dcb7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_05.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 83666,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        36,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -3
+      ],
+      "sha256": "31678b5d71d9dc34ad6529d4bdbc588ce344bab2a975576342e7fe55699910ab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_05.png",
+      "width": 17,
+      "height": 61,
+      "texture_px": [
+        17,
+        61
+      ],
+      "offset": 85481,
+      "length": 1037,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -8
+      ],
+      "sha256": "7240062d085985d78bee377e48caefa26e3e7396f4a36a2c7b3e5908b924230d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_05.png",
+      "width": 15,
+      "height": 63,
+      "texture_px": [
+        15,
+        63
+      ],
+      "offset": 86518,
+      "length": 945,
+      "trim_origin_top_left_px": [
+        55,
+        23
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -14
+      ],
+      "sha256": "dab4808e9e3f50e5acb1629bb8e5621a475115b57f292e5e25fdfe41cd7f904d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_05.png",
+      "width": 30,
+      "height": 58,
+      "texture_px": [
+        30,
+        58
+      ],
+      "offset": 87463,
+      "length": 1740,
+      "trim_origin_top_left_px": [
+        54,
+        21
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -21
+      ],
+      "sha256": "aaf6c76f9be039abb619e2862e1241426ad88898f85ca7ebadc303a5b06ce692",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_05.png",
+      "width": 47,
+      "height": 47,
+      "texture_px": [
+        47,
+        47
+      ],
+      "offset": 89203,
+      "length": 2209,
+      "trim_origin_top_left_px": [
+        56,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -28
+      ],
+      "sha256": "d941da88a23fb11d7c556ce04f26e13313febadb06403ad0319805d454182f6e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_05.png",
+      "width": 34,
+      "height": 21,
+      "texture_px": [
+        34,
+        21
+      ],
+      "offset": 91412,
+      "length": 714,
+      "trim_origin_top_left_px": [
+        84,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -45
+      ],
+      "sha256": "1dc3051765941bdce1780ea2ffe63cfe2f26ce22df0184328e9ff36bd2472365",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_05.png",
+      "width": 34,
+      "height": 13,
+      "texture_px": [
+        34,
+        13
+      ],
+      "offset": 92126,
+      "length": 442,
+      "trim_origin_top_left_px": [
+        93,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        -40
+      ],
+      "sha256": "dc453b757e7fcb74f16e9dc9ffb6d90dd319b966d76cd8a19b752996a881ed86",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_05.png",
+      "width": 35,
+      "height": 6,
+      "texture_px": [
+        35,
+        6
+      ],
+      "offset": 92568,
+      "length": 210,
+      "trim_origin_top_left_px": [
+        95,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -34
+      ],
+      "sha256": "eed815865c6747d82478f27c393f721206b35fa8eca6bea8550936dc73f24240",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_05.png",
+      "width": 30,
+      "height": 13,
+      "texture_px": [
+        30,
+        13
+      ],
+      "offset": 92778,
+      "length": 390,
+      "trim_origin_top_left_px": [
+        94,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -24
+      ],
+      "sha256": "a66d677109f272b9237ae23b92cf551a3158443b4261a51d55b13ed58f9ff745",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_05.png",
+      "width": 17,
+      "height": 19,
+      "texture_px": [
+        17,
+        19
+      ],
+      "offset": 93168,
+      "length": 323,
+      "trim_origin_top_left_px": [
+        95,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -13
+      ],
+      "sha256": "8be29d53a338206853067941a13da591dc416e6918cd5907e549629958eacac5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_05.png",
+      "width": 15,
+      "height": 20,
+      "texture_px": [
+        15,
+        20
+      ],
+      "offset": 93491,
+      "length": 300,
+      "trim_origin_top_left_px": [
+        90,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -6
+      ],
+      "sha256": "8d75b0960ceaa365e2efc0e85e0ce847ecf283ee6843138a2062a6054bb44daf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_05.png",
+      "width": 29,
+      "height": 16,
+      "texture_px": [
+        29,
+        16
+      ],
+      "offset": 93791,
+      "length": 464,
+      "trim_origin_top_left_px": [
+        76,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -4
+      ],
+      "sha256": "3ef87768435b398e6e11cbf6dcfdae89da3aadf6135197009c41187bc640e80a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_05.png",
+      "width": 46,
+      "height": 10,
+      "texture_px": [
+        46,
+        10
+      ],
+      "offset": 94255,
+      "length": 460,
+      "trim_origin_top_left_px": [
+        57,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -8
+      ],
+      "sha256": "804c7039e9e374ea37d26f6e9aa77dc92ea2ef337a574153c40bf268387fd441",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_05.png",
+      "width": 55,
+      "height": 17,
+      "texture_px": [
+        55,
+        17
+      ],
+      "offset": 94715,
+      "length": 935,
+      "trim_origin_top_left_px": [
+        42,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -5
+      ],
+      "sha256": "5d576dd35146d314e53f48b07d7e211c78beb10fb0a6aeb707702981c3d42b01",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_06.png",
+      "width": 55,
+      "height": 34,
+      "texture_px": [
+        55,
+        34
+      ],
+      "offset": 95650,
+      "length": 1870,
+      "trim_origin_top_left_px": [
+        32,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        48,
+        2
+      ],
+      "sha256": "701c37313e07a2ebe0a9ede4aaa649f48666a91194a63747f1913e1dcd58a10a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_06.png",
+      "width": 44,
+      "height": 48,
+      "texture_px": [
+        44,
+        48
+      ],
+      "offset": 97520,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        30,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        2
+      ],
+      "sha256": "f2376845396c048f894612aaa726fc2b06671f8f96263b0375745c590479a469",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_06.png",
+      "width": 27,
+      "height": 57,
+      "texture_px": [
+        27,
+        57
+      ],
+      "offset": 99632,
+      "length": 1539,
+      "trim_origin_top_left_px": [
+        36,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        44,
+        -2
+      ],
+      "sha256": "c7c3522e1f5ff54fa0f64097550dce41002a6f6d531c751624951630bc11d346",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_06.png",
+      "width": 12,
+      "height": 62,
+      "texture_px": [
+        12,
+        62
+      ],
+      "offset": 101171,
+      "length": 744,
+      "trim_origin_top_left_px": [
+        48,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -9
+      ],
+      "sha256": "95e3d796eab1ab7a0ffd542063751f94b2dde0f01756fdd009f0b4f8e9219a3c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_06.png",
+      "width": 22,
+      "height": 61,
+      "texture_px": [
+        22,
+        61
+      ],
+      "offset": 101915,
+      "length": 1342,
+      "trim_origin_top_left_px": [
+        47,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -17
+      ],
+      "sha256": "d32790aad34a7b3ffe2b1323a921192ba8155040f9e2ad665990f869f37735d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_06.png",
+      "width": 38,
+      "height": 54,
+      "texture_px": [
+        38,
+        54
+      ],
+      "offset": 103257,
+      "length": 2052,
+      "trim_origin_top_left_px": [
+        47,
+        20
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -26
+      ],
+      "sha256": "fed58af33ee581b4a3a6a22bf2c25bcd20b7a101b5614adfcdaadeba6bd40cd8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_06.png",
+      "width": 52,
+      "height": 41,
+      "texture_px": [
+        52,
+        41
+      ],
+      "offset": 105309,
+      "length": 2132,
+      "trim_origin_top_left_px": [
+        52,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -35
+      ],
+      "sha256": "b287f4f66f9606f28e336dee4d52bfc495475d22563215d414ee52ef886ee192",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_06.png",
+      "width": 57,
+      "height": 24,
+      "texture_px": [
+        57,
+        24
+      ],
+      "offset": 107441,
+      "length": 1368,
+      "trim_origin_top_left_px": [
+        61,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -42
+      ],
+      "sha256": "20531f5d86442fcf3f93e99d7ae055935b5a273d604c059485255f85c2fd8066",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_06.png",
+      "width": 54,
+      "height": 9,
+      "texture_px": [
+        54,
+        9
+      ],
+      "offset": 108809,
+      "length": 486,
+      "trim_origin_top_left_px": [
+        73,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        7,
+        -44
+      ],
+      "sha256": "9216ca3f81aaa3294a554e080fdf14c492f40a5397937ccd7cb8970f3402b41e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_06.png",
+      "width": 43,
+      "height": 11,
+      "texture_px": [
+        43,
+        11
+      ],
+      "offset": 109295,
+      "length": 473,
+      "trim_origin_top_left_px": [
+        87,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -36
+      ],
+      "sha256": "bafb53a83dd4b61eed29ddf1ef358134a7a8ff13b019ad1128954169e7ddba3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_06.png",
+      "width": 27,
+      "height": 19,
+      "texture_px": [
+        27,
+        19
+      ],
+      "offset": 109768,
+      "length": 513,
+      "trim_origin_top_left_px": [
+        97,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -17,
+        -24
+      ],
+      "sha256": "60012316c1f3e66086b331a2ab1c48e43d1870e7620539f1bc224dcb194ddbd5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_06.png",
+      "width": 12,
+      "height": 23,
+      "texture_px": [
+        12,
+        23
+      ],
+      "offset": 110281,
+      "length": 276,
+      "trim_origin_top_left_px": [
+        100,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -20,
+        -13
+      ],
+      "sha256": "f5277b75d92e7d3e8aabc3e36613b44b5698b1b2aae02a55a22247234f5bb183",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_06.png",
+      "width": 21,
+      "height": 22,
+      "texture_px": [
+        21,
+        22
+      ],
+      "offset": 110557,
+      "length": 462,
+      "trim_origin_top_left_px": [
+        91,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -6
+      ],
+      "sha256": "d0ea20bba80b81b4915dd4645fb9816c8d5d000df45ea21f81834976c1e50c33",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_06.png",
+      "width": 38,
+      "height": 14,
+      "texture_px": [
+        38,
+        14
+      ],
+      "offset": 111019,
+      "length": 532,
+      "trim_origin_top_left_px": [
+        75,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -5
+      ],
+      "sha256": "d578b3c98f60425be69a78b94f668069cd49f0c50ed657894d9ec9fc4ad24b81",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_06.png",
+      "width": 51,
+      "height": 9,
+      "texture_px": [
+        51,
+        9
+      ],
+      "offset": 111551,
+      "length": 459,
+      "trim_origin_top_left_px": [
+        57,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        -8
+      ],
+      "sha256": "57bfba0b69ef0aaf1a4aadde49b0af358bba0343c19fb5f1c60ebd9a7debce99",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_06.png",
+      "width": 58,
+      "height": 20,
+      "texture_px": [
+        58,
+        20
+      ],
+      "offset": 112010,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        41,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -1
+      ],
+      "sha256": "223243179ca1e790468b28e8c44c88b32f5d0401e6e5fcb354dec2eb35261094",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_07.png",
+      "width": 57,
+      "height": 29,
+      "texture_px": [
+        57,
+        29
+      ],
+      "offset": 113170,
+      "length": 1653,
+      "trim_origin_top_left_px": [
+        31,
+        70
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        49,
+        -1
+      ],
+      "sha256": "da2e1987d8c7255830f363c315c1b116b4f8115128c9200d15cec43ca4252b4a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_07.png",
+      "width": 48,
+      "height": 43,
+      "texture_px": [
+        48,
+        43
+      ],
+      "offset": 114823,
+      "length": 2064,
+      "trim_origin_top_left_px": [
+        29,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        51,
+        -1
+      ],
+      "sha256": "52ce9e75cbcdea76ef5228ba6be48bc7542e80624dbde12ab14710ec6ed1791e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_07.png",
+      "width": 33,
+      "height": 55,
+      "texture_px": [
+        33,
+        55
+      ],
+      "offset": 116887,
+      "length": 1815,
+      "trim_origin_top_left_px": [
+        35,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        45,
+        -3
+      ],
+      "sha256": "4127ae08c51d6758a03b64c9761a9e7b52c62d199c1c680e593e12202861cfce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_07.png",
+      "width": 16,
+      "height": 61,
+      "texture_px": [
+        16,
+        61
+      ],
+      "offset": 118702,
+      "length": 976,
+      "trim_origin_top_left_px": [
+        48,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -8
+      ],
+      "sha256": "ea1e2825833c5159f72d3fea2d2f5dd107d0e3a7431a1c1fd828b8e6c0613b8a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_07.png",
+      "width": 16,
+      "height": 61,
+      "texture_px": [
+        16,
+        61
+      ],
+      "offset": 119678,
+      "length": 976,
+      "trim_origin_top_left_px": [
+        54,
+        24
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -15
+      ],
+      "sha256": "628c0e67c4fdb37c15e03c3792f3341d995afb9eb904f10299626d38cb753b85",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_07.png",
+      "width": 34,
+      "height": 56,
+      "texture_px": [
+        34,
+        56
+      ],
+      "offset": 120654,
+      "length": 1904,
+      "trim_origin_top_left_px": [
+        52,
+        22
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -22
+      ],
+      "sha256": "3f397d39a8b8bcdf9072b2169cfb2807ee70d91830483bc061de10be5da68345",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_07.png",
+      "width": 49,
+      "height": 43,
+      "texture_px": [
+        49,
+        43
+      ],
+      "offset": 122558,
+      "length": 2107,
+      "trim_origin_top_left_px": [
+        56,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -30
+      ],
+      "sha256": "e332e05a0e678923816ac8e205b9b4b7b6382c4ee109b1a6317be5a1d8a4ee19",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_07.png",
+      "width": 33,
+      "height": 18,
+      "texture_px": [
+        33,
+        18
+      ],
+      "offset": 124665,
+      "length": 594,
+      "trim_origin_top_left_px": [
+        87,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -46
+      ],
+      "sha256": "492f584436728c4a87618299ceed449aad10172ede34033de475c4dc331c619d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_07.png",
+      "width": 34,
+      "height": 9,
+      "texture_px": [
+        34,
+        9
+      ],
+      "offset": 125259,
+      "length": 306,
+      "trim_origin_top_left_px": [
+        94,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -41
+      ],
+      "sha256": "71408a6dd77dfd62f0764261e22baa0ef667021d607d84b9d0671e0646c71fee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_07.png",
+      "width": 36,
+      "height": 6,
+      "texture_px": [
+        36,
+        6
+      ],
+      "offset": 125565,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        95,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -15,
+        -34
+      ],
+      "sha256": "b300f51b068e49cf3a7f8245713d3b23f58fd28312e75afc162cdedaa3761679",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_07.png",
+      "width": 33,
+      "height": 18,
+      "texture_px": [
+        33,
+        18
+      ],
+      "offset": 125781,
+      "length": 594,
+      "trim_origin_top_left_px": [
+        92,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -21
+      ],
+      "sha256": "cfbdb0ff4a39d2effcb631cc7762be58a5afcf86ce5fc6831d3eb585d804d642",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_07.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 126375,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        96,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -9
+      ],
+      "sha256": "7cb987b80659af313dd65463b62688ce095b215267cb19ad4b2ff8f4086a26bb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_07.png",
+      "width": 16,
+      "height": 25,
+      "texture_px": [
+        16,
+        25
+      ],
+      "offset": 126759,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        90,
+        73
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -2
+      ],
+      "sha256": "78574f614ae18877100c60840eeab1ffcef117b0dba64deb64faaf01f0d9e809",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_07.png",
+      "width": 33,
+      "height": 19,
+      "texture_px": [
+        33,
+        19
+      ],
+      "offset": 127159,
+      "length": 627,
+      "trim_origin_top_left_px": [
+        74,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -1
+      ],
+      "sha256": "e0b84c2ab749d8183f2cb76bd328b1f285477892da353c7a4ec7025bf8a4dc85",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_07.png",
+      "width": 49,
+      "height": 12,
+      "texture_px": [
+        49,
+        12
+      ],
+      "offset": 127786,
+      "length": 588,
+      "trim_origin_top_left_px": [
+        55,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        -5
+      ],
+      "sha256": "5bdd48071992ed0d85328942737247815a8104618533e1a485174e1a15325ee7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_07.png",
+      "width": 58,
+      "height": 17,
+      "texture_px": [
+        58,
+        17
+      ],
+      "offset": 128374,
+      "length": 986,
+      "trim_origin_top_left_px": [
+        40,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        40,
+        -4
+      ],
+      "sha256": "d486939561401e7e05f59cb410b8a38edd92fbd4e9f383de203b4755112c7f34",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_08.png",
+      "width": 54,
+      "height": 22,
+      "texture_px": [
+        54,
+        22
+      ],
+      "offset": 129360,
+      "length": 1188,
+      "trim_origin_top_left_px": [
+        34,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -6
+      ],
+      "sha256": "860d4a3c3fbea68cf9acbfacfe3fbe86b9783993b95608b8e0ad0d4b8fe39b71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_08.png",
+      "width": 53,
+      "height": 34,
+      "texture_px": [
+        53,
+        34
+      ],
+      "offset": 130548,
+      "length": 1802,
+      "trim_origin_top_left_px": [
+        30,
+        61
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        50,
+        -5
+      ],
+      "sha256": "160a80514d52585946b9e4852ecbce14ea8caa781bd23560d41635d97e76f44e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_08.png",
+      "width": 44,
+      "height": 48,
+      "texture_px": [
+        44,
+        48
+      ],
+      "offset": 132350,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        34,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        46,
+        -5
+      ],
+      "sha256": "1294302eb4396c8a15e66a422a86b606deb3091bfdb3f3737b4425a4f6efa88d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_08.png",
+      "width": 28,
+      "height": 59,
+      "texture_px": [
+        28,
+        59
+      ],
+      "offset": 134462,
+      "length": 1652,
+      "trim_origin_top_left_px": [
+        45,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        35,
+        -6
+      ],
+      "sha256": "bb40cd59cba9e70dba79928d920fb37a3f326808f906d81da5f1feedcff7addd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_08.png",
+      "width": 11,
+      "height": 63,
+      "texture_px": [
+        11,
+        63
+      ],
+      "offset": 136114,
+      "length": 693,
+      "trim_origin_top_left_px": [
+        61,
+        27
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -10
+      ],
+      "sha256": "130f7dbe69e1713c5c85946bf7309237880a6a18b82b542a80bd883d0ca3cae2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_08.png",
+      "width": 18,
+      "height": 63,
+      "texture_px": [
+        18,
+        63
+      ],
+      "offset": 136807,
+      "length": 1134,
+      "trim_origin_top_left_px": [
+        65,
+        25
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "9c81adf28055bc8f2fb68b45a3204cc3b5f20d8fc21214b21e832df2356a9f74",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_08.png",
+      "width": 35,
+      "height": 55,
+      "texture_px": [
+        35,
+        55
+      ],
+      "offset": 137941,
+      "length": 1925,
+      "trim_origin_top_left_px": [
+        65,
+        28
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -17
+      ],
+      "sha256": "261ea535f4180864225db2d1e5084db93498a544f7f29f8bff6ebebcd1dbeb71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_08.png",
+      "width": 49,
+      "height": 43,
+      "texture_px": [
+        49,
+        43
+      ],
+      "offset": 139866,
+      "length": 2107,
+      "trim_origin_top_left_px": [
+        67,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -21
+      ],
+      "sha256": "3ac39f103bf9caef8b24ae6c44afd1b8b211e96f0f4cd6c9c1ad01ca3ec72bb4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_08.png",
+      "width": 56,
+      "height": 28,
+      "texture_px": [
+        56,
+        28
+      ],
+      "offset": 141973,
+      "length": 1568,
+      "trim_origin_top_left_px": [
+        71,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -24
+      ],
+      "sha256": "7667d5f1e2d6ae8ebeda1e04cda29f45366f0fd78fd6012e4accf3bd22f389b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_08.png",
+      "width": 38,
+      "height": 8,
+      "texture_px": [
+        38,
+        8
+      ],
+      "offset": 143541,
+      "length": 304,
+      "trim_origin_top_left_px": [
+        91,
+        63
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -29
+      ],
+      "sha256": "693051ba848efd628e95654bd2558ddfe4902dbedba0a19bb7023795d9a5d470",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_08.png",
+      "width": 29,
+      "height": 4,
+      "texture_px": [
+        29,
+        4
+      ],
+      "offset": 143845,
+      "length": 116,
+      "trim_origin_top_left_px": [
+        96,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -16,
+        -22
+      ],
+      "sha256": "e0c712906f8d50d13d9efe39f4659c9ed61cf31c3ada35323fc1dbd7b2dff878",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_08.png",
+      "width": 24,
+      "height": 13,
+      "texture_px": [
+        24,
+        13
+      ],
+      "offset": 143961,
+      "length": 312,
+      "trim_origin_top_left_px": [
+        90,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -11
+      ],
+      "sha256": "03125b0857ec02b1fe9e621d09d599b2e0f44b3d5f7e4767464b0e907ab42913",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_08.png",
+      "width": 12,
+      "height": 20,
+      "texture_px": [
+        12,
+        20
+      ],
+      "offset": 144273,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        87,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -3
+      ],
+      "sha256": "570a80f42aaf52436f9fe4ddd6472fb47bb97c898955bfec47e706a649fee1e1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_08.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 144513,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        0
+      ],
+      "sha256": "e45c2ad6b2e5bd0daf573cf9e9f3f8e335456a3d8926d1c1183eb1afcbe997de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_08.png",
+      "width": 35,
+      "height": 16,
+      "texture_px": [
+        35,
+        16
+      ],
+      "offset": 144873,
+      "length": 560,
+      "trim_origin_top_left_px": [
+        60,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -3
+      ],
+      "sha256": "f41cdd9c2a27aa2953e36ddd000daada64c2753a049dd7a1fcb3bdd581ed3bc6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_08.png",
+      "width": 49,
+      "height": 12,
+      "texture_px": [
+        49,
+        12
+      ],
+      "offset": 145433,
+      "length": 588,
+      "trim_origin_top_left_px": [
+        44,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        36,
+        -9
+      ],
+      "sha256": "49fbf84ffbe1469578e51c52e2b4f82973b81313e47cd4f0cfd91e997963f2ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_09.png",
+      "width": 28,
+      "height": 16,
+      "texture_px": [
+        28,
+        16
+      ],
+      "offset": 146021,
+      "length": 448,
+      "trim_origin_top_left_px": [
+        50,
+        74
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -10
+      ],
+      "sha256": "018169044546d2a277c4f9075eefe05c26d026daefbf27e227200ac82ae3dad1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_09.png",
+      "width": 29,
+      "height": 19,
+      "texture_px": [
+        29,
+        19
+      ],
+      "offset": 146469,
+      "length": 551,
+      "trim_origin_top_left_px": [
+        42,
+        67
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -14
+      ],
+      "sha256": "2fb21f6f3b9818064d5e6b05f5dd3d987572d3e63ba40f4295847034cdc76b07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_09.png",
+      "width": 32,
+      "height": 25,
+      "texture_px": [
+        32,
+        25
+      ],
+      "offset": 147020,
+      "length": 800,
+      "trim_origin_top_left_px": [
+        39,
+        58
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        41,
+        -17
+      ],
+      "sha256": "2ad5c8d6e0a2deac0c616bf65357db4cd5c3433ec82a3294718152fefc27e1c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_09.png",
+      "width": 40,
+      "height": 42,
+      "texture_px": [
+        40,
+        42
+      ],
+      "offset": 147820,
+      "length": 1680,
+      "trim_origin_top_left_px": [
+        43,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        37,
+        -11
+      ],
+      "sha256": "d33162c7b5fd221395737297873dda28f55449772bfbe7d96998c00630eb7851",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_09.png",
+      "width": 33,
+      "height": 53,
+      "texture_px": [
+        33,
+        53
+      ],
+      "offset": 149500,
+      "length": 1749,
+      "trim_origin_top_left_px": [
+        52,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        -10
+      ],
+      "sha256": "8de3fdee5f953506ae1ab1e5d9d285348bf4d6fbb7ba5b1e7389c8691db84b93",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_09.png",
+      "width": 21,
+      "height": 61,
+      "texture_px": [
+        21,
+        61
+      ],
+      "offset": 151249,
+      "length": 1281,
+      "trim_origin_top_left_px": [
+        65,
+        31
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "add4a9beebd417206c8cd9a354d731edf95a657ed7ac636382167389b6a37329",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_09.png",
+      "width": 6,
+      "height": 64,
+      "texture_px": [
+        6,
+        64
+      ],
+      "offset": 152530,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        81,
+        29
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -7
+      ],
+      "sha256": "e5719bfaabc064bad958dfb4e7b5b22abad8320a46876866b5627981d3249b08",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_09.png",
+      "width": 13,
+      "height": 63,
+      "texture_px": [
+        13,
+        63
+      ],
+      "offset": 152914,
+      "length": 819,
+      "trim_origin_top_left_px": [
+        84,
+        32
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -5
+      ],
+      "sha256": "153a697d950e7253817da67947270f7ac2b6ab11f8c80d6f7dba9f4f4ec48e9b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_09.png",
+      "width": 27,
+      "height": 56,
+      "texture_px": [
+        27,
+        56
+      ],
+      "offset": 153733,
+      "length": 1512,
+      "trim_origin_top_left_px": [
+        83,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -5
+      ],
+      "sha256": "1aa268cb98101a865942113d2baad24a59de5a8e674d16d7b7b6caf8ccc01908",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_09.png",
+      "width": 37,
+      "height": 47,
+      "texture_px": [
+        37,
+        47
+      ],
+      "offset": 155245,
+      "length": 1739,
+      "trim_origin_top_left_px": [
+        81,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        -4
+      ],
+      "sha256": "1cea13a7facf4139269064e74c6ec133e05cc8976f0d55050a423cac11f660f4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_09.png",
+      "width": 43,
+      "height": 36,
+      "texture_px": [
+        43,
+        36
+      ],
+      "offset": 156984,
+      "length": 1548,
+      "trim_origin_top_left_px": [
+        78,
+        60
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -4
+      ],
+      "sha256": "5980606ab34554677a613876e3eb7c3896223f6286bf345297e0a922665a2612",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_09.png",
+      "width": 30,
+      "height": 19,
+      "texture_px": [
+        30,
+        19
+      ],
+      "offset": 158532,
+      "length": 570,
+      "trim_origin_top_left_px": [
+        87,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -9
+      ],
+      "sha256": "951a73ccbbc80bc27387f65b5717a3b19cee214100741c9a245f860a6e147f49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_09.png",
+      "width": 25,
+      "height": 13,
+      "texture_px": [
+        25,
+        13
+      ],
+      "offset": 159102,
+      "length": 325,
+      "trim_origin_top_left_px": [
+        83,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -7
+      ],
+      "sha256": "82f65fc351ab94ed830216c900deac1363710c64a219b8f56357f49e95aa4dfc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_09.png",
+      "width": 15,
+      "height": 10,
+      "texture_px": [
+        15,
+        10
+      ],
+      "offset": 159427,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        79,
+        83
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -7
+      ],
+      "sha256": "3f1d8702bb90f866261e4d4596c1489688c38008897007465ad6c25588ea0fd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_09.png",
+      "width": 7,
+      "height": 10,
+      "texture_px": [
+        7,
+        10
+      ],
+      "offset": 159577,
+      "length": 70,
+      "trim_origin_top_left_px": [
+        72,
+        82
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "a6d43d97f0037554c932cebf157a8a8a7fe827f18f2d0bca54354b3e39287b71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_09.png",
+      "width": 10,
+      "height": 12,
+      "texture_px": [
+        10,
+        12
+      ],
+      "offset": 159647,
+      "length": 120,
+      "trim_origin_top_left_px": [
+        63,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "76dbd6193116fccf4543eb268e050d4942b0b6aa681ccc648f725a93fa1eeb18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_10.png",
+      "width": 6,
+      "height": 12,
+      "texture_px": [
+        6,
+        12
+      ],
+      "offset": 159767,
+      "length": 72,
+      "trim_origin_top_left_px": [
+        61,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        -13
+      ],
+      "sha256": "6316c883fe13490bf0ddb39016eb3708dd17a0c09ec7a42ed8004ae919ce6d20",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_10.png",
+      "width": 18,
+      "height": 12,
+      "texture_px": [
+        18,
+        12
+      ],
+      "offset": 159839,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        51,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -17
+      ],
+      "sha256": "f37629c902381cd7ead5e6b4d114aa8c3dfec8b6e61f47e9d9e5089159b2cacc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_10.png",
+      "width": 23,
+      "height": 13,
+      "texture_px": [
+        23,
+        13
+      ],
+      "offset": 160055,
+      "length": 299,
+      "trim_origin_top_left_px": [
+        46,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -22
+      ],
+      "sha256": "d269433f1a4e1de1d3051d88146e84ed4505cfe131eb7d9b52c96c4e32beb87f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_10.png",
+      "width": 25,
+      "height": 16,
+      "texture_px": [
+        25,
+        16
+      ],
+      "offset": 160354,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        46,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        34,
+        -27
+      ],
+      "sha256": "649aba823042da875ac064be42a34908742375d9348cbf8fe44a916e897f9ecb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_10.png",
+      "width": 41,
+      "height": 37,
+      "texture_px": [
+        41,
+        37
+      ],
+      "offset": 160754,
+      "length": 1517,
+      "trim_origin_top_left_px": [
+        51,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        29,
+        -15
+      ],
+      "sha256": "b78bd87ad8cd98e4bf63ae8172127b8709f4f78cfbd53337b11a0348ff0a95ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_10.png",
+      "width": 36,
+      "height": 49,
+      "texture_px": [
+        36,
+        49
+      ],
+      "offset": 162271,
+      "length": 1764,
+      "trim_origin_top_left_px": [
+        60,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -11
+      ],
+      "sha256": "0c88a0e418e3a63444c5f64e5e825005ecf6657ce82949f1c70072f2aac1ed15",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_10.png",
+      "width": 26,
+      "height": 58,
+      "texture_px": [
+        26,
+        58
+      ],
+      "offset": 164035,
+      "length": 1508,
+      "trim_origin_top_left_px": [
+        72,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -6
+      ],
+      "sha256": "937b4ec66617f90b51199cd796f3a1792bf8b1ffe9e61640de9c5b31821c2711",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_10.png",
+      "width": 12,
+      "height": 63,
+      "texture_px": [
+        12,
+        63
+      ],
+      "offset": 165543,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        86,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -1
+      ],
+      "sha256": "9c2ec04993e1368c91535578fe62e9ce6365103366507a0065ed8da8134b84ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_10.png",
+      "width": 6,
+      "height": 63,
+      "texture_px": [
+        6,
+        63
+      ],
+      "offset": 166299,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        93,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        3
+      ],
+      "sha256": "51999f27b291a48b666f39c57a641ef70c24528bd0cfeafa1ea3583088e902ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_10.png",
+      "width": 21,
+      "height": 61,
+      "texture_px": [
+        21,
+        61
+      ],
+      "offset": 166677,
+      "length": 1281,
+      "trim_origin_top_left_px": [
+        88,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        8
+      ],
+      "sha256": "f6e6f501e6c4a9a09d2b445336814148ab87c784845d278467b91ed5d73b8fe3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_10.png",
+      "width": 33,
+      "height": 53,
+      "texture_px": [
+        33,
+        53
+      ],
+      "offset": 167958,
+      "length": 1749,
+      "trim_origin_top_left_px": [
+        81,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -1,
+        9
+      ],
+      "sha256": "ba4e39f95de7a79c14de8a000c1b5a1225c37c12685e4d740af351d698206a78",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_10.png",
+      "width": 39,
+      "height": 42,
+      "texture_px": [
+        39,
+        42
+      ],
+      "offset": 169707,
+      "length": 1638,
+      "trim_origin_top_left_px": [
+        75,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        8
+      ],
+      "sha256": "55806ac7a377bd77632c3ec6d1aa6f184d60e317eb61eb5314fb00af353b0879",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_10.png",
+      "width": 40,
+      "height": 29,
+      "texture_px": [
+        40,
+        29
+      ],
+      "offset": 171345,
+      "length": 1160,
+      "trim_origin_top_left_px": [
+        69,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        5
+      ],
+      "sha256": "fd189c600bdc439b97321817231bbff6a950a95a8dc7269a9de4bb5289c5a858",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_10.png",
+      "width": 36,
+      "height": 21,
+      "texture_px": [
+        36,
+        21
+      ],
+      "offset": 172505,
+      "length": 756,
+      "trim_origin_top_left_px": [
+        64,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        2
+      ],
+      "sha256": "2a31e6701e9d383215e3ecb384eb3c385ffbb30a3a4eee4aeb1bd4b9266968de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_10.png",
+      "width": 26,
+      "height": 16,
+      "texture_px": [
+        26,
+        16
+      ],
+      "offset": 173261,
+      "length": 416,
+      "trim_origin_top_left_px": [
+        62,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -3
+      ],
+      "sha256": "2a362fc0193363532102cb84e98572d62a5941af91e8b412e6de92e7deb6100b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_10.png",
+      "width": 11,
+      "height": 13,
+      "texture_px": [
+        11,
+        13
+      ],
+      "offset": 173677,
+      "length": 143,
+      "trim_origin_top_left_px": [
+        63,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "feaaaa16907106290f1866dd235f009f51573ac0ab566b26ea43f0c56ca17029",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_s_11.png",
+      "width": 5,
+      "height": 12,
+      "texture_px": [
+        5,
+        12
+      ],
+      "offset": 173820,
+      "length": 60,
+      "trim_origin_top_left_px": [
+        62,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -13
+      ],
+      "sha256": "2126ddef55d5ba86789d28d1821accaecdc2ae946200240aa5e43e039b62cc21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ssw_11.png",
+      "width": 15,
+      "height": 12,
+      "texture_px": [
+        15,
+        12
+      ],
+      "offset": 173880,
+      "length": 180,
+      "trim_origin_top_left_px": [
+        53,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        -17
+      ],
+      "sha256": "0e6ef541d779be06e53bc908268d9b404b442c5330dee6e47e5436007d72f60a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sw_11.png",
+      "width": 20,
+      "height": 11,
+      "texture_px": [
+        20,
+        11
+      ],
+      "offset": 174060,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        48,
+        66
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        32,
+        -23
+      ],
+      "sha256": "bed9b0527629abb16e92d4973b839f81f97140f2d2da8cc2e202a7554dca858a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wsw_11.png",
+      "width": 25,
+      "height": 14,
+      "texture_px": [
+        25,
+        14
+      ],
+      "offset": 174280,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        47,
+        59
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        33,
+        -27
+      ],
+      "sha256": "75b78f3b03a0606a0f234f64fbf969156e633e28ff5f124bca75f36a30e69c3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_w_11.png",
+      "width": 43,
+      "height": 34,
+      "texture_px": [
+        43,
+        34
+      ],
+      "offset": 174630,
+      "length": 1462,
+      "trim_origin_top_left_px": [
+        50,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -17
+      ],
+      "sha256": "f00c1ebce82fba105a9a86005eeed5d24388b1c270d7e8e62f7a6f8c49564f3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_wnw_11.png",
+      "width": 39,
+      "height": 45,
+      "texture_px": [
+        39,
+        45
+      ],
+      "offset": 176092,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -13
+      ],
+      "sha256": "6efb3f826be87b2753da9834f3e8ef512a490454066052011e5e6fcdc94da7f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nw_11.png",
+      "width": 30,
+      "height": 55,
+      "texture_px": [
+        30,
+        55
+      ],
+      "offset": 177847,
+      "length": 1650,
+      "trim_origin_top_left_px": [
+        71,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "d98155e8ccbc7b8374fa1b468b19775bad931b1cbc38c03a37d75ccf213ceee3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nnw_11.png",
+      "width": 17,
+      "height": 62,
+      "texture_px": [
+        17,
+        62
+      ],
+      "offset": 179497,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        84,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -1
+      ],
+      "sha256": "50f67c10df8b0a162d4102544d572863e0d0a5e674b3a8333e04a8d11d226874",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_n_11.png",
+      "width": 5,
+      "height": 64,
+      "texture_px": [
+        5,
+        64
+      ],
+      "offset": 180551,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        93,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -13,
+        4
+      ],
+      "sha256": "f25725f04c6aadc1d3d9bde4953812fd9a514846c613d80dd4ed3ebf3cc4452c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_nne_11.png",
+      "width": 17,
+      "height": 62,
+      "texture_px": [
+        17,
+        62
+      ],
+      "offset": 180871,
+      "length": 1054,
+      "trim_origin_top_left_px": [
+        90,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        8
+      ],
+      "sha256": "b192eb426ac05af2214de6597233b0f50c76d1fef847c6d2dce6c56a71bc7e10",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ne_11.png",
+      "width": 30,
+      "height": 56,
+      "texture_px": [
+        30,
+        56
+      ],
+      "offset": 181925,
+      "length": 1680,
+      "trim_origin_top_left_px": [
+        83,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        11
+      ],
+      "sha256": "6de60a6581e55deddc270c1832b58f5fff38da169c1a21e57037957c62a0f820",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ene_11.png",
+      "width": 39,
+      "height": 45,
+      "texture_px": [
+        39,
+        45
+      ],
+      "offset": 183605,
+      "length": 1755,
+      "trim_origin_top_left_px": [
+        75,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        10
+      ],
+      "sha256": "9291b1070c44052a53db21182b2fcd26b1bb8ced10bd2421666b63e9b881738f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_e_11.png",
+      "width": 41,
+      "height": 33,
+      "texture_px": [
+        41,
+        33
+      ],
+      "offset": 185360,
+      "length": 1353,
+      "trim_origin_top_left_px": [
+        68,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        8
+      ],
+      "sha256": "290d0f0edf437573c20a0dfb2f03701f7f4e3cc7e894baf07ead5707cdba38e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_ese_11.png",
+      "width": 38,
+      "height": 24,
+      "texture_px": [
+        38,
+        24
+      ],
+      "offset": 186713,
+      "length": 912,
+      "trim_origin_top_left_px": [
+        62,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        4
+      ],
+      "sha256": "a8212cf0811555729d181ad09d5eeaf8a51180a8d0eb836dc20d10ccacdaa7a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_se_11.png",
+      "width": 30,
+      "height": 17,
+      "texture_px": [
+        30,
+        17
+      ],
+      "offset": 187625,
+      "length": 510,
+      "trim_origin_top_left_px": [
+        59,
+        81
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -2
+      ],
+      "sha256": "415de59ab03a48ec1bf1acf6be4a484365b6425acedff5dd084cc20700ef0102",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashBow.atlas",
+      "name": "dash_sse_11.png",
+      "width": 16,
+      "height": 13,
+      "texture_px": [
+        16,
+        13
+      ],
+      "offset": 188135,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        60,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        -8
+      ],
+      "sha256": "2fd22bb73e7361a5ce16873320ee814e334d211124636b31c0cb3d63659b3e33",
+      "empty": false
+    }
+  ],
+  "source_authority": "DashOct10/Dash_Authored.blend"
+}

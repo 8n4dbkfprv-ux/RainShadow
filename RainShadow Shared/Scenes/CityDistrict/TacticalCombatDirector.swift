@@ -97,6 +97,24 @@ final class TacticalCombatDirector {
         var impactPresented = false
     }
     private(set) var wardCast: WardCast?
+    struct DashPresentation {
+        let actorID: String
+        let node: CharacterAppearanceNode?
+        let wind: DashVisual
+        let facing: ActorFacing
+        let path: Path?
+        var elapsed = 0.0
+    }
+    private(set) var dashPresentation: DashPresentation?
+    struct RunPresentation {
+        let actorID: String
+        let node: CharacterAppearanceNode
+        let bear: Bool
+        let totalDistance: Double
+        var travelled = 0.0
+        var recovery: Double?
+    }
+    private(set) var runPresentation: RunPresentation?
     private(set) var wardEffects: [String: BladeWardVisual] = [:]
     private(set) var barrelNodes: [String: CombatBarrelVisual] = [:]
     private(set) var knockbacks: [TacticalCombat.Displacement] = []
@@ -110,7 +128,7 @@ final class TacticalCombatDirector {
             ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat
     }
     private(set) var meleeAttack: MeleeAttackPresentation?
-    func isStriking(_ id: String) -> Bool { wardCast?.before.current.id == id || bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
+    func isStriking(_ id: String) -> Bool { runPresentation?.actorID == id || dashPresentation?.actorID == id || wardCast?.before.current.id == id || bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
     // The player bow proxy uses the visual definition "voss", while combat uses
     // "detective.voss". Presentation ownership follows the accepted strike.
@@ -131,7 +149,7 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { startBanner != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
@@ -366,10 +384,7 @@ final class TacticalCombatDirector {
         if combat.isBear && ![1, 2, 3, 4, 12, 15, 16, 19].contains(digit) { return }
         if digit == 19 {
             cancelTargeting()
-            if combat.dash() {
-                feedback = "Dash: extra movement ready. Click ground to move."
-                checkpoint()
-            } else { feedback = "Dash requires an available action."; refresh() }
+            _ = activateDash()
             return
         }
         if digit == 18 {
@@ -701,6 +716,15 @@ final class TacticalCombatDirector {
     }
     @discardableResult private func move(_ path: Path) -> Bool {
         let actor = combat.current
+        var runner: CharacterAppearanceNode?
+        if combat.budget.usesRunningGait {
+            do {
+                let definition = actor.player && combat.isBear ? bearNode!.definition : combatAppearance(for: actor)
+                let node = try CharacterAppearanceNode(definition: definition)
+                try node.present(action: .run, facing: ActorFacing.clamped(actor.combatFacing ?? 0), phase: 0)
+                runner = node
+            } catch { feedback = "Running artwork could not load."; refresh(); return false }
+        }
         guard combat.move(along: path) else { return false }
         if actor.hidden == true && path.remainingPoints.contains(where: { isObserved(actor, at: $0) }) { combat.reveal(actor.id) }
         for concealed in combat.actors where concealed.hidden == true && concealed.player != actor.player {
@@ -716,9 +740,21 @@ final class TacticalCombatDirector {
             }
         }
         movingID = actor.id
+        if let runner {
+            runner.name = "combat.run.actor"; runner.position = actor.position
+            runner.visualHeightOffset = actor.player && !combat.isBear ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
+            scene.depthWorldRoot.addChild(runner)
+            actorNode(actor.id)?.isHidden = true; stealthNodes[actor.id]?.isHidden = true
+            for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
+                decoration?.removeFromParent(); if let decoration { runner.addChild(decoration) }
+            }
+            runPresentation = RunPresentation(actorID: actor.id, node: runner, bear: actor.player && combat.isBear,
+                                               totalDistance: CombatNavigation.length(path, from: actor.position))
+            scene.applyAreaLighting(to: runner); scene.updateDepth(of: runner); scene.applyActorCover(to: runner, at: runner.position)
+        }
         feedback = "Click ground to move • Click a rival to strike"
         checkpoint()
-        if actor.player && !combat.isBear {
+        if actor.player && !combat.isBear && runner == nil {
             if combat.current.hidden == true {
                 preSneakMovementProfile = scene.detective.movementProfile
                 scene.detective.movementProfile.rateMultiplier *= 0.5
@@ -732,6 +768,24 @@ final class TacticalCombatDirector {
             movementTicks.reset(); tick = 0
         }
         return true
+    }
+    private func updateRunRecovery(delta: Double) {
+        guard var run = runPresentation, let recovery = run.recovery else { return }
+        run.recovery = recovery + delta
+        let t = min(1, (recovery + delta) / CombatRunMotion.recoveryDuration)
+        let concealed = combat.actors.first(where: { $0.id == run.actorID })?.hidden == true
+        if !concealed, let original = actorNode(run.actorID) {
+            original.isHidden = false; original.alpha = CGFloat(t)
+            run.node.alpha = CGFloat(1 - t)
+        }
+        guard t >= 1 else { runPresentation = run; return }
+        let original = actorNode(run.actorID)
+        original?.alpha = 1; original?.isHidden = false
+        for decoration in [badges[run.actorID], rings[run.actorID]] as [SKNode?] {
+            decoration?.removeFromParent(); if let decoration { original?.addChild(decoration) }
+        }
+        run.node.removeFromParent(); runPresentation = nil
+        movementCompleted()
     }
     private func movementCompleted() {
         guard let id = movingID else { return }
@@ -828,6 +882,75 @@ final class TacticalCombatDirector {
             decoration?.removeFromParent()
             if let decoration { node.addChild(decoration) }
         }
+    }
+    private func combatAppearance(for actor: Combatant) -> CharacterDefinition {
+        let original = actorNode(actor.id)
+        var definition = (original as? CharacterAppearanceNode)?.definition ?? CharacterDefinition.voss
+        if actor.player {
+            let inventory = scene.context.session.characterInventory
+            let catalog = scene.context.session.itemCatalog
+            definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+                $0.isEquipped(in: inventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
+            }
+            if let weapon = VossWeaponAppearance.equipped(in: inventory, catalog: catalog),
+               let item = CharacterEquipmentCode(rawValue: weapon.rawValue) { definition.appearance.equipment.append(.init(item: item)) }
+        }
+        definition.appearance.equipment.removeAll { $0.item == .elvenCourtArrow }
+        return definition
+    }
+    /// Accept and save the movement allowance once, then finish preparation
+    /// before a queued AI route starts. Reload never replays or recharges Dash.
+    @discardableResult func activateDash(followedBy path: Path? = nil) -> Bool {
+        guard !busy, !presentationPaused, combat.canDash else {
+            feedback = "Dash requires an available action."; refresh(); return false
+        }
+        let actor = combat.current
+        let original = actorNode(actor.id)
+        let facing = actor.player ? scene.detective.currentFacing : (original as? CharacterAppearanceNode)?.currentFacing ?? .south
+        var node: CharacterAppearanceNode?
+        if !(actor.player && combat.isBear) {
+            let definition = combatAppearance(for: actor)
+            do {
+                let proxy = try CharacterAppearanceNode(definition: definition)
+                try proxy.present(action: .dash, facing: facing, phase: 0)
+                node = proxy
+            } catch { feedback = "Dash artwork could not load."; refresh(); return false }
+        }
+        guard combat.dash() else { return false }
+        if let node {
+            node.name = "combat.dash.actor"; node.position = actor.position
+            node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (original as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
+            scene.depthWorldRoot.addChild(node)
+            scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
+            original?.isHidden = true; stealthNodes[actor.id]?.isHidden = true
+            for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
+                decoration?.removeFromParent(); if let decoration { node.addChild(decoration) }
+            }
+        }
+        let wind = DashVisual(bear: actor.player && combat.isBear)
+        wind.zPosition = 1
+        (node as SKNode? ?? original)?.addChild(wind)
+        dashPresentation = DashPresentation(actorID: actor.id, node: node, wind: wind, facing: facing, path: path)
+        feedback = "Dash: preparing to move…"
+        checkpoint(synchronize: false)
+        return true
+    }
+    private func updateDash(delta: Double) {
+        guard var dash = dashPresentation else { return }
+        dash.elapsed += delta
+        try? dash.node?.present(action: .dash, facing: dash.facing, phase: DashAnimationSet.phase(elapsed: dash.elapsed))
+        dash.wind.advance(elapsed: dash.elapsed)
+        guard dash.elapsed >= DashAnimationSet.duration else { dashPresentation = dash; return }
+        dash.wind.removeFromParent(); dash.node?.removeFromParent()
+        let original = actorNode(dash.actorID)
+        original?.isHidden = false
+        for decoration in [badges[dash.actorID], rings[dash.actorID]] as [SKNode?] {
+            decoration?.removeFromParent(); if let decoration { original?.addChild(decoration) }
+        }
+        dashPresentation = nil
+        feedback = "Dash: extra movement ready. Click ground to move."
+        checkpoint()
+        if let path = dash.path { _ = move(path) }
     }
     private func castBladeWard() {
         guard combat.canCastBladeWard, let node = meleeActor(for: combat.current) else { return }
@@ -1489,7 +1612,8 @@ final class TacticalCombatDirector {
             if let existing = burningNodes[actor.id] { visual = existing }
             else { visual = CharacterBurningVisual(); burningNodes[actor.id] = visual }
             // Follow the visible body through weapon, recoil, form and movement proxies.
-            let candidates: [SKNode?] = [reactionNodes[actor.id], stealthNodes[actor.id],
+            let candidates: [SKNode?] = [runPresentation?.actorID == actor.id ? runPresentation?.node : nil,
+                dashPresentation?.actorID == actor.id ? dashPresentation?.node : nil, reactionNodes[actor.id], stealthNodes[actor.id],
                 actor.player ? playerBowNode : nil, actor.player ? playerMeleeNode : nil, actorNode(actor.id)]
             guard let body = candidates.compactMap({ $0 }).first(where: { !$0.isHidden }) else { visual.isHidden = true; continue }
             if visual.parent !== body { visual.removeFromParent(); body.addChild(visual) }
@@ -1535,7 +1659,7 @@ final class TacticalCombatDirector {
         case .move(let path):
             if move(path) { return }
         case .dash(let path):
-            if combat.dash(), move(path) { return }
+            if activateDash(followedBy: path) { return }
         case .barrel(let id):
             if let barrel = combat.liveBarrels.first(where: { $0.id == id }) {
                 equipLookout(actor, bow: true); shootBarrel(barrel); return
@@ -1673,30 +1797,54 @@ final class TacticalCombatDirector {
         advanceKnockback(delta: delta)
         updateForm(delta: delta, time: time)
         updateReactions()
-        if var mover = enemyMover, let id = movingID, let node = actorNode(id) as? CharacterAppearanceNode {
+        if var mover = enemyMover, let id = movingID, let original = actorNode(id), runPresentation?.recovery == nil {
             for _ in 0..<movementTicks.drain(deltaTime: delta) {
                 tick += 1
-                _ = mover.doStep(walkScale: MovementProfile(rateMultiplier: combat.actors.first(where: { $0.id == id })?.hidden == true ? 0.5 : 1).walkScale ?? 0, time: tick)
+                let before = mover.position
+                let hidden = combat.actors.first(where: { $0.id == id })?.hidden == true
+                let rate = runPresentation.map { CombatRunMotion.rate(travelled: $0.travelled, remaining: max(0, $0.totalDistance - $0.travelled)) } ?? 1
+                _ = mover.doStep(walkScale: MovementProfile(rateMultiplier: CGFloat(rate * (hidden ? 0.5 : 1))).walkScale ?? 0, time: tick)
+                if var run = runPresentation {
+                    let oldContact = Int(run.travelled / (CombatRunMotion.stride(bear: run.bear) / 2))
+                    run.travelled += CombatNavigation.distance(before, mover.position)
+                    let contact = Int(run.travelled / (CombatRunMotion.stride(bear: run.bear) / 2))
+                    if id == TacticalCombat.playerID && !run.bear && contact > oldContact { scene.detective.playFootstepIfDue() }
+                    runPresentation = run
+                }
                 if !mover.isMoving { break }
             }
-            node.position = mover.position
+            original.position = mover.position
             if id == TacticalCombat.playerID {
                 scene.detective.position = mover.position
                 scene.detective.syncMovablePosition(mover.position)
+                if scene.detective.currentFacing != mover.orientation { scene.detective.setEntranceFacing(mover.orientation) }
                 bearFacing = mover.orientation
-            } else {
+            } else if runPresentation == nil, let node = original as? CharacterAppearanceNode {
                 try? node.advance(action: mover.isMoving ? .walk : .idle, facing: mover.orientation, at: time, paused: false)
             }
-            scene.navigation.updateActor(id: id, position: node.position, isMoving: mover.isMoving)
+            if let run = runPresentation {
+                run.node.position = mover.position
+                try? run.node.present(action: .run, facing: mover.orientation,
+                                      phase: CombatRunMotion.phase(distance: run.travelled, bear: run.bear))
+                scene.applyAreaLighting(to: run.node); scene.updateDepth(of: run.node); scene.applyActorCover(to: run.node, at: run.node.position)
+            }
+            scene.navigation.updateActor(id: id, position: original.position, isMoving: mover.isMoving)
             enemyMover = mover
-            if !mover.isMoving { movementCompleted() }
+            if !mover.isMoving {
+                if runPresentation != nil {
+                    runPresentation?.recovery = 0
+                    if let node = original as? CharacterAppearanceNode { try? node.present(action: .idle, facing: mover.orientation, phase: 0) }
+                } else { movementCompleted() }
+            }
         }
+        updateRunRecovery(delta: delta)
         updateWardCast(delta: delta)
+        updateDash(delta: delta)
         updateWards(delta: delta)
         updateStealth(delta: delta)
         updateDefeats(delta: delta)
         updateBurning(delta: delta)
-        guard wardCast == nil, bearAbility == nil, bearAction == nil, shovePresentation == nil, !defeatsAnimating, hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, !reactionsAnimating else { return }
+        guard runPresentation == nil, dashPresentation == nil, wardCast == nil, bearAbility == nil, bearAction == nil, shovePresentation == nil, !defeatsAnimating, hideTransitions.isEmpty, movingID == nil, formTransition == nil, rangedShot == nil, meleeAttack == nil, blasts.isEmpty, knockbacks.isEmpty, !debrisMoving, !reactionsAnimating else { return }
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
@@ -1750,6 +1898,9 @@ final class TacticalCombatDirector {
         stealthNodes.values.forEach { $0.removeFromParent() }; stealthNodes.removeAll(); hideTransitions.removeAll()
         burningNodes.values.forEach { $0.removeFromParent() }; burningNodes.removeAll()
         wardEffects.values.forEach { $0.removeFromParent() }; wardEffects.removeAll(); wardCast = nil
+        dashPresentation?.wind.removeFromParent(); dashPresentation?.node?.removeFromParent(); dashPresentation = nil
+        if let run = runPresentation { actorNode(run.actorID)?.alpha = 1; actorNode(run.actorID)?.isHidden = false; run.node.removeFromParent() }
+        runPresentation = nil
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); movementPreview.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
@@ -1925,7 +2076,7 @@ final class TacticalCombatDirector {
             let frame = min(count - 1, Int(action.elapsed * fps))
             try? bearNode.present(action: action.action, facing: bearFacing, phase: frame)
             bearAction = action.elapsed >= Double(count) / fps ? nil : action
-        } else {
+        } else if runPresentation?.actorID != TacticalCombat.playerID {
             try? bearNode.advance(action: movingID == TacticalCombat.playerID ? .walk : .idle,
                                   facing: bearFacing, at: time, paused: false)
         }

@@ -1,0 +1,5684 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanRun",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "1f3d42dd17db2cc3bf277cee113de02207a05e9f71e7c9c979ad8348747cf189",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": true,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_00.png",
+      "width": 44,
+      "height": 64,
+      "texture_px": [
+        44,
+        64
+      ],
+      "offset": 16,
+      "length": 2816,
+      "trim_origin_top_left_px": [
+        58,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        19
+      ],
+      "sha256": "e16943c5b6c16579ac15b3995c62df95231adc5931b70a2b343a88da7507272f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_01.png",
+      "width": 43,
+      "height": 62,
+      "texture_px": [
+        43,
+        62
+      ],
+      "offset": 2832,
+      "length": 2666,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        16
+      ],
+      "sha256": "36e1acfce805b3a0f01ed2d8ab233b27a6375f5ba446fb16184b8dfd82b85567",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_02.png",
+      "width": 41,
+      "height": 59,
+      "texture_px": [
+        41,
+        59
+      ],
+      "offset": 5498,
+      "length": 2419,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        13
+      ],
+      "sha256": "f663d2715894bdd42260dc5231fbd43e9974a0052024f80f2e0c48e0c8e547ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_03.png",
+      "width": 41,
+      "height": 55,
+      "texture_px": [
+        41,
+        55
+      ],
+      "offset": 7917,
+      "length": 2255,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "b7c17d04f69e24f605b98d5fa2fb580d6169d73e93927a56d91463cf95ffddb1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_04.png",
+      "width": 41,
+      "height": 53,
+      "texture_px": [
+        41,
+        53
+      ],
+      "offset": 10172,
+      "length": 2173,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "51696db09adb588824a21c1d8f55d614867d9c69d097cd36857f69310d3cdcdc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_05.png",
+      "width": 42,
+      "height": 53,
+      "texture_px": [
+        42,
+        53
+      ],
+      "offset": 12345,
+      "length": 2226,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "d5e46749907bacfe4c339a40dec709b42224ebe4215b03f39ee988b5e0ef5ef7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_06.png",
+      "width": 42,
+      "height": 55,
+      "texture_px": [
+        42,
+        55
+      ],
+      "offset": 14571,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "2203721cd8d28ef24973b2e795cf02a8cdb697b7fb1446a154e32f1e9c104015",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_07.png",
+      "width": 43,
+      "height": 59,
+      "texture_px": [
+        43,
+        59
+      ],
+      "offset": 16881,
+      "length": 2537,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "d30bb7e596cc251f98d75f3f66a159b6a8d7cdeb5c870fea653814123c98c301",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_08.png",
+      "width": 43,
+      "height": 63,
+      "texture_px": [
+        43,
+        63
+      ],
+      "offset": 19418,
+      "length": 2709,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        19
+      ],
+      "sha256": "d2bb5b00b9561ee7d0886b68365119873c1c80344c3f609893ab1f5ce814a662",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_09.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 22127,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        16
+      ],
+      "sha256": "d45154038dbb369e483e599af368411ef484ce85dd3aeee96c0c56c839b4173a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_10.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 24707,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "fbafba8a1b4053571e33bc9c4527d484d9778bc4be902133903f99d541d4cdf0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_11.png",
+      "width": 42,
+      "height": 53,
+      "texture_px": [
+        42,
+        53
+      ],
+      "offset": 27059,
+      "length": 2226,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "80362d16f4f23972229d7c528a92e39de7b51340c949bcce32082aa17a0b3747",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_12.png",
+      "width": 41,
+      "height": 53,
+      "texture_px": [
+        41,
+        53
+      ],
+      "offset": 29285,
+      "length": 2173,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "447e22af93dd8caad81251e26460dcf8d5c68bc7a9cacba12782e4af1b4f50c3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_13.png",
+      "width": 41,
+      "height": 55,
+      "texture_px": [
+        41,
+        55
+      ],
+      "offset": 31458,
+      "length": 2255,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "7b0ea3e1ba6dc218de81cdf7bac769bd7f06df89cf0f6b3dbe9fc8c57bd0267a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_14.png",
+      "width": 41,
+      "height": 57,
+      "texture_px": [
+        41,
+        57
+      ],
+      "offset": 33713,
+      "length": 2337,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "c97631dd62c9a82f80dafdccf75356eaca395a15f080ac80827d0250998b689c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_s_15.png",
+      "width": 43,
+      "height": 62,
+      "texture_px": [
+        43,
+        62
+      ],
+      "offset": 36050,
+      "length": 2666,
+      "trim_origin_top_left_px": [
+        59,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        16
+      ],
+      "sha256": "d58a6b18d47c2d3007ececee2b178231c649bc888841c908a8e72d8827dac92e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_00.png",
+      "width": 45,
+      "height": 63,
+      "texture_px": [
+        45,
+        63
+      ],
+      "offset": 38716,
+      "length": 2835,
+      "trim_origin_top_left_px": [
+        57,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        20
+      ],
+      "sha256": "4fb77b2f3427f7ac7cf906d52309b56e19880ad58022249b48f198caf9d5e327",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_01.png",
+      "width": 44,
+      "height": 60,
+      "texture_px": [
+        44,
+        60
+      ],
+      "offset": 41551,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        58,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        17
+      ],
+      "sha256": "045b9a6219d77312978048993fc950a57aeb887f6e569396d51d4cba608ff724",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_02.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 44191,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "2344056a935e792741712a2f415c01e380c0840dfe2d3b0f754e020c71ea1187",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_03.png",
+      "width": 41,
+      "height": 55,
+      "texture_px": [
+        41,
+        55
+      ],
+      "offset": 46627,
+      "length": 2255,
+      "trim_origin_top_left_px": [
+        60,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        11
+      ],
+      "sha256": "7ec841f241c0848f4507a7d7be4427521a49cb8a0ca352bbcf226f52b8298c48",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_04.png",
+      "width": 39,
+      "height": 55,
+      "texture_px": [
+        39,
+        55
+      ],
+      "offset": 48882,
+      "length": 2145,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "8954446694c2a1186cfe405558acc52549558ef5f4ed8ef67f0b84861b2ac1eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_05.png",
+      "width": 38,
+      "height": 56,
+      "texture_px": [
+        38,
+        56
+      ],
+      "offset": 51027,
+      "length": 2128,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "023b184ae12beb0e0270501f3381f825205e54fbd3bb4132e6af6ffedc396782",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_06.png",
+      "width": 38,
+      "height": 57,
+      "texture_px": [
+        38,
+        57
+      ],
+      "offset": 53155,
+      "length": 2166,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "46b8b381abe5a3c92ca15a69069c9dfe5559a91ca68bd41b06150e97ca018f8b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_07.png",
+      "width": 39,
+      "height": 60,
+      "texture_px": [
+        39,
+        60
+      ],
+      "offset": 55321,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        61,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "53a0b4931ff219f1f572e93e287040d0d798853b6c96c295d781e6efee740b0c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_08.png",
+      "width": 39,
+      "height": 63,
+      "texture_px": [
+        39,
+        63
+      ],
+      "offset": 57661,
+      "length": 2457,
+      "trim_origin_top_left_px": [
+        61,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "123ce833f306d84322b4ec5d28e8107dfd09e313ccadc7fac607b0d1a9feba25",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_09.png",
+      "width": 38,
+      "height": 60,
+      "texture_px": [
+        38,
+        60
+      ],
+      "offset": 60118,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "84d7fa3cebdd9eee90fe67f76f50ef0c9b24eb5a36082f8875529fcf5071a5fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_10.png",
+      "width": 38,
+      "height": 57,
+      "texture_px": [
+        38,
+        57
+      ],
+      "offset": 62398,
+      "length": 2166,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "4bc55d78afd43b34f648409b951ba2972b885835aec13e6dbeb68935335aa9ba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_11.png",
+      "width": 38,
+      "height": 56,
+      "texture_px": [
+        38,
+        56
+      ],
+      "offset": 64564,
+      "length": 2128,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "af205c850f3ae411160be27c29ada2c05ad2a6da0589bd95f727192078328851",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_12.png",
+      "width": 39,
+      "height": 55,
+      "texture_px": [
+        39,
+        55
+      ],
+      "offset": 66692,
+      "length": 2145,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "3c125bedae2c124fcdff61eb2fabd9ea78ed6127ffcc86e448f8e664010bfc09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_13.png",
+      "width": 41,
+      "height": 53,
+      "texture_px": [
+        41,
+        53
+      ],
+      "offset": 68837,
+      "length": 2173,
+      "trim_origin_top_left_px": [
+        60,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "6a52f0ac4583b9124a5086fd8bbc79cf5995c88b59eb3ce1659ba05b12faf120",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_14.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 71010,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "d53c9314d602441d5961b6c7a9d38bcbc17996f1b77e98ed3674760516cf74b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ssw_15.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 73362,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        58,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        16
+      ],
+      "sha256": "876e55a5cce57a5c19dbce9222a509dc033f01fc5404c2b3fdb35d767a5c4f7f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_00.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 75958,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        55,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        18
+      ],
+      "sha256": "2309231ec6ab0063e641db044d2486fc9a291a3746dec092839e8fab4cba52f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_01.png",
+      "width": 44,
+      "height": 60,
+      "texture_px": [
+        44,
+        60
+      ],
+      "offset": 78686,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        55,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        16
+      ],
+      "sha256": "d609db762b43ca19ebc783265a97466ef68d9d3f97289bca6c698cfd56c727f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_02.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 81326,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        57,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        13
+      ],
+      "sha256": "7adc1c77c6d66e181926b4d21a6b03ea53f93b1e4d1e2546d3298bc0c2261c57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_03.png",
+      "width": 40,
+      "height": 58,
+      "texture_px": [
+        40,
+        58
+      ],
+      "offset": 83762,
+      "length": 2320,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "e6af88230e05d411c8756492d4ada2928f5826371bd7a9aca2516eb0daf5a19e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_04.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 86082,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "81b1f0860b05df8c8a484f2f9455d7507f7367f2c1b20a84aff9a1ba93f281d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_05.png",
+      "width": 38,
+      "height": 61,
+      "texture_px": [
+        38,
+        61
+      ],
+      "offset": 88265,
+      "length": 2318,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        10
+      ],
+      "sha256": "72783b30b5510eea710cfbe3b7c0f542f15d2fb587e0a08e40911f7b80ab9aa4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_06.png",
+      "width": 41,
+      "height": 62,
+      "texture_px": [
+        41,
+        62
+      ],
+      "offset": 90583,
+      "length": 2542,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "1e5f9816b60380adb5122ed595425c5e22bf802000f71e140923597ecdd3c491",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_07.png",
+      "width": 43,
+      "height": 62,
+      "texture_px": [
+        43,
+        62
+      ],
+      "offset": 93125,
+      "length": 2666,
+      "trim_origin_top_left_px": [
+        56,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        10
+      ],
+      "sha256": "b362d1e5c048330dfdf44ae7cbcb0f014755af41d6a798ef257addbb41c87bf3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_08.png",
+      "width": 44,
+      "height": 62,
+      "texture_px": [
+        44,
+        62
+      ],
+      "offset": 95791,
+      "length": 2728,
+      "trim_origin_top_left_px": [
+        55,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        10
+      ],
+      "sha256": "bf4d7bafe5a6510e15b311cc6cde5651aeeb09b8bf66f58dae297272bee5a275",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_09.png",
+      "width": 41,
+      "height": 62,
+      "texture_px": [
+        41,
+        62
+      ],
+      "offset": 98519,
+      "length": 2542,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "6dfed99debe5e497b6864d4aa45dc8ca902d8f49ed271ebb277f0f1d800d1e58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_10.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 101061,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        62,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "d1a826842a5277b5d6751fdf9f974e6643aa091cc405b8f59dae7a630bbe08a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_11.png",
+      "width": 34,
+      "height": 61,
+      "texture_px": [
+        34,
+        61
+      ],
+      "offset": 103355,
+      "length": 2074,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "845c767975ad65dd940d0d338a8b74c29fa9d27f536c271d12406ce933f7320b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_12.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 105429,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "298a0f800c562fdedd0c9473a1cd2f5467339771d0bf0f699420ce94807ed3db",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_13.png",
+      "width": 40,
+      "height": 57,
+      "texture_px": [
+        40,
+        57
+      ],
+      "offset": 107612,
+      "length": 2280,
+      "trim_origin_top_left_px": [
+        59,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "9d602685050865a66f0483f0604c9a6c811a05ba8c09d4efa5be41c738bbaeff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_14.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 109892,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        57,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        11
+      ],
+      "sha256": "fd883a1d703057b3d5d49b598efbe8b2133a980b001441b6c7d96288e0e64465",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sw_15.png",
+      "width": 44,
+      "height": 59,
+      "texture_px": [
+        44,
+        59
+      ],
+      "offset": 112244,
+      "length": 2596,
+      "trim_origin_top_left_px": [
+        55,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        15
+      ],
+      "sha256": "5b62c9bf42ff38aef3eadf59bbf5f219b673ed9dc613df0161c2f09f231bf58c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_00.png",
+      "width": 40,
+      "height": 61,
+      "texture_px": [
+        40,
+        61
+      ],
+      "offset": 114840,
+      "length": 2440,
+      "trim_origin_top_left_px": [
+        56,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "e2e018df579c1802617a3849666461a63404f866b56ad382821bfa1ad85d3a5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_01.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 117280,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        56,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "5a39bb505ec83c7e80e081de3c812df04110b58570bb823060f8424bfaa3537f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_02.png",
+      "width": 37,
+      "height": 60,
+      "texture_px": [
+        37,
+        60
+      ],
+      "offset": 119640,
+      "length": 2220,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "51040e6c4c6352e21c806bc12bff76c3ed46e420e7d68af0e4c5ff074b267cb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_03.png",
+      "width": 34,
+      "height": 62,
+      "texture_px": [
+        34,
+        62
+      ],
+      "offset": 121860,
+      "length": 2108,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "3bbc3243049aa45f391b8d568ca9a3e34b66f85a8de4b33c78aaee5455daf522",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_04.png",
+      "width": 36,
+      "height": 63,
+      "texture_px": [
+        36,
+        63
+      ],
+      "offset": 123968,
+      "length": 2268,
+      "trim_origin_top_left_px": [
+        60,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "57107de884b87a7b0fb99f408872b34ebf880338da51208679546bb73aa12e3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_05.png",
+      "width": 38,
+      "height": 65,
+      "texture_px": [
+        38,
+        65
+      ],
+      "offset": 126236,
+      "length": 2470,
+      "trim_origin_top_left_px": [
+        58,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "5b3c7558bf6414e4e3a2a15b446a7f005bbea0617b29dd403d8884a69aca03ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_06.png",
+      "width": 39,
+      "height": 65,
+      "texture_px": [
+        39,
+        65
+      ],
+      "offset": 128706,
+      "length": 2535,
+      "trim_origin_top_left_px": [
+        57,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "6bf00ca273648cfa038c3322cab76afaeeaec27bdab60f1ebca264de96e96a39",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_07.png",
+      "width": 45,
+      "height": 66,
+      "texture_px": [
+        45,
+        66
+      ],
+      "offset": 131241,
+      "length": 2970,
+      "trim_origin_top_left_px": [
+        54,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        12
+      ],
+      "sha256": "f94468c0c0dfbb49264fa91341d81fea98b64cab7388709d30ae3838f62a2496",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_08.png",
+      "width": 46,
+      "height": 66,
+      "texture_px": [
+        46,
+        66
+      ],
+      "offset": 134211,
+      "length": 3036,
+      "trim_origin_top_left_px": [
+        53,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        12
+      ],
+      "sha256": "af958f3a13397ac7d47761986edc5ad515de9b82a50de0d0c20424ea99941135",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_09.png",
+      "width": 40,
+      "height": 66,
+      "texture_px": [
+        40,
+        66
+      ],
+      "offset": 137247,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        57,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "ec123820841223b011b0b6d6cd8897f27d18b8008bcc317ee86b04814fe74358",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_10.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 139887,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "bbef75d95ff998140e1b8aa256a6898e3473e76d7863c52d29ac80d8dec8c201",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_11.png",
+      "width": 31,
+      "height": 65,
+      "texture_px": [
+        31,
+        65
+      ],
+      "offset": 142162,
+      "length": 2015,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        12
+      ],
+      "sha256": "35adf778e1f65b53bb7eaafbde3ec9bb05c86c8929ea1bac77a61ea931e465fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_12.png",
+      "width": 33,
+      "height": 63,
+      "texture_px": [
+        33,
+        63
+      ],
+      "offset": 144177,
+      "length": 2079,
+      "trim_origin_top_left_px": [
+        63,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "b14e5ac01a11799cc9885ae98a8ce65bf84badfb526a9d1e62826aa2688dccf1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_13.png",
+      "width": 35,
+      "height": 62,
+      "texture_px": [
+        35,
+        62
+      ],
+      "offset": 146256,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        61,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "57bd9259dcd3cbdfbef519a35d7f467dfb8c64f0fac3d2484b55ce9baf1b8c53",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_14.png",
+      "width": 37,
+      "height": 60,
+      "texture_px": [
+        37,
+        60
+      ],
+      "offset": 148426,
+      "length": 2220,
+      "trim_origin_top_left_px": [
+        59,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "339dd87a4127c1e6b99d047ace48dc3d0bc3f0f7121035eac9a732b94a1152bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wsw_15.png",
+      "width": 40,
+      "height": 59,
+      "texture_px": [
+        40,
+        59
+      ],
+      "offset": 150646,
+      "length": 2360,
+      "trim_origin_top_left_px": [
+        56,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        12
+      ],
+      "sha256": "99d6ce22862ecf194b0b8acffc2d46a1362343f0610b258bd4abc23753bed5a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_00.png",
+      "width": 44,
+      "height": 63,
+      "texture_px": [
+        44,
+        63
+      ],
+      "offset": 153006,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        54,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        14
+      ],
+      "sha256": "49a4a7f549715789b8ac228bc95d86a46aac574212792a36f428179fe906883a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_01.png",
+      "width": 36,
+      "height": 64,
+      "texture_px": [
+        36,
+        64
+      ],
+      "offset": 155778,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "d08a929d7fc68fc0db7e32b76396260b6270990cfdcbb4b3495021813e914f6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_02.png",
+      "width": 30,
+      "height": 64,
+      "texture_px": [
+        30,
+        64
+      ],
+      "offset": 158082,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "28f448d4fcdd2ba0b45cade41234a327c10896a60c0d574b11259c08038d394a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_03.png",
+      "width": 29,
+      "height": 65,
+      "texture_px": [
+        29,
+        65
+      ],
+      "offset": 160002,
+      "length": 1885,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        14
+      ],
+      "sha256": "294d102129626e98baa39c6f0e67c7b46de971dea3a9e806e8c49855f95deee9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_04.png",
+      "width": 33,
+      "height": 66,
+      "texture_px": [
+        33,
+        66
+      ],
+      "offset": 161887,
+      "length": 2178,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "88841febe3fd09a5a7a1055315e8670faa565b4b3a00e29211463ace8e20b45e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_05.png",
+      "width": 34,
+      "height": 67,
+      "texture_px": [
+        34,
+        67
+      ],
+      "offset": 164065,
+      "length": 2278,
+      "trim_origin_top_left_px": [
+        59,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "4be99c50f351fbf81028e4c8dcbb7655ca80eec77d2a039621b176cee7b21cfd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_06.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 166343,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        58,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "0290da3c02eee5e0907caff34eb2f28bafeaf9203355590fc64736547c4fed84",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_07.png",
+      "width": 42,
+      "height": 67,
+      "texture_px": [
+        42,
+        67
+      ],
+      "offset": 168755,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        56,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "f8c5043f8475bb946a806b384605a0e9d02fe1428378fcccb0b4a97571de7d71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_08.png",
+      "width": 43,
+      "height": 67,
+      "texture_px": [
+        43,
+        67
+      ],
+      "offset": 171569,
+      "length": 2881,
+      "trim_origin_top_left_px": [
+        55,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        14
+      ],
+      "sha256": "83590f90786edb262a6993ae6d9ff5886a5a5286d6ff3a2452d8852dac3b2404",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_09.png",
+      "width": 36,
+      "height": 67,
+      "texture_px": [
+        36,
+        67
+      ],
+      "offset": 174450,
+      "length": 2412,
+      "trim_origin_top_left_px": [
+        59,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "66983fe3dedb1e28a12fde4ebabc1f2d0ce881931b5492b642df2809c8a94a9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_10.png",
+      "width": 30,
+      "height": 67,
+      "texture_px": [
+        30,
+        67
+      ],
+      "offset": 176862,
+      "length": 2010,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "38f0778882401ad41577e0a0d07a96f87523b5ad22e0130aa7a5616de8a87b1f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_11.png",
+      "width": 30,
+      "height": 67,
+      "texture_px": [
+        30,
+        67
+      ],
+      "offset": 178872,
+      "length": 2010,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "41288082284e4d8d3fa81ac8b59850912c4c8dbb94e610934df6eb09d842f22d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_12.png",
+      "width": 33,
+      "height": 66,
+      "texture_px": [
+        33,
+        66
+      ],
+      "offset": 180882,
+      "length": 2178,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "60ca2961992b67d69630440a2e1b48d915a60a77386d12d2ddadb23b7f7ae30b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_13.png",
+      "width": 35,
+      "height": 65,
+      "texture_px": [
+        35,
+        65
+      ],
+      "offset": 183060,
+      "length": 2275,
+      "trim_origin_top_left_px": [
+        58,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "10e2ca87082d4c9ef99acc7b61d7df39b54570afe3a5f49f4dab0d2c86c01824",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_14.png",
+      "width": 36,
+      "height": 64,
+      "texture_px": [
+        36,
+        64
+      ],
+      "offset": 185335,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        58,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "6ae548a3ca33fdc6bb9f8d82d2bbfff856ac57bdbaac0827c9b0568cb39eb641",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_w_15.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 187639,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        56,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "48814cf2dfdba8a237cd3ad3ef57392bbe2f84a445852b424624fe9be0b3e483",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_00.png",
+      "width": 46,
+      "height": 66,
+      "texture_px": [
+        46,
+        66
+      ],
+      "offset": 190327,
+      "length": 3036,
+      "trim_origin_top_left_px": [
+        53,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        27,
+        15
+      ],
+      "sha256": "04e3a6218beb203dbc8e871af99825be8f0b738e5df503aaef408f8255bd1001",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_01.png",
+      "width": 40,
+      "height": 66,
+      "texture_px": [
+        40,
+        66
+      ],
+      "offset": 193363,
+      "length": 2640,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        15
+      ],
+      "sha256": "d0947fab93caca7f31adedc1239f557c6789ab48dc62697487d6238412ac93b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_02.png",
+      "width": 32,
+      "height": 67,
+      "texture_px": [
+        32,
+        67
+      ],
+      "offset": 196003,
+      "length": 2144,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "15d6230a5fd8c8bbd3654e36f5ce139feec4460227495eff7a0ba10be79da8bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_03.png",
+      "width": 28,
+      "height": 67,
+      "texture_px": [
+        28,
+        67
+      ],
+      "offset": 198147,
+      "length": 1876,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        15
+      ],
+      "sha256": "6abce1a95d1b9845d72ff812054a51886f4a303e1d72441ef7076c19064c4c2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_04.png",
+      "width": 30,
+      "height": 68,
+      "texture_px": [
+        30,
+        68
+      ],
+      "offset": 200023,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        15
+      ],
+      "sha256": "3cf6e0ff0837f4c9f722f69b6046854347cf926b61e123721e727df766672232",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_05.png",
+      "width": 33,
+      "height": 67,
+      "texture_px": [
+        33,
+        67
+      ],
+      "offset": 202063,
+      "length": 2211,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "95d9946f30f83d7c8553b7dc7920bdaf96fe60a460ac5fee480d3d7986636809",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_06.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 204274,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        59,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "54653f03a8c2875dc4de5b55fadb23be4ac17811f8bdf76961b60186fe7c447c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_07.png",
+      "width": 37,
+      "height": 66,
+      "texture_px": [
+        37,
+        66
+      ],
+      "offset": 206619,
+      "length": 2442,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        15
+      ],
+      "sha256": "293ed963f552c517e2faced5d2468a09f027a5bfb2c2abb9d4813f06c1df3f94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_08.png",
+      "width": 39,
+      "height": 66,
+      "texture_px": [
+        39,
+        66
+      ],
+      "offset": 209061,
+      "length": 2574,
+      "trim_origin_top_left_px": [
+        56,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        15
+      ],
+      "sha256": "3647ebf795e8a26868770ca01aeb7617ee7b6efd964cb00e0bdc0f595d30b5fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_09.png",
+      "width": 37,
+      "height": 66,
+      "texture_px": [
+        37,
+        66
+      ],
+      "offset": 211635,
+      "length": 2442,
+      "trim_origin_top_left_px": [
+        57,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        15
+      ],
+      "sha256": "915918190eb545678b83b11237a70a3ff3d10049fc28f44d9ebc95a1bb9dbd2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_10.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 214077,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        59,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "bd78fd0b2203a6ed96f49a7ea3b58cb2c5af973eedab60ad94c236f8ea850916",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_11.png",
+      "width": 32,
+      "height": 67,
+      "texture_px": [
+        32,
+        67
+      ],
+      "offset": 216422,
+      "length": 2144,
+      "trim_origin_top_left_px": [
+        62,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        15
+      ],
+      "sha256": "36990d5aa006cfcd125f81219934762f4d018de046c6ebbe7d4a84d86f73c04a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_12.png",
+      "width": 33,
+      "height": 68,
+      "texture_px": [
+        33,
+        68
+      ],
+      "offset": 218566,
+      "length": 2244,
+      "trim_origin_top_left_px": [
+        60,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        15
+      ],
+      "sha256": "5d111e4276f941a5f3d76e0564846f0f8dabf9e61636dfe57abf49d85a01b4d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_13.png",
+      "width": 35,
+      "height": 67,
+      "texture_px": [
+        35,
+        67
+      ],
+      "offset": 220810,
+      "length": 2345,
+      "trim_origin_top_left_px": [
+        58,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        15
+      ],
+      "sha256": "2c667ed9332571a33d065d78dabd7af7a6e122e653b75762553436f0fd5ea0ec",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_14.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 223155,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        57,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        15
+      ],
+      "sha256": "ec6f9de2c9f13b873a636d9bb337f2509770b20c1ed231b91fcddd53e57929fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_wnw_15.png",
+      "width": 45,
+      "height": 66,
+      "texture_px": [
+        45,
+        66
+      ],
+      "offset": 225701,
+      "length": 2970,
+      "trim_origin_top_left_px": [
+        54,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        15
+      ],
+      "sha256": "657eea73e53d11eea0aece06c978c2de071c8d5b620049e27334330d8b172800",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_00.png",
+      "width": 42,
+      "height": 68,
+      "texture_px": [
+        42,
+        68
+      ],
+      "offset": 228671,
+      "length": 2856,
+      "trim_origin_top_left_px": [
+        56,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "63652588f34d7e528659ae0663f5a70380291512fc4291c2ee49167a10d81f76",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_01.png",
+      "width": 37,
+      "height": 68,
+      "texture_px": [
+        37,
+        68
+      ],
+      "offset": 231527,
+      "length": 2516,
+      "trim_origin_top_left_px": [
+        59,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "c9bb20a185c708e86db2157eebe31367f68fee04dd430896fec9ee083a37bb16",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_02.png",
+      "width": 32,
+      "height": 69,
+      "texture_px": [
+        32,
+        69
+      ],
+      "offset": 234043,
+      "length": 2208,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "7c6a84ce19e4ac52233bb58198aeb2821705ca3927059643750eb58994e51b61",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_03.png",
+      "width": 31,
+      "height": 69,
+      "texture_px": [
+        31,
+        69
+      ],
+      "offset": 236251,
+      "length": 2139,
+      "trim_origin_top_left_px": [
+        65,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        14
+      ],
+      "sha256": "a81e6cfed02ec103d9c67f6351f3fee2ea1040abcf2c31215e182528910b44ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_04.png",
+      "width": 34,
+      "height": 70,
+      "texture_px": [
+        34,
+        70
+      ],
+      "offset": 238390,
+      "length": 2380,
+      "trim_origin_top_left_px": [
+        63,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        14
+      ],
+      "sha256": "7bfa3f563a7f7849eec726c286d6fee4b47391bba9ca44fdeebd017dae518d71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_05.png",
+      "width": 38,
+      "height": 69,
+      "texture_px": [
+        38,
+        69
+      ],
+      "offset": 240770,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "26042519c680d923b88e8628883983c54c04c616d7d32f28f23709a04065e2bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_06.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 243392,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        57,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        14
+      ],
+      "sha256": "455f1f92011a997a63ac0ac281ee03747dc083bf7c1eedfce758dec189544a50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_07.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 246290,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        56,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "d9a1e984e536dfcbb6160ddb63f99fb0866df32de34c430b8e51d5e42fa5ba5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_08.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 249214,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        55,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        25,
+        14
+      ],
+      "sha256": "f3b2bef4dedd45988afcc2549e4c7e8cda1d1458a52832af03c42adf3703498c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_09.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 252206,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        56,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        14
+      ],
+      "sha256": "c4c5128ffa8de5e22ba5f78e5deb6994ce8f75f5fae920684f6731c2652d585d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_10.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 255130,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        57,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        14
+      ],
+      "sha256": "4703d4bbcb7a5a26edbe697d66939d1c53b9f24127b72f7a9f10587cdeb11fcf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_11.png",
+      "width": 38,
+      "height": 69,
+      "texture_px": [
+        38,
+        69
+      ],
+      "offset": 258028,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "3f717841dc5c0d387efb3bc6bd29e5aaf1a256ac8a2745cfe5d136aa187d4a2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_12.png",
+      "width": 35,
+      "height": 70,
+      "texture_px": [
+        35,
+        70
+      ],
+      "offset": 260650,
+      "length": 2450,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        14
+      ],
+      "sha256": "0c4ad79557a8cf60cd6c302dfae8daf83c55268f22c8b7ecacba056aba3c3055",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_13.png",
+      "width": 35,
+      "height": 69,
+      "texture_px": [
+        35,
+        69
+      ],
+      "offset": 263100,
+      "length": 2415,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "7381b1f6603cc0243a2a4d58f0fd5f8937cc8dddfbcd6db21b0b24340b21991d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_14.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 265515,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        59,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "7f9fe7d7f77504d50fc5337c54030d4ab2239a768ffcaa07f5720e295ef74ee4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nw_15.png",
+      "width": 41,
+      "height": 68,
+      "texture_px": [
+        41,
+        68
+      ],
+      "offset": 267999,
+      "length": 2788,
+      "trim_origin_top_left_px": [
+        57,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        14
+      ],
+      "sha256": "9e443c6fdcf7de7891d74121b6bfb83afc19784cf0aea13e8bf22e633e783247",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_00.png",
+      "width": 37,
+      "height": 68,
+      "texture_px": [
+        37,
+        68
+      ],
+      "offset": 270787,
+      "length": 2516,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        12
+      ],
+      "sha256": "250a9688823f0ddf7e979d4721f0f3fb0cd8a00cfc797b41d98da6aa705debe2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_01.png",
+      "width": 36,
+      "height": 68,
+      "texture_px": [
+        36,
+        68
+      ],
+      "offset": 273303,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "3bfd0f472cd3bbca89e346b7360ae77738050de78498e0847a8c7610fd9efa0d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_02.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 275751,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        63,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "bcbad65ab97b17ffd75db79d68bc63a1272c73f365b920c4ed11587f5364a0b5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_03.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 278235,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        64,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "f6d6170e8bc2e0bf55f1d93381fbded44eb045649c98a954d6b86117fa9b8a35",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_04.png",
+      "width": 38,
+      "height": 69,
+      "texture_px": [
+        38,
+        69
+      ],
+      "offset": 280719,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        62,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "a8c1892080d0def6d635c585ab445f886821230f0f9656adcdcecefc75bc3484",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_05.png",
+      "width": 41,
+      "height": 69,
+      "texture_px": [
+        41,
+        69
+      ],
+      "offset": 283341,
+      "length": 2829,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "3d4b4228619ad6ec7009f7791465b496dd1953daa4eeb8fb9f410abf4e930b3d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_06.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 286170,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "28e14c5ea8945a2fde1ad3f66394ab6643d375f77c943586588c3d40bc5e08d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_07.png",
+      "width": 43,
+      "height": 70,
+      "texture_px": [
+        43,
+        70
+      ],
+      "offset": 289068,
+      "length": 3010,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "efef16169cb3fc2949127f646c80b175c834d04b556db522ca7d621157e5f59a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_08.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 292078,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        57,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        12
+      ],
+      "sha256": "8e11070a32063ca0fc39c5e22546fe59a74b9b7703e3b6dea1cf69f38807c882",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_09.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 295070,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "c251613199589935fe725b961afe09a5844c6b5281d0a625a42699598a35f2f1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_10.png",
+      "width": 42,
+      "height": 69,
+      "texture_px": [
+        42,
+        69
+      ],
+      "offset": 297994,
+      "length": 2898,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "b2d537e30159079ebd63df707333458bff89a0f02a16284293f3ad1d106df1f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_11.png",
+      "width": 41,
+      "height": 69,
+      "texture_px": [
+        41,
+        69
+      ],
+      "offset": 300892,
+      "length": 2829,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        12
+      ],
+      "sha256": "93980b3fd2c9ccd6109d51e01642afbdb86e44b66be42417338dbc38fac6ca82",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_12.png",
+      "width": 38,
+      "height": 69,
+      "texture_px": [
+        38,
+        69
+      ],
+      "offset": 303721,
+      "length": 2622,
+      "trim_origin_top_left_px": [
+        62,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "f90d514f8c289fe85817eea3673bd7e57fae23ef59eea30ecc5f7107f65e738b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_13.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 306343,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        64,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        12
+      ],
+      "sha256": "a24b3959cc31e34ee108714c74abd72cda06a8ba175f5d9bf0b81bf5f40261bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_14.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 308827,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        63,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "023f0d7adcd14c25c2fd9d888aff797500b655fab8e90c9250211d17af2a6c88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nnw_15.png",
+      "width": 36,
+      "height": 68,
+      "texture_px": [
+        36,
+        68
+      ],
+      "offset": 311311,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "e6adf688eaba2c1fec8974bf4c4e5be9e6ef16e12d02ff7585821639c738e778",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_00.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 313759,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        11
+      ],
+      "sha256": "d3adabcdd928e1a3b0f4f7db24e75ad54a1aad9e67d6dd5196183506184460be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_01.png",
+      "width": 43,
+      "height": 66,
+      "texture_px": [
+        43,
+        66
+      ],
+      "offset": 316683,
+      "length": 2838,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        9
+      ],
+      "sha256": "b0c3aa9b8627d795ec1d5524defd2472f23c1473d6fcfff5e5bac53b3a6e8bf4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_02.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 319521,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "ecdecf885d1b3c77be5828d7364d2f8eeca6c20cc6ff949da3910bbbe0f0f67d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_03.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 322227,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "fe30aae8b6b7dd123e46fdedf1ceb04eaeb4abf668b8d57cc3a948cb82ddcffa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_04.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 324974,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "1cba99c7deb77447e62809d7a76f66ec671eab258198c3425ca0c33078b8c885",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_05.png",
+      "width": 42,
+      "height": 67,
+      "texture_px": [
+        42,
+        67
+      ],
+      "offset": 327721,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "ee919c7605d464e67061b5d69c88bd1c87d073ee986ae57a5e11428aef00ee34",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_06.png",
+      "width": 42,
+      "height": 67,
+      "texture_px": [
+        42,
+        67
+      ],
+      "offset": 330535,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "049cc86efae60a720ade3f80335cf11ed236e7753c2fc7f1e5be35918136f5e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_07.png",
+      "width": 43,
+      "height": 70,
+      "texture_px": [
+        43,
+        70
+      ],
+      "offset": 333349,
+      "length": 3010,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        13
+      ],
+      "sha256": "058eaacdd158a71c6889edaec6a7b67ffcb27b935430d80fcbbbb08f696a827d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_08.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 336359,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        11
+      ],
+      "sha256": "51c7d8248b036aaa629c806b71203c11572c60bd1af9cb2374b78875103ba66f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_09.png",
+      "width": 43,
+      "height": 66,
+      "texture_px": [
+        43,
+        66
+      ],
+      "offset": 339283,
+      "length": 2838,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        9
+      ],
+      "sha256": "8bd7c1bcc879bae8c49e820a76c1fb2dcb6835d508fd1f222912708edec2f714",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_10.png",
+      "width": 42,
+      "height": 66,
+      "texture_px": [
+        42,
+        66
+      ],
+      "offset": 342121,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "42be765e7ca3d9e6b319281143036d6effd3ea467a5840e4b4e0c20479319c7f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_11.png",
+      "width": 42,
+      "height": 67,
+      "texture_px": [
+        42,
+        67
+      ],
+      "offset": 344893,
+      "length": 2814,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        9
+      ],
+      "sha256": "00468c8a41a9d84c381b19d9b66b5675e2ea01f92ee448c69d2a11d2def50357",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_12.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 347707,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "9ef6cebb74061df504297849da8a7eacc21a814fe256c7fa85328954300a2213",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_13.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 350454,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        9
+      ],
+      "sha256": "0440bd31ff439608bee373d536918466d3b5170a66a920d7a7b151d7c8efd3b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_14.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 353201,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "684c276d18a6224e67cb99ab71a231f80a8f09615f0d232ec2926ba84f771f37",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_n_15.png",
+      "width": 43,
+      "height": 70,
+      "texture_px": [
+        43,
+        70
+      ],
+      "offset": 355948,
+      "length": 3010,
+      "trim_origin_top_left_px": [
+        58,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        13
+      ],
+      "sha256": "bdf5f1f3d978db454d9fd7186ba1aa88a04155a4b02de9d5902b9775e3854451",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_00.png",
+      "width": 45,
+      "height": 68,
+      "texture_px": [
+        45,
+        68
+      ],
+      "offset": 358958,
+      "length": 3060,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        12
+      ],
+      "sha256": "ac6b1d550760ffaecf9c6d6eb25a032810be5f40417c034bcbf4bbc3573bcafc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_01.png",
+      "width": 44,
+      "height": 66,
+      "texture_px": [
+        44,
+        66
+      ],
+      "offset": 362018,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        10
+      ],
+      "sha256": "09527efca6da16760da4f79f69353f8eec12596a54596c59059dc882a904d774",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_02.png",
+      "width": 43,
+      "height": 67,
+      "texture_px": [
+        43,
+        67
+      ],
+      "offset": 364922,
+      "length": 2881,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "d89c18056852c4da736a8c7e86ef0a8527d9bfcc1547b4f02d232605df02763f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_03.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 367803,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "90ca07734cbf715ced7279f44705ae581f4db8f788b761062dfbcea1752d82a1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_04.png",
+      "width": 39,
+      "height": 67,
+      "texture_px": [
+        39,
+        67
+      ],
+      "offset": 370550,
+      "length": 2613,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "d8c64e9f7c47d841807903810805dbf0d68be99c83c7b7618dfb942f07309531",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_05.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 373163,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "f5dfd6cb35dd89578fdd2abaec837b80db9c5235c91096df77c34f2540bee974",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_06.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 375709,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "092d641428f90ca4e0537a6a01d42527a75ae3bf308a750f2ce4c901fdd29b43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_07.png",
+      "width": 39,
+      "height": 66,
+      "texture_px": [
+        39,
+        66
+      ],
+      "offset": 378255,
+      "length": 2574,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "05264a5b18fbc464d1ceb8034b985663ea153eb1e14ef376b0fd065491c58f6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_08.png",
+      "width": 39,
+      "height": 66,
+      "texture_px": [
+        39,
+        66
+      ],
+      "offset": 380829,
+      "length": 2574,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "12d9dceb81bb6ff15fdb4c248723bf5da5dea70f51d8e7208b50cd06023b0cf2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_09.png",
+      "width": 38,
+      "height": 66,
+      "texture_px": [
+        38,
+        66
+      ],
+      "offset": 383403,
+      "length": 2508,
+      "trim_origin_top_left_px": [
+        60,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "cba195dcf3195c21c055b5cdf91df8eda864e83c142e0a0491e799c7659c0f66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_10.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 385911,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "2f890b5fa01c45b28ad14f5557daa0fa7de38d211c7bd609209fcc8bc10c613f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_11.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 388457,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "f2099d81fd9a6f301e49e30fd1241d76f30e753fd3ba2b6ff07ea9c197841f98",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_12.png",
+      "width": 39,
+      "height": 67,
+      "texture_px": [
+        39,
+        67
+      ],
+      "offset": 391003,
+      "length": 2613,
+      "trim_origin_top_left_px": [
+        60,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "c8507d92a311d358df04e7e17481c5c84315896efbe7fa422952a506852dfc5b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_13.png",
+      "width": 41,
+      "height": 67,
+      "texture_px": [
+        41,
+        67
+      ],
+      "offset": 393616,
+      "length": 2747,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        10
+      ],
+      "sha256": "c5a52beb8d998604cb1757ae331f174f67a7c389d48dcc079f350a3878153916",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_14.png",
+      "width": 43,
+      "height": 68,
+      "texture_px": [
+        43,
+        68
+      ],
+      "offset": 396363,
+      "length": 2924,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "356205d94842202d7c42d2052a23bf97e336eff2ea9ca543324cdd5fbc6cb848",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_nne_15.png",
+      "width": 44,
+      "height": 70,
+      "texture_px": [
+        44,
+        70
+      ],
+      "offset": 399287,
+      "length": 3080,
+      "trim_origin_top_left_px": [
+        58,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
+        14
+      ],
+      "sha256": "7649fc912beb919df5d1d2467afd1b2ce6dbe275477806880b4a0e4648ee7ce8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_00.png",
+      "width": 44,
+      "height": 65,
+      "texture_px": [
+        44,
+        65
+      ],
+      "offset": 402367,
+      "length": 2860,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "0fbaae2c10d5e0ff8961769fe8a54719e8696b8cfc3c7fc0bb1ba6592cc0747a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_01.png",
+      "width": 44,
+      "height": 66,
+      "texture_px": [
+        44,
+        66
+      ],
+      "offset": 405227,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "a2ddbf072a28cc90c43756c74c34693eeadbad8d1d88cad82e6f4cf53dcac2f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_02.png",
+      "width": 42,
+      "height": 66,
+      "texture_px": [
+        42,
+        66
+      ],
+      "offset": 408131,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "6acb8580f6d79ac03d422794bc4f2bd4586407978485cd428e2c7e264b9932b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_03.png",
+      "width": 40,
+      "height": 67,
+      "texture_px": [
+        40,
+        67
+      ],
+      "offset": 410903,
+      "length": 2680,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "a2f6ffa092feb9946f375811024869472b1e6442c2ea314e5fa765c23be35cb6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_04.png",
+      "width": 37,
+      "height": 67,
+      "texture_px": [
+        37,
+        67
+      ],
+      "offset": 413583,
+      "length": 2479,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c9020e51288739304851af83b0b36220c4ad139c10a20a51c205f9f0e6d858d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_05.png",
+      "width": 38,
+      "height": 67,
+      "texture_px": [
+        38,
+        67
+      ],
+      "offset": 416062,
+      "length": 2546,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "023fa35b930eb3e0357952c02cc3b0eb6f817895d5b7d4e64809108bb7b34f71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_06.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 418608,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "8ea91adf8347115a6422cc198bf94dfdcfbd79cb51a2b2b1d8da95918f50b573",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_07.png",
+      "width": 43,
+      "height": 66,
+      "texture_px": [
+        43,
+        66
+      ],
+      "offset": 421314,
+      "length": 2838,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "9ebf3b6dfac7312b63f26a853c73683f315b29ae006d19fb5ccb4d42e5ff686f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_08.png",
+      "width": 44,
+      "height": 65,
+      "texture_px": [
+        44,
+        65
+      ],
+      "offset": 424152,
+      "length": 2860,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "142e37b2fb9ad2e50450f0aa3d60016fddcbfcbaa0b3341a3b19f0c1d384abde",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_09.png",
+      "width": 41,
+      "height": 66,
+      "texture_px": [
+        41,
+        66
+      ],
+      "offset": 427012,
+      "length": 2706,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "68c687293d5aa5aa9647039c7f2f3cc5aa957b40fdcb0b3776c0c109c0c2a76a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_10.png",
+      "width": 38,
+      "height": 66,
+      "texture_px": [
+        38,
+        66
+      ],
+      "offset": 429718,
+      "length": 2508,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "8d4d49e4c142b3589e6807b7fe7518284346ecb42c3ea2694558234855c9c20e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_11.png",
+      "width": 34,
+      "height": 67,
+      "texture_px": [
+        34,
+        67
+      ],
+      "offset": 432226,
+      "length": 2278,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "112c4128fb980e8ef9d66fe533297676bd5b52351987a8e3099593b220dda0e3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_12.png",
+      "width": 37,
+      "height": 67,
+      "texture_px": [
+        37,
+        67
+      ],
+      "offset": 434504,
+      "length": 2479,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "c8bc3e3cd04d135733af0879266e8fbfed973439949c68fc6946d400331b5ecf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_13.png",
+      "width": 40,
+      "height": 67,
+      "texture_px": [
+        40,
+        67
+      ],
+      "offset": 436983,
+      "length": 2680,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "6adc1871d2f5fad2d4139799c941f7ad7effaee847c62ac61a1de4eb14fb752a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_14.png",
+      "width": 42,
+      "height": 66,
+      "texture_px": [
+        42,
+        66
+      ],
+      "offset": 439663,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "3291a6581e93fedf4d3375e9b0cd7633d8b9c3e168dd102eedab56880e9e3b27",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ne_15.png",
+      "width": 44,
+      "height": 68,
+      "texture_px": [
+        44,
+        68
+      ],
+      "offset": 442435,
+      "length": 2992,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        13
+      ],
+      "sha256": "6b1668dbbe86f191bf4576e1d66c4173c5201bee735b3855de2fb2314d354499",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_00.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 445427,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "be9c4d1bc7b957b897d4eebd19dfc0087255e328565b193b45a5e980227ffafa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_01.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 447987,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "d5a209f652c7c2c1ee4f99a091284dbc1954fcaa06c293f7861770db7b74d56c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_02.png",
+      "width": 38,
+      "height": 63,
+      "texture_px": [
+        38,
+        63
+      ],
+      "offset": 450507,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0c7e205f49c3ed4740ff96d0536828793388c090c45f371e6ad0f256e7ccddeb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_03.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 452901,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "5df43bba0160034dac55c5c9ec6ccf7d273b3f76a8c02ad852d0765c6901d3f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_04.png",
+      "width": 36,
+      "height": 64,
+      "texture_px": [
+        36,
+        64
+      ],
+      "offset": 455106,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "2246dbd540ef8d8b1dab5f80423c61dfc17adc34ad2d1cfe7c6015244cf73574",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_05.png",
+      "width": 38,
+      "height": 63,
+      "texture_px": [
+        38,
+        63
+      ],
+      "offset": 457410,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "d47f7e206ef0a402f6f3d403e714a5dee2b47348af9a7bffee1becb0886eaa0d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_06.png",
+      "width": 39,
+      "height": 63,
+      "texture_px": [
+        39,
+        63
+      ],
+      "offset": 459804,
+      "length": 2457,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "2f02d9e7e1e8124952e1f49702f6a8af4d914d7107e136c77e5f29e6530ef79d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_07.png",
+      "width": 45,
+      "height": 63,
+      "texture_px": [
+        45,
+        63
+      ],
+      "offset": 462261,
+      "length": 2835,
+      "trim_origin_top_left_px": [
+        61,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        10
+      ],
+      "sha256": "f85f7bbe01661288fc1ac87ec7e16b8ddc13df339256cf56149d404ac6b18efe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_08.png",
+      "width": 46,
+      "height": 62,
+      "texture_px": [
+        46,
+        62
+      ],
+      "offset": 465096,
+      "length": 2852,
+      "trim_origin_top_left_px": [
+        61,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        10
+      ],
+      "sha256": "47a79a7cae6cdb3ab2d3611e523af3533f150b83792f938653f5ef776ae81404",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_09.png",
+      "width": 40,
+      "height": 63,
+      "texture_px": [
+        40,
+        63
+      ],
+      "offset": 467948,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        63,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        10
+      ],
+      "sha256": "625898ea12c0c8e7d6ee07723f3ff3cb9dcdd7796f006ccd1a4803d27a68f613",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_10.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 470468,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "3e01e8815b9063c949d4582dde311a0218e46655dd8957b1bab9dbe57c6a74bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_11.png",
+      "width": 31,
+      "height": 63,
+      "texture_px": [
+        31,
+        63
+      ],
+      "offset": 472673,
+      "length": 1953,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "5fbf74a4dbabf5527090a182aa308d7eebdb1057856c1092ea3a7f3a6b990d44",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_12.png",
+      "width": 33,
+      "height": 64,
+      "texture_px": [
+        33,
+        64
+      ],
+      "offset": 474626,
+      "length": 2112,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "1cfff62eb0b3c5bb75a921ba67c7de06fad5e25ab64c0d8e5e36391a259a11de",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_13.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 476738,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "83269177bd506232b339be956e06814191b6425801e1c721ab7dcdc551a546b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_14.png",
+      "width": 38,
+      "height": 63,
+      "texture_px": [
+        38,
+        63
+      ],
+      "offset": 478943,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        10
+      ],
+      "sha256": "0c22e9a7aed603ff67e5fd3024d016b9398890ec6ee5653b9549c81492f69538",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ene_15.png",
+      "width": 40,
+      "height": 64,
+      "texture_px": [
+        40,
+        64
+      ],
+      "offset": 481337,
+      "length": 2560,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        11
+      ],
+      "sha256": "bdfe84314b7a2ca2a578ef41829b10ad8e94b4d38a2a60bca7c91065a8036494",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_00.png",
+      "width": 44,
+      "height": 66,
+      "texture_px": [
+        44,
+        66
+      ],
+      "offset": 483897,
+      "length": 2904,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "6ae0a033aa509d5e9fb7a21dd4db7202548096b4cb1198105def758d47070e66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_01.png",
+      "width": 36,
+      "height": 66,
+      "texture_px": [
+        36,
+        66
+      ],
+      "offset": 486801,
+      "length": 2376,
+      "trim_origin_top_left_px": [
+        65,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "b0bb8d7737fbc72cc8e5df44ef7219352922ebb988a8fa673190a42ff1971f4d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_02.png",
+      "width": 30,
+      "height": 65,
+      "texture_px": [
+        30,
+        65
+      ],
+      "offset": 489177,
+      "length": 1950,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "b3ec5301b4e3897580d63f98c1989698c920400ef60eff660c3117e5e00505bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_03.png",
+      "width": 29,
+      "height": 63,
+      "texture_px": [
+        29,
+        63
+      ],
+      "offset": 491127,
+      "length": 1827,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "f6ab549a1ace46fb15caceb583c7c606eff62141b01a41f934c3e52130c98cab",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_04.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 492954,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "36528c2583b25853863fc4dfbb9ef16ab05d1a8a1d0722d7c68ec565838773f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_05.png",
+      "width": 34,
+      "height": 61,
+      "texture_px": [
+        34,
+        61
+      ],
+      "offset": 495000,
+      "length": 2074,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "6af41db555e8d99c3ec4f246108fedb8cbfd778139ef2cbef00e29d72ebfca6c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_06.png",
+      "width": 36,
+      "height": 60,
+      "texture_px": [
+        36,
+        60
+      ],
+      "offset": 497074,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "26826f070de6afd776812312393a6e6eedeb4285b1700cfe3dd58a760a4b97ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_07.png",
+      "width": 42,
+      "height": 60,
+      "texture_px": [
+        42,
+        60
+      ],
+      "offset": 499234,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "2e16f26344430d5ac70fed8b56e5c893859ba2221a2f7be7572f54a8aaacbcd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_08.png",
+      "width": 43,
+      "height": 59,
+      "texture_px": [
+        43,
+        59
+      ],
+      "offset": 501754,
+      "length": 2537,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "88740f05a6d786e796e183fafb6bafaf50b03530853cd70c73cfd06b91d8c218",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_09.png",
+      "width": 36,
+      "height": 60,
+      "texture_px": [
+        36,
+        60
+      ],
+      "offset": 504291,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        10
+      ],
+      "sha256": "b676799f3bddd2f299e8d779f6606dec5b0c06900544198b039011d4863ea216",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_10.png",
+      "width": 30,
+      "height": 60,
+      "texture_px": [
+        30,
+        60
+      ],
+      "offset": 506451,
+      "length": 1800,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "a58b43ba9ece77717107a9b467468b8994bc2aeacfab3e664dce5235cf7740a7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_11.png",
+      "width": 30,
+      "height": 61,
+      "texture_px": [
+        30,
+        61
+      ],
+      "offset": 508251,
+      "length": 1830,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "851ffcc3da41b9e4ff5ee497101d8493c991bf40ce855d33917eb57bbd08672d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_12.png",
+      "width": 33,
+      "height": 62,
+      "texture_px": [
+        33,
+        62
+      ],
+      "offset": 510081,
+      "length": 2046,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "d54318909dd4850112dd45dd918d6f7f1deca9aae4de33d0cf9a404093d8a8ef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_13.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 512127,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        67,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "54af67c274f98069cbea7b4f4beb90b17a554400d966bb9afe98be9dc03c3dc8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_14.png",
+      "width": 36,
+      "height": 65,
+      "texture_px": [
+        36,
+        65
+      ],
+      "offset": 514332,
+      "length": 2340,
+      "trim_origin_top_left_px": [
+        66,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "b7ae54c4ae302d65441047001209e1958fe2426079e5fe5f10478889032450b3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_e_15.png",
+      "width": 43,
+      "height": 66,
+      "texture_px": [
+        43,
+        66
+      ],
+      "offset": 516672,
+      "length": 2838,
+      "trim_origin_top_left_px": [
+        62,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "870505124a27e5a45d58a7d227e3468503a9786f122e60987b94e6c56a89077f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_00.png",
+      "width": 46,
+      "height": 65,
+      "texture_px": [
+        46,
+        65
+      ],
+      "offset": 519510,
+      "length": 2990,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "1df1961b8c027275e86c10930880b48f334b754c614e776ed2a7eef90b5a499c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_01.png",
+      "width": 40,
+      "height": 65,
+      "texture_px": [
+        40,
+        65
+      ],
+      "offset": 522500,
+      "length": 2600,
+      "trim_origin_top_left_px": [
+        63,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "59e62dbbc72ca24b17c4ec0dbe4a37bbf2b37d070290797add37efa63e7863cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_02.png",
+      "width": 32,
+      "height": 64,
+      "texture_px": [
+        32,
+        64
+      ],
+      "offset": 525100,
+      "length": 2048,
+      "trim_origin_top_left_px": [
+        67,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "6b71a610ce215862f9a3c5a105922b99ab851bac71ebd338a3684809c00de6ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_03.png",
+      "width": 28,
+      "height": 63,
+      "texture_px": [
+        28,
+        63
+      ],
+      "offset": 527148,
+      "length": 1764,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "ccb36bf2b29e2f0b853f777921ae8f664a5696c8f3e30c44ab9561cdbc391143",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_04.png",
+      "width": 30,
+      "height": 61,
+      "texture_px": [
+        30,
+        61
+      ],
+      "offset": 528912,
+      "length": 1830,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "9be32bb7f3111b2546d677e4749589cae4de47013a8dadb275bdd2a660ed4ad9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_05.png",
+      "width": 33,
+      "height": 59,
+      "texture_px": [
+        33,
+        59
+      ],
+      "offset": 530742,
+      "length": 1947,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "5a99711bd61e85d6c4fd1c840828c88b00111ecd8efd852076299cd252502360",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_06.png",
+      "width": 35,
+      "height": 57,
+      "texture_px": [
+        35,
+        57
+      ],
+      "offset": 532689,
+      "length": 1995,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        9
+      ],
+      "sha256": "a1cf623d1aef9c42fa6b7f791186fb7a36948fa1d5945ac01fe5d12d2397a08a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_07.png",
+      "width": 37,
+      "height": 58,
+      "texture_px": [
+        37,
+        58
+      ],
+      "offset": 534684,
+      "length": 2146,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        11
+      ],
+      "sha256": "496b2a0622503f3a7f284fe6e9bc386aafb569cc8a58b3646973cbbe3b6df69b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_08.png",
+      "width": 38,
+      "height": 61,
+      "texture_px": [
+        38,
+        61
+      ],
+      "offset": 536830,
+      "length": 2318,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        14
+      ],
+      "sha256": "20ee9cb7ccca3dd1150458fed43e7ad7a1328a1f79fa54c366f62cdb388435ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_09.png",
+      "width": 37,
+      "height": 60,
+      "texture_px": [
+        37,
+        60
+      ],
+      "offset": 539148,
+      "length": 2220,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        13
+      ],
+      "sha256": "5e9b0f9de9fb4a3d687d3c82c01690a8d6d901d07cc3f8bc6579b9e68699d29b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_10.png",
+      "width": 35,
+      "height": 60,
+      "texture_px": [
+        35,
+        60
+      ],
+      "offset": 541368,
+      "length": 2100,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        12
+      ],
+      "sha256": "910233f7d1b973056a6828f8d4152e52e2cc768c938ad370d00ef8bc637f26f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_11.png",
+      "width": 32,
+      "height": 60,
+      "texture_px": [
+        32,
+        60
+      ],
+      "offset": 543468,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        10
+      ],
+      "sha256": "0dbceafb6b4da0cf2a157089d125eb23c759aeb3b17b323db7c9e03c566fffba",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_12.png",
+      "width": 33,
+      "height": 61,
+      "texture_px": [
+        33,
+        61
+      ],
+      "offset": 545388,
+      "length": 2013,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "6391578f6efd4f3ffe14d88fc6522b0da6429cff6b5c1e25cc95d8540a262eeb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_13.png",
+      "width": 35,
+      "height": 63,
+      "texture_px": [
+        35,
+        63
+      ],
+      "offset": 547401,
+      "length": 2205,
+      "trim_origin_top_left_px": [
+        67,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "5cc8d11d37e658605f008384641dc1c42c0b228c1668ba14cebecf9211d502a8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_14.png",
+      "width": 38,
+      "height": 64,
+      "texture_px": [
+        38,
+        64
+      ],
+      "offset": 549606,
+      "length": 2432,
+      "trim_origin_top_left_px": [
+        65,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        9
+      ],
+      "sha256": "968bee5a11d6d1a7cd09cb8dc12b7d944a6215b9905ab83cdd09a2fa79ac86c0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_ese_15.png",
+      "width": 45,
+      "height": 65,
+      "texture_px": [
+        45,
+        65
+      ],
+      "offset": 552038,
+      "length": 2925,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "35fd4a9699977fedd14e1a40f3fe6f6dc36971759ce442e2e7b32a4fe7d89afa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_00.png",
+      "width": 42,
+      "height": 64,
+      "texture_px": [
+        42,
+        64
+      ],
+      "offset": 554963,
+      "length": 2688,
+      "trim_origin_top_left_px": [
+        62,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "3a345777e6332d6d6df9b00cdbd49bd6b6820ea3d6509c3d440d7d3ad49f74c8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_01.png",
+      "width": 37,
+      "height": 62,
+      "texture_px": [
+        37,
+        62
+      ],
+      "offset": 557651,
+      "length": 2294,
+      "trim_origin_top_left_px": [
+        64,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "ef6d97ec4bbb7d651cfd863de85117b291ac71d9e6071253dbec2143c2e9384e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_02.png",
+      "width": 32,
+      "height": 62,
+      "texture_px": [
+        32,
+        62
+      ],
+      "offset": 559945,
+      "length": 1984,
+      "trim_origin_top_left_px": [
+        66,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "f9b6971ce1f01feb23a41df5312a132ba1e01f09f308ee47a34565eae2a98de3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_03.png",
+      "width": 31,
+      "height": 61,
+      "texture_px": [
+        31,
+        61
+      ],
+      "offset": 561929,
+      "length": 1891,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "3bee1ef93d1a83054fef9f2caaa691e8e7cad7a7f8a65b913c9dcecba8a80d7c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_04.png",
+      "width": 34,
+      "height": 58,
+      "texture_px": [
+        34,
+        58
+      ],
+      "offset": 563820,
+      "length": 1972,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        8
+      ],
+      "sha256": "dd0df6f7a0715df5c56bf117a16d7f1a81d9d2d4eb8f799efeaa69abb7228544",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_05.png",
+      "width": 38,
+      "height": 56,
+      "texture_px": [
+        38,
+        56
+      ],
+      "offset": 565792,
+      "length": 2128,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "0fcbc20e90359fe0a7be40191888156deff6496a6f11cddc34e0b2d4cb8686ed",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_06.png",
+      "width": 42,
+      "height": 57,
+      "texture_px": [
+        42,
+        57
+      ],
+      "offset": 567920,
+      "length": 2394,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "5d71f0730405ae2b4b056936a1a1c284ef95165dc756e09b80961116d6bb61c2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_07.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 570314,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        61,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        15
+      ],
+      "sha256": "8defcd178877480ccc9b1ffb746e87b50b121defdf686fa937829e5559209f50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_08.png",
+      "width": 44,
+      "height": 63,
+      "texture_px": [
+        44,
+        63
+      ],
+      "offset": 572894,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        61,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        18
+      ],
+      "sha256": "cc09f6863b960e1850efdd1dac0d1522bf9586e402b9fe5569d1be02c5f23280",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_09.png",
+      "width": 43,
+      "height": 61,
+      "texture_px": [
+        43,
+        61
+      ],
+      "offset": 575666,
+      "length": 2623,
+      "trim_origin_top_left_px": [
+        61,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        16
+      ],
+      "sha256": "0b65ceb61e3d7bc2c0d60a2e68689245ef124514bac0a82380896871484e556a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_10.png",
+      "width": 42,
+      "height": 60,
+      "texture_px": [
+        42,
+        60
+      ],
+      "offset": 578289,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        61,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        14
+      ],
+      "sha256": "d2deeed6bda04e5226a638889c92f0365cef58bd827c70ef974edf14c6758ae3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_11.png",
+      "width": 38,
+      "height": 59,
+      "texture_px": [
+        38,
+        59
+      ],
+      "offset": 580809,
+      "length": 2242,
+      "trim_origin_top_left_px": [
+        62,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        11
+      ],
+      "sha256": "4a6c365a51f914fcf9ee128ae645eeaaa5b732d808cccbad5ccd615438d75bdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_12.png",
+      "width": 35,
+      "height": 59,
+      "texture_px": [
+        35,
+        59
+      ],
+      "offset": 583051,
+      "length": 2065,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        9
+      ],
+      "sha256": "939a0e9d0168d6f24de17114786d3ec7c3a5afe10190f4f83fa077ac21116f83",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_13.png",
+      "width": 35,
+      "height": 61,
+      "texture_px": [
+        35,
+        61
+      ],
+      "offset": 585116,
+      "length": 2135,
+      "trim_origin_top_left_px": [
+        64,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        8
+      ],
+      "sha256": "71109e82a5ee78882730fd7a464b087b6fbf88231e86dc7889f33fbec7f4e48b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_14.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 587251,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        65,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        8
+      ],
+      "sha256": "da820265dee6b18626ec682fd6d88a53254e11ecf7625f0f6d9b31211d9f9df6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_se_15.png",
+      "width": 41,
+      "height": 62,
+      "texture_px": [
+        41,
+        62
+      ],
+      "offset": 589483,
+      "length": 2542,
+      "trim_origin_top_left_px": [
+        62,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "bd58731916849b84edfdcf71c62c44a269c819cacfb40085cb69467856aa1f75",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_00.png",
+      "width": 37,
+      "height": 66,
+      "texture_px": [
+        37,
+        66
+      ],
+      "offset": 592025,
+      "length": 2442,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        16
+      ],
+      "sha256": "6ce188bc9c58bddf7524580a1447e7cbc3be43e7b024d4d3a65bd82de70dcb23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_01.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 594467,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "cb863ad27a096a2bb9b947da99187e2f6604065ca0e9032d573f40c8b7736cb3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_02.png",
+      "width": 36,
+      "height": 60,
+      "texture_px": [
+        36,
+        60
+      ],
+      "offset": 596699,
+      "length": 2160,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "a3883b8d43f06de266904fac027ea9cabc88e36cc0d841d1b629ba40d3897d9d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_03.png",
+      "width": 36,
+      "height": 56,
+      "texture_px": [
+        36,
+        56
+      ],
+      "offset": 598859,
+      "length": 2016,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "8cb6dc0709d12929a01667535b4e65bcb01c7ce25d82213182c5157fcc08049a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_04.png",
+      "width": 38,
+      "height": 53,
+      "texture_px": [
+        38,
+        53
+      ],
+      "offset": 600875,
+      "length": 2014,
+      "trim_origin_top_left_px": [
+        60,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "d86840141581d0934008da26295fc47d5a2c800a826d941c6d4a9914062cfffa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_05.png",
+      "width": 41,
+      "height": 51,
+      "texture_px": [
+        41,
+        51
+      ],
+      "offset": 602889,
+      "length": 2091,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        7
+      ],
+      "sha256": "4e7eb7cdd9b1500c4e054f347297865caa846b0a80f95ffc680c39f7d384c2ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_06.png",
+      "width": 42,
+      "height": 56,
+      "texture_px": [
+        42,
+        56
+      ],
+      "offset": 604980,
+      "length": 2352,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        12
+      ],
+      "sha256": "17893e15e2c00d466dfc60898138a866f5b1b23a1d6906da3da2f18e8dc81423",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_07.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 607332,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        59,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        17
+      ],
+      "sha256": "1d02bff62110f7e9cdc871448da2500db5459aab24a25254f6f409693f1928ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_08.png",
+      "width": 44,
+      "height": 63,
+      "texture_px": [
+        44,
+        63
+      ],
+      "offset": 609912,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        59,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        20
+      ],
+      "sha256": "7a63f9b7725a377f6e40c172f63d630a9f7176a05d5b3373d8d2eb67e7b5f924",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_09.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 612684,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        59,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        17
+      ],
+      "sha256": "d84b4f8370513c33fe6bd0b7a72f8c0311b36630a2c9110f232f706f2dbb8312",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_10.png",
+      "width": 42,
+      "height": 58,
+      "texture_px": [
+        42,
+        58
+      ],
+      "offset": 615264,
+      "length": 2436,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "50401be7423d6a57a93a975d00ee487b82f20c9ecbf3d17ea74f4397cc47d164",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_11.png",
+      "width": 41,
+      "height": 55,
+      "texture_px": [
+        41,
+        55
+      ],
+      "offset": 617700,
+      "length": 2255,
+      "trim_origin_top_left_px": [
+        59,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        11
+      ],
+      "sha256": "84e88c865929fb1d098bd6dc1399ce69137078a18826e545ecca8dbfb2ce846b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_12.png",
+      "width": 38,
+      "height": 55,
+      "texture_px": [
+        38,
+        55
+      ],
+      "offset": 619955,
+      "length": 2090,
+      "trim_origin_top_left_px": [
+        60,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        8
+      ],
+      "sha256": "b22bd2e1d323ec6521224b99cc0a80983468b7b5404c715d3c6ead0bea216a9f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_13.png",
+      "width": 36,
+      "height": 56,
+      "texture_px": [
+        36,
+        56
+      ],
+      "offset": 622045,
+      "length": 2016,
+      "trim_origin_top_left_px": [
+        60,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        6
+      ],
+      "sha256": "28e395e61c935b2de226b77cdd2230fa8b8a4466e5aa8cb2d3ca695da82fb896",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_14.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 624061,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        61,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        8
+      ],
+      "sha256": "3cc95b3b55c4e81bcf43fa623e41b4863ab14f575be69a00cb23433dc93ce4f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRun.atlas",
+      "name": "run_sse_15.png",
+      "width": 36,
+      "height": 62,
+      "texture_px": [
+        36,
+        62
+      ],
+      "offset": 626185,
+      "length": 2232,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "9a0e8d18f64bb7fdcbe5e206fc69e46c5d011abc6443c7106357347a4e709db2",
+      "empty": false
+    }
+  ],
+  "source_authority": "RunOct10/Human_Run_Animated.blend"
+}

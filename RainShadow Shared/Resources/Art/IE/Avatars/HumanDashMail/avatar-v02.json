@@ -1,0 +1,4276 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanDashMail",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "ca05aa91f1b39881a7bc07c9c350d88c9b08ebe36f107a0a6668f76622aac1b9",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    27,
+    3,
+    237,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_00.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 16,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "495a4f09afac46aca9c4ce655fd33ae481eb7bae05416c984ac43fa6d39fea65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_00.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 1024,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "cc453946bb483433f17a61087fc0d4002e2f913b284237cfdea5dac42b678293",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_00.png",
+      "width": 25,
+      "height": 38,
+      "texture_px": [
+        25,
+        38
+      ],
+      "offset": 2077,
+      "length": 950,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "0207b90da42477f6219f4c5d15053764d2acd68da64ad281a4bdec15364b92b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_00.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 3027,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "920d949a64ec2db4fa058a2a06164852fddc2e0896d9a46902435900335025b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_00.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 3924,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "61b3b25aacec7c70767390fc35b35d16135330b2eff10df886d5f149dbb1669a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_00.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 4844,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "35a068b24d891443bc440360c5b6e387a49c9deba9005f0a271bad1f532889f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_00.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 5884,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "6a0c9296cf18097faeed994df65852c45f348d8e18fb478655218cb2d301fb49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 6937,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "078612dbb748e74bed291926c09aea4c47eebd570ff1f97ce25d1534e1c1b974",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_00.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 8001,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "0fdbf399055b07077ebf4af460f3edc4e12c7a21086c05e4c4b57d3ebb271ce5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 9037,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "a22d6d999a669480e54f1a7fbb8721bb6d4569c75eb5eb932bece3c36171cac6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_00.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 10101,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "a73166349c93afc2409af1db5f881b23e838bc030a738eca91ca342b7688a9f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_00.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 11115,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "9c0546cf46e4004dc6248d30b4d1ba243a12de7e942b9bb09850bd68bbee7310",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_00.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 12035,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "4e478e60df47e467da3845fe95ee2333b1d35d31a070cb4681ec4dadf0f3a1eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_00.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 12995,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "1a61c4bd0c64e0ffc62d6b58118a14879b23f239cf2b454e088ef1dbcec0a2f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_00.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 14009,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "751f37040ccd3124be199eadb6de98e41e51962477bd53e1baf5523756c33f6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_00.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 15035,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "cbeadc3e4ff380115a3c218ad3bb7ae899decc38b463a2e04ca5f21a1b1ac20e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_01.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 16099,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "09f97f7a0173c102552c1a25fa7d6468f1d13f855c3daf3cf2e9e20bc6c58a0c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_01.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 17107,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "1bd67f318dde0a4320898d0d15cef34388a68e413bb5e36694024f2bdf5ac8e0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_01.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 18133,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "85249ab40d2fc9dd41c018ed351a54cebb93b927f997782933a13f47b30c20b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_01.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 19173,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "85f3ae34ec36bdb6790c24b21430212f217c0088a34d4b53b9b70d6de3995da8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_01.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 20070,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "4c95c76fcaf123692f42795a1f0273ddc80f4fc482697c42d57564bf83fd3a1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_01.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 21030,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "3cadc36d6f034546942e9b477dcf14b5b7c502ddc454a8f5cf048fe513510b7e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_01.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 22070,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "9a9e6f2ffe6dfca43af7b840a98b23202430ff302d12d7e0d7ef690d02b24302",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_01.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 23058,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "138f7e01a98ca3df6a930898450ebb2ac24fd429638acafec3a2eeebcd79efb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_01.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 24094,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "6c59576109994ff08d5e0161032d25be37223a24e78d553f43905e173f7c56b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_01.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 25102,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "3dedd1d24d2b80c6bfd3a388cec2e23e1baf9b08afc4104b1821ce961e434d43",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_01.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 26204,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "1321cb48f9f2a52c93c8f0c20bf91ea1632b2cdf2b41a98c439e43d887903713",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_01.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 27192,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "c342b7f33361d50d4493419c9f8e61852b64f60c943c4a2742f33df1fd09199b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_01.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 28152,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "036bdaffa7a04c3e10c3af90009ed305e982cdf1fba6b9951bec5a95b01fb9da",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_01.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 29152,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "51e0db3083e79b661c9e2c6050aa5148b49c4f09d6afeaa0932afb2b17c3504b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_01.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 30166,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "c0d7a209b50dc7a7ae6b8e22728117ae8e71b2dd91ab51ec1aeb4936bdb06460",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_01.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 31246,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "c26da0557a31f6ced93699960ea42cb5ad5127dfed1192e116e08434dd24c002",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_02.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 32348,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        62,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "3ca46dd45592e4a0814f7c32759e3171b18758afafe06d55768a25b9a531cc77",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_02.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 33428,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -10
+      ],
+      "sha256": "da6f3878706954bd3103a8725553b03e01ad958608e90f99c709317f4becf0d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_02.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 34501,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "d93311c5f90223a3296720bdda5ff512441b6ca61dc32843da7af1e65e9036a2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_02.png",
+      "width": 24,
+      "height": 42,
+      "texture_px": [
+        24,
+        42
+      ],
+      "offset": 35541,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "7e4200f67a981cfac2fa9eb97d9dad6d2cafd0ba46e3cec0b2785c0647581df0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_02.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 36549,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "48b5e1a28b9677eedd1627888064f113e416948809778e325771b73a7657af6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_02.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 37574,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "a4a2433bf8c59071dfd1d60b6afb885b38a94e9bc015f4c51b6637440b67c03e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_02.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 38654,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "1842d922004564d5aaceba7cab73d48b4c2dd86227cdfe7e770b5cbb632bfd66",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_02.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 39718,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "8a157ef5bec1f0b979b5ccb784590a11f722a97d305d3464bbae91bb6a4c00e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_02.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 40791,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "4095d6d07ea151d376340965fa1ff7d8d0000a3f09a26ae9f761165338e2b05a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_02.png",
+      "width": 30,
+      "height": 38,
+      "texture_px": [
+        30,
+        38
+      ],
+      "offset": 41901,
+      "length": 1140,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -9
+      ],
+      "sha256": "42aef6a07af6aa65394e48d8b030b4ba5f7a18a0de1d56c61f39e2a33cf76ca9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_02.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 43041,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "ab460ea0ee78f9bf981ece6e5a90fd9864f5025f0faba87b6023feab127d979d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_02.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 44029,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "152c871c0109d57d9dd5152efb01aaeaf46f8002ce8d618ed04652a2bfae5b71",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_02.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 45029,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "de1406f87ed591ab2d28142e368596da52f83e4d4857c0d510395044cac045f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_02.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 46029,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -7
+      ],
+      "sha256": "8003cf81710635400b48cfec309a1dbcc8a76f56c8eef2a2fc5f1225e5ee8c2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_02.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 47109,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "4549449ff385b5057f1eb8aab0577452a0e22d8e246c96451ee9960f53f07030",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_02.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 48229,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "ae4327b6d7e6bcd09961e41ab6801c6a3a9e2d691d04662c79fb3402fd5c53ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_03.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 49302,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        62,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "349f73e8d8c94e99fa8a4f91c65b182b45b43f9e6e008645adb8a325825ce795",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_03.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 50352,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        62,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "4ea539be7eb7354e5f2e3943575e02de861110161e1e81e8917d947844d13696",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_03.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 51425,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "5f7a34e33c2ac5a7d617a5bd14a5836eb61ad0d89445e3244a337a0d47f6cab4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_03.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 52465,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "824de40c8d73817a7d06b51ab8270bcbcb2199561435e4a5a7e33167da1fd22c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_03.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 53449,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "dd0c47fcd3e188a477b18a08f3e6dcf67d73c08f747704cea799616f3deef776",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_03.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 54515,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "0a660b7104f7ebfef2721873020482e81a584c28d5e2e824ada97c2a47889db6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_03.png",
+      "width": 27,
+      "height": 37,
+      "texture_px": [
+        27,
+        37
+      ],
+      "offset": 55635,
+      "length": 999,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "25f465cd3a52f368baca9fdb896c8fe04d96bbb39aac95eaa1717018cba64d20",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_03.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 56634,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "0229549231497c63b4fd9c49ce604bc19fd445d25ccfc900185e0f72dbc6a669",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_03.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 57678,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "08cf9da8be15b477a35ed83f8c79f372b74c03fdf593fbde33fa7bf4c84049ac",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_03.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 58722,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "3ca032a82fae53d5796164b0eb5fe3e95314177afc2d3156ec189f6308148286",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_03.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 59824,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "deb9ef13f0d347f973572917589f5daa273698997a2dcc8877a4a7292667fd33",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_03.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 60838,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        70,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -7
+      ],
+      "sha256": "ef7bcb150c5cc38efa30253d2af8dc5807d98deac0d87487532662a280ef7cb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_03.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 61813,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -6
+      ],
+      "sha256": "0dfa87649b12a0875abdf5a30dbee5de1f96fbdbbb9d33c5c8a477429ee4039c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_03.png",
+      "width": 28,
+      "height": 41,
+      "texture_px": [
+        28,
+        41
+      ],
+      "offset": 62838,
+      "length": 1148,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -6
+      ],
+      "sha256": "99d12ab223c09a9a0378168be440724a5685bdc45f00129e43e5c0ab5a10594b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_03.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 63986,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -6
+      ],
+      "sha256": "0927aea964728ebdbf6cfdb66aa8cbf4b65adcf50bb93889a54d2a98f46752eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_03.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 65066,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "bff8226d1946ee7466350adab4b32bea7f83e3e71098556a4deb4e54c4c1a32c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_04.png",
+      "width": 30,
+      "height": 35,
+      "texture_px": [
+        30,
+        35
+      ],
+      "offset": 66139,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        62,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "613c72d91b45fe0334fd3c2d1b3b18f90a954b694aafc0c423af804221a5b63e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_04.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 67189,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        62,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "807e4eca4d0c125f1d50e88a8e1b4269a97188be181fcaba839306ac787d321f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_04.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 68233,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "d556d8a7fa0e22ad7da566411669ca668d06ad2830e93351ace442c95a45ad8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_04.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 69273,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -10
+      ],
+      "sha256": "8a96971fa3fd0a698fa39b14d259e09f0186701fb2cf03073733ae250a403697",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_04.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 70257,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "0621aa547c995755825af86a1dffffd2ad986202ba2ca222c89ce3a399ac52b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_04.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 71323,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        65,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "a770eb1635605fd5e8f897378b161750ce847865b75ddf567e347b09df61234f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_04.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 72403,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "ba55ac4e688d20f9a9e715ec547276cb3f75c57e996aa593809ebde2a1e4a213",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_04.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 73429,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "63a183ec51dc7a34a903a123ef172660b4de57b2c3b78f33a2696203b1080b46",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_04.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 74465,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "235d482aef1db6e9f95cc48947db87189cdd29ca15e9a80ce34313c14ff0043e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_04.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 75575,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "992a32cfcc884f0bb3f3de5f6434448c3292174e98dd955463a8c5b57a00cb4c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_04.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 76677,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "3cf5927d2ab017830e601eedb6d3f1473e2d0c62aae0c824b5ce743efe1d3d72",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_04.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 77691,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        71,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "2dadb8e29db1e82436dd2aac105b855cf5dcbe9aec954f0e3bed1acb7505cfd9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_04.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 78651,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -6
+      ],
+      "sha256": "8f995be82c194e23377ebd758e048071832977be9372a4a59aacbba2ee442492",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_04.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 79717,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -6
+      ],
+      "sha256": "d02acfb15f26a4122b90d937bfa0b9f7d3ac8bb28100259afcb84f31a0352c38",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_04.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 80824,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -6
+      ],
+      "sha256": "8f3e7a142edaabacf3f79f0c13cbf660a30925b4f08b9659d8d4208a57066bf5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_04.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 81904,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "7af3617855080c9dd2123bd1e8bacf0307c3e4024a754b29c1e45f4327642aa1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_05.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 82977,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        63,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "9ecb060281f6689cf0e80243889c1acfc80528f43a13b744c5288fe9793818f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_05.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 83992,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        62,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "7145e951e6f32cb8452b74acfd3176838baddadf51e1bdb2117ca862d9d64c00",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_05.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 85065,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "ec6dc86dc02b7a26158eb198a5346335d3411ab3dc339bc20e9caf167240bfbe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_05.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 86079,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "17f2bddb3fdf5b742ded1602d83912d282e5740f40f4aad36a821a48f63ea4f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_05.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 87063,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "8e2488e7c43c356b66390c7cea8f060ad65d908347c924db6a00a2e03fb755f2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_05.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 88088,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "2554369228b71d5873bfaac7d41ddd0e6d702ff1b8670af322ae20ebfee94788",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_05.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 89168,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "dee6b6893b822eb84047a0c0ef728d2d30307a397c1b3b58054c9abdec1370a5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_05.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 90194,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "12d53aed041b1e7ed45c3873846e80c67353a2d5acc69fb0d47a8a2f1c9040ae",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_05.png",
+      "width": 30,
+      "height": 37,
+      "texture_px": [
+        30,
+        37
+      ],
+      "offset": 91230,
+      "length": 1110,
+      "trim_origin_top_left_px": [
+        67,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -11
+      ],
+      "sha256": "5cd596081413ae62d4c7ac82782093dfd0984ca5a7adb643436d0c0ab972ee18",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_05.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 92340,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "8fed57e16a23e6f9672187dfc06aecbff7c0c672aa91d56961b7c6c7ac6695bf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_05.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 93442,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "08d52fd62bbcda9aa74a1ac0bfba4b00b456504ce64b092e9cdcc30394e27392",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_05.png",
+      "width": 23,
+      "height": 41,
+      "texture_px": [
+        23,
+        41
+      ],
+      "offset": 94482,
+      "length": 943,
+      "trim_origin_top_left_px": [
+        72,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -7
+      ],
+      "sha256": "c58c29b3b15245b64328d823d935efd65d60f0058fc65da3fb6a34e841343873",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_05.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 95425,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "a5f64d3d1b32828761dfbf329099213742415b1b502903fd43d1aa8b97b0e902",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_05.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 96450,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        69,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -6
+      ],
+      "sha256": "a6d808939f78c913ba7bab5ca7fda22f52ab44e5bf3d409dbbadf9b283c545d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_05.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 97557,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        67,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -6
+      ],
+      "sha256": "698c5ab838268d7f6ab5f7120cfec55cd4123dea700e157eea073d3a45794de5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_05.png",
+      "width": 30,
+      "height": 36,
+      "texture_px": [
+        30,
+        36
+      ],
+      "offset": 98610,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -7
+      ],
+      "sha256": "b389f0751ef53866d92790e088a702854af57703c50c3b5510713986c164c939",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_06.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 99690,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        63,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -8
+      ],
+      "sha256": "984efde34cbb3de3a7d3b7941db1d17a9991499ffb50c1f9ce362172a5922d88",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_06.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 100705,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        62,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "e0e7dc6e57d600035173015e867f9a3c83bf8d5d9e1d1053db10ccfc8e2a57fa",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_06.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 101778,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "d0d2d099b88e4a3b87a2d6d7a7f1a525a5acbcba1b89fd1fe597c9506a1737f9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_06.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 102792,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "6b1b568b1a4d4287b7beda58fe4af3618e72724bec77fc25ddf193139c4d29b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_06.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 103752,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "ca9e6fbbf1779f068810951ffd91e3e944e8badaed35409e1dfa7c76e23b8e96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_06.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 104777,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -12
+      ],
+      "sha256": "d775e0f1fcc51c153caab14a2aa4aaac0c23adfc1051e2115bc2c0f69c819506",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_06.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 105857,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "2bbe0bd17837318f00107c4fb2535ab4f31cebe697c6a91f36b09469e5718784",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_06.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 106883,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "90f38a3a673a908a62ea00ccf82fce141c1369af08735f42004bd2015ca819d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_06.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 107985,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "99e43a4f410f08eb6fa3c7b348e44836b26cd875afb50953b4bff65122661439",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_06.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 109058,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -10
+      ],
+      "sha256": "d45f6b9ead3d86e9cf189c90a020c3270a8cca34c497df282c4d361598e81ecc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_06.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 110189,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "8394a0bc144b69fdbec90a8cb32a5c1484a9850f86cdbfefd7bc13c8ec8ae1d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_06.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 111229,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        72,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "c740a40b3c399ade4f5e6d0d2c556e1e07289223759e9d47c5b5956844341bb0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_06.png",
+      "width": 25,
+      "height": 42,
+      "texture_px": [
+        25,
+        42
+      ],
+      "offset": 112213,
+      "length": 1050,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -7
+      ],
+      "sha256": "d9dfdda9ed6cc41032129887b3d8eb66ed65f2ddf3294465762e1f77db5fbfa4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_06.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 113263,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "a31f3a1e9c3c0ec38cea877709243670ff59466a8dfa1e97388536b89aa715d7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_06.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 114370,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "a01b730ebffe226a8e81ef3d9d13ad3a4cf750a39cbc6c0cb2cc893630f2228a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_06.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 115423,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "cf7bb4c884199c2def4a8f2acbd6737216981e53b9211dd33bee9fccbd6ebd55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_07.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 116496,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "abf4e48f7be3a239548e0b106114a6248b33d780d873c830b465f77d7b30d6d9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_07.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 117540,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "b7c1458e9ee5c520ec531dd775720e22481b41c99bbfdbe620c2f8170c4af768",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_07.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 118642,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "472e6ce1898171fccec9c904e68e7bfb9c9e987d1ad9e5faf94266e6543070b8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_07.png",
+      "width": 23,
+      "height": 41,
+      "texture_px": [
+        23,
+        41
+      ],
+      "offset": 119642,
+      "length": 943,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "82ba1f0ee2c931b7d527b17d270690d8c2d02ba458d2e8b791c544cec7c31704",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_07.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 120585,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "2f4b80b77be1119423d431a1ee451d97ea58d54455fe09db6992bc3a159bac6a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_07.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 121569,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "dd19114fd133f601648131f9d213ab053364ab4f28566d87c12484f540a5ea51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_07.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 122609,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "f465afaa0d04a096060f26f13e633a58487ddd5202476772631fa8b629814478",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_07.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 123635,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "db6e78fe2bbb2b6dfcf80b92cededb6660448766261a30cc983b804cf7143d96",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_07.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 124699,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "27dc8f271efda9c93712ff70ab9502b1e669d94b7c4e994321997101d8db1a0e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_07.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 125772,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -11
+      ],
+      "sha256": "3d1bbd68f1c6429bb699690642b3d452e573f153d1d50fbdfb3245d298960cef",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_07.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 126874,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "85f47f34c43c6d6e11d4512f667c7be4331f18e07b4954dee2b7ba3868cd8fe7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_07.png",
+      "width": 23,
+      "height": 42,
+      "texture_px": [
+        23,
+        42
+      ],
+      "offset": 127940,
+      "length": 966,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -8
+      ],
+      "sha256": "f33c489d351f08c1c9f13f3f22aed25d02ed5e20b771ab0cb14adbdd9840462c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_07.png",
+      "width": 24,
+      "height": 42,
+      "texture_px": [
+        24,
+        42
+      ],
+      "offset": 128906,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "4178c652ad43e2f3d84e65f34267d6dfce6e6bc5c90ba62df74e4867f8734f1e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_07.png",
+      "width": 27,
+      "height": 41,
+      "texture_px": [
+        27,
+        41
+      ],
+      "offset": 129914,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "1d4350f24df36034d29a793abadb4550511f67410d09609f1b27eb333f90a63a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_07.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 131021,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "255371fc91614f5e1b6501b1721c7734a894468ab725a0d2f611f27a0876fca3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_07.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 132074,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -8
+      ],
+      "sha256": "b2c7339aa565a3537851c7d502cf1962171f5de1217294d2ba3528521fc0f96d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_08.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 133147,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        63,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -9
+      ],
+      "sha256": "248c76e8722446303f2e9552b209bae009654accf7ca325089ae48991cf6bd3b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_08.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 134191,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "290dc0baf664fc2f07cf0291487d54147967e37b99ecbb3a5247589cac428c8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_08.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 135264,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "cf48de91011f86a83e97004be35c0b9d96186abecfc656109e9cf55ded6e1ab9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_08.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 136304,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "61b538544d35727cacd41b5354e6c0251ee53136c73819bf03eb1bb8e5c7df0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_08.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 137288,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "bc93d9196532a53aa1ac9a23088be553a65850be77c705096f9bb270e1c34c09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_08.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 138272,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "03e5623047649e75baaa579236591346be5c65940e40ee9d6efdc53cac8a88cf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_08.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 139312,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "c9d4acf66899d06e00a98a140e7e5d79c01fda7df0879a8225bc75f950fe91cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_08.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 140338,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -13
+      ],
+      "sha256": "b15de5ee523ce2f45cce7c0a41729d06cc760fd46a7f594d2edb1ff337671de3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_08.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 141411,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "76d6cef733c36c366fdd2180fde5f5cafac785d9d349f2add1ee598c30211840",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_08.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 142484,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "c25799da72cb066af9998e9bdbf6703b5f4f4ec1426f05ad81a88fbb549e76bc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_08.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 143615,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        69,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "57e6885afb98f169938c7820406b421adce59aa5155daf93ba208e6d4e862324",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_08.png",
+      "width": 23,
+      "height": 41,
+      "texture_px": [
+        23,
+        41
+      ],
+      "offset": 144695,
+      "length": 943,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -8
+      ],
+      "sha256": "6ba0ed7cfc6f83088e4824ee4a8fbcea6065ae05f3afa5c7cefcce5a4ce8e8dc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_08.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 145638,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "2ccd4bb992fc3779799a1a30211a3a9ff16eca1d13ebf62b41eee296517a8ceb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_08.png",
+      "width": 26,
+      "height": 42,
+      "texture_px": [
+        26,
+        42
+      ],
+      "offset": 146663,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "cc77c21b71a44985bdb5242a3302a9f842ed5ecee582610a0bc8d770aebb0f36",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_08.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 147755,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -8
+      ],
+      "sha256": "7986378e75f60a9e01c0de06ea3c776cab539ae0a4321010940041ca507b54ca",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_08.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 148835,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "8b853bda8adfad037fa2777f57a7dfc6445d9d52d7f972987d98f4fc861bf9d2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_09.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 149908,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        63,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "2b8b9465d6665538147ddaf7e04eac04864e318838bc3febb31eff8783824380",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_09.png",
+      "width": 29,
+      "height": 38,
+      "texture_px": [
+        29,
+        38
+      ],
+      "offset": 150952,
+      "length": 1102,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "1326aaefd5bdcdb08c24548721b4ee01cd16f29c38a4c71d538de5dab3d2b140",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_09.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 152054,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        64,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "4b54b0469b0a6bdf86909c5e885eebfc0e29879242351e6c60c457ff60089389",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_09.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 153134,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -11
+      ],
+      "sha256": "536880b47f478871473a58f573c18bdcbf0f0b3bc93b42d391e533c6b86ec81b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_09.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 154054,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        65,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -12
+      ],
+      "sha256": "a41237be9d0cf0af6878f66383316194e5003a9345c4753fb726fab39ded6733",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_09.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 155079,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "2f902b1d3376d4f3a50cb459eaf68cb4f85cb7faeea600249605b6e0be958e59",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_09.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 156119,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "ef68964a891eb84399811df8446f8d740cb320069ca283a9f149d04499851d41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_09.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 157107,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "63760d2c81e5d04c31975001b30bc87f5113db51a38efb21a14be3445faa5a2f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_09.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 158143,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "e567a89fa28df89f54e7d94fe34d007106f7822f9c5a6c8c2deeea979771ffde",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_09.png",
+      "width": 29,
+      "height": 39,
+      "texture_px": [
+        29,
+        39
+      ],
+      "offset": 159187,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "310ea536898a111036415f6721640f08d475483180258891dd57c9091f45ec72",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_09.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 160318,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "6b43e159e4f308777a1fc7818b8f494d486d2b470369f9b4a1a378aded8ebda5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_09.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 161371,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        71,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "dc0dc22d3b3efb82409c3d7ee9a42e33d27ba4c8076a619f07d90dcef2fccd40",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_09.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 162291,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "00444457e109dacf447f9d5762aa2e9f941918aaa62d1111468281d2a0a837f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_09.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 163316,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        68,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "9ba57ec197c922198243ff72ca52cb2736dd93ebc4eb104ecca0ed879da383fb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_09.png",
+      "width": 27,
+      "height": 40,
+      "texture_px": [
+        27,
+        40
+      ],
+      "offset": 164382,
+      "length": 1080,
+      "trim_origin_top_left_px": [
+        66,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -8
+      ],
+      "sha256": "5669d2cdc84ecb442dd9502195c3dda7d64f8895d3bff28a1260e044d61cf517",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_09.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 165462,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -9
+      ],
+      "sha256": "f522b0d5e9a467b2605dcf061b3eb2883004d2eee5451c1c817c5c12dc0cfbb1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 166526,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "93c610c6b256dac2fc2c4bf79dbc38a94b8bb255e0b61a59912904fcfd58b3c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 167562,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "794347ee109b0bc44e9788efdf687a90ede69392c985d410a84083fae0dfee65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 168626,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -11
+      ],
+      "sha256": "59a1bf865c39110d12057450c8e569b9d9dd5d1920bae3f1d04619e540b65237",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_10.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 169640,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        66,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "69976a059b713ecf821a13088c6e374532bd0deff519209ae50820e665c88ef3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_10.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 170537,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        66,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "762bc5154887b4a78aa01170232aa470808b9e8909f0272325c7482b21dfcacc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_10.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 171497,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "15f9905747935bcb3ceb9c853de7b337785d0db813c622b936d38e8a7167514b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_10.png",
+      "width": 26,
+      "height": 38,
+      "texture_px": [
+        26,
+        38
+      ],
+      "offset": 172537,
+      "length": 988,
+      "trim_origin_top_left_px": [
+        69,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -13
+      ],
+      "sha256": "5915447f059a7452b97530e20c927c211ce45e4abc754b1cfd0b5e73439d7312",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_10.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 173525,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        68,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -13
+      ],
+      "sha256": "73f6d154a7f29791502a9c913eb3a91c96c374759493d3f0a33715595648f692",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 174598,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "d8ae7e3e3a09d943ffa8265201ae882b428b508dc7264eb54eb52adc67a112e9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 175634,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "614550caa47399cfce77aca4ba91f9a21f3f8294cfb3b0420b7f9b14042efd17",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 176698,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "e7dae00e83793c7cfd6baa0ce16eeaa87bc44ba3bcd307cf2200bd8c4df45e21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_10.png",
+      "width": 22,
+      "height": 39,
+      "texture_px": [
+        22,
+        39
+      ],
+      "offset": 177712,
+      "length": 858,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "7bffa460836ea62b70f0d66ad9bfad030467a069c8d32d868768e6e7c633bb8d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_10.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 178570,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "e165aa2738f7f3b1d61740914fca351e3e5e42acba0c299eb2c0d6dd816dbf64",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_10.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 179530,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "07df2763c68f944ce7085098150d57035090ee5b96101f6ccabfda34f10dab49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_10.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 180544,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "c1b610b65040f43d815d36663005786a617a1feab187d32e057dc3297864f55e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_10.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 181570,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        64,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "a7d756af7008ec821585336233b1f506e763423958ec437c1d020f68078ae457",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_s_11.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 182634,
+      "length": 1008,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -11
+      ],
+      "sha256": "495a4f09afac46aca9c4ce655fd33ae481eb7bae05416c984ac43fa6d39fea65",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ssw_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 183642,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -11
+      ],
+      "sha256": "cc453946bb483433f17a61087fc0d4002e2f913b284237cfdea5dac42b678293",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sw_11.png",
+      "width": 25,
+      "height": 38,
+      "texture_px": [
+        25,
+        38
+      ],
+      "offset": 184695,
+      "length": 950,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "0207b90da42477f6219f4c5d15053764d2acd68da64ad281a4bdec15364b92b6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wsw_11.png",
+      "width": 23,
+      "height": 39,
+      "texture_px": [
+        23,
+        39
+      ],
+      "offset": 185645,
+      "length": 897,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "920d949a64ec2db4fa058a2a06164852fddc2e0896d9a46902435900335025b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_w_11.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 186542,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "61b3b25aacec7c70767390fc35b35d16135330b2eff10df886d5f149dbb1669a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_wnw_11.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 187462,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        67,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "35a068b24d891443bc440360c5b6e387a49c9deba9005f0a271bad1f532889f5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nw_11.png",
+      "width": 27,
+      "height": 39,
+      "texture_px": [
+        27,
+        39
+      ],
+      "offset": 188502,
+      "length": 1053,
+      "trim_origin_top_left_px": [
+        68,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -12
+      ],
+      "sha256": "6a0c9296cf18097faeed994df65852c45f348d8e18fb478655218cb2d301fb49",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nnw_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 189555,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        69,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -12
+      ],
+      "sha256": "078612dbb748e74bed291926c09aea4c47eebd570ff1f97ce25d1534e1c1b974",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_n_11.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 190619,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -11
+      ],
+      "sha256": "0fdbf399055b07077ebf4af460f3edc4e12c7a21086c05e4c4b57d3ebb271ce5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_nne_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 191655,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        68,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -10
+      ],
+      "sha256": "a22d6d999a669480e54f1a7fbb8721bb6d4569c75eb5eb932bece3c36171cac6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ne_11.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 192719,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -9
+      ],
+      "sha256": "a73166349c93afc2409af1db5f881b23e838bc030a738eca91ca342b7688a9f7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ene_11.png",
+      "width": 23,
+      "height": 40,
+      "texture_px": [
+        23,
+        40
+      ],
+      "offset": 193733,
+      "length": 920,
+      "trim_origin_top_left_px": [
+        70,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "9c0546cf46e4004dc6248d30b4d1ba243a12de7e942b9bb09850bd68bbee7310",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_e_11.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 194653,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "4e478e60df47e467da3845fe95ee2333b1d35d31a070cb4681ec4dadf0f3a1eb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_ese_11.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 195613,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "1a61c4bd0c64e0ffc62d6b58118a14879b23f239cf2b454e088ef1dbcec0a2f3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_se_11.png",
+      "width": 27,
+      "height": 38,
+      "texture_px": [
+        27,
+        38
+      ],
+      "offset": 196627,
+      "length": 1026,
+      "trim_origin_top_left_px": [
+        65,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "751f37040ccd3124be199eadb6de98e41e51962477bd53e1baf5523756c33f6b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanDashMail.atlas",
+      "name": "dash_sse_11.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 197653,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        63,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "cbeadc3e4ff380115a3c218ad3bb7ae899decc38b463a2e04ca5f21a1b1ac20e",
+      "empty": false
+    }
+  ],
+  "source_authority": "DashOct10/Dash_Authored.blend"
+}

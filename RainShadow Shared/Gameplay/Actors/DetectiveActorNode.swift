@@ -824,7 +824,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
 
     /// BG:EE `Actor::PlayWalkSound` — see `FootstepCadence` for why this is gated
     /// on the previous clip finishing rather than on a contact frame.
-    private func playFootstepIfDue() {
+    func playFootstepIfDue() {
         let now = CACurrentMediaTime()
         guard footsteps.allowsStep(at: now, isWalking: true, silenced: isAudioSilenced) else {
             return

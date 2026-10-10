@@ -122,6 +122,11 @@ import SpriteKit
         let dashed = director.combat
         director.pointer(at: scene.convert(.zero, from: dash))
         try check(director.combat == dashed, "Repeated Dash click cannot grant more movement")
+        let dashDeadline = ProcessInfo.processInfo.systemUptime + 10
+        while director.busy {
+            guard ProcessInfo.processInfo.systemUptime < dashDeadline else { throw TacticalCombatQA.Failure(message: "Dash did not finish") }
+            try await Task.sleep(for: .milliseconds(20))
+        }
         director.hover(at: scene.convert(end, from: scene.depthWorldRoot))
         try capture(scene, "pathline-after-dash")
         director.pointer(at: scene.convert(end, from: scene.depthWorldRoot))

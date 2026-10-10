@@ -52,18 +52,25 @@
 		C0DE1F300000000000000011 /* HumanStealth in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F300000000000000001 /* HumanStealth */; };
 		C0DE1F400000000000000011 /* HumanDefeat in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F400000000000000001 /* HumanDefeat */; };
 		C0DE2F400000000000000011 /* HumanShove in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F400000000000000001 /* HumanShove */; };
+		D45A10400000000000000011 /* HumanDash in Resources */ = {isa = PBXBuildFile; fileRef = D45A10400000000000000001 /* HumanDash */; };
+		A10C10500000000000000011 /* BearGuardianRun in Resources */ = {isa = PBXBuildFile; fileRef = A10C10500000000000000001 /* BearGuardianRun */; };
+		A10C10400000000000000011 /* HumanRun in Resources */ = {isa = PBXBuildFile; fileRef = A10C10400000000000000001 /* HumanRun */; };
 		C0DE30400000000000000011 /* HumanBladeWard in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30400000000000000001 /* HumanBladeWard */; };
 		C0DE4F400000000000000011 /* HumanTripReaction in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F400000000000000001 /* HumanTripReaction */; };
 		C0DE3F400000000000000011 /* HumanTrip in Resources */ = {isa = PBXBuildFile; fileRef = C0DE3F400000000000000001 /* HumanTrip */; };
 		C0DE1F310000000000000011 /* HumanStealthSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F310000000000000001 /* HumanStealthSword */; };
 		C0DE1F410000000000000011 /* HumanDefeatSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F410000000000000001 /* HumanDefeatSword */; };
 		C0DE2F410000000000000011 /* HumanShoveSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F410000000000000001 /* HumanShoveSword */; };
+		D45A10410000000000000011 /* HumanDashSword in Resources */ = {isa = PBXBuildFile; fileRef = D45A10410000000000000001 /* HumanDashSword */; };
+		A10C10410000000000000011 /* HumanRunSword in Resources */ = {isa = PBXBuildFile; fileRef = A10C10410000000000000001 /* HumanRunSword */; };
 		C0DE30410000000000000011 /* HumanBladeWardSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30410000000000000001 /* HumanBladeWardSword */; };
 		C0DE4F410000000000000011 /* HumanTripReactionSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F410000000000000001 /* HumanTripReactionSword */; };
 		C0DE3F410000000000000011 /* HumanTripSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE3F410000000000000001 /* HumanTripSword */; };
 		C0DE1F320000000000000011 /* HumanStealthMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F320000000000000001 /* HumanStealthMail */; };
 		C0DE1F420000000000000011 /* HumanDefeatMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F420000000000000001 /* HumanDefeatMail */; };
 		C0DE2F420000000000000011 /* HumanShoveMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F420000000000000001 /* HumanShoveMail */; };
+		D45A10420000000000000011 /* HumanDashMail in Resources */ = {isa = PBXBuildFile; fileRef = D45A10420000000000000001 /* HumanDashMail */; };
+		A10C10420000000000000011 /* HumanRunMail in Resources */ = {isa = PBXBuildFile; fileRef = A10C10420000000000000001 /* HumanRunMail */; };
 		C0DE30420000000000000011 /* HumanBladeWardMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30420000000000000001 /* HumanBladeWardMail */; };
 		C0DE30500000000000000011 /* HumanBowMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30500000000000000001 /* HumanBowMail */; };
 		C0DE4F420000000000000011 /* HumanTripReactionMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F420000000000000001 /* HumanTripReactionMail */; };
@@ -71,6 +78,8 @@
 		C0DE1F330000000000000011 /* HumanStealthHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F330000000000000001 /* HumanStealthHelmet */; };
 		C0DE1F430000000000000011 /* HumanDefeatHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F430000000000000001 /* HumanDefeatHelmet */; };
 		C0DE2F430000000000000011 /* HumanShoveHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F430000000000000001 /* HumanShoveHelmet */; };
+		D45A10430000000000000011 /* HumanDashHelmet in Resources */ = {isa = PBXBuildFile; fileRef = D45A10430000000000000001 /* HumanDashHelmet */; };
+		A10C10430000000000000011 /* HumanRunHelmet in Resources */ = {isa = PBXBuildFile; fileRef = A10C10430000000000000001 /* HumanRunHelmet */; };
 		C0DE30430000000000000011 /* HumanBladeWardHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30430000000000000001 /* HumanBladeWardHelmet */; };
 		C0DE30510000000000000011 /* HumanBowHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30510000000000000001 /* HumanBowHelmet */; };
 		C0DE4F430000000000000011 /* HumanTripReactionHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F430000000000000001 /* HumanTripReactionHelmet */; };
@@ -78,6 +87,8 @@
 		C0DE1F340000000000000011 /* HumanStealthBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F340000000000000001 /* HumanStealthBow */; };
 		C0DE1F440000000000000011 /* HumanDefeatBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F440000000000000001 /* HumanDefeatBow */; };
 		C0DE2F440000000000000011 /* HumanShoveBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F440000000000000001 /* HumanShoveBow */; };
+		D45A10440000000000000011 /* HumanDashBow in Resources */ = {isa = PBXBuildFile; fileRef = D45A10440000000000000001 /* HumanDashBow */; };
+		A10C10440000000000000011 /* HumanRunBow in Resources */ = {isa = PBXBuildFile; fileRef = A10C10440000000000000001 /* HumanRunBow */; };
 		C0DE4F440000000000000011 /* HumanTripReactionBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F440000000000000001 /* HumanTripReactionBow */; };
 		C0DE1F350000000000000011 /* HumanStealthArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F350000000000000001 /* HumanStealthArrow */; };
 		C0DE1F450000000000000011 /* HumanDefeatArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F450000000000000001 /* HumanDefeatArrow */; };
@@ -110,18 +121,25 @@
 		C0DE1F300000000000000021 /* HumanStealth in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F300000000000000001 /* HumanStealth */; };
 		C0DE1F400000000000000021 /* HumanDefeat in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F400000000000000001 /* HumanDefeat */; };
 		C0DE2F400000000000000021 /* HumanShove in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F400000000000000001 /* HumanShove */; };
+		D45A10400000000000000021 /* HumanDash in Resources */ = {isa = PBXBuildFile; fileRef = D45A10400000000000000001 /* HumanDash */; };
+		A10C10500000000000000021 /* BearGuardianRun in Resources */ = {isa = PBXBuildFile; fileRef = A10C10500000000000000001 /* BearGuardianRun */; };
+		A10C10400000000000000021 /* HumanRun in Resources */ = {isa = PBXBuildFile; fileRef = A10C10400000000000000001 /* HumanRun */; };
 		C0DE30400000000000000021 /* HumanBladeWard in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30400000000000000001 /* HumanBladeWard */; };
 		C0DE4F400000000000000021 /* HumanTripReaction in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F400000000000000001 /* HumanTripReaction */; };
 		C0DE3F400000000000000021 /* HumanTrip in Resources */ = {isa = PBXBuildFile; fileRef = C0DE3F400000000000000001 /* HumanTrip */; };
 		C0DE1F310000000000000021 /* HumanStealthSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F310000000000000001 /* HumanStealthSword */; };
 		C0DE1F410000000000000021 /* HumanDefeatSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F410000000000000001 /* HumanDefeatSword */; };
 		C0DE2F410000000000000021 /* HumanShoveSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F410000000000000001 /* HumanShoveSword */; };
+		D45A10410000000000000021 /* HumanDashSword in Resources */ = {isa = PBXBuildFile; fileRef = D45A10410000000000000001 /* HumanDashSword */; };
+		A10C10410000000000000021 /* HumanRunSword in Resources */ = {isa = PBXBuildFile; fileRef = A10C10410000000000000001 /* HumanRunSword */; };
 		C0DE30410000000000000021 /* HumanBladeWardSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30410000000000000001 /* HumanBladeWardSword */; };
 		C0DE4F410000000000000021 /* HumanTripReactionSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F410000000000000001 /* HumanTripReactionSword */; };
 		C0DE3F410000000000000021 /* HumanTripSword in Resources */ = {isa = PBXBuildFile; fileRef = C0DE3F410000000000000001 /* HumanTripSword */; };
 		C0DE1F320000000000000021 /* HumanStealthMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F320000000000000001 /* HumanStealthMail */; };
 		C0DE1F420000000000000021 /* HumanDefeatMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F420000000000000001 /* HumanDefeatMail */; };
 		C0DE2F420000000000000021 /* HumanShoveMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F420000000000000001 /* HumanShoveMail */; };
+		D45A10420000000000000021 /* HumanDashMail in Resources */ = {isa = PBXBuildFile; fileRef = D45A10420000000000000001 /* HumanDashMail */; };
+		A10C10420000000000000021 /* HumanRunMail in Resources */ = {isa = PBXBuildFile; fileRef = A10C10420000000000000001 /* HumanRunMail */; };
 		C0DE30420000000000000021 /* HumanBladeWardMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30420000000000000001 /* HumanBladeWardMail */; };
 		C0DE30500000000000000021 /* HumanBowMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30500000000000000001 /* HumanBowMail */; };
 		C0DE4F420000000000000021 /* HumanTripReactionMail in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F420000000000000001 /* HumanTripReactionMail */; };
@@ -129,6 +147,8 @@
 		C0DE1F330000000000000021 /* HumanStealthHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F330000000000000001 /* HumanStealthHelmet */; };
 		C0DE1F430000000000000021 /* HumanDefeatHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F430000000000000001 /* HumanDefeatHelmet */; };
 		C0DE2F430000000000000021 /* HumanShoveHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F430000000000000001 /* HumanShoveHelmet */; };
+		D45A10430000000000000021 /* HumanDashHelmet in Resources */ = {isa = PBXBuildFile; fileRef = D45A10430000000000000001 /* HumanDashHelmet */; };
+		A10C10430000000000000021 /* HumanRunHelmet in Resources */ = {isa = PBXBuildFile; fileRef = A10C10430000000000000001 /* HumanRunHelmet */; };
 		C0DE30430000000000000021 /* HumanBladeWardHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30430000000000000001 /* HumanBladeWardHelmet */; };
 		C0DE30510000000000000021 /* HumanBowHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE30510000000000000001 /* HumanBowHelmet */; };
 		C0DE4F430000000000000021 /* HumanTripReactionHelmet in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F430000000000000001 /* HumanTripReactionHelmet */; };
@@ -136,6 +156,8 @@
 		C0DE1F340000000000000021 /* HumanStealthBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F340000000000000001 /* HumanStealthBow */; };
 		C0DE1F440000000000000021 /* HumanDefeatBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F440000000000000001 /* HumanDefeatBow */; };
 		C0DE2F440000000000000021 /* HumanShoveBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE2F440000000000000001 /* HumanShoveBow */; };
+		D45A10440000000000000021 /* HumanDashBow in Resources */ = {isa = PBXBuildFile; fileRef = D45A10440000000000000001 /* HumanDashBow */; };
+		A10C10440000000000000021 /* HumanRunBow in Resources */ = {isa = PBXBuildFile; fileRef = A10C10440000000000000001 /* HumanRunBow */; };
 		C0DE4F440000000000000021 /* HumanTripReactionBow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE4F440000000000000001 /* HumanTripReactionBow */; };
 		C0DE1F350000000000000021 /* HumanStealthArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F350000000000000001 /* HumanStealthArrow */; };
 		C0DE1F450000000000000021 /* HumanDefeatArrow in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1F450000000000000001 /* HumanDefeatArrow */; };
@@ -183,18 +205,25 @@
 		C0DE1F300000000000000001 /* HumanStealth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealth; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealth"; sourceTree = SOURCE_ROOT; };
 		C0DE1F400000000000000001 /* HumanDefeat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeat; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeat"; sourceTree = SOURCE_ROOT; };
 		C0DE2F400000000000000001 /* HumanShove */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanShove; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanShove"; sourceTree = SOURCE_ROOT; };
+		D45A10400000000000000001 /* HumanDash */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDash; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDash"; sourceTree = SOURCE_ROOT; };
+		A10C10500000000000000001 /* BearGuardianRun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BearGuardianRun; path = "RainShadow Shared/Resources/Art/IE/Avatars/BearGuardianRun"; sourceTree = SOURCE_ROOT; };
+		A10C10400000000000000001 /* HumanRun */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanRun; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanRun"; sourceTree = SOURCE_ROOT; };
 		C0DE30400000000000000001 /* HumanBladeWard */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBladeWard; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBladeWard"; sourceTree = SOURCE_ROOT; };
 		C0DE4F400000000000000001 /* HumanTripReaction */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripReaction; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripReaction"; sourceTree = SOURCE_ROOT; };
 		C0DE3F400000000000000001 /* HumanTrip */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTrip; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTrip"; sourceTree = SOURCE_ROOT; };
 		C0DE1F310000000000000001 /* HumanStealthSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthSword"; sourceTree = SOURCE_ROOT; };
 		C0DE1F410000000000000001 /* HumanDefeatSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeatSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeatSword"; sourceTree = SOURCE_ROOT; };
 		C0DE2F410000000000000001 /* HumanShoveSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanShoveSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanShoveSword"; sourceTree = SOURCE_ROOT; };
+		D45A10410000000000000001 /* HumanDashSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDashSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDashSword"; sourceTree = SOURCE_ROOT; };
+		A10C10410000000000000001 /* HumanRunSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanRunSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanRunSword"; sourceTree = SOURCE_ROOT; };
 		C0DE30410000000000000001 /* HumanBladeWardSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBladeWardSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBladeWardSword"; sourceTree = SOURCE_ROOT; };
 		C0DE4F410000000000000001 /* HumanTripReactionSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripReactionSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripReactionSword"; sourceTree = SOURCE_ROOT; };
 		C0DE3F410000000000000001 /* HumanTripSword */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripSword; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripSword"; sourceTree = SOURCE_ROOT; };
 		C0DE1F320000000000000001 /* HumanStealthMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthMail"; sourceTree = SOURCE_ROOT; };
 		C0DE1F420000000000000001 /* HumanDefeatMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeatMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeatMail"; sourceTree = SOURCE_ROOT; };
 		C0DE2F420000000000000001 /* HumanShoveMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanShoveMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanShoveMail"; sourceTree = SOURCE_ROOT; };
+		D45A10420000000000000001 /* HumanDashMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDashMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDashMail"; sourceTree = SOURCE_ROOT; };
+		A10C10420000000000000001 /* HumanRunMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanRunMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanRunMail"; sourceTree = SOURCE_ROOT; };
 		C0DE30420000000000000001 /* HumanBladeWardMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBladeWardMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBladeWardMail"; sourceTree = SOURCE_ROOT; };
 		C0DE30500000000000000001 /* HumanBowMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBowMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBowMail"; sourceTree = SOURCE_ROOT; };
 		C0DE4F420000000000000001 /* HumanTripReactionMail */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripReactionMail; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripReactionMail"; sourceTree = SOURCE_ROOT; };
@@ -202,6 +231,8 @@
 		C0DE1F330000000000000001 /* HumanStealthHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthHelmet"; sourceTree = SOURCE_ROOT; };
 		C0DE1F430000000000000001 /* HumanDefeatHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeatHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeatHelmet"; sourceTree = SOURCE_ROOT; };
 		C0DE2F430000000000000001 /* HumanShoveHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanShoveHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanShoveHelmet"; sourceTree = SOURCE_ROOT; };
+		D45A10430000000000000001 /* HumanDashHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDashHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDashHelmet"; sourceTree = SOURCE_ROOT; };
+		A10C10430000000000000001 /* HumanRunHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanRunHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanRunHelmet"; sourceTree = SOURCE_ROOT; };
 		C0DE30430000000000000001 /* HumanBladeWardHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBladeWardHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBladeWardHelmet"; sourceTree = SOURCE_ROOT; };
 		C0DE30510000000000000001 /* HumanBowHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanBowHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanBowHelmet"; sourceTree = SOURCE_ROOT; };
 		C0DE4F430000000000000001 /* HumanTripReactionHelmet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripReactionHelmet; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripReactionHelmet"; sourceTree = SOURCE_ROOT; };
@@ -209,6 +240,8 @@
 		C0DE1F340000000000000001 /* HumanStealthBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthBow"; sourceTree = SOURCE_ROOT; };
 		C0DE1F440000000000000001 /* HumanDefeatBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeatBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeatBow"; sourceTree = SOURCE_ROOT; };
 		C0DE2F440000000000000001 /* HumanShoveBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanShoveBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanShoveBow"; sourceTree = SOURCE_ROOT; };
+		D45A10440000000000000001 /* HumanDashBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDashBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDashBow"; sourceTree = SOURCE_ROOT; };
+		A10C10440000000000000001 /* HumanRunBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanRunBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanRunBow"; sourceTree = SOURCE_ROOT; };
 		C0DE4F440000000000000001 /* HumanTripReactionBow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanTripReactionBow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanTripReactionBow"; sourceTree = SOURCE_ROOT; };
 		C0DE1F350000000000000001 /* HumanStealthArrow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanStealthArrow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanStealthArrow"; sourceTree = SOURCE_ROOT; };
 		C0DE1F450000000000000001 /* HumanDefeatArrow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HumanDefeatArrow; path = "RainShadow Shared/Resources/Art/IE/Avatars/HumanDefeatArrow"; sourceTree = SOURCE_ROOT; };
@@ -378,6 +411,8 @@
 				Gameplay/Navigation/StealthAnimationSet.swift,
 				Gameplay/Navigation/DefeatAnimationSet.swift,
 				Gameplay/Navigation/ShoveAnimationSet.swift,
+				Gameplay/Navigation/DashAnimationSet.swift,
+				Gameplay/Navigation/RunAnimationSet.swift,
 				Gameplay/Navigation/BladeWardAnimationSet.swift,
 				Gameplay/Navigation/ShoveRules.swift,
 				Gameplay/Navigation/SwordSwingPath.swift,
@@ -1656,6 +1691,7 @@
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
 				Scenes/CityDistrict/BladeWardVisual.swift,
+				Scenes/CityDistrict/DashVisual.swift,
 				Scenes/CityDistrict/BowShotPresentation.swift,
 				Scenes/CityDistrict/MeleeAttackPresentation.swift,
 				Scenes/CityDistrict/MeleeSwingTrail.swift,
@@ -1867,6 +1903,8 @@
 				Gameplay/Navigation/StealthAnimationSet.swift,
 				Gameplay/Navigation/DefeatAnimationSet.swift,
 				Gameplay/Navigation/ShoveAnimationSet.swift,
+				Gameplay/Navigation/DashAnimationSet.swift,
+				Gameplay/Navigation/RunAnimationSet.swift,
 				Gameplay/Navigation/BladeWardAnimationSet.swift,
 				Gameplay/Navigation/ShoveRules.swift,
 				Gameplay/Navigation/SwordSwingPath.swift,
@@ -3193,6 +3231,7 @@
 				Scenes/CityDistrict/TacticalCombatDirector.swift,
 				Scenes/CityDistrict/BearTransformationEffect.swift,
 				Scenes/CityDistrict/BladeWardVisual.swift,
+				Scenes/CityDistrict/DashVisual.swift,
 				Scenes/CityDistrict/BowShotPresentation.swift,
 				Scenes/CityDistrict/MeleeAttackPresentation.swift,
 				Scenes/CityDistrict/MeleeSwingTrail.swift,
@@ -3307,18 +3346,25 @@
 				C0DE1F300000000000000001 /* HumanStealth */,
 				C0DE1F400000000000000001 /* HumanDefeat */,
 				C0DE2F400000000000000001 /* HumanShove */,
+				D45A10400000000000000001 /* HumanDash */,
+				A10C10500000000000000001 /* BearGuardianRun */,
+				A10C10400000000000000001 /* HumanRun */,
 				C0DE30400000000000000001 /* HumanBladeWard */,
 				C0DE4F400000000000000001 /* HumanTripReaction */,
 				C0DE3F400000000000000001 /* HumanTrip */,
 				C0DE1F310000000000000001 /* HumanStealthSword */,
 				C0DE1F410000000000000001 /* HumanDefeatSword */,
 				C0DE2F410000000000000001 /* HumanShoveSword */,
+				D45A10410000000000000001 /* HumanDashSword */,
+				A10C10410000000000000001 /* HumanRunSword */,
 				C0DE30410000000000000001 /* HumanBladeWardSword */,
 				C0DE4F410000000000000001 /* HumanTripReactionSword */,
 				C0DE3F410000000000000001 /* HumanTripSword */,
 				C0DE1F320000000000000001 /* HumanStealthMail */,
 				C0DE1F420000000000000001 /* HumanDefeatMail */,
 				C0DE2F420000000000000001 /* HumanShoveMail */,
+				D45A10420000000000000001 /* HumanDashMail */,
+				A10C10420000000000000001 /* HumanRunMail */,
 				C0DE30420000000000000001 /* HumanBladeWardMail */,
 				C0DE30500000000000000001 /* HumanBowMail */,
 				C0DE4F420000000000000001 /* HumanTripReactionMail */,
@@ -3326,6 +3372,8 @@
 				C0DE1F330000000000000001 /* HumanStealthHelmet */,
 				C0DE1F430000000000000001 /* HumanDefeatHelmet */,
 				C0DE2F430000000000000001 /* HumanShoveHelmet */,
+				D45A10430000000000000001 /* HumanDashHelmet */,
+				A10C10430000000000000001 /* HumanRunHelmet */,
 				C0DE30430000000000000001 /* HumanBladeWardHelmet */,
 				C0DE30510000000000000001 /* HumanBowHelmet */,
 				C0DE4F430000000000000001 /* HumanTripReactionHelmet */,
@@ -3333,6 +3381,8 @@
 				C0DE1F340000000000000001 /* HumanStealthBow */,
 				C0DE1F440000000000000001 /* HumanDefeatBow */,
 				C0DE2F440000000000000001 /* HumanShoveBow */,
+				D45A10440000000000000001 /* HumanDashBow */,
+				A10C10440000000000000001 /* HumanRunBow */,
 				C0DE4F440000000000000001 /* HumanTripReactionBow */,
 				C0DE1F350000000000000001 /* HumanStealthArrow */,
 				C0DE1F450000000000000001 /* HumanDefeatArrow */,
@@ -3517,18 +3567,25 @@
 				C0DE1F300000000000000011 /* HumanStealth in Resources */,
 				C0DE1F400000000000000011 /* HumanDefeat in Resources */,
 				C0DE2F400000000000000011 /* HumanShove in Resources */,
+				D45A10400000000000000011 /* HumanDash in Resources */,
+				A10C10500000000000000011 /* BearGuardianRun in Resources */,
+				A10C10400000000000000011 /* HumanRun in Resources */,
 				C0DE30400000000000000011 /* HumanBladeWard in Resources */,
 				C0DE4F400000000000000011 /* HumanTripReaction in Resources */,
 				C0DE3F400000000000000011 /* HumanTrip in Resources */,
 				C0DE1F310000000000000011 /* HumanStealthSword in Resources */,
 				C0DE1F410000000000000011 /* HumanDefeatSword in Resources */,
 				C0DE2F410000000000000011 /* HumanShoveSword in Resources */,
+				D45A10410000000000000011 /* HumanDashSword in Resources */,
+				A10C10410000000000000011 /* HumanRunSword in Resources */,
 				C0DE30410000000000000011 /* HumanBladeWardSword in Resources */,
 				C0DE4F410000000000000011 /* HumanTripReactionSword in Resources */,
 				C0DE3F410000000000000011 /* HumanTripSword in Resources */,
 				C0DE1F320000000000000011 /* HumanStealthMail in Resources */,
 				C0DE1F420000000000000011 /* HumanDefeatMail in Resources */,
 				C0DE2F420000000000000011 /* HumanShoveMail in Resources */,
+				D45A10420000000000000011 /* HumanDashMail in Resources */,
+				A10C10420000000000000011 /* HumanRunMail in Resources */,
 				C0DE30420000000000000011 /* HumanBladeWardMail in Resources */,
 				C0DE30500000000000000011 /* HumanBowMail in Resources */,
 				C0DE4F420000000000000011 /* HumanTripReactionMail in Resources */,
@@ -3536,6 +3593,8 @@
 				C0DE1F330000000000000011 /* HumanStealthHelmet in Resources */,
 				C0DE1F430000000000000011 /* HumanDefeatHelmet in Resources */,
 				C0DE2F430000000000000011 /* HumanShoveHelmet in Resources */,
+				D45A10430000000000000011 /* HumanDashHelmet in Resources */,
+				A10C10430000000000000011 /* HumanRunHelmet in Resources */,
 				C0DE30430000000000000011 /* HumanBladeWardHelmet in Resources */,
 				C0DE30510000000000000011 /* HumanBowHelmet in Resources */,
 				C0DE4F430000000000000011 /* HumanTripReactionHelmet in Resources */,
@@ -3543,6 +3602,8 @@
 				C0DE1F340000000000000011 /* HumanStealthBow in Resources */,
 				C0DE1F440000000000000011 /* HumanDefeatBow in Resources */,
 				C0DE2F440000000000000011 /* HumanShoveBow in Resources */,
+				D45A10440000000000000011 /* HumanDashBow in Resources */,
+				A10C10440000000000000011 /* HumanRunBow in Resources */,
 				C0DE4F440000000000000011 /* HumanTripReactionBow in Resources */,
 				C0DE1F350000000000000011 /* HumanStealthArrow in Resources */,
 				C0DE1F450000000000000011 /* HumanDefeatArrow in Resources */,
@@ -3594,18 +3655,25 @@
 				C0DE1F300000000000000021 /* HumanStealth in Resources */,
 				C0DE1F400000000000000021 /* HumanDefeat in Resources */,
 				C0DE2F400000000000000021 /* HumanShove in Resources */,
+				D45A10400000000000000021 /* HumanDash in Resources */,
+				A10C10500000000000000021 /* BearGuardianRun in Resources */,
+				A10C10400000000000000021 /* HumanRun in Resources */,
 				C0DE30400000000000000021 /* HumanBladeWard in Resources */,
 				C0DE4F400000000000000021 /* HumanTripReaction in Resources */,
 				C0DE3F400000000000000021 /* HumanTrip in Resources */,
 				C0DE1F310000000000000021 /* HumanStealthSword in Resources */,
 				C0DE1F410000000000000021 /* HumanDefeatSword in Resources */,
 				C0DE2F410000000000000021 /* HumanShoveSword in Resources */,
+				D45A10410000000000000021 /* HumanDashSword in Resources */,
+				A10C10410000000000000021 /* HumanRunSword in Resources */,
 				C0DE30410000000000000021 /* HumanBladeWardSword in Resources */,
 				C0DE4F410000000000000021 /* HumanTripReactionSword in Resources */,
 				C0DE3F410000000000000021 /* HumanTripSword in Resources */,
 				C0DE1F320000000000000021 /* HumanStealthMail in Resources */,
 				C0DE1F420000000000000021 /* HumanDefeatMail in Resources */,
 				C0DE2F420000000000000021 /* HumanShoveMail in Resources */,
+				D45A10420000000000000021 /* HumanDashMail in Resources */,
+				A10C10420000000000000021 /* HumanRunMail in Resources */,
 				C0DE30420000000000000021 /* HumanBladeWardMail in Resources */,
 				C0DE30500000000000000021 /* HumanBowMail in Resources */,
 				C0DE4F420000000000000021 /* HumanTripReactionMail in Resources */,
@@ -3613,6 +3681,8 @@
 				C0DE1F330000000000000021 /* HumanStealthHelmet in Resources */,
 				C0DE1F430000000000000021 /* HumanDefeatHelmet in Resources */,
 				C0DE2F430000000000000021 /* HumanShoveHelmet in Resources */,
+				D45A10430000000000000021 /* HumanDashHelmet in Resources */,
+				A10C10430000000000000021 /* HumanRunHelmet in Resources */,
 				C0DE30430000000000000021 /* HumanBladeWardHelmet in Resources */,
 				C0DE30510000000000000021 /* HumanBowHelmet in Resources */,
 				C0DE4F430000000000000021 /* HumanTripReactionHelmet in Resources */,
@@ -3620,6 +3690,8 @@
 				C0DE1F340000000000000021 /* HumanStealthBow in Resources */,
 				C0DE1F440000000000000021 /* HumanDefeatBow in Resources */,
 				C0DE2F440000000000000021 /* HumanShoveBow in Resources */,
+				D45A10440000000000000021 /* HumanDashBow in Resources */,
+				A10C10440000000000000021 /* HumanRunBow in Resources */,
 				C0DE4F440000000000000021 /* HumanTripReactionBow in Resources */,
 				C0DE1F350000000000000021 /* HumanStealthArrow in Resources */,
 				C0DE1F450000000000000021 /* HumanDefeatArrow in Resources */,

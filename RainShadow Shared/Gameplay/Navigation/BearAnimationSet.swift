@@ -10,6 +10,7 @@ enum BearAnimationSet {
     static func frameCount(for action: CharacterVisualAction) throws -> Int {
         switch action {
         case .idle, .walk: 12
+        case .run: RunAnimationSet.frames
         case .attack: BearClawAnimationSet.frames
         case .hit: 6
         case .revert: 10

@@ -56,6 +56,10 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let wardBody: IEAvatarFrameLibrary?
         let wardEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let runBody: IEAvatarFrameLibrary?
+        let runEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
+        let dashBody: IEAvatarFrameLibrary?
+        let dashEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let shoveBody: IEAvatarFrameLibrary?
         let shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary]
         let defeatBody: IEAvatarFrameLibrary?
@@ -94,8 +98,23 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            if appearance.body == .humanMale01 || appearance.body == .bearGuardian {
+                let character = appearance.body == .bearGuardian ? RunAnimationSet.bear : RunAnimationSet.body
+                let run = try IEAvatarFrameLibrary.shared(character: character, colors: body.colors)
+                try RunAnimationSet.validate(run.sprite, character: character)
+                runBody = run
+                var layers: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+                for (item, base) in equipment where item != .elvenCourtArrow {
+                    let name = RunAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try RunAnimationSet.validate(layer.sprite, character: name)
+                    layers[item] = layer
+                }
+                runEquipment = layers
+            } else { runBody = nil; runEquipment = [:] }
             var tripEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var wardEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
+            var dashEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var shoveEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var defeatEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
             var stealthEquipment: [CharacterEquipmentCode: IEAvatarFrameLibrary] = [:]
@@ -122,6 +141,15 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
                     try BladeWardAnimationSet.validate(layer.sprite, character: name)
                     wardEquipment[item] = layer
+                }
+                let dash = try IEAvatarFrameLibrary.shared(character: DashAnimationSet.body, colors: body.colors)
+                try DashAnimationSet.validate(dash.sprite, character: DashAnimationSet.body)
+                dashBody = dash
+                for (item, base) in equipment where item != .elvenCourtArrow {
+                    let name = DashAnimationSet.equipment(item)
+                    let layer = try IEAvatarFrameLibrary.shared(character: name, colors: base.colors)
+                    try DashAnimationSet.validate(layer.sprite, character: name)
+                    dashEquipment[item] = layer
                 }
                 let shove = try IEAvatarFrameLibrary.shared(character: ShoveAnimationSet.body, colors: body.colors)
                 try ShoveAnimationSet.validate(shove.sprite, character: ShoveAnimationSet.body)
@@ -192,10 +220,11 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                         techniqueEquipment[item] = technique
                     }
                 }
-            } else { tripReactionBody = nil; tripBody = nil; meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil; defeatBody = nil; shoveBody = nil; wardBody = nil }
+            } else { tripReactionBody = nil; tripBody = nil; meleeBody = nil; techniqueBody = nil; reactionBody = nil; knockbackBody = nil; stealthBody = nil; defeatBody = nil; dashBody = nil; shoveBody = nil; wardBody = nil }
             self.tripReactionEquipment = tripReactionEquipment
             self.tripEquipment = tripEquipment
             self.wardEquipment = wardEquipment
+            self.dashEquipment = dashEquipment
             self.shoveEquipment = shoveEquipment
             self.defeatEquipment = defeatEquipment
             self.stealthEquipment = stealthEquipment
@@ -328,6 +357,33 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                 var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
                 for (item, layer) in wardEquipment {
                     let atlas = BladeWardAnimationSet.equipment(item) + ".atlas"
+                    guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = frame
+                }
+                return (frame, overlays)
+            }
+            if action == .run, let library = runBody {
+                let name = try RunAnimationSet.name(facing: facing, phase: phase)
+                let character = library.sprite.character
+                guard let frame = library.frame(atlas: character + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(character, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in runEquipment {
+                    let atlas = RunAnimationSet.equipment(item) + ".atlas"
+                    guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
+                    overlays[item] = frame
+                }
+                return (frame, overlays)
+            }
+            if action == .dash, let library = dashBody {
+                let name = try DashAnimationSet.name(facing: facing, phase: phase)
+                guard let frame = library.frame(atlas: DashAnimationSet.body + ".atlas", name: name) else {
+                    throw CharacterAppearanceError.missingFrame(DashAnimationSet.body, name)
+                }
+                var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+                for (item, layer) in dashEquipment {
+                    let atlas = DashAnimationSet.equipment(item) + ".atlas"
                     guard let frame = layer.frame(atlas: atlas, name: name) else { throw CharacterAppearanceError.missingFrame(atlas, name) }
                     overlays[item] = frame
                 }
