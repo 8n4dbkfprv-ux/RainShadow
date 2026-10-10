@@ -37,7 +37,8 @@ struct MeleeAttackTests {
     @Test func swordTrailUsesTheAuthoredSwingAndTheSameProjectionInEveryFacing() {
         let density = (1024 / 1.72 * 0.07465790639916813) * (140.625 / 128)
         let windup = SwordSwingPath.blade(phase: 3, facing: .south)
-        #expect(abs(windup.tip.x - (-0.56518388 * density)) < 0.00001)
+        // Blade tip sampled from the revised, evaluated Blender weapon at phase 3.
+        #expect(abs(windup.tip.x - (-0.64309472 * density)) < 0.00001)
         for facing in ActorFacing.allCases {
             for step in 0...44 {
                 let phase = Double(step) / 4

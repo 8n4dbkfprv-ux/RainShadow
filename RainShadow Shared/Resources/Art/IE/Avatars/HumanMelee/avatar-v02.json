@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanMelee",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "8fe80af08a2ce262e02fabeb04f4f0ce18d6c976b391d6aa8da57fe48165a3ea",
+  "blob_sha256": "a582910f48c390eee38810b484fe956273bdd6168e0c8bb81eefc012ed9b7232",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -66,205 +66,205 @@
         17,
         9
       ],
-      "sha256": "e8452729b0a21f3dbf17b2c36c921e0e1ed503d12e16beb4ba517f82fddd2b1c",
+      "sha256": "aa4e4957a90dd38f9be159b5cfaef34a5df996607e9b79794ad71859626fd2e5",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_01.png",
-      "width": 38,
+      "width": 37,
       "height": 60,
       "texture_px": [
-        38,
+        37,
         60
       ],
       "offset": 2116,
-      "length": 2280,
+      "length": 2220,
       "trim_origin_top_left_px": [
-        60,
+        61,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
+        19,
         9
       ],
-      "sha256": "500d8f3e239087c0c3b9031f2cb002f5c9ce82098a3d095a287074976bbad3c4",
+      "sha256": "e7de5945de7ad01da1415fe092ff6ffdacecae4f82186f89986e2e61666533b7",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_02.png",
-      "width": 42,
-      "height": 60,
+      "width": 43,
+      "height": 62,
       "texture_px": [
-        42,
-        60
+        43,
+        62
       ],
-      "offset": 4396,
-      "length": 2520,
+      "offset": 4336,
+      "length": 2666,
       "trim_origin_top_left_px": [
         56,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
         24,
-        9
+        11
       ],
-      "sha256": "03d0e46acdcb56060fb2653791bc763df708c2c50591b36b26053c211303d131",
+      "sha256": "dfbf5a2daef8da71264edef9306d2f8d386942f50850ebf459e44378205f44dc",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_03.png",
       "width": 43,
-      "height": 60,
+      "height": 65,
       "texture_px": [
         43,
-        60
+        65
       ],
-      "offset": 6916,
-      "length": 2580,
+      "offset": 7002,
+      "length": 2795,
       "trim_origin_top_left_px": [
-        55,
+        56,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
-        9
+        24,
+        14
       ],
-      "sha256": "26b55402206f9914aa662dd4e6dd3fa2a51a7d3517aae86b7e4a2b44582bd1df",
+      "sha256": "0efa21655d5198be9e1674d6cd1d4bdec6d36481474df5c3fb1ecd5adcac10ec",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_04.png",
       "width": 43,
-      "height": 59,
+      "height": 66,
       "texture_px": [
         43,
-        59
+        66
       ],
-      "offset": 9496,
-      "length": 2537,
+      "offset": 9797,
+      "length": 2838,
       "trim_origin_top_left_px": [
         56,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         24,
-        9
+        16
       ],
-      "sha256": "fb2168a862a7500db829e121eb0cd20176d76fb60cb6271a265e05b5845b0982",
+      "sha256": "9cb7629962aa1a6e27d33247f4d50a4149cfdb7550c2b8b28a7a42c545e68b0d",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_05.png",
       "width": 41,
-      "height": 58,
+      "height": 62,
       "texture_px": [
         41,
-        58
+        62
       ],
-      "offset": 12033,
-      "length": 2378,
+      "offset": 12635,
+      "length": 2542,
       "trim_origin_top_left_px": [
-        58,
-        51
+        57,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        9
+        23,
+        16
       ],
-      "sha256": "80f0f48cb69b6c0581c24d66f13a951f13bf85ad9bc69587fdee7fdc4b4eed25",
+      "sha256": "a9b7dfc7ba5b2fea69f670407a7356c323ecd64d935da56a4462063a035e0fbb",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_06.png",
-      "width": 35,
-      "height": 57,
+      "width": 32,
+      "height": 59,
       "texture_px": [
-        35,
+        32,
+        59
+      ],
+      "offset": 15177,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        66,
         57
       ],
-      "offset": 14411,
-      "length": 1995,
-      "trim_origin_top_left_px": [
-        64,
-        52
-      ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        9
+        14,
+        16
       ],
-      "sha256": "14c98d778daf9c6bd6b4ef0ef9ead16bc1f31384183e5a1a710836739b421e9f",
+      "sha256": "790f7e34e1ccaab58022081bc0ac82000ad7347fc81ec8a89090a767f3530382",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_07.png",
-      "width": 33,
-      "height": 58,
+      "width": 32,
+      "height": 60,
       "texture_px": [
-        33,
-        58
+        32,
+        60
       ],
-      "offset": 16406,
-      "length": 1914,
+      "offset": 17065,
+      "length": 1920,
       "trim_origin_top_left_px": [
         66,
-        51
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
-        9
+        16
       ],
-      "sha256": "3906e08169034e1544394003131301d7528d0bd7695117cb13862f756d893737",
+      "sha256": "259d1555925d28fb16bb8edfcd0a6eb45eabc0d3b130b5dcdc399e05db8f9e11",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_08.png",
-      "width": 35,
-      "height": 58,
+      "width": 33,
+      "height": 60,
       "texture_px": [
-        35,
-        58
+        33,
+        60
       ],
-      "offset": 18320,
-      "length": 2030,
+      "offset": 18985,
+      "length": 1980,
       "trim_origin_top_left_px": [
-        63,
-        51
+        65,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        9
+        15,
+        16
       ],
-      "sha256": "3359b263746eaa913654c1a08f7d3c3f98e9d4a1a13a7e5297ed6a33e18a6e03",
+      "sha256": "12d967e53c49f5717ba4d0c6bd8b3dbd0c784f7fa2dead78a7cc4c8e281bd795",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_s_09.png",
-      "width": 40,
+      "width": 39,
       "height": 59,
       "texture_px": [
-        40,
+        39,
         59
       ],
-      "offset": 20350,
-      "length": 2360,
+      "offset": 20965,
+      "length": 2301,
       "trim_origin_top_left_px": [
-        58,
-        50
+        59,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        9
+        21,
+        13
       ],
-      "sha256": "f7b787aa9d5eccf9b114739afef924281d523771f64fff589a8262d48bc33795",
+      "sha256": "fc26f10287007e162f7692e781519cc3c4328d3f26d2d84b32aa86829e10f86f",
       "empty": false
     },
     {
@@ -276,17 +276,17 @@
         38,
         59
       ],
-      "offset": 22710,
+      "offset": 23266,
       "length": 2242,
       "trim_origin_top_left_px": [
         60,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
-        9
+        10
       ],
-      "sha256": "8214776717502e180bcb6f89e2b4e1b8a01fb21659c97182d0afd45252015b21",
+      "sha256": "e5b84af16db41fe041facdb88cd221655ae651eb0480b01dcf4f6a2999f86fe0",
       "empty": false
     },
     {
@@ -298,7 +298,7 @@
         35,
         60
       ],
-      "offset": 24952,
+      "offset": 25508,
       "length": 2100,
       "trim_origin_top_left_px": [
         63,
@@ -308,7 +308,7 @@
         17,
         9
       ],
-      "sha256": "e8452729b0a21f3dbf17b2c36c921e0e1ed503d12e16beb4ba517f82fddd2b1c",
+      "sha256": "aa4e4957a90dd38f9be159b5cfaef34a5df996607e9b79794ad71859626fd2e5",
       "empty": false
     },
     {
@@ -320,7 +320,7 @@
         37,
         62
       ],
-      "offset": 27052,
+      "offset": 27608,
       "length": 2294,
       "trim_origin_top_left_px": [
         63,
@@ -330,183 +330,183 @@
         17,
         10
       ],
-      "sha256": "e13969867fb1550ffaaa9d4ef4a3d3d1a50a7c6b973c34508877818f815950b1",
+      "sha256": "245ba0e12fe9fedda58ce8757754cf44c80f57d57c793a918b2cf4cf00ef5a60",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_01.png",
-      "width": 37,
+      "width": 36,
       "height": 62,
       "texture_px": [
-        37,
+        36,
         62
       ],
-      "offset": 29346,
-      "length": 2294,
+      "offset": 29902,
+      "length": 2232,
       "trim_origin_top_left_px": [
-        63,
+        64,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
+        16,
         10
       ],
-      "sha256": "6ebe4cacb5c4601d60f139940c80b31736200d9ad133571a8d22af12b804b5be",
+      "sha256": "ba582e5daa47b30b03a960e72c7e31aa373da89afdd645130929c34bafeada5f",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_02.png",
       "width": 40,
-      "height": 62,
+      "height": 64,
       "texture_px": [
         40,
-        62
+        64
       ],
-      "offset": 31640,
-      "length": 2480,
+      "offset": 32134,
+      "length": 2560,
       "trim_origin_top_left_px": [
         60,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
-        10
+        12
       ],
-      "sha256": "771b77a90a94386f0e31acf6518a74dfdaefce1ab303e925430512fe51ec6e4e",
+      "sha256": "02d189877bf55cb5e0456957d4dc4940562971070f6bd06c7f53b7e6be59ed35",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_03.png",
-      "width": 44,
-      "height": 61,
+      "width": 42,
+      "height": 67,
       "texture_px": [
-        44,
-        61
+        42,
+        67
       ],
-      "offset": 34120,
-      "length": 2684,
+      "offset": 34694,
+      "length": 2814,
       "trim_origin_top_left_px": [
-        56,
-        49
+        58,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        10
+        22,
+        15
       ],
-      "sha256": "fc7865a3aed997cc068066f0dace94434c699e660999c1b35f364506a1c52a43",
+      "sha256": "837e4c15a930f46ad823be24e104f2cffd1a3fbd2b28ca91eb433844e46a3b82",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_04.png",
-      "width": 44,
-      "height": 61,
+      "width": 43,
+      "height": 68,
       "texture_px": [
-        44,
-        61
+        43,
+        68
       ],
-      "offset": 36804,
-      "length": 2684,
+      "offset": 37508,
+      "length": 2924,
       "trim_origin_top_left_px": [
-        56,
+        57,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        10
+        23,
+        17
       ],
-      "sha256": "2e60964af8d9510b700638e52ce8d78216eea0e5cbc05e802f1a13e93dd879a5",
+      "sha256": "9553714e9d1a1934868cb729afdb924a7a235155abcb8ea10e650bb950694046",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_05.png",
-      "width": 44,
-      "height": 60,
+      "width": 45,
+      "height": 64,
       "texture_px": [
-        44,
-        60
+        45,
+        64
       ],
-      "offset": 39488,
-      "length": 2640,
+      "offset": 40432,
+      "length": 2880,
       "trim_origin_top_left_px": [
-        56,
-        50
+        55,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        10
+        25,
+        17
       ],
-      "sha256": "e9a8ebdb89a79d095d4193be7f4559024bd0fda3e9b996dc3a97033148310475",
+      "sha256": "8e0ad543362ec950b068582713cdcb12857efb17af444c3ab3191f2dcda6c1f0",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_06.png",
-      "width": 41,
+      "width": 40,
       "height": 59,
       "texture_px": [
-        41,
+        40,
         59
       ],
-      "offset": 42128,
-      "length": 2419,
+      "offset": 43312,
+      "length": 2360,
       "trim_origin_top_left_px": [
-        59,
-        51
+        60,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        10
+        20,
+        17
       ],
-      "sha256": "349da863c710518dac5af769ac680af425521ab6a0ae05a1b7bf38009b999679",
+      "sha256": "dad8c45df2bed0e79de32af4afb19241e9b6b7c54a9861ab4b04a1f5c8373686",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_07.png",
-      "width": 34,
-      "height": 59,
+      "width": 36,
+      "height": 60,
       "texture_px": [
-        34,
-        59
+        36,
+        60
       ],
-      "offset": 44547,
-      "length": 2006,
+      "offset": 45672,
+      "length": 2160,
       "trim_origin_top_left_px": [
-        66,
-        51
+        64,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        10
+        16,
+        17
       ],
-      "sha256": "0fbb7a6b7188d09852aeca0d4feb010e17cc209c5a45aef4cf54e9b96609a6cc",
+      "sha256": "0100affbd333d62324dccf67b435b5a23ca59c2e7d722d8473a2bb398a2459de",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ssw_08.png",
-      "width": 38,
-      "height": 60,
+      "width": 36,
+      "height": 61,
       "texture_px": [
-        38,
-        60
+        36,
+        61
       ],
-      "offset": 46553,
-      "length": 2280,
+      "offset": 47832,
+      "length": 2196,
       "trim_origin_top_left_px": [
-        62,
-        50
+        64,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        10
+        16,
+        17
       ],
-      "sha256": "dae9ce884630caf7ed97c799b1fcfadc65cc0c5b9563516fa0cb48603fb73bc4",
+      "sha256": "60559eeeb8dbade025e034937eacd1b0eb8ad95eb441db294b24ef5a40dc05fd",
       "empty": false
     },
     {
@@ -518,17 +518,17 @@
         41,
         61
       ],
-      "offset": 48833,
+      "offset": 50028,
       "length": 2501,
       "trim_origin_top_left_px": [
         59,
-        49
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         21,
-        10
+        14
       ],
-      "sha256": "2cddc5ca280b34f887938a5d400543afd354c0e247b815183a1168b470883834",
+      "sha256": "14bc29545f73fc8d50ab9b34190a79f030ef2c36e801eabfbc21ce934d08b227",
       "empty": false
     },
     {
@@ -540,17 +540,17 @@
         38,
         61
       ],
-      "offset": 51334,
+      "offset": 52529,
       "length": 2318,
       "trim_origin_top_left_px": [
         62,
-        49
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        10
+        11
       ],
-      "sha256": "c03ec4c4009624bd2d2adca4532785ff8d4730395485c9aa2ee6d1c7a53faa45",
+      "sha256": "ce7a4f8df36946a6b8798d38d7f66ab35e3e6177dc644ee8438dd562f1bcc960",
       "empty": false
     },
     {
@@ -562,7 +562,7 @@
         37,
         62
       ],
-      "offset": 53652,
+      "offset": 54847,
       "length": 2294,
       "trim_origin_top_left_px": [
         63,
@@ -572,7 +572,7 @@
         17,
         10
       ],
-      "sha256": "e13969867fb1550ffaaa9d4ef4a3d3d1a50a7c6b973c34508877818f815950b1",
+      "sha256": "245ba0e12fe9fedda58ce8757754cf44c80f57d57c793a918b2cf4cf00ef5a60",
       "empty": false
     },
     {
@@ -584,7 +584,7 @@
         33,
         63
       ],
-      "offset": 55946,
+      "offset": 57141,
       "length": 2079,
       "trim_origin_top_left_px": [
         66,
@@ -594,227 +594,227 @@
         14,
         10
       ],
-      "sha256": "15861fc7bfa12490c1e239760cd6b761b6fd0903dc09d219d622b1107c27261d",
+      "sha256": "c9b434718053ba4427b60e7405d856fc57f16d736647d9952965603774990167",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_01.png",
-      "width": 33,
+      "width": 32,
       "height": 63,
       "texture_px": [
-        33,
+        32,
         63
       ],
-      "offset": 58025,
-      "length": 2079,
+      "offset": 59220,
+      "length": 2016,
       "trim_origin_top_left_px": [
-        66,
+        67,
         47
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        13,
         10
       ],
-      "sha256": "cda7b09fa81235c4c221d31ed15c699a76cfb0a29cef3b70fbfba29097c144b4",
+      "sha256": "6c7f62ae5a46adddce826852e0accc1fda49c4986fbb45729a0d2de7858da8be",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_02.png",
-      "width": 36,
-      "height": 64,
+      "width": 35,
+      "height": 66,
       "texture_px": [
-        36,
-        64
+        35,
+        66
       ],
-      "offset": 60104,
-      "length": 2304,
+      "offset": 61236,
+      "length": 2310,
       "trim_origin_top_left_px": [
-        63,
+        64,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        10
+        16,
+        12
       ],
-      "sha256": "7a8ca61851af1e4b649142327a27c9b430d8acebfcc7a196926852ec57a8639c",
+      "sha256": "54dccdb816ce1aef06954c1bdf82ee75caeafb240dd1299d9b6439e06d3dcbad",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_03.png",
-      "width": 40,
-      "height": 62,
+      "width": 39,
+      "height": 67,
       "texture_px": [
-        40,
-        62
+        39,
+        67
       ],
-      "offset": 62408,
-      "length": 2480,
+      "offset": 63546,
+      "length": 2613,
       "trim_origin_top_left_px": [
-        59,
-        48
+        60,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        10
+        20,
+        14
       ],
-      "sha256": "286a81fdb68e6097c6363eb230aefdcce6576d908a4ea6edbf1cab416a94fad9",
+      "sha256": "98cee350513ae7023a996e1a2b9bfdf0446419c5557865edbdcc6b71f6aad4aa",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_04.png",
       "width": 42,
-      "height": 62,
+      "height": 68,
       "texture_px": [
         42,
-        62
+        68
       ],
-      "offset": 64888,
-      "length": 2604,
+      "offset": 66159,
+      "length": 2856,
       "trim_origin_top_left_px": [
         57,
         48
       ],
       "pivot_from_crop_bottom_left_px": [
         23,
-        10
+        16
       ],
-      "sha256": "eb1480b2ce7e03b49e2e4963a96e93a25c50a9794a03f4a8d3f554e0d84c8da1",
+      "sha256": "c0726517a3cb51bd530cb9214bf2c813eb397349f925c5dc9544c7f0dcfd1fbe",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_05.png",
-      "width": 44,
-      "height": 61,
+      "width": 45,
+      "height": 64,
       "texture_px": [
-        44,
-        61
+        45,
+        64
       ],
-      "offset": 67492,
-      "length": 2684,
+      "offset": 69015,
+      "length": 2880,
       "trim_origin_top_left_px": [
-        55,
-        49
+        54,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
-        10
+        26,
+        16
       ],
-      "sha256": "f41e550beeacd525a34e92a2a2a0a2b4fe7939a5bd5ac1765b2e734b7c016805",
+      "sha256": "a1dfa5d6caefc723915d21ffe78d7d96bfff7244db2957e5591e69f334591de2",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_06.png",
-      "width": 41,
+      "width": 42,
       "height": 60,
       "texture_px": [
-        41,
+        42,
         60
       ],
-      "offset": 70176,
-      "length": 2460,
+      "offset": 71895,
+      "length": 2520,
       "trim_origin_top_left_px": [
-        58,
-        50
+        57,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        10
+        23,
+        16
       ],
-      "sha256": "cc449bad4b70d4b374e9501f15d6f75861f16547042b716e154ab2edce8c899d",
+      "sha256": "55196cc68f9e2b397e0484eaf4061f78684178b52417d4a3454bbfc3aa5f768a",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_07.png",
-      "width": 34,
-      "height": 60,
-      "texture_px": [
-        34,
-        60
-      ],
-      "offset": 72636,
-      "length": 2040,
-      "trim_origin_top_left_px": [
-        65,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        10
-      ],
-      "sha256": "cfc8376aea5d002587f499a54e82ba9d631f5f18371174629d837ec5c90ceb68",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sw_08.png",
       "width": 37,
       "height": 61,
       "texture_px": [
         37,
         61
       ],
-      "offset": 74676,
+      "offset": 74415,
       "length": 2257,
       "trim_origin_top_left_px": [
         62,
-        49
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        10
+        16
       ],
-      "sha256": "bb687c7afcd895b883300cc668d76c762ed66dd87313fb609c6e5c96a158f420",
+      "sha256": "7c8d54486bafddddb8c0488780b39c8180fd1127e0e172eeeceb9a9ebd287268",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sw_08.png",
+      "width": 35,
+      "height": 62,
+      "texture_px": [
+        35,
+        62
+      ],
+      "offset": 76672,
+      "length": 2170,
+      "trim_origin_top_left_px": [
+        64,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        16
+      ],
+      "sha256": "1c8cb2a28466c3ebae7d8480d1fd7523a13639c02264fec60fb63d70e27dfe78",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_09.png",
-      "width": 36,
+      "width": 38,
       "height": 62,
       "texture_px": [
-        36,
+        38,
         62
       ],
-      "offset": 76933,
-      "length": 2232,
+      "offset": 78842,
+      "length": 2356,
       "trim_origin_top_left_px": [
-        63,
-        48
+        61,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        10
+        19,
+        14
       ],
-      "sha256": "106546dd6c70cfb44a33d2a15b92db1afdc635f7622f566e668ecbc98e5d27a2",
+      "sha256": "1140734ab8897f44d54e619f53d589a464678fe47469472dd9b98e03be8f215d",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sw_10.png",
-      "width": 33,
+      "width": 34,
       "height": 62,
       "texture_px": [
-        33,
+        34,
         62
       ],
-      "offset": 79165,
-      "length": 2046,
+      "offset": 81198,
+      "length": 2108,
       "trim_origin_top_left_px": [
-        66,
-        48
+        65,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        10
+        15,
+        11
       ],
-      "sha256": "5a5de4c68be30bc53b48973ec9ad24c5b60e30fd534e1cb8d8f14ed1b1094826",
+      "sha256": "d13cade4681668a6f37b01ea6edb85d65ecc2de0430a7e1ed228cf020c6cfde0",
       "empty": false
     },
     {
@@ -826,7 +826,7 @@
         33,
         63
       ],
-      "offset": 81211,
+      "offset": 83306,
       "length": 2079,
       "trim_origin_top_left_px": [
         66,
@@ -836,7 +836,7 @@
         14,
         10
       ],
-      "sha256": "15861fc7bfa12490c1e239760cd6b761b6fd0903dc09d219d622b1107c27261d",
+      "sha256": "c9b434718053ba4427b60e7405d856fc57f16d736647d9952965603774990167",
       "empty": false
     },
     {
@@ -848,7 +848,7 @@
         26,
         66
       ],
-      "offset": 83290,
+      "offset": 85385,
       "length": 1716,
       "trim_origin_top_left_px": [
         70,
@@ -858,7 +858,7 @@
         10,
         12
       ],
-      "sha256": "4a41c60f27ab7d0242907001250cae4355a75e5a65499dc37bc66ecc87bf8b2f",
+      "sha256": "80e0a4bd6be6f8499bcfe2ac4f6de4e8d01f5f61ee8dff4a30875b6dc3a22781",
       "empty": false
     },
     {
@@ -870,7 +870,7 @@
         26,
         66
       ],
-      "offset": 85006,
+      "offset": 87101,
       "length": 1716,
       "trim_origin_top_left_px": [
         70,
@@ -880,205 +880,205 @@
         10,
         12
       ],
-      "sha256": "d707ba257fabff41a5eef94caa073fa13b87f4b7649566ac7c6430feb2677533",
+      "sha256": "7d4ecf42e0ec815dcea979102c7567035ea6ab35a279fc7b7167db917b987f7e",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_02.png",
-      "width": 30,
-      "height": 67,
+      "width": 28,
+      "height": 68,
       "texture_px": [
-        30,
-        67
+        28,
+        68
       ],
-      "offset": 86722,
-      "length": 2010,
+      "offset": 88817,
+      "length": 1904,
       "trim_origin_top_left_px": [
-        66,
-        45
+        68,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        12,
         12
       ],
-      "sha256": "44a86e82782942464f97c10c329ea8e6c55f5ff96ab224d2c30c2588949a45b5",
+      "sha256": "9a48255170848174b1cd15483f5091d209f70179f6059ccc3f47f69d9c117c31",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_03.png",
-      "width": 34,
-      "height": 68,
+      "width": 32,
+      "height": 67,
       "texture_px": [
-        34,
-        68
+        32,
+        67
       ],
-      "offset": 88732,
-      "length": 2312,
+      "offset": 90721,
+      "length": 2144,
       "trim_origin_top_left_px": [
-        62,
-        44
+        64,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
+        16,
         12
       ],
-      "sha256": "d880a4b03c1b6a4be2b540e8cbe685828b2120753d49ed15932f3f4466bcca9b",
+      "sha256": "7c2829273723cf87ed779cb696888a19a84f7960c40801a6d91a3d65a145768d",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_04.png",
-      "width": 37,
+      "width": 36,
       "height": 66,
       "texture_px": [
-        37,
+        36,
         66
       ],
-      "offset": 91044,
-      "length": 2442,
+      "offset": 92865,
+      "length": 2376,
       "trim_origin_top_left_px": [
-        59,
+        60,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
+        20,
         12
       ],
-      "sha256": "2e7dd5f0cf19bea7155bbda9f85913a554fcf063589629fc5bced355e6ce7e5c",
+      "sha256": "5b5a6fdfc5cb0a099bd5669a15e92418887e379f7c313e3dd8a06492ff2ff449",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_05.png",
-      "width": 41,
-      "height": 64,
+      "width": 42,
+      "height": 62,
       "texture_px": [
-        41,
-        64
+        42,
+        62
       ],
-      "offset": 93486,
-      "length": 2624,
+      "offset": 95241,
+      "length": 2604,
       "trim_origin_top_left_px": [
-        55,
-        48
+        54,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
+        26,
         12
       ],
-      "sha256": "7dbe91b86479d1dbfdceca5bbdc495aa407d446d99d79fb0d3f798a42afffb55",
+      "sha256": "cd76d22b0cbcd5e2ac3053ec860275cd503ebccda79b9a6d39c5e39ec6415d63",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_06.png",
-      "width": 41,
-      "height": 63,
+      "width": 44,
+      "height": 60,
       "texture_px": [
-        41,
-        63
+        44,
+        60
       ],
-      "offset": 96110,
-      "length": 2583,
+      "offset": 97845,
+      "length": 2640,
       "trim_origin_top_left_px": [
-        55,
-        49
+        52,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        25,
+        28,
         12
       ],
-      "sha256": "52b1f73d5a25bd852efe7c77792df8378c959ae25d1214ad7830d7c26b4dee1f",
+      "sha256": "72159868d5630ae6761b098690d49fe546ed6c04269e4d353365ea2b8d427ce3",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_07.png",
-      "width": 31,
-      "height": 63,
+      "width": 33,
+      "height": 60,
       "texture_px": [
-        31,
-        63
+        33,
+        60
       ],
-      "offset": 98693,
-      "length": 1953,
+      "offset": 100485,
+      "length": 1980,
       "trim_origin_top_left_px": [
-        65,
-        49
+        63,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        17,
         12
       ],
-      "sha256": "f9d8f6cf1d043e95b4bb011b06b1367a53b455a304ce4635f98c16b91d635a71",
+      "sha256": "9e3d6f21632f4048d38ec412f54d4bc3f4214ea72d10050bbb71ac2a11da0a87",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_08.png",
-      "width": 31,
-      "height": 64,
+      "width": 33,
+      "height": 60,
       "texture_px": [
-        31,
-        64
+        33,
+        60
       ],
-      "offset": 100646,
-      "length": 1984,
+      "offset": 102465,
+      "length": 1980,
       "trim_origin_top_left_px": [
-        65,
-        48
+        63,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        17,
         12
       ],
-      "sha256": "d41c432acaed6afe19bee792015ecf7e90e9ae627a4ad5c3c7ed568de2fe405f",
+      "sha256": "e94259bc8d77f8509b69eb1f9ffdb3f2bd36dd35d52716bd45e1eb0ada16ff14",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_09.png",
-      "width": 31,
-      "height": 65,
+      "width": 34,
+      "height": 62,
       "texture_px": [
-        31,
-        65
+        34,
+        62
       ],
-      "offset": 102630,
-      "length": 2015,
+      "offset": 104445,
+      "length": 2108,
       "trim_origin_top_left_px": [
-        65,
-        47
+        62,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        18,
         12
       ],
-      "sha256": "d728d234f797438641a6822d5aab27433ccd09a056f99b03c93c33811f5156e1",
+      "sha256": "d4e538c266f7087e25ae4a10054afba4e472f5db01e5730c92a84d072fd89572",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wsw_10.png",
-      "width": 27,
-      "height": 65,
+      "width": 28,
+      "height": 64,
       "texture_px": [
-        27,
-        65
+        28,
+        64
       ],
-      "offset": 104645,
-      "length": 1755,
+      "offset": 106553,
+      "length": 1792,
       "trim_origin_top_left_px": [
-        69,
-        47
+        68,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        12,
         12
       ],
-      "sha256": "697012520ffe772e321781fc5f79451dfa77fb20857768df3058ec9a182ea34b",
+      "sha256": "a5804af7ce778a3c55ea587eaa0312ea29085b1d5dbe8e45c0284b43c84c3147",
       "empty": false
     },
     {
@@ -1090,7 +1090,7 @@
         26,
         66
       ],
-      "offset": 106400,
+      "offset": 108345,
       "length": 1716,
       "trim_origin_top_left_px": [
         70,
@@ -1100,7 +1100,7 @@
         10,
         12
       ],
-      "sha256": "4a41c60f27ab7d0242907001250cae4355a75e5a65499dc37bc66ecc87bf8b2f",
+      "sha256": "80e0a4bd6be6f8499bcfe2ac4f6de4e8d01f5f61ee8dff4a30875b6dc3a22781",
       "empty": false
     },
     {
@@ -1112,7 +1112,7 @@
         24,
         69
       ],
-      "offset": 108116,
+      "offset": 110061,
       "length": 1656,
       "trim_origin_top_left_px": [
         69,
@@ -1122,227 +1122,227 @@
         11,
         14
       ],
-      "sha256": "87abed483deaeff355b69d0a636def4d53c704cd2b9f4287042b65669065db9e",
+      "sha256": "a368dcb5e4f40e4f7388284865b09b9f0c138bc48ecf7239cb32e844ebb4f814",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_01.png",
-      "width": 24,
+      "width": 26,
       "height": 68,
       "texture_px": [
-        24,
+        26,
         68
       ],
-      "offset": 109772,
-      "length": 1632,
+      "offset": 111717,
+      "length": 1768,
       "trim_origin_top_left_px": [
-        69,
+        67,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        13,
         14
       ],
-      "sha256": "515c8f6e9520518132843985ef48d21b7056128b9ffc2cbb6106826fd67f5a12",
+      "sha256": "b3ed59bcf6a5422e46137ba39b3d827a9fa8f3d506d4561bae0f538604b99123",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_02.png",
-      "width": 25,
+      "width": 29,
       "height": 69,
       "texture_px": [
-        25,
+        29,
         69
       ],
-      "offset": 111404,
-      "length": 1725,
+      "offset": 113485,
+      "length": 2001,
       "trim_origin_top_left_px": [
-        68,
+        64,
         45
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        16,
         14
       ],
-      "sha256": "f7d0b23e8600aaa6f10f7f3fe310367af5ff6ad8f7f107aca9a8b9e12448bf80",
+      "sha256": "e8004a37f480e1b682b5ad527e7221bbcb978f0b2dee021cfc9895d22ab7583a",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_03.png",
-      "width": 26,
-      "height": 71,
+      "width": 33,
+      "height": 69,
       "texture_px": [
-        26,
-        71
+        33,
+        69
       ],
-      "offset": 113129,
-      "length": 1846,
+      "offset": 115486,
+      "length": 2277,
       "trim_origin_top_left_px": [
-        67,
-        43
+        60,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        20,
         14
       ],
-      "sha256": "697fbf39d3ad6967580c42add142d7d0d6d90634703fd34edc202d0e59780bac",
+      "sha256": "16fcd180a0790f98630c7bf65889a2c597145da6acf89c00bfd3157040a7531d",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_04.png",
-      "width": 30,
-      "height": 70,
+      "width": 34,
+      "height": 69,
       "texture_px": [
-        30,
-        70
+        34,
+        69
       ],
-      "offset": 114975,
-      "length": 2100,
+      "offset": 117763,
+      "length": 2346,
       "trim_origin_top_left_px": [
-        63,
-        44
+        59,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
+        21,
         14
       ],
-      "sha256": "798191ad54746f5f8d79ec6a86cafbb5415666bdef64f90cc6e437d5de9f00e9",
+      "sha256": "1b03cd0caa797410f3708257a5506198acf9d4f6abea86072dee0150dae36516",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_05.png",
-      "width": 35,
-      "height": 68,
+      "width": 36,
+      "height": 67,
       "texture_px": [
-        35,
-        68
+        36,
+        67
       ],
-      "offset": 117075,
-      "length": 2380,
+      "offset": 120109,
+      "length": 2412,
       "trim_origin_top_left_px": [
-        58,
-        46
+        57,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
+        23,
         14
       ],
-      "sha256": "7ded142df5204d90349c1ae5d80192ba3666f9ecb1fe97ef0abb66fd3af2f5f7",
+      "sha256": "8f7d8f69f24b8d10333f6b0c849d26030370f4abde5a0bdcb7263af6afdfb805",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_06.png",
-      "width": 39,
-      "height": 67,
+      "width": 43,
+      "height": 65,
       "texture_px": [
-        39,
-        67
+        43,
+        65
       ],
-      "offset": 119455,
-      "length": 2613,
+      "offset": 122521,
+      "length": 2795,
       "trim_origin_top_left_px": [
-        54,
-        47
+        50,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
+        30,
         14
       ],
-      "sha256": "55c74e7d7272ee224ca2c6347d18d5887fd90767cf44968580279c180cca33a4",
+      "sha256": "42114ad1518b84576eb3c5ec5182e5b9b84e7e6c99c2134c294a404e55f1a2c8",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_07.png",
-      "width": 30,
-      "height": 66,
+      "width": 34,
+      "height": 65,
       "texture_px": [
-        30,
-        66
+        34,
+        65
       ],
-      "offset": 122068,
-      "length": 1980,
+      "offset": 125316,
+      "length": 2210,
       "trim_origin_top_left_px": [
-        63,
-        48
+        59,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
+        21,
         14
       ],
-      "sha256": "915b69ec45110011b60e7b440205a120559f31f4ff127f1acd3cbd2f5490645c",
+      "sha256": "4c77d3a0b85329a24b41311869d819814aa2fffa8322b03249d212e96abb7177",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_08.png",
-      "width": 28,
-      "height": 67,
+      "width": 34,
+      "height": 65,
       "texture_px": [
-        28,
-        67
+        34,
+        65
       ],
-      "offset": 124048,
-      "length": 1876,
+      "offset": 127526,
+      "length": 2210,
       "trim_origin_top_left_px": [
-        65,
-        47
+        59,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        21,
         14
       ],
-      "sha256": "4e3cdaa825923f5df295e721d63e2b38f0bcd875bf238c83c13350153dc56c41",
+      "sha256": "85f8b90436021e2cf6a213841dbd4a952e64aaa45e191842a0e32df1b2a49c7c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_09.png",
-      "width": 26,
-      "height": 67,
+      "width": 32,
+      "height": 66,
       "texture_px": [
-        26,
-        67
+        32,
+        66
       ],
-      "offset": 125924,
-      "length": 1742,
+      "offset": 129736,
+      "length": 2112,
       "trim_origin_top_left_px": [
-        67,
-        47
+        61,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        19,
         14
       ],
-      "sha256": "ce921df73fa70d372a6ca6b8bbe2e93611d0d64c6b9dab29b2884af75aa6e463",
+      "sha256": "62c505057537ad32434b7707ae3dae3e140f5165496f02f4051ff703287e8b0c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_w_10.png",
-      "width": 24,
-      "height": 68,
+      "width": 27,
+      "height": 67,
       "texture_px": [
-        24,
-        68
+        27,
+        67
       ],
-      "offset": 127666,
-      "length": 1632,
+      "offset": 131848,
+      "length": 1809,
       "trim_origin_top_left_px": [
-        69,
-        46
+        66,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        14,
         14
       ],
-      "sha256": "d0749f193957a2839b004e04a672fb10eed7388f0d1abc2243ac7a1f877a4ba8",
+      "sha256": "3f6e8aabd18369e794917e80f3c3fa5ef18c0d22b17f504216a2cff4c7c43aa5",
       "empty": false
     },
     {
@@ -1354,7 +1354,7 @@
         24,
         69
       ],
-      "offset": 129298,
+      "offset": 133657,
       "length": 1656,
       "trim_origin_top_left_px": [
         69,
@@ -1364,7 +1364,7 @@
         11,
         14
       ],
-      "sha256": "87abed483deaeff355b69d0a636def4d53c704cd2b9f4287042b65669065db9e",
+      "sha256": "a368dcb5e4f40e4f7388284865b09b9f0c138bc48ecf7239cb32e844ebb4f814",
       "empty": false
     },
     {
@@ -1376,7 +1376,7 @@
         26,
         70
       ],
-      "offset": 130954,
+      "offset": 135313,
       "length": 1820,
       "trim_origin_top_left_px": [
         67,
@@ -1386,129 +1386,107 @@
         13,
         15
       ],
-      "sha256": "3f58850821410a54617b0af56f1f4db3bd6c9f1b470e49855b3436c6288fb7b9",
+      "sha256": "e3df6f4130a1d1d474d519d60d38e27237dabab55070d1f3d5768b81c533a395",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_01.png",
-      "width": 27,
-      "height": 70,
-      "texture_px": [
-        27,
-        70
-      ],
-      "offset": 132774,
-      "length": 1890,
-      "trim_origin_top_left_px": [
-        67,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        15
-      ],
-      "sha256": "74a02c9b28c80134e4a822a9b3b3c5e9d3a39123ceec871c2b081c5482029343",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_wnw_02.png",
-      "width": 31,
-      "height": 70,
-      "texture_px": [
-        31,
-        70
-      ],
-      "offset": 134664,
-      "length": 2170,
-      "trim_origin_top_left_px": [
-        66,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        15
-      ],
-      "sha256": "f6578d624a489fd1d4b4babd5e97fdb6d9ea3d82af655763dd80c8d885ceb997",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_wnw_03.png",
       "width": 29,
-      "height": 74,
+      "height": 70,
       "texture_px": [
         29,
-        74
+        70
       ],
-      "offset": 136834,
-      "length": 2146,
-      "trim_origin_top_left_px": [
-        64,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        15
-      ],
-      "sha256": "9d7e76a087403793cf2c4efd843af8ec3cc0a19e0e279df125891260c1284e57",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_wnw_04.png",
-      "width": 28,
-      "height": 73,
-      "texture_px": [
-        28,
-        73
-      ],
-      "offset": 138980,
-      "length": 2044,
+      "offset": 137133,
+      "length": 2030,
       "trim_origin_top_left_px": [
         65,
-        42
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
         15
       ],
-      "sha256": "587b419f2a8b1f39b653c4de00ee08ea180c7c4ffb2d6b017b7ab86278e2ea89",
+      "sha256": "83b59d19ca67554526700aec4d1aeffdd3f3ca5cd49186bfb84b7323f8c36ce0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_wnw_02.png",
+      "width": 36,
+      "height": 70,
+      "texture_px": [
+        36,
+        70
+      ],
+      "offset": 139163,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        62,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        15
+      ],
+      "sha256": "deb3eb87068bc0856dbd04497e3b14238cc403c850265435e623daa72ecb4a45",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_wnw_03.png",
+      "width": 37,
+      "height": 71,
+      "texture_px": [
+        37,
+        71
+      ],
+      "offset": 141683,
+      "length": 2627,
+      "trim_origin_top_left_px": [
+        59,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        15
+      ],
+      "sha256": "8220d2c7d0636d3ea186585d0ef927786cbfa74490f4b8be5d32075a73b6974e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_wnw_04.png",
+      "width": 36,
+      "height": 72,
+      "texture_px": [
+        36,
+        72
+      ],
+      "offset": 144310,
+      "length": 2592,
+      "trim_origin_top_left_px": [
+        57,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        23,
+        15
+      ],
+      "sha256": "49d24f6338e0248f081438daff4dacb7b86e9512827aab370d2a91c66d8a2596",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_05.png",
-      "width": 29,
-      "height": 73,
-      "texture_px": [
-        29,
-        73
-      ],
-      "offset": 141024,
-      "length": 2117,
-      "trim_origin_top_left_px": [
-        64,
-        42
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        15
-      ],
-      "sha256": "0746458e02d81f273a98ecd0af54cfc7695881af62729db4999d190f57518940",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_wnw_06.png",
       "width": 36,
       "height": 69,
       "texture_px": [
         36,
         69
       ],
-      "offset": 143141,
+      "offset": 146902,
       "length": 2484,
       "trim_origin_top_left_px": [
         57,
@@ -1518,95 +1496,117 @@
         23,
         15
       ],
-      "sha256": "14a93135b893ee597b276c3d3aff094049a93674d5d95179acf87b32f76cc09d",
+      "sha256": "50f72ec04e0e1e473181c10bd8b2e1f01f8df5748a993b49854805aae7ce1581",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_wnw_06.png",
+      "width": 41,
+      "height": 69,
+      "texture_px": [
+        41,
+        69
+      ],
+      "offset": 149386,
+      "length": 2829,
+      "trim_origin_top_left_px": [
+        52,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        28,
+        15
+      ],
+      "sha256": "ec9804eaca855655e0b2aace0b446668427cb6aa8cc1f2d98a8eb45a57493520",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_07.png",
-      "width": 32,
+      "width": 36,
       "height": 69,
       "texture_px": [
-        32,
+        36,
         69
       ],
-      "offset": 145625,
-      "length": 2208,
+      "offset": 152215,
+      "length": 2484,
       "trim_origin_top_left_px": [
-        61,
+        57,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
+        23,
         15
       ],
-      "sha256": "a4a56c667b4d13bb00996ea98fcfffd64085eb348807886042dee63730693a6c",
+      "sha256": "2f52dd6e5ee3270c843c7e5e1f6b3b69a47d007e565a3702bf4b502accb1b3b3",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_08.png",
-      "width": 27,
+      "width": 36,
       "height": 69,
       "texture_px": [
-        27,
+        36,
         69
       ],
-      "offset": 147833,
-      "length": 1863,
+      "offset": 154699,
+      "length": 2484,
       "trim_origin_top_left_px": [
-        66,
+        57,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        23,
         15
       ],
-      "sha256": "bd31bbd3999d2507ed6cba90afd3bbdc10a8f1e12f4f8da53218a3d4448ec284",
+      "sha256": "542860005344acb28d9ab828e9713518a1a8f6862c1315e0ab4b01d2ae2b6fdb",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_09.png",
-      "width": 26,
+      "width": 33,
       "height": 69,
       "texture_px": [
-        26,
+        33,
         69
       ],
-      "offset": 149696,
-      "length": 1794,
+      "offset": 157183,
+      "length": 2277,
       "trim_origin_top_left_px": [
-        67,
+        60,
         46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        20,
         15
       ],
-      "sha256": "75c9e7ade70bb3a44f1db39f86b3d632211ceed7410f6a79c55723759f6a88d3",
+      "sha256": "96ec1a9bf7a83dfca1d4c34468607db78a87fb3082ad273e79a54dbc93995b95",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_wnw_10.png",
-      "width": 26,
+      "width": 29,
       "height": 70,
       "texture_px": [
-        26,
+        29,
         70
       ],
-      "offset": 151490,
-      "length": 1820,
+      "offset": 159460,
+      "length": 2030,
       "trim_origin_top_left_px": [
-        67,
+        64,
         45
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        16,
         15
       ],
-      "sha256": "68bedd678d06af1ed0f8abb9eaaf27157d936fb00d36f58ed2b2079a366c803e",
+      "sha256": "ebd55c04c98d31c485672f77879f306e532a0ca82d83d81c5b97c54f03dec280",
       "empty": false
     },
     {
@@ -1618,7 +1618,7 @@
         26,
         70
       ],
-      "offset": 153310,
+      "offset": 161490,
       "length": 1820,
       "trim_origin_top_left_px": [
         67,
@@ -1628,7 +1628,7 @@
         13,
         15
       ],
-      "sha256": "3f58850821410a54617b0af56f1f4db3bd6c9f1b470e49855b3436c6288fb7b9",
+      "sha256": "e3df6f4130a1d1d474d519d60d38e27237dabab55070d1f3d5768b81c533a395",
       "empty": false
     },
     {
@@ -1640,7 +1640,7 @@
         29,
         70
       ],
-      "offset": 155130,
+      "offset": 163310,
       "length": 2030,
       "trim_origin_top_left_px": [
         66,
@@ -1650,205 +1650,205 @@
         14,
         14
       ],
-      "sha256": "e14265487abcedd1e636b68aa09b96c40796057146a033419fbfb39beae778d7",
+      "sha256": "71581b89c569852ab1fbf871c2b3829ac542f3fda905066fc4263a64aa05084c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nw_01.png",
-      "width": 32,
+      "width": 33,
       "height": 70,
       "texture_px": [
-        32,
+        33,
         70
       ],
-      "offset": 157160,
-      "length": 2240,
+      "offset": 165340,
+      "length": 2310,
       "trim_origin_top_left_px": [
-        66,
+        65,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        15,
         14
       ],
-      "sha256": "f886fd88a3fd1f273f8085807efd911f063d6cd595e12813d01f449a144d0707",
+      "sha256": "7326d4a1a3248c985d794b04c1b3386215928d9cdaf5e73485054d806b31c7f1",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nw_02.png",
-      "width": 37,
+      "width": 40,
       "height": 69,
       "texture_px": [
-        37,
+        40,
         69
       ],
-      "offset": 159400,
-      "length": 2553,
-      "trim_origin_top_left_px": [
-        65,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        14
-      ],
-      "sha256": "e187428e65f35288408ffa175e4652d997f53009118f81a415800848f9d62cd8",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nw_03.png",
-      "width": 35,
-      "height": 73,
-      "texture_px": [
-        35,
-        73
-      ],
-      "offset": 161953,
-      "length": 2555,
-      "trim_origin_top_left_px": [
-        64,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        14
-      ],
-      "sha256": "6b279db26d5d046b3cccb9bbfd12796ecb073a248d94b01f111e63ec5c6970a7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nw_04.png",
-      "width": 31,
-      "height": 74,
-      "texture_px": [
-        31,
-        74
-      ],
-      "offset": 164508,
-      "length": 2294,
-      "trim_origin_top_left_px": [
-        64,
-        40
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        14
-      ],
-      "sha256": "7cc3502846bf19269d6451fa3b65df311f29b4672f6e4a37d8a31ec26fd29543",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nw_05.png",
-      "width": 29,
-      "height": 74,
-      "texture_px": [
-        29,
-        74
-      ],
-      "offset": 166802,
-      "length": 2146,
-      "trim_origin_top_left_px": [
-        65,
-        40
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        14
-      ],
-      "sha256": "3ff5266cafe68b628cb70c6c64e1b85db2818619fc134cc23eeff37ce78afc7e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nw_06.png",
-      "width": 31,
-      "height": 70,
-      "texture_px": [
-        31,
-        70
-      ],
-      "offset": 168948,
-      "length": 2170,
+      "offset": 167650,
+      "length": 2760,
       "trim_origin_top_left_px": [
         63,
-        44
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         14
       ],
-      "sha256": "8196e8c4781b8a6006f2a885a1b20f92b6cb9f08884c64aa009afb97cb55ccb9",
+      "sha256": "607eaabb15be2413813b25fbb9937fe1ad29e70fe952bcdc6334e868a8295b12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nw_03.png",
+      "width": 41,
+      "height": 69,
+      "texture_px": [
+        41,
+        69
+      ],
+      "offset": 170410,
+      "length": 2829,
+      "trim_origin_top_left_px": [
+        60,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        14
+      ],
+      "sha256": "b7e574e18660fbbf377525b73cbc3e5bc9b55bc7ef0c8aefb25631788e18ce95",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nw_04.png",
+      "width": 39,
+      "height": 72,
+      "texture_px": [
+        39,
+        72
+      ],
+      "offset": 173239,
+      "length": 2808,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "324493d7d063d37ad189ba90cd4ce4ebda9ccc4293122c417b01a3b48a80e1e6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nw_05.png",
+      "width": 35,
+      "height": 71,
+      "texture_px": [
+        35,
+        71
+      ],
+      "offset": 176047,
+      "length": 2485,
+      "trim_origin_top_left_px": [
+        59,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "79d0bc3149c2725d3ae116c0d0edc1159dd1ac44bd6d588372e18571792334cc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nw_06.png",
+      "width": 35,
+      "height": 72,
+      "texture_px": [
+        35,
+        72
+      ],
+      "offset": 178532,
+      "length": 2520,
+      "trim_origin_top_left_px": [
+        59,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        14
+      ],
+      "sha256": "37939d67d1ab4faa5553d3924daf6c2b4fec834c2d8d876afa96805eb1d66e4c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nw_07.png",
-      "width": 33,
-      "height": 69,
+      "width": 35,
+      "height": 71,
       "texture_px": [
-        33,
-        69
+        35,
+        71
       ],
-      "offset": 171118,
-      "length": 2277,
+      "offset": 181052,
+      "length": 2485,
       "trim_origin_top_left_px": [
-        61,
-        45
+        59,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
+        21,
         14
       ],
-      "sha256": "77822d0d581cc0a481304499f1fc99f2fca4a2721682f1f4f2e5a90f3c19d7d9",
+      "sha256": "48868df1479bdefe50451cc6d5dcea168bf78e5f656f2f82ee1065bfc28a9acc",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nw_08.png",
-      "width": 29,
-      "height": 70,
+      "width": 35,
+      "height": 71,
       "texture_px": [
-        29,
-        70
+        35,
+        71
       ],
-      "offset": 173395,
-      "length": 2030,
+      "offset": 183537,
+      "length": 2485,
       "trim_origin_top_left_px": [
-        65,
-        44
+        59,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        21,
         14
       ],
-      "sha256": "ef94b1f0948970644f122404589c00fda1eff88f2725f1bbc19050f55b80e85e",
+      "sha256": "5689d9e1474c7682900b614bc7db6c0d238be46e06be183406a16638e8530563",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nw_09.png",
-      "width": 30,
+      "width": 33,
       "height": 70,
       "texture_px": [
-        30,
+        33,
         70
       ],
-      "offset": 175425,
-      "length": 2100,
+      "offset": 186022,
+      "length": 2310,
       "trim_origin_top_left_px": [
-        66,
+        61,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        19,
         14
       ],
-      "sha256": "18bf2e2c0891499266dca9099785199645038b7ca0cff15496920573ba1b5391",
+      "sha256": "3eac6747ab887da29840fa1057bb7a9015fd0bbc456384ffa6c5eec4edd81ac7",
       "empty": false
     },
     {
@@ -1860,17 +1860,17 @@
         31,
         70
       ],
-      "offset": 177525,
+      "offset": 188332,
       "length": 2170,
       "trim_origin_top_left_px": [
-        66,
+        65,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
+        15,
         14
       ],
-      "sha256": "52daf9e1badbfd6f23bf6396fff55d95d28dbe0d63e7cc393b5f02127a9db906",
+      "sha256": "b36096f51c5680b0de9ecb9b55ceab3f8fe47baa0a2f139444aea733bd56e82a",
       "empty": false
     },
     {
@@ -1882,7 +1882,7 @@
         29,
         70
       ],
-      "offset": 179695,
+      "offset": 190502,
       "length": 2030,
       "trim_origin_top_left_px": [
         66,
@@ -1892,7 +1892,7 @@
         14,
         14
       ],
-      "sha256": "e14265487abcedd1e636b68aa09b96c40796057146a033419fbfb39beae778d7",
+      "sha256": "71581b89c569852ab1fbf871c2b3829ac542f3fda905066fc4263a64aa05084c",
       "empty": false
     },
     {
@@ -1904,7 +1904,7 @@
         33,
         68
       ],
-      "offset": 181725,
+      "offset": 192532,
       "length": 2244,
       "trim_origin_top_left_px": [
         64,
@@ -1914,7 +1914,7 @@
         16,
         12
       ],
-      "sha256": "ad6f12a504c526a42b4e62da7b02ffdc446a20b615965f30621526bcd10f5c62",
+      "sha256": "cea5d5b95010b1ed2e5e2b445e3bb4d90e2bb939ccd8fe21cc9eb6487e64993d",
       "empty": false
     },
     {
@@ -1926,7 +1926,7 @@
         36,
         68
       ],
-      "offset": 183969,
+      "offset": 194776,
       "length": 2448,
       "trim_origin_top_left_px": [
         64,
@@ -1936,64 +1936,130 @@
         16,
         12
       ],
-      "sha256": "916b21d623e8f73aa108b130725fc434ea587d772b62d8248cb03b82af1f1d95",
+      "sha256": "175f692f909312d29c68298e37965ab85aed591c15901cdaf756b82b813bf6d9",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nnw_02.png",
-      "width": 41,
+      "width": 42,
       "height": 67,
       "texture_px": [
-        41,
+        42,
         67
       ],
-      "offset": 186417,
-      "length": 2747,
-      "trim_origin_top_left_px": [
-        64,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        12
-      ],
-      "sha256": "5abaa6de113230ee7e1ed609986b70316fd4216c1ca8e69baca9313fbf5d9cb9",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nnw_03.png",
-      "width": 40,
-      "height": 69,
-      "texture_px": [
-        40,
-        69
-      ],
-      "offset": 189164,
-      "length": 2760,
+      "offset": 197224,
+      "length": 2814,
       "trim_origin_top_left_px": [
         63,
-        43
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         12
       ],
-      "sha256": "f87bca075279ca279b700bb2ef03ff7291cd9edce9f9d07503c76c0dfff3fd7f",
+      "sha256": "70b236c25b4924f0a97da4b8d4ccc70e66cc7737ca091951bf11e6bd806f9ce3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nnw_03.png",
+      "width": 42,
+      "height": 66,
+      "texture_px": [
+        42,
+        66
+      ],
+      "offset": 200038,
+      "length": 2772,
+      "trim_origin_top_left_px": [
+        63,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "0bae46df60a0b8109159230a38d5bcb7e401830f6ed0756757781b08ebe3d965",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nnw_04.png",
       "width": 39,
-      "height": 71,
+      "height": 68,
       "texture_px": [
         39,
+        68
+      ],
+      "offset": 202810,
+      "length": 2652,
+      "trim_origin_top_left_px": [
+        63,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "59c29a88959899ecb8d10e678b606c3b37782ea8453c87851d4a4bc8bf8b59b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nnw_05.png",
+      "width": 34,
+      "height": 70,
+      "texture_px": [
+        34,
+        70
+      ],
+      "offset": 205462,
+      "length": 2380,
+      "trim_origin_top_left_px": [
+        63,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "903a92e16f23216174b0257ba67377a3b65cb8634d09f69adf697a197be8ed41",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nnw_06.png",
+      "width": 32,
+      "height": 72,
+      "texture_px": [
+        32,
+        72
+      ],
+      "offset": 207842,
+      "length": 2304,
+      "trim_origin_top_left_px": [
+        62,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        12
+      ],
+      "sha256": "2453361f1a5bd6d6cd5c521b9effd5370c48c63d155b85fcb513b5dc1e788f35",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nnw_07.png",
+      "width": 32,
+      "height": 71,
+      "texture_px": [
+        32,
         71
       ],
-      "offset": 191924,
-      "length": 2769,
+      "offset": 210146,
+      "length": 2272,
       "trim_origin_top_left_px": [
         62,
         41
@@ -2002,139 +2068,73 @@
         18,
         12
       ],
-      "sha256": "fc545137982dbbee448c86e8a6f5feacf09bb2ab4231ba1f70389d4f59bcc212",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nnw_05.png",
-      "width": 35,
-      "height": 73,
-      "texture_px": [
-        35,
-        73
-      ],
-      "offset": 194693,
-      "length": 2555,
-      "trim_origin_top_left_px": [
-        62,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        18,
-        12
-      ],
-      "sha256": "ed8c01361bb9e881174719a3cf6d5919dc925b1351f58ad066d9ab0525ff6d58",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nnw_06.png",
-      "width": 31,
-      "height": 69,
-      "texture_px": [
-        31,
-        69
-      ],
-      "offset": 197248,
-      "length": 2139,
-      "trim_origin_top_left_px": [
-        63,
-        43
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        12
-      ],
-      "sha256": "849bcc2103c4304dd5c2885558fb7f560e98148d776a5676608d0cd2c616d12c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nnw_07.png",
-      "width": 31,
-      "height": 68,
-      "texture_px": [
-        31,
-        68
-      ],
-      "offset": 199387,
-      "length": 2108,
-      "trim_origin_top_left_px": [
-        63,
-        44
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        12
-      ],
-      "sha256": "0fad4d5b3bf255b317e0b665545d6ea6759626c90145e44a0be54c9b779a87d5",
+      "sha256": "74083f5f1ded246ee1fa752f36df1e00e7b7e5a4a1e7fc6387568628e4795cb2",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nnw_08.png",
-      "width": 30,
-      "height": 68,
+      "width": 32,
+      "height": 70,
       "texture_px": [
-        30,
-        68
+        32,
+        70
       ],
-      "offset": 201495,
-      "length": 2040,
+      "offset": 212418,
+      "length": 2240,
       "trim_origin_top_left_px": [
-        64,
-        44
+        62,
+        42
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        18,
         12
       ],
-      "sha256": "e89a38f0fb14420f339f429c25c274aea1476074c6b522d5908f90649e4fc174",
+      "sha256": "79c17e419056c8390b0289053808aac37f267604464cbcc8feb3e36dca21c0e2",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nnw_09.png",
-      "width": 36,
-      "height": 68,
+      "width": 34,
+      "height": 69,
       "texture_px": [
-        36,
-        68
+        34,
+        69
       ],
-      "offset": 203535,
-      "length": 2448,
+      "offset": 214658,
+      "length": 2346,
       "trim_origin_top_left_px": [
         64,
-        44
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         12
       ],
-      "sha256": "14fb1aea864131eb0663749975a50991ffe56ba9be8877709903f7d674f1d302",
+      "sha256": "1ab93adbce90a365ffb8a50659e7bc4e522afa33a146b5f2c427cfdfe91aff4b",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nnw_10.png",
-      "width": 36,
-      "height": 68,
+      "width": 35,
+      "height": 69,
       "texture_px": [
-        36,
-        68
+        35,
+        69
       ],
-      "offset": 205983,
-      "length": 2448,
+      "offset": 217004,
+      "length": 2415,
       "trim_origin_top_left_px": [
         64,
-        44
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         12
       ],
-      "sha256": "418a57dbfa3e6a504a8049eee4dfd244dd4d5348ec6abbbb09af7aa43f2eae2b",
+      "sha256": "74d4bb8c333abcc7bf51866d59da9b487492a2ff977bd386f86aa5cf33b5fcd4",
       "empty": false
     },
     {
@@ -2146,7 +2146,7 @@
         33,
         68
       ],
-      "offset": 208431,
+      "offset": 219419,
       "length": 2244,
       "trim_origin_top_left_px": [
         64,
@@ -2156,7 +2156,7 @@
         16,
         12
       ],
-      "sha256": "ad6f12a504c526a42b4e62da7b02ffdc446a20b615965f30621526bcd10f5c62",
+      "sha256": "cea5d5b95010b1ed2e5e2b445e3bb4d90e2bb939ccd8fe21cc9eb6487e64993d",
       "empty": false
     },
     {
@@ -2168,7 +2168,7 @@
         35,
         65
       ],
-      "offset": 210675,
+      "offset": 221663,
       "length": 2275,
       "trim_origin_top_left_px": [
         62,
@@ -2178,20 +2178,20 @@
         18,
         9
       ],
-      "sha256": "4c2cc3b320dee7afd0272f20f1d76b5e3b49b2dc4ee528e9073f69771541db51",
+      "sha256": "3acce7862c2b6ee04fa3f8d0e6caa886299b01cbd6ce26dc62443e0cc5e0d5f4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_01.png",
-      "width": 38,
+      "width": 37,
       "height": 64,
       "texture_px": [
-        38,
+        37,
         64
       ],
-      "offset": 212950,
-      "length": 2432,
+      "offset": 223938,
+      "length": 2368,
       "trim_origin_top_left_px": [
         62,
         45
@@ -2200,42 +2200,20 @@
         18,
         9
       ],
-      "sha256": "9c75767a73a4cc14110afa94a2a734fbfe1fec899db3551d3829bee949b956f0",
+      "sha256": "4a35b3420426816d047e434076d9e09ac221b37c8b136b347083969c076d55dc",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_02.png",
-      "width": 42,
-      "height": 64,
-      "texture_px": [
-        42,
-        64
-      ],
-      "offset": 215382,
-      "length": 2688,
-      "trim_origin_top_left_px": [
-        62,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        18,
-        9
-      ],
-      "sha256": "402bb1ab6d3750c5682e6e24b7dd3d70072773bded99edc65a4c89cd6599dcfd",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_n_03.png",
-      "width": 44,
+      "width": 43,
       "height": 63,
       "texture_px": [
-        44,
+        43,
         63
       ],
-      "offset": 218070,
-      "length": 2772,
+      "offset": 226306,
+      "length": 2709,
       "trim_origin_top_left_px": [
         61,
         46
@@ -2244,161 +2222,183 @@
         19,
         9
       ],
-      "sha256": "bb6ac222820fe91133db6a0021c657def80a49ce56c276aba7befec81cab8f7d",
+      "sha256": "9d0db5b3be0c8177cf3ed4f8ee3bb54d9b1fb6ed2116d62bd34fd1efafc3e55c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_n_03.png",
+      "width": 43,
+      "height": 63,
+      "texture_px": [
+        43,
+        63
+      ],
+      "offset": 229015,
+      "length": 2709,
+      "trim_origin_top_left_px": [
+        61,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        9
+      ],
+      "sha256": "578a776dd14f221ca878891867d5d6a019ab460e8742f767498703c5a6305ec7",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_04.png",
       "width": 43,
-      "height": 65,
+      "height": 64,
       "texture_px": [
         43,
-        65
+        64
       ],
-      "offset": 220842,
-      "length": 2795,
+      "offset": 231724,
+      "length": 2752,
       "trim_origin_top_left_px": [
         61,
-        44
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
         9
       ],
-      "sha256": "e0090227f8550c5a3ad4c7c51b7b2cc3b271249024aecb930c9a5087f845e76a",
+      "sha256": "ce08be3065d01a1213c9c9d2122b87fce0212eb3c6b58d4e1ddcbac552775cbd",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_05.png",
-      "width": 41,
-      "height": 68,
+      "width": 40,
+      "height": 67,
       "texture_px": [
-        41,
-        68
+        40,
+        67
       ],
-      "offset": 223637,
-      "length": 2788,
+      "offset": 234476,
+      "length": 2680,
       "trim_origin_top_left_px": [
-        61,
-        41
+        62,
+        42
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
+        18,
         9
       ],
-      "sha256": "27fd1282d013a4ecfe057d5e124f5a2ca6f8599d87ddd267f4c1d193a95d6988",
+      "sha256": "12e903da54378f90236c891cded8ba19c795a0d6c54a9cf7bf3c4bcce4933e85",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_06.png",
-      "width": 35,
-      "height": 66,
+      "width": 32,
+      "height": 69,
       "texture_px": [
-        35,
-        66
+        32,
+        69
       ],
-      "offset": 226425,
-      "length": 2310,
+      "offset": 237156,
+      "length": 2208,
       "trim_origin_top_left_px": [
-        61,
-        43
+        62,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
+        18,
         9
       ],
-      "sha256": "4732ee1d8b7b164297540a8cd3f5884b9112cd0ad4e9bd3c68baf70a41d380dd",
+      "sha256": "9f8214c9062fae6d274758de9af541f5a03d9dc7c69c69488c3965c3af0988fc",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_07.png",
       "width": 32,
-      "height": 65,
+      "height": 69,
       "texture_px": [
         32,
-        65
+        69
       ],
-      "offset": 228735,
-      "length": 2080,
+      "offset": 239364,
+      "length": 2208,
       "trim_origin_top_left_px": [
         62,
-        44
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         9
       ],
-      "sha256": "d2d12ae6f15b8076c1271e04a7604e8f83cdcceabdab9757c5b4c74eb723b0cb",
+      "sha256": "74076cd078b8d2f922085ba17d9774bd790ab0a0de22a1f388507e3f87bc680e",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_08.png",
-      "width": 35,
-      "height": 65,
+      "width": 33,
+      "height": 68,
       "texture_px": [
-        35,
-        65
+        33,
+        68
       ],
-      "offset": 230815,
-      "length": 2275,
+      "offset": 241572,
+      "length": 2244,
       "trim_origin_top_left_px": [
         62,
-        44
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         9
       ],
-      "sha256": "0f500a5193222cf685642b0bbcf7b9936d683eb8a8c07f052f609c5f79313d70",
+      "sha256": "1231ee38000de550b013bf751b6fe9aa6be1ea97552c2571423904e4f18cbd29",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_09.png",
-      "width": 40,
-      "height": 64,
+      "width": 39,
+      "height": 66,
       "texture_px": [
-        40,
-        64
+        39,
+        66
       ],
-      "offset": 233090,
-      "length": 2560,
+      "offset": 243816,
+      "length": 2574,
       "trim_origin_top_left_px": [
         62,
-        45
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         9
       ],
-      "sha256": "284f08ad8bb4602db8ccb2407c1d5ec74cf4a25d8c462cd89363b161e21426d1",
+      "sha256": "d21537124dcaaac3ec1e293f52eb86f048addb423d77ed3f59fb2cfa32344495",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_n_10.png",
       "width": 38,
-      "height": 64,
+      "height": 65,
       "texture_px": [
         38,
-        64
+        65
       ],
-      "offset": 235650,
-      "length": 2432,
+      "offset": 246390,
+      "length": 2470,
       "trim_origin_top_left_px": [
         62,
-        45
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         9
       ],
-      "sha256": "100bbbf37a278dbc4d8c987efd8832c15b6a57460afdbc8f3b1a4243e4597325",
+      "sha256": "7203594765d747b1f64dd2eb8cca26a8bbafca648ff51981e5a20b8b8f05ca0c",
       "empty": false
     },
     {
@@ -2410,7 +2410,7 @@
         35,
         65
       ],
-      "offset": 238082,
+      "offset": 248860,
       "length": 2275,
       "trim_origin_top_left_px": [
         62,
@@ -2420,7 +2420,7 @@
         18,
         9
       ],
-      "sha256": "4c2cc3b320dee7afd0272f20f1d76b5e3b49b2dc4ee528e9073f69771541db51",
+      "sha256": "3acce7862c2b6ee04fa3f8d0e6caa886299b01cbd6ce26dc62443e0cc5e0d5f4",
       "empty": false
     },
     {
@@ -2432,7 +2432,7 @@
         37,
         64
       ],
-      "offset": 240357,
+      "offset": 251135,
       "length": 2368,
       "trim_origin_top_left_px": [
         60,
@@ -2442,20 +2442,20 @@
         20,
         10
       ],
-      "sha256": "5fc5397029b429067164091adf6d7127c6f85a5c606a22ac210dd9abddb7bfc2",
+      "sha256": "f673297e7efc160703b19fafa6ab1669050ec9d247d05608ef68ae7eaef69539",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nne_01.png",
-      "width": 37,
+      "width": 36,
       "height": 64,
       "texture_px": [
-        37,
+        36,
         64
       ],
-      "offset": 242725,
-      "length": 2368,
+      "offset": 253503,
+      "length": 2304,
       "trim_origin_top_left_px": [
         60,
         46
@@ -2464,7 +2464,7 @@
         20,
         10
       ],
-      "sha256": "bc8d069a0e2f0bfd9c29d85bdc2f3033d5168a809053443b2c5c1a54a2b14758",
+      "sha256": "c0517dc96d49322c5104b794dbee4a8ca2b87dee363d4d6cd4293dbfd33ecc8d",
       "empty": false
     },
     {
@@ -2476,7 +2476,7 @@
         40,
         63
       ],
-      "offset": 245093,
+      "offset": 255807,
       "length": 2520,
       "trim_origin_top_left_px": [
         60,
@@ -2486,20 +2486,42 @@
         20,
         10
       ],
-      "sha256": "37838f55b1d899f1c866cc787d61afd82dba41b4c7fa9c58a4705c414c59723e",
+      "sha256": "d41aa3320419661d87271da1003fc05be7a71b4181b9aa046372b815104ba274",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nne_03.png",
-      "width": 44,
+      "width": 42,
+      "height": 62,
+      "texture_px": [
+        42,
+        62
+      ],
+      "offset": 258327,
+      "length": 2604,
+      "trim_origin_top_left_px": [
+        60,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "4a0e3b0a783e7003569e31d350b044d970b006bb51d72c7745e4a0e06ad34c46",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nne_04.png",
+      "width": 43,
       "height": 63,
       "texture_px": [
-        44,
+        43,
         63
       ],
-      "offset": 247613,
-      "length": 2772,
+      "offset": 260931,
+      "length": 2709,
       "trim_origin_top_left_px": [
         60,
         47
@@ -2508,63 +2530,107 @@
         20,
         10
       ],
-      "sha256": "5acb131eebd2d640436a4e2f34204619dc4ceaa17f45b0ce858942cf46adfc23",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nne_04.png",
-      "width": 44,
-      "height": 64,
-      "texture_px": [
-        44,
-        64
-      ],
-      "offset": 250385,
-      "length": 2816,
-      "trim_origin_top_left_px": [
-        60,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        10
-      ],
-      "sha256": "9306e077803a6e21debaa13b9f345f827b826e5ee0a9c5811e4ad11f9aa27775",
+      "sha256": "6d799f0950549be6c347dc0ede110d0c8e46fe014366547bfecb24d08a185f48",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nne_05.png",
-      "width": 44,
-      "height": 65,
+      "width": 45,
+      "height": 66,
       "texture_px": [
-        44,
-        65
+        45,
+        66
       ],
-      "offset": 253201,
-      "length": 2860,
+      "offset": 263640,
+      "length": 2970,
       "trim_origin_top_left_px": [
         60,
-        45
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
         10
       ],
-      "sha256": "7f2c6ecd5cd190c589da73d390c1686ef50deabfaf1d3190c448cf979834627e",
+      "sha256": "7338c610ef24158dc5de8e02ad90972598d950d78a47510c3e5e4a7c14cc30d2",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nne_06.png",
+      "width": 40,
+      "height": 69,
+      "texture_px": [
+        40,
+        69
+      ],
+      "offset": 266610,
+      "length": 2760,
+      "trim_origin_top_left_px": [
+        60,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "092d7302c82b0243b833cb6a1845df2cae1ae8d3e8009387732b85283e8f9861",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nne_07.png",
+      "width": 36,
+      "height": 69,
+      "texture_px": [
+        36,
+        69
+      ],
+      "offset": 269370,
+      "length": 2484,
+      "trim_origin_top_left_px": [
+        60,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "1aeaeb242d01a1891f6a76ee8e73c6dfe2272235e41960d390eee66ccfd2e2e8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nne_08.png",
+      "width": 36,
+      "height": 68,
+      "texture_px": [
+        36,
+        68
+      ],
+      "offset": 271854,
+      "length": 2448,
+      "trim_origin_top_left_px": [
+        60,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        20,
+        10
+      ],
+      "sha256": "f438a7809be432e36258826ef737cd061bfa70b336d6729125b56bb9e434475d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_nne_09.png",
       "width": 41,
       "height": 66,
       "texture_px": [
         41,
         66
       ],
-      "offset": 256061,
+      "offset": 274302,
       "length": 2706,
       "trim_origin_top_left_px": [
         60,
@@ -2574,95 +2640,29 @@
         20,
         10
       ],
-      "sha256": "1330c043fc6c3b1176854a15283fa0c9c727f97714517f7644bcff0c6efd0ba1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nne_07.png",
-      "width": 34,
-      "height": 66,
-      "texture_px": [
-        34,
-        66
-      ],
-      "offset": 258767,
-      "length": 2244,
-      "trim_origin_top_left_px": [
-        60,
-        44
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        10
-      ],
-      "sha256": "12f14e4913f17f7773f01b2853c1bfe0b96e15fe4764949721d45cbb33e896f0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nne_08.png",
-      "width": 39,
-      "height": 65,
-      "texture_px": [
-        39,
-        65
-      ],
-      "offset": 261011,
-      "length": 2535,
-      "trim_origin_top_left_px": [
-        60,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        10
-      ],
-      "sha256": "7b773a3220329f27a0f3859c0eb67f18ad23cfa35d39d918b39465a1f03f005c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_nne_09.png",
-      "width": 41,
-      "height": 65,
-      "texture_px": [
-        41,
-        65
-      ],
-      "offset": 263546,
-      "length": 2665,
-      "trim_origin_top_left_px": [
-        60,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        10
-      ],
-      "sha256": "d115cefc16e7c38059e1ceaf77b54c7eb3fe16b6531a88d4cace4ab99b8e0f65",
+      "sha256": "2433270baf2db28ada584034e2806df5a0f900743a73c58b3b7b39c851ebf2bb",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_nne_10.png",
       "width": 38,
-      "height": 64,
+      "height": 65,
       "texture_px": [
         38,
-        64
+        65
       ],
-      "offset": 266211,
-      "length": 2432,
+      "offset": 277008,
+      "length": 2470,
       "trim_origin_top_left_px": [
         60,
-        46
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
         10
       ],
-      "sha256": "b59621ceef32dfa9fbde5c05ad629707439002b1f0f789f986e988c30a038934",
+      "sha256": "43efee70612717c832f17483de732135322f28e2584c30f73579e10180ab5014",
       "empty": false
     },
     {
@@ -2674,7 +2674,7 @@
         37,
         64
       ],
-      "offset": 268643,
+      "offset": 279478,
       "length": 2368,
       "trim_origin_top_left_px": [
         60,
@@ -2684,7 +2684,7 @@
         20,
         10
       ],
-      "sha256": "5fc5397029b429067164091adf6d7127c6f85a5c606a22ac210dd9abddb7bfc2",
+      "sha256": "f673297e7efc160703b19fafa6ab1669050ec9d247d05608ef68ae7eaef69539",
       "empty": false
     },
     {
@@ -2696,7 +2696,7 @@
         33,
         64
       ],
-      "offset": 271011,
+      "offset": 281846,
       "length": 2112,
       "trim_origin_top_left_px": [
         61,
@@ -2706,7 +2706,7 @@
         19,
         11
       ],
-      "sha256": "a98a6e6fcf55b744196c4412b826d94280d5969e0284b892f130b083cf17f919",
+      "sha256": "3fc262f4172b21105eef4fc463cce8017ff5faa7fd9cc7160911ad5ec720cf30",
       "empty": false
     },
     {
@@ -2718,7 +2718,7 @@
         32,
         63
       ],
-      "offset": 273123,
+      "offset": 283958,
       "length": 2016,
       "trim_origin_top_left_px": [
         61,
@@ -2728,51 +2728,51 @@
         19,
         11
       ],
-      "sha256": "406592bed221b5a11f758a0a4f99158f00a720a3a82965062eb9b9a7778ce49b",
+      "sha256": "737fcccf888553fe0e7270595774fb244adbaeb443010b9da2740c955bc0bbbb",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_02.png",
-      "width": 36,
-      "height": 63,
+      "width": 35,
+      "height": 62,
       "texture_px": [
-        36,
-        63
+        35,
+        62
       ],
-      "offset": 275139,
-      "length": 2268,
+      "offset": 285974,
+      "length": 2170,
       "trim_origin_top_left_px": [
         61,
-        48
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
         11
       ],
-      "sha256": "34db42fed0a41d32023be70b5a3c13f770bdd6e41ebb56d252dcc9c0ce7270be",
+      "sha256": "001fc003e3286d5375465213e1f9ddddda62ccfb16132531a49e6c8e8553b1be",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_03.png",
       "width": 40,
-      "height": 63,
+      "height": 62,
       "texture_px": [
         40,
-        63
+        62
       ],
-      "offset": 277407,
-      "length": 2520,
+      "offset": 288144,
+      "length": 2480,
       "trim_origin_top_left_px": [
         61,
-        48
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
         11
       ],
-      "sha256": "d41b70fff92ece6611d2680022e7e151ce3cdfa799feef27158b6626d1239ea8",
+      "sha256": "14a3ea85e7344017096054cd8e45fb3d83b56c60a0d6d381a52b94cb7a8bc401",
       "empty": false
     },
     {
@@ -2784,7 +2784,7 @@
         42,
         63
       ],
-      "offset": 279927,
+      "offset": 290624,
       "length": 2646,
       "trim_origin_top_left_px": [
         61,
@@ -2794,64 +2794,108 @@
         19,
         11
       ],
-      "sha256": "03ffcb0bd2768837f4e9f4c8e7da9536fb5e3db69eac84aa757d8585e305bb81",
+      "sha256": "78d77ac707b6204c25dc87cc765b3ec6ec4b8c433282b3e6607ff980e97e9b96",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_05.png",
-      "width": 44,
-      "height": 64,
+      "width": 45,
+      "height": 65,
       "texture_px": [
-        44,
-        64
+        45,
+        65
       ],
-      "offset": 282573,
-      "length": 2816,
+      "offset": 293270,
+      "length": 2925,
       "trim_origin_top_left_px": [
         61,
-        47
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
         11
       ],
-      "sha256": "240716161aafe9b1ec487e9e1b440c34b1b2c80bf5b6e068740c58147e04061d",
+      "sha256": "e82a98662276026ee2602191a060488793ad3d0e18a64c05a356a3996e2746a4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_06.png",
-      "width": 41,
-      "height": 65,
+      "width": 42,
+      "height": 67,
       "texture_px": [
-        41,
-        65
+        42,
+        67
       ],
-      "offset": 285389,
-      "length": 2665,
+      "offset": 296195,
+      "length": 2814,
       "trim_origin_top_left_px": [
         61,
-        46
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         19,
         11
       ],
-      "sha256": "fe48348b38a0569e4c96c1bf81b654d2ba17bd38675b9a06190373bbd7846734",
+      "sha256": "9a1ec942fe342dd12182d5c7606aebb7ccb717ad0c83edd549925d10b7100808",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_07.png",
-      "width": 34,
+      "width": 37,
+      "height": 67,
+      "texture_px": [
+        37,
+        67
+      ],
+      "offset": 299009,
+      "length": 2479,
+      "trim_origin_top_left_px": [
+        61,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "128f18e776eb2eb61da6a3e9e7c693cf19275b12d960593ebfb4110587967ab5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ne_08.png",
+      "width": 35,
+      "height": 66,
+      "texture_px": [
+        35,
+        66
+      ],
+      "offset": 301488,
+      "length": 2310,
+      "trim_origin_top_left_px": [
+        61,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        19,
+        11
+      ],
+      "sha256": "639318814136d7e9b4253fdbbf23c7bf680c091162d0a80e40c1b6728e2b98d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ne_09.png",
+      "width": 38,
       "height": 65,
       "texture_px": [
-        34,
+        38,
         65
       ],
-      "offset": 288054,
-      "length": 2210,
+      "offset": 303798,
+      "length": 2470,
       "trim_origin_top_left_px": [
         61,
         46
@@ -2860,64 +2904,20 @@
         19,
         11
       ],
-      "sha256": "5181de71696f441c36ddadfe2e352b3e843f4740bcf2a9d70d20e027c9daf11d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ne_08.png",
-      "width": 37,
-      "height": 64,
-      "texture_px": [
-        37,
-        64
-      ],
-      "offset": 290264,
-      "length": 2368,
-      "trim_origin_top_left_px": [
-        61,
-        47
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        19,
-        11
-      ],
-      "sha256": "5539dee5e3ce4b2f7ef8b0c9f64b1c36d01c3be344e1dbc9d12cf1226c00e07c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ne_09.png",
-      "width": 36,
-      "height": 64,
-      "texture_px": [
-        36,
-        64
-      ],
-      "offset": 292632,
-      "length": 2304,
-      "trim_origin_top_left_px": [
-        61,
-        47
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        19,
-        11
-      ],
-      "sha256": "1d2c7188406256fcdde7ed94b41ba29ad12951bc79d84580181528ac2ccc4a00",
+      "sha256": "8f76e1a45a055fac6a046feb0c74bdfa75c51d54892b02aa7863bc46af09ee88",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ne_10.png",
-      "width": 33,
+      "width": 34,
       "height": 64,
       "texture_px": [
-        33,
+        34,
         64
       ],
-      "offset": 294936,
-      "length": 2112,
+      "offset": 306268,
+      "length": 2176,
       "trim_origin_top_left_px": [
         61,
         47
@@ -2926,7 +2926,7 @@
         19,
         11
       ],
-      "sha256": "ac040cf3090d44412bb6cc9cbbbb036e4bdb2c9f2755c18e00a635a3da2c0dfa",
+      "sha256": "0a5e45458fbf0e1b79c0797c5815983fef370ae849db79837e6c83c3921cc3a2",
       "empty": false
     },
     {
@@ -2938,7 +2938,7 @@
         33,
         64
       ],
-      "offset": 297048,
+      "offset": 308444,
       "length": 2112,
       "trim_origin_top_left_px": [
         61,
@@ -2948,7 +2948,7 @@
         19,
         11
       ],
-      "sha256": "a98a6e6fcf55b744196c4412b826d94280d5969e0284b892f130b083cf17f919",
+      "sha256": "3fc262f4172b21105eef4fc463cce8017ff5faa7fd9cc7160911ad5ec720cf30",
       "empty": false
     },
     {
@@ -2960,7 +2960,7 @@
         26,
         61
       ],
-      "offset": 299160,
+      "offset": 310556,
       "length": 1586,
       "trim_origin_top_left_px": [
         64,
@@ -2970,7 +2970,7 @@
         16,
         10
       ],
-      "sha256": "a35833657971c08f2481af5b19a87c689b26463d2aae1ce0509a57cc02114350",
+      "sha256": "ca1675bad2599997aa941c2a2a435519769893c598aa010a5225eb06998d0a05",
       "empty": false
     },
     {
@@ -2982,7 +2982,7 @@
         26,
         61
       ],
-      "offset": 300746,
+      "offset": 312142,
       "length": 1586,
       "trim_origin_top_left_px": [
         64,
@@ -2992,20 +2992,20 @@
         16,
         10
       ],
-      "sha256": "db479740a9307e8973dad9e69f9f2e53b07384f4298d51bd37fc8b4834d4fe11",
+      "sha256": "d0c4e0f9b89c3053af9f6917dc88c0aed14e27d96c134893dc4ac736fc4de7c4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_02.png",
-      "width": 30,
+      "width": 28,
       "height": 61,
       "texture_px": [
-        30,
+        28,
         61
       ],
-      "offset": 302332,
-      "length": 1830,
+      "offset": 313728,
+      "length": 1708,
       "trim_origin_top_left_px": [
         64,
         49
@@ -3014,42 +3014,42 @@
         16,
         10
       ],
-      "sha256": "819773291a3c143fcec0eb99b2a90efaab426cd0107baa5547a503e75d0edb1e",
+      "sha256": "ff43f1b70607d437ca03f2808f6cd2d52ea76d746d2f816785eed035ca7daf8e",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_03.png",
-      "width": 34,
-      "height": 61,
+      "width": 32,
+      "height": 60,
       "texture_px": [
-        34,
-        61
+        32,
+        60
       ],
-      "offset": 304162,
-      "length": 2074,
+      "offset": 315436,
+      "length": 1920,
       "trim_origin_top_left_px": [
         64,
-        49
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         10
       ],
-      "sha256": "514f613fc3e9ca6c89dbe90b81a87b086a244842fe0ec4a0162a3d026a9a491a",
+      "sha256": "19f33d3991148fd97ff4c5e9b01cc7e9de6aaedd196b886250c1d5f80f4b5dce",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_04.png",
-      "width": 38,
+      "width": 36,
       "height": 61,
       "texture_px": [
-        38,
+        36,
         61
       ],
-      "offset": 306236,
-      "length": 2318,
+      "offset": 317356,
+      "length": 2196,
       "trim_origin_top_left_px": [
         64,
         49
@@ -3058,20 +3058,20 @@
         16,
         10
       ],
-      "sha256": "27a53900e4654b0cd1580f7cd21f9a2f7442e784f9722df6db59bb8d989039c8",
+      "sha256": "b193ba1e126b5eae9160d213e7d963109591f40901b8827ca74ecacfbd44fb8c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_05.png",
-      "width": 41,
+      "width": 43,
       "height": 62,
       "texture_px": [
-        41,
+        43,
         62
       ],
-      "offset": 308554,
-      "length": 2542,
+      "offset": 319552,
+      "length": 2666,
       "trim_origin_top_left_px": [
         64,
         48
@@ -3080,20 +3080,20 @@
         16,
         10
       ],
-      "sha256": "09a217e5c30373b5e3075bc981f4f77b6eaf4b261bbb714faa68e4e237ca7602",
+      "sha256": "38b40c34cbbc6b886d481a1648b3d2876f9e1cc15de794d3a80acda5a521f268",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_06.png",
-      "width": 41,
+      "width": 45,
       "height": 63,
       "texture_px": [
-        41,
+        45,
         63
       ],
-      "offset": 311096,
-      "length": 2583,
+      "offset": 322218,
+      "length": 2835,
       "trim_origin_top_left_px": [
         64,
         47
@@ -3102,20 +3102,20 @@
         16,
         10
       ],
-      "sha256": "f66ed2f71aa8d94f017f285646554874f995664f05d5a56dbdc8baa8a05a8758",
+      "sha256": "8e0f8f6c1f7cffd7a96040b10348688c3f2b2669e45dc43c2c8af2f83875c7c4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_07.png",
-      "width": 31,
+      "width": 33,
       "height": 63,
       "texture_px": [
-        31,
+        33,
         63
       ],
-      "offset": 313679,
-      "length": 1953,
+      "offset": 325053,
+      "length": 2079,
       "trim_origin_top_left_px": [
         64,
         47
@@ -3124,42 +3124,42 @@
         16,
         10
       ],
-      "sha256": "0bc5d4e64fedd2eb3730c876a38b4155b2117f31ab87a8c1d007f91fae37105b",
+      "sha256": "fc465cf247a194a918061eaa730ca621ade11b24d006b3e63ad1f900e565cdd4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_08.png",
-      "width": 31,
-      "height": 62,
+      "width": 33,
+      "height": 63,
       "texture_px": [
-        31,
-        62
+        33,
+        63
       ],
-      "offset": 315632,
-      "length": 1922,
+      "offset": 327132,
+      "length": 2079,
       "trim_origin_top_left_px": [
         64,
-        48
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         10
       ],
-      "sha256": "dc6dee056448eec6974f49e7841cda8f1b4bceb2a1ebde121da26c11f28d52ea",
+      "sha256": "0275c7a735972462abbc7d8fad403b6c52d2cd4311b87041382b53c763ce7e2f",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_09.png",
-      "width": 31,
+      "width": 34,
       "height": 62,
       "texture_px": [
-        31,
+        34,
         62
       ],
-      "offset": 317554,
-      "length": 1922,
+      "offset": 329211,
+      "length": 2108,
       "trim_origin_top_left_px": [
         64,
         48
@@ -3168,20 +3168,20 @@
         16,
         10
       ],
-      "sha256": "f5f48c3daa614286ce52ef5aa9ef05f651df3dd45f994e5d4b1a243660b149c9",
+      "sha256": "e3a4c2f054031db02ab111f99ac974b570e152d94bd8bbbf80688dc789e531b1",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ene_10.png",
-      "width": 27,
+      "width": 28,
       "height": 62,
       "texture_px": [
-        27,
+        28,
         62
       ],
-      "offset": 319476,
-      "length": 1674,
+      "offset": 331319,
+      "length": 1736,
       "trim_origin_top_left_px": [
         64,
         48
@@ -3190,7 +3190,7 @@
         16,
         10
       ],
-      "sha256": "3d7b269f1a50f0151ac7b06a6ad46f5c4d148e73ae1b3496f2d4d0bb69a779ec",
+      "sha256": "388745e6ac05e9d2f36880d4b8989704125696fdcba91a0ecd84925301c4b94f",
       "empty": false
     },
     {
@@ -3202,7 +3202,7 @@
         26,
         61
       ],
-      "offset": 321150,
+      "offset": 333055,
       "length": 1586,
       "trim_origin_top_left_px": [
         64,
@@ -3212,7 +3212,7 @@
         16,
         10
       ],
-      "sha256": "a35833657971c08f2481af5b19a87c689b26463d2aae1ce0509a57cc02114350",
+      "sha256": "ca1675bad2599997aa941c2a2a435519769893c598aa010a5225eb06998d0a05",
       "empty": false
     },
     {
@@ -3224,7 +3224,7 @@
         24,
         61
       ],
-      "offset": 322736,
+      "offset": 334641,
       "length": 1464,
       "trim_origin_top_left_px": [
         67,
@@ -3234,20 +3234,20 @@
         13,
         10
       ],
-      "sha256": "ce1e1f0b141948b736d179a44e702f4e19b1c2f583a82d495741c6340a19d03c",
+      "sha256": "ff6952ffb304d7771d522c63569d35a86d80e71655a2cbc7bc8cca9a76f6eb24",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_e_01.png",
-      "width": 24,
+      "width": 26,
       "height": 60,
       "texture_px": [
-        24,
+        26,
         60
       ],
-      "offset": 324200,
-      "length": 1440,
+      "offset": 336105,
+      "length": 1560,
       "trim_origin_top_left_px": [
         67,
         50
@@ -3256,20 +3256,20 @@
         13,
         10
       ],
-      "sha256": "098f14a27b214fca4cfc5e14c6d5284191e7787229e6ab580bdbaf22665b5773",
+      "sha256": "c7105cf033a33cd9fb75a7925a1d96044d0fe115bbefdf5d47094d3d68b28650",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_e_02.png",
-      "width": 25,
+      "width": 29,
       "height": 60,
       "texture_px": [
-        25,
+        29,
         60
       ],
-      "offset": 325640,
-      "length": 1500,
+      "offset": 337665,
+      "length": 1740,
       "trim_origin_top_left_px": [
         67,
         50
@@ -3278,19 +3278,173 @@
         13,
         10
       ],
-      "sha256": "f9c83e9d97766f9eba9dae836a127625c887a6df2f8ae0294a4d97ec17879d69",
+      "sha256": "d0cf8ada4d044b671e90137473de05f7d1a2b9aeb95b4009620fde00edd3046d",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_e_03.png",
+      "width": 33,
+      "height": 60,
+      "texture_px": [
+        33,
+        60
+      ],
+      "offset": 339405,
+      "length": 1980,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "4e6736b2a1568c0dbe07ab20be6885efe0e78d56008782299764a76ae659630d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_04.png",
+      "width": 34,
+      "height": 60,
+      "texture_px": [
+        34,
+        60
+      ],
+      "offset": 341385,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "66525a1e86be861c689b690c3caa7e757376bf06992c20feb9f938c302735e55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_05.png",
+      "width": 37,
+      "height": 60,
+      "texture_px": [
+        37,
+        60
+      ],
+      "offset": 343425,
+      "length": 2220,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "54c06c63e79b08efa3db7b9da9a56ed79a8a9a9203d8034fcbceffccf9d5b2d5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_06.png",
+      "width": 43,
+      "height": 60,
+      "texture_px": [
+        43,
+        60
+      ],
+      "offset": 345645,
+      "length": 2580,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "49ed9d00d0f981fb9e3a506aaafde4f484ad1579dfea7b087e77636c7f9bb21d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_07.png",
+      "width": 34,
+      "height": 60,
+      "texture_px": [
+        34,
+        60
+      ],
+      "offset": 348225,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "b22437b0634be46788ea05855eae8d196d8b5a6919d04c00417a19ffe5b11226",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_08.png",
+      "width": 34,
+      "height": 60,
+      "texture_px": [
+        34,
+        60
+      ],
+      "offset": 350265,
+      "length": 2040,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "4bd724475bfc8d95cded33a5222bd4d52095202bff3e353ce2c36a2fbd47e0a4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_09.png",
+      "width": 32,
+      "height": 60,
+      "texture_px": [
+        32,
+        60
+      ],
+      "offset": 352305,
+      "length": 1920,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        10
+      ],
+      "sha256": "b94fd4845e4b3e037ba3450b0c7c22627dc5dc1ca17ec6d96bda55ab7cc5cea3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_e_10.png",
       "width": 27,
       "height": 60,
       "texture_px": [
         27,
         60
       ],
-      "offset": 327140,
+      "offset": 354225,
       "length": 1620,
       "trim_origin_top_left_px": [
         67,
@@ -3300,161 +3454,7 @@
         13,
         10
       ],
-      "sha256": "a263ebb43a15f98897d544c9619f4d3eaedb1a5fd6929e351134d931df8c4f43",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_04.png",
-      "width": 30,
-      "height": 60,
-      "texture_px": [
-        30,
-        60
-      ],
-      "offset": 328760,
-      "length": 1800,
-      "trim_origin_top_left_px": [
-        67,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "57c0cf81ac5c3cbaf753a990702f91ee4411c952ceb4009faf469427b4e73e0d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_05.png",
-      "width": 35,
-      "height": 61,
-      "texture_px": [
-        35,
-        61
-      ],
-      "offset": 330560,
-      "length": 2135,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "143affd0719e5939b5bce16023b998cfaa6056a9467ee3b16faa47e40b317bd7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_06.png",
-      "width": 39,
-      "height": 61,
-      "texture_px": [
-        39,
-        61
-      ],
-      "offset": 332695,
-      "length": 2379,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "492682de9bf0547e1c93493390a1e91ceebe14f373194f7cfb73869303268677",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_07.png",
-      "width": 31,
-      "height": 61,
-      "texture_px": [
-        31,
-        61
-      ],
-      "offset": 335074,
-      "length": 1891,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "a26c75fb1246ec29e03d5f971b509aa612a0673554bed3fe6d23a2c834130758",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_08.png",
-      "width": 28,
-      "height": 61,
-      "texture_px": [
-        28,
-        61
-      ],
-      "offset": 336965,
-      "length": 1708,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "b193d0000dd9175b85a92792bb971a5dadb827be95a67bd32a2e8e5c3c3c8357",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_09.png",
-      "width": 26,
-      "height": 61,
-      "texture_px": [
-        26,
-        61
-      ],
-      "offset": 338673,
-      "length": 1586,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "48a398f881839bb899071d9b6c6c89e9a30aa9de51160d2ab665b87af21d267b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_e_10.png",
-      "width": 24,
-      "height": 61,
-      "texture_px": [
-        24,
-        61
-      ],
-      "offset": 340259,
-      "length": 1464,
-      "trim_origin_top_left_px": [
-        67,
-        49
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        10
-      ],
-      "sha256": "a72c2f9676e8865fb8d8601d48f3824be34f80ecfe424c915fddb61d73017da9",
+      "sha256": "21ac40c6ff7363b22c53b7050d5a296cfc051dd8e9b0dd3494a953b2402842bd",
       "empty": false
     },
     {
@@ -3466,7 +3466,7 @@
         24,
         61
       ],
-      "offset": 341723,
+      "offset": 355845,
       "length": 1464,
       "trim_origin_top_left_px": [
         67,
@@ -3476,7 +3476,7 @@
         13,
         10
       ],
-      "sha256": "ce1e1f0b141948b736d179a44e702f4e19b1c2f583a82d495741c6340a19d03c",
+      "sha256": "ff6952ffb304d7771d522c63569d35a86d80e71655a2cbc7bc8cca9a76f6eb24",
       "empty": false
     },
     {
@@ -3488,7 +3488,7 @@
         26,
         59
       ],
-      "offset": 343187,
+      "offset": 357309,
       "length": 1534,
       "trim_origin_top_left_px": [
         67,
@@ -3498,20 +3498,20 @@
         13,
         9
       ],
-      "sha256": "d44f2c2da5728d823dcc508b769f29b63bc67574d6675f8ebc30438cd6d3db91",
+      "sha256": "d8da72a2dce605fbd67291d877de38a961edbea7832f6e46d3bbb13b00b43861",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_01.png",
-      "width": 27,
+      "width": 29,
       "height": 59,
       "texture_px": [
-        27,
+        29,
         59
       ],
-      "offset": 344721,
-      "length": 1593,
+      "offset": 358843,
+      "length": 1711,
       "trim_origin_top_left_px": [
         66,
         50
@@ -3520,107 +3520,85 @@
         14,
         9
       ],
-      "sha256": "c07a43667fe4ef614f478bb8684bfab6f5c7e1d76d9f36c5e2ef209ba0f33dc8",
+      "sha256": "c9fea80b2af2b44145c313ac9909dfcd54abc4aee86608ae44e2003f4a62ae91",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_02.png",
-      "width": 31,
-      "height": 58,
-      "texture_px": [
-        31,
-        58
-      ],
-      "offset": 346314,
-      "length": 1798,
-      "trim_origin_top_left_px": [
-        63,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        9
-      ],
-      "sha256": "6f4bc7bea241cc0cba5ae0870dbf3a4025d8c04c6a9bcdcab2fa573b81e4e5a1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ese_03.png",
-      "width": 29,
-      "height": 58,
-      "texture_px": [
-        29,
-        58
-      ],
-      "offset": 348112,
-      "length": 1682,
-      "trim_origin_top_left_px": [
-        67,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        9
-      ],
-      "sha256": "7b90a1dbbf76fe7645d0cdd2372196ac48a917cb6cff3f7064b39c7f1439bace",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ese_04.png",
-      "width": 29,
-      "height": 58,
-      "texture_px": [
-        29,
-        58
-      ],
-      "offset": 349794,
-      "length": 1682,
-      "trim_origin_top_left_px": [
-        67,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        9
-      ],
-      "sha256": "3bb02104869a2060dff5efea89ab2a7cdc4572a6af9b203ac389c084e0a198b1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ese_05.png",
-      "width": 29,
-      "height": 58,
-      "texture_px": [
-        29,
-        58
-      ],
-      "offset": 351476,
-      "length": 1682,
-      "trim_origin_top_left_px": [
-        67,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        9
-      ],
-      "sha256": "f299616acdb6439848a6113ac9bce41bbc74b28c4b7237d232ac61dda365fe8e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_ese_06.png",
       "width": 36,
       "height": 59,
       "texture_px": [
         36,
         59
       ],
-      "offset": 353158,
+      "offset": 360554,
+      "length": 2124,
+      "trim_origin_top_left_px": [
+        62,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        9
+      ],
+      "sha256": "91350ff26e52482e304081822c7b839454265c1cc68bd798d622cd025393db2c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ese_03.png",
+      "width": 37,
+      "height": 59,
+      "texture_px": [
+        37,
+        59
+      ],
+      "offset": 362678,
+      "length": 2183,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        9
+      ],
+      "sha256": "2ca96f5b68dd83f0513b96e0955ce0c40e988d12187074926419a9c116202b07",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ese_04.png",
+      "width": 36,
+      "height": 58,
+      "texture_px": [
+        36,
+        58
+      ],
+      "offset": 364861,
+      "length": 2088,
+      "trim_origin_top_left_px": [
+        67,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "b9a60e52d342984612c0ed98d1c38022cdcff7c15e138fa725e7b15ee00b6753",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ese_05.png",
+      "width": 36,
+      "height": 59,
+      "texture_px": [
+        36,
+        59
+      ],
+      "offset": 366949,
       "length": 2124,
       "trim_origin_top_left_px": [
         67,
@@ -3630,86 +3608,108 @@
         13,
         9
       ],
-      "sha256": "6a6f8567733b9bd342ebc818c20df356b8905f4374e241af08e27cb7c8527a3c",
+      "sha256": "75dc124a3f5e93130c73b3d0713498cce55b7b6003094d084fa2eb4e3624a626",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_ese_06.png",
+      "width": 40,
+      "height": 56,
+      "texture_px": [
+        40,
+        56
+      ],
+      "offset": 369073,
+      "length": 2240,
+      "trim_origin_top_left_px": [
+        67,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        9
+      ],
+      "sha256": "4bfcbf4142dbb4bf2af5164af9e57949692b2467b5ac12fb8e6d1b66c312cc53",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_07.png",
-      "width": 32,
-      "height": 59,
+      "width": 36,
+      "height": 55,
       "texture_px": [
-        32,
-        59
+        36,
+        55
       ],
-      "offset": 355282,
-      "length": 1888,
+      "offset": 371313,
+      "length": 1980,
       "trim_origin_top_left_px": [
         67,
-        50
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         9
       ],
-      "sha256": "77acff7198bba2b4a360f28efbacae345852a1f42f514453553077116c32f885",
+      "sha256": "a739bce3b7c64e7ffd47fcd7b608d260e727fa9cb1f4b7e36635c35cfb807f6c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_08.png",
-      "width": 27,
-      "height": 59,
+      "width": 36,
+      "height": 56,
       "texture_px": [
-        27,
-        59
+        36,
+        56
       ],
-      "offset": 357170,
-      "length": 1593,
+      "offset": 373293,
+      "length": 2016,
       "trim_origin_top_left_px": [
         67,
-        50
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         9
       ],
-      "sha256": "8f3f80dff42807e6cf28c999d3cc53144620559d6e373ff8f1f9163f949a1f0c",
+      "sha256": "3477cce122de4fbfcdca7582e18edd5addd8b380f784a34c3d969d3bb6aa71e3",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_09.png",
-      "width": 26,
-      "height": 59,
+      "width": 33,
+      "height": 60,
       "texture_px": [
-        26,
-        59
+        33,
+        60
       ],
-      "offset": 358763,
-      "length": 1534,
+      "offset": 375309,
+      "length": 1980,
       "trim_origin_top_left_px": [
         67,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         9
       ],
-      "sha256": "bee5049cc4184739f12bec85244515706c8fbc2e7da2691f04f049c403e8db88",
+      "sha256": "56f57882e2c5d4ff4df966bfed89721e474d960a1558eec072442f0cb3c49785",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_ese_10.png",
-      "width": 26,
+      "width": 29,
       "height": 59,
       "texture_px": [
-        26,
+        29,
         59
       ],
-      "offset": 360297,
-      "length": 1534,
+      "offset": 377289,
+      "length": 1711,
       "trim_origin_top_left_px": [
         67,
         50
@@ -3718,7 +3718,7 @@
         13,
         9
       ],
-      "sha256": "38a079f3a5c93dd0c75a2d8a2522625bf3268c9118fdc3fbe3174274b7ecd00b",
+      "sha256": "60882c99af9ba5ad72a1b47dc5e7dcc5fbfbccbdd3592abbcf7e1dc7b6600a72",
       "empty": false
     },
     {
@@ -3730,7 +3730,7 @@
         26,
         59
       ],
-      "offset": 361831,
+      "offset": 379000,
       "length": 1534,
       "trim_origin_top_left_px": [
         67,
@@ -3740,7 +3740,7 @@
         13,
         9
       ],
-      "sha256": "d44f2c2da5728d823dcc508b769f29b63bc67574d6675f8ebc30438cd6d3db91",
+      "sha256": "d8da72a2dce605fbd67291d877de38a961edbea7832f6e46d3bbb13b00b43861",
       "empty": false
     },
     {
@@ -3752,7 +3752,7 @@
         29,
         58
       ],
-      "offset": 363365,
+      "offset": 380534,
       "length": 1682,
       "trim_origin_top_left_px": [
         65,
@@ -3762,20 +3762,20 @@
         15,
         8
       ],
-      "sha256": "a72801c9be9f6aa7095209f4ef7a310cf41decc79b5d921901f34da8e87317a0",
+      "sha256": "763d88f2e0cfcb15344a75f537ad7f2e8a6364c9c7603f2d7c608f523db74d98",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_se_01.png",
-      "width": 32,
+      "width": 33,
       "height": 58,
       "texture_px": [
-        32,
+        33,
         58
       ],
-      "offset": 365047,
-      "length": 1856,
+      "offset": 382216,
+      "length": 1914,
       "trim_origin_top_left_px": [
         62,
         50
@@ -3784,86 +3784,86 @@
         18,
         8
       ],
-      "sha256": "2cb43f330b3fe68790d839a0979fb9c52bce8224cb1cf018f63009899de78610",
+      "sha256": "42e56e06e11a86d326e5bc292497d7e4ff18fd0506380dec182b09d3a1ac4a28",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_se_02.png",
-      "width": 37,
-      "height": 57,
+      "width": 40,
+      "height": 58,
       "texture_px": [
-        37,
-        57
+        40,
+        58
       ],
-      "offset": 366903,
-      "length": 2109,
+      "offset": 384130,
+      "length": 2320,
       "trim_origin_top_left_px": [
-        58,
-        51
+        57,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
+        23,
         8
       ],
-      "sha256": "d814b4cc0d8171fe7f10afd39f83f92cd4e5bec83126c80182e7805ca8979b98",
+      "sha256": "c8940b49b5ef25c6e45a6a6a892b4d9bcf8c9cf0a9f1849232b9ef4482eaa229",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_se_03.png",
+      "width": 41,
+      "height": 58,
+      "texture_px": [
+        41,
+        58
+      ],
+      "offset": 386450,
+      "length": 2378,
+      "trim_origin_top_left_px": [
+        59,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        8
+      ],
+      "sha256": "260be9b894cc5577bbc04fe22abffd3d7533ead5afe1998b8ebc041677d86155",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_04.png",
+      "width": 39,
+      "height": 57,
+      "texture_px": [
+        39,
+        57
+      ],
+      "offset": 388828,
+      "length": 2223,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        8
+      ],
+      "sha256": "0d00ce6ee81b5c51c0451c1a9d889b4c219054947eb3deacc9361da86194412c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_05.png",
       "width": 35,
       "height": 57,
       "texture_px": [
         35,
         57
       ],
-      "offset": 369012,
+      "offset": 391051,
       "length": 1995,
-      "trim_origin_top_left_px": [
-        61,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        19,
-        8
-      ],
-      "sha256": "0c19219c1c6668e6b0fc31f8a4b4d36bdd2cd86bccfb44ffdb7d4939466dab23",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_04.png",
-      "width": 31,
-      "height": 57,
-      "texture_px": [
-        31,
-        57
-      ],
-      "offset": 371007,
-      "length": 1767,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        8
-      ],
-      "sha256": "41da237441aec6917ba7299dd522634aa562027ba387e5e6aa11f20c7d47330f",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_05.png",
-      "width": 30,
-      "height": 57,
-      "texture_px": [
-        30,
-        57
-      ],
-      "offset": 372774,
-      "length": 1710,
       "trim_origin_top_left_px": [
         66,
         51
@@ -3872,86 +3872,108 @@
         14,
         8
       ],
-      "sha256": "0daa3267e4785386a9f06da183f206acb7b6de654ec5c20b990f677ab0c91f4d",
+      "sha256": "f84d0d4a842da0440ee7e83942217dc4f670f74652f75561bcfbce7f3cc852e4",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_se_06.png",
+      "width": 35,
+      "height": 53,
+      "texture_px": [
+        35,
+        53
+      ],
+      "offset": 393046,
+      "length": 1855,
+      "trim_origin_top_left_px": [
+        66,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "fd8a921af8a69a045008818c79cfa2fe92ae7d002e9979ea5e4784818abafc89",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_07.png",
+      "width": 35,
+      "height": 54,
+      "texture_px": [
+        35,
+        54
+      ],
+      "offset": 394901,
+      "length": 1890,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "4296e2476169f8e366e5bd4e96851658f1405147d78225f5e830d3a167771775",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_08.png",
+      "width": 35,
+      "height": 55,
+      "texture_px": [
+        35,
+        55
+      ],
+      "offset": 396791,
+      "length": 1925,
+      "trim_origin_top_left_px": [
+        66,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "9692f26ff11963547ba7c0604283b6768d36bd5084367bb8213d4ae7c355e5d6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_09.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 398716,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        66,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        8
+      ],
+      "sha256": "a7cb7b72864fa8a7d02f159f8b6ed89d5566a8322d225b40702512f9eaef6dff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_se_10.png",
       "width": 31,
       "height": 57,
       "texture_px": [
         31,
         57
       ],
-      "offset": 374484,
+      "offset": 400630,
       "length": 1767,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        8
-      ],
-      "sha256": "72149249c1fd0a60179e2e367394ab110f831da2b64d9e5e430b4837568f3ba1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_07.png",
-      "width": 33,
-      "height": 57,
-      "texture_px": [
-        33,
-        57
-      ],
-      "offset": 376251,
-      "length": 1881,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        8
-      ],
-      "sha256": "c4dd6a545125b5236f1ecab6899125a616e47215e4f27b566702e895479900e8",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_08.png",
-      "width": 29,
-      "height": 57,
-      "texture_px": [
-        29,
-        57
-      ],
-      "offset": 378132,
-      "length": 1653,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        8
-      ],
-      "sha256": "11d2745da0640f475aea81177281f5aaff1fc2504e545a2ea92b2a5ad098d1e5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_09.png",
-      "width": 30,
-      "height": 57,
-      "texture_px": [
-        30,
-        57
-      ],
-      "offset": 379785,
-      "length": 1710,
       "trim_origin_top_left_px": [
         64,
         51
@@ -3960,29 +3982,7 @@
         16,
         8
       ],
-      "sha256": "031c9aad71c233c327ddd85af713be88273e857cede92a295ee7edee84b0edec",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_se_10.png",
-      "width": 31,
-      "height": 58,
-      "texture_px": [
-        31,
-        58
-      ],
-      "offset": 381495,
-      "length": 1798,
-      "trim_origin_top_left_px": [
-        63,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        8
-      ],
-      "sha256": "8ee58281f4fb13d01954bd176c37ccec209498cfc9b56192a25e7f82acc776cf",
+      "sha256": "46993beb1ea82fd3a2e906cbf477396bb203e529baa5ddcf9e0658cbe1b6fedf",
       "empty": false
     },
     {
@@ -3994,7 +3994,7 @@
         29,
         58
       ],
-      "offset": 383293,
+      "offset": 402397,
       "length": 1682,
       "trim_origin_top_left_px": [
         65,
@@ -4004,7 +4004,7 @@
         15,
         8
       ],
-      "sha256": "a72801c9be9f6aa7095209f4ef7a310cf41decc79b5d921901f34da8e87317a0",
+      "sha256": "763d88f2e0cfcb15344a75f537ad7f2e8a6364c9c7603f2d7c608f523db74d98",
       "empty": false
     },
     {
@@ -4016,7 +4016,7 @@
         33,
         56
       ],
-      "offset": 384975,
+      "offset": 404079,
       "length": 1848,
       "trim_origin_top_left_px": [
         63,
@@ -4026,7 +4026,7 @@
         17,
         6
       ],
-      "sha256": "375ffcb56ebb9d5887a85dcaab1f5eb50c5bd7b176aea996a94b5187911a523d",
+      "sha256": "e317f4bc30553e07be971aed1eddd5ee6b4683ca0e2963bc3910dd70c24b2b93",
       "empty": false
     },
     {
@@ -4038,7 +4038,7 @@
         36,
         56
       ],
-      "offset": 386823,
+      "offset": 405927,
       "length": 2016,
       "trim_origin_top_left_px": [
         60,
@@ -4048,205 +4048,205 @@
         20,
         6
       ],
-      "sha256": "8b71253aadfd4f6277188de48af8b2bfcb3de56361edd60cd2ed88eced48a296",
+      "sha256": "5872c98035e04f4090a724546a89c2dc99d245747fe8f4ccb4c089df5adcf58c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sse_02.png",
-      "width": 41,
-      "height": 56,
+      "width": 42,
+      "height": 58,
       "texture_px": [
-        41,
-        56
+        42,
+        58
       ],
-      "offset": 388839,
-      "length": 2296,
+      "offset": 407943,
+      "length": 2436,
       "trim_origin_top_left_px": [
         55,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         25,
-        6
+        8
       ],
-      "sha256": "2c7282f5ff2b054797b370d123fe0af8bb6260078468f51f23524224e9fd7250",
+      "sha256": "d99a39e7bbe4e2aa1059b20ef691d779f03d138c1003958555175eaecd9fc54c",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sse_03.png",
-      "width": 40,
-      "height": 56,
+      "width": 41,
+      "height": 61,
       "texture_px": [
-        40,
-        56
+        41,
+        61
       ],
-      "offset": 391135,
-      "length": 2240,
+      "offset": 410379,
+      "length": 2501,
       "trim_origin_top_left_px": [
-        57,
+        56,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        23,
-        6
+        24,
+        11
       ],
-      "sha256": "8ac5a7c81cf1b82235f6e0afc22f2eb92e4cdcab11d363335d5f2617d9db5f4c",
+      "sha256": "442c9868ea71bcf76822bb2275209df201b8e8858eb5958be074a28cb0742a33",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sse_04.png",
       "width": 39,
-      "height": 55,
+      "height": 62,
       "texture_px": [
         39,
-        55
+        62
       ],
-      "offset": 393375,
-      "length": 2145,
+      "offset": 412880,
+      "length": 2418,
       "trim_origin_top_left_px": [
-        59,
-        51
+        58,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
-        6
+        22,
+        12
       ],
-      "sha256": "fe73b012b49765592f99e497758dd5eb013735fcfcf34a81e10fb3edf18eb469",
+      "sha256": "d1d6662c7c9189e618c761236195f2fdd3491548257adb3ba67d76811fcd1837",
       "empty": false
     },
     {
       "atlas": "HumanMelee.atlas",
       "name": "attack_sse_05.png",
+      "width": 34,
+      "height": 59,
+      "texture_px": [
+        34,
+        59
+      ],
+      "offset": 415298,
+      "length": 2006,
+      "trim_origin_top_left_px": [
+        63,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        12
+      ],
+      "sha256": "3458f97294c66d0e408720764b2d8497d92b8fcb871d7fa0565d91c3f6b122f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sse_06.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 417304,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        66,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        12
+      ],
+      "sha256": "13210182615d3ff498e9fea09c3f14914b43a7d5ad3850e02bb11cdccf0e4507",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sse_07.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 419096,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        12
+      ],
+      "sha256": "a77f4ce71491cdf49a724d51af1e79e508b828117f67b5c955284b164494a042",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sse_08.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 420952,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        66,
+        54
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        12
+      ],
+      "sha256": "2eaabf7f1356395cc94a05d34e80519b5d0ebc4aad3c0873bac3b2ce28315f23",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sse_09.png",
+      "width": 34,
+      "height": 57,
+      "texture_px": [
+        34,
+        57
+      ],
+      "offset": 422808,
+      "length": 1938,
+      "trim_origin_top_left_px": [
+        62,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        10
+      ],
+      "sha256": "4398ed8fbc89f62ad033aa9c23021f20385f0a057da42aacf4529a63357fbccf",
+      "empty": false
+    },
+    {
+      "atlas": "HumanMelee.atlas",
+      "name": "attack_sse_10.png",
       "width": 35,
       "height": 55,
       "texture_px": [
         35,
         55
       ],
-      "offset": 395520,
+      "offset": 424746,
       "length": 1925,
       "trim_origin_top_left_px": [
-        63,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        6
-      ],
-      "sha256": "278448fe0b9c53738962d6655cf1a366c83ba3c4fccebeccf5535eb5f8a695d4",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sse_06.png",
-      "width": 31,
-      "height": 54,
-      "texture_px": [
-        31,
-        54
-      ],
-      "offset": 397445,
-      "length": 1674,
-      "trim_origin_top_left_px": [
-        66,
+        61,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        6
+        19,
+        7
       ],
-      "sha256": "d877255af19dad46f645b7c92b3167ee39b6c98cc1685810a577d3b9db9fadf4",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sse_07.png",
-      "width": 31,
-      "height": 55,
-      "texture_px": [
-        31,
-        55
-      ],
-      "offset": 399119,
-      "length": 1705,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        6
-      ],
-      "sha256": "3c17b5dc1303964e96350abb4a3adbdb04ac4a26496b14add55f572f23a7d8f5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sse_08.png",
-      "width": 30,
-      "height": 55,
-      "texture_px": [
-        30,
-        55
-      ],
-      "offset": 400824,
-      "length": 1650,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        6
-      ],
-      "sha256": "2e8c7d035a3f2f00473d4108f205b31fa694e8d814f7269dbb4877af4db3aea0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sse_09.png",
-      "width": 36,
-      "height": 55,
-      "texture_px": [
-        36,
-        55
-      ],
-      "offset": 402474,
-      "length": 1980,
-      "trim_origin_top_left_px": [
-        60,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        6
-      ],
-      "sha256": "73b9297ac1d89230c42a3f31aee168dd8195ceb06f328a7757f4ac22540a4a32",
-      "empty": false
-    },
-    {
-      "atlas": "HumanMelee.atlas",
-      "name": "attack_sse_10.png",
-      "width": 36,
-      "height": 56,
-      "texture_px": [
-        36,
-        56
-      ],
-      "offset": 404454,
-      "length": 2016,
-      "trim_origin_top_left_px": [
-        60,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        20,
-        6
-      ],
-      "sha256": "eff1aefe8bf87bb49d7a8aa47c98293c919d332e36d8fe5120f5cfb70cf596c8",
+      "sha256": "9cff1e6d6b85a92a5b8658656d8f53e896dfecaeaa83863aa18c240bb267c969",
       "empty": false
     },
     {
@@ -4258,7 +4258,7 @@
         33,
         56
       ],
-      "offset": 406470,
+      "offset": 426671,
       "length": 1848,
       "trim_origin_top_left_px": [
         63,
@@ -4268,9 +4268,9 @@
         17,
         6
       ],
-      "sha256": "375ffcb56ebb9d5887a85dcaab1f5eb50c5bd7b176aea996a94b5187911a523d",
+      "sha256": "e317f4bc30553e07be971aed1eddd5ee6b4683ca0e2963bc3910dd70c24b2b93",
       "empty": false
     }
   ],
-  "source_authority": "SwordRefinementOct07/Sword_Authored.blend"
+  "source_authority": "MeleeReferenceOct10/Melee_Authored.blend"
 }

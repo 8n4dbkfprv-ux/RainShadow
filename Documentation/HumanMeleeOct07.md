@@ -1,5 +1,9 @@
 # Human melee animation — October 7
 
+The normal sword cut's current artwork is the [October 10 reference pass](MeleeReferenceOct10.md).
+Its runtime playback uses the separate preparation/contact/recovery clock;
+the initial source-FPS timings below are historical.
+
 Voss and Wharf Ladder opponents now play an authored 12-frame melee action in
 16 directions. A readied Lantern shortsword uses its synchronized weapon layer;
 unarmed Voss uses the same strike without a weapon. The current splint mail and
