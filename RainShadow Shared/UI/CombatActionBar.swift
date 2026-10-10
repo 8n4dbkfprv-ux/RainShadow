@@ -14,20 +14,76 @@ final class CombatActionButton: SKShapeNode {
     static let fleeGlyph = 20
     private static let sheet = GameArt.texture(named: "combat_action_inkwash_v02")
     private static var glyphTextures: [Int: SKTexture] = [:]
+    private static let slots = GameArt.texture(named: "combat_action_slots_v01")
+    private static var slotTextures: [Int: SKTexture] = [:]
     private static let paper = UIPaintedChrome.parchmentSurface()
     static let selectionColor = SKColor(red: 0.13, green: 0.34, blue: 0.38, alpha: 1)
     private static var washes: [String: SKShader] = [:]
-    // The generated ink-on-white painting supplies actual pigment density.
-    // Diluted strokes reveal the parchment; no synthetic bevel or light ramp.
-    private static let ink = SKShader(source: """
+    private static var inks: [String: SKShader] = [:]
+    private static func slotIndex(for glyph: Int) -> Int {
+        switch glyph {
+        case 1, 6, 7, 17: return 1
+        case 2, 8, 9: return 2
+        case 3, 13, 14: return 3
+        case 10, 11, 15, 16, fleeGlyph: return 4
+        case 18: return 5
+        default: return 0
+        }
+    }
+
+    private static func slot(for glyph: Int) -> SKTexture? {
+        let index = slotIndex(for: glyph)
+        if let cached = slotTextures[index] { return cached }
+        guard let image = slots?.cgImage() else { return nil }
+        // Measured painted frames in the generated 1536×1024 master. Exclude
+        // the sheet's gutters; the button's existing rounded path clips corners.
+        let xs: [CGFloat] = [55, 535, 1009]
+        let ys: [CGFloat] = [55, 513]
+        let rect = CGRect(x: xs[index % 3], y: ys[index / 3], width: 472, height: 447)
+        let scaled = CGRect(x: rect.minX * CGFloat(image.width) / 1536,
+                            y: rect.minY * CGFloat(image.height) / 1024,
+                            width: rect.width * CGFloat(image.width) / 1536,
+                            height: rect.height * CGFloat(image.height) / 1024)
+        guard let crop = image.cropping(to: scaled) else { return nil }
+        let texture = SKTexture(cgImage: crop); texture.filteringMode = .linear
+        slotTextures[index] = texture
+        return texture
+    }
+    // Colour only the existing pigment. The painting still supplies coverage,
+    // brush grain and diluted edges; parchment and button chrome stay separate.
+    private static func ink(for index: Int) -> SKShader {
+        let low: String, middle: String, high: String
+        switch index {
+        case 1, 6, 7, 17: // Bow and ordinary ammunition: blue.
+            (low, middle, high) = ("0.055, 0.15, 0.25", "0.10, 0.37, 0.56", "0.27, 0.61, 0.72")
+        case 2, 8, 9: // Ward and stealth: violet.
+            (low, middle, high) = ("0.20, 0.08, 0.27", "0.42, 0.21, 0.53", "0.65, 0.40, 0.68")
+        case 3, 13, 14: // Bear abilities: green.
+            (low, middle, high) = ("0.10, 0.20, 0.075", "0.29, 0.43, 0.12", "0.55, 0.62, 0.24")
+        case 10, 11, 15, 16, fleeGlyph: // Utility and movement: teal.
+            (low, middle, high) = ("0.045, 0.21, 0.18", "0.08, 0.43, 0.36", "0.30, 0.65, 0.52")
+        case 18: // Fire ammunition changes colour along with its symbol.
+            (low, middle, high) = ("0.35, 0.055, 0.025", "0.77, 0.22, 0.045", "0.94, 0.55, 0.12")
+        default: // Sword techniques and End Turn: amber.
+            (low, middle, high) = ("0.26, 0.105, 0.025", "0.61, 0.29, 0.055", "0.84, 0.55, 0.17")
+        }
+        let key = low + middle + high
+        if let shader = inks[key] { return shader }
+        let shader = SKShader(source: """
         void main() {
             vec3 sampleColor = texture2D(u_texture, v_tex_coord).rgb;
             float density = 1.0 - dot(sampleColor, vec3(0.299, 0.587, 0.114));
             float coverage = smoothstep(0.035, 0.98, density);
-            vec3 ink = vec3(0.12, 0.085, 0.055);
+            float height = clamp(v_tex_coord.y * 0.88 + v_tex_coord.x * 0.12, 0.0, 1.0);
+            vec3 ink = mix(vec3(\(low)), vec3(\(middle)), smoothstep(0.05, 0.55, height));
+            ink = mix(ink, vec3(\(high)), smoothstep(0.50, 0.95, height));
+            ink *= mix(0.85, 1.0, density);
             gl_FragColor = vec4(ink * coverage, coverage) * v_color_mix.a;
         }
         """)
+        inks[key] = shader
+        return shader
+    }
 
     init(name: String, title: String, glyph: Int, shortcut: String, detail: String) {
         titleText = title; self.detail = detail
@@ -37,7 +93,6 @@ final class CombatActionButton: SKShapeNode {
         fillTexture = Self.paper
         fillShader = Self.wash(for: name)
         strokeColor = UITheme.Color.engraved; lineWidth = 1
-        self.glyph.shader = Self.ink
         addChild(self.glyph)
         for label in [key, badge, endTitle] {
             label.fontColor = UITheme.Color.ink
@@ -82,6 +137,11 @@ final class CombatActionButton: SKShapeNode {
     func setGlyph(_ index: Int) {
         guard index != glyphIndex else { return }
         glyphIndex = index
+        glyph.shader = Self.ink(for: index)
+        if name != "combat.end", let slot = Self.slot(for: index) {
+            fillTexture = slot
+            fillShader = nil
+        }
         if let cached = Self.glyphTextures[index] { glyph.texture = cached; return }
         if index == Self.fleeGlyph {
             let texture = GameArt.texture(named: "combat_flee_inkwash_v01")
@@ -110,8 +170,9 @@ final class CombatActionButton: SKShapeNode {
             : CGPath(roundedRect: CGRect(x: -24, y: -24, width: 48, height: 48), cornerWidth: 3, cornerHeight: 3, transform: nil)
         glyph.size = end ? CGSize(width: 27, height: 27) : CGSize(width: 43, height: 43)
         glyph.position.y = end ? 9 : 1
-        key.position = CGPoint(x: -17, y: -18)
-        badge.position = CGPoint(x: 21, y: -18)
+        // Keep counters and shortcuts inside the painted rim, on pale paper.
+        key.position = CGPoint(x: -16, y: -15)
+        badge.position = CGPoint(x: 18, y: -15)
         key.isHidden = end
         endTitle.isHidden = !end; endTitle.fontSize = largeEnd ? 12 : 10
         endTitle.position.y = -14

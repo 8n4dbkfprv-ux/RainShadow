@@ -75,6 +75,8 @@ import SpriteKit
         try press("ammunition", director)
         try check(director.selectedAmmunition == .fire && (try button("ammunition")).glyphIndex == 18
             && (try button("ammunition")).badge.text == "×2", "Fire ammo switches symbol and displays inventory count")
+        director.actionBar.showTooltip(nil)
+        try capture(director.actionBar, "action-bar-fire-ammunition")
         try press("ammunition", director)
         try check(director.selectedAmmunition == .normal && (try button("ammunition")).glyphIndex == 17,
                   "Normal ammo restores the arrow bundle")
@@ -90,6 +92,18 @@ import SpriteKit
             proof.addChild(glyph)
         }
         try capture(proof, "ink-symbol-detail")
+        let slotsProof = SKNode()
+        let slotsPaper = SKSpriteNode(texture: UIPaintedChrome.parchmentSurface())
+        slotsPaper.size = CGSize(width: 740, height: 160); slotsProof.addChild(slotsPaper)
+        let slotNames = ["melee", "ranged", "bladeWard", "bear", "dash", "ammunition"]
+        for (index, name) in slotNames.enumerated() {
+            let original = try button(name)
+            let sample = CombatActionButton(name: original.name!, title: original.titleText,
+                glyph: name == "ammunition" ? 18 : original.glyphIndex, shortcut: "", detail: original.detail)
+            sample.setScale(2); sample.position.x = CGFloat(index) * 116 - 290
+            slotsProof.addChild(sample)
+        }
+        try capture(slotsProof, "matching-slot-detail")
         let escapeProof = SKNode()
         let escapePaper = SKSpriteNode(texture: UIPaintedChrome.parchmentSurface())
         escapePaper.size = CGSize(width: 300, height: 150); escapeProof.addChild(escapePaper)

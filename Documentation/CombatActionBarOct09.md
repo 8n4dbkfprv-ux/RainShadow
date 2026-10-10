@@ -60,3 +60,36 @@ Ink-wash artwork revision: macOS and iOS builds and all 43 live checks passed.
 Actual-size, narrow and enlarged live-shader captures were visually inspected in
 `output/combat-action-inkwash-oct09/`; `ink-symbol-detail.png` shows the painted
 pigment on the same parchment used at runtime.
+
+October 10 coloured-ink revision: `CombatActionButton.ink(for:)` applies a
+three-stop pigment gradient to each existing glyph. Amber marks melee, blue
+ranged/normal ammunition, violet ward/stealth, green bear abilities, teal
+utility/movement, and orange-red fire ammunition. Changing a glyph selects its
+shader before checking the texture cache, so switching Normal/Fire also changes
+the colour. Shared palette shaders have no mutable uniforms.
+
+The original luminance-to-alpha coverage is unchanged: brush grain and diluted
+ink still reveal the parchment. Only pigment RGB changes. No atlas, action-bar
+painting, button geometry, input mapping, or gameplay rule is replaced. Palettes
+use dark lower tones for contrast against the light parchment in the existing
+bar. `action-bar-fire-ammunition.png` captures the dynamic ammunition variant
+alongside the harness's human, bear, narrow, and enlarged icon renders.
+
+Validation: both app builds and all 43 native action-bar checks passed. The
+enlarged pigment detail, fire-ammunition variant, 320-point layout and bear bar
+were visually inspected in `output/combat-colour-gradients-oct10/`.
+
+October 10 matching slots: the built-in image generator painted six parchment
+slots with amber, blue, violet, green, teal and ember edge washes. The unchanged
+master is `combat_action_slots_v01.png`; the exact prompt and reference are in
+`CombatActionSlotsArtOct10.json`. `slot(for:)` crops the measured painted frames
+at runtime into cached textures, excluding the master sheet's gutters. These
+textures fill the existing 48-point rounded paths. The surrounding bar and the
+circular End Turn button retain their original art and geometry. Shortcut and
+counter labels sit just inside the painted rim. Selection outlines remain live
+code strokes; disabled alpha applies to the complete button. Slot colours follow
+the glyph, including Normal/Fire ammunition and bear/human form changes.
+
+Both builds and all 43 native UI checks passed with the final slot art and label
+insets. The normal-size bar, fire-ammunition selection, 320-point layout and
+enlarged slot detail were inspected in `output/combat-matching-slots-oct10/`.
