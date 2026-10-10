@@ -53,6 +53,67 @@ import SpriteKit
                 CGPoint(x: points.map(\.x).reduce(0, +) / Double(points.count),
                         y: points.map(\.y).reduce(0, +) / Double(points.count))
             }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_SABLE_ANIMATIONS_ONLY"] == "1" {
+                let street = try await arrive(AreaID("city_sable_row"), "from.office")
+                street.detective.position = CGPoint(x: 2190, y: 1640)
+                street.recenterCamera(on: CGPoint(x: 2240, y: 1910))
+                street.setZoomStep(CameraZoom.step(forPercent: 100))
+                // Keep the two ravens in view independently of the player's
+                // fog radius, and remove weather noise from pixel comparisons.
+                street.weatherRoot.isHidden = true
+                try await Task.sleep(for: .seconds(1))
+                for night in [false, true, false] {
+                    street.setExtendedNight(night)
+                    street.tickAreaAnimations()
+                    let phase = night ? "dusk" : "day"
+                    for animation in street.area.animations {
+                        guard let sprite = street.childNode(withName: "//" + animation.id) as? SKSpriteNode else {
+                            throw Failure(message: "Missing animation node: \(animation.id)")
+                        }
+                        try check(sprite.anchorPoint == .zero, "\(animation.id): registered at the plate crop origin")
+                        try check(sprite.parent === street.rearFixtureRoot, "\(animation.id): uses authored background detail layer")
+                        try check((sprite.alpha > 0) == animation.id.hasSuffix(phase), "\(animation.id): matches \(phase) plate")
+                    }
+                    let active = street.area.animations.filter { $0.id.hasSuffix(phase) }
+                    var frames: [String: Set<Data>] = [:]
+                    // The raven sequence is 192 frames at 12 fps (16 seconds).
+                    // Compare pixels, since held poses use repeated frame references.
+                    for _ in 0..<170 {
+                        try await Task.sleep(for: .milliseconds(100))
+                        for animation in active {
+                            let sprite = street.childNode(withName: "//" + animation.id) as! SKSpriteNode
+                            if let pixels = sprite.texture?.cgImage().dataProvider?.data {
+                                frames[animation.id, default: []].insert(pixels as Data)
+                            }
+                        }
+                    }
+                    for animation in active {
+                        try check((frames[animation.id]?.count ?? 0) > 1, "\(animation.id): frames advance in the live scene")
+                        let sprite = street.childNode(withName: "//" + animation.id) as! SKSpriteNode
+                        // Pick a non-neutral authored frame and compare the real compositor
+                        // with/without this detail, keeping all other scene state fixed.
+                        let frameName = animation.resourceName! + (animation.id.contains("water") ? "_025" : "_109")
+                        sprite.texture = GameArt.texture(named: frameName)
+                        // Mouse-edge scrolling can move the camera during a full
+                        // idle cycle. Frame the detail before testing its pixels.
+                        street.recenterCamera(on: sprite.position)
+                        street.updateAreaPlatePaging()
+                        for _ in 0..<32 { street.didFinishUpdate() }
+                        let visible = street.nativeWorldRenderer?.lastPixels
+                        sprite.alpha = 0
+                        street.didFinishUpdate()
+                        let hidden = street.nativeWorldRenderer?.lastPixels
+                        sprite.alpha = animation.alpha
+                        try check(visible != nil && hidden != nil && visible != hidden, "\(animation.id): contributes visible animated pixels")
+                    }
+                    street.recenterCamera(on: CGPoint(x: 2240, y: 1910))
+                    street.updateAreaPlatePaging()
+                    try capture(street, "sable_living_" + phase)
+                }
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil)
+                return
+            }
             // Exercise scene-only lifecycle wiring which SwiftPM cannot import.
             var probeArea = RebuiltCityAreas.area(AreaID("city_wharf_ladder"))
             probeArea.id = AreaID("qa.area.lifecycle")

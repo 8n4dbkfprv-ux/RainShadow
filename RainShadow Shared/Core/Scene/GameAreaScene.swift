@@ -96,6 +96,7 @@ class GameAreaScene: BaseGameScene {
         for door in area.doors where door.backgroundTiles != nil {
             presentDoorVisual(door, open: areaRuntime?.openDoorIDs.contains(door.id) ?? !door.startsClosed)
         }
+        tickAreaAnimations()
         return true
     }
 
@@ -188,6 +189,7 @@ class GameAreaScene: BaseGameScene {
             let id: String
             let texture: String
             let worldSize: AreaSize
+            let pivot: AreaPoint?
         }
         struct Sequence: Decodable {
             let id: String
@@ -199,9 +201,10 @@ class GameAreaScene: BaseGameScene {
 
     func buildAreaAnimations() {
         let clock = context.session.clock
-        for animation in area.animations {
+        for (order, animation) in area.animations.enumerated() {
             guard clock.isActive(animation.schedule) else { continue }
             let sprite: SKSpriteNode
+            var anchor = CGPoint(x: animation.anchorX, y: animation.anchorY)
             if let resource = animation.resourceName {
                 guard let url = Bundle.main.url(forResource: resource + ".animation", withExtension: "json"),
                       let data = try? Data(contentsOf: url),
@@ -219,6 +222,9 @@ class GameAreaScene: BaseGameScene {
                     assertionFailure("Incomplete area animation: \(resource)"); continue
                 }
                 sprite = SKSpriteNode(texture: textures[0], size: CGSize(width: first.worldSize.w, height: first.worldSize.h))
+                // These frame manifests register painted crops at their lower-left
+                // pivot. A centred sprite shifts the delta off the painted object.
+                if let pivot = first.pivot { anchor = pivot.cgPoint }
                 let action = SKAction.animate(with: textures, timePerFrame: 1 / Double(animation.frameRate), resize: false, restore: false)
                 sprite.run(animation.loopChance == 0 ? action : .repeatForever(action), withKey: "area.frames")
             } else {
@@ -228,17 +234,27 @@ class GameAreaScene: BaseGameScene {
             }
             sprite.name = animation.id
             sprite.position = animation.point.cgPoint
-            sprite.anchorPoint = CGPoint(x: animation.anchorX, y: animation.anchorY)
+            sprite.anchorPoint = anchor
             sprite.setScale(animation.scale)
             sprite.alpha = animation.alpha
             sprite.blendMode = blendMode(for: animation.blend)
             if animation.wallHides, area.hidesWallLockedAnimation(at: animation.point.cgPoint) {
                 sprite.alpha = 0
             }
-            depthWorldRoot.addChild(sprite)
-            updateDepth(of: sprite)
+            // Root nodes already carry the layer's z. Keep flat overlays above
+            // their root without adding the layer offset a second time.
+            sprite.zPosition = 1 + CGFloat(order) * Self.propOrderStep
+            switch animation.layer {
+            case .floorEffects: floorEffectRoot.addChild(sprite)
+            case .rearFixtures: rearFixtureRoot.addChild(sprite)
+            case .occlusion: occlusionRoot.addChild(sprite)
+            case .depthWorld:
+                depthWorldRoot.addChild(sprite)
+                updateDepth(of: sprite)
+            }
             animationNodes[animation.id] = sprite
         }
+        tickAreaAnimations()
     }
 
     /// Per-frame IE area services: script, triggers, ambients, light, height, cover.
@@ -344,6 +360,8 @@ class GameAreaScene: BaseGameScene {
         for animation in area.animations {
             guard let sprite = animationNodes[animation.id] else { continue }
             let scheduled = clock.isActive(animation.schedule)
+                && (!animation.extendedNightOnly || usesExtendedNight)
+                && (!animation.extendedDayOnly || !usesExtendedNight)
             var alpha: CGFloat = scheduled ? animation.alpha : 0
             if scheduled, animation.wallHides,
                area.hidesWallLockedAnimation(at: animation.point.cgPoint) {

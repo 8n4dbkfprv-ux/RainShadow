@@ -388,6 +388,11 @@ struct AreaAnimation: Hashable, Codable, Sendable {
     var anchorX: CGFloat
     var anchorY: CGFloat
 
+    /// Painted detail overlays retain their authored layer and plate variant.
+    var layer: AreaPropLayer = .depthWorld
+    var extendedNightOnly: Bool = false
+    var extendedDayOnly: Bool = false
+
     init(
         id: String,
         point: AreaPoint,
@@ -444,6 +449,9 @@ struct AreaAnimation: Hashable, Codable, Sendable {
         scale = try c.decodeIfPresent(CGFloat.self, forKey: .scale) ?? 1
         anchorX = try c.decodeIfPresent(CGFloat.self, forKey: .anchorX) ?? 0.5
         anchorY = try c.decodeIfPresent(CGFloat.self, forKey: .anchorY) ?? 0.5
+        layer = try c.decodeIfPresent(AreaPropLayer.self, forKey: .layer) ?? .depthWorld
+        extendedNightOnly = try c.decodeIfPresent(Bool.self, forKey: .extendedNightOnly) ?? false
+        extendedDayOnly = try c.decodeIfPresent(Bool.self, forKey: .extendedDayOnly) ?? false
     }
 }
 

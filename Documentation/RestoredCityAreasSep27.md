@@ -8,6 +8,8 @@ runtime; see [current character authority](VossCurrentRuntime.md).
 Wharf Ladder's later [October 10 puddle material update](WharfLadderPuddlesOct10.md)
 uses the same V19 area and page identities. When its installation receipt is
 present, the restore tool overlays that package after the archived V20 art.
+The subsequent [lantern clearance fix](WharfLadderLampsOct10.md) overlays the
+puddle ShapesV2 package and preserves the same runtime identities.
 
 | World-map destination | Runtime area | Connected interior |
 |---|---|---|

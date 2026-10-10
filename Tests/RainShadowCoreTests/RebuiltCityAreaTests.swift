@@ -9,6 +9,28 @@ struct RebuiltCityAreaTests {
     nonisolated static let ids = ["city_sable_row", "city_wharf_ladder", "city_riverside",
                       "interior_shipping_office", "interior_iron_stairs"]
 
+    @Test func sableLivingDetailsKeepTheirPlateVariantsAndLayer() throws {
+        let area = CityDistrictAreaAdapter.area(for: .sableRow)
+        #expect(area.animations.count == 6)
+        for detail in ["well_water", "raven_well", "raven_notices"] {
+            for phase in ["day", "dusk"] {
+                let animation = try #require(area.animations.first { $0.id == "noir.living.\(detail).\(phase)" })
+                #expect(animation.layer == .rearFixtures)
+                #expect(animation.extendedDayOnly == (phase == "day"))
+                #expect(animation.extendedNightOnly == (phase == "dusk"))
+                #expect(animation.resourceName == "sable_noir_\(detail)_\(phase)_v27")
+                #expect(animation.frameRate > 0 && animation.loopChance == 1)
+                let roundTrip = try JSONDecoder().decode(AreaAnimation.self, from: JSONEncoder().encode(animation))
+                #expect(roundTrip == animation)
+            }
+        }
+        let legacy = try JSONDecoder().decode(AreaAnimation.self, from: Data(
+            #"{"id":"legacy","point":{"x":0,"y":0},"textureName":"legacy"}"#.utf8))
+        #expect(legacy.layer == .depthWorld)
+        #expect(!legacy.extendedDayOnly && !legacy.extendedNightOnly)
+        #expect(legacy.anchorX == 0.5 && legacy.anchorY == 0.5)
+    }
+
     @Test(arguments: ids)
     func restoredEntrancesAndInteractionsAreReachable(_ name: String) throws {
         let area = try AreaCatalogLoader.load(AreaID(name))
