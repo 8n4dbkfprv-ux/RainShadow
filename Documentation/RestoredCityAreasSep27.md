@@ -5,6 +5,10 @@ The standard world map now loads the reviewed native packages for Sable Row
 existing Lamp Ward/Lamphouse V12 integration is retained. The Voss character has since been corrected to the September 22/23 VossCHMF
 runtime; see [current character authority](VossCurrentRuntime.md).
 
+Wharf Ladder's later [October 10 puddle material update](WharfLadderPuddlesOct10.md)
+uses the same V19 area and page identities. When its installation receipt is
+present, the restore tool overlays that package after the archived V20 art.
+
 | World-map destination | Runtime area | Connected interior |
 |---|---|---|
 | Sable Row | `city_sable_row`, promoted from V30 `sable_noir` | Current `office_suite`, return via `from.office` |
