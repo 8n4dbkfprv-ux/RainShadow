@@ -105,6 +105,7 @@ struct Combatant: Codable, Equatable {
     var rangedWeapon: CombatRangedWeapon? = nil
     /// NPC-owned special ammunition. Older encounters start with none.
     var fireArrows: Int? = nil
+    var enemyRole: EnemyCombatRole? = nil
     /// Legacy checkpoint field. Defend has been replaced by Blade Ward.
     var defending = false
     var bladeWardTurns: Int? = nil
@@ -370,6 +371,16 @@ struct TacticalCombat: Codable, Equatable {
     mutating func reconcilePosition(id: String, point: CGPoint) {
         guard let index = actors.firstIndex(where: { $0.id == id }) else { return }
         actors[index].position = point.rounded
+    }
+    /// Adds role metadata to old encounters without resetting health, gear, dice or charges.
+    mutating func assignEnemyRoles() {
+        let enemies = actors.filter { !$0.player }.sorted { $0.id < $1.id }
+        for (offset, enemy) in enemies.enumerated() where enemy.enemyRole == nil {
+            let index = actors.firstIndex { $0.id == enemy.id }!
+            let role: EnemyCombatRole = enemy.rangedWeapon == .bow ? .archer : offset % 2 == 0 ? .bruiser : .opportunist
+            actors[index].enemyRole = role
+            if enemy.name.hasPrefix("Hand ") { actors[index].name = role.title }
+        }
     }
     mutating func setPlayerBowEquipped(_ equipped: Bool) {
         guard let index = actors.firstIndex(where: \.player) else { return }
@@ -637,6 +648,7 @@ struct TacticalCombat: Codable, Equatable {
 
     func canUse(_ maneuver: CombatManeuver, hasSword: Bool = false) -> Bool {
         outcome == nil && !(current.player && isBear)
+            && (current.player || current.enemyRole?.maneuvers.contains(maneuver) != false)
             && !(current.usedManeuvers ?? []).contains(maneuver)
             && (maneuver.ranged ? current.rangedWeapon == .bow : hasSword)
             && CombatBudget.transition(state: budget.state, cost: maneuver.cost) != nil

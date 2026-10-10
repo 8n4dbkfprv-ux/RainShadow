@@ -136,6 +136,7 @@ final class TacticalCombatDirector {
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
         self.scene = scene; self.combat = combat; self.crew = crew; self.completion = completion
+        self.combat.assignEnemyRoles()
         self.combat.setPlayerBowEquipped(scene.context.session.characterInventory.hasEquippedBow)
         hud.name = "combat.hud"; hud.zPosition = 900
         scene.hudRoot.addChild(hud)
@@ -658,6 +659,10 @@ final class TacticalCombatDirector {
                      "Attack bonus: \(combat.attackBonus(for: target)) · Damage: \(target.damageMin)–\(target.damageMax)",
                      "Movement: \(Int(combat.movementSpeed(for: target) / 8)) ft per turn",
                      "Weapon: \(target.rangedWeapon == .bow ? "bow (80 ft) and melee" : "melee")"]
+        if !target.player {
+            let role = EnemyTactics.role(for: target)
+            lines.append("Role: " + role.title + " · " + role.maneuvers.map(\.title).joined(separator: ", "))
+        }
         let conditions = [target.conditions?.label,
             target.conditions?.attackAdvantage == true ? "Attack advantage" : nil,
             target.conditions?.attackDisadvantage == true ? "Attack disadvantage" : nil]
@@ -1171,14 +1176,14 @@ final class TacticalCombatDirector {
         number.run(.sequence([.group([.moveBy(x: 0, y: 35, duration: 0.7), .fadeOut(withDuration: 0.8)]), .removeFromParent()]))
         if result.knockedOut { beginDefeat(target) }
     }
-    private func shoot(_ target: Combatant, maneuver: CombatManeuver? = nil, requireSneakAttack: Bool = false) {
+    private func shoot(_ target: Combatant, maneuver: CombatManeuver? = nil, requireSneakAttack: Bool = false, enemyAmmunition: CombatAmmunition? = nil) {
         let attacker = combat.current
         guard let node = bowActor(for: attacker) else { return }
         let line = CombatNavigation.clearLine(in: scene.navigation, from: attacker.position, to: target.position,
             excluding: [attacker.id, target.id])
         let before = combat
         let ammunition: CombatAmmunition = maneuver != nil || requireSneakAttack ? .normal
-            : attacker.player ? selectedAmmunition : (attacker.fireArrows ?? 0) > 0 ? .fire : .normal
+            : attacker.player ? selectedAmmunition : enemyAmmunition ?? .normal
         guard !attacker.player || ammunition == .normal || fireArrowCount > 0 else {
             feedback = "No Fire Arrows remain."; refresh(); return
         }
@@ -1342,21 +1347,6 @@ final class TacticalCombatDirector {
             target: target, actor: node, parent: scene.depthWorldRoot, targetHeight: barrel.isBroken ? 4 : 32, explosions: explosions, displacements: displacements, destructions: destructions)
         delay = 0.25; checkpoint(synchronize: false)
     }
-    private func usefulBarrel(for actor: Combatant) -> CombatBarrel? {
-        guard combat.budget.canAttack, (actor.fireArrows ?? 0) > 0 else { return nil }
-        return combat.liveBarrels.first { barrel in
-            let distance = CombatNavigation.distance(actor.position, barrel.position)
-            guard distance > TacticalCombat.meleeReach && distance <= BowAttackRules.range,
-                CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: barrel.position,
-                                           excluding: [actor.id, barrel.id]) else { return false }
-            let chain = combat.explosionChain(startingAt: barrel.id, visible: blastVisible)
-            let hit = combat.actors.filter { candidate in candidate.conscious && chain.contains {
-                CombatNavigation.distance($0.position, candidate.position) <= CombatBarrel.blastRadius
-                    && blastVisible($0.position, candidate.position)
-            } }
-            return hit.contains { $0.player != actor.player } && !hit.contains { $0.player == actor.player }
-        }
-    }
     private func equipLookout(_ actor: Combatant, bow: Bool) {
         guard let node = actorNode(actor.id) as? CharacterAppearanceNode else { return }
         var definition = node.definition
@@ -1512,11 +1502,12 @@ final class TacticalCombatDirector {
 
     private func enemyTurn() {
         let goadingTarget = combat.goadingTarget(for: combat.current)
-        if goadingTarget == nil && combat.current.isBurning && combat.current.hp <= 8 && combat.extinguish() {
-            updateBurning(delta: 0); delay = 0.5; checkpoint(); return
-        }
         guard let target = goadingTarget ?? combat.actors.first(where: { $0.player && $0.conscious }) else { return }
         if target.hidden == true {
+            // There is no visible attack to compete with putting out a fire.
+            if goadingTarget == nil, combat.extinguish() {
+                updateBurning(delta: 0); delay = 0.5; checkpoint(); return
+            }
             let lastSeen = target.lastSeenPosition ?? target.position
             combat.face(combat.current.id, toward: lastSeen)
             if let node = actorNode(combat.current.id) as? CharacterAppearanceNode {
@@ -1526,48 +1517,34 @@ final class TacticalCombatDirector {
             if combat.actors.first(where: { $0.id == target.id })?.hidden == true {
                 var searchTarget = target; searchTarget.position = lastSeen
                 if let path = CombatNavigation.approach(in: scene.navigation, actor: combat.current, target: searchTarget,
-                    limit: combat.budget.availableMovement(speed: combat.current.speed)), move(path) { return }
+                    limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current))), move(path) { return }
                 endCombatTurn(); delay = 0.5; checkpoint(); return
             }
         }
         let actor = combat.current
-        let distance = CombatNavigation.distance(actor.position, target.position)
-        if actor.rangedWeapon == .bow {
-            if goadingTarget == nil, combat.canShove, combat.budget.canAttack, distance <= TacticalCombat.meleeReach {
-                let end = shoveLanding(target)
-                if CombatNavigation.distance(actor.position, end) > TacticalCombat.meleeReach + 8,
-                   let preview = combat.shovePreview(target: target.id, clearLine: shoveClear(target), destination: end), preview.chance >= 25 {
-                    performShove(target); return
-                }
+        let hasSword = actor.rangedWeapon == .bow || (actorNode(actor.id) as? CharacterAppearanceNode)?.definition.appearance.equipment.contains { $0.item == .lanternShortsword } == true
+        let decision = EnemyTactics.choose(combat: combat, map: scene.navigation, hasSword: hasSword)
+        switch decision.action {
+        case .attack(let order):
+            if let victim = combat.actors.first(where: { $0.id == order.targetID }) {
+                if actor.rangedWeapon == .bow { equipLookout(actor, bow: order.ranged) }
+                if order.ranged { shoot(victim, maneuver: order.maneuver, enemyAmmunition: order.ammunition) }
+                else { strike(victim, maneuver: order.maneuver) }
+                return
             }
-            if goadingTarget == nil, let barrel = usefulBarrel(for: actor) { equipLookout(actor, bow: true); shootBarrel(barrel); return }
-            equipLookout(actor, bow: distance > TacticalCombat.meleeReach)
-            if combat.budget.canAttack, BowAttackRules.canShoot(attacker: actor, target: target,
-                clearLine: CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: target.position,
-                    excluding: [actor.id, target.id])) {
-                shoot(target, maneuver: combat.preferredManeuver(target: target, ranged: true)); return
-            }
-            if combat.budget.canAttack, distance > TacticalCombat.meleeReach,
-               let path = CombatNavigation.firingPosition(in: scene.navigation, actor: actor, target: target,
-                   limit: min(combat.movementSpeed(for: actor), combat.budget.availableMovement(speed: combat.movementSpeed(for: actor)))), move(path) { return }
-        }
-        if combat.budget.canAttack,
-           CombatNavigation.distance(actor.position, target.position) <= TacticalCombat.meleeReach,
-           CombatNavigation.clearLine(in: scene.navigation, from: actor.position, to: target.position, excluding: [actor.id, target.id]) {
-            let hasSword = (actorNode(actor.id) as? CharacterAppearanceNode)?.definition.appearance.equipment.contains { $0.item == .lanternShortsword } == true
-            strike(target, maneuver: combat.preferredManeuver(target: target, ranged: false, hasSword: hasSword)); return
-        }
-        // Spend only movement needed to approach; avoid wandering after attacking.
-        if combat.budget.canAttack,
-           let path = CombatNavigation.approach(in: scene.navigation, actor: actor, target: target,
-                   limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))), move(path) { return }
-        // Explicitly choose Dash only when a certified route can close distance
-        // and no attack can be made. Never silently convert an attack in move().
-        var dashed = combat
-        if distance > TacticalCombat.meleeReach, dashed.dash(),
-           let path = CombatNavigation.approach(in: scene.navigation, actor: actor, target: target,
-               limit: dashed.budget.availableMovement(speed: dashed.movementSpeed(for: actor))), combat.dash() {
+        case .move(let path):
             if move(path) { return }
+        case .dash(let path):
+            if combat.dash(), move(path) { return }
+        case .barrel(let id):
+            if let barrel = combat.liveBarrels.first(where: { $0.id == id }) {
+                equipLookout(actor, bow: true); shootBarrel(barrel); return
+            }
+        case .shove(let id):
+            if let victim = combat.actors.first(where: { $0.id == id }) { performShove(victim); return }
+        case .extinguish:
+            if combat.extinguish() { updateBurning(delta: 0); delay = 0.5; checkpoint(); return }
+        case .endTurn: break
         }
         endCombatTurn(); delay = 0.5; checkpoint()
     }

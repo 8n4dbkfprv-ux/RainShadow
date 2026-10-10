@@ -140,9 +140,10 @@ final class WharfLadderDirector {
         #if DEBUG
         if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil { seed = 42 }
         #endif
-        let model = restored ?? TacticalCombat(encounterID: encounter.rawValue, areaID: scene.area.id.rawValue,
+        var model = restored ?? TacticalCombat(encounterID: encounter.rawValue, areaID: scene.area.id.rawValue,
             actors: actors, seed: seed, barrels: encounter == .gate
                 ? CombatNavigation.gateBarrels(in: scene.navigation, actors: actors) : [])
+        model.assignEnemyRoles()
         scene.pause.clearPlayerPause()
         combatDirector = TacticalCombatDirector(scene: scene, combat: model, crew: crew, isNewEncounter: restored == nil) { [weak self] in
             guard let self else { return }

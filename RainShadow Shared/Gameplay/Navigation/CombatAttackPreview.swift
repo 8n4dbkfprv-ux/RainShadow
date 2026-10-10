@@ -31,6 +31,7 @@ extension TacticalCombat {
             return "Outside melee reach. Move closer."
         }
         if let maneuver {
+            guard current.player || current.enemyRole?.maneuvers.contains(maneuver) != false else { return "This technique is not in this enemy’s loadout." }
             guard !(current.player && isBear) else { return "Weapon techniques require human form." }
             guard maneuver.ranged == ranged, ranged || hasSword else { return "Equip the required weapon." }
             guard !(current.usedManeuvers ?? []).contains(maneuver) else { return "This technique is spent for this encounter." }
