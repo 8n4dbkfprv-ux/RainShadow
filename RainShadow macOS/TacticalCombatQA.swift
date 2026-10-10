@@ -1490,7 +1490,7 @@ import SpriteKit
                        let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
                         try data.write(to: output.appendingPathComponent("swing-closeup.png"))
                     }
-                    try await wait { attack.elapsed >= WeaponTechniqueMotion.trailEnd(attack.result.maneuver) / WeaponTechniqueMotion.meleeFPS(attack.result.maneuver) + SwordSwingPath.fadeDuration + 0.02 }
+                    try await wait { attack.elapsed >= WeaponTechniqueMotion.meleeTime(atFrame: WeaponTechniqueMotion.trailEnd(attack.result.maneuver), move: attack.result.maneuver) + SwordSwingPath.fadeDuration + 0.02 }
                     try check(trail?.isHidden != false, "\(mode): the trail fades before recovery ends")
                     try await wait { director.meleeAttack == nil }
                     try check(attack.actor.currentAction == .idle && trail?.parent == nil,

@@ -6,11 +6,39 @@ enum WeaponTechniqueMotion {
     static func meleeFrames(_ move: CombatManeuver?) -> Int {
         move == .tripAttack ? 16 : move == .powerStrike ? 14 : move == .feintingCut ? 13 : MeleeAttackAnimationSet.frames
     }
+    /// Source rate is retained during the blade's fast contact arc. Preparation
+    /// and settling have their own clocks; do not derive playback from one FPS.
     static func meleeFPS(_ move: CombatManeuver?) -> Double { move == .feintingCut || move == .tripAttack ? 18 : 15 }
-    static func meleeImpact(_ move: CombatManeuver?) -> Double {
-        Double(move == .powerStrike || move == .feintingCut || move == .tripAttack ? 8 : 6) / meleeFPS(move)
+    static func meleeWindup(_ move: CombatManeuver?) -> Double {
+        move == .powerStrike ? 0.65 : move == .feintingCut || move == .tripAttack ? 0.45 : 0.4
     }
-    static func meleeDuration(_ move: CombatManeuver?) -> Double { Double(meleeFrames(move)) / meleeFPS(move) }
+    static func meleeDuration(_ move: CombatManeuver?) -> Double {
+        move == .powerStrike ? 1.4 : move == .feintingCut ? 1.0 : move == .tripAttack ? 1.15 : 1.1
+    }
+    /// Inverse marker mapping shared by contact, trail fade and the body clock.
+    static func meleeTime(atFrame frame: Double, move: CombatManeuver?) -> Double {
+        let start = trailStart(move), end = trailEnd(move), total = Double(meleeFrames(move))
+        let phase = min(total, max(0, frame))
+        let windup = meleeWindup(move), sweep = (end - start) / meleeFPS(move)
+        if phase <= start { return phase / start * windup }
+        if phase <= end { return windup + (phase - start) / meleeFPS(move) }
+        return windup + sweep + (phase - end) / (total - end) * (meleeDuration(move) - windup - sweep)
+    }
+    static func meleeFrame(elapsed: Double, move: CombatManeuver?) -> Double {
+        guard elapsed > 0 else { return 0 }
+        let start = trailStart(move), end = trailEnd(move), total = Double(meleeFrames(move))
+        let windup = meleeWindup(move), sweep = (end - start) / meleeFPS(move)
+        if elapsed <= windup { return elapsed / windup * start }
+        if elapsed <= windup + sweep { return start + (elapsed - windup) * meleeFPS(move) }
+        if elapsed >= meleeDuration(move) { return total }
+        return end + (elapsed - windup - sweep) / (meleeDuration(move) - windup - sweep) * (total - end)
+    }
+    static func meleePhase(elapsed: Double, move: CombatManeuver?) -> Int {
+        min(meleeFrames(move) - 1, Int(meleeFrame(elapsed: elapsed, move: move) + 1e-9))
+    }
+    static func meleeImpact(_ move: CombatManeuver?) -> Double {
+        meleeTime(atFrame: move == .powerStrike || move == .feintingCut || move == .tripAttack ? 8 : 6, move: move)
+    }
     static func trailStart(_ move: CombatManeuver?) -> Double { move == .tripAttack ? 6 : move == .powerStrike ? 6 : move == .feintingCut ? 6 : 4 }
     static func trailEnd(_ move: CombatManeuver?) -> Double { move == .powerStrike || move == .feintingCut || move == .tripAttack ? 9 : 7 }
     static func aimHold(_ move: CombatManeuver?) -> Double { move == .aimedShot ? 0.4 : 0 }

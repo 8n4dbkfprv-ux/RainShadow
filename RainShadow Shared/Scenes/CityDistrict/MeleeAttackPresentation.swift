@@ -29,8 +29,8 @@ final class MeleeAttackPresentation {
     }
     func advance(delta: TimeInterval) {
         elapsed += delta
-        let phase = isSneakAttack ? StealthAnimationSet.phase(.sneakstab, elapsed: elapsed) : min(WeaponTechniqueMotion.meleeFrames(result.maneuver) - 1,
-                        Int(elapsed * WeaponTechniqueMotion.meleeFPS(result.maneuver)))
+        let phase = isSneakAttack ? StealthAnimationSet.phase(.sneakstab, elapsed: elapsed)
+            : WeaponTechniqueMotion.meleePhase(elapsed: elapsed, move: result.maneuver)
         swingTrail?.sample(elapsed: elapsed, facing: facing, maneuver: result.maneuver)
         present(phase: phase)
     }

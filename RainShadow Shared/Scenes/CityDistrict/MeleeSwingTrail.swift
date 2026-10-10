@@ -12,8 +12,8 @@ final class MeleeSwingTrail {
     init() { sprite.name = "combat.melee.swing"; sprite.isHidden = true }
 
     func sample(elapsed: TimeInterval, facing: ActorFacing, maneuver: CombatManeuver? = nil) {
-        let phase = Int(elapsed * WeaponTechniqueMotion.meleeFPS(maneuver))
-        let end = WeaponTechniqueMotion.trailEnd(maneuver) / WeaponTechniqueMotion.meleeFPS(maneuver)
+        let phase = WeaponTechniqueMotion.meleePhase(elapsed: elapsed, move: maneuver)
+        let end = WeaponTechniqueMotion.meleeTime(atFrame: WeaponTechniqueMotion.trailEnd(maneuver), move: maneuver)
         guard phase > Int(WeaponTechniqueMotion.trailStart(maneuver)), elapsed < end + SwordSwingPath.fadeDuration else {
             sprite.isHidden = true; return
         }

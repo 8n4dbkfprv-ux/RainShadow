@@ -118,7 +118,7 @@ struct TripAttackTests {
     }
     @Test func tripTimingHasContactBeforeRecoveryAndGroundHoldBeforeStanding() {
         #expect(WeaponTechniqueMotion.meleeFrames(.tripAttack) == 16)
-        #expect(WeaponTechniqueMotion.meleeImpact(.tripAttack) == 8.0 / 18)
+        #expect(WeaponTechniqueMotion.meleePhase(elapsed: WeaponTechniqueMotion.meleeImpact(.tripAttack), move: .tripAttack) == 8)
         #expect(WeaponTechniqueMotion.meleeDuration(.tripAttack) > WeaponTechniqueMotion.meleeImpact(.tripAttack))
         var fall = CombatRecoil(from: .zero, to: .init(x: 80, y: 0), heavy: false, kind: .tripFall)
         fall.elapsed = ProneMotion.holdTime

@@ -19,17 +19,41 @@ struct WeaponTechniqueMotionTests {
             #expect(try top(pinning, pinningName) - top(normal, normalName) >= 8)
         }
     }
-    @Test func distinctMeleeMarkersKeepWindupImpactAndRecoveryOrdered() {
-        #expect(WeaponTechniqueMotion.meleeImpact(.powerStrike) > MeleeAttackAnimationSet.impactTime)
-        #expect(WeaponTechniqueMotion.meleeDuration(.feintingCut) < MeleeAttackAnimationSet.recoveryTime)
-        for move in [CombatManeuver.powerStrike, .feintingCut] {
-            let fps = WeaponTechniqueMotion.meleeFPS(move)
-            #expect(WeaponTechniqueMotion.trailStart(move) / fps < WeaponTechniqueMotion.meleeImpact(move))
-            #expect(WeaponTechniqueMotion.meleeImpact(move) < WeaponTechniqueMotion.meleeDuration(move))
-            #expect(WeaponTechniqueMotion.trailEnd(move) / fps + SwordSwingPath.fadeDuration < WeaponTechniqueMotion.meleeDuration(move))
+    @Test func retimedMeleeKeepsFastContactAndGivesEachAttackTimeToSettle() {
+        for move in [nil, .powerStrike, .feintingCut, .tripAttack] as [CombatManeuver?] {
+            let start = WeaponTechniqueMotion.trailStart(move), end = WeaponTechniqueMotion.trailEnd(move)
+            let swingStart = WeaponTechniqueMotion.meleeTime(atFrame: start, move: move)
+            let swingEnd = WeaponTechniqueMotion.meleeTime(atFrame: end, move: move)
+            let sourceFPS = WeaponTechniqueMotion.meleeFPS(move)
+            #expect(swingStart > start / sourceFPS)
+            #expect(abs(swingEnd - swingStart - (end - start) / sourceFPS) < 0.000001)
+            #expect(swingStart < WeaponTechniqueMotion.meleeImpact(move))
+            #expect(WeaponTechniqueMotion.meleeImpact(move) < swingEnd)
+            #expect(swingEnd + SwordSwingPath.fadeDuration < WeaponTechniqueMotion.meleeDuration(move))
+            let oldRecovery = (Double(WeaponTechniqueMotion.meleeFrames(move)) - end) / sourceFPS
+            #expect(WeaponTechniqueMotion.meleeDuration(move) - swingEnd > oldRecovery)
         }
-        #expect(WeaponTechniqueMotion.meleeDuration(nil) == MeleeAttackAnimationSet.recoveryTime)
-        #expect(WeaponTechniqueMotion.meleeImpact(nil) == MeleeAttackAnimationSet.impactTime)
+        #expect(WeaponTechniqueMotion.meleeDuration(.powerStrike) > WeaponTechniqueMotion.meleeDuration(nil))
+        #expect(WeaponTechniqueMotion.meleeWindup(.powerStrike) > WeaponTechniqueMotion.meleeWindup(nil))
+        #expect(WeaponTechniqueMotion.meleeDuration(.feintingCut) < WeaponTechniqueMotion.meleeDuration(nil))
+    }
+    @Test func retimedMarkersAndPoseClockStayAlignedForEveryAuthoredFrame() {
+        for move in [nil, .powerStrike, .feintingCut, .tripAttack] as [CombatManeuver?] {
+            let count = WeaponTechniqueMotion.meleeFrames(move)
+            var previous = -1.0
+            for frame in 0...count {
+                let time = WeaponTechniqueMotion.meleeTime(atFrame: Double(frame), move: move)
+                #expect(time > previous)
+                #expect(abs(WeaponTechniqueMotion.meleeFrame(elapsed: time, move: move) - Double(frame)) < 0.000001)
+                #expect(WeaponTechniqueMotion.meleePhase(elapsed: time, move: move) == min(count - 1, frame))
+                if frame > 0 { #expect(WeaponTechniqueMotion.meleePhase(elapsed: time - 0.00001, move: move) == frame - 1) }
+                previous = time
+            }
+            let marker = WeaponTechniqueMotion.meleeImpact(move)
+            #expect(WeaponTechniqueMotion.meleePhase(elapsed: marker, move: move) == (move == nil ? 6 : 8))
+            #expect(WeaponTechniqueMotion.meleePhase(elapsed: -1, move: move) == 0)
+            #expect(WeaponTechniqueMotion.meleePhase(elapsed: 100, move: move) == count - 1)
+        }
     }
     @Test func aimedShotHoldsTheNockedArrowThenReleasesInSync() {
         #expect(WeaponTechniqueMotion.bowPhase(elapsed: 0.8, move: .aimedShot) == 9)

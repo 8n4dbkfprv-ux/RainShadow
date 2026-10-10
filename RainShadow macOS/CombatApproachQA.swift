@@ -4,6 +4,9 @@ import SpriteKit
 
 @MainActor enum CombatApproachQA {
     static func run(in view: SKView, output: URL, initial: TacticalCombat) async throws -> [String] {
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_MELEE_PACING"] == "1" {
+            return try await MeleePacingQA.run(in: view, output: output, initial: initial)
+        }
         if ProcessInfo.processInfo.environment["RAINSHADOW_QA_ENEMY_TACTICS"] == "1" {
             return try await EnemyTacticsQA.run(in: view, output: output, initial: initial)
         }
