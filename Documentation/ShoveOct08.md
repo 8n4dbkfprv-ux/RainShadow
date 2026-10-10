@@ -25,3 +25,24 @@ The lookout tries Shove when an adjacent target can be pushed beyond melee reach
 Validated October 8: 102 targeted combat tests pass; macOS Debug and iOS Simulator Debug builds pass. The final live run passes 84 checks across sword, armor, bow, resistance, hidden advantage, enemy shove-then-shoot and invalid range. Pause, costs, landing, save/reload, control layering and cancellation are covered. Final in-game contact and preview screenshots were visually reviewed; the report is `output/shove-oct08-final/report.json`.
 
 Fall/get-up follow-up: successful shoves now select the existing full fall clip in all sixteen directions. Resisted attempts keep their bracing reaction. Verified with 15 focused core tests, successful macOS/iOS builds, and 114 live checks. The live checks capture ground and get-up phases, confirm that the completed push remains busy through recovery, freeze the grounded pose on pause, verify no extra condition or movement charge, and confirm a return to standing before the lookout shoots. Report and previews: `output/shove-fall-oct08`.
+
+## October 10 pacing
+
+The pusher now takes 1.10 seconds rather than 0.67 seconds. Source phases 0–3
+span 0.40 seconds of preparation, phases 3–6 keep the authored 18 fps forward
+push, and the remaining phases recover over 0.53 seconds. Palm contact is at
+0.511 seconds (phase 5). This is an authored RainShadow timing adjustment, not
+a measured BG3 animation duration.
+
+The director already derives its approach, reaction trigger and return from
+the same impact/duration markers, so the target stays still until the retimed
+palm contact. Successful and resisted pushes share the clock, including enemy
+shoves and every equipment layer. Target fall/get-up and displacement physics
+remain unchanged. Payload hashes, rules and save outcomes are unchanged.
+
+Validated with 17 core tests across shove, reaction and knockback suites, macOS
+and iOS Simulator Debug builds, and 120 live checks covering armor, sword, bow,
+resistance, hidden advantage, enemy shove-then-shoot, pause and save/reload.
+Live report and screenshots: `output/shove-pacing-oct10-final/report.json`.
+The old live fixture now explicitly assigns its bow enemy the archer role;
+otherwise its inherited bruiser role correctly chooses a different action.

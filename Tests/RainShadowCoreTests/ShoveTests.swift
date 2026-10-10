@@ -4,6 +4,19 @@ import CoreGraphics
 @testable import RainShadowCore
 
 struct ShoveTests {
+    @Test func shovePacingKeepsContactAlignedAndTheForwardPushFast() {
+        #expect(ShoveAnimationSet.duration == 1.1)
+        #expect(ShoveAnimationSet.phase(elapsed: -1) == 0)
+        #expect(ShoveAnimationSet.phase(elapsed: ShoveAnimationSet.windupTime) == 3)
+        #expect(ShoveAnimationSet.phase(elapsed: ShoveAnimationSet.impactTime - 0.001) == 4)
+        #expect(ShoveAnimationSet.phase(elapsed: ShoveAnimationSet.impactTime) == 5)
+        #expect(ShoveAnimationSet.phase(elapsed: ShoveAnimationSet.impactTime + 1.0 / 18) == 6)
+        #expect(ShoveAnimationSet.phase(elapsed: 1.05) == 11)
+        #expect(ShoveAnimationSet.phase(elapsed: 10) == 11)
+        let phases = (0...1100).map { ShoveAnimationSet.phase(elapsed: Double($0) / 1000) }
+        #expect(phases == phases.sorted() && Set(phases) == Set(0..<12))
+    }
+
     private func fight(seed: UInt64 = 42, source: ShoveProfile = .voss, target: ShoveProfile = .crew) -> TacticalCombat {
         TacticalCombat(encounterID: "gate", areaID: "city_wharf_ladder", actors: [
             Combatant(id: TacticalCombat.playerID, name: "Voss", player: true, position: CGPoint(x: 100, y: 150), hp: 100, maximumHP: 100,

@@ -431,6 +431,9 @@ import SpriteKit
                         actors[i].attackBonus = 5; actors[i].damageMin = 1; actors[i].damageMax = 1
                         actors[i].initiativeBonus = actors[i].player != enemyActs ? 100 : -100
                         actors[i].rangedWeapon = mode == "bow" || enemyActs ? .bow : nil
+                        // This fixture predates explicit roles. Its bow enemy must
+                        // be an archer to exercise the current shove-then-shoot policy.
+                        actors[i].enemyRole = actors[i].rangedWeapon == .bow ? .archer : .bruiser
                         actors[i].shoveProfile = .init(strength: 14, athletics: actors[i].player != enemyActs ? (shouldPush ? 30 : -5) : (shouldPush ? 0 : 30), acrobatics: 0, weight: 80)
                     }
                     let sourceIndex = enemyActs ? 1 : 0, targetIndex = enemyActs ? 0 : 1
@@ -483,8 +486,12 @@ import SpriteKit
                     try check(accepted.budget == shove.before.budget && accepted.current.shoveSpent == true, "\(mode): shove spends only its bonus action")
                     try check(accepted.actors.map(\.hp) == shove.before.actors.map(\.hp), "\(mode): shove deals no direct damage")
                     try check(GameSession(saveStore: shoveStore).tacticalCombat == accepted, "\(mode): accepted endpoint and bonus cost are saved before contact")
+                    try await wait { (director.shovePresentation?.elapsed ?? 0) >= ShoveAnimationSet.windupTime }
+                    try check(director.shovePresentation?.impactPresented == false
+                        && director.hitReactions[target.id] == nil && director.knockbacks.isEmpty,
+                        "\(mode): extended wind-up does not release the target before palm contact")
                     scene.handleTacticalPauseInput()
-                    let elapsed = shove.elapsed, phase = shove.node.currentPhase
+                    let elapsed = director.shovePresentation!.elapsed, phase = shove.node.currentPhase
                     try await Task.sleep(for: .milliseconds(180))
                     try check(director.shovePresentation?.elapsed == elapsed && shove.node.currentPhase == phase, "\(mode): pause freezes the pushing character")
                     try capture("shove-" + mode + "-windup")
@@ -498,7 +505,8 @@ import SpriteKit
                     try capture("shove-" + mode + "-contact")
                     scene.handleTacticalPauseInput()
                     if shouldPush {
-                        try await wait { (director.hitReactions[target.id]?.elapsed ?? 0) >= 0.60 }
+                        let groundedTime = max(0.60, ShoveAnimationSet.duration - ShoveAnimationSet.impactTime + 0.03)
+                        try await wait { (director.hitReactions[target.id]?.elapsed ?? 0) >= groundedTime }
                         scene.handleTacticalPauseInput()
                         let groundedPhase = director.reactionNodes[target.id]?.currentPhase ?? -1
                         try check(director.shovePresentation == nil && director.knockbacks.isEmpty && director.busy,
