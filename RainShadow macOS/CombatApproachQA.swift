@@ -4,6 +4,9 @@ import SpriteKit
 
 @MainActor enum CombatApproachQA {
     static func run(in view: SKView, output: URL, initial: TacticalCombat) async throws -> [String] {
+        if let snapshot = ProcessInfo.processInfo.environment["RAINSHADOW_QA_MOVEMENT_REPAIR_SNAPSHOT"] {
+            return try await CombatMovementRepairQA.run(in: view, output: output, snapshot: URL(fileURLWithPath: snapshot))
+        }
         var checks: [String] = []
         func check(_ value: Bool, _ message: String) throws {
             guard value else { throw TacticalCombatQA.Failure(message: message) }; checks.append(message)

@@ -183,7 +183,13 @@ final class TacticalCombatDirector {
         scene.depthWorldRoot.addChild(movementPreview)
         sightPreview.zPosition = -0.2; scene.depthWorldRoot.addChild(sightPreview)
         scene.detective.cancelMovement()
-        for actor in combat.actors {
+        for actor in self.combat.actors where actor.conscious {
+            scene.navigation.updateActor(id: actor.id, position: actor.position, isMoving: false)
+        }
+        let repaired = WharfLadderStaging.repairCrowdedPositions(playerID: TacticalCombat.playerID,
+            crewIDs: self.combat.actors.filter { !$0.player && $0.conscious }.map(\.id), navigation: scene.navigation)
+        for (id, point) in repaired { self.combat.reconcilePosition(id: id, point: point) }
+        for actor in self.combat.actors {
             let node = actorNode(actor.id)
             node?.position = actor.position
             self.combat.setInitialFacing(actor.id, facing: (node as? CharacterAppearanceNode)?.currentFacing ?? .northEast)
@@ -200,6 +206,7 @@ final class TacticalCombatDirector {
             if actor.conscious { scene.navigation.updateActor(id: actor.id, position: actor.position, isMoving: false) }
             else { scene.navigation.unregisterActor(id: actor.id); node?.isHidden = true }
         }
+        scene.navigation.occupancy.restampAll()
         if combat.isBear {
             do { try prepareBear(); setDisplayedForm(true); registerPlayerFootprint() }
             catch { assertionFailure("Saved Bear Form cannot load: \(error)") }
