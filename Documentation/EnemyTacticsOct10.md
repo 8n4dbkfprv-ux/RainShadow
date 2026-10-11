@@ -76,3 +76,53 @@ RAINSHADOW_QA_APPROACH_ONLY=1 RAINSHADOW_QA_ENEMY_TACTICS=1 \
 ```
 
 Report and screenshots: `output/enemy-tactics-oct10/`.
+
+## October 11 — combat comparison and enemy Shove
+
+The original Shove candidate was restricted to archers with an unspent standard
+action. Melee enemies could never choose it; archers could never choose it after
+shooting. The resolver and presentation already supported both cases.
+
+Every role now evaluates a legal, raster-certified shove landing, independently
+of the standard action and remaining movement. Melee actors attack before pushing
+their victim out of reach. A successful push can force an opposing melee actor to
+spend movement closing again, free an archer, protect a wounded fighter, or put a
+rival within an ally's melee reach before that rival's turn. The score is weighted
+by the actual shove success probability. It rejects pushes that spoil an imminent
+allied melee attack, deliver a rival to a vulnerable ally, merely grant an opposing
+bow separation, or nudge someone against a wall without a positional benefit.
+No new approach-to-shove search is added, so archers don't run into melee just to
+push and retreat again. Resolution, bonus-action consumption, animation, weight
+limits, goading restrictions and save format are unchanged.
+
+Evidence and limits:
+
+- [Larian Patch 2](https://baldursgate3.game/news/patch-2-now-live_89), Combat and
+  Balance, explicitly documents a fix for NPCs running towards a target to Shove
+  and then away again to make a ranged attack. This confirms AI use of Shove and
+  that such wasteful positioning was a bug, not a behaviour to copy.
+- [Larian Patch 6](https://baldursgate3.game/news/patch-6-now-live_108) documents
+  AI pathfinding through dangerous surfaces and steep terrain. Our current maps
+  have neither authored falling/chasm damage nor persistent damaging surfaces.
+  Painted scenery and spent barrel effects are not treated as damaging landings.
+- [Werglia's Refectory encounter](https://www.youtube.com/watch?v=n9jSLhS83bw)
+  is a relevant 2023 PC Tactician reference, but playback could not be inspected
+  in the research tools. No turn timings or individual NPC choices from that
+  recording are asserted here. These scores remain RainShadow design decisions.
+
+The code comparison also confirms that archers already sample clear firing lanes
+and can spend leftover movement retreating, while melee approach/Dash choices
+require certified routes. Repeated actions can still be correct with the same
+loadout and positions. High ground, opportunity attacks, Disengage, jumping and
+party-wide target selection are not added by this change.
+
+Regression coverage adds melee attack-then-shove, an archer with both attack and
+movement spent, allied archer protection, harmful destinations, wall clipping,
+and deterministic planning without state/occupancy changes. `EnemyTacticsQA`
+also runs guaranteed-success melee and archer shoves on the shipped area raster,
+checking actual contact animation, displacement, normal attacks, turn completion
+and saved outcomes. Its isolated snapshots do not modify the player's save.
+
+Validation: 54 tests across seven combat/movement suites passed; macOS and iOS
+Simulator builds passed; 34 native checks passed. Final report and contact-frame
+captures: `output/enemy-shove-oct11-final/`.

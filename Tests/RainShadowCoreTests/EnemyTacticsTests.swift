@@ -7,7 +7,9 @@ struct EnemyTacticsTests {
     private func fixture(role: EnemyCombatRole = .bruiser, distance: CGFloat = 96, ally: Bool = false,
                          allyAfterTarget: Bool = false, targetHP: Int = 30, defence: Int = 12,
                          fire: Int = 0, burning: Bool = false, spent: [CombatManeuver] = [],
-                         obstacles: [CGRect] = [], barrels: [CombatBarrel] = []) -> (TacticalCombat, NavigationMap) {
+                         obstacles: [CGRect] = [], barrels: [CombatBarrel] = [],
+                         allyRole: EnemyCombatRole = .bruiser, allyPosition: CGPoint? = nil,
+                         targetBow: Bool = false) -> (TacticalCombat, NavigationMap) {
         var actors = [
             Combatant(id: "enemy.0", name: role.title, player: false, position: CGPoint(x: 600, y: 400),
                 hp: burning ? 3 : 20, maximumHP: 20, defence: 11, attackBonus: 3, damageMin: 1, damageMax: 3,
@@ -15,10 +17,11 @@ struct EnemyTacticsTests {
                 enemyRole: role, usedManeuvers: spent, burningTurns: burning ? 2 : nil),
             Combatant(id: TacticalCombat.playerID, name: "Voss", player: true, position: CGPoint(x: 600 - distance, y: 400),
                 hp: targetHP, maximumHP: 30, defence: defence, attackBonus: 5, damageMin: 3, damageMax: 5,
-                initiativeBonus: -50)]
+                initiativeBonus: -50, rangedWeapon: targetBow ? .bow : nil)]
         if ally { actors.append(Combatant(id: "enemy.1", name: "Bruiser", player: false,
-            position: CGPoint(x: 600 - distance, y: 460), hp: 20, maximumHP: 20,
-            defence: 11, attackBonus: 3, damageMin: 2, damageMax: 4, initiativeBonus: allyAfterTarget ? -100 : 50, enemyRole: .bruiser)) }
+            position: allyPosition ?? CGPoint(x: 600 - distance, y: 460), hp: 20, maximumHP: 20,
+            defence: 11, attackBonus: 3, damageMin: 2, damageMax: 4, initiativeBonus: allyAfterTarget ? -100 : 50,
+            rangedWeapon: allyRole == .archer ? .bow : nil, enemyRole: allyRole)) }
         let model = TacticalCombat(encounterID: "qa", areaID: "qa", actors: actors, seed: 42, barrels: barrels)
         let map = NavigationMap(worldBounds: CGRect(x: -600, y: 0, width: 2400, height: 1000), obstacles: obstacles)
         for actor in actors { map.registerActor(id: actor.id, kind: actor.player ? .player : .npc, at: actor.position) }
@@ -32,6 +35,90 @@ struct EnemyTacticsTests {
         return order
     }
     struct Failure: Error {}
+
+    private func shove(_ decision: EnemyDecision) throws -> String {
+        guard case .shove(let id) = decision.action else {
+            Issue.record("Expected shove, got \(decision.reason) (score \(decision.score))")
+            throw Failure()
+        }
+        return id
+    }
+
+    @Test func meleeAttacksFirstThenUsesItsBonusShove() throws {
+        for role in [EnemyCombatRole.bruiser, .opportunist] {
+            var (model, map) = fixture(role: role, spent: CombatManeuver.allCases)
+            let order = try attack(EnemyTactics.choose(combat: model, map: map))
+            #expect(!order.ranged)
+            _ = model.attack(target: order.targetID, clearLine: true)
+            #expect(!model.budget.canAttack)
+            let id = try shove(EnemyTactics.choose(combat: model, map: map))
+            let victim = try #require(model.actors.first { $0.id == id })
+            let end = CombatNavigation.knockbackDestination(in: map, actor: victim, awayFrom: model.current.position,
+                actors: model.actors, destroyedBarrels: [],
+                maximumDistance: ShoveRules.distance(attacker: model.physique(of: model.current), target: model.physique(of: victim)))
+            let attempt = model.shove(target: id, clearLine: true, destination: end)
+            let result = try #require(attempt)
+            #expect(model.current.shoveSpent == true && !model.budget.canAttack)
+            if result.succeeded { map.updateActor(id: id, position: end, isMoving: false) }
+            if case .endTurn = EnemyTactics.choose(combat: model, map: map).action {} else { Issue.record("No repeated shove or chase after the attack") }
+        }
+    }
+
+    @Test func archerCanShoveAfterSpendingAttackAndMovement() throws {
+        var (model, map) = fixture(role: .archer)
+        _ = model.castBladeWard()
+        for point in [CGPoint(x: 720, y: 400), CGPoint(x: 600, y: 400)] {
+            // Authored straight steps on the empty fixture floor spend exactly
+            // one move; search goal-cell snapping is tested separately.
+            let path = Path(points: [point], from: model.current.position)
+            let moved = model.move(along: path)
+            #expect(moved)
+            map.updateActor(id: model.current.id, position: model.current.position, isMoving: false)
+        }
+        #expect(model.budget.availableMovement(speed: model.current.speed) == 0)
+        let id = try shove(EnemyTactics.choose(combat: model, map: map))
+        #expect(id == TacticalCombat.playerID && !model.budget.canAttack)
+    }
+
+    @Test func shoveDoesNotSpoilTheNextAlliedMeleeAttack() {
+        var (model, map) = fixture(ally: true, allyPosition: CGPoint(x: 540, y: 460))
+        _ = model.castBladeWard()
+        if case .shove = EnemyTactics.choose(combat: model, map: map).action { Issue.record("Do not push a victim out of the next ally's reach") }
+    }
+
+    @Test func meleeCanPeelAThreatOffAnArcher() throws {
+        var (model, map) = fixture(ally: true, allyRole: .archer,
+                                  allyPosition: CGPoint(x: 540, y: 460))
+        _ = model.castBladeWard()
+        #expect(try shove(EnemyTactics.choose(combat: model, map: map)) == TacticalCombat.playerID)
+    }
+
+    @Test func shoveDoesNotDeliverTheRivalToAnArcher() {
+        var (model, map) = fixture(ally: true, allyRole: .archer,
+                                  allyPosition: CGPoint(x: 400, y: 460))
+        _ = model.castBladeWard()
+        if case .shove = EnemyTactics.choose(combat: model, map: map).action { Issue.record("Do not shove a rival onto our archer") }
+    }
+
+    @Test func shoveDoesNotGiveAnEnemyBowFreeSeparation() {
+        var (model, map) = fixture(targetBow: true)
+        _ = model.castBladeWard()
+        if case .shove = EnemyTactics.choose(combat: model, map: map).action { Issue.record("Keep the opposing bow in melee") }
+    }
+
+    @Test func shovePlanningIsReadOnlyAndBlockedLandingsHaveNoValue() throws {
+        var (model, map) = fixture()
+        _ = model.castBladeWard()
+        let before = model, occupants = map.occupancy.actors
+        let first = EnemyTactics.choose(combat: model, map: map)
+        #expect(try shove(first) == TacticalCombat.playerID)
+        let second = EnemyTactics.choose(combat: model, map: map)
+        #expect(first.reason == second.reason && first.score == second.score)
+        #expect(model == before && map.occupancy.actors == occupants)
+        var (blocked, wall) = fixture(distance: 70, obstacles: [CGRect(x: 484, y: 0, width: 16, height: 1000)])
+        _ = blocked.castBladeWard()
+        if case .shove = EnemyTactics.choose(combat: blocked, map: wall).action { Issue.record("A wall-clipped nudge does not create separation") }
+    }
 
     @Test func rolesChooseDifferentMeleeTechniques() throws {
         let (bruiser, map) = fixture()

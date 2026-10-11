@@ -113,14 +113,15 @@ enum EnemyTactics {
                     }
                 }
             }
-            // A bonus shove is valuable only when it actually frees a bow shot.
-            if role == .archer, focus == nil, combat.canShove, combat.budget.canAttack, distance <= TacticalCombat.meleeReach {
+            // Shove spends its own bonus action. Every role can use it, including
+            // after attacking; evaluate the landing rather than merely proximity.
+            if focus == nil, combat.canShove, distance <= TacticalCombat.meleeReach {
                 let end = CombatNavigation.knockbackDestination(in: map, actor: target, awayFrom: actor.position,
                     actors: combat.actors, destroyedBarrels: [], bear: target.player && combat.isBear,
                     maximumDistance: ShoveRules.distance(attacker: combat.physique(of: actor), target: combat.physique(of: target)))
-                if CombatNavigation.distance(actor.position, end) > TacticalCombat.meleeReach + 8,
-                   let shove = combat.shovePreview(target: target.id, clearLine: line(actor, target), destination: end), shove.chance >= 25 {
-                    offer(.shove(target.id), 2 + Double(shove.chance) / 100 * 5, "Push the threat away before shooting")
+                if let shove = combat.shovePreview(target: target.id, clearLine: line(actor, target), destination: end),
+                   let value = shoveValue(combat: combat, target: target, preview: shove, clearLine: line) {
+                    offer(.shove(target.id), value.score, value.reason)
                 }
             }
         }
@@ -235,6 +236,55 @@ enum EnemyTactics {
         return score
     }
     private static func roleForMelee(_ actor: Combatant) -> Bool { role(for: actor) != .archer }
+
+    /// Authored level-ground tactics, not a reconstruction of BG3's AI weights.
+    /// There is no falling terrain or persistent damaging surface in these maps;
+    /// pushing towards a painted ledge or extinguished barrel earns no fake damage.
+    private static func shoveValue(combat: TacticalCombat, target: Combatant, preview: ShovePreview,
+                                   clearLine: (Combatant, Combatant) -> Bool) -> (score: Double, reason: String)? {
+        guard preview.chance > 0 else { return nil }
+        var landing = target
+        landing.position = preview.destination
+        let actor = combat.current, reach = TacticalCombat.meleeReach
+        var value = 0.0, reason = "Force the rival to close distance again"
+        let targetIndex = combat.actors.firstIndex { $0.id == target.id }!
+        let untilTarget = (targetIndex - combat.turn + combat.actors.count) % combat.actors.count
+        for (index, ally) in combat.actors.enumerated() where ally.player == actor.player && ally.conscious && !ally.isProne {
+            let before = CombatNavigation.distance(ally.position, target.position)
+            let after = CombatNavigation.distance(ally.position, landing.position)
+            let wasNear = before <= reach && clearLine(ally, target)
+            let nowNear = after <= reach && clearLine(ally, landing)
+            let selfActor = ally.id == actor.id
+            let archer = role(for: ally) == .archer && ally.rangedWeapon == .bow
+            let wounded = ally.hp * 3 <= ally.maximumHP
+            let untilAlly = (index - combat.turn + combat.actors.count) % combat.actors.count
+            let actsBeforeTarget = selfActor ? combat.budget.canAttack : untilAlly < untilTarget
+            if wasNear && !nowNear {
+                if archer {
+                    value += selfActor && combat.budget.canAttack ? 8 : 5
+                    reason = selfActor ? "Push the threat away from the bow" : "Push the threat away from our archer"
+                } else {
+                    // Attack first; don't spend the next decision walking back to
+                    // a victim just pushed away, or spoil a nearby ally's attack.
+                    if actsBeforeTarget { return nil }
+                    if target.rangedWeapon == nil {
+                        value += wounded ? 4 : 1.5
+                        if wounded { reason = "Push the threat away from a wounded fighter" }
+                    }
+                }
+            } else if !wasNear && nowNear {
+                if archer || wounded { return nil }
+                if !selfActor && actsBeforeTarget {
+                    value += 3
+                    reason = "Push the rival into an ally's melee reach"
+                }
+            }
+        }
+        // No unconditional shove bonus: a blocked nudge or a shove that merely
+        // gives an opposing archer room to shoot should lose to ending the turn.
+        let score = Double(preview.chance) / 100 * value - 0.25
+        return score > 0 ? (score, reason) : nil
+    }
 
     private static func positionValue(_ point: CGPoint, combat: TacticalCombat,
                                       visible: (CGPoint, CGPoint) -> Bool) -> Double {
