@@ -20,6 +20,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     func setCombatRecoil(_ angle: CGFloat) { layers.forEach { $0.zRotation = angle } }
 
     private let contactShadow = ContactShadowFactory.make(kind: .npc)
+    func setGroundShadowVisible(_ visible: Bool) { contactShadow.isHidden = !visible }
     private var sceneLighting: ActorSceneLighting = .neutral
     private var footLight: AreaLightSample?
     private weak var stencil: WallStencilTexture?

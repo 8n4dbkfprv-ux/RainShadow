@@ -151,3 +151,65 @@ final class BarrelBlastVisual: SKNode {
         }
     }
 }
+
+/// Small cached flame pool over the certified floor cells. Footprint and lifetime
+/// come from combat state; wall-clock time only animates the tongues of flame.
+@MainActor final class CombatFireSurfaceVisual: SKNode {
+    private var flames: [SKSpriteNode] = []
+    private let cells: [CGPoint]
+    init(barrel: CombatBarrel, artHeight: CGFloat) {
+        cells = barrel.fireCells ?? []
+        super.init()
+        name = "combat.oil.fire." + barrel.id
+        for point in cells {
+            let stain = SKSpriteNode(texture: BowArrowFire.softTexture)
+            stain.size = CGSize(width: 22, height: 16); stain.colorBlendFactor = 1
+            stain.position = point; stain.color = SKColor(red: 0.25, green: 0.09, blue: 0.015, alpha: 1)
+            stain.alpha = 0.55; stain.zPosition = SceneLayer.depthWorld.rawValue + DrawQueue.depthOffset(groundY: point.y, artHeight: artHeight) - 0.01
+            addChild(stain)
+            let flame = SKSpriteNode(texture: BowArrowFire.softTexture)
+            flame.colorBlendFactor = 1; flame.blendMode = .add
+            flame.anchorPoint = CGPoint(x: 0.5, y: 0)
+            flame.zPosition = SceneLayer.depthWorld.rawValue + DrawQueue.depthOffset(groundY: point.y, artHeight: artHeight) + 0.01
+            addChild(flame); flames.append(flame)
+        }
+    }
+    required init?(coder: NSCoder) { fatalError("Programmatic fire surface") }
+    func sample(time: TimeInterval) {
+        for (i, flame) in flames.enumerated() {
+            let phase = (time * 1.6 + Double(i) * 0.61803398875).truncatingRemainder(dividingBy: 1)
+            let seed = Double(i) * 137.31
+            flame.position = CGPoint(x: cells[i].x + sin(seed) * 5 + sin(time * 5 + Double(i)) * 2,
+                                     y: cells[i].y - 4 + cos(seed) * 3)
+            flame.size = CGSize(width: 14 - 5 * phase,
+                                height: 10 + (10 + 9 * abs(sin(seed))) * sin(phase * .pi))
+            flame.zRotation = sin(time * 3 + seed) * 0.16
+            flame.color = SKColor(red: 1, green: 0.65 - 0.5 * phase, blue: 0.025, alpha: 1)
+            flame.alpha = 0.5 + 0.35 * sin(phase * .pi)
+        }
+    }
+}
+
+@MainActor final class CombatWaterSplash: SKNode {
+    override init() {
+        super.init()
+        name = "combat.water.splash"
+        for i in 0..<3 {
+            let ring = SKShapeNode(ellipseOf: CGSize(width: 34, height: 25.5))
+            ring.strokeColor = SKColor(red: 0.67, green: 0.82, blue: 0.83, alpha: 0.75)
+            ring.lineWidth = 2; addChild(ring)
+            ring.run(.sequence([.wait(forDuration: Double(i) * 0.12),
+                .group([.scale(to: 2.8, duration: 0.8), .fadeOut(withDuration: 0.8)])]))
+        }
+        for i in 0..<10 {
+            let drop = SKSpriteNode(texture: BowArrowFire.softTexture)
+            drop.colorBlendFactor = 1; drop.color = SKColor(red: 0.73, green: 0.9, blue: 0.9, alpha: 1)
+            drop.size = CGSize(width: 4, height: 7); addChild(drop)
+            let angle = Double(i) * .pi / 5
+            drop.run(.sequence([.moveBy(x: cos(angle) * 24, y: 18 + sin(angle) * 10, duration: 0.2),
+                .group([.moveBy(x: cos(angle) * 10, y: -24, duration: 0.3), .fadeOut(withDuration: 0.3)])]))
+        }
+        run(.sequence([.wait(forDuration: 1.2), .removeFromParent()]))
+    }
+    required init?(coder: NSCoder) { fatalError("Programmatic water splash") }
+}

@@ -130,6 +130,8 @@ struct Combatant: Codable, Equatable {
     var combatFacing: Int? = nil
     var shoveProfile: ShoveProfile? = nil
     var shoveSpent: Bool? = nil
+    var overboardOrigin: CGPoint? = nil
+    var overboard: Bool? = nil // Nonlethal removal from this encounter; optional in older saves.
     var sneakDamageDice: Int { sneakDice ?? (player ? 1 : 0) }
     var conscious: Bool { hp > 0 }
     var isProne: Bool { conscious && conditions?.prone == true }
@@ -157,7 +159,31 @@ struct TacticalCombat: Codable, Equatable {
     private(set) var bearForm: BearFormState?
     /// Optional so older checkpoints keep their original encounter layout.
     private(set) var barrels: [CombatBarrel]?
+    mutating func seedMissingBarrels(_ candidates: [CombatBarrel]) {
+        guard (barrels ?? []).isEmpty else { return }
+        barrels = candidates.isEmpty ? nil : candidates
+    }
     var liveBarrels: [CombatBarrel] { (barrels ?? []).filter { !$0.exploded } }
+    var burningBarrels: [CombatBarrel] { (barrels ?? []).filter { ($0.fireExpiresRound ?? 0) > round && !($0.fireCells ?? []).isEmpty } }
+    func isInFire(_ point: CGPoint) -> Bool { burningBarrels.contains { $0.containsFire(point) } }
+    func crossesFire(_ path: Path, from origin: CGPoint) -> Bool {
+        var previous = origin
+        for point in path.remainingPoints {
+            let steps = max(1, Int(ceil(CombatNavigation.distance(previous, point) / 4)))
+            for step in 0...steps {
+                let t = Double(step) / Double(steps)
+                if isInFire(CGPoint(x: previous.x + (point.x - previous.x) * t, y: previous.y + (point.y - previous.y) * t)) { return true }
+            }
+            previous = point
+        }
+        return false
+    }
+    private mutating func catchFire(_ index: Int) {
+        guard actors[index].conscious else { return }
+        if !actors[index].isBurning { note("\(actors[index].name) enters burning oil.") }
+        actors[index].burningTurns = 2
+        reveal(actors[index].id)
+    }
     var isBear: Bool { (bearForm?.turnsRemaining ?? 0) > 0 }
     var canTransform: Bool { isPlayerTurn && bearForm == nil && budget.canAttack }
     func movementSpeed(for actor: Combatant) -> Double {
@@ -194,6 +220,8 @@ struct TacticalCombat: Codable, Equatable {
         version == 1 && (fled != true || actors.contains { $0.player && $0.conscious }) && (bearForm?.isValid ?? true) && (barrels ?? []).count <= 8
         && Set((barrels ?? []).map(\.id)).count == (barrels ?? []).count
         && (barrels ?? []).allSatisfy { $0.position.x.isFinite && $0.position.y.isFinite && !$0.id.isEmpty
+            && ($0.fireExpiresRound.map { $0 > 0 } ?? true)
+            && ($0.fireCells.map { $0.count <= 100 && $0.allSatisfy { $0.x.isFinite && $0.y.isFinite } } ?? true)
             && ($0.debris.map { $0.count == BarrelDebrisPhysics.fragmentCount && $0.allSatisfy(\.isValid) } ?? true) }
         && (2...8).contains(actors.count) && actors.indices.contains(turn)
         && actors.filter(\.player).count == 1 && actors.contains { $0.id == Self.playerID && $0.player }
@@ -209,6 +237,8 @@ struct TacticalCombat: Codable, Equatable {
             && ($0.burningTurns.map { (1...2).contains($0) } ?? true)
             && ($0.bladeWardTurns.map { (1...2).contains($0) } ?? true)
             && ($0.shoveProfile?.isValid ?? true)
+            && ($0.overboard != true || ($0.hp == 0 && $0.overboardOrigin != nil))
+            && ($0.overboardOrigin.map { $0.x.isFinite && $0.y.isFinite } ?? true)
             && ($0.conditions?.goadedBy == nil || ($0.conditions?.goadedBy == Self.playerID && !$0.player && isBear))
             && (0...6).contains($0.sneakDamageDice)
             && ($0.combatFacing.map { (0..<16).contains($0) } ?? true)
@@ -227,6 +257,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     @discardableResult mutating func endTurn(burningHit: (Strike) -> Void = { _ in }) -> Bool {
         guard outcome == nil else { return false }
+        if isInFire(current.position) { catchFire(turn) }
         if current.isBurning {
             let damage = roll(4)
             var injury = damage
@@ -314,12 +345,14 @@ struct TacticalCombat: Codable, Equatable {
         let succeeded: Bool
         let preview: ShovePreview
         let displacement: Displacement?
+        var overboard = false
     }
     /// Resolve and save the destination before presentation. Invalid targeting is
     /// inert; a resisted shove consumes the bonus action but never the normal attack.
-    mutating func shove(target id: String, clearLine: Bool, destination: CGPoint) -> Shove? {
+    mutating func shove(target id: String, clearLine: Bool, destination: CGPoint, intoWater: Bool = false) -> Shove? {
         guard let preview = shovePreview(target: id, clearLine: clearLine, destination: destination),
               let index = actors.firstIndex(where: { $0.id == id }) else { return nil }
+        guard !intoWater || waterDropsEnabled else { return nil }
         let attacker = current, target = actors[index]
         let allied = target.player == attacker.player
         let first = allied ? 0 : roll(20)
@@ -328,12 +361,19 @@ struct TacticalCombat: Codable, Equatable {
         actors[turn].shoveSpent = true
         face(attacker.id, toward: target.position)
         reveal(attacker.id); reveal(target.id)
-        if success { actors[index].position = destination }
+        if success {
+            actors[index].position = destination
+            if intoWater {
+                actors[index].overboardOrigin = target.position
+                actors[index].hp = 0; actors[index].overboard = true; actors[index].burningTurns = nil
+                note("\(target.name) falls into the water and is out of the fight.")
+            } else if isInFire(destination) { catchFire(index) }
+        }
         note("\(attacker.name) shoves \(target.name): \(allied ? "willing target" : "\(max(first, second ?? first)) + \(preview.bonus) vs \(preview.dc)") — \(success ? "pushed" : "resisted") (bonus action).")
         return Shove(attacker: attacker.id, target: id, roll: first, secondRoll: second, succeeded: success, preview: preview,
-            displacement: success ? .init(id: id, from: target.position, to: destination) : nil)
+            displacement: success ? .init(id: id, from: target.position, to: destination) : nil, overboard: success && intoWater)
     }
-    var canExtinguish: Bool { outcome == nil && current.isBurning && budget.canAttack }
+    var canExtinguish: Bool { outcome == nil && current.isBurning && !isInFire(current.position) && budget.canAttack }
     @discardableResult mutating func extinguish() -> Bool {
         guard canExtinguish, budget.spend(2) else { return false }
         actors[turn].burningTurns = nil
@@ -365,7 +405,9 @@ struct TacticalCombat: Codable, Equatable {
     @discardableResult mutating func move(along path: Path) -> Bool {
         guard outcome == nil, let end = path.destination, !path.isEmpty else { return false }
         let cost = CombatNavigation.length(path, from: current.position)
+        let entersFire = crossesFire(path, from: current.position)
         guard budget.move(distance: cost, speed: movementSpeed(for: current)) else { return false }
+        if entersFire { catchFire(turn) }
         let prior = path.remainingPoints.dropLast().last ?? current.position
         actors[turn].combatFacing = ActorFacing.orient(from: prior, to: end).rawValue
         actors[turn].position = end
@@ -521,6 +563,7 @@ struct TacticalCombat: Codable, Equatable {
                   CombatNavigation.distance(actor.position, point) <= CombatBarrel.pushDistance + 1,
                   point != actor.position else { continue }
             actors[index].position = point
+            if isInFire(point) { catchFire(index) }
             result.append(Displacement(id: actor.id, from: actor.position, to: point))
             note("\(actor.name) is pushed back by the blast.")
         }
@@ -529,6 +572,7 @@ struct TacticalCombat: Codable, Equatable {
     /// Fire ignites a stationary barrel automatically. The caller certifies the
     /// shot and every blast/chain line against the shared terrain raster.
     mutating func igniteBarrel(_ id: String, clearShot: Bool,
+                               fireCells: ((CombatBarrel) -> [CGPoint])? = nil,
                                visible: (CGPoint, CGPoint) -> Bool) -> [BarrelExplosion]? {
         guard outcome == nil, !isBear || !current.player, goadingTarget(for: current) == nil,
               current.rangedWeapon == .bow, current.player || (current.fireArrows ?? 0) > 0,
@@ -544,6 +588,10 @@ struct TacticalCombat: Codable, Equatable {
         for barrel in chain {
             guard let index = barrels?.firstIndex(where: { $0.id == barrel.id }) else { continue }
             barrels![index].exploded = true
+            if let fireCells {
+                barrels![index].fireCells = Array(fireCells(barrel).prefix(100))
+                barrels![index].fireExpiresRound = round + 3
+            }
             note("\(barrel.name) explodes!")
             var hits: [Strike] = []
             for index in actors.indices where actors[index].conscious {
@@ -564,6 +612,7 @@ struct TacticalCombat: Codable, Equatable {
             }
             explosions.append(BarrelExplosion(barrel: barrel, hits: hits))
         }
+        for index in actors.indices where actors[index].conscious && isInFire(actors[index].position) { catchFire(index) }
         // A blast may knock out its shooter while both sides still have survivors.
         // Advance to a conscious actor so a saved checkpoint remains valid.
         if outcome == nil && !current.conscious { _ = endTurn() }
@@ -821,7 +870,7 @@ enum CombatNavigation {
     /// Forced movement stays on the shared raster and stops at the first obstruction.
     /// Temporary endpoint stamps keep chained pushes from overlapping survivors.
     static func knockbackDestination(in map: NavigationMap, actor: Combatant, awayFrom source: CGPoint,
-        actors: [Combatant], destroyedBarrels: [String], bear: Bool = false, maximumDistance: Double = CombatBarrel.pushDistance) -> CGPoint {
+        actors: [Combatant], destroyedBarrels: [String], bear: Bool = false, maximumDistance: Double = CombatBarrel.pushDistance, allowWaterDrop: Bool = false) -> CGPoint {
         let ids = Set(actors.map(\.id) + destroyedBarrels)
         let originals = ids.compactMap { map.occupancy.actors[$0] }
         ids.forEach { map.occupancy.unregister(id: $0) }
@@ -844,15 +893,27 @@ enum CombatNavigation {
         let size = bear ? BearFormRules.circleSize : map.circleSize
         let startCell = map.searchMap.cell(for: actor.position)
         var end = actor.position
+        var waterEnd: CGPoint?
         for step in stride(from: 2.0, through: min(CombatBarrel.pushDistance, max(0, maximumDistance)), by: 2) {
             let point = CGPoint(x: actor.position.x + direction.x * step,
                                 y: actor.position.y + direction.y * step * 0.75).rounded
+            // A body can overhang water during a fall even though its normal
+            // walking footprint stops one cell short. Inspect that fringe on the
+            // same raster: only floor/water is allowed, never a wall or railing.
+            if allowWaterDrop, !bear, waterFringe(in: map, at: point, size: size) {
+                if map.searchMap.terrain(at: point) == .waterImpassable { waterEnd = point }
+                else if waterEnd != nil { break }
+                // Do not accept an unsupported dry endpoint if the push is too
+                // short to reach water; retain the last fully standable point.
+                continue
+            }
+            if waterEnd != nil { break }
             guard map.searchMap.blockedInRadiusTile(at: point, size: size).contains(.passable),
                   map.searchMap.cell(for: point) == startCell || map.searchMap.blockedInLine(
                     from: actor.position, to: point, size: size).contains(.passable) else { break }
             end = point
         }
-        return end
+        return waterEnd ?? end
     }
     static func prefix(_ path: Path, from origin: CGPoint, within limit: Double) -> Path {
         var result: [PathNode] = [], previous = origin, spent = 0.0
@@ -937,5 +998,10 @@ struct CombatBarrel: Codable, Equatable {
     var debris: [BarrelFragmentPose]? // Settled physics endpoint; absent in older checkpoints.
     var broken: Bool? // Optional for saves written before physical barrel strikes.
     var isBroken: Bool { broken == true || exploded }
+    var fireCells: [CGPoint]?
+    var fireExpiresRound: Int?
+    func containsFire(_ point: CGPoint) -> Bool {
+        (fireCells ?? []).contains { abs($0.x - point.x) <= 8 && abs($0.y - point.y) <= 6 }
+    }
     var name: String { isBroken ? "Oil spill" : "Oil barrel" }
 }

@@ -102,9 +102,8 @@ Evidence and limits:
   and then away again to make a ranged attack. This confirms AI use of Shove and
   that such wasteful positioning was a bug, not a behaviour to copy.
 - [Larian Patch 6](https://baldursgate3.game/news/patch-6-now-live_108) documents
-  AI pathfinding through dangerous surfaces and steep terrain. Our current maps
-  have neither authored falling/chasm damage nor persistent damaging surfaces.
-  Painted scenery and spent barrel effects are not treated as damaging landings.
+  AI pathfinding through dangerous surfaces and steep terrain. The original comparison preceded the hazard work below. Painted scenery
+  is never treated as a damaging landing without a matching terrain query.
 - [Werglia's Refectory encounter](https://www.youtube.com/watch?v=n9jSLhS83bw)
   is a relevant 2023 PC Tactician reference, but playback could not be inspected
   in the research tools. No turn timings or individual NPC choices from that
@@ -126,3 +125,64 @@ and saved outcomes. Its isolated snapshots do not modify the player's save.
 Validation: 54 tests across seven combat/movement suites passed; macOS and iOS
 Simulator builds passed; 34 native checks passed. Final report and contact-frame
 captures: `output/enemy-shove-oct11-final/`.
+
+
+## October 11 — oil surfaces and waterfront drops
+
+Both Wharf Ladder and the Shipping Room now have combat oil barrels. An old
+Shipping Room checkpoint with no barrels receives certified floor placements on
+load; existing intact, broken and exploded barrel entries are preserved.
+A Fire Arrow creates a saved, wall-clipped footprint within 56 ground units of
+each exploding barrel. The fire expires at the start of round `ignitionRound + 3`.
+Entering or crossing it applies Burning (1d4 at the end of the affected actor's
+turn, two turns); standing in live oil refreshes Burning. Leaving the oil allows
+Extinguish. There are no real-time damage ticks or stacked ticks for overlapping
+surfaces. Fire visuals clear when the encounter finishes.
+
+Shove evaluates burning destinations and terminal drops into the wharf's existing
+terrain-12 water. Falling uses the ordinary push distance, the airborne portion of the
+backwards-fall reaction, a gravity-driven drop, submersion and a water splash. It removes the victim from this
+nonlethal fight; Voss recovers at his saved last dry position after the loss
+narration. The indoor floor has no drop hazard. Explosion impulses retain their
+ground-clipped water behavior, but landing in burning oil ignites survivors.
+
+The fall adapter permits the body's clearance fringe to overhang water; every
+sample must still contain only floor/deep water and no actor, door, wall or
+railing. It does not edit `SearchMap`, `PathFinder`, walkability, area rasters,
+geometry or character payloads. Save/reload commits the result once, with no
+repeated explosion or fall. New optional fields keep earlier checkpoints readable.
+
+Enemy scores include fire exposure, escape from burning oil, and successful
+water removal. This is a bounded candidate policy, not a global hazard-aware
+pathfinder or a copy of Larian's AI. A route through fire has a substantial
+penalty, and automatic fallback approaches reject it. The player sees warnings
+on movement/approach paths and shove landing previews, plus the barrel's fire
+lifetime before ignition.
+
+Native verification is in `EnemyTacticsQA.hazards`, selected with
+`RAINSHADOW_QA_HAZARDS_ONLY=1` alongside the existing approach/enemy QA flags.
+It fires actual player arrows in both areas, verifies impact timing, pause,
+saves and reloads, and performs an overboard shove at a real pier edge.
+
+
+Validation: 83 tests across nine combat/navigation suites passed, including the
+new hazard tests against both shipped rasters. macOS and iOS Simulator target
+builds passed. Native QA passed 32 checks; screenshots and the report are under
+`output/combat-hazards-oct11-water-fix-final/`. Only macOS was exercised interactively.
+
+
+### Water-fall presentation correction
+
+The first version could register an overboard result while the body remained at
+deck height: `applyAreaLighting` also sets the actor's floor-height offset, so
+calling it after the fall offset erased that displacement every frame. The
+director now applies the airborne offset after floor lighting and before stencil
+setup. `CombatWaterFallMotion` keeps the character opaque during the descent,
+triggers the splash only at the lower water plane, and then continues downward
+while fading. It uses the first six backwards-fall poses, not the floor-collapse
+or get-up portions. The ground contact shadow is hidden during flight.
+
+Native regression checks inspect the actual visible node's position, reaction,
+height and alpha at the airborne and splash moments, and freeze both axes during
+tactical pause. This specifically catches a correct math helper being overwritten
+later in the rendering update.

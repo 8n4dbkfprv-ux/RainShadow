@@ -93,7 +93,7 @@ enum EnemyTactics {
             }
             // Archers can create distance before shooting or use leftover movement
             // afterwards. Score gain must pay for the walk, preventing oscillation.
-            if role == .archer, allowance > 0 {
+            if (role == .archer || combat.isInFire(actor.position)), allowance > 0 {
                 let away = atan2((actor.position.y - target.position.y) / 0.75, actor.position.x - target.position.x)
                 for offset in [0.0, -0.6, 0.6, -1.2, 1.2] {
                     for travel in [min(120, allowance), min(240, allowance)] where travel > 8 {
@@ -104,11 +104,11 @@ enum EnemyTactics {
                         var moved = combat
                         guard moved.move(along: path), line(moved.current, target) else { continue }
                         if combat.budget.canAttack { scoreAttacks(moved, path: path) }
-                        else {
+                        if !combat.budget.canAttack || combat.isInFire(actor.position) {
                             let gain = positionValue(moved.current.position, combat: combat, visible: blastLine)
                                 - positionValue(actor.position, combat: combat, visible: blastLine)
                                 - CombatNavigation.length(path, from: actor.position) / 160 - pathRisk(path, combat: combat, visible: blastLine)
-                            offer(.move(path), gain - 0.5, "Keep a safe firing distance")
+                            offer(.move(path), gain - 0.5, combat.isInFire(actor.position) ? "Leave the burning oil" : "Keep a safe firing distance")
                         }
                     }
                 }
@@ -118,9 +118,11 @@ enum EnemyTactics {
             if focus == nil, combat.canShove, distance <= TacticalCombat.meleeReach {
                 let end = CombatNavigation.knockbackDestination(in: map, actor: target, awayFrom: actor.position,
                     actors: combat.actors, destroyedBarrels: [], bear: target.player && combat.isBear,
-                    maximumDistance: ShoveRules.distance(attacker: combat.physique(of: actor), target: combat.physique(of: target)))
+                    maximumDistance: ShoveRules.distance(attacker: combat.physique(of: actor), target: combat.physique(of: target)),
+                    allowWaterDrop: combat.waterDropsEnabled)
                 if let shove = combat.shovePreview(target: target.id, clearLine: line(actor, target), destination: end),
-                   let value = shoveValue(combat: combat, target: target, preview: shove, clearLine: line) {
+                   let value = shoveValue(combat: combat, target: target, preview: shove,
+                       intoWater: combat.waterDropsEnabled && map.searchMap.terrain(at: end) == .waterImpassable, clearLine: line) {
                     offer(.shove(target.id), value.score, value.reason)
                 }
             }
@@ -147,7 +149,7 @@ enum EnemyTactics {
         // deliberate fallback, never chosen instead of an available attack.
         for target in targets where combat.budget.canAttack {
             let full = approachPath(in: map, actor: actor, target: target)
-            guard !full.isEmpty else { continue }
+            guard !full.isEmpty, !combat.crossesFire(full, from: actor.position) else { continue }
             let allowance = combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))
             if let path = advance(in: map, actor: actor, full: full, limit: allowance), let end = path.destination,
                CombatNavigation.distance(end, target.position) + 8 < CombatNavigation.distance(actor.position, target.position) {
@@ -237,16 +239,19 @@ enum EnemyTactics {
     }
     private static func roleForMelee(_ actor: Combatant) -> Bool { role(for: actor) != .archer }
 
-    /// Authored level-ground tactics, not a reconstruction of BG3's AI weights.
-    /// There is no falling terrain or persistent damaging surface in these maps;
+    /// Authored encounter tactics, not a reconstruction of BG3's AI weights.
+    /// Water drops and burning oil are evaluated before positional benefits;
     /// pushing towards a painted ledge or extinguished barrel earns no fake damage.
-    private static func shoveValue(combat: TacticalCombat, target: Combatant, preview: ShovePreview,
+    private static func shoveValue(combat: TacticalCombat, target: Combatant, preview: ShovePreview, intoWater: Bool,
                                    clearLine: (Combatant, Combatant) -> Bool) -> (score: Double, reason: String)? {
         guard preview.chance > 0 else { return nil }
+        if intoWater { return (Double(preview.chance) / 100 * Double(target.hp + 8), "Push the rival off the waterfront") }
+        let ignites = combat.isInFire(preview.destination) && !target.isBurning
+
         var landing = target
         landing.position = preview.destination
         let actor = combat.current, reach = TacticalCombat.meleeReach
-        var value = 0.0, reason = "Force the rival to close distance again"
+        var value = ignites ? 6.0 : 0.0, reason = ignites ? "Push the rival into burning oil" : "Force the rival to close distance again"
         let targetIndex = combat.actors.firstIndex { $0.id == target.id }!
         let untilTarget = (targetIndex - combat.turn + combat.actors.count) % combat.actors.count
         for (index, ally) in combat.actors.enumerated() where ally.player == actor.player && ally.conscious && !ally.isProne {
@@ -266,7 +271,7 @@ enum EnemyTactics {
                 } else {
                     // Attack first; don't spend the next decision walking back to
                     // a victim just pushed away, or spoil a nearby ally's attack.
-                    if actsBeforeTarget { return nil }
+                    if actsBeforeTarget && !ignites { return nil }
                     if target.rangedWeapon == nil {
                         value += wounded ? 4 : 1.5
                         if wounded { reason = "Push the threat away from a wounded fighter" }
@@ -288,7 +293,7 @@ enum EnemyTactics {
 
     private static func positionValue(_ point: CGPoint, combat: TacticalCombat,
                                       visible: (CGPoint, CGPoint) -> Bool) -> Double {
-        var value = 0.0
+        var value = combat.isInFire(point) ? -12.0 : 0.0
         if role(for: combat.current) == .archer {
             let gap = combat.actors.filter { $0.player != combat.current.player && $0.conscious && $0.hidden != true }
                 .map { CombatNavigation.distance(point, $0.position) }.min() ?? BowAttackRules.range
@@ -301,8 +306,10 @@ enum EnemyTactics {
         return value
     }
     private static func pathRisk(_ path: Path, combat: TacticalCombat, visible: (CGPoint, CGPoint) -> Bool) -> Double {
-        // Oil/barrel danger is the only authored ground hazard in these encounters.
-        combat.liveBarrels.reduce(0) { cost, barrel in
+        let leavesFire = combat.isInFire(combat.current.position)
+            && !combat.isInFire(path.destination ?? combat.current.position)
+        let fireCost = combat.crossesFire(path, from: combat.current.position) ? (leavesFire ? 1.0 : 12.0) : 0
+        return fireCost + combat.liveBarrels.reduce(0) { cost, barrel in
             cost + (path.remainingPoints.contains { CombatNavigation.distance($0, barrel.position) <= CombatBarrel.blastRadius
                 && visible($0, barrel.position) } ? 0.5 : 0)
         }

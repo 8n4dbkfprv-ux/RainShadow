@@ -50,8 +50,10 @@ final class TacticalCombatDirector {
     private var preSneakMovementProfile: MovementProfile?
     private(set) var burningNodes: [String: CharacterBurningVisual] = [:]
     private var fireTime: TimeInterval = 0
+    private(set) var fireSurfaces: [String: CombatFireSurfaceVisual] = [:]
     private var lastTime: TimeInterval?
     private var delay: TimeInterval = 0.5
+    private var movementFirePending: String?
     private var movingID: String?
     private var enemyMover: Movable?
     private var movementTicks = LogicTickClock()
@@ -425,7 +427,7 @@ final class TacticalCombatDirector {
             if combat.extinguish() {
                 cancelTargeting(); feedback = "Flames extinguished. Move or end your turn."
                 updateBurning(delta: 0); checkpoint()
-            } else { feedback = combat.current.isBurning ? "Extinguish needs a standard action." : "You are not burning."; refresh() }
+            } else { feedback = combat.isInFire(combat.current.position) ? "Leave the burning oil before extinguishing." : combat.current.isBurning ? "Extinguish needs a standard action." : "You are not burning."; refresh() }
             return
         }
         if digit == 10 {
@@ -591,6 +593,10 @@ final class TacticalCombatDirector {
         routePreview.path = nil
         movementPreview.show(path: path, actor: combat.current, budget: combat.budget,
                              speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
+        feedback = combat.crossesFire(path, from: combat.current.position)
+            ? "Danger: this route crosses burning oil · Burning deals 1–4 damage/turn."
+            : "Click ground to move • Click a rival to strike"
+        refresh()
     }
     private func showAttackPreview(_ target: Combatant) {
         let order = attackOrder(for: target)
@@ -608,6 +614,9 @@ final class TacticalCombatDirector {
             lines.insert(String(format: "Approach: %.1f ft · hit chance from stopping position", plan.movement / 8), at: 1)
             movementPreview.show(path: plan.path!, actor: combat.current, budget: combat.budget,
                 speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
+        }
+        if let path = plan.path, combat.crossesFire(path, from: combat.current.position) {
+            lines.append("Danger: approach crosses burning oil (1–4 damage/turn)")
         }
         if reason != nil { lines.append("On hit: \(preview.damage.lowerBound)–\(preview.damage.upperBound) damage") }
         if preview.edge != 0 { lines.append(preview.edge > 0 ? "Advantage · roll twice, keep higher" : "Disadvantage · roll twice, keep lower") }
@@ -726,6 +735,7 @@ final class TacticalCombatDirector {
             } catch { feedback = "Running artwork could not load."; refresh(); return false }
         }
         guard combat.move(along: path) else { return false }
+        movementFirePending = !actor.isBurning && combat.current.isBurning ? actor.id : nil
         if actor.hidden == true && path.remainingPoints.contains(where: { isObserved(actor, at: $0) }) { combat.reveal(actor.id) }
         for concealed in combat.actors where concealed.hidden == true && concealed.player != actor.player {
             var observer = actor
@@ -788,6 +798,7 @@ final class TacticalCombatDirector {
         movementCompleted()
     }
     private func movementCompleted() {
+        movementFirePending = nil
         guard let id = movingID else { return }
         // If the existing mover stopped early, keep its actual position; the
         // accepted movement budget is still spent, never teleport through a blocker.
@@ -1037,7 +1048,15 @@ final class TacticalCombatDirector {
     private func shoveLanding(_ target: Combatant) -> CGPoint {
         CombatNavigation.knockbackDestination(in: scene.navigation, actor: target, awayFrom: combat.current.position,
             actors: combat.actors, destroyedBarrels: [], bear: target.player && combat.isBear,
-            maximumDistance: ShoveRules.distance(attacker: combat.physique(of: combat.current), target: combat.physique(of: target)))
+            maximumDistance: ShoveRules.distance(attacker: combat.physique(of: combat.current), target: combat.physique(of: target)),
+            allowWaterDrop: combat.waterDropsEnabled)
+    }
+    private func waterLanding(_ point: CGPoint) -> Bool {
+        combat.waterDropsEnabled && scene.navigation.searchMap.terrain(at: point) == .waterImpassable
+    }
+    private func shoveConsequence(_ point: CGPoint) -> String {
+        waterLanding(point) ? "Falls into water · out of this fight"
+            : combat.isInFire(point) ? "Burning oil · 1–4 fire damage/turn" : "No direct damage"
     }
     private func shoveClear(_ target: Combatant) -> Bool {
         CombatNavigation.clearLine(in: scene.navigation, from: combat.current.position, to: target.position,
@@ -1049,15 +1068,15 @@ final class TacticalCombatDirector {
         let path = CGMutablePath(); path.move(to: target.position); path.addLine(to: end)
         path.addEllipse(in: CGRect(x: end.x - 24, y: end.y - 18, width: 48, height: 36))
         routePreview.zPosition = SceneLayer.hud.rawValue - SceneLayer.depthWorld.rawValue - 1
-        routePreview.path = path; routePreview.strokeColor = preview == nil ? .red : .cyan
+        routePreview.path = path; routePreview.strokeColor = preview == nil || waterLanding(end) || combat.isInFire(end) ? .red : .cyan
         hoveredTargetID = target.hidden == true ? nil : target.id
         if target.hidden != true {
             targetPanel.show(title: target.name, lines: ["Shove · 1 bonus action",
-                preview.map { "\($0.chance)% success · no direct damage" }
+                preview.map { "\($0.chance)% success · \(shoveConsequence(end))" }
                     ?? ("Unavailable · " + (combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove.")),
                 "Push distance: \(Int(CombatNavigation.distance(target.position, end) / 8)) ft"])
         }
-        feedback = preview.map { "Shove \($0.chance)% · \(Int(CombatNavigation.distance(target.position, end) / 8)) ft · bonus action" }
+        feedback = preview.map { "Shove \($0.chance)% · \(shoveConsequence(end)) · bonus action" }
             ?? combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove."
         refresh()
     }
@@ -1087,7 +1106,7 @@ final class TacticalCombatDirector {
             node.position = actor.position
             node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
             let before = combat
-            guard let result = combat.shove(target: target.id, clearLine: clear, destination: end) else { return }
+            guard let result = combat.shove(target: target.id, clearLine: clear, destination: end, intoWater: waterLanding(end)) else { return }
             node.name = "combat.shove.actor"; scene.depthWorldRoot.addChild(node)
             scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
             actorNode(actor.id)?.isHidden = true
@@ -1099,7 +1118,8 @@ final class TacticalCombatDirector {
             }
             shovePresentation = ShovePresentation(before: before, result: result, target: target, node: node, facing: facing)
             // Occupancy reserves the accepted endpoint even while the old pose is visible.
-            if let move = result.displacement { scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false) }
+            if result.overboard { scene.navigation.unregisterActor(id: target.id) }
+            else if let move = result.displacement { scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false) }
             cancelTargeting(); checkpoint()
         } catch { feedback = "Shove artwork could not load."; refresh() }
     }
@@ -1126,11 +1146,15 @@ final class TacticalCombatDirector {
             let hit = TacticalCombat.Strike(attacker: shove.result.attacker, target: shove.result.target, roll: shove.result.roll, damage: 0, knockedOut: false)
             // Cosmetic knockdown: use the full fall/get-up clip without adding
             // Prone, damage, or a movement charge. Its recovery keeps the turn busy.
-            beginReaction(hit, target: shove.target, kind: shove.result.succeeded ? .fall : .hit,
-                elapsed: elapsed, source: shove.before.current.position)
+            if shove.result.overboard {
+                beginDefeat(shove.target)
+            } else {
+                beginReaction(hit, target: shove.target, kind: shove.result.succeeded ? .fall : .hit,
+                    elapsed: elapsed, source: shove.before.current.position)
+            }
             feedback = shove.result.succeeded ? "Shoved back. Your normal attack is still available if unspent." : "Shove resisted. Bonus action spent."
             let label = SKLabelNode(fontNamed: "AvenirNext-Bold")
-            label.text = shove.result.succeeded ? "SHOVED" : "RESISTED"; label.fontSize = 20
+            label.text = shove.result.overboard ? "OVERBOARD" : shove.result.succeeded ? "SHOVED" : "RESISTED"; label.fontSize = 20
             label.position = CGPoint(x: shove.target.position.x, y: shove.target.position.y + 90); label.zPosition = 20001
             scene.depthWorldRoot.addChild(label); label.run(.sequence([.group([.moveBy(x: 0, y: 22, duration: 0.6), .fadeOut(withDuration: 0.7)]), .removeFromParent()]))
         }
@@ -1265,12 +1289,33 @@ final class TacticalCombatDirector {
             // human collapse. Never replace a visible bear with human death art.
             if id == TacticalCombat.playerID && (displayingBear || formTransition != nil) { node.isHidden = true; continue }
             motion.elapsed = min(DefeatAnimationSet.duration, motion.elapsed + delta); defeats[id] = motion
-            try? node.present(action: .die, facing: motion.facing, phase: motion.phase)
             node.isHidden = false
+            if let actor = combat.actors.first(where: { $0.id == id }), actor.overboard == true,
+               let origin = actor.overboardOrigin {
+                let facing = ActorFacing.orient(from: actor.position, to: origin)
+                try? node.presentReaction(.fall, facing: facing, phase: CombatWaterFallMotion.phase(elapsed: motion.elapsed))
+                node.position = CombatWaterFallMotion.position(from: origin, to: actor.position, elapsed: motion.elapsed)
+                node.alpha = CombatWaterFallMotion.alpha(elapsed: motion.elapsed)
+                node.setGroundShadowVisible(false)
+                if motion.elapsed - delta < CombatWaterFallMotion.splashTime && motion.elapsed >= CombatWaterFallMotion.splashTime {
+                    let splash = CombatWaterSplash()
+                    splash.position = actor.position
+                    splash.position.y -= CombatWaterFallMotion.waterDepth
+                    scene.depthWorldRoot.addChild(splash); scene.updateDepth(of: splash)
+                }
+            } else {
+                try? node.present(action: .die, facing: motion.facing, phase: motion.phase)
+            }
             scene.navigation.unregisterActor(id: id)
             actorNode(id)?.isHidden = true
             if id == TacticalCombat.playerID { playerMeleeNode?.isHidden = true; playerBowNode?.isHidden = true }
-            scene.applyAreaLighting(to: node); scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
+            // Area lighting also restores the ordinary floor-height offset.
+            // Apply the airborne displacement afterwards, before stencil setup.
+            scene.applyAreaLighting(to: node)
+            if combat.actors.first(where: { $0.id == id })?.overboard == true {
+                node.visualHeightOffset += CombatWaterFallMotion.height(elapsed: motion.elapsed)
+            }
+            scene.updateDepth(of: node); scene.applyActorCover(to: node, at: node.position)
         }
     }
 
@@ -1384,6 +1429,10 @@ final class TacticalCombatDirector {
             path.addEllipse(in: CGRect(x: item.position.x - 120, y: item.position.y - 90, width: 240, height: 180))
         }
         routePreview.path = path; routePreview.strokeColor = .orange
+        targetPanel.show(title: barrel.name, lines: ["Fire Arrow ignites oil · 1 action + 1 Fire Arrow",
+            "Blast: 3–5 damage + knockback (orange area)",
+            "Leaves burning oil for 3 rounds · 1–4 fire damage/turn",
+            "Normal attacks break the barrel and spill oil"])
     }
     private func smashBarrel(_ barrel: CombatBarrel) {
         let before = combat
@@ -1432,7 +1481,8 @@ final class TacticalCombatDirector {
         }
         let explosions: [TacticalCombat.BarrelExplosion]
         if ammunition == .fire {
-            guard let blasts = combat.igniteBarrel(barrel.id, clearShot: clear, visible: blastVisible) else {
+            guard let blasts = combat.igniteBarrel(barrel.id, clearShot: clear,
+                fireCells: { CombatNavigation.fireCells(in: self.scene.navigation, barrel: $0) }, visible: blastVisible) else {
                 feedback = "Fire Arrow needs an action, range beyond melee, and a clear shot."; refresh(); return
             }
             explosions = blasts
@@ -1602,7 +1652,22 @@ final class TacticalCombatDirector {
 
     private func updateBurning(delta: TimeInterval) {
         fireTime += delta
-        let burning = presentedCombat.actors.filter(\.isBurning)
+        let surfaces = presentedCombat.burningBarrels
+        let surfaceIDs = Set(surfaces.map(\.id))
+        for id in Array(fireSurfaces.keys) where !surfaceIDs.contains(id) {
+            fireSurfaces.removeValue(forKey: id)?.removeFromParent()
+        }
+        for barrel in surfaces {
+            if fireSurfaces[barrel.id] == nil {
+                let visual = CombatFireSurfaceVisual(barrel: barrel, artHeight: scene.artSize.height)
+                scene.depthWorldRoot.addChild(visual)
+                fireSurfaces[barrel.id] = visual
+            }
+            fireSurfaces[barrel.id]?.sample(time: fireTime)
+        }
+        if let id = movementFirePending,
+           let point = actorNode(id)?.position, combat.isInFire(point) { movementFirePending = nil }
+        let burning = presentedCombat.actors.filter { $0.isBurning && $0.id != movementFirePending }
         let ids = Set(burning.map(\.id))
         for id in Array(burningNodes.keys) where !ids.contains(id) {
             burningNodes.removeValue(forKey: id)?.removeFromParent()
@@ -1882,7 +1947,9 @@ final class TacticalCombatDirector {
                 if let character = node as? CharacterAppearanceNode { scene.applyActorCover(to: character, at: point) }
             }
             // Turns remain locked; reserve the accepted endpoint throughout presentation.
-            scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false)
+            if combat.actors.first(where: { $0.id == move.id })?.overboard == true {
+                scene.navigation.unregisterActor(id: move.id)
+            } else { scene.navigation.updateActor(id: move.id, position: move.to, isMoving: false) }
         }
         if settled { knockbacks.removeAll() }
     }
@@ -1897,10 +1964,17 @@ final class TacticalCombatDirector {
         if let profile = preSneakMovementProfile { scene.detective.movementProfile = profile; preSneakMovementProfile = nil }
         stealthNodes.values.forEach { $0.removeFromParent() }; stealthNodes.removeAll(); hideTransitions.removeAll()
         burningNodes.values.forEach { $0.removeFromParent() }; burningNodes.removeAll()
+        fireSurfaces.values.forEach { $0.removeFromParent() }; fireSurfaces.removeAll()
         wardEffects.values.forEach { $0.removeFromParent() }; wardEffects.removeAll(); wardCast = nil
         dashPresentation?.wind.removeFromParent(); dashPresentation?.node?.removeFromParent(); dashPresentation = nil
         if let run = runPresentation { actorNode(run.actorID)?.alpha = 1; actorNode(run.actorID)?.isHidden = false; run.node.removeFromParent() }
         runPresentation = nil
+        if let player = combat.actors.first(where: { $0.player && $0.overboard == true }),
+           let bank = player.overboardOrigin {
+            // Nonlethal aftermath recovers Voss at the last dry position, never
+            // inside impassable water. His body stays hidden until narration ends.
+            scene.detective.position = bank; scene.detective.syncMovablePosition(bank)
+        }
         scene.context.session.finishCombat(combat)
         hud.removeFromParent(); movementPreview.removeFromParent(); routePreview.removeFromParent(); sightPreview.removeFromParent()
         badges.values.forEach { $0.removeFromParent() }; rings.values.forEach { $0.removeFromParent() }
