@@ -13,6 +13,8 @@ final class TacticalCombatDirector {
     let targetPanel = CombatTargetPanel()
     private var hoveredTargetID: String?
     private var pendingAttack: CombatAttackOrder?
+    private var movementInterrupt: TacticalCombat.MovementStep?
+    private var movementContinuation: (actorID: String, path: Path)?
     private var cachedAttackPlan: (combat: TacticalCombat, order: CombatAttackOrder, plan: CombatAttackPlan)?
     let initiativeBar = CombatInitiativeBar()
     let actionBar = CombatActionBar()
@@ -25,7 +27,7 @@ final class TacticalCombatDirector {
     private var laidOutBearForm: Bool?
     var visibleCombatCommands: [String] { activeButtons.compactMap(\.name) }
     private var activeButtons: [CombatActionButton] {
-        combat.isBear ? [14, 15, 3, 18, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17], buttons[18]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
+        combat.isBear ? [14, 15, 3, 18, 19, 11, 1, 2].map { buttons[$0] } : [buttons[16], buttons[4], buttons[17], buttons[18], buttons[19]] + (0..<14).filter { $0 != 4 }.map { buttons[$0] }
     }
     private let routePreview = SKShapeNode()
     let movementPreview = CombatMovementPreview()
@@ -127,10 +129,10 @@ final class TacticalCombatDirector {
             ?? bearAbility.flatMap { $0.impactPresented ? nil : $0.before }
             ?? shovePresentation.flatMap { $0.impactPresented ? nil : $0.before }
             ?? meleeAttack.flatMap { $0.impactPresented ? nil : $0.before }
-            ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? combat
+            ?? rangedShot.flatMap { $0.impactPresented ? nil : $0.before } ?? movementInterrupt?.beforeReaction ?? combat
     }
     private(set) var meleeAttack: MeleeAttackPresentation?
-    func isStriking(_ id: String) -> Bool { runPresentation?.actorID == id || dashPresentation?.actorID == id || wardCast?.before.current.id == id || bearAbility?.before.current.id == id || meleeAttack?.before.current.id == id || shovePresentation?.before.current.id == id }
+    func isStriking(_ id: String) -> Bool { runPresentation?.actorID == id || dashPresentation?.actorID == id || wardCast?.before.current.id == id || (bearAbility?.strike?.attacker ?? bearAbility?.before.current.id) == id || meleeAttack?.result.attacker == id || shovePresentation?.before.current.id == id }
     private(set) var rangedShot: BowShotPresentation?
     // The player bow proxy uses the visual definition "voss", while combat uses
     // "detective.voss". Presentation ownership follows the accepted strike.
@@ -147,7 +149,7 @@ final class TacticalCombatDirector {
     /// accepted hit/miss or damage before the impact marker.
     var actionAnnouncement: String? {
         if let attack = meleeAttack, let action = attack.result.actionName(ranged: false) {
-            return "\(attack.before.current.name) used \(action) on \(attack.target.name)."
+            return "\(attack.attacker.name) used \(action) on \(attack.target.name)."
         }
         if let shot = rangedShot, let action = shot.result.actionName(ranged: true) {
             return "\(shot.before.current.name) used \(action) on \(shot.target.name)."
@@ -157,7 +159,10 @@ final class TacticalCombatDirector {
         if let dash = dashPresentation, let actor = combat.actors.first(where: { $0.id == dash.actorID }) {
             return "\(actor.name) used Dash."
         }
-        if let ability = bearAbility { return "\(ability.before.current.name) used \(ability.action == .roar ? "Goading Roar" : "Claws")." }
+        if let ability = bearAbility {
+            let actor = ability.before.actors.first { $0.id == (ability.strike?.attacker ?? ability.before.current.id) }!
+            return "\(actor.name) used \(ability.strike?.opportunityAttack == true ? "Opportunity Attack" : ability.action == .roar ? "Goading Roar" : "Claws")."
+        }
         if formTransition?.toBear == true { return "Voss used Wild Shape: Bear." }
         return nil
     }
@@ -169,7 +174,7 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { movementInterrupt != nil || movementContinuation != nil || runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
@@ -199,8 +204,8 @@ final class TacticalCombatDirector {
         }
         let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End Turn [Space / Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
-        let glyphs = [2, 19, CombatActionButton.fleeGlyph, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
-        let shortcuts = ["1", "Space", "3", "4", "5", "6", "7", "8", "9", "C", "R", "", "V", "", "5", "6", "F", "", "G"]
+        let glyphs = [2, 19, CombatActionButton.fleeGlyph, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15, 16]
+        let shortcuts = ["1", "Space", "3", "4", "5", "6", "7", "8", "9", "C", "R", "", "V", "", "5", "6", "F", "", "G", "Z"]
         let details = ["1 Action · 2 turns\nBlade Ward", "End Turn [Space / Enter]",
             "Range: 60 ft", "1 Bonus Action · 3 turns\nWild Shape: Bear",
             "1 Action\nMake a ranged attack with your equipped weapon."]
@@ -210,8 +215,9 @@ final class TacticalCombatDirector {
                CombatManeuver.tripAttack.detail,
                "1 Action\n5–8 Damage", "1 Action\nRange: 30 ft",
                "1 Action\nMake a melee attack with your equipped weapon.", "Arrow · ∞\nArrow of Fire",
-               "1 Action\nCover more distance this turn: double your Movement Speed."]
-        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip Attack"), ("combat.claw", "Claws [5]"), ("combat.roar", "Goading Roar [6]"), ("combat.melee", "Main Hand Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash")]
+               "1 Action\nCover more distance this turn: double your Movement Speed.",
+               "1 Action\nYour movement does not provoke Opportunity Attacks for the rest of this turn."]
+        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip Attack"), ("combat.claw", "Claws [5]"), ("combat.roar", "Goading Roar [6]"), ("combat.melee", "Main Hand Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash"), ("combat.disengage", "Disengage [Z]")]
         for (index, entry) in allCommands.enumerated() {
             let button = CombatActionButton(name: entry.0, title: entry.1, glyph: glyphs[index], shortcut: shortcuts[index], detail: details[index])
             actionBar.addChild(button); buttons.append(button)
@@ -317,8 +323,11 @@ final class TacticalCombatDirector {
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
         buttons[18].alpha = combat.isPlayerTurn && !busy && combat.canDash ? 1 : 0.35
         buttons[18].badge.text = "Dash"
+        buttons[19].alpha = combat.isPlayerTurn && !busy && combat.canDisengage ? 1 : 0.35
+        buttons[19].badge.text = "Diseng."
+        buttons[19].strokeColor = combat.current.disengaged == true ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[2].alpha = combat.isPlayerTurn && !busy && combat.fleeUnavailableReason == nil ? 1 : 0.35
-        buttons[16].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
+        buttons[16].alpha = combat.isPlayerTurn && !busy && (combat.budget.canAttack || combat.current.rangedReadied == true) ? 1 : 0.35
         buttons[16].strokeColor = selectingMelee ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[0].alpha = combat.isPlayerTurn && !busy && combat.canCastBladeWard ? 1 : 0.35
         buttons[3].titleText = combat.isBear ? "Dismiss Wild Shape [4]" : "Wild Shape: Bear [4]"
@@ -394,6 +403,7 @@ final class TacticalCombatDirector {
         }
         if index == 12 { return "Not enough resources: Bonus Action." }
         if index == 17 { return "Can't use" }
+        if index == 19 && combat.current.disengaged == true { return "Disengage" }
         if index == 11 && !combat.current.isBurning { return "Target is invalid" }
         if index == 11 && combat.isInFire(combat.current.position) { return "Burning" }
         if index == 10 && combat.current.sneakSpent == true { return "Can't use" }
@@ -435,7 +445,13 @@ final class TacticalCombatDirector {
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         targetPanel.clear()
         let digit = combat.isBear ? (input == 5 ? 15 : input == 6 ? 16 : input) : input
-        if combat.isBear && ![1, 2, 3, 4, 12, 15, 16, 19].contains(digit) { return }
+        if combat.isBear && ![1, 2, 3, 4, 12, 15, 16, 19, 20].contains(digit) { return }
+        if digit == 20 {
+            cancelTargeting()
+            if combat.disengage() { feedback = "Disengage"; checkpoint() }
+            else { feedback = "Not enough resources: Action."; refresh() }
+            return
+        }
         if digit == 19 {
             cancelTargeting()
             _ = activateDash()
@@ -451,6 +467,7 @@ final class TacticalCombatDirector {
         }
         if digit == 17 {
             if selectingMelee { cancelTargeting(); return }
+            if !combat.isBear { _ = combat.readyWeapon(ranged: false); checkpoint() }
             guard !combat.isBear, combat.budget.canAttack else {
                 feedback = "Not enough resources: Action."; refresh(); return
             }
@@ -543,6 +560,7 @@ final class TacticalCombatDirector {
         case 5:
             guard aimingRangedAttack || canUsePlayerBow() else { refresh(); return }
             aimingRangedAttack.toggle()
+            if aimingRangedAttack { _ = combat.readyWeapon(ranged: true); checkpoint() }
             feedback = aimingRangedAttack ? "Ranged Attack" : ""
             routePreview.path = nil; refresh()
         default: break
@@ -644,7 +662,7 @@ final class TacticalCombatDirector {
         }
         routePreview.path = nil
         movementPreview.show(path: path, actor: combat.current, budget: combat.budget,
-                             speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
+                             speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale, opportunities: visibleOpportunities(path))
         feedback = combat.crossesFire(path, from: combat.current.position)
             ? "Burning · 1–4 Fire"
             : ""
@@ -667,8 +685,10 @@ final class TacticalCombatDirector {
         if let path = plan.path {
             lines.append(String(format: "Movement: %.1f ft", plan.movement / 8))
             movementPreview.show(path: path, actor: combat.current, budget: combat.budget,
-                speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale)
+                speed: combat.movementSpeed(for: combat.current), cameraScale: scene.playCameraScale, opportunities: visibleOpportunities(path))
             if combat.crossesFire(path, from: combat.current.position) { lines.append("Burning · 1–4 Fire") }
+            let threats = visibleOpportunities(path)
+            if !threats.isEmpty { lines.append("Opportunity Attack ×\(threats.count)") }
         }
         if preview.edge != 0 { lines.append(preview.edge > 0 ? "Advantage" : "Disadvantage") }
         if preview.sneakDice > 0 { lines.append("Sneak Attack · +\(preview.sneakDice)d6") }
@@ -744,6 +764,8 @@ final class TacticalCombatDirector {
         if target.hasBladeWard { lines.append("Blade Ward · \(target.bladeWardTurns!) turns") }
         if target.isBurning { lines.append("Burning · 1–4 Fire · \(target.burningTurns!) turns") }
         if target.isProne { lines.append("Prone") }
+        lines.append("Reaction: " + (target.hasReaction ? "1/1" : "0/1"))
+        if target.disengaged == true { lines.append("Disengage") }
         for maneuver in target.usedManeuvers ?? [] { lines.append(maneuver.title + " · 0/1") }
         targetPanel.show(title: "Examine · " + target.name, lines: lines, examining: true)
         movementPreview.clear(); routePreview.path = nil; actionBar.showTooltip(nil)
@@ -760,6 +782,7 @@ final class TacticalCombatDirector {
         case "v": index = 13
         case "r": index = 11
         case "g": index = 19
+        case "z": index = 20
         case "f": index = combat.isBear ? 15 : aimingRangedAttack ? 17 : 5
         default: index = nil
         }
@@ -772,7 +795,12 @@ final class TacticalCombatDirector {
         return HUDChromeLayout.leftRailLayout(for: scene.size).plateFrame.contains(rootPoint)
             || HUDChromeLayout.rightRailPlateFrame(for: scene.size).contains(rootPoint)
     }
-    @discardableResult private func move(_ path: Path) -> Bool {
+    private func visibleOpportunities(_ path: Path) -> [TacticalCombat.OpportunityExit] {
+        combat.opportunityExits(along: path, clearLine: sneakLine).filter { exit in
+            combat.actors.contains { $0.id == exit.attackerID && $0.hidden != true }
+        }
+    }
+    @discardableResult private func move(_ requestedPath: Path) -> Bool {
         let actor = combat.current
         var runner: CharacterAppearanceNode?
         if combat.budget.usesRunningGait {
@@ -783,8 +811,15 @@ final class TacticalCombatDirector {
                 runner = node
             } catch { feedback = "Running artwork could not load."; refresh(); return false }
         }
-        guard combat.move(along: path) else { return false }
-        movementFirePending = !actor.isBurning && combat.current.isBurning ? actor.id : nil
+        guard let step = combat.moveWithOpportunityAttacks(along: requestedPath, clearLine: sneakLine) else { return false }
+        let path = step.path
+        movementInterrupt = step.reaction == nil ? nil : step
+        movementFirePending = !actor.isBurning && combat.actors.first(where: { $0.id == actor.id })?.isBurning == true ? actor.id : nil
+        if path.isEmpty {
+            checkpoint(synchronize: false)
+            presentMovementInterrupt()
+            return true
+        }
         if actor.hidden == true && path.remainingPoints.contains(where: { isObserved(actor, at: $0) }) { combat.reveal(actor.id) }
         for concealed in combat.actors where concealed.hidden == true && concealed.player != actor.player {
             var observer = actor
@@ -807,13 +842,13 @@ final class TacticalCombatDirector {
             for decoration in [badges[actor.id], rings[actor.id]] as [SKNode?] {
                 decoration?.removeFromParent(); if let decoration { runner.addChild(decoration) }
             }
-            runPresentation = RunPresentation(actorID: actor.id, node: runner, bear: actor.player && combat.isBear,
+            runPresentation = RunPresentation(actorID: actor.id, node: runner, bear: actor.player && displayingBear,
                                                totalDistance: CombatNavigation.length(path, from: actor.position))
             scene.applyAreaLighting(to: runner); scene.updateDepth(of: runner); scene.applyActorCover(to: runner, at: runner.position)
         }
         feedback = ""
-        checkpoint()
-        if actor.player && !combat.isBear && runner == nil {
+        checkpoint(synchronize: movementInterrupt == nil)
+        if actor.player && !displayingBear && runner == nil {
             if combat.current.hidden == true {
                 preSneakMovementProfile = scene.detective.movementProfile
                 scene.detective.movementProfile.rateMultiplier *= 0.5
@@ -858,11 +893,40 @@ final class TacticalCombatDirector {
         if let actor = combat.actors.first(where: { $0.id == id }) {
             scene.navigation.updateActor(id: id, position: actor.position, isMoving: false)
         }
+        if movementInterrupt != nil {
+            presentMovementInterrupt()
+            return
+        }
         checkpoint()
         if let order = pendingAttack {
             pendingAttack = nil
             executeAttack(order)
         }
+    }
+    private func presentMovementInterrupt() {
+        guard let step = movementInterrupt, let before = step.beforeReaction, let result = step.reaction,
+              let attacker = before.actors.first(where: { $0.id == result.attacker }),
+              let target = before.actors.first(where: { $0.id == result.target }) else { return }
+        movementInterrupt = nil
+        // A claw order belongs to the form in which it was selected. Losing
+        // Wild Shape during the approach must not silently substitute a sword.
+        if before.isBear != combat.isBear { pendingAttack = nil }
+        if let path = step.remainder, !path.isEmpty {
+            movementContinuation = (target.id, path)
+        } else { pendingAttack = nil }
+        if attacker.player && before.isBear {
+            bearFacing = .orient(from: attacker.position, to: target.position)
+            bearAbility = BearAbilityPresentation(before: before, action: .attack, strike: result, targets: [target])
+        } else if let node = meleeActor(for: attacker) {
+            if !attacker.player { equipLookout(attacker, bow: false) }
+            beginMeleePresentation(attacker, node: node)
+            meleeAttack = MeleeAttackPresentation(before: before, result: result, target: target, actor: node)
+        } else {
+            presentImpact(result, target: target)
+            synchronizeForm()
+        }
+        delay = 0.15
+        checkpoint(synchronize: false)
     }
     private func meleeTarget(at point: CGPoint) -> Combatant? {
         combat.actors.filter { !$0.player && $0.conscious }.min {
@@ -1772,6 +1836,8 @@ final class TacticalCombatDirector {
             }
         case .move(let path):
             if move(path) { return }
+        case .disengage(let path):
+            if combat.disengage() { checkpoint(); if move(path) { return } }
         case .dash(let path):
             if activateDash(followedBy: path) { return }
         case .barrel(let id):
@@ -1849,7 +1915,7 @@ final class TacticalCombatDirector {
             }
             if attack.finished {
                 attack.stop(); meleeAttack = nil; playerMeleeNode?.isHidden = true
-                if attack.before.current.player {
+                if attack.attacker.player {
                     for decoration in [badges[TacticalCombat.playerID], rings[TacticalCombat.playerID]] as [SKNode?] {
                         decoration?.removeFromParent()
                         if let decoration { actorNode(TacticalCombat.playerID)?.addChild(decoration) }
@@ -1968,6 +2034,14 @@ final class TacticalCombatDirector {
         delay = max(0, delay - delta)
         guard delay == 0 else { return }
         if combat.outcome != nil { finish(); return }
+        if let continuation = movementContinuation {
+            movementContinuation = nil
+            guard combat.current.id == continuation.actorID, combat.current.conscious,
+                  move(continuation.path) else {
+                pendingAttack = nil; feedback = "Not enough movement"; refresh(); return
+            }
+            return
+        }
         if !combat.isPlayerTurn { enemyTurn() }
     }
     private func beginExplosionReactions(_ shot: BowShotPresentation, elapsed: TimeInterval) {

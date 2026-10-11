@@ -11,6 +11,46 @@ and E1 encounters. `CombatBudget` ports the pinned transition matrix and lookup;
 `TacticalCombat` implements the explicitly adapted brawl rules. The dependency
 audit below records why this is a selective Swift port.
 
+## October 11: opportunity attacks and Disengage
+
+This addition is a RainShadow adaptation of BG3's
+[Opportunity Attack](https://bg3.wiki/wiki/Opportunity_Attack) and
+[Disengage](https://bg3.wiki/wiki/Disengage) rules above the unchanged navigation
+port. It does not alter the pinned TemplePlus transition matrix or adopt BG3's
+initiative rules.
+
+- Each combatant has a Reaction, separate from Action and Bonus Action. An
+  automatic melee attack spends it, including on a miss, and it refreshes at the
+  start of that creature's next turn. Prone, unconscious and ranged-readied actors
+  cannot retaliate. Bear form uses its existing claw damage and animation.
+- Disengage costs one Action, preserves movement and Bonus Action, and lasts
+  through the current turn. It is available to enemies and both player forms.
+  The action-bar button and Z shortcut use the same command. This is standard
+  Disengage; a separate Bonus Action Cunning Action version is not added.
+- `opportunityExits` checks leaving melee reach along certified polylines,
+  including entering and leaving reach on a sparse segment. It uses existing
+  terrain line of sight and concealment. Visible threats appear in both ground
+  movement and move-then-attack previews. Forced movement bypasses this path.
+- `moveWithOpportunityAttacks` accepts one movement leg and its interrupt
+  atomically. The director walks to the integral stop just inside reach, plays
+  the existing melee/claw and hit/miss presentations, then continues the route.
+  Inserted stop rounding does not increase the previewed movement cost. Defeat
+  cancels the continuation; losing bear form cancels a queued claw order.
+- Saves contain the accepted leg and reaction result before animation. Reload
+  resumes at that stop without rerolling; the unsaved continuation requires a
+  fresh command. Optional actor fields keep old checkpoints readable.
+- Enemy scores include expected opportunity damage. Archers compare a safe
+  Disengage retreat with attacks and shoves. Concealed attackers are not exposed
+  through the visible warning or enemy risk score. Reactions are automatic in
+  this version; there is no Ask/decline prompt or reaction Sneak Attack rider.
+
+Validation: `OpportunityAttackTests`, related combat regression suites, both
+macOS/iOS builds, and native `RAINSHADOW_QA_APPROACH_ONLY=1` with
+`RAINSHADOW_QA_OPPORTUNITY=1`. The native test checks a real raster-certified
+retreat, the warning, out-of-turn animation ownership, pause, checkpointing,
+continued walking, and Disengage. `CombatActionBarQA` checks human/bear controls
+and 820/560/320-point layouts.
+
 ## Audited source
 
 Repository: [GrognardsFromHell/TemplePlus](https://github.com/GrognardsFromHell/TemplePlus).

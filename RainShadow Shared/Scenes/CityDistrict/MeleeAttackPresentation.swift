@@ -4,6 +4,7 @@ import SpriteKit
 @MainActor
 final class MeleeAttackPresentation {
     let before: TacticalCombat
+    var attacker: Combatant { before.actors.first { $0.id == result.attacker }! }
     let result: TacticalCombat.Strike
     let target: Combatant
     let actor: CharacterAppearanceNode
@@ -23,7 +24,7 @@ final class MeleeAttackPresentation {
             ? MeleeSwingTrail() : nil
         self.barrelDestruction = barrelDestruction
         self.before = before; self.result = result; self.target = target; self.actor = actor
-        facing = .orient(from: before.current.position, to: target.position)
+        facing = .orient(from: before.actors.first { $0.id == result.attacker }!.position, to: target.position)
         actor.setAttackTrail(swingTrail?.sprite)
         present(phase: 0)
     }

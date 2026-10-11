@@ -44,6 +44,8 @@ import SpriteKit
     private let boundary = SKShapeNode()
     private let marker = SKShapeNode()
     private let caption = SKNode()
+    private let reactionMarkers = SKNode()
+    private(set) var opportunityCount = 0
     private let distanceShadow = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private let hintShadow = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private let distanceLabel = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
@@ -55,6 +57,8 @@ import SpriteKit
     override init() {
         super.init()
         name = "combat.movementPreview"
+        reactionMarkers.name = "combat.opportunityWarnings"
+        reactionMarkers.zPosition = 4; addChild(reactionMarkers)
         isHidden = true
         for node in [outline, available, unavailable] {
             node.lineCap = .round; node.lineJoin = .round
@@ -84,9 +88,10 @@ import SpriteKit
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func clear() { isHidden = true }
+    func clear() { isHidden = true; opportunityCount = 0; reactionMarkers.removeAllChildren() }
 
-    func show(path: Path, actor: Combatant, budget: CombatBudget, speed: Double, cameraScale: CGFloat) {
+    func show(path: Path, actor: Combatant, budget: CombatBudget, speed: Double, cameraScale: CGFloat,
+              opportunities: [TacticalCombat.OpportunityExit] = []) {
         let allowance = budget.availableMovement(speed: speed)
         geometry = Geometry(points: [actor.position] + path.remainingPoints, allowance: allowance)
         guard let end = geometry.endpoint, geometry.distance > 0 else { clear(); return }
@@ -104,6 +109,17 @@ import SpriteKit
         let remaining = String(format: "%.1f", max(0, allowance - geometry.distance) / 8)
         distanceLabel.text = "\(feet) ft"
         hintLabel.text = canMove ? "Movement: \(remaining) ft" : "Not enough movement"
+        reactionMarkers.removeAllChildren()
+        let reachable = opportunities.filter { $0.distance <= allowance }
+        opportunityCount = reachable.count
+        for opportunity in reachable {
+            let warning = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
+            warning.text = "!"; warning.fontSize = 16; warning.fontColor = Self.blocked
+            warning.verticalAlignmentMode = .center; warning.position = opportunity.point
+            reactionMarkers.addChild(warning)
+        }
+        if opportunityCount > 0 { hintLabel.text = "Opportunity Attack ×\(opportunityCount)" }
+        hintLabel.fontColor = opportunityCount > 0 ? Self.blocked : .white
         distanceShadow.text = distanceLabel.text; hintShadow.text = hintLabel.text
         isHidden = false
         updateScale(cameraScale)
@@ -131,6 +147,7 @@ import SpriteKit
         diamond.addLine(to: CGPoint(x: -4 * scale, y: 0)); diamond.closeSubpath()
         boundary.path = diamond; boundary.lineWidth = scale
         caption.setScale(scale)
+        reactionMarkers.children.forEach { $0.setScale(scale) }
         caption.position = CGPoint(x: marker.position.x, y: marker.position.y + diameter * 0.375 + 25 * scale)
     }
 

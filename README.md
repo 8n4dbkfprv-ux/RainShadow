@@ -62,6 +62,14 @@ to open the inventory. Combat pauses while it is open; **I**, **Escape**,
 **Enter**, or the close button returns to the same turn. An existing tactical
 pause stays active after closing the inventory.
 
+Combat now includes automatic **Opportunity Attacks** when a creature leaves an
+enemy's melee reach. The path preview marks the danger before movement, including
+approaches to another target. **Disengage (Z)** spends an Action to prevent these
+attacks for the rest of the turn. Each creature has one Reaction, refreshed at
+the start of its own turn. Select Main Hand Attack to ready melee again after
+using a bow; switching the readied weapon does not spend an Action. Shoves and
+explosion knockback do not provoke. Bear form can Disengage and retaliate with Claws.
+
 Bear Form is available in the Wharf Ladder combat encounters. Open
 `Play Bear Form.command` for an isolated playtest save; press **4** in combat
 to transform on open ground, or to revert. See

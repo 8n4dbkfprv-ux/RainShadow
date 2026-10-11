@@ -47,7 +47,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
                 if !event.isARepeat { handleTacticalPauseInput() }; return
             }
             let key = event.charactersIgnoringModifiers?.lowercased() ?? ""
-            if [" ", "c", "v", "r", "g", "f", "t"].contains(key) {
+            if [" ", "c", "v", "r", "g", "f", "t", "z"].contains(key) {
                 if !event.isARepeat { _ = combatDirector.shortcut(key) }; return
             }
         }

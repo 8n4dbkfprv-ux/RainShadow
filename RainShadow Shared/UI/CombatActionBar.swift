@@ -236,7 +236,7 @@ final class CombatActionBar: SKNode {
         let wide = width >= 560
         let grid = buttons.filter { !wide || $0.name != "combat.end" }
         let gridWidth = wide ? width - 224 : width - 32
-        let columns = max(1, min(8, grid.count, Int(gridWidth / 54)))
+        let columns = max(1, min(9, grid.count, Int(gridWidth / 54)))
         let rows = Int(ceil(Double(grid.count) / Double(columns)))
         height = max(150, CGFloat(rows) * 54 + 42)
         plate.size = CGSize(width: width * 2, height: height * 2)
@@ -255,7 +255,7 @@ final class CombatActionBar: SKNode {
         health.position = wide ? CGPoint(x: portrait.position.x, y: -49)
             : CGPoint(x: -width / 2 + 57, y: height / 2 - 15)
         resources.position = CGPoint(x: wide ? 0 : 44, y: height / 2 - 15)
-        resources.fontSize = wide ? 10 : 9
+        resources.fontSize = wide ? (width >= 720 ? 10 : 8) : 9
         resources.preferredMaxLayoutWidth = wide ? width - 200 : width - 138
         resources.numberOfLines = wide ? 1 : 2
         showTooltip(nil)
@@ -273,8 +273,8 @@ final class CombatActionBar: SKNode {
         health.text = "\(hp) / \(maximum)"
         let move = Int(combat.budget.availableMovement(speed: combat.movementSpeed(for: player)) / 8)
         resources.text = combat.isPlayerTurn
-            ? "Action \(combat.budget.canAttack ? "1/1" : "0/1")   ·   Bonus Action \(combat.canUseBonusAction ? "1/1" : "0/1")   ·   Movement \(move) ft"
-            : "Enemy Turn"
+            ? "Action \(combat.budget.canAttack ? "1/1" : "0/1") · Bonus Action \(combat.canUseBonusAction ? "1/1" : "0/1") · Reaction \(player.hasReaction ? "1/1" : "0/1") · \(move) ft"
+            : "Enemy Turn · Reaction \(player.hasReaction ? "1/1" : "0/1")"
     }
 
     func showTooltip(_ button: CombatActionButton?) {

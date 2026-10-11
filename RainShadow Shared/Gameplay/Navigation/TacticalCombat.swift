@@ -140,6 +140,12 @@ struct Combatant: Codable, Equatable {
     var shoveSpent: Bool? = nil
     var overboardOrigin: CGPoint? = nil
     var overboard: Bool? = nil // Nonlethal removal from this encounter; optional in older saves.
+    /// Per creature, not part of the active turn's Action/Bonus Action budget.
+    /// Missing fields in older saves mean an available reaction and no Disengage.
+    var reactionSpent: Bool? = nil
+    var disengaged: Bool? = nil
+    var rangedReadied: Bool? = nil
+    var hasReaction: Bool { conscious && !isProne && reactionSpent != true }
     var sneakDamageDice: Int { sneakDice ?? (player ? 1 : 0) }
     var conscious: Bool { hp > 0 }
     var isProne: Bool { conscious && conditions?.prone == true }
@@ -304,6 +310,7 @@ struct TacticalCombat: Codable, Equatable {
             else if !current.isBurning { note("\(current.name) lost Condition: Burning.") }
         }
         actors[turn].conditions = nil
+        actors[turn].disengaged = nil
         actors[turn].sneakSpent = nil
         if current.player, isBear {
             if bearForm!.activationTurn { bearForm!.activationTurn = false }
@@ -324,6 +331,7 @@ struct TacticalCombat: Codable, Equatable {
         }
         actors[turn].hideUsed = nil
         actors[turn].shoveSpent = nil
+        actors[turn].reactionSpent = nil
         budget = CombatBudget()
         if current.isProne {
             // RainShadow adaptation: standing buys the first movement segment and
@@ -421,6 +429,28 @@ struct TacticalCombat: Codable, Equatable {
         note("\(current.name) used Dash.")
         return true
     }
+    var canDisengage: Bool {
+        outcome == nil && current.conscious && !current.isProne
+            && current.disengaged != true && budget.canAttack
+    }
+    @discardableResult mutating func disengage() -> Bool {
+        guard canDisengage, budget.spend(2) else { return false }
+        actors[turn].disengaged = true
+        note("\(current.name) used Disengage.")
+        return true
+    }
+    /// Owning a bow is separate from holding it. Weapon selection is free.
+    @discardableResult mutating func readyWeapon(ranged: Bool) -> Bool {
+        guard outcome == nil, current.conscious, !(current.player && isBear),
+              !ranged || current.rangedWeapon == .bow else { return false }
+        if (current.rangedReadied ?? (!current.player && current.rangedWeapon == .bow)) != ranged {
+            actors[turn].rangedReadied = ranged
+        }
+        return true
+    }
+    func canMakeOpportunityAttack(_ actor: Combatant) -> Bool {
+        actor.hasReaction && (actor.player && isBear || !(actor.rangedReadied ?? (!actor.player && actor.rangedWeapon == .bow)))
+    }
     @discardableResult mutating func castBladeWard() -> Bool {
         guard canCastBladeWard, budget.spend(2) else { return false }
         actors[turn].bladeWardTurns = 2
@@ -432,10 +462,12 @@ struct TacticalCombat: Codable, Equatable {
     }
     /// The caller supplies a route certified by CombatNavigation/SearchMap.
     @discardableResult mutating func move(along path: Path) -> Bool {
+        move(along: path, movementCost: CombatNavigation.length(path, from: current.position))
+    }
+    private mutating func move(along path: Path, movementCost: Double) -> Bool {
         guard outcome == nil, let end = path.destination, !path.isEmpty else { return false }
-        let cost = CombatNavigation.length(path, from: current.position)
         let entersFire = crossesFire(path, from: current.position)
-        guard budget.move(distance: cost, speed: movementSpeed(for: current)) else { return false }
+        guard budget.move(distance: movementCost, speed: movementSpeed(for: current)) else { return false }
         if entersFire { catchFire(turn) }
         let prior = path.remainingPoints.dropLast().last ?? current.position
         actors[turn].combatFacing = ActorFacing.orient(from: prior, to: end).rawValue
@@ -459,6 +491,7 @@ struct TacticalCombat: Codable, Equatable {
     mutating func setPlayerBowEquipped(_ equipped: Bool) {
         guard let index = actors.firstIndex(where: \.player) else { return }
         actors[index].rangedWeapon = equipped ? .bow : nil
+        if !equipped { actors[index].rangedReadied = false }
     }
     var nearestEnemyDistance: Double? {
         guard let player = actors.first(where: \.player) else { return nil }
@@ -545,10 +578,12 @@ struct TacticalCombat: Codable, Equatable {
         var attackRolls: [Int] = []
         var fireArrow = false
         var wardAbsorbed = 0
+        var opportunityAttack = false
         /// A fully resisted one-point hit must not play a miss or dodge.
         var landed: Bool { damage > 0 || wardAbsorbed > 0 }
 
         func actionName(ranged: Bool, bear: Bool = false) -> String? {
+            if opportunityAttack { return "Opportunity Attack" }
             // Custom techniques have no verified BG3 announcement. Do not
             // relabel them as a different BG3 ability.
             guard maneuver == nil else { return nil }
@@ -594,6 +629,7 @@ struct TacticalCombat: Codable, Equatable {
                 && CombatNavigation.distance(current.position, barrels![index].position) <= BowAttackRules.range)
                 : CombatNavigation.distance(current.position, barrels![index].position) <= Self.meleeReach,
               budget.spend(2) else { return false }
+        actors[turn].rangedReadied = ranged
         reveal(current.id)
         barrels![index].broken = true
         return true
@@ -627,6 +663,7 @@ struct TacticalCombat: Codable, Equatable {
               CombatNavigation.distance(current.position, barrel.position) <= BowAttackRules.range,
               CombatNavigation.distance(current.position, barrel.position) > Self.meleeReach,
               budget.spend(2) else { return nil }
+        actors[turn].rangedReadied = true
         reveal(current.id)
         if !current.player { actors[turn].fireArrows = (current.fireArrows ?? 0) - 1 }
         let attacker = current.id
@@ -806,6 +843,17 @@ struct TacticalCombat: Codable, Equatable {
         if let maneuver {
             actors[turn].usedManeuvers = (actors[turn].usedManeuvers ?? []) + [maneuver]
         }
+        actors[turn].rangedReadied = ranged
+        return resolveAttack(target: target, ranged: ranged, ammunition: ammunition,
+            maneuver: maneuver, sneakEligible: sneakEligible, requireSneakAttack: requireSneakAttack, allyLine: allyLine)
+    }
+    /// Both ordinary attacks and reactions use the same hit, damage, ward and
+    /// Wild Shape rules. Resource spending belongs to their respective callers.
+    private mutating func resolveAttack(target: Int, ranged: Bool = false,
+        ammunition: CombatAmmunition = .normal, maneuver: CombatManeuver? = nil,
+        sneakEligible: Bool = false, requireSneakAttack: Bool = false, opportunity: Bool = false,
+        allyLine: (Combatant, Combatant) -> Bool) -> Strike {
+        let id = actors[target].id
         let edge = attackEdge(ranged: ranged, target: actors[target], allyLine: allyLine)
         var attackRolls = [roll(20)]
         if edge != 0 { attackRolls.append(roll(20)) }
@@ -854,7 +902,7 @@ struct TacticalCombat: Codable, Equatable {
         }
         if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,
-                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed)
+                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed, opportunityAttack: opportunity)
         if let action = result.actionName(ranged: ranged, bear: current.player && isBear) {
             note("\(current.name) used \(action) on \(actors[target].name).")
         }
@@ -862,6 +910,134 @@ struct TacticalCombat: Codable, Equatable {
             note("\(actors[target].name) received Condition: \(condition).")
         }
         return result
+    }
+}
+
+/// Combat-only reach tests on an already certified route. This does not change
+/// the GemRB pathfinder, clearance, movement or line-of-sight implementations.
+extension TacticalCombat {
+    struct OpportunityExit {
+        let attackerID: String
+        let point: CGPoint
+        let distance: Double
+        let approach: Path
+        let remainder: Path
+    }
+    struct MovementStep {
+        let path: Path
+        let remainder: Path?
+        let beforeReaction: TacticalCombat?
+        let reaction: Strike?
+    }
+
+    /// Read-only; used by warnings, AI and execution. Includes enemies entered
+    /// and then left during a single long path segment, not just at its endpoints.
+    func opportunityExits(along path: Path, clearLine: (Combatant, Combatant) -> Bool) -> [OpportunityExit] {
+        guard outcome == nil, current.conscious, !current.isProne, current.disengaged != true else { return [] }
+        let points = path.remainingPoints
+        var exits: [OpportunityExit] = []
+        for enemy in actors where enemy.player != current.player && canMakeOpportunityAttack(enemy) {
+            var previous = current.position, travelled = 0.0
+            for (index, end) in points.enumerated() {
+                let dx = Double(end.x - previous.x), dy = Double(end.y - previous.y) / 0.75
+                let x = Double(previous.x - enemy.position.x), y = Double(previous.y - enemy.position.y) / 0.75
+                let a = dx * dx + dy * dy
+                defer { travelled += sqrt(a); previous = end }
+                guard a > 0 else { continue }
+                let b = 2 * (x * dx + y * dy), c = x * x + y * y - Self.meleeReach * Self.meleeReach
+                let discriminant = b * b - 4 * a * c
+                // A tangent only touches reach; it does not leave it.
+                guard discriminant > 0 else { continue }
+                let exit = (-b + sqrt(discriminant)) / (2 * a)
+                guard exit >= 0, exit < 1 else { continue }
+                // Stop just inside reach at an integral navigation position.
+                let t = max(0, exit - 2 / sqrt(a))
+                let point = CGPoint(x: previous.x + dx * t, y: previous.y + dy * t * 0.75).rounded
+                var mover = current; mover.position = point
+                guard CombatNavigation.distance(enemy.position, point) <= Self.meleeReach,
+                      clearLine(enemy, mover) else { continue }
+                let prefix = Path(points: Array(points.prefix(index)) + [point], from: current.position)
+                if mover.hidden == true && !movementReveals(mover, along: prefix, clearLine: clearLine) { continue }
+                exits.append(OpportunityExit(attackerID: enemy.id, point: point,
+                    distance: travelled + sqrt(a) * t, approach: prefix,
+                    remainder: Path(points: Array(points[index...]), from: point)))
+                break // Each creature has one reaction, even if a route loops.
+            }
+        }
+        return exits.sorted { $0.distance == $1.distance ? $0.attackerID < $1.attackerID : $0.distance < $1.distance }
+    }
+
+    private func movementReveals(_ actor: Combatant, along path: Path,
+                                 clearLine: (Combatant, Combatant) -> Bool) -> Bool {
+        guard actor.hidden == true else { return false }
+        var previous = current.position
+        for end in path.remainingPoints.isEmpty ? [current.position] : path.remainingPoints {
+            let samples = max(1, Int(ceil(CombatNavigation.distance(previous, end) / 16)))
+            for step in 0...samples {
+                let t = Double(step) / Double(samples)
+                var observed = actor
+                observed.position = CGPoint(x: previous.x + (end.x - previous.x) * t,
+                                            y: previous.y + (end.y - previous.y) * t)
+                if isInFire(observed.position) || actors.contains(where: {
+                    $0.player != actor.player && $0.conscious
+                        && Self.insideSightCone(observer: $0, point: observed.position) && clearLine($0, observed)
+                }) { return true }
+            }
+            previous = end
+        }
+        return false
+    }
+
+    /// Accept one movement leg and its interrupt atomically. The saved state is
+    /// already after the hit, so reloading cannot reroll it or refund a reaction.
+    /// Presentation walks the leg, shows the hit, then requests the remainder.
+    mutating func moveWithOpportunityAttacks(along path: Path,
+        clearLine: (Combatant, Combatant) -> Bool) -> MovementStep? {
+        var affordability = budget
+        guard outcome == nil, current.conscious, !current.isProne, !path.isEmpty,
+              affordability.move(distance: CombatNavigation.length(path, from: current.position),
+                                 speed: movementSpeed(for: current)) else { return nil }
+        let exit = opportunityExits(along: path, clearLine: clearLine).first
+        let leg = exit?.approach ?? path
+        let reveals = movementReveals(current, along: leg, clearLine: clearLine)
+        let legLength = CombatNavigation.length(leg, from: current.position)
+        // Rounding the inserted stop to an integral position can add a fraction
+        // of a unit to the split polyline. Do not charge extra movement for an
+        // interrupt: preserve the original preview's total cost exactly.
+        let cost = exit.map { CombatNavigation.length(path, from: current.position)
+            - CombatNavigation.length($0.remainder, from: $0.point) } ?? legLength
+        guard leg.isEmpty || move(along: leg, movementCost: max(0.0001, cost)) else { return nil }
+        if reveals { reveal(current.id) }
+        guard let exit, let attacker = actors.firstIndex(where: { $0.id == exit.attackerID }) else {
+            return MovementStep(path: leg, remainder: nil, beforeReaction: nil, reaction: nil)
+        }
+        let before = self, mover = turn
+        actors[attacker].reactionSpent = true
+        // Reuse attack resolution with the reactor as source, without touching
+        // either creature's Action/Bonus Action budget or adding a weapon technique.
+        turn = attacker
+        let result = resolveAttack(target: mover, opportunity: true, allyLine: clearLine)
+        turn = mover
+        if !current.conscious, outcome == nil { _ = endTurn() }
+        return MovementStep(path: leg, remainder: result.knockedOut ? nil : exit.remainder,
+                            beforeReaction: before, reaction: result)
+    }
+
+    /// Expected incoming damage, never future dice. Used to value safe movement
+    /// against attacking, shoving, or spending an Action to Disengage.
+    func opportunityRisk(along path: Path, clearLine: (Combatant, Combatant) -> Bool) -> Double {
+        opportunityExits(along: path, clearLine: clearLine).reduce(0) { value, exit in
+            guard let enemy = actors.first(where: { $0.id == exit.attackerID }), enemy.hidden != true else { return value }
+            let base = Double((1...20).filter { Self.attackHits(die: $0, bonus: attackBonus(for: enemy), defence: defence(for: current)) }.count) / 20
+            let advantage = enemy.hidden == true || enemy.conditions?.attackAdvantage == true
+            let disadvantage = enemy.conditions?.attackDisadvantage == true
+            let chance = advantage == disadvantage ? base : advantage ? 1 - pow(1 - base, 2) : base * base
+            let average = enemy.player && isBear ? Double(BearFormRules.damageMin + BearFormRules.damageMax) / 2
+                : Double(enemy.damageMin + enemy.damageMax) / 2
+            let damage = chance * average * (current.hasBladeWard ? 0.5 : 1)
+            let hp = current.player && isBear ? (bearForm?.temporaryHP ?? current.hp) + current.hp : current.hp
+            return value + damage * (damage >= Double(hp) * 0.5 ? 2.5 : 1.4)
+        }
     }
 }
 
@@ -1073,7 +1249,7 @@ struct CombatBarrel: Codable, Equatable {
 /// Targeting tooltips still describe the actual RainShadow rules.
 enum CombatEventText {
     static let actions = ["Main Hand Attack", "Ranged Attack", "Sneak Attack (Melee)",
-        "Sneak Attack (Ranged)", "Shove", "Dash", "Hide", "Cunning Action: Hide",
+        "Sneak Attack (Ranged)", "Shove", "Dash", "Disengage", "Opportunity Attack", "Hide", "Cunning Action: Hide",
         "Blade Ward", "Wild Shape: Bear", "Dismiss Wild Shape", "Claws", "Goading Roar"]
     static let conditions = ["Burning", "Prone", "Hiding", "Blade Ward", "Knocked Out"]
 

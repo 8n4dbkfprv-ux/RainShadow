@@ -16,7 +16,7 @@ enum EnemyCombatRole: String, Codable, CaseIterable {
 
 struct EnemyDecision {
     enum Action {
-        case attack(CombatAttackOrder), move(Path), dash(Path), barrel(String), shove(String), extinguish, endTurn
+        case attack(CombatAttackOrder), move(Path), dash(Path), disengage(Path), barrel(String), shove(String), extinguish, endTurn
     }
     let action: Action
     let score: Double
@@ -58,7 +58,8 @@ enum EnemyTactics {
                 let travel = path.map { CombatNavigation.length($0, from: actor.position) } ?? 0
                 let positionGain = positionValue(model.current.position, combat: combat, visible: blastLine)
                     - positionValue(actor.position, combat: combat, visible: blastLine)
-                let travelRisk = path.map { pathRisk($0, combat: combat, visible: blastLine) } ?? 0
+                let travelRisk = path.map { pathRisk($0, combat: combat, visible: blastLine)
+                    + combat.opportunityRisk(along: $0, clearLine: line) } ?? 0
                 for ranged in [false, true] where !ranged || actor.rangedWeapon == .bow {
                     let techniques: [CombatManeuver?] = [nil] + role.maneuvers.filter { $0.ranged == ranged }.map { Optional($0) }
                     for maneuver in techniques {
@@ -103,11 +104,22 @@ enum EnemyTactics {
                               let path = CombatNavigation.route(in: map, actor: actor, to: point), !path.isEmpty else { continue }
                         var moved = combat
                         guard moved.move(along: path), line(moved.current, target) else { continue }
+                        let reactionRisk = combat.opportunityRisk(along: path, clearLine: line)
+                        let positionGain = positionValue(moved.current.position, combat: combat, visible: blastLine)
+                            - positionValue(actor.position, combat: combat, visible: blastLine)
+                        if combat.canDisengage, reactionRisk > 0, positionGain > 0 {
+                            // Sacrifice the attack only when a safe retreat offers
+                            // more value. Shove and normal attacks still compete.
+                            let escape = positionGain + min(12, reactionRisk) * 0.65
+                                - CombatNavigation.length(path, from: actor.position) / 160
+                                - pathRisk(path, combat: combat, visible: blastLine) - 1.5
+                            offer(.disengage(path), escape, "Disengage to a safe firing position")
+                        }
                         if combat.budget.canAttack { scoreAttacks(moved, path: path) }
                         if !combat.budget.canAttack || combat.isInFire(actor.position) {
                             let gain = positionValue(moved.current.position, combat: combat, visible: blastLine)
                                 - positionValue(actor.position, combat: combat, visible: blastLine)
-                                - CombatNavigation.length(path, from: actor.position) / 160 - pathRisk(path, combat: combat, visible: blastLine)
+                                - CombatNavigation.length(path, from: actor.position) / 160 - pathRisk(path, combat: combat, visible: blastLine) - reactionRisk
                             offer(.move(path), gain - 0.5, combat.isInFire(actor.position) ? "Leave the burning oil" : "Keep a safe firing distance")
                         }
                     }
@@ -153,13 +165,13 @@ enum EnemyTactics {
             let allowance = combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))
             if let path = advance(in: map, actor: actor, full: full, limit: allowance), let end = path.destination,
                CombatNavigation.distance(end, target.position) + 8 < CombatNavigation.distance(actor.position, target.position) {
-                offer(.move(path), 0.1, "Close the distance"); continue
+                offer(.move(path), 0.1 - combat.opportunityRisk(along: path, clearLine: line), "Close the distance"); continue
             }
             var dashed = combat
             if dashed.dash(), let path = advance(in: map, actor: actor, full: full,
                 limit: dashed.budget.availableMovement(speed: dashed.movementSpeed(for: actor))), let end = path.destination,
                CombatNavigation.distance(end, target.position) + 8 < CombatNavigation.distance(actor.position, target.position) {
-                offer(.dash(path), 0.05, "Dash to engage")
+                offer(.dash(path), 0.05 - combat.opportunityRisk(along: path, clearLine: line), "Dash to engage")
             }
         }
         return best
