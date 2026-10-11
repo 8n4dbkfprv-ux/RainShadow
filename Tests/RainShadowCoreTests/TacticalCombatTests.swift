@@ -5,6 +5,47 @@ import CoreGraphics
 @testable import RainShadowPersistence
 
 struct TacticalCombatTests {
+    @Test func feedbackFollowsResolvedRollWithoutInventingDamageOrConditions() throws {
+        var outcomes = Set<String>()
+        for seed in 1...100 {
+            var combat = fight(seed: UInt64(seed))
+            let resolved = combat.attack(target: "crew", clearLine: true, maneuver: .tripAttack, hasSword: true)
+            let hit = try #require(resolved)
+            outcomes.insert(hit.outcomeText)
+            if hit.landed {
+                #expect(hit.outcomeText == String(hit.damage))
+                #expect(hit.appliedConditions == (hit.knockedOut ? ["Knocked Out"] : ["Prone"]))
+                #expect(combat.actors.first { $0.id == "crew" }!.isProne == !hit.knockedOut)
+            } else {
+                #expect(hit.appliedConditions.isEmpty)
+                #expect(hit.outcomeText == (hit.roll == 1 ? "Critical Miss!" : "Miss!"))
+            }
+        }
+        #expect(outcomes.contains("Critical Miss!") && outcomes.contains("Miss!"))
+        let ward = TacticalCombat.Strike(attacker: "a", target: "b", roll: 15, damage: 0,
+            knockedOut: false, attackRolls: [15], wardAbsorbed: 1)
+        #expect(ward.landed && ward.floatingText == ["0"])
+        let burn = TacticalCombat.Strike(attacker: "b", target: "b", roll: 0, damage: 2, knockedOut: false)
+        #expect(burn.floatingText == ["2"])
+        let sneak = TacticalCombat.Strike(attacker: "a", target: "b", roll: 20, damage: 14,
+            knockedOut: true, sneakDamage: 9, requestedSneakAttack: true, attackRolls: [20], fireArrow: true)
+        #expect(sneak.floatingText == ["14", "Knocked Out"])
+        #expect(sneak.actionName(ranged: true) == "Sneak Attack (Ranged)")
+    }
+    @Test func oldCheckpointsCannotRestoreCustomEventWording() throws {
+        var saved = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(fight())) as? [String: Any])
+        saved["log"] = ["Voss used Dash.", "Crew was shoved.", "Voss used Power Strike on Crew.",
+                        "Crew received Condition: Weakened.", "Voss used Dash. Move or end your turn.",
+                        "Crew received Condition: Prone."]
+        let restored = try JSONDecoder().decode(TacticalCombat.self, from: JSONSerialization.data(withJSONObject: saved))
+        #expect(restored.displayedLog == ["Voss used Dash.", "Crew received Condition: Prone."])
+        for maneuver in CombatManeuver.allCases {
+            let hit = TacticalCombat.Strike(attacker: "a", target: "b", roll: 12, damage: 3,
+                                            knockedOut: false, maneuver: maneuver)
+            #expect(hit.actionName(ranged: maneuver.ranged) == nil)
+            #expect(!hit.floatingText.contains("Weakened") && !hit.floatingText.contains("Slowed"))
+        }
+    }
     private func fight(seed: UInt64 = 42) -> TacticalCombat {
         TacticalCombat(encounterID: "gate", areaID: "city_wharf_ladder", actors: [
             Combatant(id: "detective.voss", name: "Voss", player: true, position: CGPoint(x: 100, y: 100),

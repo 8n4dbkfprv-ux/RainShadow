@@ -56,8 +56,8 @@ import SpriteKit
         let start = ProcessInfo.processInfo.systemUptime
         director.hover(at: point(scene))
         let elapsed = ProcessInfo.processInfo.systemUptime - start
-        try check(director.targetPanel.text.contains("Approach:"), "Melee hover offers an approach")
-        try check(director.targetPanel.text.contains("% hit"), "Approach previews the arrival hit chance")
+        try check(director.targetPanel.text.contains("Movement:"), "Melee hover offers an approach")
+        try check(director.targetPanel.text.contains("%"), "Approach previews the arrival hit chance")
         try check(!director.movementPreview.isHidden, "Approach route and stopping ring are visible")
         try check(director.combat == before, "Approach hover spends nothing")
         let endpoint = director.movementPreview.geometry.endpoint!
@@ -74,7 +74,7 @@ import SpriteKit
         scene = try await open(); director = scene.combatDirector!
         director.command(6)
         director.hover(at: point(scene))
-        try check(director.targetPanel.text.contains("Power strike") && director.targetPanel.text.contains("Approach:"), "Selected sword technique survives approach planning")
+        try check(director.targetPanel.text.contains("Power Strike") && director.targetPanel.text.contains("Movement:"), "Selected sword technique survives approach planning")
         director.pointer(at: point(scene))
         director.cancelTargeting()
         try await wait { !director.busy }

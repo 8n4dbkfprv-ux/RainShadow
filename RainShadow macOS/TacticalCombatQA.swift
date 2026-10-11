@@ -486,7 +486,10 @@ import SpriteKit
                     guard let shove = director.shovePresentation else { throw Failure(message: "No shove presentation") }
                     let accepted = director.combat
                     try check(shove.node.currentAction == .shove && director.busy, "\(mode): push animation locks combat input")
-                    try check(accepted.budget == shove.before.budget && accepted.current.shoveSpent == true, "\(mode): shove spends only its bonus action")
+                    try check(accepted.budget.state == shove.before.budget.state
+                        && accepted.budget.movementRemaining == shove.before.budget.movementRemaining
+                        && !accepted.canUseBonusAction && accepted.current.shoveSpent == true,
+                        "\(mode): shove spends only its bonus action")
                     try check(accepted.actors.map(\.hp) == shove.before.actors.map(\.hp), "\(mode): shove deals no direct damage")
                     try check(GameSession(saveStore: shoveStore).tacticalCombat == accepted, "\(mode): accepted endpoint and bonus cost are saved before contact")
                     try await wait { (director.shovePresentation?.elapsed ?? 0) >= ShoveAnimationSet.windupTime }
@@ -500,6 +503,16 @@ import SpriteKit
                     try capture("shove-" + mode + "-windup")
                     scene.handleTacticalPauseInput()
                     try await wait { director.shovePresentation?.impactPresented == true }
+                    var customShoveLabels: [String] = []
+                    scene.enumerateChildNodes(withName: "//*") { node, _ in
+                        if let text = (node as? SKLabelNode)?.text, ["Shoved", "Resisted", "Overboard"].contains(text) {
+                            customShoveLabels.append(text)
+                        }
+                    }
+                    try check(customShoveLabels.isEmpty && director.targetingFeedback.isEmpty,
+                              "\(mode): shove has no unverified floating or outcome wording")
+                    try check(director.actionAnnouncement?.contains(" used Shove on ") == true,
+                              "\(mode): shove keeps the action announcement")
                     try check(director.hitReactions[target.id]?.kind == (shouldPush ? .fall : .hit), "\(mode): contact starts the correct target reaction")
                     scene.handleTacticalPauseInput()
                     let pushElapsed = director.knockbackElapsed, reactionElapsed = director.hitReactions[target.id]?.elapsed
@@ -892,7 +905,7 @@ import SpriteKit
                     try await openFight(hidden); director = scene.combatDirector!
                     director.command(2)
                     try await wait { director.combat.actors.first(where: { $0.player })?.hidden != true }
-                    try check(director.combat.log.contains { $0.contains("revealed") }, "\(label): enemy searches last known position and reveals Voss")
+                    try check(director.combat.log.contains { $0.contains("lost Condition: Hiding") }, "\(label): enemy searches last known position and reveals Voss")
                 }
                 let data = try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys])
                 try data.write(to: output.appendingPathComponent("report.json")); NSApp.terminate(nil); return
@@ -1204,6 +1217,11 @@ import SpriteKit
                     }
                     try await wait { director.meleeAttack != nil || director.rangedShot != nil }
                     let accepted = director.combat
+                    let strike = director.meleeAttack?.result ?? director.rangedShot!.result
+                    try check(director.actionAnnouncement?.contains(ranged ? "Ranged Attack" : "Main Hand Attack") == true,
+                              "\(label): action is announced during wind-up")
+                    try check(scene.childNode(withName: "//combat.impact.\(victim.id).0") == nil,
+                              "\(label): no outcome text before impact")
                     try await wait { director.hitReactions[victim.id] != nil }
                     let reaction = director.hitReactions[victim.id]!
                     let node = director.reactionNodes[victim.id]!
@@ -1226,6 +1244,12 @@ import SpriteKit
                     if let texture = view.texture(from: node), let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) {
                         try data.write(to: output.appendingPathComponent("closeup-" + label + ".png"))
                     }
+                    scene.handleTacticalPauseInput()
+                    try await wait { director.meleeAttack?.impactPresented == true || director.rangedShot?.impactPresented == true }
+                    scene.handleTacticalPauseInput()
+                    let impactText = scene.childNode(withName: "//combat.impact.\(victim.id).0") as? SKLabelNode
+                    try check(impactText?.text == strike.outcomeText, "\(label): impact text matches resolved outcome")
+                    try capture("feedback-" + label)
                     scene.handleTacticalPauseInput()
                     try await wait { director.hitReactions.isEmpty && director.meleeAttack == nil && director.rangedShot == nil }
                     try check(node.isHidden && node.childNode(withName: "appearance.body")!.zRotation == 0, "\(label): reaction resets and hides after recovery")

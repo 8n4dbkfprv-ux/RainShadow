@@ -81,11 +81,11 @@ enum CombatManeuver: String, Codable, CaseIterable {
     var accuracy: Int { self == .powerStrike ? -3 : self == .aimedShot ? 4 : 0 }
     var detail: String {
         switch self {
-        case .tripAttack: "Half damage; hit knocks a standing human Prone until their turn • 1 Action"
-        case .powerStrike: "−3 to Attack Rolls, +3 damage • 1 Action"
-        case .feintingCut: "Half damage; hit gives −3 to Attack Rolls through target's next turn • 1 Action"
-        case .aimedShot: "+4 to Attack Rolls • 1 Action"
-        case .pinningShot: "Half damage; hit halves movement through target's next turn • 1 Action"
+        case .tripAttack: "1 Action\nDamage ×0.5 · Prone"
+        case .powerStrike: "1 Action\nAttack Rolls −3 · Damage +3"
+        case .feintingCut: "1 Action\nDamage ×0.5 · Attack Rolls −3 · 1 turn"
+        case .aimedShot: "1 Action\nAttack Rolls +4"
+        case .pinningShot: "1 Action\nDamage ×0.5 · Movement Speed ×0.5 · 1 turn"
         }
     }
 }
@@ -188,7 +188,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     private mutating func catchFire(_ index: Int) {
         guard actors[index].conscious else { return }
-        if !actors[index].isBurning { note("\(actors[index].name) enters burning oil.") }
+        if !actors[index].isBurning { note("\(actors[index].name) received Condition: Burning.") }
         actors[index].burningTurns = 2
         reveal(actors[index].id)
     }
@@ -227,7 +227,6 @@ struct TacticalCombat: Codable, Equatable {
             return $0.id < $1.id
         }
         if let first = self.actors.firstIndex(where: \.conscious) { turn = first }
-        note("The fight begins. All strikes are nonlethal.")
     }
 
     /// Reject incompatible/corrupt checkpoints before indexing the active actor.
@@ -266,6 +265,9 @@ struct TacticalCombat: Codable, Equatable {
         randomState = randomState &* 6364136223846793005 &+ 1442695040888963407
         return Int((randomState >> 32) % UInt64(sides)) + 1
     }
+    var displayedLog: [String] {
+        log.filter { CombatEventText.isVerified($0, names: actors.map(\.name) + (barrels ?? []).map(\.name)) }
+    }
     private mutating func note(_ text: String) {
         log.append(text)
         if log.count > 30 { log.removeFirst(log.count - 30) }
@@ -284,10 +286,9 @@ struct TacticalCombat: Codable, Equatable {
             actors[turn].hp = max(0, current.hp - injury)
             let remaining = (current.burningTurns ?? 1) - 1
             actors[turn].burningTurns = remaining > 0 && current.conscious ? remaining : nil
-            note("Burning: \(damage) to \(current.name).")
             burningHit(.init(attacker: current.id, target: current.id, roll: 0, damage: damage, knockedOut: !current.conscious))
-            if !current.conscious { note("\(current.name) is out of the fight.") }
-            else if !current.isBurning { note("\(current.name)'s flames go out.") }
+            if !current.conscious { note("\(current.name) received Condition: Knocked Out.") }
+            else if !current.isBurning { note("\(current.name) lost Condition: Burning.") }
         }
         actors[turn].conditions = nil
         actors[turn].sneakSpent = nil
@@ -306,7 +307,7 @@ struct TacticalCombat: Codable, Equatable {
         actors[turn].defending = false
         if let turns = current.bladeWardTurns {
             actors[turn].bladeWardTurns = turns > 1 ? turns - 1 : nil
-            if !current.hasBladeWard { note("\(current.name)'s Blade Ward fades.") }
+            if !current.hasBladeWard { note("\(current.name) lost Condition: Blade Ward.") }
         }
         actors[turn].hideUsed = nil
         actors[turn].shoveSpent = nil
@@ -317,9 +318,8 @@ struct TacticalCombat: Codable, Equatable {
             let speed = movementSpeed(for: current)
             if speed > 0 { _ = budget.move(distance: speed / 2, speed: speed) }
             actors[turn].conditions?.prone = nil
-            note("\(current.name) gets up, spending half their movement.")
+            note("\(current.name) lost Condition: Prone.")
         }
-        note("\(current.name)'s turn.")
         return true
     }
     var canShove: Bool { outcome == nil && current.conscious && canUseBonusAction && !(current.player && isBear) }
@@ -328,18 +328,18 @@ struct TacticalCombat: Codable, Equatable {
     }
     func shoveProblem(target id: String, clearLine: Bool, destination: CGPoint) -> String? {
         guard canShove else { return current.player && isBear ? "Shove requires human form." : "Not enough resources: Bonus Action." }
-        guard let target = actors.first(where: { $0.id == id && $0.conscious }), id != current.id else { return "Choose another standing character." }
-        guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach else { return "Move within melee reach to shove." }
-        guard !target.isProne else { return "The target is already on the ground." }
-        guard clearLine else { return "The target is blocked." }
+        guard let target = actors.first(where: { $0.id == id && $0.conscious }), id != current.id else { return "Target is invalid" }
+        guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach else { return "Target is too far" }
+        guard !target.isProne else { return "Target is invalid" }
+        guard clearLine else { return "Target is blocked!" }
         let source = physique(of: current), victim = physique(of: target)
-        guard Double(source.strength) * 12 >= victim.weight else { return "Too heavy to shove." }
+        guard Double(source.strength) * 12 >= victim.weight else { return "Target is too heavy" }
         let travel = CombatNavigation.distance(target.position, destination)
         let dx = destination.x - target.position.x, dy = (destination.y - target.position.y) / 0.75
         let ax = target.position.x - current.position.x, ay = (target.position.y - current.position.y) / 0.75
         guard destination.x.isFinite, destination.y.isFinite, travel >= 2,
               travel <= ShoveRules.distance(attacker: source, target: victim) + 1,
-              dx * ax + dy * ay > 0, abs(dx * ay - dy * ax) <= hypot(ax, ay) else { return "No room to push: the landing path is blocked." }
+              dx * ax + dy * ay > 0, abs(dx * ay - dy * ax) <= hypot(ax, ay) else { return "Not enough space!" }
         return nil
     }
     func shovePreview(target id: String, clearLine: Bool, destination: CGPoint) -> ShovePreview? {
@@ -382,10 +382,9 @@ struct TacticalCombat: Codable, Equatable {
             if intoWater {
                 actors[index].overboardOrigin = target.position
                 actors[index].hp = 0; actors[index].overboard = true; actors[index].burningTurns = nil
-                note("\(target.name) falls into the water and is out of the fight.")
             } else if isInFire(destination) { catchFire(index) }
         }
-        note("\(attacker.name) shoves \(target.name): \(allied ? "willing target" : "\(max(first, second ?? first)) + \(preview.bonus) vs \(preview.dc)") — \(success ? "pushed" : "resisted") (Bonus Action).")
+        note("\(attacker.name) used Shove on \(target.name).")
         return Shove(attacker: attacker.id, target: id, roll: first, secondRoll: second, succeeded: success, preview: preview,
             displacement: success ? .init(id: id, from: target.position, to: destination) : nil, overboard: success && intoWater)
     }
@@ -393,7 +392,7 @@ struct TacticalCombat: Codable, Equatable {
     @discardableResult mutating func extinguish() -> Bool {
         guard canExtinguish, budget.spend(2) else { return false }
         actors[turn].burningTurns = nil
-        note("\(current.name) extinguishes the flames (Action).")
+        note("\(current.name) lost Condition: Burning.")
         return true
     }
     var canCastBladeWard: Bool {
@@ -406,7 +405,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     @discardableResult mutating func dash() -> Bool {
         guard canDash, budget.dash(speed: movementSpeed(for: current)) else { return false }
-        note("\(current.name) uses Dash: +\(Int(movementSpeed(for: current) / 8)) ft (Action).")
+        note("\(current.name) used Dash.")
         return true
     }
     @discardableResult mutating func castBladeWard() -> Bool {
@@ -414,7 +413,8 @@ struct TacticalCombat: Codable, Equatable {
         actors[turn].bladeWardTurns = 2
         actors[turn].defending = false
         reveal(current.id)
-        note("\(current.name) casts Blade Ward: physical damage halved for two turns.")
+        note("\(current.name) used Blade Ward.")
+        note("\(current.name) received Condition: Blade Ward.")
         return true
     }
     /// The caller supplies a route certified by CombatNavigation/SearchMap.
@@ -427,7 +427,6 @@ struct TacticalCombat: Codable, Equatable {
         let prior = path.remainingPoints.dropLast().last ?? current.position
         actors[turn].combatFacing = ActorFacing.orient(from: prior, to: end).rawValue
         actors[turn].position = end
-        note("\(current.name) moves.")
         return true
     }
     mutating func reconcilePosition(id: String, point: CGPoint) {
@@ -467,7 +466,6 @@ struct TacticalCombat: Codable, Equatable {
         fled = true
         // Form and combat-only effects end with this encounter; human HP is untouched.
         if isBear { endBearForm() }
-        note("Voss escapes with \(current.hp) health. The encounter remains unresolved.")
         return true
     }
     /// Legacy nonlethal defeat fixture; no longer exposed as a player command.
@@ -475,17 +473,17 @@ struct TacticalCombat: Codable, Equatable {
         guard isPlayerTurn else { return }
         actors[turn].hp = 0
         if isBear { endBearForm() }
-        note("Voss yields. The crew lets him live.")
     }
     @discardableResult mutating func transformToBear(hasClearance: Bool) -> Bool {
         guard canTransform, hasClearance, budget.spendBonusAction() else { return false }
         reveal(current.id)
         bearForm = BearFormState()
-        note("Voss takes Bear Form: \(BearFormRules.maximumEndurance) Bear Health, three full turns.")
+        note("Voss used Wild Shape: Bear.")
         return true
     }
     @discardableResult mutating func revertBear() -> Bool {
         guard canDismissWildShape else { return false }
+        note("Voss used Dismiss Wild Shape.")
         endBearForm()
         return true
     }
@@ -494,7 +492,6 @@ struct TacticalCombat: Codable, Equatable {
         bearForm?.temporaryHP = 0
         bearForm?.activationTurn = false
         for i in actors.indices { actors[i].conditions?.goadedBy = nil }
-        note("Voss returns to human form. Bear Form is spent for this encounter.")
     }
     var canGoadingRoar: Bool { isPlayerTurn && isBear && bearForm?.roarSpent != true && budget.canAttack }
     func roarTargets(clearLine: (Combatant, Combatant) -> Bool) -> [Combatant] {
@@ -516,7 +513,7 @@ struct TacticalCombat: Codable, Equatable {
             if actors[i].conditions == nil { actors[i].conditions = CombatConditions() }
             actors[i].conditions?.goadedBy = source
         }
-        note("Goading Roar: \(targets.map(\.name).joined(separator: ", ")) must focus on the bear through their next turn.")
+        note("\(current.name) used Goading Roar.")
         return targets.map(\.id)
     }
     func goadingTarget(for actor: Combatant) -> Combatant? {
@@ -537,6 +534,29 @@ struct TacticalCombat: Codable, Equatable {
         var wardAbsorbed = 0
         /// A fully resisted one-point hit must not play a miss or dodge.
         var landed: Bool { damage > 0 || wardAbsorbed > 0 }
+
+        func actionName(ranged: Bool, bear: Bool = false) -> String? {
+            // Custom techniques have no verified BG3 announcement. Do not
+            // relabel them as a different BG3 ability.
+            guard maneuver == nil else { return nil }
+            if requestedSneakAttack { return ranged ? "Sneak Attack (Ranged)" : "Sneak Attack (Melee)" }
+            return bear ? "Claws" : ranged ? "Ranged Attack" : "Main Hand Attack"
+        }
+        /// Only real attack rolls can critically miss; environmental damage has no d20.
+        var outcomeText: String {
+            landed ? "\(damage)" : (roll == 1 && !attackRolls.isEmpty ? "Critical Miss!" : "Miss!")
+        }
+        var appliedConditions: [String] {
+            guard landed else { return [] }
+            if knockedOut { return ["Knocked Out"] }
+            var conditions: [String] = []
+            if fireArrow { conditions.append("Burning") }
+            if maneuver == .tripAttack { conditions.append("Prone") }
+            return conditions
+        }
+        var floatingText: [String] {
+            [outcomeText] + appliedConditions
+        }
     }
     struct BarrelExplosion: Equatable {
         let barrel: CombatBarrel
@@ -563,7 +583,6 @@ struct TacticalCombat: Codable, Equatable {
               budget.spend(2) else { return false }
         reveal(current.id)
         barrels![index].broken = true
-        note("\(current.name) breaks the barrel. The spilled oil can still ignite.")
         return true
     }
     /// Resolve the whole chain's damage first, then push each survivor once.
@@ -581,7 +600,6 @@ struct TacticalCombat: Codable, Equatable {
             actors[index].position = point
             if isInFire(point) { catchFire(index) }
             result.append(Displacement(id: actor.id, from: actor.position, to: point))
-            note("\(actor.name) is pushed back by the blast.")
         }
         return result
     }
@@ -608,7 +626,6 @@ struct TacticalCombat: Codable, Equatable {
                 barrels![index].fireCells = Array(fireCells(barrel).prefix(100))
                 barrels![index].fireExpiresRound = round + 3
             }
-            note("\(barrel.name) explodes!")
             var hits: [Strike] = []
             for index in actors.indices where actors[index].conscious {
                 guard CombatNavigation.distance(barrel.position, actors[index].position) <= CombatBarrel.blastRadius,
@@ -624,7 +641,6 @@ struct TacticalCombat: Codable, Equatable {
                 actors[index].hp = max(0, actors[index].hp - injury)
                 hits.append(Strike(attacker: attacker, target: actors[index].id, roll: 0,
                                    damage: damage, knockedOut: !actors[index].conscious))
-                note("Blast: \(damage) to \(actors[index].name).")
             }
             explosions.append(BarrelExplosion(barrel: barrel, hits: hits))
         }
@@ -681,13 +697,14 @@ struct TacticalCombat: Codable, Equatable {
         guard current.player ? budget.spendBonusAction() : budget.spend(2) else { return false }
         actors[turn].hidden = true; actors[turn].hideUsed = true
         actors[turn].lastSeenPosition = current.position
-        note("\(current.name) hides: advantage on the next attack. Entering enemy sight reveals them.")
+        note("\(current.name) used \(current.player ? "Cunning Action: Hide" : "Hide").")
+        note("\(current.name) received Condition: Hiding.")
         return true
     }
     mutating func reveal(_ id: String) {
         guard let i = actors.firstIndex(where: { $0.id == id }), actors[i].hidden == true else { return }
         actors[i].hidden = nil; actors[i].lastSeenPosition = nil
-        note("\(actors[i].name) is revealed.")
+        note("\(actors[i].name) lost Condition: Hiding.")
     }
     /// Opposing advantage/disadvantage sources cancel, regardless of their count.
     func attackEdge(ranged: Bool, target: Combatant? = nil, allyLine: (Combatant, Combatant) -> Bool) -> Int {
@@ -701,20 +718,20 @@ struct TacticalCombat: Codable, Equatable {
     }
     func sneakAttackReason(target: Combatant, ranged: Bool, hasSword: Bool, clearLine: Bool,
                           allyLine: (Combatant, Combatant) -> Bool = { _, _ in true }) -> String? {
-        guard outcome == nil, target.conscious, target.player != current.player else { return "Choose a conscious rival." }
-        guard target.hidden != true else { return "The target is hidden." }
-        guard current.sneakDamageDice > 0 else { return "This character has no Sneak Attack ability." }
-        guard !(current.player && isBear) else { return "Sneak Attack requires human form." }
-        guard current.sneakSpent != true else { return "Sneak Attack is spent until your turn ends." }
-        guard ranged ? current.rangedWeapon == .bow : hasSword else { return "Use a shortsword or bow." }
-        guard clearLine else { return "The target is blocked by terrain." }
+        guard outcome == nil, target.conscious, target.player != current.player else { return "Target is invalid" }
+        guard target.hidden != true else { return "Target is out of sight" }
+        guard current.sneakDamageDice > 0 else { return "Can't use" }
+        guard !(current.player && isBear) else { return "You cannot do this in your current form!" }
+        guard current.sneakSpent != true else { return "Can't use" }
+        guard ranged ? current.rangedWeapon == .bow : hasSword else { return "Can't use" }
+        guard clearLine else { return "Target is blocked!" }
         let distance = CombatNavigation.distance(current.position, target.position)
-        guard ranged ? (distance > Self.meleeReach && distance <= BowAttackRules.range) : distance <= Self.meleeReach else { return "Move into weapon range." }
+        guard ranged ? (distance > Self.meleeReach && distance <= BowAttackRules.range) : distance <= Self.meleeReach else { return "Target is too far" }
         let edge = attackEdge(ranged: ranged, target: target, allyLine: allyLine)
-        guard edge >= 0 else { return "Disadvantage prevents Sneak Attack." }
+        guard edge >= 0 else { return "Disadvantage" }
         let ally = actors.contains { $0.id != current.id && $0.player == current.player && $0.conscious && !$0.isProne
             && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach && allyLine($0, target) }
-        guard edge > 0 || ally else { return "Gain advantage by hiding, or have an ally beside the target." }
+        guard edge > 0 || ally else { return "Can't use" }
         guard budget.canAttack else { return "Not enough resources: Action." }
         return nil
     }
@@ -808,7 +825,6 @@ struct TacticalCombat: Codable, Equatable {
                 if actors[target].conditions == nil { actors[target].conditions = CombatConditions() }
                 actors[target].conditions?.prone = true
                 actors[target].defending = false
-                note("\(actors[target].name) is Prone until their turn; nearby attacks have advantage.")
             }
             if maneuver == .feintingCut {
                 if actors[target].conditions == nil { actors[target].conditions = CombatConditions() }
@@ -822,20 +838,16 @@ struct TacticalCombat: Codable, Equatable {
         let fireArrow = ranged && ammunition == .fire
         if hit && fireArrow && actors[target].conscious {
             actors[target].burningTurns = 2
-            note("\(actors[target].name) is Burning: 1–4 damage at the end of each of their next two turns. Extinguish uses an Action.")
         }
         if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,
                             knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed)
-        note("\(current.name)\(maneuver.map { " — " + $0.title } ?? (ranged ? " fires" : "")): d20 \(die) + \(attackBonus) vs \(defence) — " +
-             (hit ? "\(damage) to \(actors[target].name)." : "miss."))
-        if sneakDamage > 0 { note("Sneak Attack: +\(sneakDamage) damage\(die == 20 ? " (critical)" : "").") }
-        if wardAbsorbed > 0 { note("Blade Ward prevented \(wardAbsorbed) physical damage.") }
-        if edge != 0 { note("\(edge > 0 ? "Advantage" : "Disadvantage"): rolled \(attackRolls[0]) / \(attackRolls[1]), kept \(die).") }
-        if hit, !result.knockedOut, maneuver == .feintingCut || maneuver == .pinningShot {
-            note("\(actors[target].name): \(maneuver == .feintingCut ? "Weakened (−3 accuracy)" : "Slowed (half movement)") through their next turn.")
+        if let action = result.actionName(ranged: ranged, bear: current.player && isBear) {
+            note("\(current.name) used \(action) on \(actors[target].name).")
         }
-        if result.knockedOut { note("\(actors[target].name) is out of the fight.") }
+        for condition in result.appliedConditions {
+            note("\(actors[target].name) received Condition: \(condition).")
+        }
         return result
     }
 }
@@ -1023,4 +1035,31 @@ struct CombatBarrel: Codable, Equatable {
         (fireCells ?? []).contains { abs($0.x - point.x) <= 8 && abs($0.y - point.y) <= 6 }
     }
     var name: String { isBroken ? "Oil spill" : "Oil barrel" }
+}
+
+
+/// Restricted event vocabulary, not a translation of arbitrary RainShadow text.
+/// Sources and scope: Documentation/CombatTargetingOct10.md, "Verified-only events".
+/// Targeting tooltips still describe the actual RainShadow rules.
+enum CombatEventText {
+    static let actions = ["Main Hand Attack", "Ranged Attack", "Sneak Attack (Melee)",
+        "Sneak Attack (Ranged)", "Shove", "Dash", "Hide", "Cunning Action: Hide",
+        "Blade Ward", "Wild Shape: Bear", "Dismiss Wild Shape", "Claws", "Goading Roar"]
+    static let conditions = ["Burning", "Prone", "Hiding", "Blade Ward", "Knocked Out"]
+
+    /// Exact templates with our actor/target names substituted. Deliberately
+    /// rejects appended commentary and custom action/condition names in old saves.
+    static func isVerified(_ text: String, names: [String]) -> Bool {
+        for actor in names where text.hasPrefix(actor + " ") {
+            let event = String(text.dropFirst(actor.count + 1))
+            for action in actions {
+                if event == "used \(action)." { return true }
+                if names.contains(where: { event == "used \(action) on \($0)." }) { return true }
+            }
+            for condition in conditions {
+                if event == "received Condition: \(condition)." || event == "lost Condition: \(condition)." { return true }
+            }
+        }
+        return false
+    }
 }

@@ -46,7 +46,7 @@ enum CombatAttackPlanner {
             return blocked(standing.unavailableReason)
         }
         let allowance = combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current))
-        guard allowance > 0 else { return blocked("No movement remains to reach an attack position.") }
+        guard allowance > 0 else { return blocked("Not enough movement") }
         let origin = combat.current.position
         let toward = atan2((origin.y - target.position.y) / 0.75, origin.x - target.position.x)
         let radii: [CGFloat] = order.ranged ? [628, 480, 320, 180, 132] : [96, 80]
@@ -77,6 +77,6 @@ enum CombatAttackPlanner {
             return CombatAttackPlan(path: path, preview: forecast, reason: nil,
                                     movement: CombatNavigation.length(path, from: origin))
         }
-        return blocked("No reachable attack position with this turn’s movement. Move manually or choose another attack.")
+        return blocked("Can't reach")
     }
 }

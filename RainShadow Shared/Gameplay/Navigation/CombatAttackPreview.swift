@@ -17,25 +17,25 @@ extension TacticalCombat {
                                  ammunition: CombatAmmunition, maneuver: CombatManeuver?,
                                  hasSword: Bool, requireSneakAttack: Bool,
                                  allyLine: (Combatant, Combatant) -> Bool) -> String? {
-        guard outcome == nil, target.conscious, target.player != current.player else { return "Choose a conscious rival." }
-        guard target.hidden != true else { return "The target is hidden." }
-        guard clearLine else { return "Terrain or another character blocks the attack." }
-        if ammunition == .fire && (!ranged || maneuver != nil || requireSneakAttack) { return "Fire Arrows require a normal Ranged Attack." }
-        if ammunition == .fire && !current.player && (current.fireArrows ?? 0) <= 0 { return "No Fire Arrows remain." }
+        guard outcome == nil, target.conscious, target.player != current.player else { return "Target is invalid" }
+        guard target.hidden != true else { return "Target is out of sight" }
+        guard clearLine else { return "Target is blocked!" }
+        if ammunition == .fire && (!ranged || maneuver != nil || requireSneakAttack) { return "Can't use" }
+        if ammunition == .fire && !current.player && (current.fireArrows ?? 0) <= 0 { return "Can't use" }
         if ranged {
-            guard !(current.player && isBear), current.rangedWeapon == .bow else { return "Equip a bow in human form." }
+            guard !(current.player && isBear), current.rangedWeapon == .bow else { return "Can't use" }
             let distance = CombatNavigation.distance(current.position, target.position)
-            guard distance > Self.meleeReach else { return "Too close for a bow. Move away or use melee." }
-            guard distance <= BowAttackRules.range else { return "Outside bow range (80 ft)." }
+            guard distance > Self.meleeReach else { return "Can't use" }
+            guard distance <= BowAttackRules.range else { return "Target is too far" }
         } else if CombatNavigation.distance(current.position, target.position) > Self.meleeReach {
-            return "Outside melee reach. Move closer."
+            return "Target is too far"
         }
         if let maneuver {
-            guard current.player || current.enemyRole?.maneuvers.contains(maneuver) != false else { return "This technique is not in this enemy’s loadout." }
-            guard !(current.player && isBear) else { return "Weapon techniques require human form." }
-            guard maneuver.ranged == ranged, ranged || hasSword else { return "Equip the required weapon." }
-            guard !(current.usedManeuvers ?? []).contains(maneuver) else { return "This technique is spent for this encounter." }
-            if maneuver == .tripAttack && (target.isProne || (target.player && isBear)) { return "This target cannot be tripped." }
+            guard current.player || current.enemyRole?.maneuvers.contains(maneuver) != false else { return "Can't use" }
+            guard !(current.player && isBear) else { return "You cannot do this in your current form!" }
+            guard maneuver.ranged == ranged, ranged || hasSword else { return "Can't use" }
+            guard !(current.usedManeuvers ?? []).contains(maneuver) else { return "Can't use" }
+            if maneuver == .tripAttack && (target.isProne || (target.player && isBear)) { return "Target is invalid" }
         }
         guard CombatBudget.transition(state: budget.state, cost: maneuver?.cost ?? 2) != nil else { return "Not enough resources: Action." }
         if requireSneakAttack {

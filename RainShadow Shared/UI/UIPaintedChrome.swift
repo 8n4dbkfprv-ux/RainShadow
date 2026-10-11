@@ -2,6 +2,30 @@ import SpriteKit
 
 /// Shared UI artwork loader and resolution-independent folio chrome.
 enum UIPaintedChrome {
+    /// Generated parchment with fixed-size painted corners for compact readouts.
+    @MainActor
+    static func tooltipBackground() -> SKNode {
+        let texture = requireTexture(named: "ui_combat_tooltip_parchment_v01")
+        let sprite = SKSpriteNode(texture: texture)
+        sprite.name = "paintedPlate"
+        sprite.centerRect = CGRect(x: 0.10, y: 0.10, width: 0.80, height: 0.80)
+        // SpriteKit slices in source pixels. Scale those caps to 19.2 points,
+        // independently of the panel's final width and height.
+        // Keep the scale on a parent: resizing a sliced SKSpriteNode can reset
+        // its own scale as SpriteKit recalculates the nine-slice geometry.
+        let mount = SKNode()
+        mount.name = "combat.tooltipBackground"
+        mount.setScale(192 / max(1, texture.size().width))
+        mount.addChild(sprite)
+        return mount
+    }
+
+    @MainActor
+    static func sizeTooltipBackground(_ mount: SKNode, to size: CGSize) {
+        guard let sprite = mount.childNode(withName: "paintedPlate") as? SKSpriteNode else { return }
+        sprite.size = CGSize(width: size.width / mount.xScale, height: size.height / mount.yScale)
+    }
+
     @MainActor
     static func texture(named name: String, filtering: SKTextureFilteringMode = .linear) -> SKTexture? {
         guard let texture = assetTexture(named: name) else {

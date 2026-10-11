@@ -189,6 +189,7 @@ final class CombatActionBar: SKNode {
     private let health = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private let resources = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private let tooltip = SKShapeNode()
+    private let tooltipBackground = UIPaintedChrome.tooltipBackground()
     private let tooltipText = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private var portraitName = ""
     private var availableWidth: CGFloat = 820
@@ -218,9 +219,11 @@ final class CombatActionBar: SKNode {
         resources.fontSize = 10; resources.fontColor = UITheme.Color.ink
         health.verticalAlignmentMode = .center; resources.verticalAlignmentMode = .center
         tooltip.zPosition = 5; tooltip.isHidden = true
-        tooltip.fillColor = .white
-        tooltip.fillTexture = UIPaintedChrome.parchmentSurface()
-        tooltip.strokeColor = UITheme.Color.engraved
+        // Keep the existing shape as the pointer hit region; artwork is a
+        // nine-sliced sprite so its painted corners do not stretch.
+        tooltip.fillColor = .clear; tooltip.strokeColor = .clear
+        tooltipBackground.zPosition = -1
+        tooltip.addChild(tooltipBackground)
         tooltipText.fontSize = 12; tooltipText.fontColor = UITheme.Color.ink
         tooltipText.verticalAlignmentMode = .center; tooltipText.numberOfLines = 4
         tooltip.addChild(tooltipText)
@@ -280,11 +283,12 @@ final class CombatActionBar: SKNode {
         tooltip.isHidden = button == nil
         guard let button else { return }
         let width = min(380, availableWidth - 12)
-        tooltipText.preferredMaxLayoutWidth = width - 22
+        tooltipText.preferredMaxLayoutWidth = width - 44
         tooltipText.numberOfLines = 0
         tooltipText.text = button.titleText + "\n" + button.detail
             + (button.unavailableReason.map { "\n" + $0 } ?? "")
-        let tooltipHeight = max(86, tooltipText.frame.height + 24)
+        let tooltipHeight = max(86, tooltipText.frame.height + 40)
+        UIPaintedChrome.sizeTooltipBackground(tooltipBackground, to: CGSize(width: width, height: tooltipHeight))
         tooltip.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -tooltipHeight / 2, width: width, height: tooltipHeight), cornerWidth: 5, cornerHeight: 5, transform: nil)
         tooltip.position = CGPoint(x: max(-availableWidth / 2 + width / 2 + 6,
             min(availableWidth / 2 - width / 2 - 6, button.position.x)), y: height / 2 + 9 + tooltipHeight / 2)

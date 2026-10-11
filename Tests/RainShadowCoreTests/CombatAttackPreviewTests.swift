@@ -65,7 +65,7 @@ struct CombatAttackPreviewTests {
         }
         var model = fight(ranged: true)
         let target = model.actors.first { !$0.player }!
-        #expect(model.attackPreview(target: target, clearLine: true).unavailableReason?.contains("reach") == true)
+        #expect(model.attackPreview(target: target, clearLine: true).unavailableReason == "Target is too far")
         _ = model.dash()
         #expect(model.attackPreview(target: target, clearLine: true, ranged: true).unavailableReason == "Not enough resources: Action.")
     }

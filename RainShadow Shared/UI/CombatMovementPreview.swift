@@ -103,8 +103,7 @@ import SpriteKit
         let feet = String(format: "%.1f", geometry.distance / 8)
         let remaining = String(format: "%.1f", max(0, allowance - geometry.distance) / 8)
         distanceLabel.text = "\(feet) ft"
-        hintLabel.text = canMove ? "\(remaining) ft remaining" : budget.canAttack
-            ? "Not enough movement · Dash available" : "Not enough movement"
+        hintLabel.text = canMove ? "Movement: \(remaining) ft" : "Not enough movement"
         distanceShadow.text = distanceLabel.text; hintShadow.text = hintLabel.text
         isHidden = false
         updateScale(cameraScale)
