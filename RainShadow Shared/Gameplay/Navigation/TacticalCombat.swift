@@ -350,7 +350,8 @@ struct TacticalCombat: Codable, Equatable {
     func shoveProblem(target id: String, clearLine: Bool, destination: CGPoint) -> String? {
         guard canShove else { return current.player && isBear ? "Shove requires human form." : "Not enough resources: Bonus Action." }
         guard let target = actors.first(where: { $0.id == id && $0.conscious }), id != current.id else { return "Target is invalid" }
-        guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach else { return "Target is too far" }
+        guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach,
+              canReachHeight(from: current.position, to: target.position) else { return "Target is too far" }
         guard !target.isProne else { return "Target is invalid" }
         guard clearLine else { return "Target is blocked!" }
         let source = physique(of: current), victim = physique(of: target)
@@ -461,6 +462,34 @@ struct TacticalCombat: Codable, Equatable {
         return true
     }
     /// The caller supplies a route certified by CombatNavigation/SearchMap.
+    /// Leaving a threatened floor via a ladder still offers a reaction. The
+    /// synthetic segment is used only to query reach, never handed to a walker.
+    mutating func ladderOpportunity(_ ladder: AreaLadder,
+        clearLine: (Combatant, Combatant) -> Bool) -> MovementStep? {
+        let segment = Path(points: [ladder.ends(from: current.position).exit], from: current.position)
+        guard let exit = opportunityExits(along: segment, clearLine: clearLine).first,
+              let attacker = actors.firstIndex(where: { $0.id == exit.attackerID }) else { return nil }
+        let before = self, mover = turn
+        actors[attacker].reactionSpent = true; turn = attacker
+        let result = resolveAttack(target: mover, opportunity: true, allyLine: clearLine)
+        turn = mover
+        if !current.conscious, outcome == nil { _ = endTurn() }
+        return MovementStep(path: Path(), remainder: nil, beforeReaction: before, reaction: result)
+    }
+
+    /// Called only after the scene certifies both authored ladder endpoints.
+    /// Save the completed transition atomically; loading never leaves someone on a rung.
+    @discardableResult mutating func climb(_ ladder: AreaLadder, exitClear: Bool) -> Bool {
+        let ends = ladder.ends(from: current.position)
+        guard outcome == nil, current.conscious, !current.isProne,
+              !(current.player && isBear), exitClear,
+              CombatNavigation.distance(current.position, ends.entry) < 24,
+              budget.move(distance: ladder.costFeet * 8, speed: movementSpeed(for: current)) else { return false }
+        actors[turn].position = ends.exit
+        actors[turn].combatFacing = ladder.facing
+        reveal(current.id)
+        return true
+    }
     @discardableResult mutating func move(along path: Path) -> Bool {
         move(along: path, movementCost: CombatNavigation.length(path, from: current.position))
     }
@@ -762,7 +791,7 @@ struct TacticalCombat: Codable, Equatable {
         let farProne = target.map { $0.isProne && CombatNavigation.distance(current.position, $0.position) > Self.meleeReach } ?? false
         let advantage = current.hidden == true || current.conditions?.attackAdvantage == true || nearProne
         let threatened = ranged && actors.contains { $0.conscious && !$0.isProne && $0.player != current.player
-            && CombatNavigation.distance($0.position, current.position) <= Self.meleeReach && allyLine($0, current) }
+            && CombatNavigation.distance($0.position, current.position) <= Self.meleeReach && canReachHeight(from: $0.position, to: current.position) && allyLine($0, current) }
         let disadvantage = current.conditions?.attackDisadvantage == true || threatened || farProne
         return advantage == disadvantage ? 0 : advantage ? 1 : -1
     }
@@ -777,10 +806,11 @@ struct TacticalCombat: Codable, Equatable {
         guard clearLine else { return "Target is blocked!" }
         let distance = CombatNavigation.distance(current.position, target.position)
         guard ranged ? (distance > Self.meleeReach && distance <= BowAttackRules.range) : distance <= Self.meleeReach else { return "Target is too far" }
+        guard ranged || canReachHeight(from: current.position, to: target.position) else { return "Target is too far" }
         let edge = attackEdge(ranged: ranged, target: target, allyLine: allyLine)
         guard edge >= 0 else { return "Disadvantage" }
         let ally = actors.contains { $0.id != current.id && $0.player == current.player && $0.conscious && !$0.isProne
-            && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach && allyLine($0, target) }
+            && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach && canReachHeight(from: $0.position, to: target.position) && allyLine($0, target) }
         guard edge > 0 || ally else { return "Can't use" }
         guard budget.canAttack else { return "Not enough resources: Action." }
         return nil
@@ -861,6 +891,7 @@ struct TacticalCombat: Codable, Equatable {
         face(current.id, toward: actors[target].position)
         reveal(current.id)
         let attackBonus = attackBonus(for: current) + (maneuver?.accuracy ?? 0)
+            + elevationBonus(from: current.position, to: actors[target].position, ranged: ranged)
         let defence = defence(for: actors[target])
         let hit = Self.attackHits(die: die, bonus: attackBonus, defence: defence)
         let band = weaponDamageRange
@@ -955,7 +986,7 @@ extension TacticalCombat {
                 let point = CGPoint(x: previous.x + dx * t, y: previous.y + dy * t * 0.75).rounded
                 var mover = current; mover.position = point
                 guard CombatNavigation.distance(enemy.position, point) <= Self.meleeReach,
-                      clearLine(enemy, mover) else { continue }
+                      canReachHeight(from: enemy.position, to: point), clearLine(enemy, mover) else { continue }
                 let prefix = Path(points: Array(points.prefix(index)) + [point], from: current.position)
                 if mover.hidden == true && !movementReveals(mover, along: prefix, clearLine: clearLine) { continue }
                 exits.append(OpportunityExit(attackerID: enemy.id, point: point,
@@ -967,7 +998,7 @@ extension TacticalCombat {
         return exits.sorted { $0.distance == $1.distance ? $0.attackerID < $1.attackerID : $0.distance < $1.distance }
     }
 
-    private func movementReveals(_ actor: Combatant, along path: Path,
+    func movementReveals(_ actor: Combatant, along path: Path,
                                  clearLine: (Combatant, Combatant) -> Bool) -> Bool {
         guard actor.hidden == true else { return false }
         var previous = current.position
@@ -1080,12 +1111,9 @@ enum CombatNavigation {
             participants.forEach { map.occupancy.register($0) }
             map.occupancy.restampAll()
         }
-        // The port's line walker visits no cells when both ends share one cell.
-        // Combat still needs visibility for a character standing in spilled oil.
-        if map.searchMap.cell(for: a) == map.searchMap.cell(for: b) {
-            return map.searchMap.blockedInRadiusTile(at: a, size: 2).contains(.passable)
+        return projectileLine(in: map.searchMap, from: a, to: b) { point in
+            map.elevatedProjectileSurfaces.contains { $0.permitsElevatedShot(at: point, from: a, to: b) }
         }
-        return map.searchMap.blockedInLine(from: a, to: b, size: -1).contains(.passable)
     }
     /// Forced movement stays on the shared raster and stops at the first obstruction.
     /// Temporary endpoint stamps keep chained pushes from overlapping survivors.

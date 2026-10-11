@@ -1574,6 +1574,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
     var entrances: [AreaEntrance]
     var regions: [AreaRegion]
     var props: [AreaProp]
+    var ladders: [AreaLadder]
+    var elevationSurfaces: [AreaElevationSurface]
     /// Scenery outlines that cover actors standing behind them.
     var wallPolygons: [AreaWallPolygon]
     var actors: [AreaActor]
@@ -1617,6 +1619,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         entrances: [AreaEntrance] = [],
         regions: [AreaRegion] = [],
         props: [AreaProp] = [],
+        elevationSurfaces: [AreaElevationSurface] = [],
+        ladders: [AreaLadder] = [],
         wallPolygons: [AreaWallPolygon] = [],
         actors: [AreaActor] = [],
         containers: [AreaContainer] = [],
@@ -1648,6 +1652,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         self.agentProfile = agentProfile
         self.entrances = entrances
         self.regions = regions
+        self.elevationSurfaces = elevationSurfaces
+        self.ladders = ladders
         self.props = props
         self.wallPolygons = wallPolygons
         self.actors = actors
@@ -1751,7 +1757,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
 
     func makeNavigationMap() -> NavigationMap {
         if let searchMapName, let raster = try? AreaSearchMapLoader.load(named: searchMapName) {
-            return NavigationMap(
+            let navigation = NavigationMap(
                 searchMap: SearchMap(
                     worldBounds: worldBounds,
                     terrainIndices: raster.terrainIndices,
@@ -1766,6 +1772,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
                 doorObstacles: doors.map(\.searchMapObstacle),
                 entranceDoorBlocking: doors.contains { $0.startsClosed }
             )
+            navigation.elevatedProjectileSurfaces = elevationSurfaces.filter { $0.id == "shipping.roof" }
+            return navigation
         }
         return NavigationMap(
             worldBounds: worldBounds,
@@ -1793,7 +1801,7 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         case plateTextureName, nightPlateTextureName, mapTextureName, cameraClampRect
         case searchMapName, obstacles, sightPermeableObstacles, defaultTerrain
         case agentProfile
-        case entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
+        case ladders, elevationSurfaces, entrances, regions, props, wallPolygons, actors, containers, doors, notes, ambients
         case animations, variables, songs, lightMapName, nightLightMapName, heightMapName
         case script
     }
@@ -1830,6 +1838,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         entrances = try container.decodeIfPresent([AreaEntrance].self, forKey: .entrances) ?? []
         regions = try container.decodeIfPresent([AreaRegion].self, forKey: .regions) ?? []
         props = try container.decodeIfPresent([AreaProp].self, forKey: .props) ?? []
+        ladders = try container.decodeIfPresent([AreaLadder].self, forKey: .ladders) ?? []
+        elevationSurfaces = try container.decodeIfPresent([AreaElevationSurface].self, forKey: .elevationSurfaces) ?? []
         wallPolygons = try container.decodeIfPresent(
             [AreaWallPolygon].self,
             forKey: .wallPolygons
@@ -1873,6 +1883,8 @@ struct AreaDefinition: Hashable, Codable, Sendable {
         try container.encode(entrances, forKey: .entrances)
         try container.encode(regions, forKey: .regions)
         try container.encode(props, forKey: .props)
+        if !ladders.isEmpty { try container.encode(ladders, forKey: .ladders) }
+        if !elevationSurfaces.isEmpty { try container.encode(elevationSurfaces, forKey: .elevationSurfaces) }
         try container.encode(wallPolygons, forKey: .wallPolygons)
         try container.encode(actors, forKey: .actors)
         try container.encode(containers, forKey: .containers)

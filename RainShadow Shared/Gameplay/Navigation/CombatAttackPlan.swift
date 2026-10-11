@@ -65,13 +65,9 @@ enum CombatAttackPlanner {
                   !path.isEmpty else { continue }
             var after = combat
             guard after.move(along: path) else { continue }
-            if combat.current.hidden == true && path.remainingPoints.contains(where: { point in
-                combat.actors.contains { observer in
-                    observer.player != combat.current.player && observer.conscious
-                        && TacticalCombat.insideSightCone(observer: observer, point: point)
-                        && CombatNavigation.clearLine(in: map, from: observer.position, to: point, excluding: combat.actors.map(\.id))
-                }
-            }) { after.reveal(combat.current.id) }
+            if combat.current.hidden == true && combat.movementReveals(combat.current, along: path, clearLine: line) {
+                after.reveal(combat.current.id)
+            }
             let forecast = preview(after)
             guard forecast.unavailableReason == nil else { continue }
             return CombatAttackPlan(path: path, preview: forecast, reason: nil,

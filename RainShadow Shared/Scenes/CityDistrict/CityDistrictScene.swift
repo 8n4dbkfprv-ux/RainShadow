@@ -35,6 +35,8 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     private var fogOfWar: FogOfWarNode?
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
+    private var ladderPresentation: LadderPresentation?
+    private var ladderTime: TimeInterval?
     #if os(macOS)
     #if DEBUG
     private var playtestNight = false
@@ -301,6 +303,24 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         }
 
         guard area.worldBounds.contains(event.location) else {
+            return
+        }
+
+        if ladderPresentation != nil { return }
+        if let ladder = area.ladders.first(where: { $0.contains(event.location) }) {
+            let ends = ladder.ends(from: detective.position)
+            moveDetective(to: ends.entry, minDistance: 6) { [weak self] in
+                guard let self, ladder.exitIsClear(in: self.navigation, actorID: Self.detectiveActorID, from: self.detective.position),
+                      CombatNavigation.distance(self.detective.position, ends.entry) < 24 else { return }
+                var definition = CharacterDefinition.voss
+                definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
+                    $0.isEquipped(in: self.context.session.characterInventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
+                }
+                guard let motion = try? LadderPresentation(definition: definition, entry: ends.entry, exit: ends.exit) else { return }
+                self.detective.cancelMovement(); self.detective.isHidden = true
+                self.depthWorldRoot.addChild(motion.node); self.applyAreaLighting(to: motion.node)
+                self.ladderPresentation = motion; self.ladderTime = nil
+            }
             return
         }
 
@@ -590,7 +610,16 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         detective.footstepSurface = FootstepSurface(
             navigation.searchMap.surface(at: detective.position) ?? .stone
         )
-        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused)
+        if let climb = ladderPresentation {
+            let delta = min(0.1, max(0, currentTime - (ladderTime ?? currentTime)))
+            ladderTime = currentTime
+            if !worldIsPaused { climb.advance(delta) }
+            if climb.finished {
+                detective.position = climb.exit; detective.syncMovablePosition(climb.exit); detective.setEntranceFacing(.northEast); detective.isHidden = false
+                climb.node.removeFromParent(); ladderPresentation = nil; ladderTime = nil
+            }
+        }
+        detective.updateLocomotion(at: currentTime, worldIsPaused: worldIsPaused || ladderPresentation != nil)
         if !worldIsPaused {
             syncWaypointPips()
             navigation.updateActor(
@@ -598,7 +627,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
                 position: detective.position,
                 isMoving: detective.movementDestination != nil
             )
-            if !wharfStory.isCombatActive { performCorrectiveRepathIfNeeded(at: currentTime) }
+            if !wharfStory.isCombatActive && ladderPresentation == nil { performCorrectiveRepathIfNeeded(at: currentTime) }
         }
         finishAreaTick(at: detective.position)
         let bearUI = inventoryBearForm

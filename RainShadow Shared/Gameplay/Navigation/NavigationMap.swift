@@ -4,6 +4,8 @@ import Foundation
 /// Scene-facing BG:EE-style navigation: search-map raster + Lazy Theta* + actor
 /// occupancy. Replaces the former AABB grid A* (`NavigationGrid`).
 final class NavigationMap {
+    /// Authored raised floors used only by the combat projectile adapter.
+    var elevatedProjectileSurfaces: [AreaElevationSurface] = []
     let searchMap: SearchMap
     let agentProfile: NavigationAgentProfile
     let occupancy: ActorOccupancy

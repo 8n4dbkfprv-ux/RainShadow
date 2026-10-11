@@ -12,6 +12,9 @@ final class TacticalCombatDirector {
     private let hud = SKNode()
     let targetPanel = CombatTargetPanel()
     private var hoveredTargetID: String?
+    private var pendingLadder: AreaLadder?
+    private var pendingLadderActorID: String?
+    private var climbing: (id: String, presentation: LadderPresentation)?
     private var pendingAttack: CombatAttackOrder?
     private var movementInterrupt: TacticalCombat.MovementStep?
     private var movementContinuation: (actorID: String, path: Path)?
@@ -174,7 +177,7 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { movementInterrupt != nil || movementContinuation != nil || runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { climbing != nil || movementInterrupt != nil || movementContinuation != nil || runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
@@ -602,6 +605,11 @@ final class TacticalCombatDirector {
         if onActionChrome || panel.contains(point) || turnPanel.contains(point) || existingChromeContains(point) { return }
         guard combat.isPlayerTurn, !busy, !presentationPaused else { return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
+        if !aimingRangedAttack, !selectingMelee, !selectingShove, !selectingSneakAttack, !selectingClaw, selectedManeuver == nil,
+           meleeTarget(at: world) == nil, let ladder = scene.area.ladders.first(where: { $0.contains(world) }) {
+            requestClimb(ladder); return
+        }
+
         if selectingShove {
             if let target = shoveTarget(at: world) { performShove(target) }
             else { feedback = "Target is invalid"; refresh() }
@@ -645,6 +653,17 @@ final class TacticalCombatDirector {
         let hudPoint = hud.convert(scenePoint, from: scene)
         guard !actionBar.containsChrome(at: actionPoint), !panel.contains(hudPoint), !turnPanel.contains(hudPoint), !existingChromeContains(hudPoint) else { routePreview.path = nil; return }
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
+        if !aimingRangedAttack, !selectingMelee, !selectingShove, !selectingSneakAttack, !selectingClaw, selectedManeuver == nil,
+           meleeTarget(at: world) == nil, let ladder = scene.area.ladders.first(where: { $0.contains(world) }) {
+            let ends = ladder.ends(from: combat.current.position)
+            let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: ends.entry)
+            let distance = path.map { CombatNavigation.length($0, from: combat.current.position) } ?? 0
+            let enough = distance + ladder.costFeet * 8 <= combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current))
+            targetPanel.show(title: "Ladder", lines: ["Climb · \(Int(ceil(distance / 8 + ladder.costFeet))) ft Movement",
+                combat.isBear ? "You cannot do this in your current form!" : !ladder.exitIsClear(in: scene.navigation, actorID: combat.current.id, from: combat.current.position) ? "Not enough space" : enough ? "" : "Not enough movement"], examining: false)
+            return
+        }
+
         if selectingShove {
             if let target = shoveTarget(at: world) { previewShove(target) } else { routePreview.path = nil }
             return
@@ -690,6 +709,7 @@ final class TacticalCombatDirector {
             let threats = visibleOpportunities(path)
             if !threats.isEmpty { lines.append("Opportunity Attack ×\(threats.count)") }
         }
+        if preview.elevationModifier != 0 { lines.append(preview.elevationModifier > 0 ? "High Ground +2" : "Low Ground −2") }
         if preview.edge != 0 { lines.append(preview.edge > 0 ? "Advantage" : "Disadvantage") }
         if preview.sneakDice > 0 { lines.append("Sneak Attack · +\(preview.sneakDice)d6") }
         if target.hasBladeWard { lines.append("Blade Ward") }
@@ -800,6 +820,58 @@ final class TacticalCombatDirector {
             combat.actors.contains { $0.id == exit.attackerID && $0.hidden != true }
         }
     }
+    private func requestClimb(_ ladder: AreaLadder) {
+        guard !(combat.current.player && combat.isBear), !combat.current.isProne else {
+            feedback = "You cannot do this in your current form!"; refresh(); return
+        }
+        let ends = ladder.ends(from: combat.current.position)
+        guard ladder.exitIsClear(in: scene.navigation, actorID: combat.current.id, from: combat.current.position) else {
+            feedback = "Not enough space"; refresh(); return
+        }
+        let close = CombatNavigation.distance(combat.current.position, ends.entry) < 24
+        let path = close ? nil : CombatNavigation.route(in: scene.navigation, actor: combat.current, to: ends.entry)
+        guard close || path != nil else { feedback = "Can't reach destination"; refresh(); return }
+        let cost = (path.map { CombatNavigation.length($0, from: combat.current.position) } ?? 0) + ladder.costFeet * 8
+        guard cost <= combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) + 0.001 else {
+            feedback = "Not enough movement"; refresh(); return
+        }
+        cancelTargeting(); pendingLadder = ladder; pendingLadderActorID = combat.current.id
+        if let path { if !move(path) { pendingLadder = nil } }
+        else { beginClimb() }
+    }
+    private func beginClimb() {
+        guard let ladder = pendingLadder else { return }
+        guard pendingLadderActorID == combat.current.id, combat.current.conscious else { pendingLadder = nil; return }
+        if let reaction = combat.ladderOpportunity(ladder, clearLine: sneakLine) {
+            movementInterrupt = reaction; presentMovementInterrupt(); return
+        }
+        pendingLadder = nil; pendingLadderActorID = nil
+        let actor = combat.current, ends = ladder.ends(from: actor.position)
+        do {
+            let presentation = try LadderPresentation(definition: combatAppearance(for: actor), entry: ends.entry, exit: ends.exit)
+            guard combat.climb(ladder, exitClear: ladder.exitIsClear(in: scene.navigation, actorID: actor.id, from: actor.position)) else { return }
+            actorNode(actor.id)?.isHidden = true; stealthNodes[actor.id]?.isHidden = true
+            scene.depthWorldRoot.addChild(presentation.node); scene.applyAreaLighting(to: presentation.node)
+            climbing = (actor.id, presentation)
+            scene.navigation.updateActor(id: actor.id, position: ends.exit, isMoving: false)
+            checkpoint(synchronize: false)
+        } catch { feedback = "Climbing artwork could not load."; refresh() }
+    }
+    private func updateClimb(delta: Double) {
+        guard let climb = climbing else { return }
+        climb.presentation.advance(delta)
+        guard climb.presentation.finished else { return }
+        if let original = actorNode(climb.id) {
+            original.position = climb.presentation.exit; original.isHidden = false
+        }
+        if climb.id == TacticalCombat.playerID {
+            scene.detective.syncMovablePosition(climb.presentation.exit)
+            scene.detective.setEntranceFacing(.northEast)
+        }
+        climb.presentation.node.removeFromParent(); climbing = nil
+        delay = 0.25; checkpoint()
+    }
+
     @discardableResult private func move(_ requestedPath: Path) -> Bool {
         let actor = combat.current
         var runner: CharacterAppearanceNode?
@@ -898,6 +970,7 @@ final class TacticalCombatDirector {
             return
         }
         checkpoint()
+        if pendingLadder != nil { beginClimb(); return }
         if let order = pendingAttack {
             pendingAttack = nil
             executeAttack(order)
@@ -1682,6 +1755,7 @@ final class TacticalCombatDirector {
         }
     }
     private func endCombatTurn() {
+        pendingLadder = nil; pendingLadderActorID = nil
         let before = combat
         var burn: TacticalCombat.Strike?
         guard combat.endTurn(burningHit: { burn = $0 }) else { return }
@@ -1834,6 +1908,9 @@ final class TacticalCombatDirector {
                 else { strike(victim, maneuver: order.maneuver) }
                 return
             }
+        case .climb(let ladder):
+            requestClimb(ladder)
+            if climbing != nil || movingID != nil { return }
         case .move(let path):
             if move(path) { return }
         case .disengage(let path):
@@ -1875,6 +1952,7 @@ final class TacticalCombatDirector {
             if !roarSound.isPlaying { roarSound.play() }
         }
         guard !presentationPaused else { return }
+        if climbing != nil { updateClimb(delta: delta); return }
         if let startBanner {
             startBanner.advance(delta: delta)
             if startBanner.finished { self.startBanner = nil }
@@ -2042,6 +2120,7 @@ final class TacticalCombatDirector {
             }
             return
         }
+        if pendingLadder != nil { beginClimb(); return }
         if !combat.isPlayerTurn { enemyTurn() }
     }
     private func beginExplosionReactions(_ shot: BowShotPresentation, elapsed: TimeInterval) {

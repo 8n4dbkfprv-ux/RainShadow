@@ -418,17 +418,22 @@ class GameAreaScene: BaseGameScene {
         actor.applyFootLight(sample)
     }
 
+    override func applyActorCover(to node: SKNode, at point: CGPoint, seated: Bool = false) {
+        let onRoof = area.elevationSurfaces.contains { $0.id == "shipping.roof" && $0.height(at: point) != nil }
+        super.applyActorCover(to: node, at: point, seated: seated || onRoof)
+    }
+
     func applyAreaLighting(to actor: CharacterAppearanceNode) {
         actor.applyFootLight(lightMap?.sample(at: actor.position,
             origin: navigation.searchMap.origin, cellSize: navigation.searchMap.cellSize))
-        actor.visualHeightOffset = heightMap.map {
+        actor.visualHeightOffset = area.elevationSurfaces.contains { $0.height(at: actor.position) != nil } ? 0 : heightMap.map {
             AreaHeightMap.offset(from: $0, at: actor.position,
                 origin: navigation.searchMap.origin, cellSize: navigation.searchMap.cellSize)
         } ?? 0
     }
 
     func applyHeightOffset(to actor: DetectiveActorNode, at point: CGPoint) {
-        if actor.isDeskRegistered {
+        if actor.isDeskRegistered || area.elevationSurfaces.contains(where: { $0.height(at: point) != nil }) {
             actor.visualHeightOffset = 0
             return
         }

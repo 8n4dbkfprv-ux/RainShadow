@@ -3,6 +3,7 @@ import Foundation
 /// Read-only forecast. Uses the same eligibility and damage functions as resolution;
 /// never samples or advances the encounter's random stream.
 struct CombatAttackPreview {
+    let elevationModifier: Int
     let hitChance: Double
     let damage: ClosedRange<Int>
     let criticalDamage: ClosedRange<Int>
@@ -27,7 +28,8 @@ extension TacticalCombat {
             let distance = CombatNavigation.distance(current.position, target.position)
             guard distance > Self.meleeReach else { return "Can't use" }
             guard distance <= BowAttackRules.range else { return "Target is too far" }
-        } else if CombatNavigation.distance(current.position, target.position) > Self.meleeReach {
+        } else if CombatNavigation.distance(current.position, target.position) > Self.meleeReach
+            || !canReachHeight(from: current.position, to: target.position) {
             return "Target is too far"
         }
         if let maneuver {
@@ -60,7 +62,8 @@ extension TacticalCombat {
                        hasSword: Bool = false, requireSneakAttack: Bool = false,
                        allyLine: (Combatant, Combatant) -> Bool = { _, _ in true }) -> CombatAttackPreview {
         let edge = attackEdge(ranged: ranged, target: target, allyLine: allyLine)
-        let bonus = attackBonus(for: current) + (maneuver?.accuracy ?? 0)
+        let elevation = elevationBonus(from: current.position, to: target.position, ranged: ranged)
+        let bonus = attackBonus(for: current) + (maneuver?.accuracy ?? 0) + elevation
         let base = Double((1...20).filter { Self.attackHits(die: $0, bonus: bonus, defence: defence(for: target)) }.count) / 20
         let chance = edge > 0 ? 1 - pow(1 - base, 2) : edge < 0 ? base * base : base
         let dice = sneakAttackReason(target: target, ranged: ranged, hasSword: hasSword, clearLine: clearLine, allyLine: allyLine) == nil ? current.sneakDamageDice : 0
@@ -69,7 +72,7 @@ extension TacticalCombat {
             let maximum = Self.weaponDamage(weaponDamageRange.upperBound, maneuver: maneuver) + dice * 6
             return target.hasBladeWard ? (minimum / 2)...(maximum / 2) : minimum...maximum
         }
-        return CombatAttackPreview(hitChance: chance, damage: range(dice), criticalDamage: range(dice * 2), edge: edge, sneakDice: dice,
+        return CombatAttackPreview(elevationModifier: elevation, hitChance: chance, damage: range(dice), criticalDamage: range(dice * 2), edge: edge, sneakDice: dice,
             unavailableReason: attackUnavailableReason(target: target, clearLine: clearLine, ranged: ranged, ammunition: ammunition,
                 maneuver: maneuver, hasSword: hasSword, requireSneakAttack: requireSneakAttack, allyLine: allyLine),
             cost: "1 Action")

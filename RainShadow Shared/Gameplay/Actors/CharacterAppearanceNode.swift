@@ -505,6 +505,25 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     /// Explicit phase access also supports non-looping authored chair transitions.
+    /// Authored ladder cycle, with free hands and the same armour/palette layers.
+    func presentClimb(phase: Int) throws {
+        let name = String(format: "climb_ne_%02d.png", phase % 16)
+        func frame(_ character: String, colors: [UInt32]) throws -> IEAvatarVisualFrame {
+            let library = try IEAvatarFrameLibrary.shared(character: character, colors: colors)
+            try ClimbAnimationSet.validate(library.sprite, character: character)
+            guard let frame = library.frame(atlas: character + ".atlas", name: name) else {
+                throw CharacterAppearanceError.missingFrame(character, name)
+            }
+            return frame
+        }
+        let main = try frame("HumanClimb", colors: resources.body.colors)
+        var overlays: [CharacterEquipmentCode: IEAvatarVisualFrame] = [:]
+        for (item, base) in resources.equipment where item == .ironHelmet || item == .splintMail {
+            overlays[item] = try frame(item == .ironHelmet ? "HumanClimbHelmet" : "HumanClimbMail", colors: base.colors)
+        }
+        install((main, overlays)); contactShadow.isHidden = true
+    }
+
     func present(action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
         let frames = try resources.frames(appearance: definition.appearance,
                                            action: action, facing: facing, phase: phase)
@@ -606,5 +625,32 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             if let stencil { stencil.apply(to: layer, in: scene) }
             else { WallStencilTexture.clear(on: layer) }
         }
+    }
+}
+
+/// Playback only: floor positions and movement cost are accepted by the owner.
+@MainActor final class LadderPresentation {
+    let node: CharacterAppearanceNode
+    let entry: CGPoint
+    let exit: CGPoint
+    let ascending: Bool
+    private(set) var elapsed = 0.0
+    let duration = 4.8
+    var finished: Bool { elapsed >= duration }
+    init(definition: CharacterDefinition, entry: CGPoint, exit: CGPoint) throws {
+        node = try CharacterAppearanceNode(definition: definition)
+        self.entry = entry; self.exit = exit; ascending = exit.y > entry.y
+        try node.presentClimb(phase: 0); node.position = entry
+        node.name = "ladder.climbing.actor"
+    }
+    func advance(_ delta: Double) {
+        elapsed = min(duration, elapsed + delta)
+        let t = CGFloat(elapsed / duration)
+        node.position = CGPoint(x: entry.x+(exit.x-entry.x)*t, y: entry.y+(exit.y-entry.y)*t)
+        let phase = Int(elapsed * 12) % 16
+        try? node.presentClimb(phase: ascending ? phase : 15-phase)
+        node.visualHeightOffset = 0
+        // The ladder is on the front facade, above its ground-level cover.
+        node.zPosition = 10000
     }
 }

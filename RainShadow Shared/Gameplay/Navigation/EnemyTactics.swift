@@ -16,7 +16,7 @@ enum EnemyCombatRole: String, Codable, CaseIterable {
 
 struct EnemyDecision {
     enum Action {
-        case attack(CombatAttackOrder), move(Path), dash(Path), disengage(Path), barrel(String), shove(String), extinguish, endTurn
+        case climb(AreaLadder), attack(CombatAttackOrder), move(Path), dash(Path), disengage(Path), barrel(String), shove(String), extinguish, endTurn
     }
     let action: Action
     let score: Double
@@ -51,6 +51,32 @@ enum EnemyTactics {
         }
         if focus == nil, combat.canExtinguish {
             offer(.extinguish, Double(actor.burningTurns ?? 1) * 2.5 + (actor.hp <= 4 ? 6 : 0), "Put out the flames")
+        }
+        for ladder in CombatElevation.ladders(in: combat.areaID) where !actor.isProne {
+            let ends = ladder.ends(from: actor.position)
+            guard ladder.exitIsClear(in: map, actorID: actor.id, from: actor.position) else { continue }
+            let currentHeight = CombatElevation.feet(at: actor.position, in: combat.areaID)
+            let exitHeight = CombatElevation.feet(at: ends.exit, in: combat.areaID)
+            var atExit = actor; atExit.position = ends.exit
+            let useful = targets.contains { target in
+                let targetHeight = CombatElevation.feet(at: target.position, in: combat.areaID)
+                return (role == .archer && exitHeight-currentHeight >= 10 && exitHeight-targetHeight >= 10 && line(atExit, target))
+                    || (role != .archer && abs(currentHeight-targetHeight) > 5 && abs(exitHeight-targetHeight) <= 5)
+            }
+            guard useful else { continue }
+            var future = combat
+            let close = CombatNavigation.distance(actor.position, ends.entry) < 24
+            let approach = close ? nil : CombatNavigation.route(in: map, actor: actor, to: ends.entry)
+            guard close || approach != nil else { continue }
+            let approached = approach.map { future.move(along: $0) } ?? true
+            if approached, future.climb(ladder, exitClear: true) {
+                let risk = approach.map { combat.opportunityRisk(along: $0, clearLine: line) } ?? 0
+                offer(.climb(ladder), 9 - risk, role == .archer ? "Climb to a firing position" : "Reach the enemy's floor")
+            } else if let approach, let leg = advance(in: map, actor: actor, full: approach,
+                limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))),
+                !combat.crossesFire(leg, from: actor.position) {
+                offer(.move(leg), (role == .archer ? 1.5 : 4) - combat.opportunityRisk(along: leg, clearLine: line), "Approach the ladder")
+            }
         }
         for target in targets {
             let distance = CombatNavigation.distance(actor.position, target.position)
@@ -89,6 +115,25 @@ enum EnemyTactics {
                        let path = plan.path {
                         var moved = combat
                         if moved.move(along: path) { scoreAttacks(moved, path: path) }
+                    }
+                }
+            }
+            // Authored elevated floors are candidates, never teleport destinations.
+            // The unchanged raster certifies routes on the current floor.
+            if role == .archer, allowance > 0 {
+                for point in CombatElevation.firingPositions(in: combat.areaID) {
+                    guard CombatNavigation.distance(actor.position, point) <= allowance,
+                          let path = CombatNavigation.route(in: map, actor: actor, to: point), !path.isEmpty else { continue }
+                    var moved = combat
+                    guard moved.move(along: path), line(moved.current, target) else { continue }
+                    if combat.budget.canAttack { scoreAttacks(moved, path: path) }
+                    else {
+                        let gain = positionValue(moved.current.position, combat: combat, visible: blastLine)
+                            - positionValue(actor.position, combat: combat, visible: blastLine)
+                            - CombatNavigation.length(path, from: actor.position) / 160
+                            - pathRisk(path, combat: combat, visible: blastLine)
+                            - combat.opportunityRisk(along: path, clearLine: line)
+                        offer(.move(path), gain - 0.5, "Take high ground")
                     }
                 }
             }
@@ -309,6 +354,9 @@ enum EnemyTactics {
         if role(for: combat.current) == .archer {
             let gap = combat.actors.filter { $0.player != combat.current.player && $0.conscious && $0.hidden != true }
                 .map { CombatNavigation.distance(point, $0.position) }.min() ?? BowAttackRules.range
+            if combat.actors.contains(where: { $0.player != combat.current.player && $0.conscious && $0.hidden != true
+                && CombatNavigation.distance(point, $0.position) <= BowAttackRules.range && visible(point, $0.position)
+                && combat.elevationBonus(from: point, to: $0.position, ranged: true) > 0 }) { value += 3 }
             // Safety plateaus: no endless retreat after reaching a useful firing lane.
             value += min(360, gap) / 60
             if gap <= TacticalCombat.meleeReach { value -= 3 }

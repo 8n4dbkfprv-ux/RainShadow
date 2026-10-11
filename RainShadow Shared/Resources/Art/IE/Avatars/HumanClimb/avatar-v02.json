@@ -1,0 +1,404 @@
+{
+  "schema": "rainshadow.ie-indexed-avatar",
+  "version": 2,
+  "character": "HumanClimb",
+  "blob": "avatar-v02.indices",
+  "blob_sha256": "a6eefd9a46390044b8a1642645b327797d229c7c5c36eebc32d5ffe1683fec5a",
+  "byte_order": "little",
+  "storage": "top-down-row-major-u8",
+  "source_canvas_px": [
+    160,
+    160
+  ],
+  "source_pivot_from_canvas_bottom_left_px": [
+    80,
+    60
+  ],
+  "compatibility_display_size": [
+    175.78125,
+    175.78125
+  ],
+  "texture_scale": 1.0,
+  "texture_filter": "linear",
+  "display_units_per_source_pixel": [
+    1.0986328125,
+    1.0986328125
+  ],
+  "colors": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "palette": {
+    "transparent_index": 0,
+    "shadow_index": 1,
+    "body_index_base": 4,
+    "material_slots": 7,
+    "shades_per_slot": 12,
+    "layout": "bgee-mixed-v1"
+  },
+  "shadow": {
+    "embedded": false,
+    "owner": "external ContactShadowNode"
+  },
+  "fallback": "compatibility RGBA atlas frame",
+  "frames": [
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_00.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 16,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        0
+      ],
+      "sha256": "43d5a6fb6f007668c82a4336048c2a3a633141c969b3d75b402b866923ee8610",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_01.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 1864,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -1
+      ],
+      "sha256": "959bfa1f40683807821dd404326f90dc5823c739c42efe0d1c05eb1b99088998",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_02.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 3712,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        68,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -1
+      ],
+      "sha256": "ada1ef5cee50d6e3116a8a0eca2d912f3338b7b63db02b0ce467475fa635040b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_03.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 5593,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -3
+      ],
+      "sha256": "4886ab1b6badeb95fc71b3e519403b8903ff107e503e71d9214c2f155c9b50fe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_04.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 7441,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        68,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -4
+      ],
+      "sha256": "836715974cb31c404ff70367228a8133274149c3f786c63037f5821f118d36b4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_05.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 9322,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        68,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -6
+      ],
+      "sha256": "dae8722a27c8ba6f5c004478fbc8cc63d88ca9420d03307b61f47e6602f7fc03",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_06.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 11203,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        68,
+        36
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "e941a4886b5369a1a676a14741d57bc5b832cdb9b2b93e409efbdba9ca98fdc9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_07.png",
+      "width": 33,
+      "height": 58,
+      "texture_px": [
+        33,
+        58
+      ],
+      "offset": 13084,
+      "length": 1914,
+      "trim_origin_top_left_px": [
+        68,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -7
+      ],
+      "sha256": "6ec62673f555121313056425b1bbcb5ea5dadc7f014e42bda8fc7992db611f50",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_08.png",
+      "width": 32,
+      "height": 59,
+      "texture_px": [
+        32,
+        59
+      ],
+      "offset": 14998,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        69,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "2fd1291fdb7a60005ab5a9382c3de1b8701624aff53c4309abf646b6e316be6f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_09.png",
+      "width": 32,
+      "height": 59,
+      "texture_px": [
+        32,
+        59
+      ],
+      "offset": 16886,
+      "length": 1888,
+      "trim_origin_top_left_px": [
+        69,
+        34
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "e96e3affba5c78fb83595df6e28a47309b5a1fc26df01ecb97fe52fcf2d40670",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_10.png",
+      "width": 32,
+      "height": 58,
+      "texture_px": [
+        32,
+        58
+      ],
+      "offset": 18774,
+      "length": 1856,
+      "trim_origin_top_left_px": [
+        69,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -7
+      ],
+      "sha256": "1a56d48378d925f5c107f5ca7c6f4f4bfd7632126f1c38a43e7d24964facaa97",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_11.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 20630,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        69,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -6
+      ],
+      "sha256": "a40c5c53b51ad5b192706ab13243fe187c709e4d7e83db41c99339abfaca013d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_12.png",
+      "width": 33,
+      "height": 57,
+      "texture_px": [
+        33,
+        57
+      ],
+      "offset": 22511,
+      "length": 1881,
+      "trim_origin_top_left_px": [
+        69,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -4
+      ],
+      "sha256": "83f03b89a3da9253ce14e04f6dc0c50e5c7e116df5f69f51961b4749ec507583",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_13.png",
+      "width": 32,
+      "height": 56,
+      "texture_px": [
+        32,
+        56
+      ],
+      "offset": 24392,
+      "length": 1792,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -3
+      ],
+      "sha256": "f3af704322dc6131230359be5c266c80084e5c028fd2a111137a1776c0e5e615",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_14.png",
+      "width": 32,
+      "height": 57,
+      "texture_px": [
+        32,
+        57
+      ],
+      "offset": 26184,
+      "length": 1824,
+      "trim_origin_top_left_px": [
+        69,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -1
+      ],
+      "sha256": "03d0764351e4961f4a2a021c9221fbb9bdf8a248f4255e02ae29625f8eaa3016",
+      "empty": false
+    },
+    {
+      "atlas": "HumanClimb.atlas",
+      "name": "climb_ne_15.png",
+      "width": 33,
+      "height": 56,
+      "texture_px": [
+        33,
+        56
+      ],
+      "offset": 28008,
+      "length": 1848,
+      "trim_origin_top_left_px": [
+        68,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -1
+      ],
+      "sha256": "fa83cf1e5c2cdf6ff1b046ed715275b2e512fd2ad6df0b2ab895d24d72b5f843",
+      "empty": false
+    }
+  ],
+  "source_authority": "ShippingRoofOct11/Human_Climb.blend"
+}

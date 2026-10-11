@@ -1,0 +1,141 @@
+{
+  "palette_rows": [
+    48,
+    182,
+    210,
+    84,
+    237,
+    138,
+    136
+  ],
+  "jobs": [
+    {
+      "clip": "climb",
+      "frame": 1,
+      "direction": "ne",
+      "key": "climb_ne_00",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 2,
+      "direction": "ne",
+      "key": "climb_ne_01",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 3,
+      "direction": "ne",
+      "key": "climb_ne_02",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 4,
+      "direction": "ne",
+      "key": "climb_ne_03",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 5,
+      "direction": "ne",
+      "key": "climb_ne_04",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 6,
+      "direction": "ne",
+      "key": "climb_ne_05",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 7,
+      "direction": "ne",
+      "key": "climb_ne_06",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 8,
+      "direction": "ne",
+      "key": "climb_ne_07",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 9,
+      "direction": "ne",
+      "key": "climb_ne_08",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 10,
+      "direction": "ne",
+      "key": "climb_ne_09",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 11,
+      "direction": "ne",
+      "key": "climb_ne_10",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 12,
+      "direction": "ne",
+      "key": "climb_ne_11",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 13,
+      "direction": "ne",
+      "key": "climb_ne_12",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 14,
+      "direction": "ne",
+      "key": "climb_ne_13",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 15,
+      "direction": "ne",
+      "key": "climb_ne_14",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    },
+    {
+      "clip": "climb",
+      "frame": 16,
+      "direction": "ne",
+      "key": "climb_ne_15",
+      "angle": 3.9269908169872414,
+      "ortho_scale": 3.1
+    }
+  ]
+}
