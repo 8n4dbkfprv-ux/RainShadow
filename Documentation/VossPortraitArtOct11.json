@@ -1,0 +1,17 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "sha256": "68f54d15f71013fa4c8fcf4dae247d8415a1014bb4727a953c16c97ab03d5938",
+  "validation": {
+    "macOSDebugBuild": "passed",
+    "iOSSimulatorDebugBuild": "passed; build only",
+    "nativeCombatChecks": "24 passed, including Bear Form portrait and reversion",
+    "reviewedCapture": "output/voss-portrait-oct11/combat-start.png"
+  },
+  "date": "2026-10-11",
+  "prompt": "Use case: style-transfer and identity-preserve. Create the revised production portrait of HARLAN VOSS for our game. Image 1 is the identity and clothing reference, the ONLY source for who the man is. Image 2 is exclusively the painting-style, surface texture, contrast, background and head-and-shoulders framing reference; do NOT copy the second man's face, hair or shirt. Depict exactly the man from image 1: strong rectangular angular face, deep-set pale grey-blue eyes, furrowed brow, straight prominent nose, firm closed mouth, clean-shaven chin with long defined brown sideburns, swept-back chestnut-brown hair, middle-aged detective, stern alert expression looking slightly to viewer's right. Preserve his dark worn brown leather coat and wide lapels, open cream shirt collar and loosened dark tie. Repaint him in the same naturalistic traditional oil-painted style as image 2: tactile restrained brushwork, subtle imperfect weathered skin and cloth, lifelike tonal planes with soft edges, muted umber and warm-grey palette, soft directional light, dark textured brown-olive background. His skin must not look like smooth plastic, comic-book ink, cel shading, a glossy 3D render, or an airbrushed poster. Tight square head-and-upper-chest portrait matching image 2: crown near top with small margin, whole head and sideburns visible, shoulders reach bottom corners, prominent readable face for 54px combat icons. Preserve recognisable facial structure and age, do not beautify or substitute the dockhand's identity. One opaque square portrait, no border, no UI, no text, no watermark.",
+  "identityReference": "ArtSource/Generated/UI/VossPortraitOct11/voss_previous.png",
+  "styleReference": "ArtSource/Generated/UI/VossPortraitOct11/enemy_style_reference.png",
+  "master": "ArtSource/Generated/UI/VossPortraitOct11/voss_painted_v02.png",
+  "runtime": "RainShadow Shared/Resources/Art/UI/Dialogue/dialogue_portrait_harlan_voss_v01.png",
+  "integration": "Existing logical portrait resource replaced with unmodified generated square PNG. All dialogue and UI consumers retain existing paths, framing and Bear Form switching. Character sprite bundles unchanged."
+}
