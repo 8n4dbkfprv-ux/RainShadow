@@ -1,5 +1,9 @@
 # Dash running gait — October 10
 
+The human poses and stride were subsequently refined in
+[DashRunRefinementOct11.md](DashRunRefinementOct11.md). This page records the
+original integration; the bear gait is unchanged.
+
 Dash now changes subsequent movement in the same turn to a dedicated running
 cycle. Its existing activation gesture still plays first. Ordinary walking,
 including VossCHMF and BearGuardian's approved walk payloads, is unchanged.

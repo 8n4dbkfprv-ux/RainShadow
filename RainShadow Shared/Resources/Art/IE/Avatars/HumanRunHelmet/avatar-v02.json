@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanRunHelmet",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "7e4cfcf0424084e0a4d2360d717f443556fa80e607e521d308503a63a1609b65",
+  "blob_sha256": "06b9dc2ff0868b157d1e7d0b41d2cdbb4e69d82766ebc4da2719108a4bf839b1",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -50,45 +50,45 @@
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_00.png",
-      "width": 21,
+      "width": 20,
       "height": 16,
       "texture_px": [
-        21,
+        20,
         16
       ],
       "offset": 16,
-      "length": 336,
+      "length": 320,
       "trim_origin_top_left_px": [
         70,
-        54
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -30
+        -32
       ],
-      "sha256": "35845cf263daa4ee4cef712c689aa8217cfe2a3315ee987a70c56922bcc9edc3",
+      "sha256": "2666afe9826e1375f7cf10ea2974c78ddf5e8c494de6a6af256bb3f2ef5f11f1",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_01.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 352,
-      "length": 336,
+      "offset": 336,
+      "length": 300,
       "trim_origin_top_left_px": [
         70,
-        54
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -30
+        -33
       ],
-      "sha256": "b0173eae7ede26c0c665aaaf0f2a53c46eeeedc79c895fd0cefaca3477f65bb3",
+      "sha256": "d0131abd5d2c0a0549122997ecea96a87aaaf23ae877d75f06f94ce54edd3ae9",
       "empty": false
     },
     {
@@ -100,17 +100,17 @@
         21,
         16
       ],
-      "offset": 688,
+      "offset": 636,
       "length": 336,
       "trim_origin_top_left_px": [
         70,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -32
       ],
-      "sha256": "774ff3e4783243e759cc026aa07562881bdc95c9d08470d018b7cd49b0718b86",
+      "sha256": "574d5e52d6baf9bfe5be60552877c84c299d6fe085de124abfc370ef4e43b0ce",
       "empty": false
     },
     {
@@ -122,149 +122,149 @@
         21,
         16
       ],
-      "offset": 1024,
+      "offset": 972,
       "length": 336,
       "trim_origin_top_left_px": [
         70,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -32
       ],
-      "sha256": "ca755f3c9ef71eb41098e8ead71f773b52b3dc15eee3cb04f663baa55900bdcf",
+      "sha256": "523c4b3a9c033cca27d4b441d47bb47f29bea1043dff5aacd459606ece57f072",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_04.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 1360,
-      "length": 336,
+      "offset": 1308,
+      "length": 300,
       "trim_origin_top_left_px": [
-        70,
-        53
+        71,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -31
+        9,
+        -34
       ],
-      "sha256": "51e3655e15768179d1d716e3c491cb36e4ac3b5694de9ce9ca335e9a2fb6c341",
+      "sha256": "d5160c8abf99e43d39ca106653c1573e78f1c6e9a48c0a476c37939475af6e78",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_05.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 1696,
-      "length": 336,
+      "offset": 1608,
+      "length": 300,
       "trim_origin_top_left_px": [
-        70,
-        53
+        71,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -31
+        9,
+        -34
       ],
-      "sha256": "9050158a6d9bb42042ecf0f84ad93b152f83368f6c0a0bf754ffd17cc927120f",
+      "sha256": "a50a84a5159dcee497f130c88df72658940b5401078df051f762b4131e9fe1a7",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_06.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 2032,
-      "length": 336,
+      "offset": 1908,
+      "length": 300,
       "trim_origin_top_left_px": [
-        70,
-        53
+        71,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -31
+        9,
+        -34
       ],
-      "sha256": "c346f8ed2d2662a7c55ff02298e32b79b18c0221ed87f0ff33f99f0ed11417de",
+      "sha256": "b09d18b78680576e648f42349139269c15f2c6e656f664632d58f05e3fe37343",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_07.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 2368,
-      "length": 336,
+      "offset": 2208,
+      "length": 300,
       "trim_origin_top_left_px": [
-        70,
-        54
+        71,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -30
+        9,
+        -34
       ],
-      "sha256": "2053b98850c77856dac9f988e1a92cdbc9be53ddf9eb5f278b6e6d2460edc7fb",
+      "sha256": "8b65ff312309e9be6555539f23786bf5838efbde42a017f2479f29423c6ae849",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_08.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 14,
       "texture_px": [
-        21,
-        16
+        20,
+        14
       ],
-      "offset": 2704,
-      "length": 336,
+      "offset": 2508,
+      "length": 280,
       "trim_origin_top_left_px": [
-        70,
-        54
+        71,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -30
+        9,
+        -34
       ],
-      "sha256": "fb2b740acd9fd4409a42b5d4c6e0e7a9249f54132e93ec83aa370723145ef7b3",
+      "sha256": "ea27cacdd0f0cf3e4b16039a703813082bb8b645e1e3dc0c530123c2e3071f5a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_09.png",
-      "width": 21,
+      "width": 20,
       "height": 16,
       "texture_px": [
-        21,
+        20,
         16
       ],
-      "offset": 3040,
-      "length": 336,
+      "offset": 2788,
+      "length": 320,
       "trim_origin_top_left_px": [
-        70,
-        54
+        71,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -30
+        9,
+        -32
       ],
-      "sha256": "2053b98850c77856dac9f988e1a92cdbc9be53ddf9eb5f278b6e6d2460edc7fb",
+      "sha256": "e35dfd7e9c1caf749868c46abc914b2dc208ad23ad08b2096000f741ad68d784",
       "empty": false
     },
     {
@@ -276,149 +276,149 @@
         21,
         16
       ],
-      "offset": 3376,
+      "offset": 3108,
       "length": 336,
       "trim_origin_top_left_px": [
         70,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -32
       ],
-      "sha256": "c346f8ed2d2662a7c55ff02298e32b79b18c0221ed87f0ff33f99f0ed11417de",
+      "sha256": "fda1985a0dfd9663a93399545efd54d87317b50b2946cf7f207823b2dc730970",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_11.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 3712,
-      "length": 336,
+      "offset": 3444,
+      "length": 300,
       "trim_origin_top_left_px": [
         70,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -34
       ],
-      "sha256": "9050158a6d9bb42042ecf0f84ad93b152f83368f6c0a0bf754ffd17cc927120f",
+      "sha256": "9447ad04e023f3b7fd8216e57dc15ca0946b3251bfd9be13db14b5cf3181f02a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_12.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 4048,
-      "length": 336,
+      "offset": 3744,
+      "length": 300,
       "trim_origin_top_left_px": [
         70,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -34
       ],
-      "sha256": "b97930feac477e2326ee1e324a8bcdf5ff520fe0e578f650d9a0fd27c1ef3781",
+      "sha256": "07c3b594fc57fd7ab3388e2f2865ffce0a752ab8b067341bd7eed6f066ca2baa",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_13.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 15,
       "texture_px": [
-        21,
-        16
+        20,
+        15
       ],
-      "offset": 4384,
-      "length": 336,
+      "offset": 4044,
+      "length": 300,
       "trim_origin_top_left_px": [
         70,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -34
       ],
-      "sha256": "ca755f3c9ef71eb41098e8ead71f773b52b3dc15eee3cb04f663baa55900bdcf",
+      "sha256": "e3ecd12e5db183ba47ecded53e6462e3911ca67e4259bceddeda5e6933e5804b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_14.png",
-      "width": 21,
+      "width": 20,
       "height": 16,
       "texture_px": [
-        21,
+        20,
         16
       ],
-      "offset": 4720,
-      "length": 336,
+      "offset": 4344,
+      "length": 320,
       "trim_origin_top_left_px": [
         70,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -31
+        -33
       ],
-      "sha256": "774ff3e4783243e759cc026aa07562881bdc95c9d08470d018b7cd49b0718b86",
+      "sha256": "7ca3f00351c2e3e77ed1af0f070c40eb60ad9e651d8acfd671725023885ad8b7",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_s_15.png",
-      "width": 21,
-      "height": 16,
+      "width": 20,
+      "height": 17,
       "texture_px": [
-        21,
-        16
+        20,
+        17
       ],
-      "offset": 5056,
-      "length": 336,
+      "offset": 4664,
+      "length": 340,
       "trim_origin_top_left_px": [
         70,
-        54
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -30
+        -32
       ],
-      "sha256": "b0173eae7ede26c0c665aaaf0f2a53c46eeeedc79c895fd0cefaca3477f65bb3",
+      "sha256": "3dde229b5d159bc898f289373703a06b3603ff95ea0ed036cdaaf8035a5f6d3a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_00.png",
       "width": 19,
-      "height": 18,
+      "height": 17,
       "texture_px": [
         19,
-        18
+        17
       ],
-      "offset": 5392,
-      "length": 342,
+      "offset": 5004,
+      "length": 323,
       "trim_origin_top_left_px": [
         68,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -34
       ],
-      "sha256": "d3799c326bba9bed1bd5c945be177750fb7567d691330465a08d4d03e2038ff8",
+      "sha256": "cc6d327a844fe4f2be403f98cb8e92aeb6bbf56a4cd3688badb1a6692a7aa5c5",
       "empty": false
     },
     {
@@ -430,17 +430,17 @@
         19,
         18
       ],
-      "offset": 5734,
+      "offset": 5327,
       "length": 342,
       "trim_origin_top_left_px": [
         68,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -33
       ],
-      "sha256": "2ba099106b6c15e0fa9af737dd002d1978842e3155c2d314b7957e7b43eaa556",
+      "sha256": "a37573c23edbd19e90c5b9abf7dfa1d0101959d5d364877a283e3820742bac1c",
       "empty": false
     },
     {
@@ -452,39 +452,39 @@
         19,
         18
       ],
-      "offset": 6076,
+      "offset": 5669,
       "length": 342,
       "trim_origin_top_left_px": [
         68,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -33
       ],
-      "sha256": "a2c5a8e2ca96271f4d9069be7ec2a4cd8abebe28f1a4658e74292e0e6e6b6dde",
+      "sha256": "83758562594bbbbc52c042b7ffb715d0b35eefbadb68fc7b63b00a8412a4cea2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_03.png",
-      "width": 19,
-      "height": 18,
+      "width": 18,
+      "height": 17,
       "texture_px": [
-        19,
-        18
+        18,
+        17
       ],
-      "offset": 6418,
-      "length": 342,
+      "offset": 6011,
+      "length": 306,
       "trim_origin_top_left_px": [
-        68,
-        50
+        69,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -32
+        11,
+        -34
       ],
-      "sha256": "a19bf803c238894ffd8fdf4bd831ecf63ec9e5ac098654486411c2d8e7c63584",
+      "sha256": "889144d6c122e0b525893c1c2144f5431a27d74dc2b084176b4a2aec69a09a54",
       "empty": false
     },
     {
@@ -496,17 +496,17 @@
         19,
         18
       ],
-      "offset": 6760,
+      "offset": 6317,
       "length": 342,
       "trim_origin_top_left_px": [
-        68,
-        50
+        69,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -32
+        11,
+        -33
       ],
-      "sha256": "5d1655a561a42dfa77671ae48f235decdc35585817e6c650a3340296d07e8854",
+      "sha256": "6b0dd54dc801d6ed373b98155aa67bc8dac405a930e2d026cca649f14dd94325",
       "empty": false
     },
     {
@@ -518,17 +518,17 @@
         19,
         18
       ],
-      "offset": 7102,
+      "offset": 6659,
       "length": 342,
       "trim_origin_top_left_px": [
-        68,
-        50
+        69,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -32
+        11,
+        -33
       ],
-      "sha256": "9bbc31083f6ecc9a924cd57818c07c120bc28441b88949d5d9db618ae41ee427",
+      "sha256": "f478b568352f6da3e471ba268825cbd272692a3120594da7a6e5f1cb1e35447d",
       "empty": false
     },
     {
@@ -540,17 +540,17 @@
         19,
         18
       ],
-      "offset": 7444,
+      "offset": 7001,
       "length": 342,
       "trim_origin_top_left_px": [
-        68,
-        51
+        69,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -31
+        11,
+        -33
       ],
-      "sha256": "3fdf6ccab826ad844ed402ee603db6725ccd40923802a4a93eb866d6eff0963f",
+      "sha256": "d06ce474f11d551d93425fe93e15e7b3369f13916a4e34cfede431abf6f64e21",
       "empty": false
     },
     {
@@ -562,105 +562,105 @@
         19,
         18
       ],
-      "offset": 7786,
+      "offset": 7343,
       "length": 342,
       "trim_origin_top_left_px": [
-        68,
-        51
+        69,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -31
+        11,
+        -33
       ],
-      "sha256": "ec450fb51aab5098ac23d0cad0f8fbfe87fcd76f8b5b46d496274f64a5b30a1f",
+      "sha256": "5572d35c05f6ddb4ac49d5c305b196e464c4596c289de567d3c1ab2fafd32aae",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_08.png",
       "width": 19,
-      "height": 18,
+      "height": 17,
       "texture_px": [
         19,
-        18
+        17
       ],
-      "offset": 8128,
-      "length": 342,
+      "offset": 7685,
+      "length": 323,
       "trim_origin_top_left_px": [
-        68,
-        51
+        69,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -31
+        11,
+        -33
       ],
-      "sha256": "6e5be082f5df7bab156f7df39f9b6cb197c94736271c5f676e501cd547bd76c9",
+      "sha256": "a7ce67b0de25420245efc46905687ee4cb365fdce040ca82a9a2f3a0b1d1766e",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_09.png",
       "width": 19,
-      "height": 18,
+      "height": 16,
       "texture_px": [
         19,
-        18
+        16
       ],
-      "offset": 8470,
-      "length": 342,
+      "offset": 8008,
+      "length": 304,
       "trim_origin_top_left_px": [
-        68,
-        51
+        69,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -31
+        11,
+        -34
       ],
-      "sha256": "ec450fb51aab5098ac23d0cad0f8fbfe87fcd76f8b5b46d496274f64a5b30a1f",
+      "sha256": "0579eb65c13506569138728fd3f16dc952eb4326764f78bc68c9a05776171f93",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_10.png",
       "width": 19,
-      "height": 18,
+      "height": 17,
       "texture_px": [
         19,
-        18
+        17
       ],
-      "offset": 8812,
-      "length": 342,
+      "offset": 8312,
+      "length": 323,
       "trim_origin_top_left_px": [
         68,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -34
       ],
-      "sha256": "3fdf6ccab826ad844ed402ee603db6725ccd40923802a4a93eb866d6eff0963f",
+      "sha256": "a5d60d9b2a78c776077cbacef18313255bd4e1cd4739d73f9e88ce6af403f5e4",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_11.png",
       "width": 19,
-      "height": 18,
+      "height": 17,
       "texture_px": [
         19,
-        18
+        17
       ],
-      "offset": 9154,
-      "length": 342,
+      "offset": 8635,
+      "length": 323,
       "trim_origin_top_left_px": [
         68,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -32
+        -34
       ],
-      "sha256": "9bbc31083f6ecc9a924cd57818c07c120bc28441b88949d5d9db618ae41ee427",
+      "sha256": "f965a0ad9a4bd1494b089a2c46f0413f68def93c7e58b2ce54fddb53fb963fce",
       "empty": false
     },
     {
@@ -672,17 +672,17 @@
         19,
         18
       ],
-      "offset": 9496,
+      "offset": 8958,
       "length": 342,
       "trim_origin_top_left_px": [
         68,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -32
+        -33
       ],
-      "sha256": "0795208a1c6975124302fce6cd2b90ab95b03702e5504c9868036719561c5f1f",
+      "sha256": "08e170453d46a0b8f3dadf6fa183ea9ec6fbb1af267e5639a2cb492f1466f316",
       "empty": false
     },
     {
@@ -694,39 +694,39 @@
         19,
         18
       ],
-      "offset": 9838,
+      "offset": 9300,
       "length": 342,
       "trim_origin_top_left_px": [
         68,
-        50
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -32
+        -34
       ],
-      "sha256": "a19bf803c238894ffd8fdf4bd831ecf63ec9e5ac098654486411c2d8e7c63584",
+      "sha256": "25124896753f22a3e6e20a42628efd64a769d73a3f5789ae23cdb2d5aa02d136",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ssw_14.png",
       "width": 19,
-      "height": 18,
+      "height": 19,
       "texture_px": [
         19,
-        18
+        19
       ],
-      "offset": 10180,
-      "length": 342,
+      "offset": 9642,
+      "length": 361,
       "trim_origin_top_left_px": [
         68,
-        51
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -33
       ],
-      "sha256": "a2c5a8e2ca96271f4d9069be7ec2a4cd8abebe28f1a4658e74292e0e6e6b6dde",
+      "sha256": "c9e621c7faf2790f7690df4a1d9861f1c1fee280ca6d87004a3ba9f8dcb50f69",
       "empty": false
     },
     {
@@ -738,17 +738,17 @@
         19,
         18
       ],
-      "offset": 10522,
+      "offset": 10003,
       "length": 342,
       "trim_origin_top_left_px": [
         68,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -31
+        -33
       ],
-      "sha256": "2ba099106b6c15e0fa9af737dd002d1978842e3155c2d314b7957e7b43eaa556",
+      "sha256": "96838dbda43397bde1d3587eee3365986feadbd9436e4a53f8de2d564d66cfa6",
       "empty": false
     },
     {
@@ -760,501 +760,501 @@
         17,
         20
       ],
-      "offset": 10864,
+      "offset": 10345,
       "length": 340,
       "trim_origin_top_left_px": [
-        67,
-        48
+        68,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -32
+        12,
+        -34
       ],
-      "sha256": "26510550028892ebb67194bd9165587fabb51a30cba1e0834edf26e8e7861941",
+      "sha256": "1b79a133bccdf2f26884266c172d2ae9ece065bf38bfab71f4b93b5e2df9864b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_01.png",
-      "width": 16,
-      "height": 18,
+      "width": 17,
+      "height": 20,
       "texture_px": [
-        16,
-        18
+        17,
+        20
       ],
-      "offset": 11204,
-      "length": 288,
+      "offset": 10685,
+      "length": 340,
       "trim_origin_top_left_px": [
         68,
-        49
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -33
+        -34
       ],
-      "sha256": "edfe0930b2ab5736c3a42fd9ba32434b254beaaf8617f92f3ef3cb1f1cc21734",
+      "sha256": "71f809545c815dba76b3f7210df727399cbe7532cde96502d0cce10bc0f246a3",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_02.png",
       "width": 17,
-      "height": 19,
+      "height": 20,
       "texture_px": [
         17,
-        19
+        20
       ],
-      "offset": 11492,
-      "length": 323,
+      "offset": 11025,
+      "length": 340,
       "trim_origin_top_left_px": [
-        67,
-        48
+        68,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -33
+        12,
+        -34
       ],
-      "sha256": "d4e93d72bc1db0dbd2a1a2ddabb6a373c157b213c80e04b58f66eb1752939c78",
+      "sha256": "aa70e50bf15468cbd5e0ff251749673a1d3e33ba50b6f769702ef2792cb30649",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_03.png",
       "width": 17,
-      "height": 19,
+      "height": 20,
       "texture_px": [
         17,
-        19
+        20
       ],
-      "offset": 11815,
-      "length": 323,
+      "offset": 11365,
+      "length": 340,
       "trim_origin_top_left_px": [
-        67,
-        47
+        68,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -34
       ],
-      "sha256": "fc1d4344a3b5500e0e399abf0f72816874547c9d2eec3d62aae720529c0d4ddf",
+      "sha256": "6f18496fa4ad23cb585c721efe110c7ffe9b0c3576ec255f95c7471da02ee89f",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_04.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 12138,
-      "length": 323,
+      "offset": 11705,
+      "length": 304,
       "trim_origin_top_left_px": [
-        67,
-        47
+        69,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -34
+        11,
+        -35
       ],
-      "sha256": "e85395b52b340313d0026a8ba559e7922d65464aee4ce7f13f804b703578321f",
+      "sha256": "2209c5217ca9b2962a0fd4a38a40e726704cd4190ea338d931972e681fe1559d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_05.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 12461,
-      "length": 323,
+      "offset": 12009,
+      "length": 304,
       "trim_origin_top_left_px": [
-        67,
-        47
+        69,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -34
+        11,
+        -35
       ],
-      "sha256": "ada9f0c6e3d44da98903178169cfbc39059f6fdda402ef1a42b26b2c98545162",
+      "sha256": "7ee114cd88f42daabdd48127317b4a574cd6aa38a0bd94b7a715d2483c3d0951",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_06.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 12784,
-      "length": 323,
+      "offset": 12313,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        48
+        69,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -33
+        11,
+        -34
       ],
-      "sha256": "15cb66c046e3b223fcf43a80eb3cb62e6f1fecc96291a339d8045473f0f05ecc",
+      "sha256": "34da8a7fee780b87fb3aee7db6ea50c12273b07ed56de59b7d0688747add45f5",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_07.png",
       "width": 16,
-      "height": 18,
+      "height": 20,
       "texture_px": [
         16,
-        18
+        20
       ],
-      "offset": 13107,
-      "length": 288,
+      "offset": 12633,
+      "length": 320,
       "trim_origin_top_left_px": [
-        68,
-        49
+        69,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        -33
+        11,
+        -34
       ],
-      "sha256": "e0cd889baf5c844545600dd13d6cab5b75b6aee7b53e0ab3816a01840d421b3e",
+      "sha256": "24bde7cc9fa8e8bd33176a3be11405422894f2be95d89b5f2d334403fc69cc12",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_08.png",
-      "width": 17,
+      "width": 16,
       "height": 20,
       "texture_px": [
-        17,
+        16,
         20
       ],
-      "offset": 13395,
-      "length": 340,
+      "offset": 12953,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        48
+        69,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -32
+        11,
+        -33
       ],
-      "sha256": "664e7660a902dd7cf3e32d854a46ee4e046d1f3fa769cd9df0ed17ae74e52484",
+      "sha256": "0e220971564c92174af19fe17e24be58a4f6d39fbdc92698de89d4430cec3631",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_09.png",
       "width": 16,
-      "height": 18,
+      "height": 21,
       "texture_px": [
         16,
-        18
+        21
       ],
-      "offset": 13735,
-      "length": 288,
+      "offset": 13273,
+      "length": 336,
       "trim_origin_top_left_px": [
         68,
-        49
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -33
       ],
-      "sha256": "4eb6b6203df3d27a701d2e1f96e34dba53869dc32d129aa11fe7af390fd1607e",
+      "sha256": "32796bf5c527877d7a2e4eb76a6ce70f90d069e50b30bab3175b6749b083842b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_10.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 14023,
-      "length": 323,
+      "offset": 13609,
+      "length": 304,
       "trim_origin_top_left_px": [
-        67,
-        48
+        68,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -33
+        12,
+        -35
       ],
-      "sha256": "15cb66c046e3b223fcf43a80eb3cb62e6f1fecc96291a339d8045473f0f05ecc",
+      "sha256": "8bc3cf1bb5e78f8e97cc97a71f89a97d1335d2674f9808b0f84a882e6676c35d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_11.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 14346,
-      "length": 323,
+      "offset": 13913,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        47
+        68,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -34
       ],
-      "sha256": "ada9f0c6e3d44da98903178169cfbc39059f6fdda402ef1a42b26b2c98545162",
+      "sha256": "96c276523f165a161d7bc4ded9d8eac35cfe2d39e8ebfa252bd9eabd1aaa69f3",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_12.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 14669,
-      "length": 323,
+      "offset": 14233,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        47
+        68,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -34
+        12,
+        -35
       ],
-      "sha256": "e85395b52b340313d0026a8ba559e7922d65464aee4ce7f13f804b703578321f",
+      "sha256": "332570af858166be1585118b700b74617ed8ecf0e7273cdd6e49e3c16c677d2a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_13.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 14992,
-      "length": 323,
+      "offset": 14553,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        47
+        68,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -34
+        12,
+        -35
       ],
-      "sha256": "fc1d4344a3b5500e0e399abf0f72816874547c9d2eec3d62aae720529c0d4ddf",
+      "sha256": "c6e976488db37283f49b62010e46c2d0a2b3ba7a59717f176d9929e009b33506",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_14.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 15315,
-      "length": 323,
+      "offset": 14873,
+      "length": 320,
       "trim_origin_top_left_px": [
-        67,
-        48
+        68,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -33
+        12,
+        -35
       ],
-      "sha256": "d4e93d72bc1db0dbd2a1a2ddabb6a373c157b213c80e04b58f66eb1752939c78",
+      "sha256": "ac13c1c2ee404b99b1a0eb760e7569001a7c3c88eea50c0f032bcc9ee32264f2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sw_15.png",
       "width": 16,
-      "height": 18,
+      "height": 19,
       "texture_px": [
         16,
-        18
+        19
       ],
-      "offset": 15638,
-      "length": 288,
+      "offset": 15193,
+      "length": 304,
       "trim_origin_top_left_px": [
         68,
-        49
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -33
+        -35
       ],
-      "sha256": "edfe0930b2ab5736c3a42fd9ba32434b254beaaf8617f92f3ef3cb1f1cc21734",
+      "sha256": "942e674a59413cbe4fa4a9412b2684cf098aa743629ab453fa086c92f5d509ef",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wsw_00.png",
       "width": 18,
-      "height": 20,
-      "texture_px": [
-        18,
-        20
-      ],
-      "offset": 15926,
-      "length": 360,
-      "trim_origin_top_left_px": [
-        65,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
-      ],
-      "sha256": "4ef00632587bab8322099db5db03e8b7ebbd12b54e3ee61d884d5c72903cd2d3",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_01.png",
-      "width": 18,
-      "height": 21,
-      "texture_px": [
-        18,
-        21
-      ],
-      "offset": 16286,
-      "length": 378,
-      "trim_origin_top_left_px": [
-        65,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
-      ],
-      "sha256": "d33fb717fcda91f0e42cbcd13a66af85bae91c0e8da5feb51fc9d997cee082f2",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_02.png",
-      "width": 18,
       "height": 19,
       "texture_px": [
         18,
         19
       ],
-      "offset": 16664,
+      "offset": 15497,
       "length": 342,
       "trim_origin_top_left_px": [
-        65,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
-      ],
-      "sha256": "96a5ddded641ef75f4d1418b3f0c04fcc11254542b5d470b1054699a221e3549",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_03.png",
-      "width": 18,
-      "height": 20,
-      "texture_px": [
-        18,
-        20
-      ],
-      "offset": 17006,
-      "length": 360,
-      "trim_origin_top_left_px": [
-        65,
+        66,
         45
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
+        14,
+        -36
       ],
-      "sha256": "ccbf08b42084e7be2d895b14ed4c58dbcf29642ce1b0d23b15acc056e27055be",
+      "sha256": "2e26b331e585e899f01622d1f1df4a0a757a35c30eb626b4f36525e700ee485b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_04.png",
-      "width": 18,
-      "height": 21,
+      "name": "run_wsw_01.png",
+      "width": 19,
+      "height": 20,
       "texture_px": [
-        18,
-        21
+        19,
+        20
       ],
-      "offset": 17366,
-      "length": 378,
+      "offset": 15839,
+      "length": 380,
       "trim_origin_top_left_px": [
         65,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -35
+        -36
       ],
-      "sha256": "3d9253d15ecc6bcf6c18b54c42e448827f4c8d6d5b565bbb887ff0a5b6e3d233",
+      "sha256": "3f0a19a591606d877f9ea397686a62b9c3733f8c2f1fe43c5e83e69050adc8c8",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_05.png",
-      "width": 18,
+      "name": "run_wsw_02.png",
+      "width": 19,
       "height": 20,
       "texture_px": [
-        18,
+        19,
         20
       ],
-      "offset": 17744,
-      "length": 360,
+      "offset": 16219,
+      "length": 380,
       "trim_origin_top_left_px": [
         65,
-        45
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -35
+        -36
       ],
-      "sha256": "f5fe90cdea832c8e9652289fc7393d7930401e1030abc5d580b3464f50398d9b",
+      "sha256": "18a4be9fe3efa8532cb77189602fc30223d138169378fd336382c7dafc93100f",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_06.png",
+      "name": "run_wsw_03.png",
       "width": 18,
       "height": 19,
       "texture_px": [
         18,
         19
       ],
-      "offset": 18104,
+      "offset": 16599,
       "length": 342,
       "trim_origin_top_left_px": [
-        65,
-        46
+        66,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
+        14,
+        -36
       ],
-      "sha256": "8989f90c6534e3a612c65091207ff62b1bc6f40084c3bc24c36fb30bb858f1e3",
+      "sha256": "e5f28986aff4dcc3b2f76ba1a7c4939b2b8745aa0767217780fdeed804392a3f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wsw_04.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 16941,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -36
+      ],
+      "sha256": "9332c5a1cf5fd0774d6e4455391b71718fe0a3fbf784dd44eebe7984aa073ba9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wsw_05.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 17301,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -36
+      ],
+      "sha256": "1b2a51fc3dba172af6a76d8a2016bca373efc1e58407075f36bc7ad4f23464f0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wsw_06.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 17679,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        44
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -36
+      ],
+      "sha256": "3fc4c5cb7e096bf7572a81211cfc36b017953d5b941d051d6e93193ef813d4c2",
       "empty": false
     },
     {
@@ -1266,17 +1266,17 @@
         18,
         21
       ],
-      "offset": 18446,
+      "offset": 18039,
       "length": 378,
       "trim_origin_top_left_px": [
-        65,
-        45
+        66,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
+        14,
+        -35
       ],
-      "sha256": "a6455050eef31f5570ec8f5fddded661e9bcf737ba505d4ff7b31266e68a9a5f",
+      "sha256": "e2955730e555e3e0ed0517ee0f764d7dc9ce3c1efddf482e263a953f9390a04f",
       "empty": false
     },
     {
@@ -1288,17 +1288,17 @@
         18,
         20
       ],
-      "offset": 18824,
+      "offset": 18417,
       "length": 360,
       "trim_origin_top_left_px": [
-        65,
-        46
+        66,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
+        14,
+        -35
       ],
-      "sha256": "ebf509ef8dbb11f7fedda77244d0e9d1c424015e49a1b3d67e67f46e2d9da747",
+      "sha256": "7817f9d4feeed86f5c65ef890fd950547f7789e42853464c89f6601b79feccf8",
       "empty": false
     },
     {
@@ -1310,83 +1310,83 @@
         18,
         21
       ],
-      "offset": 19184,
+      "offset": 18777,
       "length": 378,
       "trim_origin_top_left_px": [
-        65,
-        45
+        66,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
+        14,
+        -35
       ],
-      "sha256": "a6455050eef31f5570ec8f5fddded661e9bcf737ba505d4ff7b31266e68a9a5f",
+      "sha256": "99d1112c2ecd799cf51cf619a38effbd804efbfb6712c9f4d113662e055b2cb0",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wsw_10.png",
       "width": 18,
-      "height": 19,
-      "texture_px": [
-        18,
-        19
-      ],
-      "offset": 19562,
-      "length": 342,
-      "trim_origin_top_left_px": [
-        65,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
-      ],
-      "sha256": "8989f90c6534e3a612c65091207ff62b1bc6f40084c3bc24c36fb30bb858f1e3",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_11.png",
-      "width": 18,
-      "height": 20,
-      "texture_px": [
-        18,
-        20
-      ],
-      "offset": 19904,
-      "length": 360,
-      "trim_origin_top_left_px": [
-        65,
-        45
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
-      ],
-      "sha256": "f5fe90cdea832c8e9652289fc7393d7930401e1030abc5d580b3464f50398d9b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wsw_12.png",
-      "width": 18,
       "height": 21,
       "texture_px": [
         18,
         21
       ],
-      "offset": 20264,
+      "offset": 19155,
       "length": 378,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -36
+      ],
+      "sha256": "1d6dd08131a9bdeb263fcc38d27a0f9cf91988c830907a36195bb62c71061bc7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wsw_11.png",
+      "width": 19,
+      "height": 20,
+      "texture_px": [
+        19,
+        20
+      ],
+      "offset": 19533,
+      "length": 380,
       "trim_origin_top_left_px": [
         65,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -35
+        -36
       ],
-      "sha256": "3d9253d15ecc6bcf6c18b54c42e448827f4c8d6d5b565bbb887ff0a5b6e3d233",
+      "sha256": "6a4223a99d9d917dc80a0c6469a8f9c6219affc9de75a16a0f7da56efccd7760",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wsw_12.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 19913,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        66,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -37
+      ],
+      "sha256": "6a0cdf3929fc0f1d1ec6fe6da92bde726d620b9207d912558b20cae909e28949",
       "empty": false
     },
     {
@@ -1398,83 +1398,83 @@
         18,
         20
       ],
-      "offset": 20642,
+      "offset": 20273,
       "length": 360,
       "trim_origin_top_left_px": [
-        65,
-        45
+        66,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
+        14,
+        -37
       ],
-      "sha256": "ccbf08b42084e7be2d895b14ed4c58dbcf29642ce1b0d23b15acc056e27055be",
+      "sha256": "74a881d5bf4cfb3219f57b3c30d4b0b01bef13f48b3c1ca29405553a743f20e5",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wsw_14.png",
       "width": 18,
-      "height": 19,
+      "height": 20,
       "texture_px": [
         18,
-        19
+        20
       ],
-      "offset": 21002,
-      "length": 342,
+      "offset": 20633,
+      "length": 360,
       "trim_origin_top_left_px": [
-        65,
-        46
+        66,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -35
+        14,
+        -37
       ],
-      "sha256": "96a5ddded641ef75f4d1418b3f0c04fcc11254542b5d470b1054699a221e3549",
+      "sha256": "951f00c731d331d87c7d77129ae452206a9bf77f7c4d341023443692434c6071",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wsw_15.png",
       "width": 18,
-      "height": 21,
+      "height": 20,
       "texture_px": [
         18,
-        21
+        20
       ],
-      "offset": 21344,
-      "length": 378,
+      "offset": 20993,
+      "length": 360,
       "trim_origin_top_left_px": [
-        65,
-        45
+        66,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -34
+        14,
+        -36
       ],
-      "sha256": "7c38b3fe916b592bee9b54db524c25f9347d37676aa056edfb3a2cd7abe4aca9",
+      "sha256": "53a956015a6efafb9980925250bf648f66b26ed1fb3b6279ac3da21f8daf2100",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_00.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 21722,
-      "length": 418,
+      "offset": 21353,
+      "length": 396,
       "trim_origin_top_left_px": [
-        64,
-        42
+        65,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -36
+        15,
+        -38
       ],
-      "sha256": "7ea89d5b98aa2c2800cd76276aebf4fd89482da6e5097575fbc19b2789bf1346",
+      "sha256": "0643e86d7bcdd8482cf08fc23f4bbb84a8309987fc37faa329e3dada85bef99f",
       "empty": false
     },
     {
@@ -1486,17 +1486,17 @@
         19,
         22
       ],
-      "offset": 22140,
+      "offset": 21749,
       "length": 418,
       "trim_origin_top_left_px": [
         64,
-        41
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -37
+        -38
       ],
-      "sha256": "fd37cb55e7a99fbbd5624e5fdd1eedc54b44fc18f3e7082889b233ae7ce85917",
+      "sha256": "73536ce64a842859544f1aec00477df10cde9a5da64d26e75d57837f92a272bd",
       "empty": false
     },
     {
@@ -1508,17 +1508,17 @@
         19,
         22
       ],
-      "offset": 22558,
+      "offset": 22167,
       "length": 418,
       "trim_origin_top_left_px": [
         64,
-        41
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -37
+        -38
       ],
-      "sha256": "28d01627a4a1f6ea9ae18df50938ed202def4abca447caa4ffdab8df7a26c90c",
+      "sha256": "821b1b60fe112d3ae40ab23da91be8cf1983a86271f92c0adab668c88479e148",
       "empty": false
     },
     {
@@ -1530,7 +1530,7 @@
         19,
         22
       ],
-      "offset": 22976,
+      "offset": 22585,
       "length": 418,
       "trim_origin_top_left_px": [
         64,
@@ -1540,337 +1540,337 @@
         16,
         -38
       ],
-      "sha256": "e27ae953ac53371f0ee0e9ca649352519dc32b87afeeab9d546f104100dc32b4",
+      "sha256": "f4c7927a83df2468dd7a5204d382c8bec2e7f1cf762532f6bc319cfb7bd964da",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_04.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 23394,
-      "length": 418,
+      "offset": 23003,
+      "length": 378,
       "trim_origin_top_left_px": [
-        64,
-        40
+        65,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -38
       ],
-      "sha256": "a570f1cf41681ad7ad351d123a6300a6d51b20cf78fc139add12bade1ea3c03d",
+      "sha256": "72db3b50d5f2b4c3fb272d111c81c0ccff4472781a897608aa281974d243563d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_05.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 23812,
-      "length": 418,
+      "offset": 23381,
+      "length": 378,
       "trim_origin_top_left_px": [
-        64,
-        40
+        65,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -38
       ],
-      "sha256": "21365143d37d7f5205b656b73e9ce1663489faea7ff542ece1088e4967058265",
+      "sha256": "2ebef71b17a3f0a41f6840d7dfdd0eec9e9188fcceeeda33632c5af3388bff90",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_06.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 24230,
-      "length": 418,
+      "offset": 23759,
+      "length": 378,
       "trim_origin_top_left_px": [
-        64,
+        65,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -37
+        15,
+        -38
       ],
-      "sha256": "cc2dde6ab20a60561ac7d1c54ed3d5791fc213f80a505767edd553adaec10057",
+      "sha256": "88b8c03dc1ab59bdbab3d1e51952a2826ad967d0061927246cdcd27635c70d38",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_07.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 24648,
-      "length": 418,
+      "offset": 24137,
+      "length": 396,
       "trim_origin_top_left_px": [
-        64,
+        65,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -37
       ],
-      "sha256": "8459a267c4c4388d0131b5465a49608968038006e59c4f03ed41b4ac7f210a2e",
+      "sha256": "bd7d483134aa09a45fae5d1fc9a9be0cc74700702695e1411064d9da29475c26",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_08.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 25066,
-      "length": 418,
+      "offset": 24533,
+      "length": 396,
       "trim_origin_top_left_px": [
-        64,
-        42
+        65,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -36
+        15,
+        -37
       ],
-      "sha256": "def363e75d3218e79ed12d8cafb2b2d1ed1c1302886e6c17c831c10e721bb6f5",
+      "sha256": "c89b955e706f280c49fd5fd8609537058e0e79dec51d27cfa0053b1ecdfe7916",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_09.png",
       "width": 19,
-      "height": 22,
+      "height": 21,
       "texture_px": [
         19,
-        22
+        21
       ],
-      "offset": 25484,
-      "length": 418,
+      "offset": 24929,
+      "length": 399,
       "trim_origin_top_left_px": [
         64,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -37
+        -38
       ],
-      "sha256": "8459a267c4c4388d0131b5465a49608968038006e59c4f03ed41b4ac7f210a2e",
+      "sha256": "72d99f713f28c48684af7b0f9132529d9a0f3affa6d78636d3c5071202a7d4b1",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_10.png",
       "width": 19,
-      "height": 22,
+      "height": 21,
       "texture_px": [
         19,
-        22
+        21
       ],
-      "offset": 25902,
-      "length": 418,
+      "offset": 25328,
+      "length": 399,
       "trim_origin_top_left_px": [
         64,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -37
+        -38
       ],
-      "sha256": "c579e78179b9edf2cb05168f0663eb6d69145249c0584dba92ce2525d0043a72",
+      "sha256": "d668e1d832c57a725437c4634986896fa73636debb4b8c6ea16b69b79b202826",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_11.png",
       "width": 19,
-      "height": 22,
+      "height": 21,
       "texture_px": [
         19,
-        22
+        21
       ],
-      "offset": 26320,
-      "length": 418,
+      "offset": 25727,
+      "length": 399,
       "trim_origin_top_left_px": [
         64,
         40
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -38
+        -39
       ],
-      "sha256": "e9ad8ed1793b59b3682be0bcfe12f69d0da8bbeffc1acddcee1184786f02c7fe",
+      "sha256": "081d375ba056017a79eeb273a3b4fe57d5b0d361aa3e135b86042cd2e173256b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_w_12.png",
-      "width": 19,
-      "height": 22,
-      "texture_px": [
-        19,
-        22
-      ],
-      "offset": 26738,
-      "length": 418,
-      "trim_origin_top_left_px": [
-        64,
-        40
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -38
-      ],
-      "sha256": "a570f1cf41681ad7ad351d123a6300a6d51b20cf78fc139add12bade1ea3c03d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_w_13.png",
-      "width": 19,
-      "height": 22,
-      "texture_px": [
-        19,
-        22
-      ],
-      "offset": 27156,
-      "length": 418,
-      "trim_origin_top_left_px": [
-        64,
-        40
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -38
-      ],
-      "sha256": "e27ae953ac53371f0ee0e9ca649352519dc32b87afeeab9d546f104100dc32b4",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_w_14.png",
-      "width": 19,
-      "height": 22,
-      "texture_px": [
-        19,
-        22
-      ],
-      "offset": 27574,
-      "length": 418,
-      "trim_origin_top_left_px": [
-        64,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -37
-      ],
-      "sha256": "28d01627a4a1f6ea9ae18df50938ed202def4abca447caa4ffdab8df7a26c90c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_w_15.png",
-      "width": 19,
-      "height": 22,
-      "texture_px": [
-        19,
-        22
-      ],
-      "offset": 27992,
-      "length": 418,
-      "trim_origin_top_left_px": [
-        64,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -37
-      ],
-      "sha256": "b5163f7d191d23ec7ffad84886cc831703d8a93a5b8eff2f906dc297a5592b87",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_00.png",
-      "width": 19,
-      "height": 23,
-      "texture_px": [
-        19,
-        23
-      ],
-      "offset": 28410,
-      "length": 437,
-      "trim_origin_top_left_px": [
-        64,
-        40
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -37
-      ],
-      "sha256": "84711dfda55afba575df67cd6c701c20fcf20244045a29a64c5ace39592ec060",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_01.png",
       "width": 18,
-      "height": 24,
+      "height": 22,
       "texture_px": [
         18,
-        24
+        22
       ],
-      "offset": 28847,
-      "length": 432,
+      "offset": 26126,
+      "length": 396,
       "trim_origin_top_left_px": [
         65,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -37
+        -39
       ],
-      "sha256": "856e2471c207916b7a40f71e95db3b080dbd596238e12d2d767fa5593fa23401",
+      "sha256": "390070037c64ab5e30ee8778a412f3f306f97ae2b2124dc56d32414d19121671",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_w_13.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 26522,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        65,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -39
+      ],
+      "sha256": "12d015df701736ad99f47c726b670717eb9441a4b32a1ba93a1ba030d1250c1d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_w_14.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 26900,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        65,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -39
+      ],
+      "sha256": "c793549c644c4ba296e2608c101ab7f69d5304e16edb45d9c6cc1bf9682a215e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_w_15.png",
+      "width": 18,
+      "height": 22,
+      "texture_px": [
+        18,
+        22
+      ],
+      "offset": 27296,
+      "length": 396,
+      "trim_origin_top_left_px": [
+        65,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -38
+      ],
+      "sha256": "f6ddeb11e8fa16693ca4dfcf8bfbf351b2970fe9cd86fb93eb8af1e5e33e60ea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_00.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 27692,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "ff687576ecd4cc3c3c3399d3756b46ef644fbaaa983abc49a827dada02e738f6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_01.png",
+      "width": 19,
+      "height": 24,
+      "texture_px": [
+        19,
+        24
+      ],
+      "offset": 28106,
+      "length": 456,
+      "trim_origin_top_left_px": [
+        65,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -38
+      ],
+      "sha256": "500eb3802db9b1200bc6583d7c31cf7d4ecc30a58f4d9013ab97bccd9b8b1697",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wnw_02.png",
       "width": 18,
-      "height": 23,
+      "height": 24,
       "texture_px": [
         18,
-        23
+        24
       ],
-      "offset": 29279,
-      "length": 414,
+      "offset": 28562,
+      "length": 432,
       "trim_origin_top_left_px": [
         65,
-        39
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
         -38
       ],
-      "sha256": "3df68dd64200723adc43acca59d970bfec541bbdd1374e7ff4955d831d38d2c0",
+      "sha256": "998049b343e0251bea93424a797ef5e309a0319568ced819c04a816316b6d2a2",
       "empty": false
     },
     {
@@ -1882,7 +1882,7 @@
         18,
         24
       ],
-      "offset": 29693,
+      "offset": 28994,
       "length": 432,
       "trim_origin_top_left_px": [
         65,
@@ -1892,41 +1892,19 @@
         15,
         -38
       ],
-      "sha256": "1fc1112ccbec6738734f575ca9cbbc229d4e35bd0f3d231ef41145bce411de2e",
+      "sha256": "a93b4aebeefba0dc5bc61ca4227d435e1e530253dbade77a4556866b199ab20b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wnw_04.png",
-      "width": 19,
-      "height": 23,
-      "texture_px": [
-        19,
-        23
-      ],
-      "offset": 30125,
-      "length": 437,
-      "trim_origin_top_left_px": [
-        64,
-        38
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -39
-      ],
-      "sha256": "df94c468f158b98d1002c94f56516e5595697f8413d93c935e013dc18cfd599a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_05.png",
       "width": 18,
       "height": 24,
       "texture_px": [
         18,
         24
       ],
-      "offset": 30562,
+      "offset": 29426,
       "length": 432,
       "trim_origin_top_left_px": [
         65,
@@ -1936,7 +1914,29 @@
         15,
         -38
       ],
-      "sha256": "ab8f243b7243d11246934671225fea785b7cedf9c1e009e735641980208a4e9d",
+      "sha256": "6b9a9702ba8310d25be814715b8d96c0596af06cec62baf4d64d9e97e8795417",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_05.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 29858,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "0fdda617fc18b41534d1a60184954484b7d9ce6d666595cbe6676175d033d74b",
       "empty": false
     },
     {
@@ -1948,8 +1948,30 @@
         18,
         23
       ],
-      "offset": 30994,
+      "offset": 30272,
       "length": 414,
+      "trim_origin_top_left_px": [
+        66,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -38
+      ],
+      "sha256": "84fcda9f78e3be8b6c9124a39948039a5d60842e691f2ff7a98a296aa696d230",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_07.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 30686,
+      "length": 437,
       "trim_origin_top_left_px": [
         65,
         39
@@ -1958,29 +1980,7 @@
         15,
         -38
       ],
-      "sha256": "6b8ad71a24b7d8284118fcc1b295d58ea8e4609ae0c71c790bfa102d3530b0d7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_07.png",
-      "width": 18,
-      "height": 24,
-      "texture_px": [
-        18,
-        24
-      ],
-      "offset": 31408,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        65,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -37
-      ],
-      "sha256": "a6a68db9ca645f7815bf1c5632635f364447d2431238e629f54207c1f4ad9280",
+      "sha256": "5eb08f0fb822e4a61c073d46084e1137fa82dd531678acca077b53262a760449",
       "empty": false
     },
     {
@@ -1992,51 +1992,29 @@
         19,
         23
       ],
-      "offset": 31840,
+      "offset": 31123,
       "length": 437,
       "trim_origin_top_left_px": [
-        64,
-        40
+        65,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -37
+        15,
+        -38
       ],
-      "sha256": "fb0fb6e78bb4276dab2793d5431181608424955eb5223ad32f852298cb065db9",
+      "sha256": "85886b3f9681c7eaa069ad6a0bd0b65e6f01d5270966ed8bffe7fb1d88137eaa",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_wnw_09.png",
       "width": 18,
-      "height": 24,
-      "texture_px": [
-        18,
-        24
-      ],
-      "offset": 32277,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        65,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -37
-      ],
-      "sha256": "a6a68db9ca645f7815bf1c5632635f364447d2431238e629f54207c1f4ad9280",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_10.png",
-      "width": 18,
       "height": 23,
       "texture_px": [
         18,
         23
       ],
-      "offset": 32709,
+      "offset": 31560,
       "length": 414,
       "trim_origin_top_left_px": [
         65,
@@ -2046,95 +2024,117 @@
         15,
         -38
       ],
-      "sha256": "6b8ad71a24b7d8284118fcc1b295d58ea8e4609ae0c71c790bfa102d3530b0d7",
+      "sha256": "a793c4ef0ad75ea5c42c1e903584df85a169f2cf61df056d27e3b741501b9b5f",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_11.png",
-      "width": 18,
-      "height": 24,
-      "texture_px": [
-        18,
-        24
-      ],
-      "offset": 33123,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        65,
-        38
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -38
-      ],
-      "sha256": "ab8f243b7243d11246934671225fea785b7cedf9c1e009e735641980208a4e9d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_12.png",
+      "name": "run_wnw_10.png",
       "width": 19,
       "height": 23,
       "texture_px": [
         19,
         23
       ],
-      "offset": 33555,
+      "offset": 31974,
       "length": 437,
       "trim_origin_top_left_px": [
-        64,
+        65,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -39
       ],
-      "sha256": "df94c468f158b98d1002c94f56516e5595697f8413d93c935e013dc18cfd599a",
+      "sha256": "8b38aeb07308a525f7d43c9e51757fdb1b0cf5fe6b8c8b5f104964a3778ab1a8",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_13.png",
+      "name": "run_wnw_11.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 32411,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        65,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -39
+      ],
+      "sha256": "695d2b5a725dffce89c8f797ce3594f0eb5b7bd15d694ba41edbc5d6579d9168",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_12.png",
       "width": 18,
       "height": 24,
       "texture_px": [
         18,
         24
       ],
-      "offset": 33992,
+      "offset": 32848,
       "length": 432,
       "trim_origin_top_left_px": [
-        65,
-        38
+        66,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -38
+        14,
+        -39
       ],
-      "sha256": "1fc1112ccbec6738734f575ca9cbbc229d4e35bd0f3d231ef41145bce411de2e",
+      "sha256": "a251000c763beb252ddfbabbee9dcdf89b43c927ebdc648aa584f6eaf7b3fd6d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_wnw_14.png",
+      "name": "run_wnw_13.png",
       "width": 18,
       "height": 23,
       "texture_px": [
         18,
         23
       ],
-      "offset": 34424,
+      "offset": 33280,
       "length": 414,
       "trim_origin_top_left_px": [
-        65,
-        39
+        66,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
+        -39
+      ],
+      "sha256": "9447616efbdf7f8c3cb96a3edf69c2f2ed4187363a27368358606e5867838131",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_wnw_14.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 33694,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        66,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
         -38
       ],
-      "sha256": "3df68dd64200723adc43acca59d970bfec541bbdd1374e7ff4955d831d38d2c0",
+      "sha256": "d610b03ac700bfa1eda41d3515d5c28d46fcae4648399adbc318d06a7446f90b",
       "empty": false
     },
     {
@@ -2146,17 +2146,17 @@
         18,
         24
       ],
-      "offset": 34838,
+      "offset": 34126,
       "length": 432,
       "trim_origin_top_left_px": [
-        65,
-        39
+        66,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -37
+        14,
+        -38
       ],
-      "sha256": "856e2471c207916b7a40f71e95db3b080dbd596238e12d2d767fa5593fa23401",
+      "sha256": "7cabe4928d8e0a178f8eee0a182a7635ea5a32836cda432f10903826d4e4abc0",
       "empty": false
     },
     {
@@ -2168,39 +2168,39 @@
         17,
         24
       ],
-      "offset": 35270,
+      "offset": 34558,
       "length": 408,
       "trim_origin_top_left_px": [
-        67,
-        39
+        68,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -37
+        12,
+        -38
       ],
-      "sha256": "518f8022a97abc1491accb3b9b654470b0d9a60d4cc1cddc7d141cee4e85a372",
+      "sha256": "067fd2c2160328e4c94be5c056a4528f423434521da7698feceb066722332cb0",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_01.png",
-      "width": 17,
+      "width": 16,
       "height": 24,
       "texture_px": [
-        17,
+        16,
         24
       ],
-      "offset": 35678,
-      "length": 408,
+      "offset": 34966,
+      "length": 384,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "d03cecd119af48385eb6097186081de39f249079baa6890879e03876f48e41b1",
+      "sha256": "1cde93da850160783a1dc21b747bcc6d05255744e0c3c35476a5c70692e8d79e",
       "empty": false
     },
     {
@@ -2212,7 +2212,7 @@
         17,
         24
       ],
-      "offset": 36086,
+      "offset": 35350,
       "length": 408,
       "trim_origin_top_left_px": [
         67,
@@ -2222,29 +2222,29 @@
         13,
         -38
       ],
-      "sha256": "a4356a3a028b3c461e845e2d31581c851ec99e061f997fe6f0d9bfa53b0ca857",
+      "sha256": "349f1cfa2b7769d84593520ba98c077554395a3d1fc9fcea38d48d229579ae4b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_03.png",
       "width": 17,
-      "height": 23,
+      "height": 24,
       "texture_px": [
         17,
-        23
+        24
       ],
-      "offset": 36494,
-      "length": 391,
+      "offset": 35758,
+      "length": 408,
       "trim_origin_top_left_px": [
         67,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -39
+        -38
       ],
-      "sha256": "2e5678391f88e11a8277ef221bc10cd14181d14cb546cdaf80e590e35fd901b7",
+      "sha256": "994d84ab94ae73889ef3f241f4c993b05f1a5e4d286df318875d0b2707d142c7",
       "empty": false
     },
     {
@@ -2256,83 +2256,83 @@
         17,
         24
       ],
-      "offset": 36885,
+      "offset": 36166,
       "length": 408,
       "trim_origin_top_left_px": [
         67,
-        37
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -39
+        -38
       ],
-      "sha256": "f02adcf51aa062680824243944e427a1f389a444c3fbafda0e5801bda053362e",
+      "sha256": "db7ce33754d67ea1cfe3f344286fdcd680dd34bf6226c8065b37e0ba48a84d67",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_05.png",
-      "width": 17,
-      "height": 23,
+      "width": 16,
+      "height": 24,
       "texture_px": [
-        17,
-        23
+        16,
+        24
       ],
-      "offset": 37293,
-      "length": 391,
+      "offset": 36574,
+      "length": 384,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -39
+        12,
+        -38
       ],
-      "sha256": "92132a620d8b696301f350b3c7b638b3ef938f70f7e4029560b0ddf35d4a32a5",
+      "sha256": "c3bb6cd9f25f99d5ba89cc6ce382e0ed5531f4d311b19ca228bf1e6450968a88",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_06.png",
-      "width": 17,
+      "width": 16,
       "height": 24,
       "texture_px": [
-        17,
+        16,
         24
       ],
-      "offset": 37684,
-      "length": 408,
+      "offset": 36958,
+      "length": 384,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "66cbd06e8057667fe44a3ff08aefe53d6b843781b56ba864c534d1ee5a3f7db8",
+      "sha256": "8a5441854a5cd79b1a6e0932b6379fa32a8297cea8936c27d11d05d4f2b941c6",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_07.png",
-      "width": 17,
+      "width": 16,
       "height": 24,
       "texture_px": [
-        17,
+        16,
         24
       ],
-      "offset": 38092,
-      "length": 408,
+      "offset": 37342,
+      "length": 384,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "36ee1e8af21113ce52a9f8c9b4a333c26b7e94644d8142599295958496b944fd",
+      "sha256": "2a21005c4b870881f411e0861a98f26fe2292ecb993e4dd5c3f35524f24e7c17",
       "empty": false
     },
     {
@@ -2344,17 +2344,17 @@
         17,
         24
       ],
-      "offset": 38500,
+      "offset": 37726,
       "length": 408,
       "trim_origin_top_left_px": [
         67,
-        39
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -37
+        -38
       ],
-      "sha256": "a2f1943189ec669f142590c6a4b5300f12e17241b616d827c043648ed3fcdeee",
+      "sha256": "96e13d58ce2d580958a7def00bee11da4a825f1c224fb51022d4629e43637e73",
       "empty": false
     },
     {
@@ -2366,7 +2366,7 @@
         17,
         24
       ],
-      "offset": 38908,
+      "offset": 38134,
       "length": 408,
       "trim_origin_top_left_px": [
         67,
@@ -2376,7 +2376,7 @@
         13,
         -38
       ],
-      "sha256": "36ee1e8af21113ce52a9f8c9b4a333c26b7e94644d8142599295958496b944fd",
+      "sha256": "fe53e97d8c5d7b3438df44f4f46b01527f9748e0dfec73d3060a8169b269989d",
       "empty": false
     },
     {
@@ -2388,39 +2388,39 @@
         17,
         24
       ],
-      "offset": 39316,
+      "offset": 38542,
       "length": 408,
       "trim_origin_top_left_px": [
         67,
-        38
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -38
+        -39
       ],
-      "sha256": "66cbd06e8057667fe44a3ff08aefe53d6b843781b56ba864c534d1ee5a3f7db8",
+      "sha256": "b7cd048419a776e81b5de945b66171cf4207d55c151a47d036989e572fcd65c9",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_11.png",
       "width": 17,
-      "height": 23,
+      "height": 24,
       "texture_px": [
         17,
-        23
+        24
       ],
-      "offset": 39724,
-      "length": 391,
+      "offset": 38950,
+      "length": 408,
       "trim_origin_top_left_px": [
-        67,
-        38
+        68,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "92132a620d8b696301f350b3c7b638b3ef938f70f7e4029560b0ddf35d4a32a5",
+      "sha256": "81ca2507b2986b06bef43c9579454c40146570cef90adb62b9f883efd53fc085",
       "empty": false
     },
     {
@@ -2432,61 +2432,61 @@
         17,
         24
       ],
-      "offset": 40115,
+      "offset": 39358,
       "length": 408,
       "trim_origin_top_left_px": [
-        67,
+        68,
         37
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "f02adcf51aa062680824243944e427a1f389a444c3fbafda0e5801bda053362e",
+      "sha256": "cb9f74fa532bd82af7496ff11d28cb8ca155693300d4b5cbd2f51d2fc1c1c9f7",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nw_13.png",
       "width": 17,
-      "height": 23,
-      "texture_px": [
-        17,
-        23
-      ],
-      "offset": 40523,
-      "length": 391,
-      "trim_origin_top_left_px": [
-        67,
-        38
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -39
-      ],
-      "sha256": "2e5678391f88e11a8277ef221bc10cd14181d14cb546cdaf80e590e35fd901b7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_nw_14.png",
-      "width": 17,
       "height": 24,
       "texture_px": [
         17,
         24
       ],
-      "offset": 40914,
+      "offset": 39766,
       "length": 408,
       "trim_origin_top_left_px": [
-        67,
+        68,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -39
+      ],
+      "sha256": "27fecceddc5146bd9193cc2a95e05adbecdd5a745975ee6aba64787ffaacf027",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_nw_14.png",
+      "width": 16,
+      "height": 24,
+      "texture_px": [
+        16,
+        24
+      ],
+      "offset": 40174,
+      "length": 384,
+      "trim_origin_top_left_px": [
+        69,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        11,
         -38
       ],
-      "sha256": "a4356a3a028b3c461e845e2d31581c851ec99e061f997fe6f0d9bfa53b0ca857",
+      "sha256": "2f855c1395514060ed6b89ccdfcffe73a0834ee15f9db62c3d1a8ab1202a59d2",
       "empty": false
     },
     {
@@ -2498,17 +2498,17 @@
         17,
         24
       ],
-      "offset": 41322,
+      "offset": 40558,
       "length": 408,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "d03cecd119af48385eb6097186081de39f249079baa6890879e03876f48e41b1",
+      "sha256": "bf570b2629f20e52c1595cb0423a50a32f8d923782079dc73929d01f8d34cbf6",
       "empty": false
     },
     {
@@ -2520,61 +2520,61 @@
         19,
         23
       ],
-      "offset": 41730,
+      "offset": 40966,
       "length": 437,
       "trim_origin_top_left_px": [
-        67,
+        68,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "ec975dd616c7fdf27d41b89f07032e103f41236d36754bac3d7579d369c80964",
+      "sha256": "96ba0d3a2cc699ea588c445237871a5f74b2d0da67ede7e21f207c414b39a6dd",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_01.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 42167,
-      "length": 437,
+      "offset": 41403,
+      "length": 418,
       "trim_origin_top_left_px": [
-        67,
+        68,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -38
+        12,
+        -39
       ],
-      "sha256": "62340e49af19fe43f921c55eace4995daf98f53d4629a226f0619bff4db7bef9",
+      "sha256": "dc527b0d85998b42b9aa5bcee0e4beb0a1d83b1034a19e9d8bd4917ebf4ed900",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_02.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 42604,
-      "length": 437,
+      "offset": 41821,
+      "length": 418,
       "trim_origin_top_left_px": [
         67,
-        38
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         -39
       ],
-      "sha256": "05f7a6e31b0913eb91d708e49afc142c5a7e0326492370cf5342b09deb550755",
+      "sha256": "96c57becbda47b67162a3d79bc49814f033c02c1a22a4811d333765d438c0f9b",
       "empty": false
     },
     {
@@ -2586,7 +2586,7 @@
         19,
         23
       ],
-      "offset": 43041,
+      "offset": 42239,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
@@ -2596,7 +2596,7 @@
         13,
         -39
       ],
-      "sha256": "4e8f40cfca8030d032cef847c9ee852ade0840b76bd7c2acda3ffdf74a7d073b",
+      "sha256": "a81ed9594be88e5a092580be5f1940b8262028114de2cca6ca77304423a1286a",
       "empty": false
     },
     {
@@ -2608,7 +2608,7 @@
         19,
         23
       ],
-      "offset": 43478,
+      "offset": 42676,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
@@ -2618,29 +2618,29 @@
         13,
         -39
       ],
-      "sha256": "e1abc5a23f00b61f2cfc0a14276c51bc3b326e1c5d7c88d65e4f40dab5c6e12d",
+      "sha256": "e75e68415de78c925eb948d70a4c9365ef36a07ece867e07d0748e2bdb1132cb",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_05.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 43915,
-      "length": 437,
+      "offset": 43113,
+      "length": 418,
       "trim_origin_top_left_px": [
         67,
-        38
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
         -39
       ],
-      "sha256": "4e8f40cfca8030d032cef847c9ee852ade0840b76bd7c2acda3ffdf74a7d073b",
+      "sha256": "d06f382fc070a4c4f41b1c37e23e2f7e7114aaef535b944c9b83f4599a494822",
       "empty": false
     },
     {
@@ -2652,17 +2652,17 @@
         19,
         23
       ],
-      "offset": 44352,
+      "offset": 43531,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
-        38
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -39
+        -38
       ],
-      "sha256": "38fda514cdcc105d1dd658a40bb220e1fa491e2998a5735af79e5524c0d44da7",
+      "sha256": "efff8bf67d7f2c7063e75925ec208eea923b658d945032606c7215264ca37b7f",
       "empty": false
     },
     {
@@ -2674,7 +2674,7 @@
         19,
         23
       ],
-      "offset": 44789,
+      "offset": 43968,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
@@ -2684,7 +2684,7 @@
         13,
         -38
       ],
-      "sha256": "d30455a39b5356bf8ca972c86ab7e24375648c6e87af38868eb567c94e19fc77",
+      "sha256": "b52888ffd4eed5766549fd66511e0908d2186d8172cd5a8b8075a2273f52cd53",
       "empty": false
     },
     {
@@ -2696,7 +2696,7 @@
         19,
         23
       ],
-      "offset": 45226,
+      "offset": 44405,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
@@ -2706,29 +2706,29 @@
         13,
         -38
       ],
-      "sha256": "21fcfa3ac8fe8837cb339027d0cd0e1d1253c9e892ed5594231dab17e5e9e598",
+      "sha256": "074b503ea50184c2c2cb9f007ff9597544fde3eb23b01559634253d885185642",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_09.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 45663,
-      "length": 437,
+      "offset": 44842,
+      "length": 418,
       "trim_origin_top_left_px": [
         67,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -38
+        -39
       ],
-      "sha256": "d30455a39b5356bf8ca972c86ab7e24375648c6e87af38868eb567c94e19fc77",
+      "sha256": "68f568cc5d4536a23e186093bbf206f4fa274be6acb6ec32f3f16ea6d64e8a1d",
       "empty": false
     },
     {
@@ -2740,7 +2740,7 @@
         19,
         23
       ],
-      "offset": 46100,
+      "offset": 45260,
       "length": 437,
       "trim_origin_top_left_px": [
         67,
@@ -2750,29 +2750,29 @@
         13,
         -39
       ],
-      "sha256": "38fda514cdcc105d1dd658a40bb220e1fa491e2998a5735af79e5524c0d44da7",
+      "sha256": "d8e85ffeba9b750fadb3101bf0920ebf8f069bfc88b480cb81da3b4cb37579e4",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_11.png",
-      "width": 19,
+      "width": 18,
       "height": 23,
       "texture_px": [
-        19,
+        18,
         23
       ],
-      "offset": 46537,
-      "length": 437,
+      "offset": 45697,
+      "length": 414,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "4e8f40cfca8030d032cef847c9ee852ade0840b76bd7c2acda3ffdf74a7d073b",
+      "sha256": "d4469cc357977bdcd583afeae7357b3f5a339f8310e78779c3def6d6ccb4bf38",
       "empty": false
     },
     {
@@ -2784,17 +2784,17 @@
         19,
         23
       ],
-      "offset": 46974,
+      "offset": 46111,
       "length": 437,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "e1abc5a23f00b61f2cfc0a14276c51bc3b326e1c5d7c88d65e4f40dab5c6e12d",
+      "sha256": "6ec0a4718484b8b17742dde80bcbe8b46e0eddc1fe7515411591e8017ba79a9c",
       "empty": false
     },
     {
@@ -2806,39 +2806,39 @@
         19,
         23
       ],
-      "offset": 47411,
+      "offset": 46548,
       "length": 437,
       "trim_origin_top_left_px": [
-        67,
+        68,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "4e8f40cfca8030d032cef847c9ee852ade0840b76bd7c2acda3ffdf74a7d073b",
+      "sha256": "5e79bdc1d7e8ffa1f7e0bf012126dab65b835636a7b04ede8648452425cfcea3",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nnw_14.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 47848,
-      "length": 437,
+      "offset": 46985,
+      "length": 418,
       "trim_origin_top_left_px": [
-        67,
-        38
+        68,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -39
       ],
-      "sha256": "05f7a6e31b0913eb91d708e49afc142c5a7e0326492370cf5342b09deb550755",
+      "sha256": "8421347591253687c3da11474725c99f65ae14021413dcf2f273410da57b851b",
       "empty": false
     },
     {
@@ -2850,61 +2850,61 @@
         19,
         23
       ],
-      "offset": 48285,
+      "offset": 47403,
       "length": 437,
       "trim_origin_top_left_px": [
-        67,
+        68,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -38
       ],
-      "sha256": "62340e49af19fe43f921c55eace4995daf98f53d4629a226f0619bff4db7bef9",
+      "sha256": "8c9f07e4539433ff4a4d77efa9015be6c16bbb5836a9870d1cc8cdef78a97745",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_00.png",
-      "width": 21,
-      "height": 21,
+      "width": 20,
+      "height": 20,
       "texture_px": [
-        21,
-        21
+        20,
+        20
       ],
-      "offset": 48722,
-      "length": 441,
+      "offset": 47840,
+      "length": 400,
       "trim_origin_top_left_px": [
-        69,
+        70,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
+        10,
+        -39
       ],
-      "sha256": "df98e61184a37210d792ed1ea3e764d618f721ff19f4ea65a526706b12fb515f",
+      "sha256": "791f6aaaae9ea8dbd7aa08c52cd8171fee34b640cd040698b0e552ccf73023b2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_01.png",
-      "width": 21,
+      "width": 20,
       "height": 21,
       "texture_px": [
-        21,
+        20,
         21
       ],
-      "offset": 49163,
-      "length": 441,
+      "offset": 48240,
+      "length": 420,
       "trim_origin_top_left_px": [
-        69,
-        41
+        70,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
+        10,
+        -39
       ],
-      "sha256": "01b26b64abf7b4c2392367a65cffa2b09cfea4d0986f3786e16a62ee974b76cc",
+      "sha256": "6818f89fa8ce711cbb794c8230b342cf7e38814afe2382fbe9c3863894e05591",
       "empty": false
     },
     {
@@ -2916,7 +2916,7 @@
         21,
         21
       ],
-      "offset": 49604,
+      "offset": 48660,
       "length": 441,
       "trim_origin_top_left_px": [
         69,
@@ -2926,7 +2926,7 @@
         11,
         -39
       ],
-      "sha256": "ee83b7671be29cdb0760fca4a72e657c0164e1c2f6b87f49a2f46dc4b9a29c0e",
+      "sha256": "88d03acfe06f16d88c265fa57fa8f698e993c5bebde881660ec60fb9232cee9c",
       "empty": false
     },
     {
@@ -2938,7 +2938,7 @@
         21,
         21
       ],
-      "offset": 50045,
+      "offset": 49101,
       "length": 441,
       "trim_origin_top_left_px": [
         69,
@@ -2948,19 +2948,19 @@
         11,
         -39
       ],
-      "sha256": "7a762bddb830adfe656c746853071de811ef87f553f91147c177cbfaa48ce9d3",
+      "sha256": "0f39e89f8ebdd24966fb78d98351e24691574e2eddaf068286635b08830e545c",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_04.png",
-      "width": 21,
-      "height": 20,
+      "width": 20,
+      "height": 21,
       "texture_px": [
-        21,
-        20
+        20,
+        21
       ],
-      "offset": 50486,
+      "offset": 49542,
       "length": 420,
       "trim_origin_top_left_px": [
         69,
@@ -2968,22 +2968,22 @@
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -40
+        -39
       ],
-      "sha256": "c0233ec431b4ee7b1eed9d3616fa4d1403cfd4ba5d69d7ec719ae3366db858f1",
+      "sha256": "c416b3a3ec40bf1abb0f2c932875e8082cef10a47d50c655a2b631dcf5298db8",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_05.png",
-      "width": 21,
+      "width": 20,
       "height": 21,
       "texture_px": [
-        21,
+        20,
         21
       ],
-      "offset": 50906,
-      "length": 441,
+      "offset": 49962,
+      "length": 420,
       "trim_origin_top_left_px": [
         69,
         40
@@ -2992,20 +2992,86 @@
         11,
         -39
       ],
-      "sha256": "738dc6973f251a5b7d37e31cc7ff4e111b5ab8a5f898b9661f373830d427da69",
+      "sha256": "a893bce0000dd01349bb9522c5f9b08e40c023e9471e6b552e5b5aa9a493972b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_06.png",
-      "width": 21,
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 50382,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "1dec0583cbee94f2fd068cb9c1d38a2558946bb4cde641baf66a14c33390f1b2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_n_07.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 50782,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "83f72b69adcc12dd59fad270cd5e9471117c1dcc687eec59670c01dec4ceb00a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_n_08.png",
+      "width": 20,
+      "height": 20,
+      "texture_px": [
+        20,
+        20
+      ],
+      "offset": 51182,
+      "length": 400,
+      "trim_origin_top_left_px": [
+        69,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -39
+      ],
+      "sha256": "613fbde6d1c7b673a6bf891f432b373955ddae944c62f06c276021546174ad0a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_n_09.png",
+      "width": 20,
       "height": 21,
       "texture_px": [
-        21,
+        20,
         21
       ],
-      "offset": 51347,
-      "length": 441,
+      "offset": 51582,
+      "length": 420,
       "trim_origin_top_left_px": [
         69,
         40
@@ -3014,73 +3080,7 @@
         11,
         -39
       ],
-      "sha256": "36e530df1022e2037a559f7bbe489837569ad66de107892b5fc5e14321793335",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_n_07.png",
-      "width": 21,
-      "height": 21,
-      "texture_px": [
-        21,
-        21
-      ],
-      "offset": 51788,
-      "length": 441,
-      "trim_origin_top_left_px": [
-        69,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
-      ],
-      "sha256": "fc946c64e303b217465f0dce6f74889e1a2421da5e19d275b8939c8a4eabdc43",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_n_08.png",
-      "width": 21,
-      "height": 21,
-      "texture_px": [
-        21,
-        21
-      ],
-      "offset": 52229,
-      "length": 441,
-      "trim_origin_top_left_px": [
-        69,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
-      ],
-      "sha256": "e69b3bcc6f89d95cc4f66181185dbeb92903437755b0a39d9257e880299a5a2b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_n_09.png",
-      "width": 21,
-      "height": 21,
-      "texture_px": [
-        21,
-        21
-      ],
-      "offset": 52670,
-      "length": 441,
-      "trim_origin_top_left_px": [
-        69,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
-      ],
-      "sha256": "fc946c64e303b217465f0dce6f74889e1a2421da5e19d275b8939c8a4eabdc43",
+      "sha256": "84ae4183ca52c1cfc9da0d865272c17321c75e7e390839edf8f1070acda5cc1e",
       "empty": false
     },
     {
@@ -3092,7 +3092,7 @@
         21,
         21
       ],
-      "offset": 53111,
+      "offset": 52002,
       "length": 441,
       "trim_origin_top_left_px": [
         69,
@@ -3102,7 +3102,7 @@
         11,
         -39
       ],
-      "sha256": "36e530df1022e2037a559f7bbe489837569ad66de107892b5fc5e14321793335",
+      "sha256": "9e8880aa8c9ec260721c0c3c0d332710649cbd55ceb257eb7ab19e5a98f81ca4",
       "empty": false
     },
     {
@@ -3114,7 +3114,7 @@
         21,
         21
       ],
-      "offset": 53552,
+      "offset": 52443,
       "length": 441,
       "trim_origin_top_left_px": [
         69,
@@ -3124,117 +3124,117 @@
         11,
         -39
       ],
-      "sha256": "738dc6973f251a5b7d37e31cc7ff4e111b5ab8a5f898b9661f373830d427da69",
+      "sha256": "83172b21685c90b8f7ea555562748c514748ec411ddf3db74e12322f1fc47999",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_12.png",
-      "width": 21,
-      "height": 20,
+      "width": 20,
+      "height": 21,
       "texture_px": [
-        21,
-        20
+        20,
+        21
       ],
-      "offset": 53993,
+      "offset": 52884,
       "length": 420,
       "trim_origin_top_left_px": [
-        69,
+        70,
         40
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -40
+        10,
+        -39
       ],
-      "sha256": "82ba2faac9eb17c763c475956603a679b1a76c7f0107ae90d64a921c29d9765a",
+      "sha256": "c2cde1126a81d8f394e085a21d50a046df21018046d7bf5fc71b78bae0a27e12",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_13.png",
-      "width": 21,
+      "width": 20,
       "height": 21,
       "texture_px": [
-        21,
+        20,
         21
       ],
-      "offset": 54413,
-      "length": 441,
+      "offset": 53304,
+      "length": 420,
       "trim_origin_top_left_px": [
-        69,
+        70,
         40
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        10,
         -39
       ],
-      "sha256": "7a762bddb830adfe656c746853071de811ef87f553f91147c177cbfaa48ce9d3",
+      "sha256": "aef93fa28c210878dcdd705cf25b1e22dcce9f97284ad8795eed7832a4bb2155",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_14.png",
-      "width": 21,
-      "height": 21,
+      "width": 20,
+      "height": 20,
       "texture_px": [
-        21,
-        21
+        20,
+        20
       ],
-      "offset": 54854,
-      "length": 441,
+      "offset": 53724,
+      "length": 400,
       "trim_origin_top_left_px": [
-        69,
-        40
+        70,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        10,
         -39
       ],
-      "sha256": "ee83b7671be29cdb0760fca4a72e657c0164e1c2f6b87f49a2f46dc4b9a29c0e",
+      "sha256": "70f331d300fdd27d32542f78befcba88072987c6e5962179fa6527704eb7f0c2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_n_15.png",
-      "width": 21,
-      "height": 21,
+      "width": 20,
+      "height": 20,
       "texture_px": [
-        21,
-        21
+        20,
+        20
       ],
-      "offset": 55295,
-      "length": 441,
+      "offset": 54124,
+      "length": 400,
       "trim_origin_top_left_px": [
-        69,
+        70,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -38
+        10,
+        -39
       ],
-      "sha256": "01b26b64abf7b4c2392367a65cffa2b09cfea4d0986f3786e16a62ee974b76cc",
+      "sha256": "657231e2d47e02362dbf2feeaddf4a9571d318abe09fbbd6c128800ebad04294",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_00.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 55736,
-      "length": 437,
+      "offset": 54524,
+      "length": 418,
       "trim_origin_top_left_px": [
         73,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
         7,
-        -38
+        -39
       ],
-      "sha256": "b92c663ff8a1cea4af348719c377b58e1daf5d6841193ada197a340f30af35cb",
+      "sha256": "7db3bc830f8c6d05d0a959be6d65ef5541e3c57538fad5e7aa9a6dfaa6823660",
       "empty": false
     },
     {
@@ -3246,17 +3246,17 @@
         19,
         23
       ],
-      "offset": 56173,
+      "offset": 54942,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
-        39
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
         7,
-        -38
+        -39
       ],
-      "sha256": "e196c9adc243cdb46eda878dd15fbcf9dce2f1ee54fe51a3e757154636bee5a2",
+      "sha256": "bd542de848c656765ece11312ec66d654bf7dcf86d30e304965ae95e655cb6e6",
       "empty": false
     },
     {
@@ -3268,7 +3268,7 @@
         19,
         23
       ],
-      "offset": 56610,
+      "offset": 55379,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
@@ -3278,20 +3278,20 @@
         7,
         -39
       ],
-      "sha256": "097c3f5a79188f3c856aaa4feae642b1bc51d174a3ed2ea89340c79007633618",
+      "sha256": "8ea0df0d73422e5cf1834f6d28ecacdfc95a587601aaca057418a867731ea211",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_03.png",
-      "width": 19,
+      "width": 18,
       "height": 23,
       "texture_px": [
-        19,
+        18,
         23
       ],
-      "offset": 57047,
-      "length": 437,
+      "offset": 55816,
+      "length": 414,
       "trim_origin_top_left_px": [
         73,
         38
@@ -3300,29 +3300,29 @@
         7,
         -39
       ],
-      "sha256": "b4af5abc43eb5aaf7d1c0e310cb9a5c3d27ec2b9c0caed37a2cd7e462e1cef6c",
+      "sha256": "845047717344d533d335ea6484bad41a00bd18a1922abb5aa6fb47c3224b6e52",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_04.png",
       "width": 19,
-      "height": 22,
+      "height": 23,
       "texture_px": [
         19,
-        22
+        23
       ],
-      "offset": 57484,
-      "length": 418,
+      "offset": 56230,
+      "length": 437,
       "trim_origin_top_left_px": [
-        73,
+        72,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -40
+        8,
+        -39
       ],
-      "sha256": "6e27a4fc035a185fe6885a09441d96560c94d8dc80f60494ff0658721594a3ff",
+      "sha256": "f9212bb87e3f4f502e72240a77680497a65b3dd428af87d8c39bf6b5d77e4730",
       "empty": false
     },
     {
@@ -3334,17 +3334,17 @@
         19,
         23
       ],
-      "offset": 57902,
+      "offset": 56667,
       "length": 437,
       "trim_origin_top_left_px": [
-        73,
+        72,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
+        8,
         -39
       ],
-      "sha256": "6a20da023cc801bb5603ae71bfa0d7a0447ad768e998a354bb6ff8982112cf35",
+      "sha256": "dd6ee9606045fee84bb7b87d664a1dd57109f2bed086fcadeaaa6da0eb3d783c",
       "empty": false
     },
     {
@@ -3356,83 +3356,83 @@
         19,
         23
       ],
-      "offset": 58339,
+      "offset": 57104,
       "length": 437,
       "trim_origin_top_left_px": [
-        73,
+        72,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
+        8,
         -39
       ],
-      "sha256": "5110d9f848fdecb44af6c0df4996e114aa19893ca943ba19650b884daddd08fb",
+      "sha256": "8b1e06975a9056d40126bdcef86cbd445237fed361bc4a7a1add98f0143ccaa0",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_07.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 58776,
-      "length": 437,
+      "offset": 57541,
+      "length": 418,
       "trim_origin_top_left_px": [
-        73,
+        72,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -38
+        8,
+        -39
       ],
-      "sha256": "d11e95da2dad53cb2d4d6b9175d338e4c58e5d3b149bae2eeb1558d82633dd49",
+      "sha256": "0dee705656cd802c933c5e476ace4e830f1252252999835f2c88bf1b30f80c1f",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_08.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 59213,
-      "length": 437,
+      "offset": 57959,
+      "length": 418,
       "trim_origin_top_left_px": [
-        73,
+        72,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -38
+        8,
+        -39
       ],
-      "sha256": "ffd960fa43c388c8f55c6e563245871acfb8cf9ccdecb50ec4c7a33595ead2d1",
+      "sha256": "3fb3e466b2811b1a99969067e0619a556fc18b06db13284a337f8424b85810bf",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_09.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 59650,
-      "length": 437,
+      "offset": 58377,
+      "length": 418,
       "trim_origin_top_left_px": [
-        73,
+        72,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        -38
+        8,
+        -39
       ],
-      "sha256": "d11e95da2dad53cb2d4d6b9175d338e4c58e5d3b149bae2eeb1558d82633dd49",
+      "sha256": "ddc490c8420ea3af2bebfa559a9b16bbc425a1c20b1c19c11213ca40b5d6381f",
       "empty": false
     },
     {
@@ -3444,7 +3444,7 @@
         19,
         23
       ],
-      "offset": 60087,
+      "offset": 58795,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
@@ -3454,7 +3454,7 @@
         7,
         -39
       ],
-      "sha256": "5110d9f848fdecb44af6c0df4996e114aa19893ca943ba19650b884daddd08fb",
+      "sha256": "242fcf23d8c521df87f55f7782ded3124c16dc85bb2bfbd388352d951e0b2781",
       "empty": false
     },
     {
@@ -3466,7 +3466,7 @@
         19,
         23
       ],
-      "offset": 60524,
+      "offset": 59232,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
@@ -3476,29 +3476,29 @@
         7,
         -39
       ],
-      "sha256": "6a20da023cc801bb5603ae71bfa0d7a0447ad768e998a354bb6ff8982112cf35",
+      "sha256": "fd56fc1c0a9453a6ff5bcb259f486d2dc393c45b52fe656921d909ce5acd6573",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_12.png",
       "width": 19,
-      "height": 22,
+      "height": 23,
       "texture_px": [
         19,
-        22
+        23
       ],
-      "offset": 60961,
-      "length": 418,
+      "offset": 59669,
+      "length": 437,
       "trim_origin_top_left_px": [
         73,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
         7,
-        -40
+        -39
       ],
-      "sha256": "6e27a4fc035a185fe6885a09441d96560c94d8dc80f60494ff0658721594a3ff",
+      "sha256": "21caf0f2dad163bfa7e5cea2cbc8b7223f14bf767126b549e527616be0645f96",
       "empty": false
     },
     {
@@ -3510,7 +3510,7 @@
         19,
         23
       ],
-      "offset": 61379,
+      "offset": 60106,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
@@ -3520,29 +3520,29 @@
         7,
         -39
       ],
-      "sha256": "b4af5abc43eb5aaf7d1c0e310cb9a5c3d27ec2b9c0caed37a2cd7e462e1cef6c",
+      "sha256": "c9302c1626babe85a4cad95d192b33673f7a50b1af9de03f5ecbb09fb8de47a3",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_nne_14.png",
       "width": 19,
-      "height": 23,
+      "height": 22,
       "texture_px": [
         19,
-        23
+        22
       ],
-      "offset": 61816,
-      "length": 437,
+      "offset": 60543,
+      "length": 418,
       "trim_origin_top_left_px": [
         73,
-        38
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         7,
         -39
       ],
-      "sha256": "097c3f5a79188f3c856aaa4feae642b1bc51d174a3ed2ea89340c79007633618",
+      "sha256": "ea9bbd153d8afc9ffece1fdc0a40926cd9a058189f865421163b38ca85b60b80",
       "empty": false
     },
     {
@@ -3554,7 +3554,7 @@
         19,
         23
       ],
-      "offset": 62253,
+      "offset": 60961,
       "length": 437,
       "trim_origin_top_left_px": [
         73,
@@ -3564,20 +3564,20 @@
         7,
         -38
       ],
-      "sha256": "e196c9adc243cdb46eda878dd15fbcf9dce2f1ee54fe51a3e757154636bee5a2",
+      "sha256": "626cfcc11fac670a80536ca5dbd4370b8a9fafc19ccf6f320981c871cbd92fa5",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_00.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 62690,
-      "length": 432,
+      "offset": 61398,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         38
@@ -3586,42 +3586,42 @@
         5,
         -38
       ],
-      "sha256": "fb7e36d87549bc171d993af1b0cd83321dfe27f7f475d0a8a1f248819837fc33",
+      "sha256": "37c26f135e29c6a7b6accd25fc3099d69553a4b375859b71bdd94e14cbe381b4",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_01.png",
-      "width": 18,
-      "height": 24,
+      "width": 17,
+      "height": 23,
       "texture_px": [
-        18,
-        24
+        17,
+        23
       ],
-      "offset": 63122,
-      "length": 432,
+      "offset": 61806,
+      "length": 391,
       "trim_origin_top_left_px": [
         75,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
         5,
-        -38
+        -39
       ],
-      "sha256": "8520643abccda90f752ae139f2a54a7afbfd4b8641ab0e5ef49ccc65d8917a4b",
+      "sha256": "b0ff776f3052192144b4259866a69917ed03c5d76a38f4e4a396c189684b7adf",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_02.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 63554,
-      "length": 432,
+      "offset": 62197,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         37
@@ -3630,20 +3630,20 @@
         5,
         -39
       ],
-      "sha256": "93ffd781e6cf4637bb61b4bc87f884ecd8e34d92687a574f92fc3b70b6b69331",
+      "sha256": "07d1f2a11b66607131ed8d4554c78bfaddef328d6caed62ad304863f0a352937",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_03.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 63986,
-      "length": 432,
+      "offset": 62605,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         37
@@ -3652,108 +3652,108 @@
         5,
         -39
       ],
-      "sha256": "85acb426da30f9f61fa75704ec2e5a912a212093758004d66ff2ffe08d50dc71",
+      "sha256": "2d1d0e637dcbeaac06634af5bb80c079edf6f571b4b8a63b97e4652bf1bdb6b5",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_04.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 64418,
-      "length": 432,
+      "offset": 63013,
+      "length": 408,
       "trim_origin_top_left_px": [
-        75,
+        74,
         37
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
+        6,
         -39
       ],
-      "sha256": "3add5047f54d9fee3ea19c20ff35879a6ec0cce64bf0a918e2b5ae2a74dcef43",
+      "sha256": "766b1726a3b2b52ac36d870d9d15f128f705399569ce84639fa6f937dc2d4595",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_05.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 64850,
-      "length": 432,
+      "offset": 63421,
+      "length": 408,
       "trim_origin_top_left_px": [
-        75,
+        74,
         37
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
+        6,
         -39
       ],
-      "sha256": "5e15a8fffe6f87c5ccedda27b6d7ead275ca80b7c9d4b5df3ead56c85354ec09",
+      "sha256": "c8cc28d848ba5f2fdbf7abcd07b7ac58affed1e31373dc5cce29877113ff384c",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_06.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 65282,
-      "length": 432,
+      "offset": 63829,
+      "length": 408,
       "trim_origin_top_left_px": [
-        75,
+        74,
         37
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
+        6,
         -39
       ],
-      "sha256": "639bc99f132895262a3822f71a56464f4d8b3ab9e60204a3deadaff2b2e17176",
+      "sha256": "dd2f68ca02b68dc18b97b959cd338b054cad4b40e97c2a298cffe1fe86442e02",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_07.png",
-      "width": 18,
-      "height": 24,
+      "width": 17,
+      "height": 23,
       "texture_px": [
-        18,
-        24
+        17,
+        23
       ],
-      "offset": 65714,
-      "length": 432,
+      "offset": 64237,
+      "length": 391,
       "trim_origin_top_left_px": [
-        75,
+        74,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        5,
-        -38
+        6,
+        -39
       ],
-      "sha256": "2942e27b002eafe0161968eb54b20a556fdb9b72f5690f5667410437086b3087",
+      "sha256": "e3fb59a08fb5967a42af7c28153509fd1b17b4e2304c2856dce7aae69d7add79",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_08.png",
-      "width": 18,
+      "width": 16,
       "height": 24,
       "texture_px": [
-        18,
+        16,
         24
       ],
-      "offset": 66146,
-      "length": 432,
+      "offset": 64628,
+      "length": 384,
       "trim_origin_top_left_px": [
         75,
         38
@@ -3762,42 +3762,42 @@
         5,
         -38
       ],
-      "sha256": "4455fc835993fb8ae7ca8e160c22e77fedfc7c72915e92e741317b6e1f2d0823",
+      "sha256": "75ec80554abb5ac3460208556f1affe90dbcd0059a68c81f5f346ee5e4667f91",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_09.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 66578,
-      "length": 432,
+      "offset": 65012,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
-        38
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
         5,
-        -38
+        -39
       ],
-      "sha256": "2942e27b002eafe0161968eb54b20a556fdb9b72f5690f5667410437086b3087",
+      "sha256": "a4b466b0b3dde5a26c4f8ae31f09f61b6ffeb8bc620962d95038e88e963b46d1",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_10.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 67010,
-      "length": 432,
+      "offset": 65420,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         37
@@ -3806,20 +3806,20 @@
         5,
         -39
       ],
-      "sha256": "639bc99f132895262a3822f71a56464f4d8b3ab9e60204a3deadaff2b2e17176",
+      "sha256": "6d62de89d246715d4391580741c5094131bd71fe4973184e3a739410ee03a99e",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_11.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 67442,
-      "length": 432,
+      "offset": 65828,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         37
@@ -3828,20 +3828,20 @@
         5,
         -39
       ],
-      "sha256": "5e15a8fffe6f87c5ccedda27b6d7ead275ca80b7c9d4b5df3ead56c85354ec09",
+      "sha256": "ab3a72e71ca3f18a5500e8d631ae873fbe9dbd4f68c76c532a162918d373edd1",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_12.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 67874,
-      "length": 432,
+      "offset": 66236,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         37
@@ -3850,64 +3850,42 @@
         5,
         -39
       ],
-      "sha256": "3add5047f54d9fee3ea19c20ff35879a6ec0cce64bf0a918e2b5ae2a74dcef43",
+      "sha256": "b6234ae3c54ffcb9b4ad239a3ca4e1e8a1b9015347068f791a453987b32aa41a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_13.png",
-      "width": 18,
-      "height": 24,
+      "width": 17,
+      "height": 23,
       "texture_px": [
-        18,
-        24
+        17,
+        23
       ],
-      "offset": 68306,
-      "length": 432,
+      "offset": 66644,
+      "length": 391,
       "trim_origin_top_left_px": [
         75,
-        37
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
         5,
         -39
       ],
-      "sha256": "85acb426da30f9f61fa75704ec2e5a912a212093758004d66ff2ffe08d50dc71",
+      "sha256": "2b45b3a87ea53a3aadffe0a3db7717e3ed16c05efc89793d3fb581bf3abe2fec",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ne_14.png",
-      "width": 18,
+      "width": 17,
       "height": 24,
       "texture_px": [
-        18,
+        17,
         24
       ],
-      "offset": 68738,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        75,
-        37
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        5,
-        -39
-      ],
-      "sha256": "93ffd781e6cf4637bb61b4bc87f884ecd8e34d92687a574f92fc3b70b6b69331",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ne_15.png",
-      "width": 18,
-      "height": 24,
-      "texture_px": [
-        18,
-        24
-      ],
-      "offset": 69170,
-      "length": 432,
+      "offset": 67035,
+      "length": 408,
       "trim_origin_top_left_px": [
         75,
         38
@@ -3916,85 +3894,63 @@
         5,
         -38
       ],
-      "sha256": "8520643abccda90f752ae139f2a54a7afbfd4b8641ab0e5ef49ccc65d8917a4b",
+      "sha256": "7098f6a365cbca29141c0111d8225cc73fe805755a317d96062f5b5d30b001c4",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_ne_15.png",
+      "width": 17,
+      "height": 24,
+      "texture_px": [
+        17,
+        24
+      ],
+      "offset": 67443,
+      "length": 408,
+      "trim_origin_top_left_px": [
+        75,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -38
+      ],
+      "sha256": "7240cf54773136d574590e1df391a819dfdc563d2f9276b5be13729062756ba3",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ene_00.png",
       "width": 18,
-      "height": 23,
-      "texture_px": [
-        18,
-        23
-      ],
-      "offset": 69602,
-      "length": 414,
-      "trim_origin_top_left_px": [
-        77,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
-      ],
-      "sha256": "6ad6a9e8d9adf1184a2f8f1b04d91f72cfbfb8138247690cbe1fbea822ef835b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_01.png",
-      "width": 18,
-      "height": 23,
-      "texture_px": [
-        18,
-        23
-      ],
-      "offset": 70016,
-      "length": 414,
-      "trim_origin_top_left_px": [
-        77,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
-      ],
-      "sha256": "a4cee7ec1e5d0582b19939bd451a923d3657fea2963cc7db0e50cfccf165d66b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_02.png",
-      "width": 18,
       "height": 24,
       "texture_px": [
         18,
         24
       ],
-      "offset": 70430,
+      "offset": 67851,
       "length": 432,
       "trim_origin_top_left_px": [
-        77,
+        76,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        4,
         -38
       ],
-      "sha256": "f1f4b180be3d7e9ea4bbf48b4da4aad6177a60ae64cf25adfe31178abe27b0eb",
+      "sha256": "50aebf818a398e717f8f417e4935e377add763f05e33263085dc5eac62bca3e9",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_03.png",
+      "name": "run_ene_01.png",
       "width": 19,
       "height": 23,
       "texture_px": [
         19,
         23
       ],
-      "offset": 70862,
+      "offset": 68283,
       "length": 437,
       "trim_origin_top_left_px": [
         76,
@@ -4004,73 +3960,117 @@
         4,
         -39
       ],
-      "sha256": "ca4d22b49caa06a496f7f979e6fcaa1cb0349fdee6b037eab1d03ba902db8219",
+      "sha256": "fce9f1ac9e8bc1218cb028c669842598b15483e8e801fa423b2d61345a1bbffe",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_ene_02.png",
+      "width": 19,
+      "height": 23,
+      "texture_px": [
+        19,
+        23
+      ],
+      "offset": 68720,
+      "length": 437,
+      "trim_origin_top_left_px": [
+        76,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -39
+      ],
+      "sha256": "9a4cfb54d9d5cbf2f00eaa27c054be0c1a7d18e16945443d1081185825bcb314",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_ene_03.png",
+      "width": 18,
+      "height": 24,
+      "texture_px": [
+        18,
+        24
+      ],
+      "offset": 69157,
+      "length": 432,
+      "trim_origin_top_left_px": [
+        76,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -39
+      ],
+      "sha256": "c4e5a9873cb23dafda282471cc0e5fcac48b6da1080105b6d45b239db3d1d777",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ene_04.png",
       "width": 18,
-      "height": 24,
+      "height": 22,
       "texture_px": [
         18,
-        24
+        22
       ],
-      "offset": 71299,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        77,
-        37
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        3,
-        -39
-      ],
-      "sha256": "6e97c7dfc93a83c33e168f5408a36b2b8d23c9f677c7d972db27a026df819428",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_05.png",
-      "width": 19,
-      "height": 23,
-      "texture_px": [
-        19,
-        23
-      ],
-      "offset": 71731,
-      "length": 437,
+      "offset": 69589,
+      "length": 396,
       "trim_origin_top_left_px": [
         76,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -39
+        -40
       ],
-      "sha256": "fb5d1a4b7ba6306074f6a16aaa0568a1d37445bd9ad978f41e9507a5acd3d5be",
+      "sha256": "5b065f4122589bb7f334b3b462897bcaf565e47457c8402dbde666a457a57c3f",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_06.png",
+      "name": "run_ene_05.png",
       "width": 18,
       "height": 24,
       "texture_px": [
         18,
         24
       ],
-      "offset": 72168,
+      "offset": 69985,
       "length": 432,
       "trim_origin_top_left_px": [
-        77,
-        38
+        76,
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
+        4,
+        -39
       ],
-      "sha256": "ded7962cfd0e8b64cf5cc21f5412953207bbc40c4965c73c506cb6523a95ffc4",
+      "sha256": "5e319832e6d268839bcb02485c320bda37349f1ddc8e06f8dc9673d1bd209db5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_ene_06.png",
+      "width": 19,
+      "height": 24,
+      "texture_px": [
+        19,
+        24
+      ],
+      "offset": 70417,
+      "length": 456,
+      "trim_origin_top_left_px": [
+        75,
+        37
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -39
+      ],
+      "sha256": "9c8d2da9d2d04f02e0ba4cfb9cf8984b0db4eccdb4b086c5d9227885a9185c3d",
       "empty": false
     },
     {
@@ -4082,39 +4082,39 @@
         18,
         23
       ],
-      "offset": 72600,
+      "offset": 70873,
       "length": 414,
       "trim_origin_top_left_px": [
-        77,
-        39
+        76,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
+        4,
+        -39
       ],
-      "sha256": "54159eae11c9941fb0766711e42b2ade034b35ca96618d5e4b57daf84cba0017",
+      "sha256": "409e11982b2fdd7dfa8d0f36985fa35c310002e9d53e62136a4e335ca9eace49",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ene_08.png",
       "width": 18,
-      "height": 23,
+      "height": 24,
       "texture_px": [
         18,
-        23
+        24
       ],
-      "offset": 73014,
-      "length": 414,
+      "offset": 71287,
+      "length": 432,
       "trim_origin_top_left_px": [
-        77,
-        39
+        76,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        4,
         -38
       ],
-      "sha256": "4dcccb47ec318bd714eb0a911a2817871a1a52980798cf6f555f8d01d6b71e57",
+      "sha256": "4db9b2658f37da1d38ae83b80c5c92aa9d0d365a25ead7909697e25230148b0b",
       "empty": false
     },
     {
@@ -4126,39 +4126,39 @@
         18,
         23
       ],
-      "offset": 73428,
+      "offset": 71719,
       "length": 414,
       "trim_origin_top_left_px": [
-        77,
-        39
+        76,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
+        4,
+        -39
       ],
-      "sha256": "54159eae11c9941fb0766711e42b2ade034b35ca96618d5e4b57daf84cba0017",
+      "sha256": "5df595773bb6e065864d2658907c3f834ec35305a5255f561d9f6e4b09d9ae1b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ene_10.png",
-      "width": 18,
-      "height": 24,
+      "width": 19,
+      "height": 23,
       "texture_px": [
-        18,
-        24
+        19,
+        23
       ],
-      "offset": 73842,
-      "length": 432,
+      "offset": 72133,
+      "length": 437,
       "trim_origin_top_left_px": [
-        77,
+        76,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -38
+        4,
+        -39
       ],
-      "sha256": "ded7962cfd0e8b64cf5cc21f5412953207bbc40c4965c73c506cb6523a95ffc4",
+      "sha256": "ef21bd953f6fce3b1b1f25e08b426c2d542885cc732d017344709da57847cb90",
       "empty": false
     },
     {
@@ -4170,7 +4170,7 @@
         19,
         23
       ],
-      "offset": 74274,
+      "offset": 72570,
       "length": 437,
       "trim_origin_top_left_px": [
         76,
@@ -4180,42 +4180,20 @@
         4,
         -39
       ],
-      "sha256": "fb5d1a4b7ba6306074f6a16aaa0568a1d37445bd9ad978f41e9507a5acd3d5be",
+      "sha256": "27ec9b9c7193e059c3f287921827bd9038a120aac76f072fae458dae198f09fe",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ene_12.png",
       "width": 18,
-      "height": 24,
-      "texture_px": [
-        18,
-        24
-      ],
-      "offset": 74711,
-      "length": 432,
-      "trim_origin_top_left_px": [
-        77,
-        37
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        3,
-        -39
-      ],
-      "sha256": "6e97c7dfc93a83c33e168f5408a36b2b8d23c9f677c7d972db27a026df819428",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_ene_13.png",
-      "width": 19,
       "height": 23,
       "texture_px": [
-        19,
+        18,
         23
       ],
-      "offset": 75143,
-      "length": 437,
+      "offset": 73007,
+      "length": 414,
       "trim_origin_top_left_px": [
         76,
         38
@@ -4224,7 +4202,29 @@
         4,
         -39
       ],
-      "sha256": "ca4d22b49caa06a496f7f979e6fcaa1cb0349fdee6b037eab1d03ba902db8219",
+      "sha256": "a1175ff336630dc1f3092f93e9bf05e35a7c87035a2b38c4a9116d6498296e12",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_ene_13.png",
+      "width": 18,
+      "height": 23,
+      "texture_px": [
+        18,
+        23
+      ],
+      "offset": 73421,
+      "length": 414,
+      "trim_origin_top_left_px": [
+        76,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -39
+      ],
+      "sha256": "265f1ba4c380eba5b1a4a2fa28bd55cd33ae28e161a8a8faa3726809d87e0b7d",
       "empty": false
     },
     {
@@ -4236,17 +4236,17 @@
         18,
         24
       ],
-      "offset": 75580,
+      "offset": 73835,
       "length": 432,
       "trim_origin_top_left_px": [
-        77,
+        76,
         38
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        4,
         -38
       ],
-      "sha256": "f1f4b180be3d7e9ea4bbf48b4da4aad6177a60ae64cf25adfe31178abe27b0eb",
+      "sha256": "a9a8c22363784afde84d2406001842bd29b9753622277e990d4fdc130ee3e30a",
       "empty": false
     },
     {
@@ -4258,39 +4258,39 @@
         18,
         23
       ],
-      "offset": 76012,
+      "offset": 74267,
       "length": 414,
       "trim_origin_top_left_px": [
-        77,
+        76,
         39
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        4,
         -38
       ],
-      "sha256": "a4cee7ec1e5d0582b19939bd451a923d3657fea2963cc7db0e50cfccf165d66b",
+      "sha256": "b7777895ce85db94b3ac2f67d01e5d9174fc4c701b3812c7b3ac902f9aeffda9",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_00.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 76426,
-      "length": 418,
+      "offset": 74681,
+      "length": 396,
       "trim_origin_top_left_px": [
         77,
-        41
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -38
       ],
-      "sha256": "5cd7fd57a9ebdbc76e0b6f77242a58633459e03ee8b39f2c3ae1648cf5e088c7",
+      "sha256": "51a1764248c738aa2c4f33bafb1dfd3ec94f9a024f39d6b981fa98f31bea9006",
       "empty": false
     },
     {
@@ -4302,39 +4302,39 @@
         19,
         22
       ],
-      "offset": 76844,
+      "offset": 75077,
       "length": 418,
       "trim_origin_top_left_px": [
         77,
-        41
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -38
       ],
-      "sha256": "9fcb02236997de5910d72069131f202fdcba882c295a65021928cd4923a8fa41",
+      "sha256": "72de1722bfc3a4069ed41255220dc2a58bd6d1215128c73374fa296e8c31e9fb",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_02.png",
-      "width": 18,
-      "height": 21,
+      "width": 19,
+      "height": 22,
       "texture_px": [
-        18,
-        21
+        19,
+        22
       ],
-      "offset": 77262,
-      "length": 378,
+      "offset": 75495,
+      "length": 418,
       "trim_origin_top_left_px": [
-        78,
-        41
+        77,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        2,
+        3,
         -38
       ],
-      "sha256": "f75c942f26d67d17b6b9d80fc26b8c7c433a6efa1af9ad5c18a5890c1fa60404",
+      "sha256": "8e70d8b958769ba4d80f2e765413f166c726a0d9ee40985f11085e4efb676ce6",
       "empty": false
     },
     {
@@ -4346,127 +4346,127 @@
         19,
         22
       ],
-      "offset": 77640,
+      "offset": 75913,
       "length": 418,
       "trim_origin_top_left_px": [
         77,
-        40
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "eed9b889cda13bd3df4607e2a1ed756f6db2a92168eba6a861d0af23da83ed1d",
+      "sha256": "8e4e7d9bfa0df1928eeb734bde80203c1931ca65ede6d194ccd36d2b599a9cfe",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_04.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 78058,
-      "length": 418,
+      "offset": 76331,
+      "length": 396,
       "trim_origin_top_left_px": [
         77,
-        40
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "b2c84ce71f12892967e476352b44321293906851dfd1f597636d0d658487265c",
+      "sha256": "f520b0544eba7eb5f298bbd8e521c136374a848ac3c3cd75cd21f1ad3bc16e39",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_05.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 78476,
-      "length": 418,
+      "offset": 76727,
+      "length": 396,
       "trim_origin_top_left_px": [
         77,
-        40
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "f3592990a9a52b549f2d1b6a1438b3163f9080f3f676a16a6359954626fcce19",
+      "sha256": "c8d86d3b5506ebdbd37260cddb80f4a93d225d8220e1bae660660cd11cf848e1",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_06.png",
       "width": 18,
-      "height": 21,
+      "height": 22,
       "texture_px": [
         18,
-        21
+        22
       ],
-      "offset": 78894,
-      "length": 378,
+      "offset": 77123,
+      "length": 396,
       "trim_origin_top_left_px": [
-        78,
-        41
+        77,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        2,
-        -38
+        3,
+        -39
       ],
-      "sha256": "e48ffbbfad14db725a3debfbc6d72f32daa1a6563d587be1e18502c1a83495c8",
+      "sha256": "e9ce34ebb5829bec7202e922f468dc2b682204c294df984743051a7c5dbf88f5",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_07.png",
-      "width": 19,
+      "width": 18,
       "height": 22,
       "texture_px": [
-        19,
+        18,
         22
       ],
-      "offset": 79272,
-      "length": 418,
+      "offset": 77519,
+      "length": 396,
       "trim_origin_top_left_px": [
         77,
-        41
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -39
       ],
-      "sha256": "ef3b9eb4b8ed364ef8267e9ae9f231182d995719e14a20d09cce09f092fd306a",
+      "sha256": "db3ba77b488891d4f5079528b7176ec8f2d4867ad2ff4cea813cd1bb122adae0",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_08.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 79690,
-      "length": 418,
+      "offset": 77915,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
-        41
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -39
       ],
-      "sha256": "f33a896f0cd206ddbb4889ad378f0bf9d2490ce2097638204360fe08d8aa30b3",
+      "sha256": "f436391e592f09a7613c9ac51389ac8c950a27c39531816b3fcf3edab6979f97",
       "empty": false
     },
     {
@@ -4478,39 +4478,39 @@
         19,
         22
       ],
-      "offset": 80108,
+      "offset": 78293,
       "length": 418,
       "trim_origin_top_left_px": [
         77,
-        41
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -39
       ],
-      "sha256": "ef3b9eb4b8ed364ef8267e9ae9f231182d995719e14a20d09cce09f092fd306a",
+      "sha256": "cbe2d7c295b83ca45125e4024d88d18ed0b817213d3f461c6be38b42d223d2b2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_10.png",
-      "width": 18,
+      "width": 19,
       "height": 21,
       "texture_px": [
-        18,
+        19,
         21
       ],
-      "offset": 80526,
-      "length": 378,
+      "offset": 78711,
+      "length": 399,
       "trim_origin_top_left_px": [
-        78,
-        41
+        77,
+        40
       ],
       "pivot_from_crop_bottom_left_px": [
-        2,
-        -38
+        3,
+        -39
       ],
-      "sha256": "fffea17b7e259af1d88d81743f466dd82246953434e529e642283809809bf952",
+      "sha256": "799ce922df53867c96f313dc26a91c67b833a76f8d745949208cc2be8fb46607",
       "empty": false
     },
     {
@@ -4522,61 +4522,61 @@
         19,
         22
       ],
-      "offset": 80904,
+      "offset": 79110,
       "length": 418,
       "trim_origin_top_left_px": [
         77,
-        40
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "f3592990a9a52b549f2d1b6a1438b3163f9080f3f676a16a6359954626fcce19",
+      "sha256": "e4f1c6c04f19c9cecf3a2c9b7335d77cf51bfdf3de08312d8d85b4a022a9b882",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_12.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 81322,
-      "length": 418,
+      "offset": 79528,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
         40
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "e9fe41f828488dc71bdc50975a1a2587815f358e86169537717747742218ddd9",
+      "sha256": "890b692593e4c4bc6a9301597f394a4c9f587e01d243ea0c314ff2e5541c1bec",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_e_13.png",
-      "width": 19,
-      "height": 22,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        22
+        18,
+        21
       ],
-      "offset": 81740,
-      "length": 418,
+      "offset": 79906,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
         40
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -38
+        -39
       ],
-      "sha256": "3f3180495461c9792322cc6d3994967a74677c8cddbb5fd50e6609c440a0b265",
+      "sha256": "4f77b64c34b73fedb2b15728602e1cb8d61c2076c3badf04a4ee7cff24ad4096",
       "empty": false
     },
     {
@@ -4588,83 +4588,83 @@
         18,
         21
       ],
-      "offset": 82158,
+      "offset": 80284,
       "length": 378,
-      "trim_origin_top_left_px": [
-        78,
-        41
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        2,
-        -38
-      ],
-      "sha256": "845ef13c4d4823518a797dadc993f2c0c728f708492b5d600efb417c414277a5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_e_15.png",
-      "width": 19,
-      "height": 22,
-      "texture_px": [
-        19,
-        22
-      ],
-      "offset": 82536,
-      "length": 418,
       "trim_origin_top_left_px": [
         77,
         41
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -37
+        -38
       ],
-      "sha256": "9fcb02236997de5910d72069131f202fdcba882c295a65021928cd4923a8fa41",
+      "sha256": "0134a4b4c076a93624ecfe9a1b790d7c7eda179f51aafdabef6a7eb009bb6116",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_e_15.png",
+      "width": 18,
+      "height": 21,
+      "texture_px": [
+        18,
+        21
+      ],
+      "offset": 80662,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        77,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -38
+      ],
+      "sha256": "82538f1cc95e0e214b1932ab29c48a7c47480e176f97ab23a33dd921da08ca2c",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_00.png",
       "width": 18,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         18,
-        20
+        21
       ],
-      "offset": 82954,
-      "length": 360,
+      "offset": 81040,
+      "length": 378,
       "trim_origin_top_left_px": [
-        77,
-        45
+        76,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -35
+        4,
+        -36
       ],
-      "sha256": "9dc4561bcdec13943b874e95eeb0a0ec389d9194eff00c33a1b0eb60ca2f505f",
+      "sha256": "97a2393c61b5f49e31c0cf4627fc0e58513b61f06ce33a39bf04d1958da095eb",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_01.png",
-      "width": 19,
-      "height": 19,
+      "width": 18,
+      "height": 20,
       "texture_px": [
-        19,
-        19
+        18,
+        20
       ],
-      "offset": 83314,
-      "length": 361,
+      "offset": 81418,
+      "length": 360,
       "trim_origin_top_left_px": [
         77,
-        46
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -36
       ],
-      "sha256": "11dd9bffbfb73d493ddab6aff936e758db080d877a62e43a58f69eaeea413a64",
+      "sha256": "713c47d223900cb8aa773354abdf8e24764431ea75b5d7d832a5ca0f5e84c954",
       "empty": false
     },
     {
@@ -4676,17 +4676,17 @@
         18,
         20
       ],
-      "offset": 83675,
+      "offset": 81778,
       "length": 360,
       "trim_origin_top_left_px": [
         77,
-        45
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -36
       ],
-      "sha256": "0348a25b1824ee6302a81b6832f30b8a87bb9ed936b36bfbb49458e3a2c650b5",
+      "sha256": "ecb60b5e3d74bcafdfa6553f35c1ab97bc20b2bd5cd45f7481fc0438fdfda643",
       "empty": false
     },
     {
@@ -4698,39 +4698,39 @@
         18,
         20
       ],
-      "offset": 84035,
+      "offset": 82138,
       "length": 360,
       "trim_origin_top_left_px": [
         77,
-        44
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -36
+        -37
       ],
-      "sha256": "8bbe110a3ba3791ac3cb862965c6fc481bf9fb34fad4bd1c056b68932816a3a1",
+      "sha256": "bb266f20b2e09d24d036a09ed75e7d68ad9d84fd188f81469595a14483621a00",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_04.png",
       "width": 18,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         18,
-        20
+        21
       ],
-      "offset": 84395,
-      "length": 360,
+      "offset": 82498,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
-        44
+        42
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -36
+        -37
       ],
-      "sha256": "f74d53af08bb802a045753a4f3019884776e77cdba9e51651af6f6fbd5e268e5",
+      "sha256": "c430eb04d225556a7c032c49da81ba5140dfcf384d4383d081a8dfa6104c9e8e",
       "empty": false
     },
     {
@@ -4742,105 +4742,105 @@
         18,
         20
       ],
-      "offset": 84755,
+      "offset": 82876,
       "length": 360,
       "trim_origin_top_left_px": [
         77,
-        44
+        42
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -36
+        -38
       ],
-      "sha256": "2f631ab3e49512d3f0202945ffc408d00a88e2985ff6de03fcfb44dea4320a57",
+      "sha256": "5b3119b56c6ca30ee4432e7a3fc6043e0d1895b9ef77ff6ef2fb0356fe78c747",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_06.png",
       "width": 18,
-      "height": 20,
+      "height": 19,
       "texture_px": [
         18,
-        20
+        19
       ],
-      "offset": 85115,
-      "length": 360,
+      "offset": 83236,
+      "length": 342,
       "trim_origin_top_left_px": [
-        77,
-        45
+        76,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -35
+        4,
+        -37
       ],
-      "sha256": "4229cc757065ebd786c12d4afde253e1c7f8488d681047e1012789f9d9264447",
+      "sha256": "64da61405451773157fcba30b735b95109c4f5462119054b029b215b0362c044",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_07.png",
-      "width": 19,
+      "width": 18,
       "height": 19,
       "texture_px": [
-        19,
+        18,
         19
       ],
-      "offset": 85475,
-      "length": 361,
+      "offset": 83578,
+      "length": 342,
       "trim_origin_top_left_px": [
         77,
-        46
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -37
       ],
-      "sha256": "1de2fde344b54d63335f99a919121928e47c794697f994e51a431838cd1513c1",
+      "sha256": "8bdfa3c9a1ad83f400a47325b285da623006fcd9b0a7f7057f906a4fb88ecc49",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_08.png",
       "width": 18,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         18,
-        20
+        21
       ],
-      "offset": 85836,
-      "length": 360,
+      "offset": 83920,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
-        45
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -36
       ],
-      "sha256": "c10f8949c3ff1e2b9c01f8cc3b027c6428933c3afdd3400f742f09f4c5831fa7",
+      "sha256": "9f19c98f8fb56d31978be05af1e74ce9f423b13a29301d2e2248d9f24c663b95",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_09.png",
-      "width": 19,
-      "height": 19,
+      "width": 18,
+      "height": 21,
       "texture_px": [
-        19,
-        19
+        18,
+        21
       ],
-      "offset": 86196,
-      "length": 361,
+      "offset": 84298,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
-        46
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -36
       ],
-      "sha256": "1de2fde344b54d63335f99a919121928e47c794697f994e51a431838cd1513c1",
+      "sha256": "c8739054e20bf119bcb917fd10d721da65eecc62546631ec83ffe37ccff1dfab",
       "empty": false
     },
     {
@@ -4852,61 +4852,61 @@
         18,
         20
       ],
-      "offset": 86557,
+      "offset": 84676,
       "length": 360,
       "trim_origin_top_left_px": [
         77,
-        45
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -35
+        -36
       ],
-      "sha256": "edbd89a3177d03b61ae46605f63326e631db0512300c405b1586b9b821740e9e",
+      "sha256": "7d17fc28a86596c3f41699ca3779a3b0826b54254536281db4f3be8c3ab3b349",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_11.png",
       "width": 18,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         18,
-        20
+        21
       ],
-      "offset": 86917,
-      "length": 360,
+      "offset": 85036,
+      "length": 378,
       "trim_origin_top_left_px": [
         77,
-        44
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
         -36
       ],
-      "sha256": "2f631ab3e49512d3f0202945ffc408d00a88e2985ff6de03fcfb44dea4320a57",
+      "sha256": "608b5ddafdb6a88410637d91a7ea24200245ee9972a494ca5ba79b81b735f49d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_12.png",
       "width": 18,
-      "height": 20,
+      "height": 19,
       "texture_px": [
         18,
-        20
+        19
       ],
-      "offset": 87277,
-      "length": 360,
+      "offset": 85414,
+      "length": 342,
       "trim_origin_top_left_px": [
-        77,
+        76,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -36
+        4,
+        -37
       ],
-      "sha256": "f74d53af08bb802a045753a4f3019884776e77cdba9e51651af6f6fbd5e268e5",
+      "sha256": "f1260cf68a5d397c425eb6f166f5a05c71285131731b54f79bfacdbcd2399239",
       "empty": false
     },
     {
@@ -4918,105 +4918,105 @@
         18,
         20
       ],
-      "offset": 87637,
+      "offset": 85756,
       "length": 360,
       "trim_origin_top_left_px": [
-        77,
+        76,
         44
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        4,
         -36
       ],
-      "sha256": "8bbe110a3ba3791ac3cb862965c6fc481bf9fb34fad4bd1c056b68932816a3a1",
+      "sha256": "f4243741348875659ff01dec0055a96a02624d384a3480f6a48cbf1a18aab51a",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_14.png",
       "width": 18,
-      "height": 20,
+      "height": 21,
       "texture_px": [
         18,
-        20
+        21
       ],
-      "offset": 87997,
-      "length": 360,
+      "offset": 86116,
+      "length": 378,
       "trim_origin_top_left_px": [
-        77,
-        45
+        76,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -35
+        4,
+        -36
       ],
-      "sha256": "0348a25b1824ee6302a81b6832f30b8a87bb9ed936b36bfbb49458e3a2c650b5",
+      "sha256": "806daf9eb827437da1fbf1d10dc4d3aeb03857a19e1a142b5752551420d238ce",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_ese_15.png",
-      "width": 19,
-      "height": 19,
+      "width": 18,
+      "height": 20,
       "texture_px": [
-        19,
-        19
+        18,
+        20
       ],
-      "offset": 88357,
-      "length": 361,
+      "offset": 86494,
+      "length": 360,
       "trim_origin_top_left_px": [
-        77,
-        46
+        76,
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -35
+        4,
+        -36
       ],
-      "sha256": "11dd9bffbfb73d493ddab6aff936e758db080d877a62e43a58f69eaeea413a64",
+      "sha256": "0e01130456479decb1491d3dfc3044fef9b059dd9d344314e035dd7ffce51bbc",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_00.png",
-      "width": 17,
+      "width": 16,
       "height": 20,
       "texture_px": [
-        17,
+        16,
         20
       ],
-      "offset": 88718,
-      "length": 340,
+      "offset": 86854,
+      "length": 320,
       "trim_origin_top_left_px": [
         76,
-        48
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -32
+        -34
       ],
-      "sha256": "741721124964ad6fae22c8182ff9d825ed2d8cfee5c27b75e1796b4117c2e580",
+      "sha256": "b862284427dc6f4801ab93ffea5c315b70f54912548b549d21de1dc367e0b2df",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_01.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 89058,
-      "length": 323,
+      "offset": 87174,
+      "length": 304,
       "trim_origin_top_left_px": [
         76,
-        48
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -34
       ],
-      "sha256": "c1060671a79b5dc07e322478fdbfc74b14798e950b771b927cb139a9382aaa16",
+      "sha256": "774817ab4cd0dac10cb2814f9992567f771b4278a442603b16750fece1553732",
       "empty": false
     },
     {
@@ -5028,127 +5028,127 @@
         17,
         19
       ],
-      "offset": 89381,
+      "offset": 87478,
       "length": 323,
       "trim_origin_top_left_px": [
         76,
-        48
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -35
       ],
-      "sha256": "22768e4ce7c3683b818afe50869c50d7acd7d0883f28ae1bf614026b59b68fcb",
+      "sha256": "1740ccff2f9bf3e28f22de74c824751d87edcdaeb189e9b56822d8e677925e20",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_03.png",
       "width": 17,
-      "height": 18,
+      "height": 19,
       "texture_px": [
         17,
-        18
+        19
       ],
-      "offset": 89704,
-      "length": 306,
+      "offset": 87801,
+      "length": 323,
       "trim_origin_top_left_px": [
         76,
-        47
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -35
+        -36
       ],
-      "sha256": "98776537599f347ed668c7cef368366931802d8c0f96b6a8d664994188f6d4ae",
+      "sha256": "1176565cbb6183790ed1724d9486d0f7597159cbe72197200bc99226c18a7f37",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_04.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 90010,
-      "length": 323,
+      "offset": 88124,
+      "length": 304,
       "trim_origin_top_left_px": [
-        76,
-        47
+        77,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -34
+        3,
+        -35
       ],
-      "sha256": "8e1cb74f9466e4c5b9a2aabe9bfc1efae185debb6c421a7e9c590725771de8a2",
+      "sha256": "ed2464def0c5924ae392496339a4f3b407ca5a0a83428f8fb7cd5360a9655f28",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_05.png",
-      "width": 17,
-      "height": 18,
+      "width": 16,
+      "height": 19,
       "texture_px": [
-        17,
-        18
+        16,
+        19
       ],
-      "offset": 90333,
-      "length": 306,
+      "offset": 88428,
+      "length": 304,
       "trim_origin_top_left_px": [
         76,
-        47
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -35
+        -36
       ],
-      "sha256": "7772636187bcdf8d6453a41f3dd51a03114690fe40dbf13c9354f17f843127a3",
+      "sha256": "1d0f6d0bd5bb847f92154e85568b4d05e49c8dc28ea15aca143524ee6f5c123b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_06.png",
-      "width": 17,
-      "height": 19,
+      "width": 16,
+      "height": 20,
       "texture_px": [
-        17,
-        19
+        16,
+        20
       ],
-      "offset": 90639,
-      "length": 323,
+      "offset": 88732,
+      "length": 320,
       "trim_origin_top_left_px": [
         76,
-        48
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -35
       ],
-      "sha256": "7b07d40aabdcf535226f4e7155250c54b7182d30e4cb71c67e33ca9dcae182e5",
+      "sha256": "aacf8e4e2eb58a665e97cddbc9b23febbf5296c12ab2f21f4fdeee11db6fe15b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_07.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 90962,
-      "length": 323,
+      "offset": 89052,
+      "length": 304,
       "trim_origin_top_left_px": [
         76,
-        48
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -36
       ],
-      "sha256": "0aeacdf6227324faedbcfa00067681060391703b7f1523af5a4fa3a4484acb3f",
+      "sha256": "bf3c2224e40e5ca65e2cf0532c544b686f195d77cb33becfcb69eebe6f4570ff",
       "empty": false
     },
     {
@@ -5160,39 +5160,39 @@
         17,
         20
       ],
-      "offset": 91285,
+      "offset": 89356,
       "length": 340,
       "trim_origin_top_left_px": [
         76,
-        48
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -32
+        -34
       ],
-      "sha256": "bd1af2f8a662d9da6865bf031267048540617638465d28ad3d04f32a1ee95538",
+      "sha256": "34c2c7cff91b36207fe385c60c0fae32f1952382e200c8254e44cb654081530c",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_09.png",
       "width": 17,
-      "height": 19,
+      "height": 20,
       "texture_px": [
         17,
-        19
+        20
       ],
-      "offset": 91625,
-      "length": 323,
+      "offset": 89696,
+      "length": 340,
       "trim_origin_top_left_px": [
         76,
-        48
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -34
       ],
-      "sha256": "4e4f7374d073eabbabc068c1f905cf4a6d785e6fa6846f560bedfb1004b14289",
+      "sha256": "d79ac3cc2927c1098e27ff8392ee866a58e8a339adb3e632d91e21c8e4253460",
       "empty": false
     },
     {
@@ -5204,51 +5204,7 @@
         17,
         19
       ],
-      "offset": 91948,
-      "length": 323,
-      "trim_origin_top_left_px": [
-        76,
-        48
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        4,
-        -33
-      ],
-      "sha256": "2e3ecb5a6d6a62443f803f2d68ec60f2a6682fd3e282bd208395589d2da4ad07",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_se_11.png",
-      "width": 17,
-      "height": 18,
-      "texture_px": [
-        17,
-        18
-      ],
-      "offset": 92271,
-      "length": 306,
-      "trim_origin_top_left_px": [
-        76,
-        47
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        4,
-        -35
-      ],
-      "sha256": "7772636187bcdf8d6453a41f3dd51a03114690fe40dbf13c9354f17f843127a3",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_se_12.png",
-      "width": 17,
-      "height": 19,
-      "texture_px": [
-        17,
-        19
-      ],
-      "offset": 92577,
+      "offset": 90036,
       "length": 323,
       "trim_origin_top_left_px": [
         76,
@@ -5258,359 +5214,403 @@
         4,
         -34
       ],
-      "sha256": "8e1cb74f9466e4c5b9a2aabe9bfc1efae185debb6c421a7e9c590725771de8a2",
+      "sha256": "555b67f27291b4fb4ba242aa391a9e14a0bef3a5aae45ec24f4377fcea149664",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_se_11.png",
+      "width": 16,
+      "height": 20,
+      "texture_px": [
+        16,
+        20
+      ],
+      "offset": 90359,
+      "length": 320,
+      "trim_origin_top_left_px": [
+        76,
+        46
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        4,
+        -34
+      ],
+      "sha256": "353def30693676d33d04d36a00f672435a28c65ae4dcde48be061f9471bcb2c9",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_se_12.png",
+      "width": 17,
+      "height": 20,
+      "texture_px": [
+        17,
+        20
+      ],
+      "offset": 90679,
+      "length": 340,
+      "trim_origin_top_left_px": [
+        75,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        5,
+        -35
+      ],
+      "sha256": "fe6b736c5879422e6cb42ca4d3fb20ca8fd1b69dacb01570621728c9611551f4",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_13.png",
       "width": 17,
-      "height": 18,
+      "height": 19,
       "texture_px": [
         17,
-        18
+        19
       ],
-      "offset": 92900,
-      "length": 306,
+      "offset": 91019,
+      "length": 323,
       "trim_origin_top_left_px": [
-        76,
-        47
+        75,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -35
+        5,
+        -36
       ],
-      "sha256": "98776537599f347ed668c7cef368366931802d8c0f96b6a8d664994188f6d4ae",
+      "sha256": "b28b6dc2091842f8a695fbe5058f9cd4e5691ca612b46121d55c25d9138917a4",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_14.png",
       "width": 17,
-      "height": 19,
+      "height": 21,
       "texture_px": [
         17,
-        19
+        21
       ],
-      "offset": 93206,
-      "length": 323,
+      "offset": 91342,
+      "length": 357,
       "trim_origin_top_left_px": [
-        76,
-        48
+        75,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -33
+        5,
+        -34
       ],
-      "sha256": "22768e4ce7c3683b818afe50869c50d7acd7d0883f28ae1bf614026b59b68fcb",
+      "sha256": "dfcd800a826a85fb7d6e8f8e9582c5f9acd013abe8bf5fdcac5181df9ba30623",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_se_15.png",
-      "width": 17,
+      "width": 16,
       "height": 19,
       "texture_px": [
-        17,
+        16,
         19
       ],
-      "offset": 93529,
-      "length": 323,
+      "offset": 91699,
+      "length": 304,
       "trim_origin_top_left_px": [
         76,
-        48
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
         4,
-        -33
+        -35
       ],
-      "sha256": "95f4c4955014fccda807aee12bd2be10b7fba414bea83399ac99e63b9324fa36",
+      "sha256": "8c3f6100401e70cde997b110af6465283aa07cfbbc5bf2cccff65b5910077b98",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_00.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 93852,
-      "length": 323,
+      "offset": 92003,
+      "length": 342,
       "trim_origin_top_left_px": [
-        74,
-        51
+        73,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -32
+        7,
+        -33
       ],
-      "sha256": "778dd28dbe1987a3f7467b58ad038736ef74aa9bebeeb3ac3824e0d297fe4d30",
+      "sha256": "0c04dd367277ae5d51f1daa0e9af36074c2e41fd1a57a17aa5cf0afddc707c93",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_01.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 94175,
-      "length": 323,
+      "offset": 92345,
+      "length": 342,
       "trim_origin_top_left_px": [
-        74,
-        51
+        73,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -32
+        7,
+        -33
       ],
-      "sha256": "d0ece62e5c5e30e080d51b6962c3387ede4e62d2044f673b047523c1559f2051",
+      "sha256": "10b0b20219f093306172fedf159b76e573ace9bac79e76b68a9fe8ddf2e7c26d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_02.png",
-      "width": 19,
-      "height": 16,
+      "width": 18,
+      "height": 17,
       "texture_px": [
-        19,
-        16
+        18,
+        17
       ],
-      "offset": 94498,
-      "length": 304,
+      "offset": 92687,
+      "length": 306,
       "trim_origin_top_left_px": [
         74,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -34
       ],
-      "sha256": "f19d59ce69b78048e7a6c38c6a65977712e6023c0e9cbf2cd4d1fa5698bbe489",
+      "sha256": "6b9bb02661afa83c7a6ca3bd9699bdae26fad124ad571e7821e31a4739225ead",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_03.png",
       "width": 19,
-      "height": 17,
+      "height": 16,
       "texture_px": [
         19,
-        17
+        16
       ],
-      "offset": 94802,
-      "length": 323,
+      "offset": 92993,
+      "length": 304,
       "trim_origin_top_left_px": [
         74,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -35
       ],
-      "sha256": "433024daba60f81a0362f3057616076a0ec5f3aaafc9b01c7f915cb6efdb7b92",
+      "sha256": "97bc79d777f6a324431b6a392d1817e9cea787d305974efacb8a90137824d4b0",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_04.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 95125,
-      "length": 323,
+      "offset": 93297,
+      "length": 342,
       "trim_origin_top_left_px": [
         74,
-        50
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -34
       ],
-      "sha256": "f6f298f0aca28be37754be6607d1fa2e6116818d60797ae1d1cd598917c46114",
+      "sha256": "1ea7aa888adbc4f81b604787b838f8540ff2ba17f97f179dc8e3897d21d40c86",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_05.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 95448,
-      "length": 323,
+      "offset": 93639,
+      "length": 342,
       "trim_origin_top_left_px": [
         74,
-        50
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -34
       ],
-      "sha256": "b06e341c38ee3c1cf2b5ce86a32c55142f0977b8a5c1d88bbdf645b6056e5704",
+      "sha256": "3775aaf9c77c0938b2c72917072c689e6e9b7e53c512bce2f059dfe321970565",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_06.png",
       "width": 19,
-      "height": 16,
+      "height": 18,
       "texture_px": [
         19,
-        16
+        18
       ],
-      "offset": 95771,
-      "length": 304,
+      "offset": 93981,
+      "length": 342,
       "trim_origin_top_left_px": [
         74,
-        51
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -34
       ],
-      "sha256": "1e6db4ef620b488ea92b79f008080e41e71953ddf0f4da9214f90642b7322157",
+      "sha256": "d62ea7294e0e8063628a4957c5f4a8ed39792ef3430f53347636e0f4438b9901",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_07.png",
       "width": 19,
-      "height": 17,
+      "height": 19,
       "texture_px": [
         19,
-        17
+        19
       ],
-      "offset": 96075,
-      "length": 323,
+      "offset": 94323,
+      "length": 361,
       "trim_origin_top_left_px": [
         74,
-        51
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -32
+        -33
       ],
-      "sha256": "7cd09985741cd0af5a22142c7cdfe2987c2b547cc36373b4b08b370cda0ffb0c",
+      "sha256": "601aa887604b19428c009261bbf90a716c00e2769481e56ac18a11ee5f20f9d2",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_08.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 96398,
-      "length": 323,
+      "offset": 94684,
+      "length": 342,
       "trim_origin_top_left_px": [
         74,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -32
+        -33
       ],
-      "sha256": "3da351547ddac010cde3d82c541818cd9dbc774cdf5b938b79bc2c0617c8c574",
+      "sha256": "41b77032e5f2bb218acd1d5d1a8aa76f49aa8e01d049555eb9b51253681d4a3e",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_09.png",
       "width": 19,
-      "height": 17,
+      "height": 18,
       "texture_px": [
         19,
-        17
+        18
       ],
-      "offset": 96721,
-      "length": 323,
+      "offset": 95026,
+      "length": 342,
       "trim_origin_top_left_px": [
         74,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -32
+        -33
       ],
-      "sha256": "24d6bc00c4cb936e72751343e636f3a1b113a066d941cac208deeb413353ba40",
+      "sha256": "96d19e7b6460be5b6efeefebad4d21b33216897ec056d01e1afaffc54328bfae",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_10.png",
       "width": 19,
-      "height": 16,
-      "texture_px": [
-        19,
-        16
-      ],
-      "offset": 97044,
-      "length": 304,
-      "trim_origin_top_left_px": [
-        74,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        6,
-        -33
-      ],
-      "sha256": "1e6db4ef620b488ea92b79f008080e41e71953ddf0f4da9214f90642b7322157",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunHelmet.atlas",
-      "name": "run_sse_11.png",
-      "width": 19,
       "height": 17,
       "texture_px": [
         19,
         17
       ],
-      "offset": 97348,
+      "offset": 95368,
       "length": 323,
       "trim_origin_top_left_px": [
         74,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        -33
+        -34
       ],
-      "sha256": "b06e341c38ee3c1cf2b5ce86a32c55142f0977b8a5c1d88bbdf645b6056e5704",
+      "sha256": "5093d4769b7c8f59960a472c54e596c6f6443fffdd56b58c9558a5b31431ee2b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunHelmet.atlas",
+      "name": "run_sse_11.png",
+      "width": 18,
+      "height": 16,
+      "texture_px": [
+        18,
+        16
+      ],
+      "offset": 95691,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        74,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        6,
+        -35
+      ],
+      "sha256": "64e1aecfc3b38bd14eb32cc1019614e184e36638260f43ecc3d3cf277b06466d",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_12.png",
       "width": 19,
-      "height": 17,
+      "height": 19,
       "texture_px": [
         19,
-        17
+        19
       ],
-      "offset": 97671,
-      "length": 323,
+      "offset": 95979,
+      "length": 361,
       "trim_origin_top_left_px": [
-        74,
-        50
+        73,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
+        7,
         -33
       ],
-      "sha256": "f6f298f0aca28be37754be6607d1fa2e6116818d60797ae1d1cd598917c46114",
+      "sha256": "6765ab027f3a565cc9f46bdde3aa7a9a373830520e6a0a19ee723bf969399450",
       "empty": false
     },
     {
@@ -5622,39 +5622,39 @@
         19,
         17
       ],
-      "offset": 97994,
+      "offset": 96340,
       "length": 323,
       "trim_origin_top_left_px": [
-        74,
-        50
+        73,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -33
+        7,
+        -35
       ],
-      "sha256": "e0279bb6f2e32aa4feff685218e48b594be044d0f35d0623feee4a7254fc02bb",
+      "sha256": "9ac4d90d2eb508910ab19f968fe39e4ebfba057d840d082f83cad6293d86898b",
       "empty": false
     },
     {
       "atlas": "HumanRunHelmet.atlas",
       "name": "run_sse_14.png",
       "width": 19,
-      "height": 16,
+      "height": 17,
       "texture_px": [
         19,
-        16
+        17
       ],
-      "offset": 98317,
-      "length": 304,
+      "offset": 96663,
+      "length": 323,
       "trim_origin_top_left_px": [
-        74,
-        51
+        73,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -33
+        7,
+        -35
       ],
-      "sha256": "454573c0829ea67f89ead424f27eef99089dc455a33f381ac648c57ce2966f90",
+      "sha256": "56a74adf34a586e09580c9955883d715ed97f1ea7c6f4ae943d6e6f56c0a8d27",
       "empty": false
     },
     {
@@ -5666,19 +5666,19 @@
         19,
         17
       ],
-      "offset": 98621,
+      "offset": 96986,
       "length": 323,
       "trim_origin_top_left_px": [
-        74,
-        51
+        73,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -32
+        7,
+        -34
       ],
-      "sha256": "d0ece62e5c5e30e080d51b6962c3387ede4e62d2044f673b047523c1559f2051",
+      "sha256": "c99825f7b6ed4936fd0c828c9f18f5cf1bb6556cd58173774edded4cac74f1ad",
       "empty": false
     }
   ],
-  "source_authority": "RunOct10/Human_Run_Animated.blend"
+  "source_authority": "RunOct11/Human_Run_Animated.blend"
 }

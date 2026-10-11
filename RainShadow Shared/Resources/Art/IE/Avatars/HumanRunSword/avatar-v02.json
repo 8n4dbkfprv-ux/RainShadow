@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanRunSword",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "ee0c2ff5ab9ad51ddf4b1a6499562b2e87809c6a0e24e5134e798397905a72d7",
+  "blob_sha256": "e440491764215204e5efda0413056ecedde24f40f4de951e41473051789ee9c6",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -51,827 +51,827 @@
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_00.png",
       "width": 20,
-      "height": 8,
+      "height": 10,
       "texture_px": [
         20,
-        8
+        10
       ],
       "offset": 16,
-      "length": 160,
+      "length": 200,
       "trim_origin_top_left_px": [
-        48,
-        82
+        51,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        32,
-        -10
+        29,
+        -12
       ],
-      "sha256": "5bb5c3e038296010186b9de5519a53882c05ed6a998a138176c37c32cb55b5d8",
+      "sha256": "80e3c689bf20183452168767d8e91f8ee141dbb5e2879439f2e364dbeb085546",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_01.png",
-      "width": 21,
-      "height": 9,
+      "width": 20,
+      "height": 10,
       "texture_px": [
-        21,
-        9
+        20,
+        10
       ],
-      "offset": 176,
-      "length": 189,
+      "offset": 216,
+      "length": 200,
       "trim_origin_top_left_px": [
-        47,
-        81
+        51,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
-        -10
+        29,
+        -12
       ],
-      "sha256": "fbf51b5fb16a28608fc2db52059610312eb6ad4b7c1f483416eff1ea7103b199",
+      "sha256": "1b396fe2bfc3cc0486a87e1a63c7f41d19c99fd0d00b5b1c9c4922e727d3aaed",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_02.png",
       "width": 21,
-      "height": 10,
+      "height": 11,
       "texture_px": [
         21,
-        10
+        11
       ],
-      "offset": 365,
-      "length": 210,
+      "offset": 416,
+      "length": 231,
       "trim_origin_top_left_px": [
-        47,
-        79
+        50,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
-        -11
+        30,
+        -12
       ],
-      "sha256": "335564ce90b8011061433a6bd16a76217a66b218d3474c4b9162cf3754001d6b",
+      "sha256": "5593da903009aeb1413ef84dadc3338e29aab6bee3fc4b9f9d73572dc2555288",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_03.png",
       "width": 22,
-      "height": 12,
+      "height": 13,
       "texture_px": [
         22,
-        12
+        13
       ],
-      "offset": 575,
-      "length": 264,
+      "offset": 647,
+      "length": 286,
       "trim_origin_top_left_px": [
-        46,
-        77
+        49,
+        75
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
-        -11
+        31,
+        -12
       ],
-      "sha256": "c8c29dffc2b43c7329df1a9a922ee9afc764ee1e75847ec6ef2d9eed9e6cf9cf",
+      "sha256": "11659d8da809eb4a6c7b31533460d241a2f4733191af257d81baabb0df26f1f3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_04.png",
       "width": 23,
-      "height": 13,
+      "height": 14,
       "texture_px": [
         23,
-        13
+        14
       ],
-      "offset": 839,
-      "length": 299,
+      "offset": 933,
+      "length": 322,
       "trim_origin_top_left_px": [
-        45,
-        74
+        48,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
+        32,
         -13
       ],
-      "sha256": "5b70742aca91239def4b022dd44b870bb4137e009a67721e2a3d78e528c5fa2e",
+      "sha256": "e84103aaa23b717b876dbe42d97ca6ffc99af17283cc88ea3a7895c4054039a2",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_05.png",
-      "width": 17,
-      "height": 16,
+      "width": 23,
+      "height": 14,
       "texture_px": [
-        17,
-        16
+        23,
+        14
       ],
-      "offset": 1138,
-      "length": 272,
+      "offset": 1255,
+      "length": 322,
       "trim_origin_top_left_px": [
-        51,
-        70
+        48,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        29,
-        -14
+        32,
+        -15
       ],
-      "sha256": "9c669fb143c67686d585783f5a35189e084a736792a7ca3abb736ab25ed4022e",
+      "sha256": "fc0a26a40d390a9d40e877f90f041a3a790e8f86407cba91dccb045bbf8ca23c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_06.png",
+      "width": 16,
+      "height": 18,
+      "texture_px": [
+        16,
+        18
+      ],
+      "offset": 1577,
+      "length": 288,
+      "trim_origin_top_left_px": [
+        54,
+        68
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        26,
+        -14
+      ],
+      "sha256": "4766ed8d3c3c669ffbe9bda7a7ebb7b245ce18d046c7719a0d95c85469623fb2",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_s_07.png",
       "width": 13,
       "height": 22,
       "texture_px": [
         13,
         22
       ],
-      "offset": 1410,
+      "offset": 1865,
       "length": 286,
-      "trim_origin_top_left_px": [
-        54,
-        67
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        26,
-        -11
-      ],
-      "sha256": "9b5b8bb0c60d47906289d630a8441df929ce8e26acb5e77071c5b5049f53223b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_s_07.png",
-      "width": 10,
-      "height": 25,
-      "texture_px": [
-        10,
-        25
-      ],
-      "offset": 1696,
-      "length": 250,
-      "trim_origin_top_left_px": [
-        56,
-        65
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        24,
-        -10
-      ],
-      "sha256": "e4ae9a3b361e9a106c2678ecec95ec664ba1b3928e16ce6d740b43ff4d0553f5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_s_08.png",
-      "width": 9,
-      "height": 23,
-      "texture_px": [
-        9,
-        23
-      ],
-      "offset": 1946,
-      "length": 207,
       "trim_origin_top_left_px": [
         57,
         66
       ],
       "pivot_from_crop_bottom_left_px": [
         23,
+        -12
+      ],
+      "sha256": "d1e55a302472fe317f38688dde4b9ef871547f47e77ed347754cae39c0eef74c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_s_08.png",
+      "width": 11,
+      "height": 24,
+      "texture_px": [
+        11,
+        24
+      ],
+      "offset": 2151,
+      "length": 264,
+      "trim_origin_top_left_px": [
+        58,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        22,
         -11
       ],
-      "sha256": "0720a38c61f65ad7c660d102f134502726f8203c4441e77818ca002348172547",
+      "sha256": "180bd3380cefa78b8f2c55d417315bf4c2f353f3deabed32678bda8260b00294",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_09.png",
-      "width": 10,
-      "height": 25,
+      "width": 11,
+      "height": 23,
       "texture_px": [
-        10,
-        25
+        11,
+        23
       ],
-      "offset": 2153,
-      "length": 250,
+      "offset": 2415,
+      "length": 253,
       "trim_origin_top_left_px": [
-        56,
-        65
+        58,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        24,
-        -10
+        22,
+        -11
       ],
-      "sha256": "e4ae9a3b361e9a106c2678ecec95ec664ba1b3928e16ce6d740b43ff4d0553f5",
+      "sha256": "7bd5b58fb4733bb565ef14086bf2f269f302e8d4d74c278425d700f1907391eb",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_10.png",
-      "width": 13,
-      "height": 22,
+      "width": 14,
+      "height": 21,
       "texture_px": [
-        13,
-        22
+        14,
+        21
       ],
-      "offset": 2403,
-      "length": 286,
+      "offset": 2668,
+      "length": 294,
       "trim_origin_top_left_px": [
-        54,
+        56,
         67
       ],
       "pivot_from_crop_bottom_left_px": [
-        26,
-        -11
+        24,
+        -12
       ],
-      "sha256": "9b5b8bb0c60d47906289d630a8441df929ce8e26acb5e77071c5b5049f53223b",
+      "sha256": "a86f1c278426e3bbaf70eb45998d9def5ae7b7fcb789a9d2e61f281a51251cae",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_11.png",
-      "width": 17,
-      "height": 16,
+      "width": 20,
+      "height": 17,
       "texture_px": [
-        17,
-        16
+        20,
+        17
       ],
-      "offset": 2689,
-      "length": 272,
+      "offset": 2962,
+      "length": 340,
       "trim_origin_top_left_px": [
         51,
-        70
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
         29,
         -14
       ],
-      "sha256": "9c669fb143c67686d585783f5a35189e084a736792a7ca3abb736ab25ed4022e",
+      "sha256": "c638e2df4230455dffd2c206782a7b07f5c59d3242ab339dbb725bfdc53d3499",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_12.png",
-      "width": 23,
-      "height": 13,
+      "width": 22,
+      "height": 14,
       "texture_px": [
-        23,
-        13
+        22,
+        14
       ],
-      "offset": 2961,
-      "length": 299,
+      "offset": 3302,
+      "length": 308,
       "trim_origin_top_left_px": [
-        45,
-        74
+        49,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -13
+        31,
+        -14
       ],
-      "sha256": "838a0c542e28933602c2fdbde0f57a576a9aa8ab878b301abd531d7243179b13",
+      "sha256": "d444590d904ddccd5b0229da0cd734ee04b871b3d6d20d6211d4d1e1b66a1e74",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_13.png",
       "width": 22,
-      "height": 12,
+      "height": 14,
       "texture_px": [
         22,
-        12
+        14
       ],
-      "offset": 3260,
-      "length": 264,
+      "offset": 3610,
+      "length": 308,
       "trim_origin_top_left_px": [
-        46,
-        77
+        49,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        34,
-        -11
+        31,
+        -12
       ],
-      "sha256": "c567b013382308b4a8ad63f5e689fea27611f45365ad3fccf3aa91c2add77eba",
+      "sha256": "a97bb705bef754f8f22a7713cd841ad43dfa2b5b5e5334429530b2390766d184",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_14.png",
       "width": 21,
-      "height": 10,
+      "height": 12,
       "texture_px": [
         21,
-        10
+        12
       ],
-      "offset": 3524,
-      "length": 210,
+      "offset": 3918,
+      "length": 252,
       "trim_origin_top_left_px": [
-        47,
-        79
+        50,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
-        -11
+        30,
+        -12
       ],
-      "sha256": "e303c5fd4b9af4e24adfbb869b8724a6fb2d49c43e08969fa3a81b5147519bc2",
+      "sha256": "dd93958c3208408d53202ef039ac4975070996d4d7352f531d9b118196773261",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_s_15.png",
-      "width": 21,
-      "height": 9,
+      "width": 20,
+      "height": 11,
       "texture_px": [
-        21,
-        9
+        20,
+        11
       ],
-      "offset": 3734,
-      "length": 189,
+      "offset": 4170,
+      "length": 220,
       "trim_origin_top_left_px": [
-        47,
-        81
+        51,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
-        -10
+        29,
+        -12
       ],
-      "sha256": "2d6cda09d7f96aa62429cd228686ed0ed895db91af1e0157f93ba46d46e96312",
+      "sha256": "ffc7d570caa048a5da270367aa8d989ecd4d85d2712eb9854554d1ca0b956684",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_00.png",
-      "width": 25,
-      "height": 5,
+      "width": 26,
+      "height": 6,
       "texture_px": [
-        25,
-        5
+        26,
+        6
       ],
-      "offset": 3923,
-      "length": 125,
+      "offset": 4390,
+      "length": 156,
       "trim_origin_top_left_px": [
-        38,
-        76
+        41,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        42,
-        -19
+        39,
+        -21
       ],
-      "sha256": "81b9bf0121afc9fb5dac505ae13b57802108d3a71086dc7cb5485872c7590b2b",
+      "sha256": "ade4f2b0b1970e0f0959f5f401dbfd015785b259130ab8cfc7a922c4d926f9b1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_01.png",
       "width": 26,
-      "height": 5,
+      "height": 6,
       "texture_px": [
         26,
-        5
+        6
       ],
-      "offset": 4048,
-      "length": 130,
+      "offset": 4546,
+      "length": 156,
       "trim_origin_top_left_px": [
-        38,
-        75
+        41,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        42,
-        -20
+        39,
+        -21
       ],
-      "sha256": "24efc548b63e70bd7874967c9d857f6c5ebb2ac29a5a2e93079887f041c7e671",
+      "sha256": "282ca80edc5f336bda6c6611f694dff9efddd4f3ac4b2c65b34f622f95fe841b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_02.png",
-      "width": 25,
-      "height": 5,
+      "width": 26,
+      "height": 6,
       "texture_px": [
-        25,
-        5
+        26,
+        6
       ],
-      "offset": 4178,
-      "length": 125,
+      "offset": 4702,
+      "length": 156,
       "trim_origin_top_left_px": [
-        39,
-        74
+        41,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        41,
-        -21
+        39,
+        -22
       ],
-      "sha256": "86bd7101d2afa04941a6ca34374f0be0a8c29ed75d9dfac773db2aa5ef6deb56",
+      "sha256": "c8fb7aa66ff4ed35f411609abe1fe994e9f8a2c4786f78b8ef23dff770f5621d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_03.png",
       "width": 26,
-      "height": 6,
+      "height": 7,
       "texture_px": [
         26,
-        6
+        7
       ],
-      "offset": 4303,
-      "length": 156,
+      "offset": 4858,
+      "length": 182,
       "trim_origin_top_left_px": [
-        40,
-        72
+        42,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        40,
+        38,
         -22
       ],
-      "sha256": "71e9175e95e96d88565b3b5b151f6a11400c5331cf700b65e591d6cbc4a11a02",
+      "sha256": "5edb212b71fc200b9aafa982c2ba2da8c361d8acc091502f962e55049554441b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_04.png",
       "width": 26,
-      "height": 6,
+      "height": 7,
       "texture_px": [
         26,
-        6
+        7
       ],
-      "offset": 4459,
-      "length": 156,
+      "offset": 5040,
+      "length": 182,
       "trim_origin_top_left_px": [
-        41,
+        43,
         70
       ],
       "pivot_from_crop_bottom_left_px": [
-        39,
-        -24
+        37,
+        -23
       ],
-      "sha256": "4edc17783c2b527f895880b78fac33bc7fbdf17eeb08bc673f1d494cec1014ce",
+      "sha256": "04afd3c7155f52805897cfdc8f393a7a5202bec1eb6df44769cb096863f5b5a2",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_05.png",
-      "width": 21,
-      "height": 10,
+      "width": 26,
+      "height": 7,
       "texture_px": [
-        21,
-        10
+        26,
+        7
       ],
-      "offset": 4615,
-      "length": 210,
+      "offset": 5222,
+      "length": 182,
       "trim_origin_top_left_px": [
-        48,
-        66
+        45,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        32,
-        -24
+        35,
+        -25
       ],
-      "sha256": "86d59b8a8858327f569d20e5dd4e0b0df5c571457b6ef1e85a7e420fd4379eb5",
+      "sha256": "b8d661d33fd86dec724b7301a2743bfa666e812c158b7823eeaee7c45d715073",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_06.png",
       "width": 20,
-      "height": 17,
+      "height": 11,
       "texture_px": [
         20,
-        17
+        11
       ],
-      "offset": 4825,
-      "length": 340,
+      "offset": 5404,
+      "length": 220,
       "trim_origin_top_left_px": [
-        49,
-        64
+        51,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        31,
-        -19
+        29,
+        -23
       ],
-      "sha256": "e2ac8f52f31c5d5ad05ad64b21f7f89639af2f886907979c32c3b1c1092d124b",
+      "sha256": "7a5e42feb8543c05b0ddfcb72b9c586730de9d61e070383552ffa5e4d4317d4c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_07.png",
-      "width": 16,
-      "height": 18,
+      "width": 18,
+      "height": 15,
       "texture_px": [
-        16,
-        18
+        18,
+        15
       ],
-      "offset": 5165,
-      "length": 288,
+      "offset": 5624,
+      "length": 270,
       "trim_origin_top_left_px": [
         52,
-        65
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
         28,
-        -17
+        -19
       ],
-      "sha256": "6a0c0c66587adeea96428ed341c35effaa036b91638189c4edd9ee49edfbd39f",
+      "sha256": "19def15cbfeb27e43601dc7acc385d35d1043864c85ada4428d8f2238f9a75ac",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_08.png",
-      "width": 14,
-      "height": 18,
+      "width": 16,
+      "height": 16,
       "texture_px": [
-        14,
-        18
+        16,
+        16
       ],
-      "offset": 5453,
-      "length": 252,
+      "offset": 5894,
+      "length": 256,
       "trim_origin_top_left_px": [
         54,
-        64
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
         26,
         -18
       ],
-      "sha256": "b1cb8c30756127223e4b9962d671e7a77e8c9b51f6060043ef9dd320c9f4738c",
+      "sha256": "587f51b78402675701557d3fc7d2948589360368685d239b6482ceeb0629454d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_09.png",
-      "width": 16,
-      "height": 18,
+      "width": 17,
+      "height": 16,
       "texture_px": [
-        16,
-        18
+        17,
+        16
       ],
-      "offset": 5705,
-      "length": 288,
+      "offset": 6150,
+      "length": 272,
       "trim_origin_top_left_px": [
-        52,
-        65
+        53,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -17
+        27,
+        -18
       ],
-      "sha256": "6a0c0c66587adeea96428ed341c35effaa036b91638189c4edd9ee49edfbd39f",
+      "sha256": "8d52cfd1b56a703c36ae18f1e51f65913c914fb1bfbdba5e9fd9f78c0c9b89ee",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_10.png",
-      "width": 20,
-      "height": 17,
+      "width": 19,
+      "height": 14,
       "texture_px": [
-        20,
-        17
+        19,
+        14
       ],
-      "offset": 5993,
-      "length": 340,
+      "offset": 6422,
+      "length": 266,
       "trim_origin_top_left_px": [
-        49,
-        64
+        51,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        31,
-        -19
+        29,
+        -20
       ],
-      "sha256": "eccf3ea13bc52070f7f6e051f1c8fac0296df06247ae5822138a7798ec6541a0",
+      "sha256": "0ccc4aa0878ec8ebc7f9d76272e63367f0f79e06565ce81e3fca34e73c8e95f9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_11.png",
-      "width": 21,
-      "height": 10,
+      "width": 22,
+      "height": 9,
       "texture_px": [
-        21,
-        10
+        22,
+        9
       ],
-      "offset": 6333,
-      "length": 210,
+      "offset": 6688,
+      "length": 198,
       "trim_origin_top_left_px": [
-        48,
-        66
+        49,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        32,
+        31,
         -24
       ],
-      "sha256": "7dd46be2842c4a164ae10ea326523b0cb95bb0d866a27513350ace770c333a02",
+      "sha256": "3bb0a9dba3858dfa21c20d5188148978520530807b128a0059c19a24dc1d426a",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_12.png",
       "width": 26,
-      "height": 6,
+      "height": 9,
       "texture_px": [
         26,
-        6
+        9
       ],
-      "offset": 6543,
-      "length": 156,
+      "offset": 6886,
+      "length": 234,
       "trim_origin_top_left_px": [
-        41,
-        70
+        44,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        39,
-        -24
+        36,
+        -23
       ],
-      "sha256": "577abd72a8785f09fa49483ab7dcc3de13552d34c46508cb4c6d8acb8ad9e4ff",
+      "sha256": "b91df003e3dd993c02b942a85d4f6d152b7941d5decdde840187da603d5b3125",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ssw_13.png",
-      "width": 26,
-      "height": 6,
-      "texture_px": [
-        26,
-        6
-      ],
-      "offset": 6699,
-      "length": 156,
-      "trim_origin_top_left_px": [
-        40,
-        72
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        40,
-        -22
-      ],
-      "sha256": "3521dc157380a51db7c0c18ece3dc644f7fb73d42c7e27ba5ce3bb57622b8784",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ssw_14.png",
-      "width": 25,
-      "height": 5,
-      "texture_px": [
-        25,
-        5
-      ],
-      "offset": 6855,
-      "length": 125,
-      "trim_origin_top_left_px": [
-        39,
-        74
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        41,
-        -21
-      ],
-      "sha256": "7e6b1c523c90a2216b2fa7b55326ae834666a7670389552c1ca8925bcbab19e8",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ssw_15.png",
-      "width": 26,
-      "height": 5,
-      "texture_px": [
-        26,
-        5
-      ],
-      "offset": 6980,
-      "length": 130,
-      "trim_origin_top_left_px": [
-        38,
-        75
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        42,
-        -20
-      ],
-      "sha256": "6028ce90a33da8ef06c1bf0bbb95f7fad2ac3a5983a897ee8c3cebf100cdf1c2",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_sw_00.png",
-      "width": 27,
-      "height": 9,
-      "texture_px": [
-        27,
-        9
-      ],
-      "offset": 7110,
-      "length": 243,
-      "trim_origin_top_left_px": [
-        34,
-        65
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        46,
-        -26
-      ],
-      "sha256": "dc6d88c3e04a190407e5ad05b27976c42b8e33ffb06b87404be3f4d50ddbcffb",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_sw_01.png",
       "width": 27,
       "height": 8,
       "texture_px": [
         27,
         8
       ],
-      "offset": 7353,
+      "offset": 7120,
       "length": 216,
       "trim_origin_top_left_px": [
-        35,
-        65
+        42,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        45,
-        -27
+        38,
+        -22
       ],
-      "sha256": "7529b81641cd69e7c1b4e1d415413f440443b5e16ac3f413c8f80a91779fbe63",
+      "sha256": "06e21b049d4cc93ba581619877868d3f84554bc835135003e0a907a17ade8e15",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
-      "name": "run_sw_02.png",
+      "name": "run_ssw_14.png",
       "width": 27,
       "height": 7,
       "texture_px": [
         27,
         7
       ],
-      "offset": 7569,
+      "offset": 7336,
       "length": 189,
       "trim_origin_top_left_px": [
-        36,
+        41,
+        71
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -22
+      ],
+      "sha256": "1730a5b79ae5ccb5262e425675ae6974636e35ee6087acb6f773be6661deadcd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ssw_15.png",
+      "width": 26,
+      "height": 6,
+      "texture_px": [
+        26,
+        6
+      ],
+      "offset": 7525,
+      "length": 156,
+      "trim_origin_top_left_px": [
+        41,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        39,
+        -22
+      ],
+      "sha256": "1217f15e83688fc16aaec97d8aa8a9ff3bdf632ce72d2b5b333fac4571b967bd",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sw_00.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 7681,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        38,
         65
       ],
       "pivot_from_crop_bottom_left_px": [
-        44,
+        42,
         -28
       ],
-      "sha256": "5cdf336304b121b26da19c617d618235fb5fa4b695de265c843ccc102c7cdf36",
+      "sha256": "fedc75045894c16e402723e8a87b2fea47cad1b127f55fd3cf7fa268dc58dad3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sw_01.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 7870,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        38,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -28
+      ],
+      "sha256": "a34299670947a38d9feb19a12a7eaf7c95f8ca95d47595d08e8ae9203925fb09",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sw_02.png",
+      "width": 28,
+      "height": 7,
+      "texture_px": [
+        28,
+        7
+      ],
+      "offset": 8059,
+      "length": 196,
+      "trim_origin_top_left_px": [
+        38,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        42,
+        -28
+      ],
+      "sha256": "3b85d817f805aaee5d890103796a36a6e9ce0bfb64d3f25c93e05f08aef8b5a1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_03.png",
       "width": 27,
-      "height": 5,
+      "height": 6,
       "texture_px": [
         27,
-        5
+        6
       ],
-      "offset": 7758,
-      "length": 135,
+      "offset": 8255,
+      "length": 162,
       "trim_origin_top_left_px": [
-        39,
+        40,
         65
       ],
       "pivot_from_crop_bottom_left_px": [
-        41,
-        -30
+        40,
+        -29
       ],
-      "sha256": "ac16aa386752d259f85f53e0c82801709bb948f7308602f48936065e59dec5a6",
+      "sha256": "13bf82652b26438cf031fbcba488e18d9e6e24fd6215d43eafc2e717aca0a000",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_04.png",
-      "width": 26,
+      "width": 27,
       "height": 4,
       "texture_px": [
-        26,
+        27,
         4
       ],
-      "offset": 7893,
-      "length": 104,
+      "offset": 8417,
+      "length": 108,
       "trim_origin_top_left_px": [
         43,
-        64
+        65
       ],
       "pivot_from_crop_bottom_left_px": [
         37,
-        -32
+        -31
       ],
-      "sha256": "b49c7aed68bbae554f4fe746c47267aeac2a69e1ac04515bc63eb2f844d25ec5",
+      "sha256": "5f0ea01a3e6af95c4cd67756a7ffc4f1eccf6d6dbf0ccdaf93f3e0dba3fbc4a8",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_05.png",
-      "width": 23,
+      "width": 24,
       "height": 3,
       "texture_px": [
-        23,
+        24,
         3
       ],
-      "offset": 7997,
-      "length": 69,
+      "offset": 8525,
+      "length": 72,
       "trim_origin_top_left_px": [
         47,
         64
@@ -880,161 +880,161 @@
         33,
         -33
       ],
-      "sha256": "819418c458ff78b99f7328fe7121e76c44309d2c2ab0da46bf376274b9d3be82",
+      "sha256": "7aa118aab9e496e47c86ad2d6fec8d4aa378a8189025d75f80b488604ee27d63",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_06.png",
-      "width": 17,
-      "height": 9,
+      "width": 20,
+      "height": 5,
       "texture_px": [
-        17,
-        9
+        20,
+        5
       ],
-      "offset": 8066,
-      "length": 153,
+      "offset": 8597,
+      "length": 100,
       "trim_origin_top_left_px": [
-        52,
-        62
+        49,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -29
+        31,
+        -31
       ],
-      "sha256": "1c1603df1c6161cb4ae899b832bf08f5abff031be06337fb505d111131e0f6e8",
+      "sha256": "0153505c63c50949e5e998ecda26563e68c8ee0630a3badb2a6dedfe7bf86bb1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_07.png",
-      "width": 16,
-      "height": 11,
+      "width": 17,
+      "height": 8,
       "texture_px": [
-        16,
-        11
+        17,
+        8
       ],
-      "offset": 8219,
-      "length": 176,
+      "offset": 8697,
+      "length": 136,
       "trim_origin_top_left_px": [
         53,
-        63
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
         27,
-        -26
+        -28
       ],
-      "sha256": "8471d9a691518ba69e133be327de50954fa5a567806ec68eb8ff602d9bcbbee6",
+      "sha256": "44cb3098ede6a648236674b3e297dd5d38cf0ae2d78ec6092bc630ea78cc2bdd",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_08.png",
-      "width": 14,
-      "height": 10,
+      "width": 15,
+      "height": 8,
       "texture_px": [
-        14,
-        10
+        15,
+        8
       ],
-      "offset": 8395,
-      "length": 140,
+      "offset": 8833,
+      "length": 120,
       "trim_origin_top_left_px": [
         55,
-        64
+        65
       ],
       "pivot_from_crop_bottom_left_px": [
         25,
-        -26
+        -27
       ],
-      "sha256": "ee51799246c8a5f8d5755bb5ba8b694cff441c58dabdadf23fae941071af88c9",
+      "sha256": "b5ea7933a8666aca36ba0d4b8456b99f11370a6fe1e0a4833c4627c522cc3628",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_09.png",
-      "width": 16,
-      "height": 11,
-      "texture_px": [
-        16,
-        11
-      ],
-      "offset": 8535,
-      "length": 176,
-      "trim_origin_top_left_px": [
-        53,
-        63
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        27,
-        -26
-      ],
-      "sha256": "8471d9a691518ba69e133be327de50954fa5a567806ec68eb8ff602d9bcbbee6",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_sw_10.png",
       "width": 17,
       "height": 9,
       "texture_px": [
         17,
         9
       ],
-      "offset": 8711,
+      "offset": 8953,
       "length": 153,
       "trim_origin_top_left_px": [
-        52,
-        62
+        53,
+        65
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -29
+        27,
+        -26
       ],
-      "sha256": "1c1603df1c6161cb4ae899b832bf08f5abff031be06337fb505d111131e0f6e8",
+      "sha256": "169043c9b69c7ce880a5342cf23f0d550f65a692b4eb82e410f454f8e5c14d55",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sw_10.png",
+      "width": 13,
+      "height": 5,
+      "texture_px": [
+        13,
+        5
+      ],
+      "offset": 9106,
+      "length": 65,
+      "trim_origin_top_left_px": [
+        56,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        24,
+        -30
+      ],
+      "sha256": "ef076839dabae43cbb815feebe01cb40899720ac0a4d3fda6997730ac0296c69",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_11.png",
-      "width": 23,
+      "width": 19,
       "height": 3,
       "texture_px": [
-        23,
+        19,
         3
       ],
-      "offset": 8864,
-      "length": 69,
+      "offset": 9171,
+      "length": 57,
       "trim_origin_top_left_px": [
-        47,
+        51,
         64
       ],
       "pivot_from_crop_bottom_left_px": [
-        33,
+        29,
         -33
       ],
-      "sha256": "819418c458ff78b99f7328fe7121e76c44309d2c2ab0da46bf376274b9d3be82",
+      "sha256": "d8cbea67136a7f1136074a420d3427f2cbbc705654340ffa05ad5cf4add7bf8a",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_12.png",
-      "width": 26,
+      "width": 24,
       "height": 4,
       "texture_px": [
-        26,
+        24,
         4
       ],
-      "offset": 8933,
-      "length": 104,
+      "offset": 9228,
+      "length": 96,
       "trim_origin_top_left_px": [
-        43,
+        46,
         64
       ],
       "pivot_from_crop_bottom_left_px": [
-        37,
+        34,
         -32
       ],
-      "sha256": "b49c7aed68bbae554f4fe746c47267aeac2a69e1ac04515bc63eb2f844d25ec5",
+      "sha256": "0cb911a10252100e15f0d7d79c55f04735735ac45c3ea8bd5fbfe3680938f626",
       "empty": false
     },
     {
@@ -1046,117 +1046,95 @@
         27,
         5
       ],
-      "offset": 9037,
+      "offset": 9324,
       "length": 135,
+      "trim_origin_top_left_px": [
+        42,
+        65
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -30
+      ],
+      "sha256": "bd604e7086a6f048a43c7e653c55e7b5a2710ea5ca5849f88a878d4704d049b0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sw_14.png",
+      "width": 28,
+      "height": 6,
+      "texture_px": [
+        28,
+        6
+      ],
+      "offset": 9459,
+      "length": 168,
       "trim_origin_top_left_px": [
         39,
         65
       ],
       "pivot_from_crop_bottom_left_px": [
         41,
-        -30
+        -29
       ],
-      "sha256": "ac16aa386752d259f85f53e0c82801709bb948f7308602f48936065e59dec5a6",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_sw_14.png",
-      "width": 27,
-      "height": 7,
-      "texture_px": [
-        27,
-        7
-      ],
-      "offset": 9172,
-      "length": 189,
-      "trim_origin_top_left_px": [
-        36,
-        65
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        44,
-        -28
-      ],
-      "sha256": "5cdf336304b121b26da19c617d618235fb5fa4b695de265c843ccc102c7cdf36",
+      "sha256": "0ba8883df38bf99a7608a50f36e5aad306415cec8a810d931a7e2db92a604580",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sw_15.png",
       "width": 27,
-      "height": 8,
+      "height": 7,
       "texture_px": [
         27,
-        8
+        7
       ],
-      "offset": 9361,
-      "length": 216,
+      "offset": 9627,
+      "length": 189,
       "trim_origin_top_left_px": [
-        35,
+        38,
         65
       ],
       "pivot_from_crop_bottom_left_px": [
-        45,
-        -27
+        42,
+        -28
       ],
-      "sha256": "7529b81641cd69e7c1b4e1d415413f440443b5e16ac3f413c8f80a91779fbe63",
+      "sha256": "a70e19180b87fa82c09389ea5b989dd546954626dc8485afb6ba79a2862f8b50",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_00.png",
-      "width": 23,
-      "height": 15,
+      "width": 24,
+      "height": 14,
       "texture_px": [
-        23,
-        15
+        24,
+        14
       ],
-      "offset": 9577,
-      "length": 345,
+      "offset": 9816,
+      "length": 336,
       "trim_origin_top_left_px": [
-        39,
+        41,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        41,
-        -32
+        39,
+        -33
       ],
-      "sha256": "87686b6d4b41f2707efa17dab96b6f38e784b8c48ffb795cbe3ee43cb7807113",
+      "sha256": "affb0e82ff74b99e77c3833c56c6d83edbe7e564822a4dfc9fde65433a59e74d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_01.png",
       "width": 24,
-      "height": 15,
-      "texture_px": [
-        24,
-        15
-      ],
-      "offset": 9922,
-      "length": 360,
-      "trim_origin_top_left_px": [
-        39,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        41,
-        -32
-      ],
-      "sha256": "346874f4186da959e19ce2af242fb31468fa9ab5a17e71f5f8261610ee47d3dd",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_wsw_02.png",
-      "width": 24,
       "height": 14,
       "texture_px": [
         24,
         14
       ],
-      "offset": 10282,
+      "offset": 10152,
       "length": 336,
       "trim_origin_top_left_px": [
         41,
@@ -1166,20 +1144,42 @@
         39,
         -33
       ],
-      "sha256": "4c77894ce0759105f6bee766ef6a0557f234613ab5c7dc61c76e3c3c30779a88",
+      "sha256": "a0c4190b9b061bc54775f91ecbd89c144cc3a3dfc39fa34ed6892d9c7ab46d7a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_wsw_02.png",
+      "width": 25,
+      "height": 14,
+      "texture_px": [
+        25,
+        14
+      ],
+      "offset": 10488,
+      "length": 350,
+      "trim_origin_top_left_px": [
+        42,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        38,
+        -33
+      ],
+      "sha256": "2436cfc78ac000ac44b4de2f5eb8d4c6fc105c5b1327562bf4442391136a4f87",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_03.png",
-      "width": 23,
+      "width": 24,
       "height": 12,
       "texture_px": [
-        23,
+        24,
         12
       ],
-      "offset": 10618,
-      "length": 276,
+      "offset": 10838,
+      "length": 288,
       "trim_origin_top_left_px": [
         45,
         54
@@ -1188,306 +1188,284 @@
         35,
         -34
       ],
-      "sha256": "288030489ac43526becd0602959b00f29c100d76a315524bbf4a5d98655f1839",
+      "sha256": "c7c7bf0e4d4231c8926a448f7b1f360104f5a520c5dbef69cb51a5058deb6e18",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_04.png",
-      "width": 18,
-      "height": 9,
+      "width": 21,
+      "height": 10,
       "texture_px": [
-        18,
-        9
+        21,
+        10
       ],
-      "offset": 10894,
-      "length": 162,
+      "offset": 11126,
+      "length": 210,
       "trim_origin_top_left_px": [
-        52,
+        49,
         55
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -36
+        31,
+        -35
       ],
-      "sha256": "d006555820bd5ad26c2bbca4eb493a7c6509951669459097db55285ae497f503",
+      "sha256": "ad5e75d64f9ea9637262048dacd19155244727e2f29f8f17571be9c5c847e369",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_05.png",
-      "width": 16,
-      "height": 4,
+      "width": 14,
+      "height": 6,
       "texture_px": [
-        16,
-        4
+        14,
+        6
       ],
-      "offset": 11056,
-      "length": 64,
+      "offset": 11336,
+      "length": 84,
       "trim_origin_top_left_px": [
-        52,
-        57
+        56,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -39
+        24,
+        -38
       ],
-      "sha256": "42ef60360d4ef5e18502e7bebda956b7a183102d1d66352226f8f653162d34b0",
+      "sha256": "adcd94c9d09c40bf79c0028b70d75105dfc0d57bf8d48e8defe8d358cc4dc6a4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_06.png",
-      "width": 10,
+      "width": 12,
       "height": 2,
       "texture_px": [
-        10,
+        12,
         2
       ],
-      "offset": 11120,
-      "length": 20,
+      "offset": 11420,
+      "length": 24,
       "trim_origin_top_left_px": [
-        58,
-        61
+        55,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -37
+        25,
+        -38
       ],
-      "sha256": "1f1f53cfb8065abf00733f1f97c46a99befd6ce9f8899711988f6a66739e70e4",
+      "sha256": "24a13fe9fe7c20368f44a477fba7d29f407548a238e2355a8f2df663fb03f629",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_07.png",
-      "width": 23,
-      "height": 8,
+      "width": 7,
+      "height": 1,
       "texture_px": [
-        23,
-        8
+        7,
+        1
       ],
-      "offset": 11140,
-      "length": 184,
+      "offset": 11444,
+      "length": 7,
       "trim_origin_top_left_px": [
-        60,
-        58
+        62,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
-        -34
+        18,
+        -36
       ],
-      "sha256": "a8445291e94f44b7310625b9e1c387204554f9c6774053bbb9da3fdd62df1f27",
+      "sha256": "9121b01af9d291d8ac8169faf8bc22f960137a9f6e43c469b0a1ca67975afe68",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_08.png",
-      "width": 23,
-      "height": 10,
+      "width": 24,
+      "height": 6,
       "texture_px": [
-        23,
-        10
+        24,
+        6
       ],
-      "offset": 11324,
-      "length": 230,
+      "offset": 11451,
+      "length": 144,
       "trim_origin_top_left_px": [
-        61,
-        57
+        59,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -33
+        21,
+        -34
       ],
-      "sha256": "a228f58b2528949eccdc81b5ff287299cf4bb6600be4c351e270244e6d2059a8",
+      "sha256": "9a35eb5684a2230450936072365a6e5c634e30ae35f9bc1f49a464f598cc115c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_09.png",
       "width": 23,
-      "height": 8,
+      "height": 5,
       "texture_px": [
         23,
-        8
+        5
       ],
-      "offset": 11554,
-      "length": 184,
+      "offset": 11595,
+      "length": 115,
       "trim_origin_top_left_px": [
         60,
-        58
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
         20,
         -34
       ],
-      "sha256": "a8445291e94f44b7310625b9e1c387204554f9c6774053bbb9da3fdd62df1f27",
+      "sha256": "c07c8fb4f8aaac59935122f6dfd0a79937b2550083a1ad9bf165b099a2dedf27",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_10.png",
-      "width": 10,
+      "width": 12,
       "height": 2,
       "texture_px": [
-        10,
+        12,
         2
       ],
-      "offset": 11738,
-      "length": 20,
+      "offset": 11710,
+      "length": 24,
       "trim_origin_top_left_px": [
-        58,
-        61
+        57,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -37
+        23,
+        -36
       ],
-      "sha256": "1f1f53cfb8065abf00733f1f97c46a99befd6ce9f8899711988f6a66739e70e4",
+      "sha256": "4ce90b16a72c905b8a38e8ca3e4939abd6adf36333d6d580fff4e139a5be6d9e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_11.png",
-      "width": 16,
+      "width": 15,
       "height": 4,
       "texture_px": [
-        16,
+        15,
         4
       ],
-      "offset": 11758,
-      "length": 64,
+      "offset": 11734,
+      "length": 60,
       "trim_origin_top_left_px": [
-        52,
-        57
+        54,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -39
+        26,
+        -38
       ],
-      "sha256": "42ef60360d4ef5e18502e7bebda956b7a183102d1d66352226f8f653162d34b0",
+      "sha256": "85bfe75c7cb667941fc7abbe8423255424323f92f971081f611d700aaa8a2205",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_12.png",
-      "width": 18,
-      "height": 9,
+      "width": 17,
+      "height": 7,
       "texture_px": [
-        18,
-        9
+        17,
+        7
       ],
-      "offset": 11822,
-      "length": 162,
+      "offset": 11794,
+      "length": 119,
       "trim_origin_top_left_px": [
-        52,
-        55
+        53,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
+        27,
         -36
       ],
-      "sha256": "d006555820bd5ad26c2bbca4eb493a7c6509951669459097db55285ae497f503",
+      "sha256": "11a4e3602402b4f907f4225e04ce5b3734e9535744ed1de79f7b15c0685044d9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_13.png",
       "width": 23,
-      "height": 12,
+      "height": 10,
       "texture_px": [
         23,
-        12
+        10
       ],
-      "offset": 11984,
-      "length": 276,
+      "offset": 11913,
+      "length": 230,
       "trim_origin_top_left_px": [
-        45,
-        54
+        47,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        35,
-        -34
+        33,
+        -35
       ],
-      "sha256": "09e598015e168962215b7b40a903816d0dbc2c5b7fd67d3f9320f0965f3481e4",
+      "sha256": "c7b309057c3e0c8ce8dc7eb70199e8430b74bcc42971c1350e6e2cab0297e704",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_14.png",
-      "width": 24,
-      "height": 14,
+      "width": 25,
+      "height": 12,
       "texture_px": [
-        24,
-        14
+        25,
+        12
       ],
-      "offset": 12260,
-      "length": 336,
+      "offset": 12143,
+      "length": 300,
       "trim_origin_top_left_px": [
-        41,
-        53
+        43,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        39,
-        -33
+        37,
+        -34
       ],
-      "sha256": "4c77894ce0759105f6bee766ef6a0557f234613ab5c7dc61c76e3c3c30779a88",
+      "sha256": "7025b8853b4a9f24b286afc891fe0904ab70bc34769e26560a8f44b98e95074e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wsw_15.png",
-      "width": 24,
-      "height": 15,
+      "width": 25,
+      "height": 13,
       "texture_px": [
-        24,
-        15
+        25,
+        13
       ],
-      "offset": 12596,
-      "length": 360,
+      "offset": 12443,
+      "length": 325,
       "trim_origin_top_left_px": [
-        39,
+        41,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        41,
-        -32
+        39,
+        -34
       ],
-      "sha256": "346874f4186da959e19ce2af242fb31468fa9ab5a17e71f5f8261610ee47d3dd",
+      "sha256": "211c16f64fb17d798108e6942c9b98b16904bd99da73e22fc4c280710ac471ee",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_00.png",
-      "width": 17,
-      "height": 20,
-      "texture_px": [
-        17,
-        20
-      ],
-      "offset": 12956,
-      "length": 340,
-      "trim_origin_top_left_px": [
-        49,
-        43
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        31,
-        -37
-      ],
-      "sha256": "d23a0c17fc1ee473ea545b9fd8a15512366e0e5d68dc9e2e33eda7d87f8e343e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_w_01.png",
-      "width": 18,
+      "width": 19,
       "height": 21,
       "texture_px": [
-        18,
+        19,
         21
       ],
-      "offset": 13296,
-      "length": 378,
+      "offset": 12768,
+      "length": 399,
       "trim_origin_top_left_px": [
         49,
         42
@@ -1496,20 +1474,42 @@
         31,
         -37
       ],
-      "sha256": "743282c12034851fab66c88b3caa3e2d3f66755121bacac7ccd83489b17c7b47",
+      "sha256": "ab3de5fef1f2557a5fa4a7e8710f1e9ec3ff82cda48bc5238efb6901ccf16f51",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_w_01.png",
+      "width": 18,
+      "height": 20,
+      "texture_px": [
+        18,
+        20
+      ],
+      "offset": 13167,
+      "length": 360,
+      "trim_origin_top_left_px": [
+        50,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        30,
+        -37
+      ],
+      "sha256": "698f95df7de3b0316c9b956cc5313d205a47739b824b1a3b2713d28666222bdc",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_02.png",
-      "width": 17,
+      "width": 18,
       "height": 19,
       "texture_px": [
-        17,
+        18,
         19
       ],
-      "offset": 13674,
-      "length": 323,
+      "offset": 13527,
+      "length": 342,
       "trim_origin_top_left_px": [
         52,
         44
@@ -1518,51 +1518,51 @@
         28,
         -37
       ],
-      "sha256": "53df7f4dfb9ed684f9cdd244410e86c3ec2b484bbc9afa889afa11756143a847",
+      "sha256": "fa4347163f8fd745f43439a29bdf05b1037e0a786daa929533442c0e8ea18535",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_03.png",
-      "width": 14,
-      "height": 15,
+      "width": 16,
+      "height": 16,
       "texture_px": [
-        14,
-        15
+        16,
+        16
       ],
-      "offset": 13997,
-      "length": 210,
+      "offset": 13869,
+      "length": 256,
       "trim_origin_top_left_px": [
-        57,
-        46
+        54,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        23,
+        26,
         -39
       ],
-      "sha256": "fcac8f074e8c52843942da9489ad02399b36f146051306542b1f30bef7d4d2f0",
+      "sha256": "e6d38a79a8584af28d953fba7e097104f6872aac084d90d46f94ef21c9c15f07",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_04.png",
-      "width": 2,
-      "height": 2,
+      "width": 6,
+      "height": 6,
       "texture_px": [
-        2,
-        2
+        6,
+        6
       ],
-      "offset": 14207,
-      "length": 4,
+      "offset": 14125,
+      "length": 36,
       "trim_origin_top_left_px": [
-        63,
-        49
+        60,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -49
+        20,
+        -46
       ],
-      "sha256": "a442d38ec46046b134d3e341ac0a97b0ff2ce13d1ab7f9d0c95bb98103c4ce6a",
+      "sha256": "1385839d4efd34888fb2a89aa12dd259800cdf2f24c8d1cd2864aab13014f337",
       "empty": false
     },
     {
@@ -1574,7 +1574,7 @@
         0,
         0
       ],
-      "offset": 14211,
+      "offset": 14161,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -1590,111 +1590,111 @@
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_06.png",
-      "width": 21,
-      "height": 5,
+      "width": 22,
+      "height": 11,
       "texture_px": [
-        21,
-        5
+        22,
+        11
       ],
-      "offset": 14211,
-      "length": 105,
+      "offset": 14161,
+      "length": 242,
       "trim_origin_top_left_px": [
-        65,
-        57
+        62,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -38
+        18,
+        -36
       ],
-      "sha256": "a537d9d39a4d4eed90f37cdaa75045da4726f7d741ccbbc89905c9d9a5710f11",
+      "sha256": "880b48f838dce84631355bf557b0f231156b7f0d8901c2d3077371ba2216d5c5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_07.png",
-      "width": 5,
-      "height": 2,
+      "width": 23,
+      "height": 6,
       "texture_px": [
-        5,
-        2
+        23,
+        6
       ],
-      "offset": 14316,
-      "length": 10,
+      "offset": 14403,
+      "length": 138,
       "trim_origin_top_left_px": [
-        84,
-        59
+        64,
+        58
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
-        -39
+        16,
+        -36
       ],
-      "sha256": "99bdcddf5ece35f5a58bd5e9fd51eb2d7dc29e15a4f8fd33688c07f7a19232be",
+      "sha256": "34d57b045f168681ffcbb74023b8acb6b9ca4bbc64f32a7ee69bd1fd067c331c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_08.png",
-      "width": 21,
+      "width": 24,
       "height": 4,
       "texture_px": [
-        21,
+        24,
         4
       ],
-      "offset": 14326,
-      "length": 84,
+      "offset": 14541,
+      "length": 96,
       "trim_origin_top_left_px": [
-        69,
-        59
+        64,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -37
+        16,
+        -36
       ],
-      "sha256": "658754591e79061efbb9f79b8d8313ee64d43cafdf5204f302ff89b5e0b42396",
+      "sha256": "56d9270a7467c0c0d759df4ec65bc7117f432da2677d882b455e2c1a257362d1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_09.png",
-      "width": 5,
-      "height": 2,
+      "width": 22,
+      "height": 4,
       "texture_px": [
-        5,
-        2
+        22,
+        4
       ],
-      "offset": 14410,
-      "length": 10,
+      "offset": 14637,
+      "length": 88,
       "trim_origin_top_left_px": [
-        84,
-        59
+        66,
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
-        -39
+        14,
+        -36
       ],
-      "sha256": "99bdcddf5ece35f5a58bd5e9fd51eb2d7dc29e15a4f8fd33688c07f7a19232be",
+      "sha256": "f0a94994a2e6fb643fdf0cd8aa66a9b3b28bbf7d9e4ddad245f13323d902cf1d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_10.png",
-      "width": 21,
-      "height": 5,
+      "width": 22,
+      "height": 7,
       "texture_px": [
-        21,
-        5
+        22,
+        7
       ],
-      "offset": 14420,
-      "length": 105,
+      "offset": 14725,
+      "length": 154,
       "trim_origin_top_left_px": [
-        65,
+        64,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -38
+        16,
+        -36
       ],
-      "sha256": "bbeeaaab34d977d6afda4aed11dfe3cb2bfdccd85feead4e52450d4446d699fc",
+      "sha256": "5de762c9642c88f6ac55b0d73fe78438b0a46ff271056b8502076aca363c9be8",
       "empty": false
     },
     {
@@ -1706,7 +1706,7 @@
         0,
         0
       ],
-      "offset": 14525,
+      "offset": 14879,
       "length": 0,
       "trim_origin_top_left_px": [
         0,
@@ -1728,303 +1728,303 @@
         2,
         2
       ],
-      "offset": 14525,
+      "offset": 14879,
       "length": 4,
       "trim_origin_top_left_px": [
-        63,
-        49
+        64,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -49
+        16,
+        -47
       ],
-      "sha256": "a442d38ec46046b134d3e341ac0a97b0ff2ce13d1ab7f9d0c95bb98103c4ce6a",
+      "sha256": "a375469579b35c8757304014a16a68c0d66302f96923e8567e830587a2e06fe7",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_13.png",
       "width": 14,
-      "height": 15,
+      "height": 13,
       "texture_px": [
         14,
-        15
+        13
       ],
-      "offset": 14529,
-      "length": 210,
+      "offset": 14883,
+      "length": 182,
       "trim_origin_top_left_px": [
         57,
-        46
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
         23,
-        -39
+        -40
       ],
-      "sha256": "fcac8f074e8c52843942da9489ad02399b36f146051306542b1f30bef7d4d2f0",
+      "sha256": "b828970dd6732808dc8112df4ba78a55b1c72785be9997dccaafaf9ffcd3a3a6",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_14.png",
-      "width": 17,
-      "height": 19,
+      "width": 18,
+      "height": 17,
       "texture_px": [
-        17,
-        19
+        18,
+        17
       ],
-      "offset": 14739,
-      "length": 323,
+      "offset": 15065,
+      "length": 306,
       "trim_origin_top_left_px": [
-        52,
-        44
+        53,
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
-        28,
-        -37
+        27,
+        -38
       ],
-      "sha256": "406b9485212d4338db452826ece42552d5173b9fa0b9998b4276627631f04380",
+      "sha256": "359b228f557ab1f401cf938cbd26241d8976bb039ec7cf68f750c54628855d4b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_w_15.png",
-      "width": 18,
-      "height": 21,
+      "width": 19,
+      "height": 20,
       "texture_px": [
-        18,
-        21
+        19,
+        20
       ],
-      "offset": 15062,
-      "length": 378,
+      "offset": 15371,
+      "length": 380,
       "trim_origin_top_left_px": [
-        49,
-        42
+        50,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        31,
+        30,
         -37
       ],
-      "sha256": "743282c12034851fab66c88b3caa3e2d3f66755121bacac7ccd83489b17c7b47",
+      "sha256": "cbc87e0243e07945c7647bf91ef9ebc4c4f61796926ee78ab1f75b645e374259",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_00.png",
-      "width": 8,
-      "height": 21,
+      "width": 9,
+      "height": 23,
       "texture_px": [
-        8,
-        21
+        9,
+        23
       ],
-      "offset": 15440,
-      "length": 168,
+      "offset": 15751,
+      "length": 207,
       "trim_origin_top_left_px": [
-        64,
-        38
+        63,
+        36
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -41
       ],
-      "sha256": "38516e39cdbdd3aaf15ee05916c65acc090c43709733077e650201c37223326f",
+      "sha256": "37e93b0ae49582a7188fab9c212935fe512aa33f4fea553fd4f0a3514a8d9ce9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_01.png",
-      "width": 8,
+      "width": 9,
       "height": 23,
       "texture_px": [
-        8,
+        9,
         23
       ],
-      "offset": 15608,
-      "length": 184,
+      "offset": 15958,
+      "length": 207,
       "trim_origin_top_left_px": [
-        64,
+        63,
         36
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -41
       ],
-      "sha256": "c11f30828a807ab21bfaf56920a0ae026c519754681113e540929390104e158b",
+      "sha256": "b0609ca392c724b7573a8eef1000b157be7e28324889e8ffe40837a1b56ae66d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_02.png",
-      "width": 3,
-      "height": 8,
+      "width": 4,
+      "height": 9,
       "texture_px": [
-        3,
-        8
+        4,
+        9
       ],
-      "offset": 15792,
-      "length": 24,
+      "offset": 16165,
+      "length": 36,
       "trim_origin_top_left_px": [
-        67,
-        40
+        65,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -52
+        15,
+        -53
       ],
-      "sha256": "e6cc8871d70b2cbe17c4d2d6b3244e06314306761cbe21662852680567f61eb8",
+      "sha256": "16057918195431cc90fb2579e0838d918c79bf893fdc6544dc5b547ed09c2cd8",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_03.png",
       "width": 2,
-      "height": 5,
+      "height": 3,
       "texture_px": [
         2,
-        5
+        3
       ],
-      "offset": 15816,
-      "length": 10,
+      "offset": 16201,
+      "length": 6,
       "trim_origin_top_left_px": [
-        71,
-        42
+        69,
+        43
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -53
+        11,
+        -54
       ],
-      "sha256": "93a2d66c6ee1c78834bc462731721fccd4e7e60726c5a06cc5708326c8e1d216",
+      "sha256": "f035f55358c76d3c07a9764e7a078c084e22ca76c32c738e0af105146c1295e5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_04.png",
-      "width": 2,
-      "height": 6,
+      "width": 1,
+      "height": 1,
       "texture_px": [
-        2,
-        6
+        1,
+        1
       ],
-      "offset": 15826,
-      "length": 12,
+      "offset": 16207,
+      "length": 1,
       "trim_origin_top_left_px": [
-        76,
-        44
+        74,
+        47
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -50
+        6,
+        -52
       ],
-      "sha256": "799704ef6ed70c8b67870d161db2871977b842c7aacf63f0365d9f9fbe647ad7",
+      "sha256": "bd4fc42a21f1f860a1030e6eba23d53ecab71bd19297ab6c074381d4ecee0018",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_05.png",
-      "width": 13,
-      "height": 18,
+      "width": 2,
+      "height": 3,
       "texture_px": [
-        13,
-        18
+        2,
+        3
       ],
-      "offset": 15838,
-      "length": 234,
+      "offset": 16208,
+      "length": 6,
       "trim_origin_top_left_px": [
-        74,
-        46
+        79,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -36
+        1,
+        -49
       ],
-      "sha256": "edd9550d303b2c65b0ea58513c0297e1e8592a729edab75d11ffb4f54edbbd98",
+      "sha256": "540e849b9a93561547f1fd8f00b89a35ca37d4bdbda87c4c17a20cc3e30239cb",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_06.png",
-      "width": 7,
-      "height": 5,
+      "width": 4,
+      "height": 4,
       "texture_px": [
-        7,
-        5
+        4,
+        4
       ],
-      "offset": 16072,
-      "length": 35,
+      "offset": 16214,
+      "length": 16,
       "trim_origin_top_left_px": [
         84,
-        59
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
         -4,
-        -36
+        -34
       ],
-      "sha256": "fe7110f24a07dbcc80d512d104778588d95a8021a5fc0d9e7a659e4b3d7fcf5a",
+      "sha256": "0b6e4a47c25212d7e601b22fcf393380975a6052c54260801ef59feeddd20def",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_07.png",
-      "width": 9,
-      "height": 4,
+      "width": 8,
+      "height": 5,
       "texture_px": [
-        9,
-        4
+        8,
+        5
       ],
-      "offset": 16107,
-      "length": 36,
+      "offset": 16230,
+      "length": 40,
       "trim_origin_top_left_px": [
-        85,
+        83,
         61
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -35
+        -3,
+        -34
       ],
-      "sha256": "46fc66af9637536cc9c9902277c5677cd4f86be6b696be11ac5c5b2141d2bcd1",
+      "sha256": "8951c52eb248117a58af117afe1991e072438cfbe9ac157687f1bb8d78ae0819",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_08.png",
-      "width": 10,
-      "height": 4,
+      "width": 8,
+      "height": 5,
       "texture_px": [
-        10,
-        4
+        8,
+        5
       ],
-      "offset": 16143,
+      "offset": 16270,
       "length": 40,
       "trim_origin_top_left_px": [
-        85,
-        61
+        84,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -35
+        -4,
+        -33
       ],
-      "sha256": "3ab9f6142e02774c4fa44b79777141a405a1b0b1522b94802d4ebe1137b52fb7",
+      "sha256": "e8b53b41ecc8abf32e9cb2ca01810b5b45789d8b9fca263f2a6f46873d899d59",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_09.png",
-      "width": 9,
+      "width": 8,
       "height": 4,
       "texture_px": [
-        9,
+        8,
         4
       ],
-      "offset": 16183,
-      "length": 36,
+      "offset": 16310,
+      "length": 32,
       "trim_origin_top_left_px": [
-        85,
-        61
+        84,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -35
+        -4,
+        -34
       ],
-      "sha256": "46fc66af9637536cc9c9902277c5677cd4f86be6b696be11ac5c5b2141d2bcd1",
+      "sha256": "cf36daf39117d188abc9bf894abb7b8075602403fabde924ed5b9d47e73b027d",
       "empty": false
     },
     {
@@ -2036,1205 +2036,1205 @@
         7,
         5
       ],
-      "offset": 16219,
+      "offset": 16342,
       "length": 35,
       "trim_origin_top_left_px": [
-        84,
-        59
+        83,
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
-        -36
+        -3,
+        -34
       ],
-      "sha256": "40d210ac24254c3ca807ef8e5303938a22b2ba73684ecc493bebcd45352581f1",
+      "sha256": "ba61fadae2715c87659753b11b49e18eb53f713d818f7106376e061f182791b5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_11.png",
-      "width": 13,
-      "height": 18,
+      "width": 10,
+      "height": 16,
       "texture_px": [
-        13,
-        18
+        10,
+        16
       ],
-      "offset": 16254,
-      "length": 234,
+      "offset": 16377,
+      "length": 160,
       "trim_origin_top_left_px": [
-        74,
-        46
+        76,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -36
+        4,
+        -35
       ],
-      "sha256": "edd9550d303b2c65b0ea58513c0297e1e8592a729edab75d11ffb4f54edbbd98",
+      "sha256": "7124f414b3a2ba5ca653c677e27403cd3cd7a55b257a83db4566aff30354ceff",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_12.png",
-      "width": 2,
-      "height": 6,
+      "width": 1,
+      "height": 2,
       "texture_px": [
-        2,
-        6
+        1,
+        2
       ],
-      "offset": 16488,
-      "length": 12,
+      "offset": 16537,
+      "length": 2,
       "trim_origin_top_left_px": [
-        76,
-        44
+        77,
+        48
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
+        3,
         -50
       ],
-      "sha256": "799704ef6ed70c8b67870d161db2871977b842c7aacf63f0365d9f9fbe647ad7",
+      "sha256": "9121e263e00250c9ea36a82f3573313dddc46fcbae5595a17672cd2a34ff61a8",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_13.png",
       "width": 2,
-      "height": 5,
+      "height": 3,
       "texture_px": [
         2,
-        5
+        3
       ],
-      "offset": 16500,
-      "length": 10,
+      "offset": 16539,
+      "length": 6,
       "trim_origin_top_left_px": [
         71,
-        42
+        44
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
         -53
       ],
-      "sha256": "93a2d66c6ee1c78834bc462731721fccd4e7e60726c5a06cc5708326c8e1d216",
+      "sha256": "0ebe19086af9053fc95dc092e1c68f9abb3e4c90a73c6c0427f5135d867ea683",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_14.png",
-      "width": 3,
+      "width": 4,
       "height": 8,
       "texture_px": [
-        3,
+        4,
         8
       ],
-      "offset": 16510,
-      "length": 24,
+      "offset": 16545,
+      "length": 32,
       "trim_origin_top_left_px": [
-        67,
-        40
+        66,
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -52
+        14,
+        -53
       ],
-      "sha256": "e6cc8871d70b2cbe17c4d2d6b3244e06314306761cbe21662852680567f61eb8",
+      "sha256": "6debd11fe9377928072312b649a0bbb22ec1436103bbd39189dd9329155d32a2",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_wnw_15.png",
-      "width": 8,
-      "height": 23,
+      "width": 9,
+      "height": 21,
       "texture_px": [
-        8,
-        23
+        9,
+        21
       ],
-      "offset": 16534,
-      "length": 184,
+      "offset": 16577,
+      "length": 189,
       "trim_origin_top_left_px": [
         64,
-        36
+        37
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -41
+        -42
       ],
-      "sha256": "c11f30828a807ab21bfaf56920a0ae026c519754681113e540929390104e158b",
+      "sha256": "a3ee0c83820ddab2fcb13a741c74356c4cef25fca922256c2ec7908c9517034c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_00.png",
-      "width": 2,
-      "height": 19,
+      "width": 1,
+      "height": 11,
       "texture_px": [
-        2,
-        19
+        1,
+        11
       ],
-      "offset": 16718,
-      "length": 38,
+      "offset": 16766,
+      "length": 11,
       "trim_origin_top_left_px": [
         78,
         36
       ],
       "pivot_from_crop_bottom_left_px": [
         2,
-        -45
+        -53
       ],
-      "sha256": "ac510f8c1dc518c744deaacd756557652ac595585099be83f602cd13da9f858a",
+      "sha256": "e2aa00a15c87b4d69d6d50dc58225b65da41553301101473fe625eb3ca3e8e56",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_01.png",
-      "width": 3,
-      "height": 20,
+      "width": 1,
+      "height": 12,
       "texture_px": [
-        3,
-        20
+        1,
+        12
       ],
-      "offset": 16756,
-      "length": 60,
+      "offset": 16777,
+      "length": 12,
       "trim_origin_top_left_px": [
         78,
-        34
+        39
       ],
       "pivot_from_crop_bottom_left_px": [
         2,
-        -46
+        -49
       ],
-      "sha256": "889b8d4302b4142e95dcd16c2f3ac650e6f88bad90c5e94691a6483c353da2e7",
+      "sha256": "ff40095c71188d5b99b15d8593125f243e4242480494f97f5ad506664620b215",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_02.png",
-      "width": 3,
-      "height": 15,
+      "width": 2,
+      "height": 16,
       "texture_px": [
-        3,
-        15
+        2,
+        16
       ],
-      "offset": 16816,
-      "length": 45,
+      "offset": 16789,
+      "length": 32,
       "trim_origin_top_left_px": [
-        80,
+        79,
         37
       ],
       "pivot_from_crop_bottom_left_px": [
-        0,
-        -48
+        1,
+        -47
       ],
-      "sha256": "9a976f5cb56bb0d076a0c55fde7ec2bbae72f0a91629d574866582bb2d838cc1",
+      "sha256": "fe547fe281867ae8687ac9c1292fa5e2c36a888f4734754391c245b1233785fa",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_03.png",
-      "width": 3,
-      "height": 12,
+      "width": 2,
+      "height": 10,
       "texture_px": [
-        3,
-        12
+        2,
+        10
       ],
-      "offset": 16861,
-      "length": 36,
+      "offset": 16821,
+      "length": 20,
       "trim_origin_top_left_px": [
-        84,
-        39
+        82,
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
+        -2,
         -49
       ],
-      "sha256": "90df4fb413d3f182d6f6838d8c901a5539949c0e4421be33afd41812a1ff5069",
+      "sha256": "70c700e8bfde96130f37ed6fdc9dfa7bf6e8dfe3996435a465bcff794a7c292a",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_04.png",
-      "width": 7,
-      "height": 19,
+      "width": 3,
+      "height": 7,
       "texture_px": [
-        7,
-        19
+        3,
+        7
       ],
-      "offset": 16897,
-      "length": 133,
+      "offset": 16841,
+      "length": 21,
       "trim_origin_top_left_px": [
         85,
-        44
+        45
       ],
       "pivot_from_crop_bottom_left_px": [
         -5,
-        -37
+        -48
       ],
-      "sha256": "014248cf43ceef74eaa2dc649128453aca65e00580d1bd1d10dc5efbaad97ac7",
+      "sha256": "ae3ac2f0979acc379dec8ea7c8d99364327fc83edf6d0518194827fcdf1fd2e9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_05.png",
-      "width": 4,
-      "height": 19,
+      "width": 9,
+      "height": 15,
       "texture_px": [
-        4,
-        19
+        9,
+        15
       ],
-      "offset": 17030,
-      "length": 76,
+      "offset": 16862,
+      "length": 135,
       "trim_origin_top_left_px": [
-        87,
-        47
+        85,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -34
+        -5,
+        -35
       ],
-      "sha256": "b6530c71beb1a3f156990b2c420fea01c2ea8b168f9bc6fde06f123a126e4a85",
+      "sha256": "15537e88d89e4672313ecf5730a94008c0ad60947c4322dd647484d15d263cd3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_06.png",
-      "width": 6,
-      "height": 9,
+      "width": 5,
+      "height": 19,
       "texture_px": [
-        6,
-        9
+        5,
+        19
       ],
-      "offset": 17106,
-      "length": 54,
+      "offset": 16997,
+      "length": 95,
       "trim_origin_top_left_px": [
-        89,
-        59
+        86,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
+        -6,
         -32
       ],
-      "sha256": "6f39deaeadda796df82402a70a4854ac41b325e68c9e3b8e19f9ab64fb31392b",
+      "sha256": "f94bad46c77ba2607b1876543e39c20b4014b03db27b60afd85d3121b3967e77",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_07.png",
-      "width": 10,
+      "width": 6,
       "height": 10,
       "texture_px": [
-        10,
+        6,
         10
       ],
-      "offset": 17160,
-      "length": 100,
+      "offset": 17092,
+      "length": 60,
       "trim_origin_top_left_px": [
         87,
-        59
+        60
       ],
       "pivot_from_crop_bottom_left_px": [
         -7,
-        -31
+        -30
       ],
-      "sha256": "306b7204e30d6ba742fb06a76c2b73bc9d8dd6c4feb394710b38ae3503259bac",
+      "sha256": "2184ecd65138209b6debb62ea1595354c87735e28ef3c7fe63a2271d07045e8e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_08.png",
-      "width": 10,
-      "height": 8,
+      "width": 8,
+      "height": 11,
       "texture_px": [
-        10,
-        8
+        8,
+        11
       ],
-      "offset": 17260,
-      "length": 80,
+      "offset": 17152,
+      "length": 88,
       "trim_origin_top_left_px": [
-        87,
-        61
+        86,
+        59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -31
+        -6,
+        -30
       ],
-      "sha256": "2d1ad041994ee5f0d32ea6e1929e997d20c6e3ada91ec2347a2be06eba3d2c89",
+      "sha256": "f3cc1e6c93e407bf2974b7eb65d536d86146658df916bb0008b85d4c1e9937b1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_09.png",
-      "width": 10,
-      "height": 10,
+      "width": 9,
+      "height": 11,
       "texture_px": [
-        10,
-        10
+        9,
+        11
       ],
-      "offset": 17340,
-      "length": 100,
+      "offset": 17240,
+      "length": 99,
       "trim_origin_top_left_px": [
-        87,
+        85,
         59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -31
+        -5,
+        -30
       ],
-      "sha256": "306b7204e30d6ba742fb06a76c2b73bc9d8dd6c4feb394710b38ae3503259bac",
+      "sha256": "9f12af77a64a556534ade67f3bb33486a867c8c7b9999a3a9ae5cb54013093f9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_10.png",
       "width": 6,
-      "height": 9,
+      "height": 10,
       "texture_px": [
         6,
-        9
+        10
       ],
-      "offset": 17440,
-      "length": 54,
+      "offset": 17339,
+      "length": 60,
       "trim_origin_top_left_px": [
-        89,
+        87,
         59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -32
+        -7,
+        -31
       ],
-      "sha256": "ff343eb120c7da187077c981abb0bcfbede60506fb9480379278c6ae97c9f8ab",
+      "sha256": "b0fb82337bc861426cfee80e918a81af183eeabafbd6a72a01742201f0c0e63b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_11.png",
       "width": 4,
-      "height": 19,
+      "height": 18,
       "texture_px": [
         4,
-        19
+        18
       ],
-      "offset": 17494,
-      "length": 76,
+      "offset": 17399,
+      "length": 72,
       "trim_origin_top_left_px": [
-        87,
-        47
+        86,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -34
+        -6,
+        -33
       ],
-      "sha256": "b6530c71beb1a3f156990b2c420fea01c2ea8b168f9bc6fde06f123a126e4a85",
+      "sha256": "ea7eb14cee33002b322fb555e4ec60610b5d0659981858b080099962daab27a2",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nw_12.png",
-      "width": 7,
-      "height": 19,
+      "width": 2,
+      "height": 4,
       "texture_px": [
-        7,
-        19
-      ],
-      "offset": 17570,
-      "length": 133,
-      "trim_origin_top_left_px": [
-        85,
-        44
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -5,
-        -37
-      ],
-      "sha256": "014248cf43ceef74eaa2dc649128453aca65e00580d1bd1d10dc5efbaad97ac7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nw_13.png",
-      "width": 3,
-      "height": 12,
-      "texture_px": [
-        3,
-        12
-      ],
-      "offset": 17703,
-      "length": 36,
-      "trim_origin_top_left_px": [
-        84,
-        39
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -4,
-        -49
-      ],
-      "sha256": "90df4fb413d3f182d6f6838d8c901a5539949c0e4421be33afd41812a1ff5069",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nw_14.png",
-      "width": 3,
-      "height": 15,
-      "texture_px": [
-        3,
-        15
-      ],
-      "offset": 17739,
-      "length": 45,
-      "trim_origin_top_left_px": [
-        80,
-        37
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        0,
-        -48
-      ],
-      "sha256": "9a976f5cb56bb0d076a0c55fde7ec2bbae72f0a91629d574866582bb2d838cc1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nw_15.png",
-      "width": 3,
-      "height": 20,
-      "texture_px": [
-        3,
-        20
-      ],
-      "offset": 17784,
-      "length": 60,
-      "trim_origin_top_left_px": [
-        78,
-        34
-      ],
-      "pivot_from_crop_bottom_left_px": [
         2,
-        -46
+        4
       ],
-      "sha256": "889b8d4302b4142e95dcd16c2f3ac650e6f88bad90c5e94691a6483c353da2e7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nnw_00.png",
-      "width": 9,
-      "height": 17,
-      "texture_px": [
-        9,
-        17
-      ],
-      "offset": 17844,
-      "length": 153,
-      "trim_origin_top_left_px": [
-        88,
-        36
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -8,
-        -47
-      ],
-      "sha256": "cbd4a60c3479731aa361fef39553c4427c69472d317a187de3d9f08030172b57",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nnw_01.png",
-      "width": 10,
-      "height": 18,
-      "texture_px": [
-        10,
-        18
-      ],
-      "offset": 17997,
-      "length": 180,
-      "trim_origin_top_left_px": [
-        88,
-        36
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -8,
-        -46
-      ],
-      "sha256": "0bd1dc1533e2d0edbd2d469f25c39c582e98621c9009ffeb78d4852ff2887aa5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nnw_02.png",
-      "width": 11,
-      "height": 17,
-      "texture_px": [
-        11,
-        17
-      ],
-      "offset": 18177,
-      "length": 187,
-      "trim_origin_top_left_px": [
-        89,
-        38
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -9,
-        -45
-      ],
-      "sha256": "24b9dbbbe3a11c7aa9dcaa2fe231c8f6b2af2e7bd50de2ff3d247652b6e1d6b7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nnw_03.png",
-      "width": 14,
-      "height": 20,
-      "texture_px": [
-        14,
-        20
-      ],
-      "offset": 18364,
-      "length": 280,
-      "trim_origin_top_left_px": [
-        88,
-        43
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -8,
-        -37
-      ],
-      "sha256": "00c0550ad2c38a12ca7fe4a37a9dbc7183e59b34683099e3ebf39ce80a9e3d37",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_nnw_04.png",
-      "width": 17,
-      "height": 17,
-      "texture_px": [
-        17,
-        17
-      ],
-      "offset": 18644,
-      "length": 289,
+      "offset": 17471,
+      "length": 8,
       "trim_origin_top_left_px": [
         89,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
         -9,
-        -34
+        -47
       ],
-      "sha256": "6c1bd93ed0cc4843dcd70424fcaf02b8c1533c4a785eadec26e0211c83032b6c",
+      "sha256": "9f0fa0982ddf4c8bbe217dd22a30a12b918e154cd16ace88b3fc84fabe136644",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nw_13.png",
+      "width": 2,
+      "height": 7,
+      "texture_px": [
+        2,
+        7
+      ],
+      "offset": 17479,
+      "length": 14,
+      "trim_origin_top_left_px": [
+        84,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -4,
+        -50
+      ],
+      "sha256": "a7e8e1c8e70bf47694fa5dca64f9bb65399eadf93f8e5009cca6e8655842c2ee",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nw_14.png",
+      "width": 2,
+      "height": 13,
+      "texture_px": [
+        2,
+        13
+      ],
+      "offset": 17493,
+      "length": 26,
+      "trim_origin_top_left_px": [
+        80,
+        40
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        0,
+        -47
+      ],
+      "sha256": "5790af533f1ec6757b0a4209c598205867bba3c2c4d4aa4623a169374c2e0a3a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nw_15.png",
+      "width": 1,
+      "height": 17,
+      "texture_px": [
+        1,
+        17
+      ],
+      "offset": 17519,
+      "length": 17,
+      "trim_origin_top_left_px": [
+        79,
+        35
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        1,
+        -48
+      ],
+      "sha256": "dd0e1daa825a9af4ef952ada27414130adfedad5488a01b7ffb54d44247709df",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nnw_00.png",
+      "width": 8,
+      "height": 14,
+      "texture_px": [
+        8,
+        14
+      ],
+      "offset": 17536,
+      "length": 112,
+      "trim_origin_top_left_px": [
+        86,
+        38
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -48
+      ],
+      "sha256": "ad4e804b4bb72a88b716b2df6b0d12b857b2eb9948775aeae63ace1ccb33ce97",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nnw_01.png",
+      "width": 8,
+      "height": 14,
+      "texture_px": [
+        8,
+        14
+      ],
+      "offset": 17648,
+      "length": 112,
+      "trim_origin_top_left_px": [
+        86,
+        39
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -47
+      ],
+      "sha256": "c85dbccb7ef530fce471835d5a15d410dfe75820237a213ad353d3bfe3f9305c",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nnw_02.png",
+      "width": 8,
+      "height": 12,
+      "texture_px": [
+        8,
+        12
+      ],
+      "offset": 17760,
+      "length": 96,
+      "trim_origin_top_left_px": [
+        87,
+        41
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -7,
+        -47
+      ],
+      "sha256": "8903317eb36c28f8b78d89476e1beb88db6bc12795202c64cd31a271cb73d431",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nnw_03.png",
+      "width": 9,
+      "height": 13,
+      "texture_px": [
+        9,
+        13
+      ],
+      "offset": 17856,
+      "length": 117,
+      "trim_origin_top_left_px": [
+        90,
+        42
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -10,
+        -45
+      ],
+      "sha256": "aafbf4e141c82a00c304fd1acc5a361c3eac9fae4c49e98aae0f7614fda453cb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_nnw_04.png",
+      "width": 16,
+      "height": 17,
+      "texture_px": [
+        16,
+        17
+      ],
+      "offset": 17973,
+      "length": 272,
+      "trim_origin_top_left_px": [
+        86,
+        48
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -35
+      ],
+      "sha256": "64c9a96b3cfa6307a0bb054eb5ec59600295d5fa94be05a38ead5de146772aed",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_05.png",
-      "width": 11,
-      "height": 18,
+      "width": 18,
+      "height": 12,
       "texture_px": [
-        11,
-        18
+        18,
+        12
       ],
-      "offset": 18933,
-      "length": 198,
+      "offset": 18245,
+      "length": 216,
       "trim_origin_top_left_px": [
-        91,
-        51
+        87,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -31
+        -7,
+        -32
       ],
-      "sha256": "e9bf5605085adf7a804acaf0e97a2a36f966c8d60add84271c2248d3637b86c1",
+      "sha256": "4caf7faf0d8107bc3e1d41f33fb806cc7e7929631840a405786ab0d7fdf30056",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_06.png",
-      "width": 5,
-      "height": 16,
+      "width": 9,
+      "height": 18,
       "texture_px": [
-        5,
-        16
+        9,
+        18
       ],
-      "offset": 19131,
-      "length": 80,
+      "offset": 18461,
+      "length": 162,
       "trim_origin_top_left_px": [
-        93,
-        56
+        90,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -28
+        -10,
+        -29
       ],
-      "sha256": "02b5e92052836f21afebddd6a387941f8de92341bca2c16e96b7426776825517",
+      "sha256": "9eab9573b0dacec9b94f76def1f744a5964e1cc46dc1dd4e35724920a016f0a3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_07.png",
       "width": 6,
-      "height": 9,
+      "height": 18,
       "texture_px": [
         6,
-        9
+        18
       ],
-      "offset": 19211,
-      "length": 54,
+      "offset": 18623,
+      "length": 108,
       "trim_origin_top_left_px": [
-        93,
-        65
+        90,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
+        -10,
         -26
       ],
-      "sha256": "25793d61f55b8f4276598bdeefee0b57b0d887c8048cbf1eaf89db3f3a60ed14",
+      "sha256": "cbbc180f1495ad5f4bfcfd31e57803c96e2cff64d1856a39728d8e0cebae9341",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_08.png",
-      "width": 7,
+      "width": 6,
       "height": 8,
       "texture_px": [
-        7,
+        6,
         8
       ],
-      "offset": 19265,
-      "length": 56,
+      "offset": 18731,
+      "length": 48,
       "trim_origin_top_left_px": [
-        93,
+        91,
         66
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
+        -11,
         -26
       ],
-      "sha256": "569471e52097cf64092aca95d89cf3dc22b7940b48c50b79a4d7e4d2d53506de",
+      "sha256": "d84c7ef63ac1431eafe94cafac152f25b6d6d4607b560646004c990c9f76f600",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_09.png",
-      "width": 6,
-      "height": 9,
+      "width": 5,
+      "height": 8,
       "texture_px": [
-        6,
-        9
+        5,
+        8
       ],
-      "offset": 19321,
-      "length": 54,
+      "offset": 18779,
+      "length": 40,
       "trim_origin_top_left_px": [
-        93,
-        65
+        91,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
+        -11,
         -26
       ],
-      "sha256": "25793d61f55b8f4276598bdeefee0b57b0d887c8048cbf1eaf89db3f3a60ed14",
+      "sha256": "7805cade5380173da924384b15ead2d71de63a5de0ef492aea32c1c8d96ae1bb",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_10.png",
-      "width": 5,
-      "height": 16,
+      "width": 6,
+      "height": 17,
       "texture_px": [
-        5,
-        16
+        6,
+        17
       ],
-      "offset": 19375,
-      "length": 80,
+      "offset": 18819,
+      "length": 102,
       "trim_origin_top_left_px": [
-        93,
+        90,
         56
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -28
+        -10,
+        -27
       ],
-      "sha256": "02b5e92052836f21afebddd6a387941f8de92341bca2c16e96b7426776825517",
+      "sha256": "f2d89d04a00e6cf6f29e9df3d4dabb835c18fd27337cfb131762526a4b6b6302",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_11.png",
-      "width": 11,
-      "height": 18,
+      "width": 12,
+      "height": 16,
       "texture_px": [
-        11,
-        18
+        12,
+        16
       ],
-      "offset": 19455,
-      "length": 198,
+      "offset": 18921,
+      "length": 192,
       "trim_origin_top_left_px": [
-        91,
-        51
+        89,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -31
+        -9,
+        -30
       ],
-      "sha256": "e9bf5605085adf7a804acaf0e97a2a36f966c8d60add84271c2248d3637b86c1",
+      "sha256": "1f18746d930821674b63c19c20b156b9f5b7fff01fd76e6cff649027525b1487",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_12.png",
-      "width": 17,
-      "height": 17,
+      "width": 16,
+      "height": 12,
       "texture_px": [
-        17,
-        17
+        16,
+        12
       ],
-      "offset": 19653,
-      "length": 289,
+      "offset": 19113,
+      "length": 192,
       "trim_origin_top_left_px": [
-        89,
-        49
+        87,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
+        -7,
         -34
       ],
-      "sha256": "6c1bd93ed0cc4843dcd70424fcaf02b8c1533c4a785eadec26e0211c83032b6c",
+      "sha256": "814a4c659e3429834eb9ce4a5eaceaacff3fb57a7573a39ef4f9f8826f99e277",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_13.png",
-      "width": 14,
-      "height": 20,
+      "width": 8,
+      "height": 10,
       "texture_px": [
-        14,
-        20
+        8,
+        10
       ],
-      "offset": 19942,
-      "length": 280,
+      "offset": 19305,
+      "length": 80,
       "trim_origin_top_left_px": [
-        88,
-        43
+        92,
+        46
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
-        -37
+        -12,
+        -44
       ],
-      "sha256": "913b9f714920a28dc5fe2f880054181a8997c37a8cfbdd7b283061dd45bc16ea",
+      "sha256": "41b9ab98f1023911c2baf3197019e20cca564e1233a249d59d8f23cc59a48846",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_14.png",
-      "width": 11,
-      "height": 17,
+      "width": 8,
+      "height": 12,
       "texture_px": [
-        11,
-        17
+        8,
+        12
       ],
-      "offset": 20222,
-      "length": 187,
+      "offset": 19385,
+      "length": 96,
       "trim_origin_top_left_px": [
         89,
-        38
+        41
       ],
       "pivot_from_crop_bottom_left_px": [
         -9,
-        -45
+        -47
       ],
-      "sha256": "24b9dbbbe3a11c7aa9dcaa2fe231c8f6b2af2e7bd50de2ff3d247652b6e1d6b7",
+      "sha256": "c71599fc3f9bec19a794f1758638e054588b4c19b6a474a9861bf452342c7a6d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nnw_15.png",
-      "width": 10,
-      "height": 18,
+      "width": 8,
+      "height": 15,
       "texture_px": [
-        10,
-        18
+        8,
+        15
       ],
-      "offset": 20409,
-      "length": 180,
+      "offset": 19481,
+      "length": 120,
       "trim_origin_top_left_px": [
-        88,
-        36
+        87,
+        38
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
-        -46
+        -7,
+        -47
       ],
-      "sha256": "0bd1dc1533e2d0edbd2d469f25c39c582e98621c9009ffeb78d4852ff2887aa5",
+      "sha256": "13b5eb37edcfae34aaaea66d6649fe789f8e7f525105890527d09452ee89a0c3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_00.png",
-      "width": 18,
-      "height": 17,
+      "width": 16,
+      "height": 15,
       "texture_px": [
-        18,
-        17
+        16,
+        15
       ],
-      "offset": 20589,
-      "length": 306,
+      "offset": 19601,
+      "length": 240,
       "trim_origin_top_left_px": [
-        94,
+        92,
         42
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -41
+        -12,
+        -43
       ],
-      "sha256": "feee6ac071638f14c81cff81e637a8603ff7f1d6f410b9ca631fc0e5c01c4e73",
+      "sha256": "f3b57725d538bc0af10f17a166cb06f35056e44b0ecdb6eb02420559ba095349",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_01.png",
+      "width": 16,
+      "height": 15,
+      "texture_px": [
+        16,
+        15
+      ],
+      "offset": 19841,
+      "length": 240,
+      "trim_origin_top_left_px": [
+        92,
+        43
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -12,
+        -42
+      ],
+      "sha256": "63492c3d21230edcc74a4da6d3c9261a5d6b493cd5c5d2519dd6dafad4ef45c7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_02.png",
+      "width": 15,
+      "height": 14,
+      "texture_px": [
+        15,
+        14
+      ],
+      "offset": 20081,
+      "length": 210,
+      "trim_origin_top_left_px": [
+        94,
+        45
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -41
+      ],
+      "sha256": "1d7f0fc8ab6490a8fed2988e3d90ceb7ad2c90309a2606b66d4a64c127f01da0",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_03.png",
+      "width": 17,
+      "height": 12,
+      "texture_px": [
+        17,
+        12
+      ],
+      "offset": 20291,
+      "length": 204,
+      "trim_origin_top_left_px": [
+        94,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -39
+      ],
+      "sha256": "abcbe426a70b55618ebfb78154057c752e475dcaea1519b24f432cc802c66905",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_04.png",
+      "width": 23,
+      "height": 11,
+      "texture_px": [
+        23,
+        11
+      ],
+      "offset": 20495,
+      "length": 253,
+      "trim_origin_top_left_px": [
+        89,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -33
+      ],
+      "sha256": "3734526395914b690fae94e960598ad561391e6e2f6a190a5dbdd96c70a2ffea",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_05.png",
+      "width": 24,
+      "height": 6,
+      "texture_px": [
+        24,
+        6
+      ],
+      "offset": 20748,
+      "length": 144,
+      "trim_origin_top_left_px": [
+        89,
+        64
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -9,
+        -30
+      ],
+      "sha256": "64d2b34a7c1d9d1ae93223792cbb79b63bac399a9ae184eb40cacca295b13951",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_06.png",
       "width": 18,
       "height": 16,
       "texture_px": [
         18,
         16
       ],
-      "offset": 20895,
+      "offset": 20892,
       "length": 288,
       "trim_origin_top_left_px": [
-        94,
-        43
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -14,
-        -41
-      ],
-      "sha256": "5c809c89ae3cbeae26d053a815ac4f1d17e998d25da6937eccb4e4af6637d157",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_02.png",
-      "width": 17,
-      "height": 15,
-      "texture_px": [
-        17,
-        15
-      ],
-      "offset": 21183,
-      "length": 255,
-      "trim_origin_top_left_px": [
-        96,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -16,
-        -39
-      ],
-      "sha256": "91c5aebc5d18382a21538981a4ee44895b7a7f17717d4049c15a55e2153b24e0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_03.png",
-      "width": 19,
-      "height": 11,
-      "texture_px": [
-        19,
-        11
-      ],
-      "offset": 21438,
-      "length": 209,
-      "trim_origin_top_left_px": [
-        96,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -16,
-        -38
-      ],
-      "sha256": "53c34b1b725f6544b84cea1958eb48b106ed7daf893a7123f7b78415e5151253",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_04.png",
-      "width": 24,
-      "height": 11,
-      "texture_px": [
-        24,
-        11
-      ],
-      "offset": 21647,
-      "length": 264,
-      "trim_origin_top_left_px": [
-        92,
-        58
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -12,
-        -31
-      ],
-      "sha256": "78e48f5ff925f46976efb352e46d67124f6032e739d3411cf804637543f23ada",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_05.png",
-      "width": 19,
-      "height": 14,
-      "texture_px": [
-        19,
-        14
-      ],
-      "offset": 21911,
-      "length": 266,
-      "trim_origin_top_left_px": [
-        92,
+        90,
         59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -27
+        -10,
+        -25
       ],
-      "sha256": "208a4640ab7369cd85523848915a48fd6c2fdb838b271cb694be252be5410cb9",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_06.png",
-      "width": 13,
-      "height": 14,
-      "texture_px": [
-        13,
-        14
-      ],
-      "offset": 22177,
-      "length": 182,
-      "trim_origin_top_left_px": [
-        93,
-        62
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -13,
-        -24
-      ],
-      "sha256": "33c760736aab42733cd3963c5c4e77f053c367f5f1b1079cd37ec07fe8a20401",
+      "sha256": "ae2a8f34057fd137da82bd29c52ad5f797e5e468950ba21c41a734ec998169ee",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_07.png",
-      "width": 11,
-      "height": 10,
+      "width": 13,
+      "height": 15,
       "texture_px": [
-        11,
-        10
+        13,
+        15
       ],
-      "offset": 22359,
-      "length": 110,
+      "offset": 21180,
+      "length": 195,
       "trim_origin_top_left_px": [
-        93,
-        68
+        90,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -22
+        -10,
+        -23
       ],
-      "sha256": "3477799a116bc7f16fe2333d816ab58dcbd3b1523b1ce35ee55955d417ced457",
+      "sha256": "689c70e0e4241f27b50c5ac96b66d9416e6811b38010a9e2466fc32bfe528dc4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_08.png",
-      "width": 10,
-      "height": 9,
+      "width": 11,
+      "height": 14,
       "texture_px": [
-        10,
-        9
+        11,
+        14
       ],
-      "offset": 22469,
-      "length": 90,
+      "offset": 21375,
+      "length": 154,
       "trim_origin_top_left_px": [
-        93,
-        70
+        91,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -21
+        -11,
+        -22
       ],
-      "sha256": "3be4677a08cfe79d9bce4b7b287894f9866f90a73fde9521e01d17ea1936eb71",
+      "sha256": "37eecb58bfcf591b82815ae038758580f5573c7086217d75555a768d08112305",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_09.png",
       "width": 11,
-      "height": 10,
+      "height": 14,
       "texture_px": [
         11,
-        10
+        14
       ],
-      "offset": 22559,
-      "length": 110,
+      "offset": 21529,
+      "length": 154,
       "trim_origin_top_left_px": [
-        93,
-        68
+        91,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
+        -11,
         -22
       ],
-      "sha256": "3477799a116bc7f16fe2333d816ab58dcbd3b1523b1ce35ee55955d417ced457",
+      "sha256": "60280d9ff09c1cee214feb0f54cee1e7b363710fa72ac61c5a47db9a2df5a923",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_10.png",
-      "width": 13,
+      "width": 14,
       "height": 14,
       "texture_px": [
-        13,
+        14,
         14
       ],
-      "offset": 22669,
-      "length": 182,
+      "offset": 21683,
+      "length": 196,
       "trim_origin_top_left_px": [
-        93,
+        90,
         62
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
+        -10,
         -24
       ],
-      "sha256": "33c760736aab42733cd3963c5c4e77f053c367f5f1b1079cd37ec07fe8a20401",
+      "sha256": "152b4f7ddc9157d38010c3c57e8a2d4cc0e186e86c83126738cf3fe1d2081b9c",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_11.png",
-      "width": 19,
-      "height": 14,
+      "width": 21,
+      "height": 12,
       "texture_px": [
-        19,
-        14
+        21,
+        12
       ],
-      "offset": 22851,
-      "length": 266,
+      "offset": 21879,
+      "length": 252,
       "trim_origin_top_left_px": [
-        92,
-        59
+        89,
+        61
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
+        -9,
         -27
       ],
-      "sha256": "20048fa3ba6c906176b45aac64c995adf2132bd9eebc26fd77323ca1dddc6bb7",
+      "sha256": "947a50b3e1361d0895db46b78bf4d10b29020588cce863564a3c0a47a2586de1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_12.png",
-      "width": 24,
-      "height": 11,
+      "width": 23,
+      "height": 6,
       "texture_px": [
-        24,
-        11
+        23,
+        6
       ],
-      "offset": 23117,
-      "length": 264,
+      "offset": 22131,
+      "length": 138,
       "trim_origin_top_left_px": [
-        92,
-        58
+        89,
+        62
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -31
+        -9,
+        -32
       ],
-      "sha256": "f4b9b8852875dd579061cf2f808419c9202d71a66493c3b32b9e0ebac6906349",
+      "sha256": "e72612d8e5ba323679430ca998058164ea0e07f0241071aa065ea63d726301ea",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_13.png",
-      "width": 19,
-      "height": 11,
+      "width": 17,
+      "height": 9,
       "texture_px": [
-        19,
-        11
+        17,
+        9
       ],
-      "offset": 23381,
-      "length": 209,
+      "offset": 22269,
+      "length": 153,
       "trim_origin_top_left_px": [
-        96,
-        51
+        94,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        -16,
+        -14,
         -38
       ],
-      "sha256": "53c34b1b725f6544b84cea1958eb48b106ed7daf893a7123f7b78415e5151253",
+      "sha256": "27b5c2782763c2ac8b96539dfda57dc53f343f2e8cb4c63e06147bc03d559ab5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_n_14.png",
+      "width": 16,
+      "height": 13,
+      "texture_px": [
+        16,
+        13
+      ],
+      "offset": 22422,
+      "length": 208,
+      "trim_origin_top_left_px": [
+        94,
+        47
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -14,
+        -40
+      ],
+      "sha256": "5fa9317ceb2d9b3065d69ced5930091643a5cf1007241300a20ad2cf7a079861",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_n_15.png",
       "width": 17,
       "height": 15,
       "texture_px": [
         17,
         15
       ],
-      "offset": 23590,
+      "offset": 22630,
       "length": 255,
       "trim_origin_top_left_px": [
-        96,
-        46
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -16,
-        -39
-      ],
-      "sha256": "91c5aebc5d18382a21538981a4ee44895b7a7f17717d4049c15a55e2153b24e0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_n_15.png",
-      "width": 18,
-      "height": 16,
-      "texture_px": [
-        18,
-        16
-      ],
-      "offset": 23845,
-      "length": 288,
-      "trim_origin_top_left_px": [
-        94,
+        92,
         43
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -41
+        -12,
+        -42
       ],
-      "sha256": "5c809c89ae3cbeae26d053a815ac4f1d17e998d25da6937eccb4e4af6637d157",
+      "sha256": "406bb1ce659c3b3463ef7b8016713c49314774bfbac14d39659a8b19887547e2",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_00.png",
-      "width": 25,
-      "height": 12,
+      "width": 24,
+      "height": 11,
       "texture_px": [
-        25,
-        12
+        24,
+        11
       ],
-      "offset": 24133,
-      "length": 300,
+      "offset": 22885,
+      "length": 264,
       "trim_origin_top_left_px": [
-        97,
-        53
+        94,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -35
+        -14,
+        -37
       ],
-      "sha256": "4b6a386a5e597f1adcf442e98ac1d54abd215ea291fdf134db92182e626299e1",
+      "sha256": "d6a02250525b7eed1242cc48bd4facfcb6a7be1db2039a83b8703a02ec91b81f",
       "empty": false
     },
     {
@@ -3246,17 +3246,17 @@
         24,
         11
       ],
-      "offset": 24433,
+      "offset": 23149,
       "length": 264,
       "trim_origin_top_left_px": [
-        98,
-        54
+        94,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -35
+        -14,
+        -37
       ],
-      "sha256": "4b3e669610f2aef753c34ba01235e97bcdb4c6ce45efcd5861a744f1c8b2af7d",
+      "sha256": "bd1f0fe4e0d0c33adcf776dcfb07c1d5afa180da876bc4403163dd66ad9d6d76",
       "empty": false
     },
     {
@@ -3268,281 +3268,281 @@
         24,
         10
       ],
-      "offset": 24697,
+      "offset": 23413,
       "length": 240,
       "trim_origin_top_left_px": [
-        98,
-        57
+        94,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -33
+        -14,
+        -35
       ],
-      "sha256": "33b10d6460f682bf639d40070fc4be81fce4b8d0e4ae5f533bcef03f3491cbeb",
+      "sha256": "f810630083e940c57039f4ff07246edb6b27572e724d9cbc3b4d66c2117ea06d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_03.png",
-      "width": 21,
+      "width": 22,
       "height": 9,
       "texture_px": [
-        21,
+        22,
         9
       ],
-      "offset": 24937,
-      "length": 189,
+      "offset": 23653,
+      "length": 198,
       "trim_origin_top_left_px": [
-        100,
-        62
+        97,
+        59
       ],
       "pivot_from_crop_bottom_left_px": [
-        -20,
-        -29
+        -17,
+        -32
       ],
-      "sha256": "1759101451a798864f8135417b90e9644598d4f55b6cb137af63e9dfc18f2bc5",
+      "sha256": "cf7616551a0d8ef46f5a2d82ca277befaffe456643cc00ba4ffc20f43ce716c4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_04.png",
       "width": 22,
-      "height": 7,
+      "height": 6,
       "texture_px": [
         22,
-        7
+        6
       ],
-      "offset": 25126,
-      "length": 154,
+      "offset": 23851,
+      "length": 132,
       "trim_origin_top_left_px": [
-        98,
-        68
+        96,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -25
+        -16,
+        -28
       ],
-      "sha256": "1431894af398c964c4ffc948e94a3fc78fda2dcd4be913e7e8a01255285d8db0",
+      "sha256": "7dc2818b52486bd7f8748ddbe8fc269895b40a4a437c280702c1711b89e8aa35",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_05.png",
-      "width": 25,
-      "height": 9,
+      "width": 21,
+      "height": 7,
       "texture_px": [
-        25,
-        9
+        21,
+        7
       ],
-      "offset": 25280,
-      "length": 225,
+      "offset": 23983,
+      "length": 147,
       "trim_origin_top_left_px": [
-        91,
+        95,
         69
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -22
+        -15,
+        -24
       ],
-      "sha256": "2e1d9f4736f646aa592ac2cf39596baa9007184604ab42f21b632006aa135594",
+      "sha256": "32b5cf606ee894c1330ac547dbde55c57092590505839de77d859b7ef7d9b7c9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_06.png",
-      "width": 21,
-      "height": 9,
+      "width": 25,
+      "height": 10,
       "texture_px": [
-        21,
-        9
+        25,
+        10
       ],
-      "offset": 25505,
-      "length": 189,
+      "offset": 24130,
+      "length": 250,
       "trim_origin_top_left_px": [
-        90,
-        71
+        88,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -20
+        -8,
+        -22
       ],
-      "sha256": "8eb2a984bc0137ce6b566ae95f4cb0a7f31ca2498291d055815728698739795b",
+      "sha256": "33aa9cafa96b91bb05b56d6ddd47a26e81f3ded94a90830b2431b8f2e76d6712",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_07.png",
-      "width": 18,
-      "height": 8,
+      "width": 21,
+      "height": 11,
       "texture_px": [
-        18,
-        8
+        21,
+        11
       ],
-      "offset": 25694,
-      "length": 144,
+      "offset": 24380,
+      "length": 231,
       "trim_origin_top_left_px": [
-        89,
-        75
+        87,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -17
+        -7,
+        -20
       ],
-      "sha256": "0677c9508c147a177e572020a8d1c68fd400693ec81c92c7084a9a4291c4d8f0",
+      "sha256": "1a6ae5f8320d479ea10675c6597f9c812075610a36ea84ed192887ad91189549",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_08.png",
-      "width": 17,
-      "height": 6,
+      "width": 19,
+      "height": 10,
       "texture_px": [
-        17,
-        6
+        19,
+        10
       ],
-      "offset": 25838,
-      "length": 102,
+      "offset": 24611,
+      "length": 190,
       "trim_origin_top_left_px": [
-        89,
-        77
+        87,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -17
+        -7,
+        -19
       ],
-      "sha256": "bb52373e569a36d8926d307a0332922a9cae507c76efe1c8b06332e43afd62d9",
+      "sha256": "29ee781526f00068b9ad90de510ea96ca3f71dd4e98ed57975ea116f6c99da70",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_09.png",
-      "width": 18,
-      "height": 8,
+      "width": 20,
+      "height": 10,
       "texture_px": [
-        18,
-        8
+        20,
+        10
       ],
-      "offset": 25940,
-      "length": 144,
+      "offset": 24801,
+      "length": 200,
       "trim_origin_top_left_px": [
-        89,
-        75
+        87,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
-        -17
+        -7,
+        -19
       ],
-      "sha256": "0677c9508c147a177e572020a8d1c68fd400693ec81c92c7084a9a4291c4d8f0",
+      "sha256": "2bf646958b2e540eb23baf824598de07c80dcb17b1f883f45e49d4083782096e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_10.png",
-      "width": 21,
-      "height": 9,
+      "width": 22,
+      "height": 10,
       "texture_px": [
-        21,
-        9
+        22,
+        10
       ],
-      "offset": 26084,
-      "length": 189,
+      "offset": 25001,
+      "length": 220,
       "trim_origin_top_left_px": [
-        90,
-        71
+        87,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        -10,
-        -20
+        -7,
+        -21
       ],
-      "sha256": "8eb2a984bc0137ce6b566ae95f4cb0a7f31ca2498291d055815728698739795b",
+      "sha256": "978d649835828e4f0645e9ec9d76a9de5db3735ad8d178573b26801bdac93ee9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_11.png",
-      "width": 25,
-      "height": 9,
+      "width": 26,
+      "height": 7,
       "texture_px": [
-        25,
-        9
+        26,
+        7
       ],
-      "offset": 26273,
-      "length": 225,
+      "offset": 25221,
+      "length": 182,
       "trim_origin_top_left_px": [
-        91,
-        69
+        88,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -22
+        -8,
+        -23
       ],
-      "sha256": "2e1d9f4736f646aa592ac2cf39596baa9007184604ab42f21b632006aa135594",
+      "sha256": "4c290c06841458cca608beb9e18d0d4f0d737a4a0b2ea6cc0f8471a137660177",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_12.png",
-      "width": 22,
-      "height": 7,
+      "width": 20,
+      "height": 5,
       "texture_px": [
-        22,
-        7
+        20,
+        5
       ],
-      "offset": 26498,
-      "length": 154,
+      "offset": 25403,
+      "length": 100,
       "trim_origin_top_left_px": [
-        98,
+        96,
         68
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -25
+        -16,
+        -27
       ],
-      "sha256": "9801f83d573a7f58f4bff09715276eab38e42371e4a7980a85d39d15c1854278",
+      "sha256": "41af9961688849ac9b8973b2f9dbea0ee420c94944855a6cc271704c4678f5da",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_13.png",
       "width": 21,
-      "height": 9,
+      "height": 6,
       "texture_px": [
         21,
-        9
+        6
       ],
-      "offset": 26652,
-      "length": 189,
+      "offset": 25503,
+      "length": 126,
       "trim_origin_top_left_px": [
-        100,
-        62
+        97,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        -20,
-        -29
+        -17,
+        -31
       ],
-      "sha256": "1759101451a798864f8135417b90e9644598d4f55b6cb137af63e9dfc18f2bc5",
+      "sha256": "3ac632cb96f81abe67a9f03b7f33c646659ca0e59cd5196bdb80913f6e3783c7",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_nne_14.png",
-      "width": 24,
-      "height": 10,
+      "width": 23,
+      "height": 9,
       "texture_px": [
-        24,
-        10
+        23,
+        9
       ],
-      "offset": 26841,
-      "length": 240,
+      "offset": 25629,
+      "length": 207,
       "trim_origin_top_left_px": [
-        98,
+        95,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -33
+        -15,
+        -34
       ],
-      "sha256": "33b10d6460f682bf639d40070fc4be81fce4b8d0e4ae5f533bcef03f3491cbeb",
+      "sha256": "2eafd85db3d6e6768cf675368efb7b725bbbfb464bd1d0954cdc5d4d5728009f",
       "empty": false
     },
     {
@@ -3554,391 +3554,391 @@
         24,
         11
       ],
-      "offset": 27081,
+      "offset": 25836,
       "length": 264,
       "trim_origin_top_left_px": [
-        98,
-        54
+        94,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -35
+        -14,
+        -36
       ],
-      "sha256": "4b3e669610f2aef753c34ba01235e97bcdb4c6ce45efcd5861a744f1c8b2af7d",
+      "sha256": "daae17f13a650de640053e3e239f82e7b0b553352f14fce969e7b255d131ca58",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_00.png",
-      "width": 27,
-      "height": 7,
+      "width": 28,
+      "height": 6,
       "texture_px": [
-        27,
-        7
+        28,
+        6
       ],
-      "offset": 27345,
-      "length": 189,
+      "offset": 26100,
+      "length": 168,
       "trim_origin_top_left_px": [
-        99,
-        65
+        95,
+        63
       ],
       "pivot_from_crop_bottom_left_px": [
-        -19,
-        -28
+        -15,
+        -31
       ],
-      "sha256": "0bfe6446afe042d2bb15763ff5110552d9374e6a194025b27019e787db9beba8",
+      "sha256": "032cd4a18f33397b3f74f946790c8f7d6719fbebe8675f332b2d48ce3288a42d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_01.png",
-      "width": 26,
-      "height": 6,
+      "width": 27,
+      "height": 5,
       "texture_px": [
-        26,
-        6
+        27,
+        5
       ],
-      "offset": 27534,
-      "length": 156,
+      "offset": 26268,
+      "length": 135,
       "trim_origin_top_left_px": [
-        98,
-        67
+        95,
+        64
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -27
+        -15,
+        -31
       ],
-      "sha256": "198ee65fb09128e5a30e1c65ad1d835bcdf08459f8b308266abe18a2199f7517",
+      "sha256": "cdef20fcfa6879941c7ae95b49d825ebd36d059f9ecbcbb1af8a650f3915ce9b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_02.png",
-      "width": 26,
+      "width": 28,
       "height": 5,
       "texture_px": [
-        26,
+        28,
         5
       ],
-      "offset": 27690,
-      "length": 130,
+      "offset": 26403,
+      "length": 140,
       "trim_origin_top_left_px": [
-        97,
-        69
+        94,
+        66
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -26
+        -14,
+        -29
       ],
-      "sha256": "ff39caef9877b3e8472b17c0efdfc4fc3a83295bfc166049e5d9e0131a39bd12",
+      "sha256": "b854aa850f4f7dbd9c0ec09c380c8d4fa6ef02fb07e5a7a4963392589d180dc1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_03.png",
       "width": 27,
-      "height": 6,
+      "height": 5,
       "texture_px": [
         27,
-        6
+        5
       ],
-      "offset": 27820,
-      "length": 162,
+      "offset": 26543,
+      "length": 135,
       "trim_origin_top_left_px": [
-        95,
-        71
+        93,
+        68
       ],
       "pivot_from_crop_bottom_left_px": [
-        -15,
-        -23
+        -13,
+        -27
       ],
-      "sha256": "34b463bf60e4aae50a560cca66547c7d5450e9a6f04ab2e4b37945935ff7b329",
+      "sha256": "aea8db84b1ad604756410836912660f4c3ed652880ff9073b85e0527b0bc49f1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_04.png",
-      "width": 22,
-      "height": 8,
+      "width": 26,
+      "height": 7,
       "texture_px": [
-        22,
-        8
+        26,
+        7
       ],
-      "offset": 27982,
-      "length": 176,
+      "offset": 26678,
+      "length": 182,
       "trim_origin_top_left_px": [
-        97,
-        74
+        92,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -18
+        -12,
+        -22
       ],
-      "sha256": "8da8d4eeec1f131541e5c612571479d3ac7875bbe347e367e97b04e845fc57eb",
+      "sha256": "e1503b791c36a19f0d4bf7166612509216ae2dfbfedd69b980ace80273c5277b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_05.png",
-      "width": 28,
-      "height": 7,
+      "width": 21,
+      "height": 11,
       "texture_px": [
-        28,
-        7
+        21,
+        11
       ],
-      "offset": 28158,
-      "length": 196,
+      "offset": 26860,
+      "length": 231,
       "trim_origin_top_left_px": [
-        88,
-        76
+        92,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
-        -17
+        -12,
+        -15
       ],
-      "sha256": "c94809545cb4ba32074c8b3ce795286963904aacac4272d1583753486045a66d",
+      "sha256": "ea5dede7fdaeba9df81a88dadcfe867e2b38c81b02f44156591624c4e4b3a438",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_06.png",
-      "width": 26,
-      "height": 7,
-      "texture_px": [
-        26,
-        7
-      ],
-      "offset": 28354,
-      "length": 182,
-      "trim_origin_top_left_px": [
-        85,
-        78
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -5,
-        -15
-      ],
-      "sha256": "8a7705ca4d381f40d8fd0e3bd1f5ff9c278a77a72416e7cedeb755791d9b37b2",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ne_07.png",
-      "width": 23,
-      "height": 5,
-      "texture_px": [
-        23,
-        5
-      ],
-      "offset": 28536,
-      "length": 115,
-      "trim_origin_top_left_px": [
-        84,
-        81
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -4,
-        -14
-      ],
-      "sha256": "e8bff139dcab83dcc87b1741ee91c16d910b6c4c0d79c9d8c9087c03d022556d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ne_08.png",
-      "width": 23,
-      "height": 5,
-      "texture_px": [
-        23,
-        5
-      ],
-      "offset": 28651,
-      "length": 115,
-      "trim_origin_top_left_px": [
-        83,
-        82
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -3,
-        -13
-      ],
-      "sha256": "704e84c6fb56ba32690b2021985dc00874ef55fedaf708c6a2b30aa933e6420a",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ne_09.png",
-      "width": 23,
-      "height": 5,
-      "texture_px": [
-        23,
-        5
-      ],
-      "offset": 28766,
-      "length": 115,
-      "trim_origin_top_left_px": [
-        84,
-        81
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -4,
-        -14
-      ],
-      "sha256": "e8bff139dcab83dcc87b1741ee91c16d910b6c4c0d79c9d8c9087c03d022556d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ne_10.png",
-      "width": 26,
-      "height": 7,
-      "texture_px": [
-        26,
-        7
-      ],
-      "offset": 28881,
-      "length": 182,
-      "trim_origin_top_left_px": [
-        85,
-        78
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -5,
-        -15
-      ],
-      "sha256": "8a7705ca4d381f40d8fd0e3bd1f5ff9c278a77a72416e7cedeb755791d9b37b2",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ne_11.png",
       "width": 28,
       "height": 7,
       "texture_px": [
         28,
         7
       ],
-      "offset": 29063,
+      "offset": 27091,
       "length": 196,
       "trim_origin_top_left_px": [
-        88,
+        85,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -18
+      ],
+      "sha256": "bd9f244d91fdef57e92fb6c6b9348f2b3ccba223d62087f1f9f3edabfba82b40",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ne_07.png",
+      "width": 26,
+      "height": 7,
+      "texture_px": [
+        26,
+        7
+      ],
+      "offset": 27287,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        83,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -3,
+        -16
+      ],
+      "sha256": "652a162f75bb178b66a6373fcdb6f9557e5a2c745cc120c326110720197e7d57",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ne_08.png",
+      "width": 25,
+      "height": 6,
+      "texture_px": [
+        25,
+        6
+      ],
+      "offset": 27469,
+      "length": 150,
+      "trim_origin_top_left_px": [
+        82,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -16
+      ],
+      "sha256": "d0e7f66ba934b4c2f83d8a3456b7d84188fdb9b00ece0bdd49130d45349bd389",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ne_09.png",
+      "width": 26,
+      "height": 7,
+      "texture_px": [
+        26,
+        7
+      ],
+      "offset": 27619,
+      "length": 182,
+      "trim_origin_top_left_px": [
+        82,
+        77
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -2,
+        -16
+      ],
+      "sha256": "d4da68b8df82cd30977d5469b98ab5457e4d598c4a40165fbb60699f2286f55e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ne_10.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 27801,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        83,
         76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
+        -3,
         -17
       ],
-      "sha256": "c94809545cb4ba32074c8b3ce795286963904aacac4272d1583753486045a66d",
+      "sha256": "4e70303caac883007ef741b8a5d8fd30bc75617d8c36489c7189b26ebed174be",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ne_11.png",
+      "width": 22,
+      "height": 7,
+      "texture_px": [
+        22,
+        7
+      ],
+      "offset": 27990,
+      "length": 154,
+      "trim_origin_top_left_px": [
+        91,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -11,
+        -18
+      ],
+      "sha256": "231ab96ec9918b8a62a550ba10d98630cf63acfd6994a0ab2c5469d1ade3c1f5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_12.png",
-      "width": 22,
-      "height": 8,
+      "width": 21,
+      "height": 10,
       "texture_px": [
-        22,
-        8
+        21,
+        10
       ],
-      "offset": 29259,
-      "length": 176,
+      "offset": 28144,
+      "length": 210,
       "trim_origin_top_left_px": [
-        97,
-        74
+        94,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -18
+        -14,
+        -17
       ],
-      "sha256": "8da8d4eeec1f131541e5c612571479d3ac7875bbe347e367e97b04e845fc57eb",
+      "sha256": "b73ab8f0b92120a53bdb13d4bb664eb1da9e156fef5f91f20c5ae5be4522ea98",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_13.png",
-      "width": 27,
-      "height": 6,
+      "width": 25,
+      "height": 5,
       "texture_px": [
-        27,
-        6
+        25,
+        5
       ],
-      "offset": 29435,
-      "length": 162,
+      "offset": 28354,
+      "length": 125,
       "trim_origin_top_left_px": [
-        95,
-        71
+        93,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        -15,
-        -23
+        -13,
+        -25
       ],
-      "sha256": "34b463bf60e4aae50a560cca66547c7d5450e9a6f04ab2e4b37945935ff7b329",
+      "sha256": "873847933f8b5455fecd489814cba03c0118007621095be2a25bba07d6e422ce",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_14.png",
-      "width": 26,
-      "height": 5,
+      "width": 28,
+      "height": 4,
       "texture_px": [
-        26,
-        5
+        28,
+        4
       ],
-      "offset": 29597,
-      "length": 130,
+      "offset": 28479,
+      "length": 112,
       "trim_origin_top_left_px": [
-        97,
-        69
+        93,
+        67
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -26
+        -13,
+        -29
       ],
-      "sha256": "ff39caef9877b3e8472b17c0efdfc4fc3a83295bfc166049e5d9e0131a39bd12",
+      "sha256": "5132f36d98b58c06f23cf022bcbb44a980963168b4d681e15594593dbe0b7fb6",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ne_15.png",
       "width": 26,
-      "height": 6,
+      "height": 4,
       "texture_px": [
         26,
-        6
+        4
       ],
-      "offset": 29727,
-      "length": 156,
+      "offset": 28591,
+      "length": 104,
       "trim_origin_top_left_px": [
-        98,
-        67
+        95,
+        65
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -27
+        -15,
+        -31
       ],
-      "sha256": "198ee65fb09128e5a30e1c65ad1d835bcdf08459f8b308266abe18a2199f7517",
+      "sha256": "78f5b513e2007f6aacc81dce8a159f5ceddefc91f4f54055ab1394361d5d702b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_00.png",
       "width": 24,
-      "height": 6,
+      "height": 5,
       "texture_px": [
         24,
-        6
+        5
       ],
-      "offset": 29883,
-      "length": 144,
+      "offset": 28695,
+      "length": 120,
       "trim_origin_top_left_px": [
-        98,
-        74
+        95,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -18,
-        -20
+        -15,
+        -24
       ],
-      "sha256": "d93a310bff06c1da08493a1d09c0389ae7922cb125b2fe3e07fe17219d3d0820",
+      "sha256": "b1535d4d9b56dbbbbdd7de606b6e7f68fc6e6bf41f35023cec6efe9d42c4e4bb",
       "empty": false
     },
     {
@@ -3950,193 +3950,193 @@
         24,
         6
       ],
-      "offset": 30027,
+      "offset": 28815,
       "length": 144,
       "trim_origin_top_left_px": [
-        97,
-        74
+        95,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -20
+        -15,
+        -23
       ],
-      "sha256": "18a7c522c988dbb15f8e76bad1eda09876a8d670a88caf7be81e53b26ea32bcc",
+      "sha256": "7e1653e8da57fa89ce764c4686ef0c60cf6b984569775b6e4adb5a8b03ee9949",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_02.png",
       "width": 25,
-      "height": 8,
+      "height": 7,
       "texture_px": [
         25,
-        8
+        7
       ],
-      "offset": 30171,
-      "length": 200,
+      "offset": 28959,
+      "length": 175,
       "trim_origin_top_left_px": [
-        95,
-        75
+        93,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        -15,
-        -17
+        -13,
+        -21
       ],
-      "sha256": "e178d352e270562d075ee5d407ae85642ffdfad291300d12d2e6f3f5acf65b2a",
+      "sha256": "1a5271892d3ecc04bccee7ba5e3b6fe911567e201cba779366cb44cffd34554f",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_03.png",
-      "width": 24,
-      "height": 10,
-      "texture_px": [
-        24,
-        10
-      ],
-      "offset": 30371,
-      "length": 240,
-      "trim_origin_top_left_px": [
-        92,
-        77
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -12,
-        -13
-      ],
-      "sha256": "dd17f5cca0b3a0356ba0c1b3460ae410ed50be9ede8d48a992338c7a5c021c65",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ene_04.png",
-      "width": 22,
-      "height": 14,
-      "texture_px": [
-        22,
-        14
-      ],
-      "offset": 30611,
-      "length": 308,
-      "trim_origin_top_left_px": [
-        89,
-        78
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -9,
-        -8
-      ],
-      "sha256": "e041dedb295c5e3b104a1a363869dad9dd5d016fd1ee7c2d8785f52ebb861192",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ene_05.png",
-      "width": 21,
-      "height": 10,
-      "texture_px": [
-        21,
-        10
-      ],
-      "offset": 30919,
-      "length": 210,
-      "trim_origin_top_left_px": [
-        89,
-        80
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        -9,
-        -10
-      ],
-      "sha256": "25fcccde6df694359d4f10148ddd82d1283a258fa3b43c327d14e06c84087b4e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ene_06.png",
-      "width": 27,
-      "height": 8,
-      "texture_px": [
-        27,
-        8
-      ],
-      "offset": 31129,
-      "length": 216,
-      "trim_origin_top_left_px": [
-        80,
-        81
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        0,
-        -11
-      ],
-      "sha256": "85df8ccd55c710a5e8d6e5246cbb7f5fe34f5379638fbc00cb1515a8e3a338ea",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ene_07.png",
-      "width": 26,
-      "height": 10,
-      "texture_px": [
-        26,
-        10
-      ],
-      "offset": 31345,
-      "length": 260,
-      "trim_origin_top_left_px": [
-        77,
-        82
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        3,
-        -8
-      ],
-      "sha256": "ad1b7e3721f94f888b76fa3cb96619ada281afb66eb30dafce5c2264f3f6c576",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_ene_08.png",
       "width": 25,
       "height": 10,
       "texture_px": [
         25,
         10
       ],
-      "offset": 31605,
+      "offset": 29134,
       "length": 250,
       "trim_origin_top_left_px": [
-        76,
-        82
+        91,
+        73
       ],
       "pivot_from_crop_bottom_left_px": [
-        4,
-        -8
+        -11,
+        -17
       ],
-      "sha256": "95d5ea1a64b3474f776701269b33dfcd2323c7fea78b5575083723dfd574782c",
+      "sha256": "48ef84fde6a6480f2599ce23f1b43ff56ca381fb630000c269cdce4515c019ff",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ene_04.png",
+      "width": 23,
+      "height": 13,
+      "texture_px": [
+        23,
+        13
+      ],
+      "offset": 29384,
+      "length": 299,
+      "trim_origin_top_left_px": [
+        88,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -8,
+        -12
+      ],
+      "sha256": "93f664e6530efb4b04317340f2dc6f5757c7394677b1de0dec9bd6bc24289a24",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ene_05.png",
+      "width": 21,
+      "height": 18,
+      "texture_px": [
+        21,
+        18
+      ],
+      "offset": 29683,
+      "length": 378,
+      "trim_origin_top_left_px": [
+        85,
+        76
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -5,
+        -6
+      ],
+      "sha256": "fe3f73df944d15b92751f474b21338d3dd14171647adf431a7a6c8e2fd34b4ad",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ene_06.png",
+      "width": 22,
+      "height": 10,
+      "texture_px": [
+        22,
+        10
+      ],
+      "offset": 30061,
+      "length": 220,
+      "trim_origin_top_left_px": [
+        86,
+        78
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        -6,
+        -12
+      ],
+      "sha256": "24f8a41e735bb2b83d01601ad0040f6c04a255cf0e53543cd66ce389349345f8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ene_07.png",
+      "width": 27,
+      "height": 8,
+      "texture_px": [
+        27,
+        8
+      ],
+      "offset": 30281,
+      "length": 216,
+      "trim_origin_top_left_px": [
+        78,
+        79
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        2,
+        -13
+      ],
+      "sha256": "7b9fe38cf0f990d00810b7d4d3a1de2321e39a21e0773d4a02c2b1cd7eb31a21",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_ene_08.png",
+      "width": 27,
+      "height": 7,
+      "texture_px": [
+        27,
+        7
+      ],
+      "offset": 30497,
+      "length": 189,
+      "trim_origin_top_left_px": [
+        77,
+        80
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        3,
+        -13
+      ],
+      "sha256": "bb1f6d379f49228d2815b59b7c1f31748300e7f40cc69d37d317b0fac7e51d49",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_09.png",
-      "width": 26,
-      "height": 10,
+      "width": 27,
+      "height": 8,
       "texture_px": [
-        26,
-        10
+        27,
+        8
       ],
-      "offset": 31855,
-      "length": 260,
+      "offset": 30686,
+      "length": 216,
       "trim_origin_top_left_px": [
         77,
-        82
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
         3,
-        -8
+        -13
       ],
-      "sha256": "ad1b7e3721f94f888b76fa3cb96619ada281afb66eb30dafce5c2264f3f6c576",
+      "sha256": "aa17ded6e11b72ab0c018928b97dfe6554a7ac3f7fae51bee4ec90cdc5b156cb",
       "empty": false
     },
     {
@@ -4148,105 +4148,105 @@
         27,
         8
       ],
-      "offset": 32115,
+      "offset": 30902,
       "length": 216,
       "trim_origin_top_left_px": [
-        80,
-        81
+        79,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        0,
-        -11
+        1,
+        -13
       ],
-      "sha256": "85df8ccd55c710a5e8d6e5246cbb7f5fe34f5379638fbc00cb1515a8e3a338ea",
+      "sha256": "292f9fee633cc781b16d9237d99724e234b81301af69f76de5f3dfd276e8a934",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_11.png",
       "width": 21,
-      "height": 10,
+      "height": 12,
       "texture_px": [
         21,
-        10
+        12
       ],
-      "offset": 32331,
-      "length": 210,
+      "offset": 31118,
+      "length": 252,
       "trim_origin_top_left_px": [
-        89,
-        80
+        86,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
+        -6,
         -10
       ],
-      "sha256": "25fcccde6df694359d4f10148ddd82d1283a258fa3b43c327d14e06c84087b4e",
+      "sha256": "136a94c0170b6e8d6d6f86b944aa93b84647c56ad83f68aacd505ea0f82412d8",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_12.png",
       "width": 22,
-      "height": 14,
+      "height": 17,
       "texture_px": [
         22,
-        14
+        17
       ],
-      "offset": 32541,
-      "length": 308,
+      "offset": 31370,
+      "length": 374,
       "trim_origin_top_left_px": [
-        89,
-        78
+        86,
+        75
       ],
       "pivot_from_crop_bottom_left_px": [
-        -9,
+        -6,
         -8
       ],
-      "sha256": "e041dedb295c5e3b104a1a363869dad9dd5d016fd1ee7c2d8785f52ebb861192",
+      "sha256": "f5c02ee7679ea73a879e7e30fa9d7e0c7f55a7726d36521cd021b9c81e4a5809",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_13.png",
       "width": 24,
-      "height": 10,
+      "height": 12,
       "texture_px": [
         24,
-        10
+        12
       ],
-      "offset": 32849,
-      "length": 240,
+      "offset": 31744,
+      "length": 288,
       "trim_origin_top_left_px": [
-        92,
-        77
+        89,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        -12,
-        -13
+        -9,
+        -14
       ],
-      "sha256": "dd17f5cca0b3a0356ba0c1b3460ae410ed50be9ede8d48a992338c7a5c021c65",
+      "sha256": "eb1f4180c25cd2cb070c7b4afcf599dc1e8ea026f98c841f6ca923c9750e9cbb",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ene_14.png",
       "width": 25,
-      "height": 8,
+      "height": 9,
       "texture_px": [
         25,
-        8
+        9
       ],
-      "offset": 33089,
-      "length": 200,
+      "offset": 32032,
+      "length": 225,
       "trim_origin_top_left_px": [
-        95,
-        75
+        92,
+        72
       ],
       "pivot_from_crop_bottom_left_px": [
-        -15,
-        -17
+        -12,
+        -19
       ],
-      "sha256": "e178d352e270562d075ee5d407ae85642ffdfad291300d12d2e6f3f5acf65b2a",
+      "sha256": "3a4709a462b3cd694e82aceb3490d6c27de0a01390cf3ef005fb72297fddd89b",
       "empty": false
     },
     {
@@ -4258,39 +4258,39 @@
         24,
         6
       ],
-      "offset": 33289,
+      "offset": 32257,
       "length": 144,
       "trim_origin_top_left_px": [
-        97,
-        74
+        94,
+        71
       ],
       "pivot_from_crop_bottom_left_px": [
-        -17,
-        -20
+        -14,
+        -23
       ],
-      "sha256": "18a7c522c988dbb15f8e76bad1eda09876a8d670a88caf7be81e53b26ea32bcc",
+      "sha256": "34b0693c609e5cb92440b8ee0aa81aad6bb66a7dae3079a52d6cd0073361123b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_00.png",
-      "width": 18,
-      "height": 10,
+      "width": 19,
+      "height": 11,
       "texture_px": [
-        18,
-        10
+        19,
+        11
       ],
-      "offset": 33433,
-      "length": 180,
+      "offset": 32401,
+      "length": 209,
       "trim_origin_top_left_px": [
-        94,
-        80
+        92,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -14,
-        -10
+        -12,
+        -13
       ],
-      "sha256": "530127f5e176b101e7c866f3393b5e46cebc0ce66d4965e55b377c61f2f9df45",
+      "sha256": "2bc297a8a4481cfc4fab62e8dd748eb1ea7c1d43cdac78c3f5612ea2a12f4563",
       "empty": false
     },
     {
@@ -4302,303 +4302,303 @@
         18,
         11
       ],
-      "offset": 33613,
+      "offset": 32610,
       "length": 198,
       "trim_origin_top_left_px": [
-        93,
-        80
+        92,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -9
+        -12,
+        -13
       ],
-      "sha256": "f91f99caa85b0e0215adb3dbc38f40af3aa620f1d8f664aa4162e5465494b06b",
+      "sha256": "0f0498c6467898a8e3fb76562753489716029cae39c27e070c501b90500009ec",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_02.png",
-      "width": 18,
+      "width": 19,
       "height": 13,
       "texture_px": [
-        18,
+        19,
         13
       ],
-      "offset": 33811,
-      "length": 234,
+      "offset": 32808,
+      "length": 247,
       "trim_origin_top_left_px": [
-        91,
-        80
+        90,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -7
+        -10,
+        -11
       ],
-      "sha256": "c24ecba7d82182e41cdd6497e4a1d3a342f8b915cc3d3a85059451b1969c3f9f",
+      "sha256": "cd3dce20df3670e74ead19ffe9bf8cc1c08ee8a0705c50abbb243fee37908bf3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_03.png",
-      "width": 17,
+      "width": 18,
       "height": 16,
       "texture_px": [
-        17,
+        18,
         16
       ],
-      "offset": 34045,
-      "length": 272,
+      "offset": 33055,
+      "length": 288,
       "trim_origin_top_left_px": [
         88,
-        80
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
         -8,
-        -4
+        -8
       ],
-      "sha256": "3c2464e259032114c39bcd70cce6fbd68486832455e612896168b0cbc445f29e",
+      "sha256": "da04260c37f41f628294b97ba9ebf2f53d2ad9f17c359807aac65d545b21cda9",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_04.png",
-      "width": 15,
-      "height": 20,
+      "width": 17,
+      "height": 19,
       "texture_px": [
-        15,
-        20
+        17,
+        19
       ],
-      "offset": 34317,
-      "length": 300,
+      "offset": 33343,
+      "length": 323,
       "trim_origin_top_left_px": [
         84,
-        80
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
         -4,
-        0
+        -4
       ],
-      "sha256": "1018c029b9b621aef4e3bcfd0bd97fb658ce4c7c834d98f072468c872c640fa4",
+      "sha256": "10512d6d2a28ff69cbda9b49dcc421578e9b3f54a7487a9639426b9e0df2614a",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_05.png",
-      "width": 17,
-      "height": 15,
+      "width": 13,
+      "height": 23,
       "texture_px": [
-        17,
-        15
+        13,
+        23
       ],
-      "offset": 34617,
-      "length": 255,
+      "offset": 33666,
+      "length": 299,
       "trim_origin_top_left_px": [
-        82,
-        82
+        81,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
-        -3
+        -1,
+        0
       ],
-      "sha256": "40f4e49acc270910a0f6ba1d71ceac43c8fe97c55c2ba73c713fd2ad3d860dc7",
+      "sha256": "7d1f6a566e6edd698b993aa9ce5639e7e7aaf1272b329f8da8c86d4d9f649d05",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_06.png",
-      "width": 24,
-      "height": 15,
+      "width": 18,
+      "height": 14,
       "texture_px": [
-        24,
-        15
+        18,
+        14
       ],
-      "offset": 34872,
-      "length": 360,
+      "offset": 33965,
+      "length": 252,
       "trim_origin_top_left_px": [
-        74,
-        81
+        80,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -4
+        0,
+        -6
       ],
-      "sha256": "31f0798e174d4c9b868a73ffbb055c2f6ac104e3bc2dc684d2d81c4ccd515d37",
+      "sha256": "2eedc68294a07e1ce57ee59ae163b24c3f8ff0079b284e15a6d6bdeef09fc987",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_07.png",
-      "width": 24,
-      "height": 16,
+      "width": 25,
+      "height": 13,
       "texture_px": [
-        24,
-        16
+        25,
+        13
       ],
-      "offset": 35232,
-      "length": 384,
+      "offset": 34217,
+      "length": 325,
       "trim_origin_top_left_px": [
-        71,
-        81
+        73,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -3
+        7,
+        -7
       ],
-      "sha256": "00afd3536362e5f713e17dd3c13b9fbdc5ef52941356ad363c07980dbe69e24c",
+      "sha256": "ab1235d27b152a78da312b4e29f874783eb65d5e0dab9b2d5cf8a85d6bf11e31",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_08.png",
-      "width": 23,
-      "height": 16,
+      "width": 25,
+      "height": 14,
       "texture_px": [
-        23,
-        16
+        25,
+        14
       ],
-      "offset": 35616,
-      "length": 368,
+      "offset": 34542,
+      "length": 350,
       "trim_origin_top_left_px": [
-        70,
-        81
+        72,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -3
+        8,
+        -7
       ],
-      "sha256": "377d8c246c16e8dbe95d672fbc87f4264c3bdf4088fac15e5c131d29e7ce5c6e",
+      "sha256": "15935afff06f8424a4efa1b548716046ac3668829ee9f34b8cc333e7688efb10",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_09.png",
-      "width": 24,
-      "height": 16,
+      "width": 25,
+      "height": 14,
       "texture_px": [
-        24,
-        16
+        25,
+        14
       ],
-      "offset": 35984,
-      "length": 384,
+      "offset": 34892,
+      "length": 350,
       "trim_origin_top_left_px": [
-        71,
-        81
+        72,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -3
+        8,
+        -7
       ],
-      "sha256": "00afd3536362e5f713e17dd3c13b9fbdc5ef52941356ad363c07980dbe69e24c",
+      "sha256": "3e764f79945b7ab3b14c4a5bee06bb257706fd257afabd3c132ad27ab2764814",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_10.png",
-      "width": 24,
-      "height": 15,
+      "width": 20,
+      "height": 13,
       "texture_px": [
-        24,
-        15
+        20,
+        13
       ],
-      "offset": 36368,
-      "length": 360,
+      "offset": 35242,
+      "length": 260,
       "trim_origin_top_left_px": [
-        74,
-        81
+        78,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        -4
+        2,
+        -7
       ],
-      "sha256": "31f0798e174d4c9b868a73ffbb055c2f6ac104e3bc2dc684d2d81c4ccd515d37",
+      "sha256": "e8bbfb91b8d99bdfb1a6a2681bac01e5d3c04cb9941dd2d527d8ac0dac0c9609",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_11.png",
-      "width": 17,
-      "height": 15,
+      "width": 18,
+      "height": 19,
       "texture_px": [
-        17,
-        15
+        18,
+        19
       ],
-      "offset": 36728,
-      "length": 255,
+      "offset": 35502,
+      "length": 342,
       "trim_origin_top_left_px": [
-        82,
-        82
+        79,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
+        1,
         -3
       ],
-      "sha256": "40f4e49acc270910a0f6ba1d71ceac43c8fe97c55c2ba73c713fd2ad3d860dc7",
+      "sha256": "28c66d5e988e6d1b0e3d3fd2a0979fdbbf35300c2f937bc3bd07e151776c7c63",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_12.png",
       "width": 15,
-      "height": 20,
+      "height": 23,
       "texture_px": [
         15,
-        20
+        23
       ],
-      "offset": 36983,
-      "length": 300,
+      "offset": 35844,
+      "length": 345,
       "trim_origin_top_left_px": [
-        84,
-        80
+        82,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -4,
-        0
+        -2,
+        -1
       ],
-      "sha256": "1018c029b9b621aef4e3bcfd0bd97fb658ce4c7c834d98f072468c872c640fa4",
+      "sha256": "4db477d8f9792aa8788f37871b5f01931c879f9adf0aa0a375b26969572c6421",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_13.png",
       "width": 17,
-      "height": 16,
+      "height": 18,
       "texture_px": [
         17,
-        16
+        18
       ],
-      "offset": 37283,
-      "length": 272,
+      "offset": 36189,
+      "length": 306,
       "trim_origin_top_left_px": [
-        88,
-        80
+        86,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
-        -4
+        -6,
+        -6
       ],
-      "sha256": "18b948b7ae938fa2da61f4130323ea8f3a4cfc5449943eeed3c91c4a04f0c2fd",
+      "sha256": "17944671fa96c73da83e2b4e645fd73b8e4a58e910d0724c533a933c1f8af40d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_e_14.png",
       "width": 18,
-      "height": 13,
+      "height": 14,
       "texture_px": [
         18,
-        13
+        14
       ],
-      "offset": 37555,
-      "length": 234,
+      "offset": 36495,
+      "length": 252,
       "trim_origin_top_left_px": [
-        91,
-        80
+        89,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -11,
-        -7
+        -9,
+        -10
       ],
-      "sha256": "d3c56225cebfcadf5f0791adff4d31db6992ec8bf500be452b6106e6108b318b",
+      "sha256": "314e107dc37f2cce3b205ec247406d93798fffa6aa4cdf0a5d01d56789568973",
       "empty": false
     },
     {
@@ -4610,325 +4610,325 @@
         18,
         11
       ],
-      "offset": 37789,
+      "offset": 36747,
       "length": 198,
       "trim_origin_top_left_px": [
-        93,
-        80
+        91,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        -13,
-        -9
+        -11,
+        -13
       ],
-      "sha256": "ff62c08a6feb1fe52475880cc7c3af81fb29d96cbe72ffecff3186905472fba4",
+      "sha256": "7378b975ff7addc4903bdd97ea2607e82571ee734628932f60e316bddce98d89",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_00.png",
-      "width": 9,
-      "height": 13,
+      "width": 10,
+      "height": 14,
       "texture_px": [
-        9,
-        13
+        10,
+        14
       ],
-      "offset": 37987,
-      "length": 117,
+      "offset": 36945,
+      "length": 140,
       "trim_origin_top_left_px": [
-        88,
-        84
+        87,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        -8,
-        -3
+        -7,
+        -7
       ],
-      "sha256": "da637b7e85de029d06c1429344b3f053dbd77f2e5ad92385618bdd01707b9352",
+      "sha256": "2c21ee96a69b578b21c869905b0b98b17bf4ec114cdabec3c4cbb914a5797895",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_01.png",
       "width": 9,
-      "height": 14,
+      "height": 13,
       "texture_px": [
         9,
-        14
+        13
       ],
-      "offset": 38104,
-      "length": 126,
+      "offset": 37085,
+      "length": 117,
       "trim_origin_top_left_px": [
         87,
-        83
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
         -7,
-        -3
+        -8
       ],
-      "sha256": "02c6d32439bfb482c65fa541f898ca13a38b6091c6e8bd1dd3da7b69f6d48bdf",
+      "sha256": "fc3348e73079a84993c60c5ffc097c771b30d8e46719b0aa7465b0cc98144a1b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_02.png",
       "width": 9,
-      "height": 16,
+      "height": 17,
       "texture_px": [
         9,
-        16
+        17
       ],
-      "offset": 38230,
-      "length": 144,
+      "offset": 37202,
+      "length": 153,
       "trim_origin_top_left_px": [
-        85,
-        83
+        86,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -1
+        -6,
+        -5
       ],
-      "sha256": "142cb46c3cc4dc66b16b9581d9ec9978734b8a7561915998a90e240e050e5a4c",
+      "sha256": "e59215a86d045e171dbeec45d64aa4fa432e8ead99f1336a94fea168f30db3bc",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_03.png",
-      "width": 8,
+      "width": 9,
       "height": 19,
       "texture_px": [
-        8,
+        9,
         19
       ],
-      "offset": 38374,
-      "length": 152,
+      "offset": 37355,
+      "length": 171,
       "trim_origin_top_left_px": [
-        82,
-        82
+        83,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
-        1
+        -3,
+        -3
       ],
-      "sha256": "596da997bd722b4a671cdf9e81c120d4cc5a95ef784fc613fac59254e4adfa3e",
+      "sha256": "441a006c18a5003a5183ba1dc04b66a1c1f06db3c144136e795bf547d665ca0e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_04.png",
-      "width": 6,
+      "width": 7,
       "height": 22,
       "texture_px": [
-        6,
+        7,
         22
       ],
-      "offset": 38526,
-      "length": 132,
+      "offset": 37526,
+      "length": 154,
       "trim_origin_top_left_px": [
-        78,
-        80
+        80,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        2,
-        2
+        0,
+        -1
       ],
-      "sha256": "6f553eee9bfa2aeb09f43f75b693bb360316d46bb3850c8173ea844dc1cf4158",
+      "sha256": "6dc53990c932c996d42267a5eda25023194bc77885e2fa7d8bb1551b6e2233c0",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_05.png",
-      "width": 12,
-      "height": 21,
+      "width": 5,
+      "height": 25,
       "texture_px": [
-        12,
-        21
+        5,
+        25
       ],
-      "offset": 38658,
-      "length": 252,
+      "offset": 37680,
+      "length": 125,
       "trim_origin_top_left_px": [
-        74,
-        80
+        76,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        6,
-        1
+        4,
+        2
       ],
-      "sha256": "b25dec19ed7832d527d488d251b147e1687c41ced73a71601db8042d2311f784",
+      "sha256": "f1c0cf93058cb0b59becf7ec469db50c1575cec9bd3f1bcbca88c8d7742f2891",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_06.png",
-      "width": 16,
-      "height": 18,
+      "width": 14,
+      "height": 21,
       "texture_px": [
-        16,
-        18
+        14,
+        21
       ],
-      "offset": 38910,
-      "length": 288,
+      "offset": 37805,
+      "length": 294,
       "trim_origin_top_left_px": [
-        71,
-        82
+        73,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        0
+        7,
+        -2
       ],
-      "sha256": "c14f853dfdb19b4af7e3e77dcc6f4e862e075a8529a1af985e59490be7ca2615",
+      "sha256": "73cb78ab28552420e955b30300d4ce453a17127ef747b2b3d3dff1ae070cb235",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_07.png",
       "width": 17,
-      "height": 19,
+      "height": 18,
       "texture_px": [
         17,
-        19
+        18
       ],
-      "offset": 39198,
-      "length": 323,
+      "offset": 38099,
+      "length": 306,
       "trim_origin_top_left_px": [
-        68,
-        81
+        71,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        0
+        9,
+        -3
       ],
-      "sha256": "64960badd8de7882a36e329379753751883734e476248c347257a2e7749dccbf",
+      "sha256": "ccc1ba60c60377a38bb556e78a724f5fe99448f889d2a8e11adf05493a37f4ba",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_08.png",
-      "width": 18,
-      "height": 22,
+      "width": 17,
+      "height": 17,
       "texture_px": [
-        18,
-        22
+        17,
+        17
       ],
-      "offset": 39521,
-      "length": 396,
+      "offset": 38405,
+      "length": 289,
       "trim_origin_top_left_px": [
-        66,
-        78
+        70,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        0
+        10,
+        -4
       ],
-      "sha256": "0d236c3ea599c7eb2327ec2173abeb563a4dfbf4af96e92f8df40c66f03ed9aa",
+      "sha256": "f9b61f794c3ac1403df63079d6482c26394cf0ff784af27dcba9db6b8b22c65e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_09.png",
       "width": 17,
-      "height": 19,
+      "height": 17,
       "texture_px": [
         17,
-        19
+        17
       ],
-      "offset": 39917,
-      "length": 323,
+      "offset": 38694,
+      "length": 289,
       "trim_origin_top_left_px": [
-        68,
-        81
+        70,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        0
+        10,
+        -4
       ],
-      "sha256": "64960badd8de7882a36e329379753751883734e476248c347257a2e7749dccbf",
+      "sha256": "61a8d8ceb2276ab4cd6b377ff0c5d41788406b5a166e9ada8716b273fd7e7aab",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_10.png",
       "width": 16,
-      "height": 18,
+      "height": 19,
       "texture_px": [
         16,
-        18
+        19
       ],
-      "offset": 40240,
-      "length": 288,
+      "offset": 38983,
+      "length": 304,
       "trim_origin_top_left_px": [
-        71,
-        82
+        72,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        0
+        8,
+        -2
       ],
-      "sha256": "8bc0020bdc19353f79883bf88f02091107c1a85b2546d0a97ce251eaabc3a308",
+      "sha256": "73193cd8e3f0af64f1ebd70e18937b5a8923c8159c4ac8da35cbf29731e8311b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_11.png",
-      "width": 12,
-      "height": 21,
+      "width": 10,
+      "height": 22,
       "texture_px": [
-        12,
-        21
+        10,
+        22
       ],
-      "offset": 40528,
-      "length": 252,
+      "offset": 39287,
+      "length": 220,
       "trim_origin_top_left_px": [
         74,
-        80
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
         6,
-        1
+        -1
       ],
-      "sha256": "f678777b1137bf434f67f9b4cb17926407d54d1fe64933e6e63dcc7b35c7eb6c",
+      "sha256": "62f795b4c87b44ed7955b038e8c28d761ebcb1295df97469d43c713c997e24c0",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_12.png",
-      "width": 6,
-      "height": 22,
+      "width": 5,
+      "height": 24,
       "texture_px": [
-        6,
-        22
+        5,
+        24
       ],
-      "offset": 40780,
-      "length": 132,
+      "offset": 39507,
+      "length": 120,
       "trim_origin_top_left_px": [
         78,
-        80
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
         2,
-        2
+        1
       ],
-      "sha256": "6f553eee9bfa2aeb09f43f75b693bb360316d46bb3850c8173ea844dc1cf4158",
+      "sha256": "b29bc18fd08f10a7a217f1d139ce4cdebf95dcd3c82b4777a1cf3a6bbbedf2ee",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_13.png",
       "width": 8,
-      "height": 19,
+      "height": 20,
       "texture_px": [
         8,
-        19
+        20
       ],
-      "offset": 40912,
-      "length": 152,
+      "offset": 39627,
+      "length": 160,
       "trim_origin_top_left_px": [
-        82,
-        82
+        81,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        -2,
-        1
+        -1,
+        -3
       ],
-      "sha256": "66d159716e829d9f9828d3bf297075129bd4fcfd568cb9781e60d020634321f7",
+      "sha256": "f9d822cc3e1968f7928186010e549a0f9c17822277d3ec9ece7d4c8aeea83589",
       "empty": false
     },
     {
@@ -4940,127 +4940,127 @@
         9,
         16
       ],
-      "offset": 41064,
+      "offset": 39787,
       "length": 144,
       "trim_origin_top_left_px": [
-        85,
-        83
+        84,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -5,
-        -1
+        -4,
+        -6
       ],
-      "sha256": "39029028a1ca4b754a85f89bda944621f1878fccb9fcaf41efeae6e60b47c5f1",
+      "sha256": "c4f96f551685536bc491af4d4f6bfab4dd378d972b0a6cd49f4bbd4e7621502a",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_ese_15.png",
-      "width": 9,
-      "height": 14,
+      "width": 10,
+      "height": 15,
       "texture_px": [
-        9,
-        14
+        10,
+        15
       ],
-      "offset": 41208,
-      "length": 126,
+      "offset": 39931,
+      "length": 150,
       "trim_origin_top_left_px": [
-        87,
-        83
+        86,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        -7,
-        -3
+        -6,
+        -7
       ],
-      "sha256": "bff8d90baa271e200ba49dbf36670fd7232131fdfea1abf2541375814362d7c7",
+      "sha256": "ad12d498eb0664555c8debb4a12a837ebedc30c6b1ad3e46608f4de2fafe97ff",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_00.png",
       "width": 2,
-      "height": 12,
+      "height": 15,
       "texture_px": [
         2,
-        12
+        15
       ],
-      "offset": 41334,
-      "length": 24,
+      "offset": 40081,
+      "length": 30,
       "trim_origin_top_left_px": [
-        80,
-        85
+        81,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        0,
-        -3
+        -1,
+        -5
       ],
-      "sha256": "f434790987b073e9cfb941505dada04bed8f76cc9f7ff006ef311c87f2d647a1",
+      "sha256": "fce943bed6e0d3f2a81c7c9b32b7110f201007b9d5c923e24e258d9d69447093",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_01.png",
-      "width": 3,
-      "height": 13,
+      "width": 2,
+      "height": 12,
       "texture_px": [
-        3,
-        13
+        2,
+        12
       ],
-      "offset": 41358,
-      "length": 39,
+      "offset": 40111,
+      "length": 24,
       "trim_origin_top_left_px": [
-        79,
-        85
+        81,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        1,
-        -2
+        -1,
+        -8
       ],
-      "sha256": "a1881cb6efac1a9b2bd21a5df0b9d7abf3c266ffdd434f52a468a19e06e51daf",
+      "sha256": "e0e0cb84d1971740cdbb2df34a5b14404333d8a72f096ccd0d2f752504bdd93d",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_02.png",
       "width": 3,
-      "height": 12,
+      "height": 16,
       "texture_px": [
         3,
-        12
+        16
       ],
-      "offset": 41397,
-      "length": 36,
+      "offset": 40135,
+      "length": 48,
       "trim_origin_top_left_px": [
-        77,
-        84
+        79,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
+        1,
         -4
       ],
-      "sha256": "9e034371d90d223562b6dbe5da1c0e841c7a92cd11a34890d3b3cd6bcd909356",
+      "sha256": "1494b3581b36c52ff8985d52b32d5b9aa3fe607210ffbfa944e6d53c68a223b4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_03.png",
-      "width": 5,
+      "width": 4,
       "height": 19,
       "texture_px": [
-        5,
+        4,
         19
       ],
-      "offset": 41433,
-      "length": 95,
+      "offset": 40183,
+      "length": 76,
       "trim_origin_top_left_px": [
-        73,
-        82
+        76,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        1
+        4,
+        -2
       ],
-      "sha256": "64e5e590818a570174d55d896958c43a73aa6b2b57e2611688903115c6368cd3",
+      "sha256": "f922bc71ea93e7d5fe910af9f47decebb6803e8670beeb9ed03b37e66504ba87",
       "empty": false
     },
     {
@@ -5072,435 +5072,435 @@
         6,
         21
       ],
-      "offset": 41528,
+      "offset": 40259,
       "length": 126,
       "trim_origin_top_left_px": [
-        69,
-        79
+        72,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        0
+        8,
+        -2
       ],
-      "sha256": "59bf6ab18aacd5e7f40048cb8b7e21b8aa8e1f4f37dd79880c09206076050da7",
+      "sha256": "f21ea48ed9881c1a9627f33bd488c8b21e572bf5596d2189be16fe0b7d4b2c83",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_05.png",
-      "width": 5,
-      "height": 23,
+      "width": 8,
+      "height": 22,
       "texture_px": [
-        5,
-        23
+        8,
+        22
       ],
-      "offset": 41654,
-      "length": 115,
+      "offset": 40385,
+      "length": 176,
       "trim_origin_top_left_px": [
-        68,
-        77
+        67,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        0
+        13,
+        -2
       ],
-      "sha256": "fcc5ca413d3d4321fcb955549558880b62e2f138bb30cc27dba8a7881f5f4c36",
+      "sha256": "2106266a72ce14ebf286344c3a80a6497a27037f9a5f8a94b7699c4e230c8f83",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_06.png",
+      "width": 6,
+      "height": 23,
+      "texture_px": [
+        6,
+        23
+      ],
+      "offset": 40561,
+      "length": 138,
+      "trim_origin_top_left_px": [
+        68,
+        75
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -2
+      ],
+      "sha256": "2a6777a76d51eecd33fcec9e76afae3f0f2aab90aa55b52a3f73471391440290",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_se_07.png",
       "width": 10,
       "height": 20,
       "texture_px": [
         10,
         20
       ],
-      "offset": 41769,
+      "offset": 40699,
       "length": 200,
       "trim_origin_top_left_px": [
-        65,
-        79
+        67,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -1
+        13,
+        -3
       ],
-      "sha256": "68d6d821da68b704ea806cd499bc593d32f5697fb6328abefe9afdff3757e054",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_se_07.png",
-      "width": 11,
-      "height": 21,
-      "texture_px": [
-        11,
-        21
-      ],
-      "offset": 41969,
-      "length": 231,
-      "trim_origin_top_left_px": [
-        63,
-        78
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        -1
-      ],
-      "sha256": "f39b47acbf59c3cda15ca8a691ee3b35a47dfd343a1d6595952952bfee32f70b",
+      "sha256": "e097957ad743fade2450579cd51a0835d453472e5327bcf4c6757cdd49ae42d6",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_08.png",
-      "width": 10,
-      "height": 21,
+      "width": 11,
+      "height": 20,
       "texture_px": [
-        10,
-        21
+        11,
+        20
       ],
-      "offset": 42200,
-      "length": 210,
+      "offset": 40899,
+      "length": 220,
       "trim_origin_top_left_px": [
-        63,
-        78
+        66,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -1
+        14,
+        -3
       ],
-      "sha256": "2bc335ff69983068e17d6b0bdfaa54ad12edebd3eff2469f5ef970d32246a77b",
+      "sha256": "3cfe249f615930f3644ca6ebf1838bbddbec8d67b4c142b753c530351ca7f5b4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_09.png",
       "width": 11,
-      "height": 21,
+      "height": 20,
       "texture_px": [
         11,
-        21
+        20
       ],
-      "offset": 42410,
-      "length": 231,
+      "offset": 41119,
+      "length": 220,
       "trim_origin_top_left_px": [
-        63,
-        78
+        66,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -1
+        14,
+        -3
       ],
-      "sha256": "f39b47acbf59c3cda15ca8a691ee3b35a47dfd343a1d6595952952bfee32f70b",
+      "sha256": "8c9376fa4c75ca8845938c4c59b5b63242847766a450a317414e8cf85c437954",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_10.png",
-      "width": 10,
-      "height": 20,
+      "width": 9,
+      "height": 23,
       "texture_px": [
-        10,
-        20
+        9,
+        23
       ],
-      "offset": 42641,
-      "length": 200,
+      "offset": 41339,
+      "length": 207,
       "trim_origin_top_left_px": [
-        65,
-        79
+        67,
+        74
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -1
+        13,
+        -3
       ],
-      "sha256": "b93a9d93088e7452d9eef36b52246abe758b24139635e9ca2883bbaf73c06fe6",
+      "sha256": "b64725835a5118fcd50808642598b99d9f18bb4dd32f10d9529791a8a9880887",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_11.png",
       "width": 5,
-      "height": 23,
+      "height": 24,
       "texture_px": [
         5,
-        23
+        24
       ],
-      "offset": 42841,
-      "length": 115,
+      "offset": 41546,
+      "length": 120,
       "trim_origin_top_left_px": [
-        68,
-        77
+        69,
+        75
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
-        0
+        11,
+        -1
       ],
-      "sha256": "fcc5ca413d3d4321fcb955549558880b62e2f138bb30cc27dba8a7881f5f4c36",
+      "sha256": "85aa75dc9f66a99c8efe433078520a6dc350083ade5506de6bd03258761716f5",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_12.png",
       "width": 6,
-      "height": 21,
+      "height": 20,
       "texture_px": [
         6,
-        21
+        20
       ],
-      "offset": 42956,
-      "length": 126,
+      "offset": 41666,
+      "length": 120,
       "trim_origin_top_left_px": [
-        69,
-        79
+        70,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        0
+        10,
+        -4
       ],
-      "sha256": "59bf6ab18aacd5e7f40048cb8b7e21b8aa8e1f4f37dd79880c09206076050da7",
+      "sha256": "460944a2ea058d25a358fb20c99949aff773a2d932c3309b05c44ee36498e289",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_13.png",
       "width": 5,
-      "height": 19,
+      "height": 21,
       "texture_px": [
         5,
-        19
+        21
       ],
-      "offset": 43082,
-      "length": 95,
+      "offset": 41786,
+      "length": 105,
       "trim_origin_top_left_px": [
-        73,
-        82
+        74,
+        77
       ],
       "pivot_from_crop_bottom_left_px": [
-        7,
-        1
+        6,
+        -2
       ],
-      "sha256": "dae51ddf43253df97082ebd2e10e9b41ba2918b0e4aa7cd0c7cad14f1219409d",
+      "sha256": "babf6f41f29ddc1c7e214eaccd4516276e3b1ca7e1e80f4dd0b02cf662c527c1",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_14.png",
       "width": 3,
-      "height": 12,
+      "height": 16,
       "texture_px": [
         3,
-        12
+        16
       ],
-      "offset": 43177,
-      "length": 36,
+      "offset": 41891,
+      "length": 48,
       "trim_origin_top_left_px": [
-        77,
-        84
+        78,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        3,
-        -4
+        2,
+        -5
       ],
-      "sha256": "e4943a319748007be288c22ebfc27331b17a8bd48cf144d4bce37fe741960e0c",
+      "sha256": "48e413a0f4f9b9646877e0c6082b303a66fc69885a317dc8a890f560292fb28b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_se_15.png",
-      "width": 3,
-      "height": 13,
+      "width": 2,
+      "height": 15,
       "texture_px": [
-        3,
-        13
+        2,
+        15
       ],
-      "offset": 43213,
-      "length": 39,
+      "offset": 41939,
+      "length": 30,
       "trim_origin_top_left_px": [
-        79,
-        85
+        80,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        1,
-        -2
+        0,
+        -5
       ],
-      "sha256": "0dfd8a63a6291cd3b290fa1c5d66026688722e53b234beddf9e3bb38961ac433",
+      "sha256": "2355ace878803a12a92f553ac902ef6dcfc9e1884e81925ddd7ef0c6ba62cc9f",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_00.png",
       "width": 12,
-      "height": 12,
+      "height": 14,
       "texture_px": [
         12,
-        12
+        14
       ],
-      "offset": 43252,
-      "length": 144,
+      "offset": 41969,
+      "length": 168,
       "trim_origin_top_left_px": [
-        63,
-        85
+        65,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -3
+        15,
+        -6
       ],
-      "sha256": "ae1b73724d1936f2accdf1877764c746cbd4e347d2aa3da1efdd31f2d74f2807",
+      "sha256": "aed9956340a16435c879ae4837e3504b84f5933fe8bad5343f4c51f4e80984ad",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_01.png",
       "width": 13,
-      "height": 13,
+      "height": 14,
       "texture_px": [
         13,
-        13
+        14
       ],
-      "offset": 43396,
-      "length": 169,
+      "offset": 42137,
+      "length": 182,
       "trim_origin_top_left_px": [
-        62,
-        84
+        64,
+        80
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -3
+        16,
+        -6
       ],
-      "sha256": "3eea9004fc264e31d1b9d8b524a15abdc801460afa5fe8067186a455cf39d9ac",
+      "sha256": "a6a5b16c45e44feddf69dc47781a37d4b5c4acc26b5aa6385e13a84449218316",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_02.png",
       "width": 13,
-      "height": 14,
+      "height": 16,
       "texture_px": [
         13,
-        14
+        16
       ],
-      "offset": 43565,
-      "length": 182,
+      "offset": 42319,
+      "length": 208,
       "trim_origin_top_left_px": [
-        61,
-        82
+        63,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -4
+        17,
+        -5
       ],
-      "sha256": "4a6351699f9eeda459afb5d4df4829d4856ab442d85efce87d7b6f848b893807",
+      "sha256": "db88b37f940f972350bf44bce807bdd7a7b0a32e068db13760e9b211432745a3",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_03.png",
-      "width": 13,
-      "height": 15,
+      "width": 14,
+      "height": 17,
       "texture_px": [
-        13,
-        15
+        14,
+        17
       ],
-      "offset": 43747,
-      "length": 195,
+      "offset": 42527,
+      "length": 238,
       "trim_origin_top_left_px": [
-        59,
-        80
+        61,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
+        19,
         -5
       ],
-      "sha256": "053cfa2ee809f48c1304090c870440ec322276e9c08afaeab13b51614bd8950c",
+      "sha256": "35c7953516145c686b32675066c80f8decffb88df2ed9fa0f1d3f0f1e436fd60",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_04.png",
-      "width": 13,
-      "height": 15,
+      "width": 14,
+      "height": 17,
       "texture_px": [
-        13,
-        15
+        14,
+        17
       ],
-      "offset": 43942,
-      "length": 195,
+      "offset": 42765,
+      "length": 238,
       "trim_origin_top_left_px": [
-        58,
-        77
+        60,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -8
+        20,
+        -7
       ],
-      "sha256": "be55face19d15113b474b2e010e7a955b133708aec07f75fd619a3be8ff0a6d9",
+      "sha256": "1ed1fffcf4911b546fc75ffb3e31f61938d566bfd25d77d535eea8fe1b42439e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_05.png",
-      "width": 10,
-      "height": 22,
+      "width": 16,
+      "height": 18,
       "texture_px": [
-        10,
-        22
+        16,
+        18
       ],
-      "offset": 44137,
-      "length": 220,
+      "offset": 43003,
+      "length": 288,
       "trim_origin_top_left_px": [
-        58,
+        56,
         74
       ],
       "pivot_from_crop_bottom_left_px": [
-        22,
-        -4
+        24,
+        -8
       ],
-      "sha256": "b3250b381706f1f6ccfb4a0351be975d0bbc88cd98088e1e0d8a7a7939c6f8b9",
+      "sha256": "a21b89f4eb9c8445eb68bdc81381a403f1a498bdf643cd5d1bfcbf191a53d80e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_06.png",
-      "width": 6,
-      "height": 25,
+      "width": 9,
+      "height": 23,
       "texture_px": [
-        6,
-        25
+        9,
+        23
       ],
-      "offset": 44357,
-      "length": 150,
+      "offset": 43291,
+      "length": 207,
       "trim_origin_top_left_px": [
-        62,
+        61,
         71
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -4
+        19,
+        -6
       ],
-      "sha256": "c5de97c6481db33f9a75c4a2cf34c8a5e53e3241939f570e2ce1da713d175b82",
+      "sha256": "637229ec1f9729619dc6dd3f0e1b15b3045df2a8000600375433a7cde459f157",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_07.png",
       "width": 6,
-      "height": 27,
+      "height": 24,
       "texture_px": [
         6,
-        27
+        24
       ],
-      "offset": 44507,
-      "length": 162,
+      "offset": 43498,
+      "length": 144,
       "trim_origin_top_left_px": [
-        61,
-        69
+        64,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -4
+        16,
+        -6
       ],
-      "sha256": "d58680661cadb3d4ddfd94ae57d42c649b6f3b343dffcf34995114fecbd15aef",
+      "sha256": "7febf8d43d1771e8931528e024e5e1f1ec331dd53e2cc272ae2233a369e718be",
       "empty": false
     },
     {
@@ -5512,173 +5512,173 @@
         7,
         26
       ],
-      "offset": 44669,
+      "offset": 43642,
       "length": 182,
       "trim_origin_top_left_px": [
-        60,
-        70
+        63,
+        69
       ],
       "pivot_from_crop_bottom_left_px": [
-        20,
-        -4
+        17,
+        -5
       ],
-      "sha256": "934a74b58e71e51a84f64ddd0d97fd294b096c7cf9de2b998825f6e9e6159e01",
+      "sha256": "c07830e9ba186c9760b02e94e5bcc8cfcf84329fbd0e11c6a4f1c55d4bd9cec4",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_09.png",
       "width": 6,
-      "height": 27,
+      "height": 26,
       "texture_px": [
         6,
-        27
+        26
       ],
-      "offset": 44851,
-      "length": 162,
+      "offset": 43824,
+      "length": 156,
       "trim_origin_top_left_px": [
-        61,
+        64,
         69
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -4
+        16,
+        -5
       ],
-      "sha256": "d58680661cadb3d4ddfd94ae57d42c649b6f3b343dffcf34995114fecbd15aef",
+      "sha256": "d77c3308ec3d5a15900991d77dcddd2b13131595d2e4f07ffbe4d09d7a996981",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_10.png",
       "width": 6,
-      "height": 25,
+      "height": 24,
       "texture_px": [
         6,
-        25
+        24
       ],
-      "offset": 45013,
-      "length": 150,
+      "offset": 43980,
+      "length": 144,
       "trim_origin_top_left_px": [
-        62,
-        71
+        64,
+        70
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -4
+        16,
+        -6
       ],
-      "sha256": "72b96897c94492a784e411dda6bb4c98e77a239717d887b8c0702b7cb2fad71e",
+      "sha256": "dbf64d438971965e559b835aebf6bf8db79adc14e658f661585f1829a05f3b8b",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_11.png",
-      "width": 10,
-      "height": 22,
+      "width": 12,
+      "height": 21,
       "texture_px": [
-        10,
-        22
+        12,
+        21
       ],
-      "offset": 45163,
-      "length": 220,
+      "offset": 44124,
+      "length": 252,
+      "trim_origin_top_left_px": [
+        59,
+        72
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        21,
+        -7
+      ],
+      "sha256": "9416239f624d57f90e74c1b11bcfd2b8e02753cc73cef5ec5465718f51f949d8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunSword.atlas",
+      "name": "run_sse_12.png",
+      "width": 15,
+      "height": 19,
+      "texture_px": [
+        15,
+        19
+      ],
+      "offset": 44376,
+      "length": 285,
       "trim_origin_top_left_px": [
         58,
         74
       ],
       "pivot_from_crop_bottom_left_px": [
         22,
-        -4
+        -7
       ],
-      "sha256": "b3250b381706f1f6ccfb4a0351be975d0bbc88cd98088e1e0d8a7a7939c6f8b9",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunSword.atlas",
-      "name": "run_sse_12.png",
-      "width": 13,
-      "height": 15,
-      "texture_px": [
-        13,
-        15
-      ],
-      "offset": 45383,
-      "length": 195,
-      "trim_origin_top_left_px": [
-        58,
-        77
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        22,
-        -8
-      ],
-      "sha256": "ac7b4c5798d7054d2316eceb33d5c260f4470683180c91bfbd4f0d409568113d",
+      "sha256": "0118cc52424f57691d69a9819267a9c44a5550d0d53bcdcc3f64d85e7a614ed6",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_13.png",
-      "width": 13,
-      "height": 15,
+      "width": 14,
+      "height": 19,
       "texture_px": [
-        13,
-        15
+        14,
+        19
       ],
-      "offset": 45578,
-      "length": 195,
+      "offset": 44661,
+      "length": 266,
       "trim_origin_top_left_px": [
-        59,
-        80
+        60,
+        76
       ],
       "pivot_from_crop_bottom_left_px": [
-        21,
+        20,
         -5
       ],
-      "sha256": "bafba764f61871479a168dba92dc4201ff258767fd623ba5cd722339f2da01f4",
+      "sha256": "2a741c22f9acb357ce2df8d7b8181f60a09e1e8304500d23c03401e89af4941e",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_14.png",
       "width": 13,
-      "height": 14,
+      "height": 17,
       "texture_px": [
         13,
-        14
+        17
       ],
-      "offset": 45773,
-      "length": 182,
+      "offset": 44927,
+      "length": 221,
       "trim_origin_top_left_px": [
-        61,
-        82
+        63,
+        78
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -4
+        17,
+        -5
       ],
-      "sha256": "cff52f9b2b8475508c0b6a4527e84e3656e38b1fc9e444005731f16fb0b771cd",
+      "sha256": "f1f6521d0f16fc7792f09f4e46f23dd4b45cfaeacc85b67b80e3a4ea0698f795",
       "empty": false
     },
     {
       "atlas": "HumanRunSword.atlas",
       "name": "run_sse_15.png",
       "width": 13,
-      "height": 13,
+      "height": 15,
       "texture_px": [
         13,
-        13
+        15
       ],
-      "offset": 45955,
-      "length": 169,
+      "offset": 45148,
+      "length": 195,
       "trim_origin_top_left_px": [
-        62,
-        84
+        64,
+        79
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -3
+        16,
+        -6
       ],
-      "sha256": "d81baa9cf540dbc34e3dc1716f1956855b28f1b8c35fa6399f43cb49b215abad",
+      "sha256": "db801303f973e129de34cab3f485037f733ee32e607c6f2dabe228d0cf81582d",
       "empty": false
     }
   ],
-  "source_authority": "RunOct10/Human_Run_Animated.blend"
+  "source_authority": "RunOct11/Human_Run_Animated.blend"
 }

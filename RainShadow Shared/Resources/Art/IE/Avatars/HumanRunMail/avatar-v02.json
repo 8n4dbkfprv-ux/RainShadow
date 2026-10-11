@@ -3,7 +3,7 @@
   "version": 2,
   "character": "HumanRunMail",
   "blob": "avatar-v02.indices",
-  "blob_sha256": "df862c7f8324c5fa57d44550b821c74b634a294038cab68a72d7b62337c6a22e",
+  "blob_sha256": "d121f1aaaf3f84b90423eb469b9454fcc7b88cfdcc4bafe391d780b20dd38b1b",
   "byte_order": "little",
   "storage": "top-down-row-major-u8",
   "source_canvas_px": [
@@ -59,225 +59,225 @@
       "offset": 16,
       "length": 1015,
       "trim_origin_top_left_px": [
-        66,
-        58
+        65,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        14,
-        -7
+        15,
+        -8
       ],
-      "sha256": "b470b3068e009acc3a8730c90e86e1fd8d3a43ef23ee4eed99726184ec11eb9d",
+      "sha256": "403a8108d5c028bc4433e9f68b048b388dec851c0c209f5293ddfbcd6d724c07",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_01.png",
-      "width": 30,
+      "width": 29,
       "height": 35,
       "texture_px": [
-        30,
+        29,
         35
       ],
       "offset": 1031,
-      "length": 1050,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
-        58
+        66,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -7
+        14,
+        -8
       ],
-      "sha256": "08349a764e985be90396a2c1a90f32df9f562eea9d5fdfddf1e3ce3559af13bf",
+      "sha256": "3b30478d7033335c5c711b8782387ac8d08e82c05f6c05e969a42191e2b4037f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_02.png",
-      "width": 30,
+      "width": 29,
       "height": 35,
       "texture_px": [
-        30,
+        29,
         35
       ],
-      "offset": 2081,
-      "length": 1050,
+      "offset": 2046,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
+        66,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -8
       ],
-      "sha256": "4400e7bd9fa010233f499372a20c3d9795c8457c2a19820da307d76cb13809ec",
+      "sha256": "d1decc7b1ad7c9f53dc0895be1e8452cb8f6471d17313433d46bf52527dcbf18",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_03.png",
-      "width": 30,
-      "height": 34,
+      "width": 29,
+      "height": 35,
       "texture_px": [
-        30,
-        34
+        29,
+        35
       ],
-      "offset": 3131,
-      "length": 1020,
+      "offset": 3061,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
+        66,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
+        14,
+        -8
       ],
-      "sha256": "bc1ec54eafab91fc937883d6833152a72db52ecc9f47304761fa68a301a32efa",
+      "sha256": "2b88307ae4558c5195d47ecfed0a63b6c6400a75fc1c0a190897de2b0736b295",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_04.png",
-      "width": 30,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        30,
-        35
+        29,
+        36
       ],
-      "offset": 4151,
-      "length": 1050,
+      "offset": 4076,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        65,
-        57
+        66,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -8
       ],
-      "sha256": "d1546888155d19a4abd8c5ad512866f8dfebf3a04841d9b50a4f53d7f90a53a3",
+      "sha256": "3acc515ff5b97a6ca0a8a163ef497611d9a8af33cb7c3910626caa387ef0dcd1",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_05.png",
-      "width": 30,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        30,
-        35
+        29,
+        36
       ],
-      "offset": 5201,
-      "length": 1050,
+      "offset": 5120,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        65,
-        57
+        66,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -8
       ],
-      "sha256": "c5cef85c1a2ff0108dccc9f8549d08599447808830e5e9176e0bcee7c618378a",
+      "sha256": "2d890e905581c62177332f5369c42e1d1380355039d7bf994f79e58813d9931f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_06.png",
-      "width": 30,
-      "height": 36,
+      "width": 29,
+      "height": 35,
       "texture_px": [
-        30,
-        36
+        29,
+        35
       ],
-      "offset": 6251,
-      "length": 1080,
+      "offset": 6164,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
+        66,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -7
+        14,
+        -8
       ],
-      "sha256": "c3ad43982f56d5bb776ba57a1c641396f262662e31f550e117fa322d0553c81c",
+      "sha256": "6c802cff7d5aa3ff0803655e3dc9c1078934ce047691203b416894f81c562fe5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_07.png",
-      "width": 30,
+      "width": 29,
       "height": 35,
       "texture_px": [
-        30,
+        29,
         35
       ],
-      "offset": 7331,
-      "length": 1050,
+      "offset": 7179,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
-        58
+        66,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -7
+        14,
+        -8
       ],
-      "sha256": "ddaf3a85a7e69b82fddf7abb02f37e1a9c85bb682118c6c79e95db40bbcf650a",
+      "sha256": "fbd3b2e7bbab2deaf8bad32495abd1e5e03f2911107ee9c6d2ee6b2542d0a4fc",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_08.png",
-      "width": 30,
+      "width": 29,
       "height": 35,
       "texture_px": [
-        30,
+        29,
         35
       ],
-      "offset": 8381,
-      "length": 1050,
+      "offset": 8194,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        65,
-        58
+        66,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -7
+        14,
+        -8
       ],
-      "sha256": "e85ff31f3885ccfa2e8e63d37c2f360e77a818fe0acca1b398b2344d86e5d319",
+      "sha256": "4c9d2ee1f34ebdf9d70e0a69901234f1375a9c3d9d23668615579e08d1a4e436",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_09.png",
-      "width": 30,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        30,
-        35
+        29,
+        36
       ],
-      "offset": 9431,
-      "length": 1050,
+      "offset": 9209,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        65,
-        58
+        66,
+        57
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -7
       ],
-      "sha256": "a9c32ffe681e48e53b6ac851cc9e033a836cb3ba7a88184a5a56e72383157505",
+      "sha256": "7b0de2a102b8ead84c486ded83b4b4aae58ad253296b42009c544c566e9e15a1",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_10.png",
-      "width": 30,
+      "width": 29,
       "height": 35,
       "texture_px": [
-        30,
+        29,
         35
       ],
-      "offset": 10481,
-      "length": 1050,
+      "offset": 10253,
+      "length": 1015,
       "trim_origin_top_left_px": [
         65,
         57
@@ -286,20 +286,20 @@
         15,
         -8
       ],
-      "sha256": "c71a84e80322af672e12c071867d98d274f63f75d12bd54c5d7929bee0e849f9",
+      "sha256": "8b4b05b2e0d5d9cf3cc0976efb4ab567abc205a27b970611bd267c70663dbef4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_11.png",
-      "width": 30,
+      "width": 29,
       "height": 34,
       "texture_px": [
-        30,
+        29,
         34
       ],
-      "offset": 11531,
-      "length": 1020,
+      "offset": 11268,
+      "length": 986,
       "trim_origin_top_left_px": [
         65,
         57
@@ -308,20 +308,86 @@
         15,
         -9
       ],
-      "sha256": "d2fe9c3c613db7d2dee28677dfc2f540c6ea47facf17df73e58e60d88360b6e0",
+      "sha256": "7a87d40b2bce9912169bec035e758fdb1be90a1f7dc9a3883598d99b1af3b4c7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_s_12.png",
-      "width": 30,
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 12254,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "9fa72f01ad891abca2d5bf4f5f0554384e00e24df78a2c02b8c26212e9843ad8",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_13.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 13269,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "2fd54a420424f5ddd6797ffdc7ecd2912a0f4d9f3ffdfe38f02dbdc9dae6e097",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_14.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 14313,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        65,
+        57
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -8
+      ],
+      "sha256": "0e24d87e2d2c085c7109a783703da0eea021e89403d98e40016cf09d618a9729",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_s_15.png",
+      "width": 29,
       "height": 34,
       "texture_px": [
-        30,
+        29,
         34
       ],
-      "offset": 12551,
-      "length": 1020,
+      "offset": 15328,
+      "length": 986,
       "trim_origin_top_left_px": [
         65,
         57
@@ -330,139 +396,73 @@
         15,
         -9
       ],
-      "sha256": "2f66ad78853367a850b09a45ea5a797f8b0dc3e19939c475f6ee3b8472bfea7c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_s_13.png",
-      "width": 30,
-      "height": 35,
-      "texture_px": [
-        30,
-        35
-      ],
-      "offset": 13571,
-      "length": 1050,
-      "trim_origin_top_left_px": [
-        65,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -8
-      ],
-      "sha256": "d06f76191a68a52addc2f8b01e2bb2ebee7542fa61b21a92cf81dbfdc48ec10e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_s_14.png",
-      "width": 30,
-      "height": 35,
-      "texture_px": [
-        30,
-        35
-      ],
-      "offset": 14621,
-      "length": 1050,
-      "trim_origin_top_left_px": [
-        65,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -8
-      ],
-      "sha256": "fe2b3104fe7173c8b59d4ea8c53a9f3c761dcb6b3b7fc3c05104267c32636fbf",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_s_15.png",
-      "width": 30,
-      "height": 34,
-      "texture_px": [
-        30,
-        34
-      ],
-      "offset": 15671,
-      "length": 1020,
-      "trim_origin_top_left_px": [
-        65,
-        58
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -8
-      ],
-      "sha256": "2c6d3f54cb2ecc501e3595709dd56051364bb7ee824de755929be4fe4d6084fc",
+      "sha256": "9d5703d8e1bf8c3e4b77991e3f8a00f05f7411877776f04bfa4003fc602ddc8a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_00.png",
       "width": 28,
-      "height": 35,
+      "height": 36,
       "texture_px": [
         28,
-        35
+        36
       ],
-      "offset": 16691,
-      "length": 980,
+      "offset": 16314,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        64,
-        57
+        65,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -8
       ],
-      "sha256": "a7398d21a409d21364080763370e6fe997fec9630c43df636d0a5311fb4c9483",
+      "sha256": "3a26e9d285c0a3c8be43f850857df4d3a99904f734b175f96cfcf67b94da4719",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_01.png",
-      "width": 29,
-      "height": 35,
+      "width": 28,
+      "height": 36,
       "texture_px": [
-        29,
-        35
+        28,
+        36
       ],
-      "offset": 17671,
-      "length": 1015,
+      "offset": 17322,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        64,
-        57
+        65,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -8
       ],
-      "sha256": "e5458d2fb303442d8c4d3fc262ac4c3f94eecec6bba1853d6171a7634d8de443",
+      "sha256": "3cc619e06872b02856c239f36e290a5713c668737220b0b68fac9a51b1ae96b7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_02.png",
-      "width": 29,
-      "height": 35,
+      "width": 28,
+      "height": 36,
       "texture_px": [
-        29,
-        35
+        28,
+        36
       ],
-      "offset": 18686,
-      "length": 1015,
+      "offset": 18330,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        64,
-        57
+        65,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -8
       ],
-      "sha256": "58ae5db7d5d23a40d88bf5a52c2ed6531f12469dfd1e7389a983eb7dee8d0b1a",
+      "sha256": "bef0e21207f7d3340fff9f8b84be7dd4a87812c405c4acc39bb94ff3287e882e",
       "empty": false
     },
     {
@@ -474,7 +474,7 @@
         28,
         36
       ],
-      "offset": 19701,
+      "offset": 19338,
       "length": 1008,
       "trim_origin_top_left_px": [
         65,
@@ -484,29 +484,29 @@
         15,
         -8
       ],
-      "sha256": "42db03c8061aabea906a3def083c2ba8979ab5eddc1ad9d1f6115c49b9e1e19f",
+      "sha256": "d6611d08e2a38022d12e9906bea0c178225f4d4fa2da3115fb56b81626394523",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_04.png",
-      "width": 28,
-      "height": 36,
+      "width": 29,
+      "height": 37,
       "texture_px": [
-        28,
-        36
+        29,
+        37
       ],
-      "offset": 20709,
-      "length": 1008,
+      "offset": 20346,
+      "length": 1073,
       "trim_origin_top_left_px": [
         65,
         56
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -8
+        -7
       ],
-      "sha256": "1f66a8d03db0ddd2118742fbeab172dcbc58f8b3eb201b7486db0179b629c782",
+      "sha256": "957b133f12fcc7327edf469b3fcec6a950022aaa5b153097514dc37b0a5b1c9b",
       "empty": false
     },
     {
@@ -518,61 +518,61 @@
         28,
         37
       ],
-      "offset": 21717,
+      "offset": 21419,
       "length": 1036,
       "trim_origin_top_left_px": [
-        65,
+        66,
         56
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -7
       ],
-      "sha256": "8c979e9d14f2862f064460460ac1cb5a0f4a670d414e52eaddd9bc0b336e1d34",
+      "sha256": "88a50a4d8ebc29f3d9c6687dba0113893643d90889c1a41046fae6bc0a735150",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_06.png",
       "width": 28,
-      "height": 36,
+      "height": 37,
       "texture_px": [
         28,
-        36
+        37
       ],
-      "offset": 22753,
-      "length": 1008,
+      "offset": 22455,
+      "length": 1036,
       "trim_origin_top_left_px": [
-        65,
-        57
+        66,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        14,
         -7
       ],
-      "sha256": "8ad917393664e59c912acd968b3abfa748697cd77bdf151a27120e551ccee98a",
+      "sha256": "5aa7dc1545770e444ec1f15e5b0ce74b8e6d053b6bab9b9da0b879189e584a73",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_07.png",
-      "width": 28,
+      "width": 29,
       "height": 36,
       "texture_px": [
-        28,
+        29,
         36
       ],
-      "offset": 23761,
-      "length": 1008,
+      "offset": 23491,
+      "length": 1044,
       "trim_origin_top_left_px": [
         65,
-        57
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -7
+        -8
       ],
-      "sha256": "2cf42f17943cb73991afc4d5fdbc961302ac726be434b519388fa3745d3d7b63",
+      "sha256": "10bcbebe3b2447bcf9cc52d07bd1a54ee59e14d8e533906c631549c5ad7c4462",
       "empty": false
     },
     {
@@ -584,51 +584,29 @@
         29,
         36
       ],
-      "offset": 24769,
+      "offset": 24535,
       "length": 1044,
-      "trim_origin_top_left_px": [
-        65,
-        58
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -6
-      ],
-      "sha256": "9df2ef89d8dc6497dc25c47df3e9d656a0a83356bc58f2c7ef1cb004e537a3b9",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_ssw_09.png",
-      "width": 28,
-      "height": 37,
-      "texture_px": [
-        28,
-        37
-      ],
-      "offset": 25813,
-      "length": 1036,
       "trim_origin_top_left_px": [
         65,
         57
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -6
+        -7
       ],
-      "sha256": "e0ec4c3c6b49aca6d24ec6c8b319dae812461ed8c9e6f2e2fd42827fa873a949",
+      "sha256": "54255deb7b14008bfe1d3704e81ac5ed286a99fd9bc694bf9ba0469bfe152897",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_ssw_10.png",
+      "name": "run_ssw_09.png",
       "width": 28,
       "height": 36,
       "texture_px": [
         28,
         36
       ],
-      "offset": 26849,
+      "offset": 25579,
       "length": 1008,
       "trim_origin_top_left_px": [
         65,
@@ -638,7 +616,29 @@
         15,
         -7
       ],
-      "sha256": "4ece0e0b6734eb0860fa6e4f40ebfb149844e9859983e5fb26560d2974628d88",
+      "sha256": "8bbfe17333358186f7dc5f782c3fa4215bde6b886e4983cd420190e4bce9a565",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ssw_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 26587,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        65,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -7
+      ],
+      "sha256": "85a004d53f6688a694e033c841b23c7fc1a637a76c165bf48d00dcf246a7b612",
       "empty": false
     },
     {
@@ -650,7 +650,7 @@
         28,
         36
       ],
-      "offset": 27857,
+      "offset": 27623,
       "length": 1008,
       "trim_origin_top_left_px": [
         65,
@@ -660,161 +660,161 @@
         15,
         -8
       ],
-      "sha256": "2eaaa7bbcf15de48f64408fcc8bba5d9eb1a15d83721202255224de1882e82ef",
+      "sha256": "a11e536c0025b96fdbc1b27511b38af00d0a0ce20e2b7c9d8385eb67cb031f37",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_12.png",
-      "width": 28,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        28,
-        35
+        29,
+        36
       ],
-      "offset": 28865,
-      "length": 980,
+      "offset": 28631,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        65,
-        56
+        64,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        16,
         -9
       ],
-      "sha256": "d18b2cb246eb353cb9c6aab33b94de0eaa6d71f95e0bae211c0b210eec8fbf17",
+      "sha256": "2f3a557dce7c21b27fd17f34c7e617f7385a38fe11ebc8497d8bd91eaf0378ed",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_13.png",
-      "width": 28,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        28,
-        35
+        29,
+        36
       ],
-      "offset": 29845,
-      "length": 980,
+      "offset": 29675,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        65,
-        56
+        64,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
+        16,
         -9
       ],
-      "sha256": "02a7b7314a8ec6e7f90a1c2bf670f20d3fd332ff732318bb9f28cdd2f485d4cf",
+      "sha256": "b8d787688d7681d72d672b6b9982f543bf3c2574b037dfb180ff1e78990f9b1b",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_14.png",
       "width": 29,
-      "height": 34,
+      "height": 36,
       "texture_px": [
         29,
-        34
+        36
       ],
-      "offset": 30825,
-      "length": 986,
+      "offset": 30719,
+      "length": 1044,
       "trim_origin_top_left_px": [
         64,
-        57
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         -9
       ],
-      "sha256": "a931362c34ed947554d27cedf69581821b5117500f80c7a457665fe44f071eb3",
+      "sha256": "ec8ba403503039af78a5d1d5bfba3a4df18499fcc3a1f8039b8a778a698be5f2",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ssw_15.png",
-      "width": 29,
+      "width": 28,
       "height": 35,
       "texture_px": [
-        29,
+        28,
         35
       ],
-      "offset": 31811,
-      "length": 1015,
+      "offset": 31763,
+      "length": 980,
       "trim_origin_top_left_px": [
-        64,
-        57
+        65,
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -8
+        15,
+        -9
       ],
-      "sha256": "d12c024d4a3df25ea33f3a5e948fcce0f285d21bdb201ea21484af645f5aab57",
+      "sha256": "3859a2ad3060377f4940a16e9a9975b87b340548b61b9d74b5b0fcda848a1f0e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_00.png",
-      "width": 26,
+      "width": 25,
       "height": 38,
       "texture_px": [
-        26,
+        25,
         38
       ],
-      "offset": 32826,
-      "length": 988,
+      "offset": 32743,
+      "length": 950,
       "trim_origin_top_left_px": [
-        64,
-        55
+        65,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
+        15,
+        -8
       ],
-      "sha256": "d10302f53cb06703e5fc3c59090e8960d7e643845b80a528c5d2d9dbbb8ef9c6",
+      "sha256": "03dfa6a8629d445bc929e0e571d6a992c03bfcc2eda8823171f40c50e107c76f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_01.png",
-      "width": 26,
+      "width": 25,
       "height": 38,
       "texture_px": [
-        26,
+        25,
         38
       ],
-      "offset": 33814,
-      "length": 988,
+      "offset": 33693,
+      "length": 950,
       "trim_origin_top_left_px": [
-        64,
-        55
+        65,
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
+        15,
+        -8
       ],
-      "sha256": "e666ba73507f38f9a5a8e1578c8cbede0fffd96f4470e45022d9119d7a15b3f0",
+      "sha256": "2db729a53de8cf254d4de680da820668f3b471163c8061c7edbf3603fb8ddbc4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_02.png",
-      "width": 26,
-      "height": 39,
+      "width": 25,
+      "height": 38,
       "texture_px": [
-        26,
-        39
+        25,
+        38
       ],
-      "offset": 34802,
-      "length": 1014,
+      "offset": 34643,
+      "length": 950,
       "trim_origin_top_left_px": [
-        64,
+        65,
         54
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
+        15,
+        -8
       ],
-      "sha256": "332294f77b4746640f132f7d77edfcbfb355cc3e68947fa79904e090b60a64d1",
+      "sha256": "cd26baf9bc368bce6a0d7e157f30af63669fc3b25fb5bfa8737bd3b15045ef67",
       "empty": false
     },
     {
@@ -826,61 +826,61 @@
         27,
         39
       ],
-      "offset": 35816,
+      "offset": 35593,
       "length": 1053,
       "trim_origin_top_left_px": [
-        63,
+        64,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
+        16,
         -8
       ],
-      "sha256": "4e7f4e24cb8e1bf7953829919a6d88cfa58e3196e975c5ff2b05dac7ef77fb51",
+      "sha256": "35f5f8d9bb3c438bd2a5a25973a9e56a30673ee10a0662b0555861a6d80678d2",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_04.png",
       "width": 28,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         28,
-        39
+        40
       ],
-      "offset": 36869,
-      "length": 1092,
+      "offset": 36646,
+      "length": 1120,
       "trim_origin_top_left_px": [
         63,
         53
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -8
+        -7
       ],
-      "sha256": "56986c1cb013fb17073932c29fada525aeaa1bdc2a922d229f00be5386fd7c66",
+      "sha256": "7dc6bb4731ca12f886abbe9c47accb2c6c101bb686f96d2d3ff0fe85ab386958",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_05.png",
       "width": 28,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         28,
-        39
+        40
       ],
-      "offset": 37961,
-      "length": 1092,
+      "offset": 37766,
+      "length": 1120,
       "trim_origin_top_left_px": [
         63,
-        54
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
         -7
       ],
-      "sha256": "48f6b97ccba8d33f925f97767f15740fa5e4ddf4a3299b7524d0498361e8729c",
+      "sha256": "b8aaa9984993a190d96a8fc9532f7b7c95b6c81308b0e4952fe149099304b247",
       "empty": false
     },
     {
@@ -892,7 +892,7 @@
         28,
         39
       ],
-      "offset": 39053,
+      "offset": 38886,
       "length": 1092,
       "trim_origin_top_left_px": [
         63,
@@ -902,7 +902,7 @@
         17,
         -7
       ],
-      "sha256": "dc5695024d7f2e8d36047a1d5a58fc70868243b01be04ab892fb0397ec75d3b0",
+      "sha256": "cec000814fecf3f79e70be83a6932113fda863ed0fad3ec59218858365a3f547",
       "empty": false
     },
     {
@@ -914,17 +914,17 @@
         29,
         38
       ],
-      "offset": 40145,
+      "offset": 39978,
       "length": 1102,
       "trim_origin_top_left_px": [
         63,
-        55
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -7
+        -8
       ],
-      "sha256": "9bcbf58dc2c8d51869d5f61f4969b9e46fdf42e284de1ab698477624f64a6b21",
+      "sha256": "6bdae16fe0c8847a69736152ca5638bc027efaa2d543656efba8e3b62a3a61da",
       "empty": false
     },
     {
@@ -936,17 +936,17 @@
         28,
         39
       ],
-      "offset": 41247,
+      "offset": 41080,
       "length": 1092,
       "trim_origin_top_left_px": [
         63,
-        55
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -6
+        -7
       ],
-      "sha256": "f0731fb55af33d0d22bb003559189f5915bf6327899f841283ce32ead194da89",
+      "sha256": "cbcf915cfad1a9ae0fc7e5bb5cc71f282d0b33244e1c4a9086e4e6dbae0ab754",
       "empty": false
     },
     {
@@ -958,96 +958,118 @@
         28,
         39
       ],
-      "offset": 42339,
+      "offset": 42172,
       "length": 1092,
       "trim_origin_top_left_px": [
         63,
-        55
+        54
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -6
+        -7
       ],
-      "sha256": "f0a1fe80843219091b7244d609d24cdd5f97a7c8ea7ce98129d453f6eeb1ec35",
+      "sha256": "fc61cefb33a532c118a8f0b42a06a491195bd2299f1e72db593115a44337a157",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_10.png",
       "width": 27,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         27,
-        39
+        40
       ],
-      "offset": 43431,
-      "length": 1053,
+      "offset": 43264,
+      "length": 1080,
       "trim_origin_top_left_px": [
         64,
-        54
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         -7
       ],
-      "sha256": "8f658846d25099ed094b6540fc182ce5da9870f99e4be769e8e51a3a136a6e41",
+      "sha256": "ec7dc43d1ea081688bdb9f850fb996fe314e243cbc2eca7bed10914b7728e58d",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_11.png",
       "width": 27,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         27,
-        38
+        39
       ],
-      "offset": 44484,
-      "length": 1026,
+      "offset": 44344,
+      "length": 1053,
       "trim_origin_top_left_px": [
         64,
-        54
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         -8
       ],
-      "sha256": "a29f627f24c71472fc28528eff11d0439f849dc2cd74b7de3b0e7b1e410a251e",
+      "sha256": "fe078b62cd344acc890b1db83ab2dc7628cd9f570f59053ea276fbc64588eb28",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_12.png",
-      "width": 26,
+      "width": 25,
       "height": 39,
       "texture_px": [
-        26,
+        25,
         39
       ],
-      "offset": 45510,
-      "length": 1014,
+      "offset": 45397,
+      "length": 975,
       "trim_origin_top_left_px": [
         65,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
-        -8
+        -9
       ],
-      "sha256": "7703198f1fb84929e651189d6440446f62d411d3e87b9bf2ce1a8a7c1e33feeb",
+      "sha256": "0f66d26df055f13a2853e2fda12f2103b0c75103760b8ddd166717b930e92b91",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_13.png",
-      "width": 24,
+      "width": 25,
       "height": 39,
       "texture_px": [
-        24,
+        25,
         39
       ],
-      "offset": 46524,
-      "length": 936,
+      "offset": 46372,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        65,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "acd64e82d403dbacfabbfe3bd5a54fb5088409a6b4fb27eaf816da69c335e518",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sw_14.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 47347,
+      "length": 975,
       "trim_origin_top_left_px": [
         65,
         53
@@ -1056,73 +1078,51 @@
         15,
         -8
       ],
-      "sha256": "45074b3b3d0b4d5ae6d0f77c808861140ce88ce2c83e5efa1e12e431ad5335a6",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sw_14.png",
-      "width": 26,
-      "height": 38,
-      "texture_px": [
-        26,
-        38
-      ],
-      "offset": 47460,
-      "length": 988,
-      "trim_origin_top_left_px": [
-        64,
-        54
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -8
-      ],
-      "sha256": "5b67279567d3b8d667ad01b7ab73c755a44d9fe53cd7be3c39eac690a621e7ae",
+      "sha256": "fc4d3f286f5fe865b2590c6093c39adddb6e8a6a408e4f2be844d0c32759e6c0",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sw_15.png",
-      "width": 26,
-      "height": 38,
+      "width": 25,
+      "height": 39,
       "texture_px": [
-        26,
-        38
+        25,
+        39
       ],
-      "offset": 48448,
-      "length": 988,
+      "offset": 48322,
+      "length": 975,
       "trim_origin_top_left_px": [
-        64,
-        55
+        65,
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
+        15,
+        -8
       ],
-      "sha256": "ed02dee0e4dba61e3c0aacd6396bb56883311f95134ff55ae80dee7a72cf3742",
+      "sha256": "09512bcba902f81d5ee2edf788058581fd766ec509fa1ee8cba7f35d71a0c5b7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_00.png",
-      "width": 26,
+      "width": 25,
       "height": 40,
       "texture_px": [
-        26,
+        25,
         40
       ],
-      "offset": 49436,
-      "length": 1040,
+      "offset": 49297,
+      "length": 1000,
       "trim_origin_top_left_px": [
-        63,
-        53
+        64,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -7
+        16,
+        -8
       ],
-      "sha256": "65bdad6d369511982e4228afdee0989c0e96e1563988a03dfefa9907b2db22e8",
+      "sha256": "e0efe8abc328c0aeab80eb5ad9a655e8435cd733cc79adcaf914741e3c765237",
       "empty": false
     },
     {
@@ -1134,17 +1134,17 @@
         25,
         40
       ],
-      "offset": 50476,
+      "offset": 50297,
       "length": 1000,
       "trim_origin_top_left_px": [
         64,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -7
+        -8
       ],
-      "sha256": "25b49eeda1fc31c5ab6fef0e829e7ed902f538cd90101328b372d70e885141ab",
+      "sha256": "5e6e4fb1a44d59948d1d9f280e11ef24bf88f8df11aa3cf1ce3db43e517eb6c5",
       "empty": false
     },
     {
@@ -1156,7 +1156,7 @@
         25,
         40
       ],
-      "offset": 51476,
+      "offset": 51297,
       "length": 1000,
       "trim_origin_top_left_px": [
         64,
@@ -1166,7 +1166,7 @@
         16,
         -8
       ],
-      "sha256": "fce4106dd2b95a245c6e2e674466ba08bc806b3a788c85303c516aa5799a4982",
+      "sha256": "85f8f6d5409980f36224bb6c325fc5323e80abfdbb281cd980b9dbd5c008876e",
       "empty": false
     },
     {
@@ -1178,7 +1178,7 @@
         26,
         41
       ],
-      "offset": 52476,
+      "offset": 52297,
       "length": 1066,
       "trim_origin_top_left_px": [
         63,
@@ -1188,7 +1188,7 @@
         17,
         -8
       ],
-      "sha256": "cb627be3fcb2af0d4b83a264169dc6551a03aff435141caa0496741255d39b17",
+      "sha256": "6055c91e137517c845319067fee34ddf48efe5a58f718c54de387d6c6526c3f5",
       "empty": false
     },
     {
@@ -1200,7 +1200,7 @@
         27,
         41
       ],
-      "offset": 53542,
+      "offset": 53363,
       "length": 1107,
       "trim_origin_top_left_px": [
         62,
@@ -1210,20 +1210,42 @@
         18,
         -8
       ],
-      "sha256": "bfcb1fca05d68627af5ace3490a34f5a93d05ed0a17421bd31da465730fcf4f1",
+      "sha256": "153e2d541a7eac0a707f0be5d22bc73e6cd77d073c890da69032c0a735b066ce",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_05.png",
       "width": 27,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         27,
+        41
+      ],
+      "offset": 54470,
+      "length": 1107,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -8
+      ],
+      "sha256": "54eb671389fcc26128f6c7093f45db502631dbba47ad7e342a9fe66a1b2354d1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wsw_06.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
         40
       ],
-      "offset": 54649,
-      "length": 1080,
+      "offset": 55577,
+      "length": 1120,
       "trim_origin_top_left_px": [
         62,
         52
@@ -1232,51 +1254,29 @@
         18,
         -8
       ],
-      "sha256": "f74fc0fc82fd01b90e0583a64754754b67e6810b85a513e74fc44373dcde9501",
+      "sha256": "0d48c15494df8ee97d0a4d412c294406eeebaee8812b68172cf05d5ec31813c8",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_wsw_06.png",
-      "width": 28,
-      "height": 41,
+      "name": "run_wsw_07.png",
+      "width": 29,
+      "height": 40,
       "texture_px": [
-        28,
-        41
+        29,
+        40
       ],
-      "offset": 55729,
-      "length": 1148,
+      "offset": 56697,
+      "length": 1160,
       "trim_origin_top_left_px": [
         62,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -7
+        -8
       ],
-      "sha256": "603a03a8b440ea754d661395c5bfe5a698f09923024fa6aacbcc95df6ea5a68f",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wsw_07.png",
-      "width": 30,
-      "height": 40,
-      "texture_px": [
-        30,
-        40
-      ],
-      "offset": 56877,
-      "length": 1200,
-      "trim_origin_top_left_px": [
-        62,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        18,
-        -7
-      ],
-      "sha256": "aaff6c027be90274782f1b89e055fed802ecc689eb15917c046bb5babe03664a",
+      "sha256": "89171ad5f5cdeb8e2e45146309d1bbaa79b504042567266823b0efa8b30a9dbb",
       "empty": false
     },
     {
@@ -1288,39 +1288,39 @@
         28,
         40
       ],
-      "offset": 58077,
+      "offset": 57857,
       "length": 1120,
       "trim_origin_top_left_px": [
         62,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -7
+        -8
       ],
-      "sha256": "ef052278137fc07794d0c442fda5f4870e6448e568bb88c7d800d51c828c66b2",
+      "sha256": "84a3e26a2a689bd37a1b100e24d42de2bca7134ab9f3ea77c23b2610b77c45da",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_09.png",
-      "width": 28,
-      "height": 40,
+      "width": 27,
+      "height": 41,
       "texture_px": [
-        28,
-        40
+        27,
+        41
       ],
-      "offset": 59197,
-      "length": 1120,
+      "offset": 58977,
+      "length": 1107,
       "trim_origin_top_left_px": [
         62,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -7
+        -8
       ],
-      "sha256": "8c8b47654bcf76405fff5d20260ccd0061ffbc4899e96f6a6f01f4247ad12beb",
+      "sha256": "8501c43b842d5fc06af4c541c2792f3bb63cba408395e676ab34198f470af9d3",
       "empty": false
     },
     {
@@ -1332,171 +1332,171 @@
         26,
         41
       ],
-      "offset": 60317,
+      "offset": 60084,
       "length": 1066,
       "trim_origin_top_left_px": [
         63,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -7
+        -8
       ],
-      "sha256": "ae5b1bc6fe3c48268603f21785b5fb1a559addb64a7c0321f27964fbc56e937f",
+      "sha256": "75ac7831c9f625fe88dc77cf2e02f3deb222ea68b6287250045e9eca57a3e82b",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_11.png",
-      "width": 25,
+      "width": 24,
       "height": 40,
       "texture_px": [
-        25,
+        24,
         40
       ],
-      "offset": 61383,
-      "length": 1000,
+      "offset": 61150,
+      "length": 960,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -8
+        -9
       ],
-      "sha256": "9f8269536b91316fbc62a003e031eb52b7e55eda196d2fc2f097f4b37476c9a6",
+      "sha256": "c56b01f377fef67a14f40850037a0d9b27411154b0ec7c07bfa90811657d99fd",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_12.png",
       "width": 25,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         25,
-        40
+        41
       ],
-      "offset": 62383,
-      "length": 1000,
+      "offset": 62110,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        64,
-        51
+        63,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -9
       ],
-      "sha256": "20e57fd49d3ac91b2362c82a597dbd45d1105829936471ed76e5fd5d50f963ec",
+      "sha256": "4187c2f9b1b021975a666ded8c6358df3f4f89a35023a77c069010870a031108",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_13.png",
       "width": 25,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         25,
-        40
+        41
       ],
-      "offset": 63383,
-      "length": 1000,
+      "offset": 63135,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        64,
-        51
+        63,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -9
       ],
-      "sha256": "e9dbff712eec35aa59fd93ec767ae349b86a06c256dbdae7f39c4eed80fd86ad",
+      "sha256": "04b3b3631e478f93aba5697e2a081e81c37037feb3f541b6ecdd030191939d7a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_14.png",
-      "width": 24,
-      "height": 39,
+      "width": 25,
+      "height": 40,
       "texture_px": [
-        24,
-        39
+        25,
+        40
       ],
-      "offset": 64383,
-      "length": 936,
+      "offset": 64160,
+      "length": 1000,
       "trim_origin_top_left_px": [
-        64,
-        52
+        63,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -9
       ],
-      "sha256": "4bc17041d98f370c3740e8eed9d866459257816ccc33d4c462158180c9a84026",
+      "sha256": "f6f766100b2ae775ff1e348986e6cd794e9e84ec6b6bbcf96570f3c1e09e10e4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wsw_15.png",
       "width": 25,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         25,
-        39
+        40
       ],
-      "offset": 65319,
-      "length": 975,
+      "offset": 65160,
+      "length": 1000,
       "trim_origin_top_left_px": [
-        64,
-        53
+        63,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        17,
         -8
       ],
-      "sha256": "fd07b519bd2777b1ffb780b0c19362ed8a7f2445ee4458433105cc951e6c43fd",
+      "sha256": "7611d59526324bb8e65a1ba0620839f782dc096a56e89cdaab27324839050992",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_00.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 66160,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        62,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -9
+      ],
+      "sha256": "3f31351d490d36d6c7c3f5a1c07ddb454a8c31ae87d092d7f8c8832b32b94103",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_01.png",
       "width": 26,
       "height": 40,
       "texture_px": [
         26,
         40
       ],
-      "offset": 66294,
+      "offset": 67280,
       "length": 1040,
       "trim_origin_top_left_px": [
         62,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        18,
-        -8
-      ],
-      "sha256": "e65b11a308b7567d77529cbebe21db86d495c77690cd32295dbcad848cfbd8b7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_w_01.png",
-      "width": 27,
-      "height": 39,
-      "texture_px": [
-        27,
-        39
-      ],
-      "offset": 67334,
-      "length": 1053,
-      "trim_origin_top_left_px": [
-        62,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         -9
       ],
-      "sha256": "bd68f5111f065188be2ac27421c4d9fbaa590c0e1c7ee3897507de46f44e5c7c",
+      "sha256": "14fcf91e4d3bfe0e65900e7fc1c8cb653a6a42c26fdff7f9903e9ea8b4a4a962",
       "empty": false
     },
     {
@@ -1508,7 +1508,7 @@
         25,
         40
       ],
-      "offset": 68387,
+      "offset": 68320,
       "length": 1000,
       "trim_origin_top_left_px": [
         63,
@@ -1518,7 +1518,7 @@
         17,
         -9
       ],
-      "sha256": "3ca70a382627ed3528972c701010371dee994608b174a39c8047d0fb3439b265",
+      "sha256": "6fa8f62477139b142a8087ab0218de03e63ae31256ec43de2c06110329f1dcba",
       "empty": false
     },
     {
@@ -1530,7 +1530,7 @@
         25,
         40
       ],
-      "offset": 69387,
+      "offset": 69320,
       "length": 1000,
       "trim_origin_top_left_px": [
         63,
@@ -1540,174 +1540,152 @@
         17,
         -9
       ],
-      "sha256": "3ba5ac74a5e454a69413fd46f6ea99114f582184d9990d0114df8730e5eeed6c",
+      "sha256": "7aa2f607e185c130a875bc3161e26f9be2db69a13cf46360aee99f27b87af2ee",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_04.png",
-      "width": 27,
-      "height": 41,
+      "width": 26,
+      "height": 40,
       "texture_px": [
-        27,
-        41
+        26,
+        40
       ],
-      "offset": 70387,
-      "length": 1107,
+      "offset": 70320,
+      "length": 1040,
       "trim_origin_top_left_px": [
         62,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         -9
       ],
-      "sha256": "8ac1abe80c6747fdc7db9c9e886ed6c089e2b77e730c87a65f3a44582875fe0d",
+      "sha256": "5b51282757e9ae3a7e0ada74dadd24ecf5af601ac1d765c1628523e3f7d7100f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_05.png",
-      "width": 27,
-      "height": 41,
+      "width": 26,
+      "height": 40,
       "texture_px": [
-        27,
-        41
+        26,
+        40
       ],
-      "offset": 71494,
-      "length": 1107,
+      "offset": 71360,
+      "length": 1040,
       "trim_origin_top_left_px": [
         62,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         -9
       ],
-      "sha256": "b851dd413f5460337ce5e0dd30b72a525a416351613b1770a2d5b6a34ae76231",
+      "sha256": "619a7199c61acf69f4fdecfb63dc79afd9c4afbcabc52668c21d6aa8bd2b0e75",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_06.png",
       "width": 27,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         27,
-        41
+        40
       ],
-      "offset": 72601,
-      "length": 1107,
+      "offset": 72400,
+      "length": 1080,
       "trim_origin_top_left_px": [
         62,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -8
+        -9
       ],
-      "sha256": "7992e1bb4c1b299c0d4a124112707bf8e20b650253f74d0c77903d80471860d3",
+      "sha256": "95792966a1009cf7198d82ffc2f3ecf69366178e64be153096225fd9d28d3cef",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_07.png",
       "width": 29,
-      "height": 42,
+      "height": 41,
       "texture_px": [
         29,
-        42
+        41
       ],
-      "offset": 73708,
-      "length": 1218,
+      "offset": 73480,
+      "length": 1189,
       "trim_origin_top_left_px": [
         62,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -7
+        -8
       ],
-      "sha256": "029fe83020985a295b3923fdc37f448f3eca79e5872b8566ccdaa7f2feb19e79",
+      "sha256": "c8fe854d5ecae480cb4165e65c20773fdfa759af2a296b208ae6a41a48f7b4f3",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_08.png",
-      "width": 27,
+      "width": 25,
       "height": 41,
       "texture_px": [
-        27,
+        25,
         41
       ],
-      "offset": 74926,
-      "length": 1107,
+      "offset": 74669,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        63,
-        52
+        64,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -7
+        16,
+        -8
       ],
-      "sha256": "9ca8f8182a5864d9b569664b32dc46e817dd58ed8af904797688e959e8ac964c",
+      "sha256": "469fa616e99c1a95517b15dbd66b9061a3013e38ddd9e7622ade5ae2a5eb3877",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_09.png",
-      "width": 26,
-      "height": 42,
+      "width": 24,
+      "height": 41,
       "texture_px": [
-        26,
-        42
+        24,
+        41
       ],
-      "offset": 76033,
-      "length": 1092,
+      "offset": 75694,
+      "length": 984,
       "trim_origin_top_left_px": [
-        63,
-        51
+        64,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -7
+        16,
+        -9
       ],
-      "sha256": "5f36fd82de4d91bddc312bf344f986e71efadd62a636a2d5a5477c042a78b183",
+      "sha256": "8394380cf394b0c2c1b82e707c503c2872f31d95d6b310b78591c824db96a977",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_10.png",
-      "width": 26,
+      "width": 25,
       "height": 41,
       "texture_px": [
-        26,
+        25,
         41
       ],
-      "offset": 77125,
-      "length": 1066,
-      "trim_origin_top_left_px": [
-        63,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        17,
-        -8
-      ],
-      "sha256": "e09066930a5e0ca2163b4d0b67a0e8e1b0244bfae248d51bd0be11a7e71b7798",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_w_11.png",
-      "width": 26,
-      "height": 41,
-      "texture_px": [
-        26,
-        41
-      ],
-      "offset": 78191,
-      "length": 1066,
+      "offset": 76678,
+      "length": 1025,
       "trim_origin_top_left_px": [
         63,
         50
@@ -1716,7 +1694,29 @@
         17,
         -9
       ],
-      "sha256": "d03a9735a807fdc8e2033b0cb0f5868ffc20eca36fa893632fdb8a3ef8932698",
+      "sha256": "49cd9487ffa3e41bd7e29f973607c454db3188696dbc44f8730fe0df551c7134",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_w_11.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 77703,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        63,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        17,
+        -10
+      ],
+      "sha256": "c64bffd4112614af7dc0312dbee0deead2232a14d55666d07b4043e51197d78c",
       "empty": false
     },
     {
@@ -1728,7 +1728,7 @@
         27,
         40
       ],
-      "offset": 79257,
+      "offset": 78743,
       "length": 1080,
       "trim_origin_top_left_px": [
         62,
@@ -1738,73 +1738,73 @@
         18,
         -10
       ],
-      "sha256": "5dcb9c31b2b69ef6e61bc749078f9dc4de0525c99718cca5ebb3cfb1871b234e",
+      "sha256": "63dee44ef5b8940e0505347b53afe09a34a238b1b8dcb49196691537f32857e3",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_13.png",
       "width": 26,
-      "height": 38,
+      "height": 40,
       "texture_px": [
         26,
-        38
+        40
       ],
-      "offset": 80337,
-      "length": 988,
+      "offset": 79823,
+      "length": 1040,
       "trim_origin_top_left_px": [
         62,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -11
+        -10
       ],
-      "sha256": "b3ecbd7773c500059816ebe306a3028477d30935769d9e9418b55d798ec5d590",
+      "sha256": "b5cee4681a78e930e160e7ad66ff96c192c3a0b739fe689512807ad1c9f3bbaa",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_14.png",
-      "width": 27,
-      "height": 38,
+      "width": 26,
+      "height": 40,
       "texture_px": [
-        27,
-        38
+        26,
+        40
       ],
-      "offset": 81325,
-      "length": 1026,
+      "offset": 80863,
+      "length": 1040,
       "trim_origin_top_left_px": [
         62,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -11
+        -10
       ],
-      "sha256": "3253e7a5eb7780dbd8ec7c4a0fd63281d6e53cbe274284955efcd6e4e3d694d4",
+      "sha256": "3ee459450790be3d72fe7827a9e143ec99e2f605f2739bad9859f5fbda4e6200",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_w_15.png",
       "width": 29,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         29,
-        38
+        39
       ],
-      "offset": 82351,
-      "length": 1102,
+      "offset": 81903,
+      "length": 1131,
       "trim_origin_top_left_px": [
         62,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
         -10
       ],
-      "sha256": "35039ec5938f13e451a8f17bf23f771c1e24cd8d4156cdfac637e07c435143d1",
+      "sha256": "1f1e569a202896b3d82b89d9c2d123a3a1026c41171f31e3b59b249701d03458",
       "empty": false
     },
     {
@@ -1816,61 +1816,61 @@
         28,
         39
       ],
-      "offset": 83453,
+      "offset": 83034,
       "length": 1092,
       "trim_origin_top_left_px": [
         62,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -10
+        -11
       ],
-      "sha256": "e5aa5fe245b43b9dce133b6c56bd586522a37e496ef7df49415de0d9a52bfeac",
+      "sha256": "e39928afe3fb9fdcc58d86074140ab98bc37b0b89b92c7c507913cdd888604b0",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_01.png",
       "width": 28,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         28,
-        39
+        38
       ],
-      "offset": 84545,
-      "length": 1092,
+      "offset": 84126,
+      "length": 1064,
       "trim_origin_top_left_px": [
         62,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         18,
-        -10
+        -11
       ],
-      "sha256": "38d7f7c46901bd5edfd2977144965785edba375eac3359a213584930371246ad",
+      "sha256": "a01f882eadf1054930c761584c07235d61ee24512eb7a6b720a677a603dee8d2",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_02.png",
-      "width": 28,
+      "width": 26,
       "height": 39,
       "texture_px": [
-        28,
+        26,
         39
       ],
-      "offset": 85637,
-      "length": 1092,
+      "offset": 85190,
+      "length": 1014,
       "trim_origin_top_left_px": [
-        62,
-        51
+        63,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -10
+        17,
+        -11
       ],
-      "sha256": "4f3fffa87309158811de1676e530850baa8fe73e6a2de187cde4831b20e82094",
+      "sha256": "ccd7737ff90c223871fee22a96dea5e1830923ff15fe55ca74c5a6940245ed62",
       "empty": false
     },
     {
@@ -1882,7 +1882,7 @@
         26,
         40
       ],
-      "offset": 86729,
+      "offset": 86204,
       "length": 1040,
       "trim_origin_top_left_px": [
         63,
@@ -1892,7 +1892,7 @@
         17,
         -10
       ],
-      "sha256": "c77e7782f7f6ead26f3e873c9f5c76f0aca4b76c4d94058bbc9d28392e072ca0",
+      "sha256": "3338eb266b6cda07d9660ed35c2be7cc4d2915cc42b8cbb91f9eebbeb0644e08",
       "empty": false
     },
     {
@@ -1904,7 +1904,7 @@
         25,
         40
       ],
-      "offset": 87769,
+      "offset": 87244,
       "length": 1000,
       "trim_origin_top_left_px": [
         64,
@@ -1914,7 +1914,7 @@
         16,
         -10
       ],
-      "sha256": "6ec79935eed76b0fc7997d5f98249ae16baa1d234f19ac44740a34f1f2d10fdc",
+      "sha256": "be8c1c12ad9f4bbfc215166f1e9dc36c225d5250dbdef56722d5fe358430fa30",
       "empty": false
     },
     {
@@ -1926,7 +1926,7 @@
         25,
         41
       ],
-      "offset": 88769,
+      "offset": 88244,
       "length": 1025,
       "trim_origin_top_left_px": [
         64,
@@ -1936,108 +1936,20 @@
         16,
         -9
       ],
-      "sha256": "d47186502f70a142b55b4e6e5f922f8dfb1dbe4446492dd38d88b30565c9c834",
+      "sha256": "cde3eefc24178de252f4b73a71b501ebb176b04d0aabd2e18968d6c78b9e5428",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_06.png",
-      "width": 26,
-      "height": 41,
-      "texture_px": [
-        26,
-        41
-      ],
-      "offset": 89794,
-      "length": 1066,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -8
-      ],
-      "sha256": "da89112e9edf27e7b6eb3eb8a1588dac4b44a107d4b55f1c1125a939900a864c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wnw_07.png",
-      "width": 26,
-      "height": 42,
-      "texture_px": [
-        26,
-        42
-      ],
-      "offset": 90860,
-      "length": 1092,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
-      ],
-      "sha256": "dc233a2a575e6fb1313d11eb9e474f1928559226692dfff354f8619fce525f36",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wnw_08.png",
       "width": 25,
-      "height": 42,
-      "texture_px": [
-        25,
-        42
-      ],
-      "offset": 91952,
-      "length": 1050,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -7
-      ],
-      "sha256": "4f49c5c0513379f26cd29ae8bb20a90262761e1fdb6cb2ebf192e11c2d07e8a1",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wnw_09.png",
-      "width": 25,
-      "height": 41,
-      "texture_px": [
-        25,
-        41
-      ],
-      "offset": 93002,
-      "length": 1025,
-      "trim_origin_top_left_px": [
-        64,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        16,
-        -8
-      ],
-      "sha256": "0c84204f1d442ab9d673349ba64b9c405c0469559b92d265125ef6536a79d3b7",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wnw_10.png",
-      "width": 26,
       "height": 40,
       "texture_px": [
-        26,
+        25,
         40
       ],
-      "offset": 94027,
-      "length": 1040,
+      "offset": 89269,
+      "length": 1000,
       "trim_origin_top_left_px": [
         64,
         51
@@ -2046,41 +1958,151 @@
         16,
         -9
       ],
-      "sha256": "9bdd9adeb2a55241453505e6df2522300e2e95baa2be08becbce24ad4a79ed2a",
+      "sha256": "098cfe927a36265f261789c5be92684035fe7c5545cb185de4c4758c172bccbc",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_07.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 90269,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "132cda8e5f296ffaa437e6af4b6ae69553e901645ea01e1565fad0c4c6b1352a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_08.png",
+      "width": 24,
+      "height": 40,
+      "texture_px": [
+        24,
+        40
+      ],
+      "offset": 91229,
+      "length": 960,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "c48bf5cd617086becf52a8f783a40e87fcdf100448fe0c6a9c065f9e7bfa6c27",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_09.png",
+      "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 92189,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        65,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -9
+      ],
+      "sha256": "76eead8c84c58b1301b0f0b33b92953c87e754dbcdcdf7ad17de34970560ab02",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_10.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 93173,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        64,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        16,
+        -10
+      ],
+      "sha256": "85f40777ffca5db2723f292cb286d55a2acd1e181010d0e7521ccfbaf14f2971",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_11.png",
-      "width": 28,
+      "width": 27,
       "height": 39,
       "texture_px": [
-        28,
+        27,
         39
       ],
-      "offset": 95067,
-      "length": 1092,
+      "offset": 94173,
+      "length": 1053,
       "trim_origin_top_left_px": [
-        62,
+        63,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
+        17,
         -11
       ],
-      "sha256": "355dd3d95f324ee5d10e171e635519292ba28ced9d9d66cdf215c1933baacc3a",
+      "sha256": "eba8137eee2d36b38d3661808c4ec2c7ffa3b9e012a52d5af45bce3a41edd1ef",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_12.png",
       "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 95226,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        62,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        18,
+        -12
+      ],
+      "sha256": "923d219c2c34e8e8d00013d9265c5cbbc75fb05ae123b48a1df8378a699cf3c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_wnw_13.png",
+      "width": 28,
       "height": 38,
       "texture_px": [
         28,
         38
       ],
-      "offset": 96159,
+      "offset": 96318,
       "length": 1064,
       "trim_origin_top_left_px": [
         62,
@@ -2090,73 +2112,51 @@
         18,
         -12
       ],
-      "sha256": "4e3445a7839e46d4b30cecbd589e39faf24fda5f38ee34bd39ee24d58405e797",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_wnw_13.png",
-      "width": 29,
-      "height": 37,
-      "texture_px": [
-        29,
-        37
-      ],
-      "offset": 97223,
-      "length": 1073,
-      "trim_origin_top_left_px": [
-        61,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        19,
-        -13
-      ],
-      "sha256": "bed9d6421234eda758035a8148d0b51ee018a05ed24071783259bb0c70f08fd3",
+      "sha256": "a186dc221ec9710075e46a477034678ba921a68b348e49ed91e58afc77f67957",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_14.png",
-      "width": 29,
-      "height": 36,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        29,
-        36
+        28,
+        38
       ],
-      "offset": 98296,
-      "length": 1044,
+      "offset": 97382,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        61,
-        51
+        62,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
-        -13
+        18,
+        -12
       ],
-      "sha256": "0a149970f4af5c6edcd272bbd8c35a23518b6d563265ff146e68f68a83bd0aa0",
+      "sha256": "5a27260289a536c157cb4154136fc6ce5c07b67308d6a384b03f6bb774fddeeb",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_wnw_15.png",
-      "width": 31,
-      "height": 37,
+      "width": 30,
+      "height": 38,
       "texture_px": [
-        31,
-        37
+        30,
+        38
       ],
-      "offset": 99340,
-      "length": 1147,
+      "offset": 98446,
+      "length": 1140,
       "trim_origin_top_left_px": [
-        61,
-        51
+        62,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        19,
+        18,
         -12
       ],
-      "sha256": "056e653ffc2b212896da2bf8dc809d9824469f207d4f7f86bac40f134e33cf8a",
+      "sha256": "d6c29acb861e939411dfdd2832c6310591a9f4a2ccbeb21250a6b693de00c1fb",
       "empty": false
     },
     {
@@ -2168,52 +2168,52 @@
         28,
         36
       ],
-      "offset": 100487,
+      "offset": 99586,
       "length": 1008,
       "trim_origin_top_left_px": [
         63,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -12
+        -13
       ],
-      "sha256": "968c49a21e7f494e0bc4096562ee0a63ab9d9405f2930a34399b62ead21ed7e4",
+      "sha256": "63ef06c05aa22292b81f170e8e8811c1fde39c33bddee37719b2b129f47fab54",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_01.png",
       "width": 28,
-      "height": 37,
+      "height": 36,
       "texture_px": [
         28,
-        37
+        36
       ],
-      "offset": 101495,
-      "length": 1036,
+      "offset": 100594,
+      "length": 1008,
       "trim_origin_top_left_px": [
         63,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         17,
-        -12
+        -13
       ],
-      "sha256": "7e8cfa37342e316a0e0c46cc713d8f218cc394f898de394db4471b301a4396b9",
+      "sha256": "54c0d532a8588dbf1bffabfc554d0854c2b1040809cef29746d708abcddd77a5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_02.png",
-      "width": 28,
+      "width": 27,
       "height": 37,
       "texture_px": [
-        28,
+        27,
         37
       ],
-      "offset": 102531,
-      "length": 1036,
+      "offset": 101602,
+      "length": 999,
       "trim_origin_top_left_px": [
         63,
         51
@@ -2222,51 +2222,51 @@
         17,
         -12
       ],
-      "sha256": "9f9a463ece44e1b2ead15aa6d8dda339cb5b3fd7227d1813503531a9fe046449",
+      "sha256": "eeade4481b873913d94c23f09c69929488f67262ed59e162126a153523b0834d",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_03.png",
       "width": 26,
-      "height": 38,
+      "height": 37,
       "texture_px": [
         26,
-        38
+        37
       ],
-      "offset": 103567,
-      "length": 988,
+      "offset": 102601,
+      "length": 962,
       "trim_origin_top_left_px": [
         64,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
         -12
       ],
-      "sha256": "1eeee0f5326509c9649f45cad578886abf53f3b58057e510df87e94741d09a79",
+      "sha256": "7e2b76d6147498e9e40b5e90a0dbc91d2087cb5afcead9e5fd222a783b2106f6",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_04.png",
       "width": 25,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         25,
-        39
+        38
       ],
-      "offset": 104555,
-      "length": 975,
+      "offset": 103563,
+      "length": 950,
       "trim_origin_top_left_px": [
         65,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
         -11
       ],
-      "sha256": "dff84f493309a0f4a2623c4ee419448cf95ef1a648f78f1246b913bf9aa8675c",
+      "sha256": "372ca622e69e7625687bcd5a98db638702b138eba78c437f7eb0ed1f552e6e6f",
       "empty": false
     },
     {
@@ -2278,7 +2278,7 @@
         26,
         39
       ],
-      "offset": 105530,
+      "offset": 104513,
       "length": 1014,
       "trim_origin_top_left_px": [
         64,
@@ -2288,7 +2288,7 @@
         16,
         -10
       ],
-      "sha256": "4a966f448f82eff46aa976c23db0cf96515cc1f342e54eb6155184dc1a7a93ef",
+      "sha256": "341bbeb1e9a2b58464e76176223174365fa3ee1955963828805c67d41cf40125",
       "empty": false
     },
     {
@@ -2300,7 +2300,7 @@
         26,
         40
       ],
-      "offset": 106544,
+      "offset": 105527,
       "length": 1040,
       "trim_origin_top_left_px": [
         64,
@@ -2310,7 +2310,7 @@
         16,
         -9
       ],
-      "sha256": "a725ff5a1deb34ce63520d7128b53f1775a1cc132e0e2a280e8134d3c29d7d6c",
+      "sha256": "cc3c53868c3b0744e9ed2a1c5b1fe5d259249187e9049ccdd82c01dd1df20d5d",
       "empty": false
     },
     {
@@ -2322,17 +2322,17 @@
         26,
         40
       ],
-      "offset": 107584,
+      "offset": 106567,
       "length": 1040,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -8
+        -9
       ],
-      "sha256": "73ebef775259f37396b4c371cdc7622e468b37612bae6892c266af8f0245fcd3",
+      "sha256": "2ce3b3fa5b9a54cd63836d52115d87df3213a8e0bd4c7ebd75bc4edcf7473ba6",
       "empty": false
     },
     {
@@ -2344,17 +2344,17 @@
         26,
         40
       ],
-      "offset": 108624,
+      "offset": 107607,
       "length": 1040,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -8
+        -9
       ],
-      "sha256": "5f0a6a842bcea984f8a18924f1a7558bff11d13f11eaa34e3df0c3dbc84472ea",
+      "sha256": "55923182f00b7eee3141d556be37fbe319c842e5e7a7ab537050a98bee919bd0",
       "empty": false
     },
     {
@@ -2366,17 +2366,17 @@
         26,
         39
       ],
-      "offset": 109664,
+      "offset": 108647,
       "length": 1014,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -9
+        -10
       ],
-      "sha256": "854322035fb9706e93c39b2b1c907c3ee9ab455996d28730b8427bd058d26cbc",
+      "sha256": "5b4b764184733fd2f62d329356db1dfed24f401c3c24f7e2b10506d7b4bf9963",
       "empty": false
     },
     {
@@ -2388,39 +2388,39 @@
         26,
         39
       ],
-      "offset": 110678,
+      "offset": 109661,
       "length": 1014,
       "trim_origin_top_left_px": [
         64,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -10
+        -11
       ],
-      "sha256": "e82278fa36d620d29eda09b7d952a0eb0114c2e4bc7d3b7fa7f03598017b2783",
+      "sha256": "d81331307483d33f546ccb276cbdfecc10467dfe8dfe794878dbf0ad1d6fc933",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_11.png",
-      "width": 28,
-      "height": 36,
+      "width": 27,
+      "height": 38,
       "texture_px": [
-        28,
-        36
+        27,
+        38
       ],
-      "offset": 111692,
-      "length": 1008,
+      "offset": 110675,
+      "length": 1026,
       "trim_origin_top_left_px": [
-        63,
-        51
+        64,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        17,
-        -13
+        16,
+        -12
       ],
-      "sha256": "6d712e770899eabbc71759ce379bb98539cfcbd6a13fc52523563f138363ff52",
+      "sha256": "65a62ec5a72641e5452227e2bd2efa4741a199f2b571b6ec23e456f8fb33dba4",
       "empty": false
     },
     {
@@ -2432,7 +2432,7 @@
         28,
         36
       ],
-      "offset": 112700,
+      "offset": 111701,
       "length": 1008,
       "trim_origin_top_left_px": [
         63,
@@ -2442,117 +2442,117 @@
         17,
         -14
       ],
-      "sha256": "6eef65d2297616ed4a2335378a283d9afa85bc6e27a1fb63949625732c42e5c1",
+      "sha256": "3c7a864b96c4d3ba6316d40b158a5395ac48d467a489526b297f21a7ada2ff19",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_13.png",
-      "width": 29,
+      "width": 28,
       "height": 36,
       "texture_px": [
-        29,
+        28,
         36
       ],
-      "offset": 113708,
-      "length": 1044,
+      "offset": 112709,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        62,
+        63,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
+        17,
         -14
       ],
-      "sha256": "4ab79c0840ec1e625744bf2a0b75ec2ac240e1035d4dfd01a4c58bd3dcc4e90c",
+      "sha256": "5a0e08a6e204b421669dafad5964daf796de8ed51d738885c9313fcb37b33bc5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_14.png",
-      "width": 29,
+      "width": 28,
       "height": 36,
       "texture_px": [
-        29,
+        28,
         36
       ],
-      "offset": 114752,
-      "length": 1044,
+      "offset": 113717,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        62,
-        51
+        63,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -13
+        17,
+        -14
       ],
-      "sha256": "478ec7b34043b91a1f5d98c848ec3a41992633e592fad2dadbf397c6c936db9f",
+      "sha256": "292729ea4494eba67a00b9770ed9436f10adb68e83ab87263b142d4e8d1c9920",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nw_15.png",
-      "width": 30,
-      "height": 37,
+      "width": 29,
+      "height": 35,
       "texture_px": [
-        30,
-        37
+        29,
+        35
       ],
-      "offset": 115796,
-      "length": 1110,
+      "offset": 114725,
+      "length": 1015,
       "trim_origin_top_left_px": [
-        62,
+        63,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        18,
-        -12
+        17,
+        -14
       ],
-      "sha256": "c43fab6dbfcfa9be9e6cada559f336861533267ea32e26d56d2c25e607e9382c",
+      "sha256": "46784d417211e1d62783c9470508da3d265428aebd217e46674f92770b0bfe6b",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_00.png",
-      "width": 29,
-      "height": 38,
+      "width": 28,
+      "height": 37,
       "texture_px": [
-        29,
-        38
+        28,
+        37
       ],
-      "offset": 116906,
-      "length": 1102,
+      "offset": 115740,
+      "length": 1036,
       "trim_origin_top_left_px": [
-        64,
-        52
+        65,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -10
+        15,
+        -12
       ],
-      "sha256": "2bf25aea73bfe3e488d48a79047f96f830158d7dfcd474bd6ff28d5b77d3ae2b",
+      "sha256": "b4dacfccc18267825e27c465644feeca78128a6e627c05046826a2bc47df201e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_01.png",
       "width": 29,
-      "height": 38,
+      "height": 37,
       "texture_px": [
         29,
-        38
+        37
       ],
-      "offset": 118008,
-      "length": 1102,
+      "offset": 116776,
+      "length": 1073,
       "trim_origin_top_left_px": [
         64,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -11
+        -12
       ],
-      "sha256": "6f66eaefd908c2fdbb4114b4fa7419620e8d1c409d05de889ca0aa998b5632c6",
+      "sha256": "b2927117aff45bc82d63d292f3f8024c45bb4ac616a1df012bab08f3cecd0b16",
       "empty": false
     },
     {
@@ -2564,30 +2564,30 @@
         29,
         36
       ],
-      "offset": 119110,
+      "offset": 117849,
       "length": 1044,
       "trim_origin_top_left_px": [
         64,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -13
+        -14
       ],
-      "sha256": "62332b3cc3e2f327b358a80b54ac2073f9c3ecdd7225209aad9dd681a24d695b",
+      "sha256": "35c392bc7b441262e49fc352ca3298a34c1d5209682520ebac2d1335c7070685",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_03.png",
-      "width": 29,
+      "width": 28,
       "height": 37,
       "texture_px": [
-        29,
+        28,
         37
       ],
-      "offset": 120154,
-      "length": 1073,
+      "offset": 118893,
+      "length": 1036,
       "trim_origin_top_left_px": [
         64,
         50
@@ -2596,20 +2596,20 @@
         16,
         -13
       ],
-      "sha256": "d38ab2b225a9d15129e1f4b6167a780cc5488e53e9a70a340a6d6d9c20f32d79",
+      "sha256": "351b8480762c46537275c77152f797a31a56a367b5545232235f2c1e010ed2b5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_04.png",
-      "width": 29,
+      "width": 28,
       "height": 38,
       "texture_px": [
-        29,
+        28,
         38
       ],
-      "offset": 121227,
-      "length": 1102,
+      "offset": 119929,
+      "length": 1064,
       "trim_origin_top_left_px": [
         64,
         50
@@ -2618,7 +2618,7 @@
         16,
         -12
       ],
-      "sha256": "cef0e0e661ef0d8ba016306019693fa051c6f55e0acc04c43934bcb7b9443ee0",
+      "sha256": "379e8ce76b42b3248d121a85a79bb88907336ecaebd6f033ad7bb74611de8684",
       "empty": false
     },
     {
@@ -2630,7 +2630,7 @@
         28,
         39
       ],
-      "offset": 122329,
+      "offset": 120993,
       "length": 1092,
       "trim_origin_top_left_px": [
         64,
@@ -2640,73 +2640,73 @@
         16,
         -11
       ],
-      "sha256": "da791aa8a773955ab6a5f1388bc0acced6e278f6f1fefda20d7aa33c6d8e02f8",
+      "sha256": "02732406a49f8b93cdc8fbc5f3015e3bec24e22323983ffd3c35370d506a3ece",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_06.png",
       "width": 28,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         28,
-        40
+        39
       ],
-      "offset": 123421,
-      "length": 1120,
+      "offset": 122085,
+      "length": 1092,
       "trim_origin_top_left_px": [
         64,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -9
+        -10
       ],
-      "sha256": "75a29f2e07d47e76264817b92d2c50713351342a08656b67e2c50356e2d0dd6e",
+      "sha256": "1b43bca26f83dd560678360e72c3e45dab83ead48ba3c98f15b85cdca76f9857",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_07.png",
       "width": 28,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         28,
-        40
+        39
       ],
-      "offset": 124541,
-      "length": 1120,
+      "offset": 123177,
+      "length": 1092,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -8
+        -10
       ],
-      "sha256": "84f158484d2005f99180b4d4252594abc3a9121c5d22c8c8be6b38d39b8de80f",
+      "sha256": "00bcbd348a843269fef099e21754e8f0d89b6308cb8b0341fc63c4be26671875",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_08.png",
-      "width": 27,
-      "height": 40,
+      "width": 28,
+      "height": 39,
       "texture_px": [
-        27,
-        40
+        28,
+        39
       ],
-      "offset": 125661,
-      "length": 1080,
+      "offset": 124269,
+      "length": 1092,
       "trim_origin_top_left_px": [
         64,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -8
+        -10
       ],
-      "sha256": "9f105cda03b6cc22cdbbced9eba02cb5245f8961f51e23d53724298e77681e62",
+      "sha256": "c9d7b6975aa44dc0acb019c82703ca522c6d04a5242be10dbcc37bc892e2690c",
       "empty": false
     },
     {
@@ -2718,17 +2718,17 @@
         28,
         39
       ],
-      "offset": 126741,
+      "offset": 125361,
       "length": 1092,
       "trim_origin_top_left_px": [
         64,
-        52
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -9
+        -11
       ],
-      "sha256": "867f4693243f2d5cc11ceb3848a1fd1e633fd79347dbb4c434a82bfac6549750",
+      "sha256": "47b9e516f4c16d698cd18d4e7e6d54bdf049ed7b615d6d87f637e578773714e2",
       "empty": false
     },
     {
@@ -2740,17 +2740,17 @@
         28,
         38
       ],
-      "offset": 127833,
+      "offset": 126453,
       "length": 1064,
       "trim_origin_top_left_px": [
         64,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         16,
-        -11
+        -12
       ],
-      "sha256": "29d360400131f9a831a00956d086fafa4500f7f1d36f5c06ffadd36c3b3b5671",
+      "sha256": "6bb130d11223aa1f0a85eb9727c4d07f533f91202198549e402072de5090dcd2",
       "empty": false
     },
     {
@@ -2762,149 +2762,149 @@
         28,
         36
       ],
-      "offset": 128897,
+      "offset": 127517,
       "length": 1008,
       "trim_origin_top_left_px": [
-        64,
+        65,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
+        15,
         -14
       ],
-      "sha256": "e4a69d428c5db2069ed35a4061b9631c6cb143cd7629e8c23d9fcb43c209a41c",
+      "sha256": "f9b98f8769df0ddda709c8dcf14b241cfcf6b41ccf94da3b737d294305d50f1c",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_12.png",
-      "width": 29,
-      "height": 37,
+      "width": 28,
+      "height": 36,
       "texture_px": [
-        29,
-        37
+        28,
+        36
       ],
-      "offset": 129905,
-      "length": 1073,
+      "offset": 128525,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        64,
+        65,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -13
+        15,
+        -14
       ],
-      "sha256": "05b1bf0f65b958c219d404056c128604bf5abfcdb11bbca5bfc2d77d8ca18d19",
+      "sha256": "60e33af5dbf1371037f8f76bacd3c936f238438882416ff3f1cdc54eb66ad82b",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_13.png",
-      "width": 29,
-      "height": 38,
+      "width": 28,
+      "height": 37,
       "texture_px": [
-        29,
-        38
+        28,
+        37
       ],
-      "offset": 130978,
-      "length": 1102,
+      "offset": 129533,
+      "length": 1036,
       "trim_origin_top_left_px": [
-        64,
+        65,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -12
+        15,
+        -13
       ],
-      "sha256": "f7820563b61b335c3dbe275d690c52e6dbe1d1b32e43c60d12e0f0a3c5e512a8",
+      "sha256": "a5d64d64caa5cf2c42c5535b8bd32b0784c77c404b566805e7f5f704c8ee1026",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_14.png",
-      "width": 29,
+      "width": 28,
       "height": 38,
       "texture_px": [
-        29,
+        28,
         38
       ],
-      "offset": 132080,
-      "length": 1102,
+      "offset": 130569,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        64,
-        51
+        65,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -11
+        15,
+        -12
       ],
-      "sha256": "8cf2b7a657e0bc15f9e52bcc499b0e2b919adc3b105099faa6d87112ee0a0a65",
+      "sha256": "d23eb1ceef28601b4072faef901842ca8a59cf81cf70311cfc4819500a73f812",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nnw_15.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        29,
-        39
+        28,
+        38
       ],
-      "offset": 133182,
-      "length": 1131,
+      "offset": 131633,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        64,
-        51
+        65,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        16,
-        -10
+        15,
+        -12
       ],
-      "sha256": "984caa4a51159a0a727d5ab7e1f9aa5fe6e770f415166372b805f1a1a7a7f930",
+      "sha256": "6ed70952f83a2904cbf6ceca0404a46cc48a1033c3a701a52ed38bd481d41be2",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_n_00.png",
       "width": 29,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         29,
-        39
+        38
       ],
-      "offset": 134313,
-      "length": 1131,
+      "offset": 132697,
+      "length": 1102,
       "trim_origin_top_left_px": [
         66,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
-        -9
+        -11
       ],
-      "sha256": "f6dcf8563872cf63c8fcf29828ffd50b3a01ab384f898fdf4059ee46cffb1745",
+      "sha256": "ad326d0bead3eabd9045a394d884fde05d57ed2d56f15e19ec3e6de89d856ed4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_n_01.png",
-      "width": 30,
+      "width": 28,
       "height": 38,
       "texture_px": [
-        30,
+        28,
         38
       ],
-      "offset": 135444,
-      "length": 1140,
+      "offset": 133799,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        65,
-        52
+        66,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -10
+        14,
+        -11
       ],
-      "sha256": "6e9a43aec63e47ce4bfd37aa68d7213ce615b73574d4c9b4ab8425c1d9acaea3",
+      "sha256": "191ead55adfd74f08fec80dfbb325b9c957207259812c79888ffdab087a51298",
       "empty": false
     },
     {
@@ -2916,29 +2916,7 @@
         29,
         36
       ],
-      "offset": 136584,
-      "length": 1044,
-      "trim_origin_top_left_px": [
-        65,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -12
-      ],
-      "sha256": "15ddd284db747d162463f2b97fc2ed599d2befd0fd5d8cfd72f3d628f327daed",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_03.png",
-      "width": 29,
-      "height": 36,
-      "texture_px": [
-        29,
-        36
-      ],
-      "offset": 137628,
+      "offset": 134863,
       "length": 1044,
       "trim_origin_top_left_px": [
         65,
@@ -2948,19 +2926,63 @@
         15,
         -13
       ],
-      "sha256": "8bedbe5e0423e82368a4cbffaebf3f6d59f2ffd0c6d2fe500d490802133075c0",
+      "sha256": "0c96740733374c636a89b3b0aec66ae821ef5d43a8ff66af1be820c21e0abb42",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_03.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 135907,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -14
+      ],
+      "sha256": "4cb7a178cde67a961d6025109d1ab992c7c5c05fd25d5745558935143ed4bfbc",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_n_04.png",
       "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 136922,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        65,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        15,
+        -13
+      ],
+      "sha256": "da053fd337a2f69f43ebf94d7b44851e25135b9b776e88ebf16603f64c3169ce",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_05.png",
+      "width": 29,
       "height": 37,
       "texture_px": [
         29,
         37
       ],
-      "offset": 138672,
+      "offset": 137966,
       "length": 1073,
       "trim_origin_top_left_px": [
         65,
@@ -2970,19 +2992,19 @@
         15,
         -12
       ],
-      "sha256": "b7fdf735b14acb8cb0217bc4c2a9e4092f1d84fe6834d4def6331a45215ac6ab",
+      "sha256": "0e3bbb33ce709127f0da12857ab7bba595c6d19b4a4a282c199fa2c6a37284a8",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_n_05.png",
+      "name": "run_n_06.png",
       "width": 29,
       "height": 38,
       "texture_px": [
         29,
         38
       ],
-      "offset": 139745,
+      "offset": 139039,
       "length": 1102,
       "trim_origin_top_left_px": [
         65,
@@ -2992,19 +3014,19 @@
         15,
         -11
       ],
-      "sha256": "2dbbdd0fd6d63744aca54ae065056dbf882f3764b3f8426a2ab7e74dea06c204",
+      "sha256": "b213278707dc60bb8291626f197009f417a38c44939d98ee4d3c5225b7989e07",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_n_06.png",
+      "name": "run_n_07.png",
       "width": 29,
       "height": 39,
       "texture_px": [
         29,
         39
       ],
-      "offset": 140847,
+      "offset": 140141,
       "length": 1131,
       "trim_origin_top_left_px": [
         65,
@@ -3014,151 +3036,41 @@
         15,
         -10
       ],
-      "sha256": "29968356545094a542ce2c96042b054ee851030892adf61dd108bb7a47e3dc2b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_07.png",
-      "width": 30,
-      "height": 39,
-      "texture_px": [
-        30,
-        39
-      ],
-      "offset": 141978,
-      "length": 1170,
-      "trim_origin_top_left_px": [
-        65,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
-      ],
-      "sha256": "fb4564e2d177d46b484893648188ce88d0b046c9db7551cfb502a5b98438658b",
+      "sha256": "48e5a465fe29c77d09c02c76cd31e78692c5c840aa9940ea3af2d82f6e5cbcd0",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_n_08.png",
-      "width": 30,
+      "width": 29,
       "height": 39,
       "texture_px": [
-        30,
+        29,
         39
       ],
-      "offset": 143148,
-      "length": 1170,
+      "offset": 141272,
+      "length": 1131,
       "trim_origin_top_left_px": [
         65,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
-      ],
-      "sha256": "17f3e3953d5d0efee997e8011a7896f03050b27824846837cd933d2c3a3282ea",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_09.png",
-      "width": 30,
-      "height": 38,
-      "texture_px": [
-        30,
-        38
-      ],
-      "offset": 144318,
-      "length": 1140,
-      "trim_origin_top_left_px": [
-        65,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         15,
         -10
       ],
-      "sha256": "47091ab0ff28cf4e12d7b6d97983c0f6cf5e6d5cbb57a0836ee8d022ae440c4f",
+      "sha256": "2504aa19e1a5d3c61ccf9c63122db3c64496801e4a75eea5c2f56b90639a4681",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_n_10.png",
-      "width": 29,
-      "height": 37,
-      "texture_px": [
-        29,
-        37
-      ],
-      "offset": 145458,
-      "length": 1073,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -12
-      ],
-      "sha256": "0ee0cb056d81c77c2ab230c3f4e011e37c13fdfe46b768215a9baee58884774c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_11.png",
-      "width": 29,
-      "height": 36,
-      "texture_px": [
-        29,
-        36
-      ],
-      "offset": 146531,
-      "length": 1044,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -13
-      ],
-      "sha256": "d4201953e25d9bbb7a25ee08242baabcdae6515924aa10834d93cdf7f57ad2f5",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_12.png",
-      "width": 29,
-      "height": 37,
-      "texture_px": [
-        29,
-        37
-      ],
-      "offset": 147575,
-      "length": 1073,
-      "trim_origin_top_left_px": [
-        65,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        15,
-        -12
-      ],
-      "sha256": "fe18045e6b2658693007a3e5c20de7fa13752ca83186e9294cd176f6f55e2e9c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_n_13.png",
+      "name": "run_n_09.png",
       "width": 29,
       "height": 38,
       "texture_px": [
         29,
         38
       ],
-      "offset": 148648,
+      "offset": 142403,
       "length": 1102,
       "trim_origin_top_left_px": [
         65,
@@ -3168,7 +3080,95 @@
         15,
         -11
       ],
-      "sha256": "8c50affa99146107861e0a681e3edcf2202f869f7c8dfb82e519806be501c8c5",
+      "sha256": "99849eeae9343f7c0237dfa53cda1ca68fa221a4a25f263f1bb105742eb8c275",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 143505,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "8cfbcce8b8071452a4b31e4d104e0c4edde2b99f574cd338d13728d021f1f311",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_11.png",
+      "width": 29,
+      "height": 35,
+      "texture_px": [
+        29,
+        35
+      ],
+      "offset": 144541,
+      "length": 1015,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -14
+      ],
+      "sha256": "8a8bf35a959788d122ae5529ba1d05c5269fcd2c2b61928146884549539ed00a",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_12.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 145556,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -13
+      ],
+      "sha256": "5bb29763bf9583fa7937f8a36f9b581bd63b5c51a86745f8b28dca3bfd910c58",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_n_13.png",
+      "width": 29,
+      "height": 37,
+      "texture_px": [
+        29,
+        37
+      ],
+      "offset": 146600,
+      "length": 1073,
+      "trim_origin_top_left_px": [
+        66,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        14,
+        -12
+      ],
+      "sha256": "c24ffe15875b0462ac36b5a52c5bf71573b3ce1e90687023fa9d69383b6106cc",
       "empty": false
     },
     {
@@ -3180,127 +3180,127 @@
         29,
         38
       ],
-      "offset": 149750,
+      "offset": 147673,
       "length": 1102,
       "trim_origin_top_left_px": [
-        65,
-        52
+        66,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -10
+        14,
+        -11
       ],
-      "sha256": "e95fe4d190341a0d8db77975a30409fc2f9bc7d31eec5e6792892ab97677c991",
+      "sha256": "5a48443b57e0e3bef65512ec57bdfabae59ec82cc91eeab7f4fbf20e6c03040a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_n_15.png",
-      "width": 30,
-      "height": 39,
+      "width": 29,
+      "height": 38,
       "texture_px": [
-        30,
-        39
+        29,
+        38
       ],
-      "offset": 150852,
-      "length": 1170,
+      "offset": 148775,
+      "length": 1102,
       "trim_origin_top_left_px": [
-        65,
-        52
+        66,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        15,
-        -9
+        14,
+        -11
       ],
-      "sha256": "db9be91b469fe62d8d0008832c29cbfe4914d3033558867f5e5ee636ce217c39",
+      "sha256": "b292349f7e54807b524248963ba83aee24632b3c819490e02a79b913351a9864",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_00.png",
-      "width": 26,
+      "width": 27,
       "height": 40,
       "texture_px": [
-        26,
+        27,
         40
       ],
-      "offset": 152022,
-      "length": 1040,
-      "trim_origin_top_left_px": [
-        70,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -9
-      ],
-      "sha256": "6963893c64e8cfcefe65f4c3869f88bd8526e1870db85ac10440e8627f25777d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_nne_01.png",
-      "width": 26,
-      "height": 39,
-      "texture_px": [
-        26,
-        39
-      ],
-      "offset": 153062,
-      "length": 1014,
-      "trim_origin_top_left_px": [
-        70,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -10
-      ],
-      "sha256": "f3400902b8d841e41861efb2297b0dd951670a1621c884daa9959403b0b2bd9c",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_nne_02.png",
-      "width": 27,
-      "height": 37,
-      "texture_px": [
-        27,
-        37
-      ],
-      "offset": 154076,
-      "length": 999,
-      "trim_origin_top_left_px": [
-        69,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        11,
-        -12
-      ],
-      "sha256": "ee792badf7d665e0b3b3dfbbe92222532f5cded4551ae1d7417d9e4a461d0136",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_nne_03.png",
-      "width": 27,
-      "height": 36,
-      "texture_px": [
-        27,
-        36
-      ],
-      "offset": 155075,
-      "length": 972,
+      "offset": 149877,
+      "length": 1080,
       "trim_origin_top_left_px": [
         68,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
+        -10
+      ],
+      "sha256": "1274b92082d01fb3d46a58e8a5c97277450f0e2cb2e33e79da5725a57e7ea64b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_01.png",
+      "width": 28,
+      "height": 39,
+      "texture_px": [
+        28,
+        39
+      ],
+      "offset": 150957,
+      "length": 1092,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -11
+      ],
+      "sha256": "7b94d8626816d84c9b43f29098a77f07486211e5d827fa72013c450b54125662",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_02.png",
+      "width": 28,
+      "height": 38,
+      "texture_px": [
+        28,
+        38
+      ],
+      "offset": 152049,
+      "length": 1064,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -12
+      ],
+      "sha256": "ed8a43f1c7a9eb753d414d3021eb13cdc76ae4524510da70b1140baee833e05d",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_03.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 153113,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
         -14
       ],
-      "sha256": "8bb2cca9bf1a69eefa853b744273dc0f7860146998a1bbc80fa5ca3da2218f8d",
+      "sha256": "31e2ef9620e123f0580882f394dfc9223bfe6e128cbdd3fdd42a6704ad096701",
       "empty": false
     },
     {
@@ -3312,17 +3312,17 @@
         28,
         37
       ],
-      "offset": 156047,
+      "offset": 154149,
       "length": 1036,
       "trim_origin_top_left_px": [
-        67,
-        50
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -13
+        14,
+        -14
       ],
-      "sha256": "de67f6b189f30776bbdfbde9717129824fbaf940bb859accec4dcf0ed39f0fe0",
+      "sha256": "75e29c1dc0e925475f97fdd7cfea1c54c8c619801ede738d48a2b94e86b34894",
       "empty": false
     },
     {
@@ -3334,83 +3334,83 @@
         28,
         38
       ],
-      "offset": 157083,
+      "offset": 155185,
       "length": 1064,
       "trim_origin_top_left_px": [
-        67,
-        50
+        66,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
-        -12
+        14,
+        -13
       ],
-      "sha256": "7e370b8b62f245a5f9dc60bb6a9ebdbd4902940e3e732e711de9e16754164e0a",
+      "sha256": "0e2edd03d98ba7196d84c0110d0f85d228246cac133b36cebe890929724a8cf7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_06.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        29,
-        39
+        28,
+        38
       ],
-      "offset": 158147,
-      "length": 1131,
+      "offset": 156249,
+      "length": 1064,
       "trim_origin_top_left_px": [
         66,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
-        -11
+        -12
       ],
-      "sha256": "d40504f946d481601b7671aaf2a0f481217bb3e9247253bda16d9aac66fbc4ee",
+      "sha256": "728dd2f3f551f15bc446a731c71fa822d1a8850e7e7387dc2f0d5fcd7c717db7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_07.png",
-      "width": 29,
-      "height": 39,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        29,
-        39
+        28,
+        38
       ],
-      "offset": 159278,
-      "length": 1131,
+      "offset": 157313,
+      "length": 1064,
       "trim_origin_top_left_px": [
         66,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
-        -10
+        -12
       ],
-      "sha256": "2c8c46b1e2647e5d325ca200a62d1f91597c2bed188ec2e807d4765ba97b56ae",
+      "sha256": "6011f73f75489d821929ba912bb66e8db9e4cfb15877242876776b8813af1a58",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_08.png",
       "width": 29,
-      "height": 39,
+      "height": 38,
       "texture_px": [
         29,
-        39
+        38
       ],
-      "offset": 160409,
-      "length": 1131,
+      "offset": 158377,
+      "length": 1102,
       "trim_origin_top_left_px": [
         66,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
-        -10
+        -12
       ],
-      "sha256": "2c2050f63c75ebc2db47e4da9a8a0e8dc76de8f0856c16342e42ec9a741b83d6",
+      "sha256": "b357433cb262d397fae28d45be82224935596fbbeda9770247cd580dbbbb8202",
       "empty": false
     },
     {
@@ -3422,39 +3422,39 @@
         29,
         38
       ],
-      "offset": 161540,
+      "offset": 159479,
       "length": 1102,
-      "trim_origin_top_left_px": [
-        66,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        14,
-        -11
-      ],
-      "sha256": "4ad8f24b724775d0c9772f33d429e7bfda3f5776ae3d6bdd30a0b6527322e324",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_nne_10.png",
-      "width": 29,
-      "height": 37,
-      "texture_px": [
-        29,
-        37
-      ],
-      "offset": 162642,
-      "length": 1073,
       "trim_origin_top_left_px": [
         66,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         14,
+        -12
+      ],
+      "sha256": "469b0d7b8ca2ec23fae051ccb40cbc4dc0b66f5d7cfd0bb86caef6de153333c6",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_10.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 160581,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
         -13
       ],
-      "sha256": "b9eb9b2adb888470ddba580f86931d900e33baa5c129c3f9a17febcf0a5d2a08",
+      "sha256": "482eb39f31d38ad08f53de65ddbee3aa817c80d58e69e34d2890171d2af97114",
       "empty": false
     },
     {
@@ -3466,7 +3466,7 @@
         28,
         37
       ],
-      "offset": 163715,
+      "offset": 161617,
       "length": 1036,
       "trim_origin_top_left_px": [
         67,
@@ -3476,7 +3476,7 @@
         13,
         -13
       ],
-      "sha256": "041e9a320a0389b9f02a01de340052942d152780376743e08d6db06086ab6a9f",
+      "sha256": "742e9bd1abf70fedc329502e2d9dd437a06276e4c354d7ca935688d0883c86fb",
       "empty": false
     },
     {
@@ -3488,7 +3488,7 @@
         28,
         38
       ],
-      "offset": 164751,
+      "offset": 162653,
       "length": 1064,
       "trim_origin_top_left_px": [
         67,
@@ -3498,73 +3498,73 @@
         13,
         -12
       ],
-      "sha256": "88eb687cea053672463c188366d26c1be924d7ed1aacd9b933e6cb6906fae7e3",
+      "sha256": "7bcf9067d478d28feaa9059298cf6cb13b8b9340ea2e4919a8672c1f1d21cbc3",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_13.png",
-      "width": 27,
+      "width": 29,
       "height": 39,
       "texture_px": [
-        27,
+        29,
         39
       ],
-      "offset": 165815,
-      "length": 1053,
+      "offset": 163717,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        67,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -11
+      ],
+      "sha256": "4872087abfa4d422037b338e8989beeef2ff19a99c3d78acf9bee4185f1ddb04",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_nne_14.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 164848,
+      "length": 1120,
       "trim_origin_top_left_px": [
         68,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -11
-      ],
-      "sha256": "53564e84fd1fc856e95b44e297401c35e422a3ec14e78a7a47910767ab3b8125",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_nne_14.png",
-      "width": 26,
-      "height": 39,
-      "texture_px": [
-        26,
-        39
-      ],
-      "offset": 166868,
-      "length": 1014,
-      "trim_origin_top_left_px": [
-        70,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
         -10
       ],
-      "sha256": "3b8d5fb32928bca0cefa6a730b979cccc5dd41cf59bd1e881bd8d6797c555a81",
+      "sha256": "7bca65b2daa939e4df6514032bc0f5497bd66bbb2e63159dcd0da24201df65d1",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_nne_15.png",
-      "width": 26,
+      "width": 28,
       "height": 40,
       "texture_px": [
-        26,
+        28,
         40
       ],
-      "offset": 167882,
-      "length": 1040,
+      "offset": 165968,
+      "length": 1120,
       "trim_origin_top_left_px": [
-        70,
-        51
+        68,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -9
+        12,
+        -10
       ],
-      "sha256": "8e15b355919c4d6aa490c5cce6ac0dbeb63a3afd5e6547c58111f73b373d9b23",
+      "sha256": "1a6124bafb907371bcc2b6ad7115f4a73836f51e42de2ec947e6c5c1b6ab9afe",
       "empty": false
     },
     {
@@ -3576,17 +3576,17 @@
         25,
         41
       ],
-      "offset": 168922,
+      "offset": 167088,
       "length": 1025,
       "trim_origin_top_left_px": [
         70,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -8
+        -9
       ],
-      "sha256": "1b9cdab7836cf4425447c0795eed291fbb615355e07004872d5b77315d0122da",
+      "sha256": "a6ca243c79561bb3cf60cc4b2fdad75f2085c87724465d4a48cc3a027598cfa7",
       "empty": false
     },
     {
@@ -3598,149 +3598,149 @@
         25,
         40
       ],
-      "offset": 169947,
+      "offset": 168113,
       "length": 1000,
       "trim_origin_top_left_px": [
         70,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -9
+        -10
       ],
-      "sha256": "39629ab2e7483119095c873a4aa989ae330dbaaa5570ba4e569aaa01d1076fd4",
+      "sha256": "1de5f8c657ae346880c3fa162b8435b6bce44af67c88fe2b4f315fe7a35df4f0",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_02.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 169113,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -11
+      ],
+      "sha256": "1c6f871688e95f77fdaf9e180af592ae4ce952092beffec46cca515e168b633f",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ne_03.png",
       "width": 26,
       "height": 38,
       "texture_px": [
         26,
         38
       ],
-      "offset": 170947,
+      "offset": 170088,
       "length": 988,
       "trim_origin_top_left_px": [
         70,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -11
-      ],
-      "sha256": "7335f9c6ef67eaa6e2c080300ffe76b450773079814deb616eef8c7cab8339ff",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_ne_03.png",
-      "width": 27,
-      "height": 37,
-      "texture_px": [
-        27,
-        37
-      ],
-      "offset": 171935,
-      "length": 999,
-      "trim_origin_top_left_px": [
-        70,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
         -13
       ],
-      "sha256": "6520d3142055ee695198aa8f9cb41f574aecfbd06fa144860b7b88d4f479e11a",
+      "sha256": "e162fda3a4f96300f8b607572776908bd32a5e2a1de6fe282a034704106c2d3f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_04.png",
       "width": 28,
-      "height": 36,
+      "height": 37,
       "texture_px": [
         28,
-        36
+        37
       ],
-      "offset": 172934,
-      "length": 1008,
+      "offset": 171076,
+      "length": 1036,
       "trim_origin_top_left_px": [
         69,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
         -14
       ],
-      "sha256": "0eb63690fd7012dd7aa39fc5e0ab53fff083ae100edca96df59a56420078f13f",
+      "sha256": "4a785a0ee1bdeae64bcce2c59f0a825dadfea43cf98a94e678723a9dc0703ecf",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_05.png",
       "width": 29,
-      "height": 36,
+      "height": 37,
       "texture_px": [
         29,
-        36
+        37
       ],
-      "offset": 173942,
-      "length": 1044,
+      "offset": 172112,
+      "length": 1073,
       "trim_origin_top_left_px": [
-        69,
-        50
+        68,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
+        12,
         -14
       ],
-      "sha256": "a5471a2da44ef9389793fc5c17b2e49b21ddec5c825da73c6c9ef125002f6d27",
+      "sha256": "b2210cda2fa4bd4e365c5bc1389f249e49ebd466a8fe3a64b49f6ae367a0425b",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_06.png",
       "width": 29,
-      "height": 37,
+      "height": 36,
       "texture_px": [
         29,
-        37
+        36
       ],
-      "offset": 174986,
-      "length": 1073,
+      "offset": 173185,
+      "length": 1044,
       "trim_origin_top_left_px": [
-        69,
+        68,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        11,
-        -13
+        12,
+        -14
       ],
-      "sha256": "77902132b6462748b28b462c501babaef3f0c5f3969e89ae427530fc26571c2c",
+      "sha256": "65a507d2acc2bb40b46be0b9110ad94ab52b1157a01319ed7306784c1d28fb1e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_07.png",
-      "width": 30,
-      "height": 37,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        30,
-        37
+        29,
+        36
       ],
-      "offset": 176059,
-      "length": 1110,
+      "offset": 174229,
+      "length": 1044,
       "trim_origin_top_left_px": [
         68,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -12
+        -14
       ],
-      "sha256": "9b1dd81990f98a6efbfbed3729c74df98b63383b8f322393b2cbe1f3aa1d62bb",
+      "sha256": "627a17113688dc5e0e5889b46d982aaa0fa0fead7495cda9843348d9fe4ac130",
       "empty": false
     },
     {
@@ -3752,17 +3752,17 @@
         28,
         37
       ],
-      "offset": 177169,
+      "offset": 175273,
       "length": 1036,
       "trim_origin_top_left_px": [
         69,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -12
+        -13
       ],
-      "sha256": "f025e3000a43e2d04137249f57279b80bbd6524072385f49dd6c1effe674c09b",
+      "sha256": "0bb12d09009ca0ac866ff73773399d26d10908b6e60ca3aecbf42c5914ecb0b2",
       "empty": false
     },
     {
@@ -3774,17 +3774,17 @@
         28,
         37
       ],
-      "offset": 178205,
+      "offset": 176309,
       "length": 1036,
       "trim_origin_top_left_px": [
         69,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -12
+        -13
       ],
-      "sha256": "fe9c36105c5c43eca1987be82b38dc860cd1f10e9ed07e9ae49e5debe3ff9945",
+      "sha256": "091836b581b6a787d8885460272dea5e06c500cd5b67331888c2a82ebfc17f38",
       "empty": false
     },
     {
@@ -3796,7 +3796,7 @@
         27,
         38
       ],
-      "offset": 179241,
+      "offset": 177345,
       "length": 1026,
       "trim_origin_top_left_px": [
         69,
@@ -3806,7 +3806,7 @@
         11,
         -12
       ],
-      "sha256": "2eb1c4c50f76e0c93f4db34696003290dac225b61b2e82ee71cf12918baf7785",
+      "sha256": "8bfe626ab73aec76bb4f5aa4c8367c1b31a0fb1f1e182e6710e70fdab1df9ae4",
       "empty": false
     },
     {
@@ -3818,7 +3818,7 @@
         27,
         38
       ],
-      "offset": 180267,
+      "offset": 178371,
       "length": 1026,
       "trim_origin_top_left_px": [
         69,
@@ -3828,7 +3828,7 @@
         11,
         -12
       ],
-      "sha256": "644c110a87c8ada72e64503bed13a3bad7e4f147107ec868d74430d72497cf19",
+      "sha256": "7298183f0dd36b23abaeaf5110547bbb57407a461608d78bbc5540a427014df9",
       "empty": false
     },
     {
@@ -3840,7 +3840,7 @@
         26,
         39
       ],
-      "offset": 181293,
+      "offset": 179397,
       "length": 1014,
       "trim_origin_top_left_px": [
         69,
@@ -3850,7 +3850,7 @@
         11,
         -11
       ],
-      "sha256": "0863107c973019bdec5312765303119c3d8b8f7be67682e55d9443b6dc92d4c2",
+      "sha256": "a22be24dbe4d59a54f3620899ac1a130e2af716e1c51097ba9f98413b59b8d8e",
       "empty": false
     },
     {
@@ -3862,7 +3862,7 @@
         25,
         40
       ],
-      "offset": 182307,
+      "offset": 180411,
       "length": 1000,
       "trim_origin_top_left_px": [
         70,
@@ -3872,51 +3872,51 @@
         10,
         -10
       ],
-      "sha256": "5b1014272759deabdf9eb2424ed4cb4a4b0edd4b1657a12d0e0aa41bdb34c62e",
+      "sha256": "0ab0f1f6e13ff6b8cc2bdf3794585119312f274c376d99700a44f458324b6d38",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_14.png",
-      "width": 26,
+      "width": 24,
       "height": 40,
       "texture_px": [
-        26,
+        24,
         40
       ],
-      "offset": 183307,
-      "length": 1040,
+      "offset": 181411,
+      "length": 960,
       "trim_origin_top_left_px": [
-        70,
-        51
+        71,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -9
+        9,
+        -10
       ],
-      "sha256": "cb895c0d8e0930fe43f79ea3fbbdc05932e3e73508decc3aabe9650088d2f83e",
+      "sha256": "eb8a88a112a93b6900761fdf516ca91174e70a3a7b29effdb6b965e9e89015e3",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ne_15.png",
-      "width": 25,
-      "height": 41,
+      "width": 24,
+      "height": 40,
       "texture_px": [
-        25,
-        41
+        24,
+        40
       ],
-      "offset": 184347,
-      "length": 1025,
+      "offset": 182371,
+      "length": 960,
       "trim_origin_top_left_px": [
-        70,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
+        9,
+        -9
       ],
-      "sha256": "11cf16e2d2c420ad2f50d40088cf0f91be24ba16687c9a86a0a7279d92fae70d",
+      "sha256": "854109fb29005a8043ad767b4ce6a7674c432fdf2a0c0fc0fc79be494230bd85",
       "empty": false
     },
     {
@@ -3928,171 +3928,171 @@
         25,
         41
       ],
-      "offset": 185372,
+      "offset": 183331,
       "length": 1025,
       "trim_origin_top_left_px": [
         71,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -9
       ],
-      "sha256": "9f2ce4ab134fe5afd1f1fa5bd9dca09411612043ea995c45e9d120476bfad04b",
+      "sha256": "02a712df4d88a218988d4af11fb14f8a85f8288868966e16a01c09901eb35fa5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_01.png",
       "width": 25,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         25,
-        41
+        40
       ],
-      "offset": 186397,
-      "length": 1025,
+      "offset": 184356,
+      "length": 1000,
       "trim_origin_top_left_px": [
         71,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -10
       ],
-      "sha256": "5e058031b245a96915b47602a3e9fb4d0d38c5bc5dbf4d107f4b2dfc643a0bc4",
+      "sha256": "46e232a9f37629242954f6aa9758879619d9aa7ab1e84d73707950c2cb8ea582",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_02.png",
       "width": 25,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         25,
-        40
+        41
       ],
-      "offset": 187422,
-      "length": 1000,
+      "offset": 185356,
+      "length": 1025,
       "trim_origin_top_left_px": [
         71,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -9
+        -10
       ],
-      "sha256": "7a9da25bc9881b0fedfaa10f89edd7e71d58afa698258d6006c4eb07d5cd3700",
+      "sha256": "49016284e393b3ccd59e2ebb7950d7b68dfb71a7c236b9cf99535e872f85735f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_03.png",
       "width": 26,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         26,
-        39
+        40
       ],
-      "offset": 188422,
-      "length": 1014,
+      "offset": 186381,
+      "length": 1040,
       "trim_origin_top_left_px": [
         71,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
         -11
       ],
-      "sha256": "c1eea9f19713b97c338da22ad1cba0efaae4904c15e8f267d785a7875355c98f",
+      "sha256": "cde275c77146133ce14e0f5834a2a19d44ca243543405e639ed636f65a9214a2",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_04.png",
       "width": 28,
-      "height": 37,
+      "height": 39,
       "texture_px": [
         28,
-        37
+        39
       ],
-      "offset": 189436,
-      "length": 1036,
+      "offset": 187421,
+      "length": 1092,
       "trim_origin_top_left_px": [
         70,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -13
+        -12
       ],
-      "sha256": "9e871a0ef86e100be4849b6a5a15cd9e78b55772eb052beff55419513db46337",
+      "sha256": "0fe50271dc7935036b8fb95047e9e3c01e0b21cc9e1f75ba55e3e1510f918c7e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_05.png",
-      "width": 27,
-      "height": 37,
+      "width": 28,
+      "height": 38,
       "texture_px": [
-        27,
-        37
+        28,
+        38
       ],
-      "offset": 190472,
-      "length": 999,
+      "offset": 188513,
+      "length": 1064,
       "trim_origin_top_left_px": [
-        71,
-        50
+        70,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        10,
         -13
       ],
-      "sha256": "ea66e7aa22f2faef0edc557f0ceb3af4bb21bea97d30213a2f0f569159f85d85",
+      "sha256": "88bab8d31d35a0796b33700f67f83f411b6f314f882fea5d81cd8e3805c52b80",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_06.png",
       "width": 28,
-      "height": 37,
+      "height": 39,
       "texture_px": [
         28,
-        37
+        39
       ],
-      "offset": 191471,
-      "length": 1036,
+      "offset": 189577,
+      "length": 1092,
       "trim_origin_top_left_px": [
         70,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -13
+        -12
       ],
-      "sha256": "f735063f8f38bced2d39b0dcb235c720b6f59657a1dc464f33163e7961790eb9",
+      "sha256": "cc7448d9bac27ccc04a8045fb0a9d35a792290d6c3b6fa1972dd51302f28da5a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_07.png",
-      "width": 30,
-      "height": 37,
+      "width": 29,
+      "height": 38,
       "texture_px": [
-        30,
-        37
+        29,
+        38
       ],
-      "offset": 192507,
-      "length": 1110,
+      "offset": 190669,
+      "length": 1102,
       "trim_origin_top_left_px": [
-        68,
-        51
+        69,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        12,
+        11,
         -12
       ],
-      "sha256": "66d50917a38cec631e343a7571266a8bcc4b087c02b0464f667c8e4871091ba9",
+      "sha256": "f500bf45ceb89cb047f592a789e97901055747e1673185d65189f4b863161fe6",
       "empty": false
     },
     {
@@ -4104,83 +4104,83 @@
         28,
         39
       ],
-      "offset": 193617,
+      "offset": 191771,
       "length": 1092,
       "trim_origin_top_left_px": [
         70,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -10
+        -11
       ],
-      "sha256": "984a9d667e1fe08dbec57685e2d8dd3abb01465dc581653ce0f7ae156116a306",
+      "sha256": "b9b3904877114955af247a6952368f96e607fccf942c473eedd2576ea6f9aa17",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_09.png",
-      "width": 28,
+      "width": 27,
       "height": 39,
       "texture_px": [
-        28,
+        27,
         39
       ],
-      "offset": 194709,
-      "length": 1092,
+      "offset": 192863,
+      "length": 1053,
       "trim_origin_top_left_px": [
-        70,
-        51
+        71,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -10
+        9,
+        -11
       ],
-      "sha256": "0f875bd4cb84bb624e94f5c308501d74a5b0cb0156a5914815ecc07e55638942",
+      "sha256": "c75a953b8d3c0483d19e9f610878745bdf1ebe9bab2b8486ce58c5280d0a6ab4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_10.png",
       "width": 26,
-      "height": 40,
+      "height": 39,
       "texture_px": [
         26,
-        40
+        39
       ],
-      "offset": 195801,
-      "length": 1040,
+      "offset": 193916,
+      "length": 1014,
       "trim_origin_top_left_px": [
         71,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -10
+        -11
       ],
-      "sha256": "cbb04757d59ef5899997db64dd6802308d1b946e6658db58fe0cf6368aff56d6",
+      "sha256": "cd0a6880ca2c2f2144c81c06f1db60a9300bac77a7e22179ff5dd4944ef595e5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_11.png",
-      "width": 25,
+      "width": 24,
       "height": 40,
       "texture_px": [
-        25,
+        24,
         40
       ],
-      "offset": 196841,
-      "length": 1000,
+      "offset": 194930,
+      "length": 960,
       "trim_origin_top_left_px": [
-        71,
+        72,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        8,
         -10
       ],
-      "sha256": "962113a6691ef083f6e478f3237a9144af0076a49ce3c31006ddbce30087e3b1",
+      "sha256": "c6d66b119c3aa5bc97a0d3e4cbeeb6b1542ad10d7501f937e163d0b1ba135037",
       "empty": false
     },
     {
@@ -4192,61 +4192,61 @@
         25,
         40
       ],
-      "offset": 197841,
+      "offset": 195890,
       "length": 1000,
       "trim_origin_top_left_px": [
-        71,
+        72,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        8,
         -10
       ],
-      "sha256": "8a5d512eb520d1bbac15342d9541345f67b78d4987503290d7016bdcf1dbdc42",
+      "sha256": "7412e872311c78397ec36ca96ff8dc958c42b0eb6748c049d23864d30f65186e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_13.png",
       "width": 25,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         25,
-        41
+        40
       ],
-      "offset": 198841,
-      "length": 1025,
+      "offset": 196890,
+      "length": 1000,
       "trim_origin_top_left_px": [
-        71,
+        72,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -9
+        8,
+        -10
       ],
-      "sha256": "486504bcafd187b10197b59be1242ccd49b1f602e491a6c40bd2b4b9dbb862d7",
+      "sha256": "d4f1f6056163e8e0b95b0c94f8060eed26e37d462615eda7557726794a47ebb1",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ene_14.png",
       "width": 25,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         25,
-        40
+        41
       ],
-      "offset": 199866,
-      "length": 1000,
+      "offset": 197890,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        71,
-        51
+        72,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        8,
         -9
       ],
-      "sha256": "abd2764e2ae0e2c0f21aac70ae0c327db1b154c6d8dc54e30e403f544576d5fd",
+      "sha256": "8d9cf785688a39bf9adec39cee27d1929fb1e0bd5eb7025af9ba8a62d71f135d",
       "empty": false
     },
     {
@@ -4258,17 +4258,17 @@
         26,
         41
       ],
-      "offset": 200866,
+      "offset": 198915,
       "length": 1066,
       "trim_origin_top_left_px": [
         70,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -8
+        -9
       ],
-      "sha256": "5b4a05c3bf964178ec95cd9aa139aa2d1410a352276b0d69ac64c88ad39372a7",
+      "sha256": "2330cb5b0dd084abef30ee547b5190440132d11beda2a3c8d9275d549d6ba6c7",
       "empty": false
     },
     {
@@ -4280,227 +4280,183 @@
         28,
         41
       ],
-      "offset": 201932,
+      "offset": 199981,
       "length": 1148,
       "trim_origin_top_left_px": [
         70,
-        52
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -7
+        -9
       ],
-      "sha256": "1b50449e3465c8d651e8a819bb94d4c9f2bb4efe307c7045096d40dd986681dc",
+      "sha256": "3ae10bdb74e161f694d66cf9b04fb5debde2d062ac23e2fdd36bcb36d3c687c7",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_01.png",
-      "width": 27,
-      "height": 40,
+      "width": 25,
+      "height": 41,
       "texture_px": [
-        27,
-        40
+        25,
+        41
       ],
-      "offset": 203080,
-      "length": 1080,
+      "offset": 201129,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        71,
-        52
+        72,
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -8
+        8,
+        -9
       ],
-      "sha256": "6004b606d3cad3c9f5dece92d69968de027ba103f95988c8a32bc483a4f2f9ce",
+      "sha256": "50182fafd5f51342a220c303d95132699902f616b122bb68d13d48c57fcc06cd",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_02.png",
-      "width": 26,
-      "height": 40,
+      "width": 25,
+      "height": 41,
       "texture_px": [
-        26,
-        40
+        25,
+        41
       ],
-      "offset": 204160,
-      "length": 1040,
+      "offset": 202154,
+      "length": 1025,
       "trim_origin_top_left_px": [
-        71,
-        51
+        72,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -9
+        8,
+        -10
       ],
-      "sha256": "1e1d4b87ce539bb748bcb9e4ed0c6f56e82b81dff8c58a4f4313338eb13c4631",
+      "sha256": "9c48e9c6bae3d190bb04f8fa79a848a83dc50ab7c6e86b09d10454ca8d5bb46c",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_03.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 203179,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        72,
+        49
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -10
+      ],
+      "sha256": "b94f7e402f88deb1e33577d17d436d244af90bdf6fbce86e89ac3f862f3fe1c5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_04.png",
       "width": 26,
       "height": 40,
       "texture_px": [
         26,
         40
       ],
-      "offset": 205200,
+      "offset": 204204,
       "length": 1040,
       "trim_origin_top_left_px": [
-        71,
-        50
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        9,
-        -10
-      ],
-      "sha256": "7ead11e55f9e534ea14475a7e73a42cf5c268ded4d1bc72c7f86c7512a028a06",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_e_04.png",
-      "width": 27,
-      "height": 40,
-      "texture_px": [
-        27,
-        40
-      ],
-      "offset": 206240,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        71,
+        72,
         49
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        8,
         -11
       ],
-      "sha256": "152c108b4c54e18aab4912ef4722d4ede16f9a99801c63c9b78939ea701809dc",
+      "sha256": "2be0914b955f2a935b751e736b60c78e69e164c086a4bda7ed6075377218c177",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_05.png",
-      "width": 27,
-      "height": 39,
+      "width": 26,
+      "height": 40,
       "texture_px": [
-        27,
-        39
+        26,
+        40
       ],
-      "offset": 207320,
-      "length": 1053,
+      "offset": 205244,
+      "length": 1040,
       "trim_origin_top_left_px": [
-        71,
-        50
+        72,
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
+        8,
         -11
       ],
-      "sha256": "db22c81dacd004a94ea8cb590bcd86177dc23cc9795e41415eb7e7e969a41d1b",
+      "sha256": "b0af99a380af174bd8c77e0ecce6e370c416e977767b852bfca4acac4efa3160",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_06.png",
-      "width": 27,
-      "height": 39,
+      "width": 26,
+      "height": 40,
       "texture_px": [
-        27,
-        39
+        26,
+        40
       ],
-      "offset": 208373,
-      "length": 1053,
+      "offset": 206284,
+      "length": 1040,
       "trim_origin_top_left_px": [
-        71,
+        72,
         50
       ],
       "pivot_from_crop_bottom_left_px": [
-        9,
-        -11
+        8,
+        -10
       ],
-      "sha256": "1afa907dd673d71cd0014684061d54b6992c2fb1e0601bdf246c9c4963a2c5d6",
+      "sha256": "17fec550f1d21874f5b73e69f83f2b30c8da17f3c71d6b4f78fb89ae30679d91",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_07.png",
       "width": 29,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         29,
-        39
+        40
       ],
-      "offset": 209426,
-      "length": 1131,
+      "offset": 207324,
+      "length": 1160,
       "trim_origin_top_left_px": [
         69,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
         -10
       ],
-      "sha256": "4c9045af3085fb2f38e9bfbafab1312b387ef4dd5b87922e87d6549c7ce9f3d2",
+      "sha256": "bac0ee225b0a2b936dea838fbd9b54af3d47dbf2792d7cbbbbdc9386e8e5cc67",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_08.png",
-      "width": 27,
-      "height": 40,
-      "texture_px": [
-        27,
-        40
-      ],
-      "offset": 210557,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        71,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        9,
-        -9
-      ],
-      "sha256": "dff72be26dc92d1d115696f8582452f518a7f08259972137defc65d777ae44dc",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_e_09.png",
-      "width": 27,
-      "height": 40,
-      "texture_px": [
-        27,
-        40
-      ],
-      "offset": 211637,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        71,
-        51
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        9,
-        -9
-      ],
-      "sha256": "d0ca463f240a2c85262a64c9e0d7faabc254750a50749227807dc2b676f1db0b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_e_10.png",
       "width": 26,
       "height": 41,
       "texture_px": [
         26,
         41
       ],
-      "offset": 212717,
+      "offset": 208484,
       "length": 1066,
       "trim_origin_top_left_px": [
         71,
@@ -4510,7 +4466,51 @@
         9,
         -9
       ],
-      "sha256": "4a30b829218a71ed82d22b4942a5c092318178f4c1b3117bfc4c2d25367e2a4a",
+      "sha256": "ef5359209653de8d2aaf0f774c9dd2d8c08b990bb256e026ded8cc62f1829ad1",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_09.png",
+      "width": 25,
+      "height": 41,
+      "texture_px": [
+        25,
+        41
+      ],
+      "offset": 209550,
+      "length": 1025,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -9
+      ],
+      "sha256": "3158b9b480fd230c6175aba4209ef85b61d8e82c6d9827a52de0bce3ca4450d3",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_e_10.png",
+      "width": 25,
+      "height": 40,
+      "texture_px": [
+        25,
+        40
+      ],
+      "offset": 210575,
+      "length": 1000,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -10
+      ],
+      "sha256": "85cb6b518682999ab3649956825cc0630e84226b9b53e9cc73688156f1b81986",
       "empty": false
     },
     {
@@ -4522,7 +4522,7 @@
         26,
         41
       ],
-      "offset": 213783,
+      "offset": 211575,
       "length": 1066,
       "trim_origin_top_left_px": [
         71,
@@ -4532,29 +4532,29 @@
         9,
         -9
       ],
-      "sha256": "4258bb24df68b9ef7e3402b34818754e5e6fbff606ce3941a08ae1462c50b2c0",
+      "sha256": "1cac07662bbba79c753092a932a8a4749a82303ba9dcfdcfcd79e3b416b2e04e",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_e_12.png",
       "width": 27,
-      "height": 42,
+      "height": 41,
       "texture_px": [
         27,
-        42
+        41
       ],
-      "offset": 214849,
-      "length": 1134,
+      "offset": 212641,
+      "length": 1107,
       "trim_origin_top_left_px": [
         71,
-        49
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
         -9
       ],
-      "sha256": "c194f3e8851a628301f20830139c80896cc34848317cc7a4b4d96d139efd7235",
+      "sha256": "637d689c3bcc0ff2b47926b13a67fa97215cf7619c292e00a465efec6735fc92",
       "empty": false
     },
     {
@@ -4566,7 +4566,7 @@
         27,
         41
       ],
-      "offset": 215983,
+      "offset": 213748,
       "length": 1107,
       "trim_origin_top_left_px": [
         71,
@@ -4576,7 +4576,7 @@
         9,
         -9
       ],
-      "sha256": "17c156e3f8c403e776f74e3361d1540fb4730437dfbaf9099814228aadbf0f6f",
+      "sha256": "c90d3287f065d31b3c2037e3e4aa2037d908e962ba2055228c79c923e00efc3a",
       "empty": false
     },
     {
@@ -4588,17 +4588,17 @@
         27,
         41
       ],
-      "offset": 217090,
+      "offset": 214855,
       "length": 1107,
       "trim_origin_top_left_px": [
         71,
-        51
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -9
       ],
-      "sha256": "692caf420a13f69407e7c9e6834f6752376042131ea9a513b944792fb7c6aebb",
+      "sha256": "da722fef3bab548be09563b1fa6c05abf34812bcc53a5b9a28801e92af02f778",
       "empty": false
     },
     {
@@ -4610,105 +4610,105 @@
         29,
         41
       ],
-      "offset": 218197,
+      "offset": 215962,
       "length": 1189,
       "trim_origin_top_left_px": [
         69,
-        52
+        50
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -7
+        -9
       ],
-      "sha256": "e6addb1c5381d132b2a2036d3ead63141a20824177066822be2ed8aee67541ff",
+      "sha256": "3f5a66879a83a926d3b4a1a5050322860b80b350d8c1570dccb3ef6312e379d9",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_00.png",
       "width": 28,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         28,
-        40
+        41
       ],
-      "offset": 219386,
-      "length": 1120,
+      "offset": 217151,
+      "length": 1148,
       "trim_origin_top_left_px": [
         70,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
-        -7
+        -8
       ],
-      "sha256": "b6cf27d0cd2f9a018dc2e32e19afc22aeb1b008e6583ed7fdf32615599262f17",
+      "sha256": "430a3fa309589fe2c7269ac86972a557081c4bf4fca2c87c88c04f055584cf88",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_01.png",
       "width": 28,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         28,
-        40
+        41
       ],
-      "offset": 220506,
-      "length": 1120,
+      "offset": 218299,
+      "length": 1148,
       "trim_origin_top_left_px": [
         70,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -7
-      ],
-      "sha256": "7ebdd3f1b1867a8fbe5a34f077f7fb2c6c212152ff033fd3dad7ad6bd2182f0b",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_ese_02.png",
-      "width": 28,
-      "height": 40,
-      "texture_px": [
-        28,
-        40
-      ],
-      "offset": 221626,
-      "length": 1120,
-      "trim_origin_top_left_px": [
-        70,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
         -8
       ],
-      "sha256": "0ce079e748f2e0d536361b563a9202450291ee6fd6415938a4cbc8cb6ffe145a",
+      "sha256": "f361639d3a477dd97ed6836e24ded518e0829473d1cb858cf56c3451c0def6b7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_02.png",
+      "width": 26,
+      "height": 41,
+      "texture_px": [
+        26,
+        41
+      ],
+      "offset": 219447,
+      "length": 1066,
+      "trim_origin_top_left_px": [
+        71,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "5f93554bbd55f9a781a41ec187284d55d99ed6bc3e6a94efdb8a39a40c715bcb",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_03.png",
       "width": 26,
-      "height": 40,
+      "height": 42,
       "texture_px": [
         26,
-        40
+        42
       ],
-      "offset": 222746,
-      "length": 1040,
+      "offset": 220513,
+      "length": 1092,
       "trim_origin_top_left_px": [
         71,
-        51
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
         -9
       ],
-      "sha256": "8db9620ae72640e9faf92b4d9e9dfd9800cdaca8220b475a98049b4a673a5ead",
+      "sha256": "72621038a36d7e03d86d05d8a06e3340f06d6371ce9ab72dc510d669cd452a0d",
       "empty": false
     },
     {
@@ -4720,17 +4720,17 @@
         25,
         41
       ],
-      "offset": 223786,
+      "offset": 221605,
       "length": 1025,
       "trim_origin_top_left_px": [
         71,
-        50
+        49
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -9
+        -10
       ],
-      "sha256": "c6e64c76e065fc029c446b9df4499d56178c124503f163cfd65fade3a721a571",
+      "sha256": "7e1f9aad995006d1351100b41320d0bdeda78d4bdb07013dc721dc4cea31a0b6",
       "empty": false
     },
     {
@@ -4742,7 +4742,7 @@
         25,
         40
       ],
-      "offset": 224811,
+      "offset": 222630,
       "length": 1000,
       "trim_origin_top_left_px": [
         71,
@@ -4752,19 +4752,41 @@
         9,
         -10
       ],
-      "sha256": "be7c1433bf7706f59515085a17a0df4d094cf6f5b19c19daea7feb13c0c9af2c",
+      "sha256": "bfa920faac3d1feca2fcde6dc0cfdc79c5ff90ef1689b2c68386bc396d3dbc4c",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_06.png",
       "width": 24,
+      "height": 41,
+      "texture_px": [
+        24,
+        41
+      ],
+      "offset": 223630,
+      "length": 984,
+      "trim_origin_top_left_px": [
+        72,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        8,
+        -9
+      ],
+      "sha256": "801c6cd9c4e2cb88125d34ab789edb7f753ca85172c10a41799954e545a08218",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_07.png",
+      "width": 24,
       "height": 40,
       "texture_px": [
         24,
         40
       ],
-      "offset": 225811,
+      "offset": 224614,
       "length": 960,
       "trim_origin_top_left_px": [
         72,
@@ -4774,117 +4796,95 @@
         8,
         -9
       ],
-      "sha256": "c9e7078396671053a9fdff0a16187f1b7da7dc126b2bbda40d66630389ee2207",
+      "sha256": "e55e059ddee7428dce52f5db37682843fca822b6529d5f478fb8e1bbb97f4dc0",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
-      "name": "run_ese_07.png",
+      "name": "run_ese_08.png",
       "width": 25,
       "height": 40,
       "texture_px": [
         25,
         40
       ],
-      "offset": 226771,
+      "offset": 225574,
       "length": 1000,
       "trim_origin_top_left_px": [
         71,
-        52
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         9,
-        -8
+        -9
       ],
-      "sha256": "4b53ff71bcc29f2ab68c98a5be73403329cf730f3502ef139e7b990c4dad8e3d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_ese_08.png",
-      "width": 26,
-      "height": 40,
-      "texture_px": [
-        26,
-        40
-      ],
-      "offset": 227771,
-      "length": 1040,
-      "trim_origin_top_left_px": [
-        70,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
-      ],
-      "sha256": "6d8e3f024d508e6262c91a382e30765d9a7036f48ce884e6f3643cad59f0c075",
+      "sha256": "0b08c3c2022fdd8b4e7e73d4d474185ba606551c9680629a63044e0b42c4ce14",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_09.png",
-      "width": 26,
+      "width": 24,
       "height": 40,
       "texture_px": [
-        26,
+        24,
         40
       ],
-      "offset": 228811,
-      "length": 1040,
+      "offset": 226574,
+      "length": 960,
       "trim_origin_top_left_px": [
-        70,
-        52
+        71,
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
+        9,
+        -9
       ],
-      "sha256": "622d65fbfa8e54f6487ac89ff1cbe0fa62d4b52eea23f52a7525f09498663fae",
+      "sha256": "2460997fdb510275a954c3e9795ca7e7bf2eda34fd669a7aefc5e986564cab1c",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_10.png",
-      "width": 24,
-      "height": 41,
+      "width": 25,
+      "height": 40,
       "texture_px": [
-        24,
-        41
+        25,
+        40
       ],
-      "offset": 229851,
-      "length": 984,
+      "offset": 227534,
+      "length": 1000,
       "trim_origin_top_left_px": [
-        72,
+        71,
         51
       ],
       "pivot_from_crop_bottom_left_px": [
-        8,
-        -8
+        9,
+        -9
       ],
-      "sha256": "30b9139406c211fe13134bee91c3f0238bcda7f47964b2aab30bbda9fc3f152a",
+      "sha256": "e764e39f57f23030d3c9ba3dbcc80343f16dc3dd553ad5e2a3e1b39daf8aec87",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_11.png",
       "width": 27,
-      "height": 41,
+      "height": 40,
       "texture_px": [
         27,
-        41
+        40
       ],
-      "offset": 230835,
-      "length": 1107,
+      "offset": 228534,
+      "length": 1080,
       "trim_origin_top_left_px": [
         70,
-        50
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
         -9
       ],
-      "sha256": "a19bc6cf72c5ebccc54284894bf1c212c6601aab120ef130cf39726d019ca662",
+      "sha256": "b1716e32a5b0608bc6d21ee0d24b7290e34b3d5465918d3de3be7c9ed98af5c8",
       "empty": false
     },
     {
@@ -4896,7 +4896,7 @@
         28,
         41
       ],
-      "offset": 231942,
+      "offset": 229614,
       "length": 1148,
       "trim_origin_top_left_px": [
         70,
@@ -4906,19 +4906,41 @@
         10,
         -9
       ],
-      "sha256": "1f4ceab2de220b4c49411301075d45870d5e1f4d9363c9bfb4d9f6a08f2181b1",
+      "sha256": "f758984f91d0ee60212c3128ed7690c0d71a938477b9cface05f9da3acb5144d",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_13.png",
       "width": 28,
+      "height": 42,
+      "texture_px": [
+        28,
+        42
+      ],
+      "offset": 230762,
+      "length": 1176,
+      "trim_origin_top_left_px": [
+        70,
+        50
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "106d1cd3bc326ab23fa56ec817416eb21f1650bad75f04c14818a1ef87a29da5",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_ese_14.png",
+      "width": 28,
       "height": 41,
       "texture_px": [
         28,
         41
       ],
-      "offset": 233090,
+      "offset": 231938,
       "length": 1148,
       "trim_origin_top_left_px": [
         70,
@@ -4928,195 +4950,195 @@
         10,
         -8
       ],
-      "sha256": "5ac3552de143f449a9529ac159e419bf85802064d68f7f4a50324fa89c1501c6",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_ese_14.png",
-      "width": 28,
-      "height": 40,
-      "texture_px": [
-        28,
-        40
-      ],
-      "offset": 234238,
-      "length": 1120,
-      "trim_origin_top_left_px": [
-        70,
-        52
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
-      ],
-      "sha256": "bbca68724a59e26a345e2e5e6c2e446ed5e5cd3ccb41b3af70e2e53432845d6b",
+      "sha256": "d7d335b9c35b6ba846a859d595b1dd99e236eb451d2c597395b1d68414a48dac",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_ese_15.png",
       "width": 30,
-      "height": 40,
+      "height": 41,
       "texture_px": [
         30,
-        40
+        41
       ],
-      "offset": 235358,
-      "length": 1200,
+      "offset": 233086,
+      "length": 1230,
       "trim_origin_top_left_px": [
         68,
-        53
+        51
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -7
+        -8
       ],
-      "sha256": "c4a4b9412ac1344a311e18826ced538c91d08c571a8abe4d1454c9b2a8a18e41",
+      "sha256": "eb1cc9e021cfd23a881f315966d93dc159d0a46875e8d27c79719138ba51d01a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_00.png",
       "width": 28,
-      "height": 38,
+      "height": 39,
       "texture_px": [
         28,
-        38
+        39
       ],
-      "offset": 236558,
-      "length": 1064,
+      "offset": 234316,
+      "length": 1092,
       "trim_origin_top_left_px": [
         69,
-        55
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -7
+        -8
       ],
-      "sha256": "3db7b45e6fb300b5b305ddcec4fe666d1853c68d6651a4c7d75c09448de55b80",
+      "sha256": "0aaa439f272f7c59fb0969b5ee9a04c7009c2a8409461e9e227dbdee69081773",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_01.png",
       "width": 28,
-      "height": 37,
+      "height": 39,
       "texture_px": [
         28,
-        37
+        39
       ],
-      "offset": 237622,
-      "length": 1036,
+      "offset": 235408,
+      "length": 1092,
       "trim_origin_top_left_px": [
         69,
-        56
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -7
+        -8
       ],
-      "sha256": "7429dffa36f0d2a270a06fdc241ec61f9d62b73f5e20b913d744e8bdb551878d",
+      "sha256": "8627b6688dd1a978dffa84f801a48c068ad134d27907364a3ba9b9e45ffc79e3",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_02.png",
       "width": 27,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         27,
-        39
+        40
       ],
-      "offset": 238658,
-      "length": 1053,
-      "trim_origin_top_left_px": [
-        70,
-        54
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -7
-      ],
-      "sha256": "eaae6a80da7f77daee844ac213387673f128f010b286c518228c058ab3dae9f3",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_se_03.png",
-      "width": 26,
-      "height": 38,
-      "texture_px": [
-        26,
-        38
-      ],
-      "offset": 239711,
-      "length": 988,
-      "trim_origin_top_left_px": [
-        70,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -9
-      ],
-      "sha256": "fcc6eef43ae566866baf331d0c81e334d3e3594d1c7844f8fc468d2efe8a1c92",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_se_04.png",
-      "width": 26,
-      "height": 39,
-      "texture_px": [
-        26,
-        39
-      ],
-      "offset": 240699,
-      "length": 1014,
+      "offset": 236500,
+      "length": 1080,
       "trim_origin_top_left_px": [
         70,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
+        -8
+      ],
+      "sha256": "9063014cc40e40232bac850e7ae05ff73c1dac472020d6a7996e5d5fbec43783",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_03.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 237580,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
         -9
       ],
-      "sha256": "3e40506f2177915b417fce63df97af4dbbc51c49519a29e864e6b72c88bfb938",
+      "sha256": "d8e41cc4624d1da94e157c196b0b771de4fd7b62e5f67becdb7ef7fdad7a67e7",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_04.png",
+      "width": 26,
+      "height": 40,
+      "texture_px": [
+        26,
+        40
+      ],
+      "offset": 238620,
+      "length": 1040,
+      "trim_origin_top_left_px": [
+        70,
+        51
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -9
+      ],
+      "sha256": "3f841a5a382834a32382bcf9d4418b63c4ce716e765864343fa5b5f7202d3eeb",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_05.png",
-      "width": 26,
-      "height": 38,
+      "width": 25,
+      "height": 39,
       "texture_px": [
-        26,
-        38
+        25,
+        39
       ],
-      "offset": 241713,
-      "length": 988,
+      "offset": 239660,
+      "length": 975,
       "trim_origin_top_left_px": [
-        70,
-        53
+        71,
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
+        9,
         -9
       ],
-      "sha256": "baa0fa0b1b95e8e3af9b9f961d6d79eb07ccf232e6265f647ad59b2174c7f12e",
+      "sha256": "91ac94b063d4b3fa516a570a3e8c3638196fa74cc7755ae0868d94a4233af91d",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_06.png",
+      "width": 25,
+      "height": 39,
+      "texture_px": [
+        25,
+        39
+      ],
+      "offset": 240635,
+      "length": 975,
+      "trim_origin_top_left_px": [
+        71,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        9,
+        -9
+      ],
+      "sha256": "faaab675cb394e8ce6aac1b8b193544d57cfc1a285f89f3f5217df8a08acdd94",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_07.png",
       "width": 26,
       "height": 38,
       "texture_px": [
         26,
         38
       ],
-      "offset": 242701,
+      "offset": 241610,
       "length": 988,
       "trim_origin_top_left_px": [
         70,
@@ -5126,73 +5148,51 @@
         10,
         -9
       ],
-      "sha256": "cc33eb3715e8d627c7a548b4f3e7926323a80d3f91488f9dfd48ffcbde9202ad",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_se_07.png",
-      "width": 27,
-      "height": 38,
-      "texture_px": [
-        27,
-        38
-      ],
-      "offset": 243689,
-      "length": 1026,
-      "trim_origin_top_left_px": [
-        70,
-        54
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
-      ],
-      "sha256": "5888e0fa97565f68bc9d8007a2ea1dffe919b06331482c9075ff50540e203daa",
+      "sha256": "3bdef4fe06ea46de31d36a87860209a7e45bb1b4bfe784e36441b7961b2efbf5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_08.png",
-      "width": 27,
+      "width": 26,
       "height": 39,
       "texture_px": [
-        27,
+        26,
         39
       ],
-      "offset": 244715,
-      "length": 1053,
+      "offset": 242598,
+      "length": 1014,
       "trim_origin_top_left_px": [
         70,
-        54
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -7
-      ],
-      "sha256": "b2069b33465f8bfc74fc677bae7110acc7a44fd198bc9428f763ab1a6521642e",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_se_09.png",
-      "width": 27,
-      "height": 38,
-      "texture_px": [
-        27,
-        38
-      ],
-      "offset": 245768,
-      "length": 1026,
-      "trim_origin_top_left_px": [
-        70,
-        54
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         10,
         -8
       ],
-      "sha256": "8f7a0adda670685d12022ae22e8a1d312844a66ba430d63fcff24089ce1f85db",
+      "sha256": "05f2fd8db02a1b1343bd35a8e9f6dbe4caa06032cee529434dab84b1bc807bdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_09.png",
+      "width": 26,
+      "height": 39,
+      "texture_px": [
+        26,
+        39
+      ],
+      "offset": 243612,
+      "length": 1014,
+      "trim_origin_top_left_px": [
+        70,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        10,
+        -8
+      ],
+      "sha256": "d8d682ff06171a6f1361fd041bdeb723465f8966027200897374e9478ca0b6c9",
       "empty": false
     },
     {
@@ -5204,7 +5204,7 @@
         26,
         39
       ],
-      "offset": 246794,
+      "offset": 244626,
       "length": 1014,
       "trim_origin_top_left_px": [
         70,
@@ -5214,73 +5214,73 @@
         10,
         -8
       ],
-      "sha256": "b8ef92701b0b1539b6f5787731a383778c308347404b92996f80bd38f5181b6d",
+      "sha256": "01f3a1e043e5eae8e2264eacb852019cc885fe97f0573af13473ce2ea2b25d21",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_11.png",
       "width": 27,
-      "height": 39,
-      "texture_px": [
-        27,
-        39
-      ],
-      "offset": 247808,
-      "length": 1053,
-      "trim_origin_top_left_px": [
-        70,
-        53
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        10,
-        -8
-      ],
-      "sha256": "85bef8614ae2740ddd1ca23ed3c1d3bc21529cb04036a15a3b91932888c6725d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_se_12.png",
-      "width": 27,
       "height": 40,
       "texture_px": [
         27,
         40
       ],
-      "offset": 248861,
+      "offset": 245640,
       "length": 1080,
       "trim_origin_top_left_px": [
-        70,
+        69,
         52
       ],
       "pivot_from_crop_bottom_left_px": [
-        10,
+        11,
         -8
       ],
-      "sha256": "7d38388db95a7f804115c9e4176fd79da75d9cdebaf667a7db2e1f9d1b23ed2f",
+      "sha256": "5767a248b84226960698677331e8de17a3568c20e3fa2c1f2def05ad9af4c505",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_se_12.png",
+      "width": 28,
+      "height": 40,
+      "texture_px": [
+        28,
+        40
+      ],
+      "offset": 246720,
+      "length": 1120,
+      "trim_origin_top_left_px": [
+        69,
+        52
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        11,
+        -8
+      ],
+      "sha256": "c28890ccca6765a31f534e84be9f2b92fd5072fb8ebf9730107c8abeed86c905",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_13.png",
       "width": 28,
-      "height": 39,
+      "height": 40,
       "texture_px": [
         28,
-        39
+        40
       ],
-      "offset": 249941,
-      "length": 1092,
+      "offset": 247840,
+      "length": 1120,
       "trim_origin_top_left_px": [
         69,
-        53
+        52
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
         -8
       ],
-      "sha256": "d1bd33d3bd7b298ab8aa9ab66f0126b3b14ab34e5bedcd4b1c3bd45b182952a3",
+      "sha256": "a76d22869c2c7b7984307e8d4c291b7f70046a1e52aeac532972485fce406a43",
       "empty": false
     },
     {
@@ -5292,127 +5292,127 @@
         28,
         39
       ],
-      "offset": 251033,
+      "offset": 248960,
       "length": 1092,
       "trim_origin_top_left_px": [
         69,
-        54
+        53
       ],
       "pivot_from_crop_bottom_left_px": [
         11,
-        -7
+        -8
       ],
-      "sha256": "197d7fd18c42faac1e3c334e77478819c162ff2794fa193d0cfb95330cfbbca5",
+      "sha256": "8affa45076880df459af7efe1be97b078de541021bbab0a9699bbf8425ef070f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_se_15.png",
       "width": 29,
-      "height": 37,
+      "height": 39,
       "texture_px": [
         29,
-        37
+        39
       ],
-      "offset": 252125,
-      "length": 1073,
+      "offset": 250052,
+      "length": 1131,
+      "trim_origin_top_left_px": [
+        68,
+        53
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        12,
+        -8
+      ],
+      "sha256": "4100ccf6cb407cba9b91702cdbee5b55d0b96f985d26cf250249ee2eb7aaf07b",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_00.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 251183,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "bb2782cc4e49741a8c7eee2a9229d83fec155f6c23290d03c4803e2ec181d676",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_01.png",
+      "width": 29,
+      "height": 36,
+      "texture_px": [
+        29,
+        36
+      ],
+      "offset": 252227,
+      "length": 1044,
+      "trim_origin_top_left_px": [
+        67,
+        56
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "05e24a79fe6867ddfe424a1d305cd569042e659c691420480293c289b609a40e",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_02.png",
+      "width": 28,
+      "height": 36,
+      "texture_px": [
+        28,
+        36
+      ],
+      "offset": 253271,
+      "length": 1008,
       "trim_origin_top_left_px": [
         68,
         56
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -7
-      ],
-      "sha256": "b289679cb3c91c321f2092877a6a45eacb4ba79d3fb4f87f52d97b742deb784d",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sse_00.png",
-      "width": 30,
-      "height": 36,
-      "texture_px": [
-        30,
-        36
-      ],
-      "offset": 253198,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        67,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -7
-      ],
-      "sha256": "282e73c961730a10f42b8d9cf6a88a5fbd85af82a494702ad873d49e04c06a05",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sse_01.png",
-      "width": 30,
-      "height": 36,
-      "texture_px": [
-        30,
-        36
-      ],
-      "offset": 254278,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        67,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -7
-      ],
-      "sha256": "eb139839554421255c4356998d9e9f879482dc4e4d864ff0719de426e07c95bc",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sse_02.png",
-      "width": 30,
-      "height": 35,
-      "texture_px": [
-        30,
-        35
-      ],
-      "offset": 255358,
-      "length": 1050,
-      "trim_origin_top_left_px": [
-        67,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
         -8
       ],
-      "sha256": "a195abf86fef132fbac8c0e3d7a57e4ab4372ac8ab4a1f507fb41027eeab16f8",
+      "sha256": "8117ae57d03d7bac23a20df13eed781cc8ad0f659603f7f9303d786281625324",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_03.png",
-      "width": 29,
-      "height": 35,
+      "width": 28,
+      "height": 36,
       "texture_px": [
-        29,
-        35
+        28,
+        36
       ],
-      "offset": 256408,
-      "length": 1015,
+      "offset": 254279,
+      "length": 1008,
       "trim_origin_top_left_px": [
-        67,
-        56
+        68,
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -9
       ],
-      "sha256": "53acf958c2b48551d35747c67ed1086231862bdfd503e9fef1b0823d964ed2ff",
+      "sha256": "197b447433d06b45d678200fc16d3049319ea17818d842a422d9ecaf74b352a6",
       "empty": false
     },
     {
@@ -5424,83 +5424,83 @@
         29,
         36
       ],
-      "offset": 257423,
+      "offset": 255287,
       "length": 1044,
       "trim_origin_top_left_px": [
-        67,
+        68,
         55
       ],
       "pivot_from_crop_bottom_left_px": [
-        13,
+        12,
         -9
       ],
-      "sha256": "8fbd58812c30a03e330699cd14e9cf6650134541ecf2f005d4f3cfb8c86facd9",
+      "sha256": "20154070dcef9d98012921528e71b0b7ff98492d4e69c8e71b066ef73e264620",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_05.png",
-      "width": 28,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        28,
-        35
+        29,
+        36
       ],
-      "offset": 258467,
-      "length": 980,
+      "offset": 256331,
+      "length": 1044,
       "trim_origin_top_left_px": [
         68,
-        56
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -9
       ],
-      "sha256": "b87a813d187f69f149e49ac9222fc8230bc85bbd509135b1228baae8a5cb2f84",
+      "sha256": "adeeb65a3b5ee351c3513db4315d9c1abc9736f74a20dda794c9d6ddae9cb743",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_06.png",
-      "width": 28,
-      "height": 35,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        28,
-        35
+        29,
+        36
       ],
-      "offset": 259447,
-      "length": 980,
+      "offset": 257375,
+      "length": 1044,
       "trim_origin_top_left_px": [
         68,
-        56
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -9
       ],
-      "sha256": "7179934fd5320f4035cca4e150c0ee0ab8f45c567e884cb0f29f09531b843fbe",
+      "sha256": "cba085a9724bbce16a7bf8cc8b6956fa0dbeda2ba78b3fe32613e99c531dd21a",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_07.png",
-      "width": 28,
-      "height": 34,
+      "width": 29,
+      "height": 36,
       "texture_px": [
-        28,
-        34
+        29,
+        36
       ],
-      "offset": 260427,
-      "length": 952,
+      "offset": 258419,
+      "length": 1044,
       "trim_origin_top_left_px": [
         68,
-        57
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -9
       ],
-      "sha256": "a19db4aeb0a00711be15e8d80533e35ef7cb5166d9f677dc20a0c301775d13d1",
+      "sha256": "e7a3a1a9fa4491549e03fc7a438f4cf1ab4f7e9d085d10a04d1bc293d13a045d",
       "empty": false
     },
     {
@@ -5512,95 +5512,73 @@
         28,
         35
       ],
-      "offset": 261379,
+      "offset": 259463,
       "length": 980,
       "trim_origin_top_left_px": [
         68,
-        57
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
-        -8
+        -9
       ],
-      "sha256": "2f918b92337344e6d141456460e772bacf63b7a644be5b08d1344138600c8c62",
+      "sha256": "5603e5a160c27fc14d2467530a3271b5a694b57b8e870ad01b20989daf937df5",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_09.png",
       "width": 28,
-      "height": 35,
+      "height": 36,
       "texture_px": [
         28,
-        35
+        36
       ],
-      "offset": 262359,
-      "length": 980,
+      "offset": 260443,
+      "length": 1008,
       "trim_origin_top_left_px": [
         68,
-        57
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -8
       ],
-      "sha256": "c18ce62a035089a0bd261344fc0a661452673ab2813f85ccc004c3e7c6b2a068",
+      "sha256": "814c929cc605ae2f4c6b32852aec19275d1e73ade7f09b56629c85b5f7f0b857",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_10.png",
       "width": 28,
-      "height": 36,
+      "height": 37,
       "texture_px": [
         28,
-        36
+        37
       ],
-      "offset": 263339,
-      "length": 1008,
+      "offset": 261451,
+      "length": 1036,
       "trim_origin_top_left_px": [
         68,
-        56
+        55
       ],
       "pivot_from_crop_bottom_left_px": [
         12,
         -8
       ],
-      "sha256": "64c58661211c7618d078592cb69fa67fdb09297d89e0a73708766094765065fd",
+      "sha256": "307e6a71ebdf409dfc9ebfc9723766aff2cfc023da070b01506120f1ba6b8b3f",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_11.png",
-      "width": 28,
-      "height": 36,
-      "texture_px": [
-        28,
-        36
-      ],
-      "offset": 264347,
-      "length": 1008,
-      "trim_origin_top_left_px": [
-        68,
-        56
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        12,
-        -8
-      ],
-      "sha256": "9c67fb302812aeec29dc76a60e3bd4464b2851ad1d3304067fad04c12bd4efe0",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sse_12.png",
       "width": 29,
       "height": 37,
       "texture_px": [
         29,
         37
       ],
-      "offset": 265355,
+      "offset": 262487,
       "length": 1073,
       "trim_origin_top_left_px": [
         67,
@@ -5610,20 +5588,64 @@
         13,
         -8
       ],
-      "sha256": "4041f688c83a522680fa2be87ce70ec2efd91956a80796eec912798e969efab1",
+      "sha256": "be691406228972c896f6ea665c2499c047fd300bfdb5b8f325e036c880aaa158",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_12.png",
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 263560,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "ff0860e923b6a84e197f2380e4b02b0d49f22a70bb3044cefd3ed79ba22c32b1",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_13.png",
-      "width": 29,
+      "width": 28,
+      "height": 37,
+      "texture_px": [
+        28,
+        37
+      ],
+      "offset": 264596,
+      "length": 1036,
+      "trim_origin_top_left_px": [
+        67,
+        55
+      ],
+      "pivot_from_crop_bottom_left_px": [
+        13,
+        -8
+      ],
+      "sha256": "67d070251e6d54ffd2d67674d76dbbb94283be843b4e71667eb3a41ae1f36bdb",
+      "empty": false
+    },
+    {
+      "atlas": "HumanRunMail.atlas",
+      "name": "run_sse_14.png",
+      "width": 28,
       "height": 36,
       "texture_px": [
-        29,
+        28,
         36
       ],
-      "offset": 266428,
-      "length": 1044,
+      "offset": 265632,
+      "length": 1008,
       "trim_origin_top_left_px": [
         67,
         56
@@ -5632,53 +5654,31 @@
         13,
         -8
       ],
-      "sha256": "49c937c7668278898fe305c57a9099f4db2072a5d0ba4dca990104f7f3d275b6",
-      "empty": false
-    },
-    {
-      "atlas": "HumanRunMail.atlas",
-      "name": "run_sse_14.png",
-      "width": 30,
-      "height": 36,
-      "texture_px": [
-        30,
-        36
-      ],
-      "offset": 267472,
-      "length": 1080,
-      "trim_origin_top_left_px": [
-        67,
-        57
-      ],
-      "pivot_from_crop_bottom_left_px": [
-        13,
-        -7
-      ],
-      "sha256": "bb28c84132007aedb3c9426a349ab3d392318062641b7ded3e7857d62df0fd3e",
+      "sha256": "3df7ab9e310940c0845ed76f823730c387dd8a3c731ca0a8c6bf065728cf9cf4",
       "empty": false
     },
     {
       "atlas": "HumanRunMail.atlas",
       "name": "run_sse_15.png",
-      "width": 30,
+      "width": 28,
       "height": 35,
       "texture_px": [
-        30,
+        28,
         35
       ],
-      "offset": 268552,
-      "length": 1050,
+      "offset": 266640,
+      "length": 980,
       "trim_origin_top_left_px": [
         67,
-        57
+        56
       ],
       "pivot_from_crop_bottom_left_px": [
         13,
-        -8
+        -9
       ],
-      "sha256": "487dee54e5dac53091f02a4c283aeffd3f2cecf9ba356adc8f705350f648c8a4",
+      "sha256": "ce1c8e8a0fe0811bd24f009af9301ca047c823e2a643d8c330d7ef338e749144",
       "empty": false
     }
   ],
-  "source_authority": "RunOct10/Human_Run_Animated.blend"
+  "source_authority": "RunOct11/Human_Run_Animated.blend"
 }

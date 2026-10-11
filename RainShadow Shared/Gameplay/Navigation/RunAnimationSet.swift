@@ -7,11 +7,11 @@ enum RunAnimationSet {
     static let frames = 16
     static let hashes: [String: String] = [
         "BearGuardianRun": "e59c88f69e5a034c633dccef641f6d131355f578ac8d7a60a7e512075cefa6d2",
-        "HumanRun": "1f3d42dd17db2cc3bf277cee113de02207a05e9f71e7c9c979ad8348747cf189",
-        "HumanRunSword": "ee0c2ff5ab9ad51ddf4b1a6499562b2e87809c6a0e24e5134e798397905a72d7",
-        "HumanRunMail": "df862c7f8324c5fa57d44550b821c74b634a294038cab68a72d7b62337c6a22e",
-        "HumanRunHelmet": "7e4cfcf0424084e0a4d2360d717f443556fa80e607e521d308503a63a1609b65",
-        "HumanRunBow": "2663f32aa44b803a1ca4775e7944a6415b6f197cda7e922fa44fe91e57729bfe",
+        "HumanRun": "6b53a1bf5242695ee7156071046d767948c1a39e09976ba3869c641974be29ef",
+        "HumanRunSword": "e440491764215204e5efda0413056ecedde24f40f4de951e41473051789ee9c6",
+        "HumanRunMail": "d121f1aaaf3f84b90423eb469b9454fcc7b88cfdcc4bafe391d780b20dd38b1b",
+        "HumanRunHelmet": "06b9dc2ff0868b157d1e7d0b41d2cdbb4e69d82766ebc4da2719108a4bf839b1",
+        "HumanRunBow": "2985835829bd978fcfc30501c0c940525984c7f3f666b6532edc565b6517e49d",
     ]
     static func equipment(_ item: CharacterEquipmentCode) -> String {
         CombatReactionAnimationSet.equipment(item).replacingOccurrences(of: CombatReactionAnimationSet.body, with: body)
@@ -44,7 +44,7 @@ enum CombatRunMotion {
     static let recoveryDuration = 0.12
     // Authored support-phase paw/foot sweep divided by its share of the cycle,
     // then converted through the fixed render camera and display scale.
-    static func stride(bear: Bool) -> Double { bear ? (0.65 / 0.46) * 180 / 3.6 : (0.70 / 0.45) * (1024 / 1.72 * 0.07465790639916813) * 175.78125 / 160 }
+    static func stride(bear: Bool) -> Double { bear ? (0.65 / 0.46) * 180 / 3.6 : (0.60 / 0.45) * (1024 / 1.72 * 0.07465790639916813) * 175.78125 / 160 }
     static func phase(distance: Double, bear: Bool) -> Int {
         Int(max(0, distance) / stride(bear: bear) * Double(RunAnimationSet.frames)) % RunAnimationSet.frames
     }

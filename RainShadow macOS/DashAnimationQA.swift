@@ -50,9 +50,19 @@ import SpriteKit
             try check(director.combat == accepted, "\(kit): repeat Dash and end-turn cannot interrupt activation")
             try check(accepted.current.position == before.current.position, "\(kit): activation does not displace the actor")
             try await wait { (director.dashPresentation?.elapsed ?? 0) >= 0.43 }
+            // Preserve the actual wind colour before tactical pause grades the scene.
+            if let image = view.texture(from: scene)?.cgImage(), let data = NSBitmapImageRep(cgImage: image).representation(using: .png, properties: [:]) {
+                try data.write(to: output.appendingPathComponent("dash-wind-" + kit + ".png"))
+            }
             scene.handleTacticalPauseInput()
             let dash = director.dashPresentation!
             try check(!dash.wind.isHidden, "\(kit): wind burst accompanies activation")
+            let wisps = dash.wind.children.compactMap { $0 as? SKSpriteNode }
+            try check(wisps.count == 5 && wisps.allSatisfy { ($0.texture?.size().width ?? 0) > 100 && $0.alpha > 0 },
+                      "\(kit): generated wind texture is loaded on all five visible ribbons")
+            if let image = view.texture(from: dash.wind)?.cgImage(), let data = NSBitmapImageRep(cgImage: image).representation(using: .png, properties: [:]) {
+                try data.write(to: output.appendingPathComponent("wind-isolated-" + kit + ".png"))
+            }
             if kit == "bear" { try check(dash.node == nil && director.combat.isBear, "Bear keeps its own body during Dash") }
             else {
                 try check(dash.node?.currentAction == .dash, "\(kit): dedicated body animation is visible")
