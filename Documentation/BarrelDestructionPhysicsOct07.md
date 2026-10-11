@@ -130,3 +130,26 @@ the staged actors were outside the previewed blast radii, so the accepted shot
 had no displacement. Its failure report is in `output/barrel-style-oct11/`.
 That assertion and gameplay were not relaxed for this art update; the full
 encounter suite is not claimed green.
+
+## Shipping-room floor placement — October 11
+
+Indoor encounters now seed one barrel on reviewed empty floor at `(430,410)`,
+between the book table and counter, rather than using the outdoor player-relative
+radial placement. The blast reaches the back-room enemy approach; Voss must also
+step clear before ignition. Reserve floor seats handle occupied staging and old
+saves containing a second barrel. All seats are checked against the existing
+search raster and actor spacing. The entrance remains reachable after the
+barrel's occupancy stamp is installed. Navigation and room artwork are unchanged.
+
+On encounter restoration, only intact barrels at legacy positions relocate.
+IDs, actor state, resources and RNG remain unchanged; broken remains, oil and
+fire retain their saved positions. Corrected placement is checkpointed by the
+existing combat initialization path. If every reviewed floor seat is occupied,
+repair leaves the saved barrel alone instead of overlapping an actor.
+
+Validation: 17 core tests passed across shipping placement and explosive barrels;
+macOS and iOS Simulator Debug builds passed. Native QA passed 12 checks including
+live migration and persistence. Visually reviewed the actual room and blast
+preview in `output/shipping-barrel-floor-oct11/shipping-barrel-floor.png`.
+Use `RAINSHADOW_QA_TARGETING_ONLY=1` and `RAINSHADOW_QA_SHIPPING_BARREL=1` with the
+normal combat QA output path to reproduce. iOS was build-checked only.

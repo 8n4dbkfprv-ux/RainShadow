@@ -171,6 +171,19 @@ struct TacticalCombat: Codable, Equatable {
         guard (barrels ?? []).isEmpty else { return }
         barrels = candidates.isEmpty ? nil : candidates
     }
+    /// Repair only intact props from the old player-relative indoor placement.
+    /// Broken wood, oil, fire cells and accepted damage must stay where saved.
+    mutating func repairShippingBarrelPlacement(in map: NavigationMap) {
+        guard areaID == WharfLadderStory.interior.rawValue, var placed = barrels else { return }
+        for index in placed.indices where !placed[index].isBroken {
+            guard !CombatNavigation.shippingBarrelSeats.contains(placed[index].position) else { continue }
+            let occupied = placed.enumerated().filter { $0.offset != index }.map { $0.element.position }
+            if let point = CombatNavigation.shippingBarrelSeat(in: map, actors: actors, avoiding: occupied) {
+                placed[index].position = point
+            }
+        }
+        barrels = placed
+    }
     var liveBarrels: [CombatBarrel] { (barrels ?? []).filter { !$0.exploded } }
     var burningBarrels: [CombatBarrel] { (barrels ?? []).filter { ($0.fireExpiresRound ?? 0) > round && !($0.fireCells ?? []).isEmpty } }
     func isInFire(_ point: CGPoint) -> Bool { burningBarrels.contains { $0.containsFire(point) } }
@@ -998,6 +1011,23 @@ enum CombatNavigation {
         if let second = candidates.first(where: { distance(first, $0) >= 70
             && distance(first, $0) <= 110 && clearLine(in: map, from: first, to: $0) }) { points.append(second) }
         return points.enumerated().map { CombatBarrel(id: "combat.oil.\($0.offset)", position: $0.element) }
+    }
+    /// Reviewed empty floor on shipping_office_v19: the lane between the book
+    /// table and counter, then the open floor in front of the counter.
+    /// Do not use the outdoor radial search here: passable ground beneath a
+    /// baked desk can still put a tall prop visibly on its tabletop.
+    static let shippingBarrelSeats = [CGPoint(x: 430, y: 410), CGPoint(x: 600, y: 180),
+                                      CGPoint(x: 400, y: 420), CGPoint(x: 560, y: 170)]
+    static func shippingBarrelSeat(in map: NavigationMap, actors: [Combatant], avoiding: [CGPoint] = []) -> CGPoint? {
+        shippingBarrelSeats.first { point in
+            map.searchMap.blockedInRadiusTile(at: point, size: 2).contains(.passable)
+                && actors.allSatisfy { distance(point, $0.position) >= 65 }
+                && avoiding.allSatisfy { distance(point, $0) >= 70 }
+        }
+    }
+    static func shippingBarrels(in map: NavigationMap, actors: [Combatant]) -> [CombatBarrel] {
+        guard let point = shippingBarrelSeat(in: map, actors: actors) else { return [] }
+        return [CombatBarrel(id: "combat.oil.0", position: point)]
     }
     static func approach(in map: NavigationMap, actor: Combatant, target: Combatant, limit: Double) -> Path? {
         let radius: CGFloat = (map.occupancy.actors[target.id]?.personalSpaceCells ?? 4) > 4 ? 100 : 84

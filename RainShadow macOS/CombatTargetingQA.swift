@@ -4,6 +4,9 @@ import SpriteKit
 
 @MainActor enum CombatTargetingQA {
     static func run(in view: SKView, output: URL, initial: TacticalCombat) async throws -> [String] {
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_SHIPPING_BARREL"] == "1" {
+            return try await shippingBarrelPreview(in: view, output: output)
+        }
         var checks: [String] = []
         func check(_ value: Bool, _ message: String) throws {
             guard value else { throw TacticalCombatQA.Failure(message: message) }; checks.append(message)
@@ -124,6 +127,46 @@ import SpriteKit
             director.actionBar.showTooltip(nil)
         }
         return checks
+    }
+
+    private static func shippingBarrelPreview(in view: SKView, output: URL) async throws -> [String] {
+        let map = try AreaCatalogLoader.load(WharfLadderStory.interior).makeNavigationMap()
+        let origin = CGPoint(x: 487, y: 364)
+        map.registerActor(id: TacticalCombat.playerID, kind: .player, at: origin)
+        let positions = [origin] + WharfLadderStaging.positions(near: origin, count: 3,
+            navigation: map, ignoringActorID: TacticalCombat.playerID)
+        let actors = positions.enumerated().map { index, point in
+            Combatant(id: index == 0 ? TacticalCombat.playerID : "qa.shipping.\(index)",
+                name: index == 0 ? "Voss" : "Hand \(index)", player: index == 0, position: point,
+                hp: 12, maximumHP: 12, defence: 11, attackBonus: 2, damageMin: 1, damageMax: 3,
+                initiativeBonus: index == 0 ? 100 : -100)
+        }
+        let legacy = TacticalCombat(encounterID: "clockroom", areaID: WharfLadderStory.interior.rawValue,
+            actors: actors, seed: 42, barrels: [.init(id: "combat.oil.0", position: CGPoint(x: 600, y: 285))])
+        let store = SaveStore(key: "RainShadow.QA.ShippingBarrel.\(UUID().uuidString)")
+        defer { store.reset() }
+        store.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(legacy), hasSeenOpening: true,
+            hasCompletedOfficeCaseIntro: true, hasSeededStarterKit: true, hasReceivedArmorKit: true))
+        let context = GameContext(saveStore: store); context.router.start(in: view)
+        let deadline = ProcessInfo.processInfo.systemUptime + 40
+        while (view.scene as? CityDistrictScene)?.context !== context || (view.scene as? CityDistrictScene)?.combatDirector?.busy != false {
+            if ProcessInfo.processInfo.systemUptime > deadline { throw TacticalCombatQA.Failure(message: "Shipping barrel scene timeout") }
+            try await Task.sleep(for: .milliseconds(20))
+        }
+        let scene = view.scene as! CityDistrictScene
+        let director = scene.combatDirector!
+        guard let barrel = director.combat.barrels?.first,
+              barrel.position == CGPoint(x: 430, y: 410),
+              GameSession(saveStore: store).tacticalCombat?.barrels?.first?.position == barrel.position else {
+            throw TacticalCombatQA.Failure(message: "Shipping barrel migration was not presented and persisted")
+        }
+        director.hover(at: scene.convert(CGPoint(x: barrel.position.x, y: barrel.position.y + 30), from: scene.depthWorldRoot))
+        guard let texture = view.texture(from: scene),
+              let data = NSBitmapImageRep(cgImage: texture.cgImage()).representation(using: .png, properties: [:]) else {
+            throw TacticalCombatQA.Failure(message: "Shipping barrel capture failed")
+        }
+        try data.write(to: output.appendingPathComponent("shipping-barrel-floor.png"))
+        return ["Legacy indoor barrel moves to the authored floor position", "Corrected position is checkpointed", "Shipping-room barrel and blast preview render"]
     }
 }
 #endif
