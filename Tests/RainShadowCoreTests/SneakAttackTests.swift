@@ -140,14 +140,15 @@ struct SneakAttackTests {
         #expect(!TacticalCombat.insideSightCone(observer: observer, point: .init(x: 900, y: 100)))
         observer.combatFacing = ActorFacing.north.rawValue
         #expect(TacticalCombat.insideSightCone(observer: observer, point: .init(x: 100, y: 400)))
-        _ = model.hide(observed: false); _ = model.transformToBear(hasClearance: true)
+        _ = model.hide(observed: false); _ = model.endTurn(); _ = model.endTurn()
+        _ = model.transformToBear(hasClearance: true)
         #expect(model.isBear && !model.canHide && model.current.hidden != true)
         let target = try #require(model.actors.first { !$0.player })
         #expect(model.sneakAttackReason(target: target, ranged: false, hasSword: true, clearLine: true) != nil)
     }
-    @Test func concealedTargetsCannotBeDirectlyAttackedAndOrdinaryEnemiesCannotHide() {
+    @Test func concealedTargetsCannotBeDirectlyAttackedAndEnemiesUseCommonHide() {
         var model = fight(); _ = model.hide(observed: false); _ = model.endTurn()
-        #expect(!model.canHide)
+        #expect(model.canHide)
         let before = model
         let attempt = model.attack(target: TacticalCombat.playerID, clearLine: true, hasSword: true)
         #expect(attempt == nil && model == before)

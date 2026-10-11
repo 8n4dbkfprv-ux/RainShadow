@@ -69,7 +69,7 @@ final class CombatBarrelVisual: SKNode {
             addChild(sprite)
         }
         if !barrel.exploded {
-            let label = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+            let label = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
             label.text = barrel.isBroken ? "Oil spill · flammable" : "Oil · flammable"
             label.fontSize = 10; label.fontColor = .orange
             label.position.y = barrel.isBroken ? 28 : 67; label.zPosition = 1; addChild(label)
@@ -155,22 +155,50 @@ final class BarrelBlastVisual: SKNode {
 /// Small cached flame pool over the certified floor cells. Footprint and lifetime
 /// come from combat state; wall-clock time only animates the tongues of flame.
 @MainActor final class CombatFireSurfaceVisual: SKNode {
+    private static let oilTexture: SKTexture = {
+        let texture = SKTexture(imageNamed: "burning_oil_surface_v01")
+        texture.filteringMode = .linear
+        texture.usesMipmaps = true
+        return texture
+    }()
+    private static let flameTexture: SKTexture = {
+        let texture = SKTexture(imageNamed: "oil_fire_flame_v01")
+        texture.filteringMode = .linear
+        texture.usesMipmaps = true
+        return texture
+    }()
     private var flames: [SKSpriteNode] = []
     private let cells: [CGPoint]
     init(barrel: CombatBarrel, artHeight: CGFloat) {
         cells = barrel.fireCells ?? []
         super.init()
         name = "combat.oil.fire." + barrel.id
+        // Project one continuous generated oil decal onto the certified cells.
+        // Texture views preserve detail without painting oil through a wall or
+        // into water; no new mask texture or image processing per frame.
+        let oilBounds = CGRect(x: barrel.position.x - 64, y: barrel.position.y - 48, width: 128, height: 96)
         for point in cells {
-            let stain = SKSpriteNode(texture: BowArrowFire.softTexture)
-            stain.size = CGSize(width: 22, height: 16); stain.colorBlendFactor = 1
-            stain.position = point; stain.color = SKColor(red: 0.25, green: 0.09, blue: 0.015, alpha: 1)
-            stain.alpha = 0.55; stain.zPosition = SceneLayer.depthWorld.rawValue + DrawQueue.depthOffset(groundY: point.y, artHeight: artHeight) - 0.01
+            let rect = CGRect(x: (point.x - 8 - oilBounds.minX) / oilBounds.width,
+                              y: (point.y - 6 - oilBounds.minY) / oilBounds.height,
+                              width: 16 / oilBounds.width, height: 12 / oilBounds.height)
+            let stain = SKSpriteNode(texture: SKTexture(rect: rect, in: Self.oilTexture))
+            stain.name = "combat.oil.textured-ground"
+            stain.size = CGSize(width: 16, height: 12)
+            stain.position = point; stain.alpha = 0.8
+            stain.zPosition = SceneLayer.depthWorld.rawValue + DrawQueue.depthOffset(groundY: point.y, artHeight: artHeight) - 0.01
             addChild(stain)
-            let flame = SKSpriteNode(texture: BowArrowFire.softTexture)
-            flame.colorBlendFactor = 1; flame.blendMode = .add
-            flame.anchorPoint = CGPoint(x: 0.5, y: 0)
+            let flame = SKSpriteNode(texture: Self.flameTexture)
+            flame.name = "combat.oil.textured-flame"
+            flame.blendMode = .alpha
+            flame.anchorPoint = CGPoint(x: 0.5, y: 0.055)
             flame.zPosition = SceneLayer.depthWorld.rawValue + DrawQueue.depthOffset(groundY: point.y, artHeight: artHeight) + 0.01
+            // Low additive light beneath the detailed, alpha-blended flame keeps
+            // the translucent red edges instead of bleaching the artwork white.
+            let glow = SKSpriteNode(texture: BowArrowFire.softTexture)
+            glow.size = CGSize(width: 18, height: 11); glow.position.y = 3
+            glow.colorBlendFactor = 1; glow.color = SKColor(red: 1, green: 0.23, blue: 0.015, alpha: 1)
+            glow.blendMode = .add; glow.alpha = 0.2; glow.zPosition = -0.001
+            flame.addChild(glow)
             addChild(flame); flames.append(flame)
         }
     }
@@ -181,11 +209,11 @@ final class BarrelBlastVisual: SKNode {
             let seed = Double(i) * 137.31
             flame.position = CGPoint(x: cells[i].x + sin(seed) * 5 + sin(time * 5 + Double(i)) * 2,
                                      y: cells[i].y - 4 + cos(seed) * 3)
-            flame.size = CGSize(width: 14 - 5 * phase,
-                                height: 10 + (10 + 9 * abs(sin(seed))) * sin(phase * .pi))
+            flame.size = CGSize(width: 18 - 5 * phase,
+                                height: 13 + (12 + 10 * abs(sin(seed))) * sin(phase * .pi))
+            flame.xScale = i.isMultiple(of: 2) ? 1 : -1
             flame.zRotation = sin(time * 3 + seed) * 0.16
-            flame.color = SKColor(red: 1, green: 0.65 - 0.5 * phase, blue: 0.025, alpha: 1)
-            flame.alpha = 0.5 + 0.35 * sin(phase * .pi)
+            flame.alpha = 0.65 + 0.3 * sin(phase * .pi)
         }
     }
 }

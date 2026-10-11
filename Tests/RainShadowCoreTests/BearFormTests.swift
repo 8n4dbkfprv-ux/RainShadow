@@ -32,12 +32,12 @@ struct BearFormTests {
         #expect(combat.current.hp == 12 && combat.current.defence == 40)
     }
 
-    @Test func activationIsAtomicAndCostsAStandardAction() {
+    @Test func activationIsAtomicAndCostsABonusAction() {
         var combat = fight(); let original = combat
         let blocked = combat.transformToBear(hasClearance: false)
         #expect(!blocked && combat == original)
         let accepted = combat.transformToBear(hasClearance: true)
-        #expect(accepted && combat.isBear && !combat.budget.canAttack)
+        #expect(accepted && combat.isBear && combat.budget.canAttack && !combat.canUseBonusAction)
         #expect(combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) == 240)
         #expect(combat.bearForm?.temporaryHP == 8 && combat.isValid)
         let alreadyBear = combat
@@ -72,7 +72,7 @@ struct BearFormTests {
         var resumed = try JSONDecoder().decode(TacticalCombat.self, from: JSONEncoder().encode(combat))
         #expect(resumed == combat && resumed.isBear)
         let reverted = resumed.revertBear()
-        #expect(reverted && !resumed.isBear && !resumed.budget.canAttack)
+        #expect(reverted && !resumed.isBear && resumed.budget.canAttack && resumed.canUseBonusAction)
         #expect(resumed.current == human)
         let after = try JSONDecoder().decode(TacticalCombat.self, from: JSONEncoder().encode(resumed))
         #expect(after == resumed && !after.canTransform && after.isValid)
@@ -131,6 +131,7 @@ struct BearFormTests {
         let notBear = combat.goadingRoar(clearLine: { _, _ in true })
         #expect(notBear == nil && combat == human)
         _ = combat.transformToBear(hasClearance: true)
+        _ = combat.dash() // Transformation preserves the Action; Dash spends it.
         let spent = combat
         let noAction = combat.goadingRoar(clearLine: { _, _ in true })
         #expect(noAction == nil && combat == spent)

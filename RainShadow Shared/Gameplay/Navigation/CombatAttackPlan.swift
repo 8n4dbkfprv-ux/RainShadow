@@ -39,7 +39,6 @@ enum CombatAttackPlanner {
         // Resource/gear/target failures cannot be fixed by walking. Do not spend movement.
         guard combat.outcome == nil, target.conscious, target.hidden != true, target.player != combat.current.player,
               combat.budget.canAttack, !combat.current.isProne,
-              order.maneuver != .aimedShot,
               order.maneuver.map({ combat.canUse($0, hasSword: order.hasSword) }) ?? true,
               !order.sneak || (combat.current.sneakDamageDice > 0 && combat.current.sneakSpent != true && !(combat.current.player && combat.isBear)),
               !order.ranged || (combat.current.rangedWeapon == .bow && !(combat.current.player && combat.isBear)),

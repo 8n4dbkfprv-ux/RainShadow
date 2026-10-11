@@ -44,10 +44,10 @@ import SpriteKit
     private let boundary = SKShapeNode()
     private let marker = SKShapeNode()
     private let caption = SKNode()
-    private let distanceShadow = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let hintShadow = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let distanceLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let hintLabel = SKLabelNode(fontNamed: "AvenirNext-Medium")
+    private let distanceShadow = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
+    private let hintShadow = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
+    private let distanceLabel = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
+    private let hintLabel = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private static let reachableColor = SKColor.white
     private static let blocked = SKColor(red: 1, green: 0.22, blue: 0.20, alpha: 1)
     var captionText: String { distanceLabel.text ?? "" }

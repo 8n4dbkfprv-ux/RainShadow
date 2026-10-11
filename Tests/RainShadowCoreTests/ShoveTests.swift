@@ -26,6 +26,54 @@ struct ShoveTests {
         ], seed: seed)
     }
     let end = CGPoint(x: 260, y: 150)
+    @Test func cunningHideShoveAndWildShapeShareOneBonusAction() throws {
+        var game = fight()
+        let start = game
+        let observed = game.hide(observed: true)
+        #expect(!observed && game == start)
+        let hidden = game.hide(observed: false)
+        #expect(hidden && game.budget.canAttack && !game.canUseBonusAction)
+        #expect(!game.canShove && !game.canTransform)
+        let afterHide = game
+        let shove = game.shove(target: "crew", clearLine: true, destination: end)
+        let transform = game.transformToBear(hasClearance: true)
+        #expect(shove == nil && !transform && game == afterHide)
+        let resumed = try JSONDecoder().decode(TacticalCombat.self, from: JSONEncoder().encode(game))
+        #expect(!resumed.canUseBonusAction && !resumed.canShove && !resumed.canTransform)
+        _ = game.endTurn(); _ = game.endTurn()
+        #expect(game.canUseBonusAction && game.budget.canAttack && game.canTransform)
+        game.reveal(game.current.id)
+        _ = game.shove(target: "crew", clearLine: true, destination: end)
+        #expect(!game.canHide && !game.canTransform && game.budget.canAttack)
+    }
+    @Test func wildShapeCanFollowAnActionAndDismissalNeverSpendsResources() {
+        var game = fight()
+        let ward = game.castBladeWard()
+        let transformed = game.transformToBear(hasClearance: true)
+        #expect(ward && transformed && !game.budget.canAttack && !game.canUseBonusAction)
+        let beforeDismissal = game.budget
+        let dismissed = game.revertBear()
+        #expect(dismissed && !game.isBear && game.budget == beforeDismissal && !game.canTransform)
+        #expect(game.budget.availableMovement(speed: 240) == 240)
+    }
+    @Test func commonHideUsesAnActionWhileLeavingTheBonusAction() {
+        var game = fight(); _ = game.endTurn()
+        let hidden = game.hide(observed: false)
+        #expect(hidden && !game.budget.canAttack && game.canUseBonusAction)
+        #expect(game.budget.availableMovement(speed: 240) == 240)
+    }
+    @Test func legacySpentBonusAbilitiesCannotBeRefundedByLoading() throws {
+        for hiding in [false, true] {
+            var game = fight()
+            if hiding { _ = game.hide(observed: false) }
+            else { _ = game.shove(target: "crew", clearLine: true, destination: end) }
+            var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(game)) as? [String: Any])
+            var budget = try #require(json["budget"] as? [String: Any])
+            budget.removeValue(forKey: "bonusActionSpent"); json["budget"] = budget
+            let old = try JSONDecoder().decode(TacticalCombat.self, from: JSONSerialization.data(withJSONObject: json))
+            #expect(old.isValid && !old.canUseBonusAction && !old.canTransform && !old.canShove)
+        }
+    }
     @Test func successMovesWithoutDamageOrSpendingTheNormalAttack() throws {
         var game = fight(source: .init(strength: 14, athletics: 30, acrobatics: 2, weight: 80))
         let before = game
@@ -33,7 +81,7 @@ struct ShoveTests {
         let result = try #require(attempt)
         #expect(result.succeeded && result.displacement?.to == end)
         #expect(game.actors.first { $0.id == "crew" }?.hp == 100)
-        #expect(game.budget == before.budget && game.current.shoveSpent == true && !game.canShove)
+        #expect(game.budget.state == before.budget.state && !game.canUseBonusAction && game.current.shoveSpent == true && !game.canShove)
         let after = game
         let repeatAttempt = game.shove(target: "crew", clearLine: true, destination: end)
         #expect(repeatAttempt == nil && game == after)
@@ -48,7 +96,7 @@ struct ShoveTests {
         let result = try #require(attempt)
         #expect(!result.succeeded && result.displacement == nil && game.current.shoveSpent == true)
         #expect(game.actors.first { $0.id == "crew" } == before.actors.first { $0.id == "crew" })
-        #expect(game.budget == before.budget && game.randomState != before.randomState)
+        #expect(game.budget.state == before.budget.state && !game.canUseBonusAction && game.randomState != before.randomState)
     }
     @Test func invalidTargetsLeaveTheEntireStateUntouched() {
         for (target, clear, point) in [("crew", false, end), ("missing", true, end), (TacticalCombat.playerID, true, end),
@@ -67,6 +115,7 @@ struct ShoveTests {
         let base = try #require(game.shovePreview(target: "crew", clearLine: true, destination: end))
         #expect(base.dc == 18 && base.bonus == 4 && base.chance == 35)
         _ = game.hide(observed: false)
+        _ = game.endTurn(); _ = game.endTurn()
         let preview = try #require(game.shovePreview(target: "crew", clearLine: true, destination: end))
         #expect(preview.advantage && preview.chance == 58)
         let attempt = game.shove(target: "crew", clearLine: true, destination: end)

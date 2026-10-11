@@ -186,3 +186,22 @@ Native regression checks inspect the actual visible node's position, reaction,
 height and alpha at the airborne and splash moments, and freeze both axes during
 tactical pause. This specifically catches a correct math helper being overwritten
 later in the rendering update.
+
+### Burning-oil texture pass
+
+`CombatFireSurfaceVisual` now uses two transparent image-generator assets:
+`burning_oil_surface_v01.png` for glossy, charred oil and
+`oil_fire_flame_v01.png` for detailed flame tongues. One continuous ground
+decal is sampled across the certified fire cells, retaining the existing floor
+clipping. Flame sprites vary in height, sway and orientation over a subtle
+additive glow. Mipmaps filter the high-resolution artwork at gameplay scale.
+Combat timing, damage, saves and pause behavior are unchanged.
+
+The original prompts, source paths and SHA-256 hashes are recorded in
+`BurningOilTexturesOct11.json`. Runtime PNGs are in
+`RainShadow Shared/Resources/Art/Combat/` and included in both app targets.
+
+Texture-pass validation: macOS and iOS Simulator builds passed. The native
+hazard QA passed all 32 checks; both burning-oil screenshots were inspected at
+gameplay scale. Results: `output/oil-fire-textures-oct11-final/`. iOS was
+build-checked only.

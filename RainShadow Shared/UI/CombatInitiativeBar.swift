@@ -20,7 +20,7 @@ final class CombatInitiativeBar: SKNode {
     private(set) var entries: [Entry] = []
     private(set) var activeID: String?
     private let cards = SKNode()
-    private let caption = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let caption = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private var availableWidth: CGFloat = 820
     private var textures: [String: SKTexture] = [:]
 
@@ -156,7 +156,7 @@ final class CombatInitiativeBar: SKNode {
     }
 
     private func label(_ text: String, size: CGFloat) -> SKLabelNode {
-        let label = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+        let label = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
         label.text = text; label.fontSize = size; label.fontColor = .white
         label.verticalAlignmentMode = .center
         return label

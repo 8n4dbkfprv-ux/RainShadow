@@ -10,6 +10,14 @@ struct CombatBudget: Codable, Equatable {
     private(set) var movementRemaining: Double = 0
     /// Optional for pre-running-cycle saves; resets with the next turn budget.
     private(set) var dashed: Bool?
+    /// Independent BG3-style resource; nil preserves older checkpoints.
+    private(set) var bonusActionSpent: Bool?
+    var canUseBonusAction: Bool { bonusActionSpent != true }
+    mutating func spendBonusAction() -> Bool {
+        guard canUseBonusAction else { return false }
+        bonusActionSpent = true
+        return true
+    }
     var usesRunningGait: Bool { dashed == true }
     static let transitions = [
         [0, -1, -1, -1, -1], [1, 0, -1, -1, -1], [2, 0, 0, -1, -1],
@@ -30,7 +38,7 @@ struct CombatBudget: Codable, Equatable {
         guard speed.isFinite, speed > 0 else { return 0 }
         var copy = self
         // RainShadow adaptation: offer only the move charge that preserves the
-        // standard action. Converting that action to movement requires Dash.
+        // Action. Converting that action to movement requires Dash.
         let hasMove = copy.spend(1) && copy.canAttack == canAttack
         return movementRemaining + (hasMove ? speed : 0)
     }
@@ -61,23 +69,23 @@ enum CombatManeuver: String, Codable, CaseIterable {
     case powerStrike, feintingCut, aimedShot, pinningShot, tripAttack
     var title: String {
         switch self {
-        case .tripAttack: "Trip attack"
-        case .powerStrike: "Power strike"
-        case .feintingCut: "Feinting cut"
-        case .aimedShot: "Aimed shot"
-        case .pinningShot: "Pinning shot"
+        case .tripAttack: "Trip Attack"
+        case .powerStrike: "Power Strike"
+        case .feintingCut: "Feinting Cut"
+        case .aimedShot: "Aimed Shot"
+        case .pinningShot: "Pinning Shot"
         }
     }
     var ranged: Bool { self == .aimedShot || self == .pinningShot }
-    var cost: Int { self == .aimedShot ? 4 : 2 }
+    var cost: Int { 2 }
     var accuracy: Int { self == .powerStrike ? -3 : self == .aimedShot ? 4 : 0 }
     var detail: String {
         switch self {
-        case .tripAttack: "Half damage; hit knocks a standing human Prone until their turn • standard action"
-        case .powerStrike: "−3 accuracy, +3 damage • standard action"
-        case .feintingCut: "Half damage; hit gives −3 accuracy through target's next turn • standard action"
-        case .aimedShot: "+4 accuracy • full turn, before moving"
-        case .pinningShot: "Half damage; hit halves movement through target's next turn • standard action"
+        case .tripAttack: "Half damage; hit knocks a standing human Prone until their turn • 1 Action"
+        case .powerStrike: "−3 to Attack Rolls, +3 damage • 1 Action"
+        case .feintingCut: "Half damage; hit gives −3 to Attack Rolls through target's next turn • 1 Action"
+        case .aimedShot: "+4 to Attack Rolls • 1 Action"
+        case .pinningShot: "Half damage; hit halves movement through target's next turn • 1 Action"
         }
     }
 }
@@ -185,7 +193,14 @@ struct TacticalCombat: Codable, Equatable {
         reveal(actors[index].id)
     }
     var isBear: Bool { (bearForm?.turnsRemaining ?? 0) > 0 }
-    var canTransform: Bool { isPlayerTurn && bearForm == nil && budget.canAttack }
+    // Existing saves recorded bonus-like abilities on the actor. Honour those
+    // flags as well as the new shared budget so reloading cannot refund a use.
+    var canUseBonusAction: Bool {
+        budget.canUseBonusAction && current.shoveSpent != true
+            && !(current.player && current.hideUsed == true)
+    }
+    var canTransform: Bool { isPlayerTurn && bearForm == nil && canUseBonusAction }
+    var canDismissWildShape: Bool { isPlayerTurn && isBear }
     func movementSpeed(for actor: Combatant) -> Double {
         (actor.player && isBear ? BearFormRules.speed : actor.speed) * (actor.conditions?.slowed == true ? 0.5 : 1)
     }
@@ -298,7 +313,7 @@ struct TacticalCombat: Codable, Equatable {
         budget = CombatBudget()
         if current.isProne {
             // RainShadow adaptation: standing buys the first movement segment and
-            // spends half of it; the standard action and remaining movement survive.
+            // spends half of it; the Action and remaining movement survive.
             let speed = movementSpeed(for: current)
             if speed > 0 { _ = budget.move(distance: speed / 2, speed: speed) }
             actors[turn].conditions?.prone = nil
@@ -307,12 +322,12 @@ struct TacticalCombat: Codable, Equatable {
         note("\(current.name)'s turn.")
         return true
     }
-    var canShove: Bool { outcome == nil && current.conscious && current.shoveSpent != true && !(current.player && isBear) }
+    var canShove: Bool { outcome == nil && current.conscious && canUseBonusAction && !(current.player && isBear) }
     func physique(of actor: Combatant) -> ShoveProfile {
         actor.player && isBear ? .bear : actor.shoveProfile ?? (actor.player ? .voss : actor.rangedWeapon == .bow ? .lookout : .crew)
     }
     func shoveProblem(target id: String, clearLine: Bool, destination: CGPoint) -> String? {
-        guard canShove else { return current.player && isBear ? "Shove requires human form." : "Shove bonus action is spent this turn." }
+        guard canShove else { return current.player && isBear ? "Shove requires human form." : "Not enough resources: Bonus Action." }
         guard let target = actors.first(where: { $0.id == id && $0.conscious }), id != current.id else { return "Choose another standing character." }
         guard CombatNavigation.distance(current.position, target.position) <= Self.meleeReach else { return "Move within melee reach to shove." }
         guard !target.isProne else { return "The target is already on the ground." }
@@ -348,11 +363,12 @@ struct TacticalCombat: Codable, Equatable {
         var overboard = false
     }
     /// Resolve and save the destination before presentation. Invalid targeting is
-    /// inert; a resisted shove consumes the bonus action but never the normal attack.
+    /// inert; a resisted shove consumes the Bonus Action but never the normal attack.
     mutating func shove(target id: String, clearLine: Bool, destination: CGPoint, intoWater: Bool = false) -> Shove? {
         guard let preview = shovePreview(target: id, clearLine: clearLine, destination: destination),
               let index = actors.firstIndex(where: { $0.id == id }) else { return nil }
         guard !intoWater || waterDropsEnabled else { return nil }
+        guard budget.spendBonusAction() else { return nil }
         let attacker = current, target = actors[index]
         let allied = target.player == attacker.player
         let first = allied ? 0 : roll(20)
@@ -369,7 +385,7 @@ struct TacticalCombat: Codable, Equatable {
                 note("\(target.name) falls into the water and is out of the fight.")
             } else if isInFire(destination) { catchFire(index) }
         }
-        note("\(attacker.name) shoves \(target.name): \(allied ? "willing target" : "\(max(first, second ?? first)) + \(preview.bonus) vs \(preview.dc)") — \(success ? "pushed" : "resisted") (bonus action).")
+        note("\(attacker.name) shoves \(target.name): \(allied ? "willing target" : "\(max(first, second ?? first)) + \(preview.bonus) vs \(preview.dc)") — \(success ? "pushed" : "resisted") (Bonus Action).")
         return Shove(attacker: attacker.id, target: id, roll: first, secondRoll: second, succeeded: success, preview: preview,
             displacement: success ? .init(id: id, from: target.position, to: destination) : nil, overboard: success && intoWater)
     }
@@ -377,7 +393,7 @@ struct TacticalCombat: Codable, Equatable {
     @discardableResult mutating func extinguish() -> Bool {
         guard canExtinguish, budget.spend(2) else { return false }
         actors[turn].burningTurns = nil
-        note("\(current.name) extinguishes the flames (standard action).")
+        note("\(current.name) extinguishes the flames (Action).")
         return true
     }
     var canCastBladeWard: Bool {
@@ -390,7 +406,7 @@ struct TacticalCombat: Codable, Equatable {
     }
     @discardableResult mutating func dash() -> Bool {
         guard canDash, budget.dash(speed: movementSpeed(for: current)) else { return false }
-        note("\(current.name) uses Dash: +\(Int(movementSpeed(for: current) / 8)) ft (standard action).")
+        note("\(current.name) uses Dash: +\(Int(movementSpeed(for: current) / 8)) ft (Action).")
         return true
     }
     @discardableResult mutating func castBladeWard() -> Bool {
@@ -462,14 +478,14 @@ struct TacticalCombat: Codable, Equatable {
         note("Voss yields. The crew lets him live.")
     }
     @discardableResult mutating func transformToBear(hasClearance: Bool) -> Bool {
-        guard canTransform, hasClearance, budget.spend(2) else { return false }
+        guard canTransform, hasClearance, budget.spendBonusAction() else { return false }
         reveal(current.id)
         bearForm = BearFormState()
         note("Voss takes Bear Form: \(BearFormRules.maximumEndurance) Bear Health, three full turns.")
         return true
     }
     @discardableResult mutating func revertBear() -> Bool {
-        guard isPlayerTurn, isBear, budget.spend(2) else { return false }
+        guard canDismissWildShape else { return false }
         endBearForm()
         return true
     }
@@ -654,11 +670,15 @@ struct TacticalCombat: Codable, Equatable {
         actors[i].combatFacing = facing.rawValue
     }
     var canHide: Bool {
-        outcome == nil && current.sneakDamageDice > 0 && current.hideUsed != true
+        outcome == nil && current.conscious && !current.isProne && current.hideUsed != true
             && current.hidden != true && !current.isBurning && !(current.player && isBear)
+            && (current.player ? canUseBonusAction : budget.canAttack)
     }
     @discardableResult mutating func hide(observed: Bool) -> Bool {
         guard canHide, !observed else { return false }
+        // Voss's authored stealth kit grants Cunning Action: Hide. Other actors
+        // use common Hide, which costs an Action rather than a Bonus Action.
+        guard current.player ? budget.spendBonusAction() : budget.spend(2) else { return false }
         actors[turn].hidden = true; actors[turn].hideUsed = true
         actors[turn].lastSeenPosition = current.position
         note("\(current.name) hides: advantage on the next attack. Entering enemy sight reveals them.")
@@ -695,7 +715,7 @@ struct TacticalCombat: Codable, Equatable {
         let ally = actors.contains { $0.id != current.id && $0.player == current.player && $0.conscious && !$0.isProne
             && CombatNavigation.distance($0.position, target.position) <= Self.meleeReach && allyLine($0, target) }
         guard edge > 0 || ally else { return "Gain advantage by hiding, or have an ally beside the target." }
-        guard budget.canAttack else { return "No standard action remains." }
+        guard budget.canAttack else { return "Not enough resources: Action." }
         return nil
     }
 
@@ -705,7 +725,6 @@ struct TacticalCombat: Codable, Equatable {
             && !(current.usedManeuvers ?? []).contains(maneuver)
             && (maneuver.ranged ? current.rangedWeapon == .bow : hasSword)
             && CombatBudget.transition(state: budget.state, cost: maneuver.cost) != nil
-            && (maneuver != .aimedShot || (budget.state == 4 && budget.movementRemaining == 0))
     }
 
     func attackBonus(for actor: Combatant) -> Int {
@@ -803,7 +822,7 @@ struct TacticalCombat: Codable, Equatable {
         let fireArrow = ranged && ammunition == .fire
         if hit && fireArrow && actors[target].conscious {
             actors[target].burningTurns = 2
-            note("\(actors[target].name) is Burning: 1–4 damage at the end of each of their next two turns. Extinguish uses a standard action.")
+            note("\(actors[target].name) is Burning: 1–4 damage at the end of each of their next two turns. Extinguish uses an Action.")
         }
         if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,

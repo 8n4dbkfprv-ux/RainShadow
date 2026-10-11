@@ -5,10 +5,11 @@ import SpriteKit
 @MainActor
 final class CombatActionButton: SKShapeNode {
     var titleText: String
-    let detail: String
+    var detail: String
+    var unavailableReason: String?
     let glyph = SKSpriteNode()
-    let badge = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
-    private let key = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+    let badge = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
+    private let key = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private let endTitle = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private(set) var glyphIndex = -1
     static let fleeGlyph = 20
@@ -186,9 +187,9 @@ final class CombatActionBar: SKNode {
     private let portrait = SKSpriteNode()
     private let portraitFrame = SKSpriteNode(texture: GameArt.texture(named: "initiative_portrait_frame_v01"))
     private let health = SKLabelNode(fontNamed: UITheme.Font.hudVital)
-    private let resources = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let resources = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private let tooltip = SKShapeNode()
-    private let tooltipText = SKLabelNode(fontNamed: "AvenirNext-Medium")
+    private let tooltipText = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private var portraitName = ""
     private var availableWidth: CGFloat = 820
     private(set) var height: CGFloat = 146
@@ -213,6 +214,7 @@ final class CombatActionBar: SKNode {
         portraitFrame.size = CGSize(width: 84, height: 84)
         for node in [portrait, portraitFrame, health, resources, tooltip] { addChild(node) }
         health.fontSize = 14; health.fontColor = UITheme.Color.ink
+        resources.name = "combat.resources"
         resources.fontSize = 10; resources.fontColor = UITheme.Color.ink
         health.verticalAlignmentMode = .center; resources.verticalAlignmentMode = .center
         tooltip.zPosition = 5; tooltip.isHidden = true
@@ -251,6 +253,8 @@ final class CombatActionBar: SKNode {
             : CGPoint(x: -width / 2 + 57, y: height / 2 - 15)
         resources.position = CGPoint(x: wide ? 0 : 44, y: height / 2 - 15)
         resources.fontSize = wide ? 10 : 9
+        resources.preferredMaxLayoutWidth = wide ? width - 200 : width - 138
+        resources.numberOfLines = wide ? 1 : 2
         showTooltip(nil)
     }
 
@@ -266,8 +270,8 @@ final class CombatActionBar: SKNode {
         health.text = "\(hp) / \(maximum)"
         let move = Int(combat.budget.availableMovement(speed: combat.movementSpeed(for: player)) / 8)
         resources.text = combat.isPlayerTurn
-            ? "\(combat.budget.canAttack ? "◆ ATTACK" : "◇ SPENT")   ·   MOVE \(move) ft"
-            : "ENEMY TURN"
+            ? "Action \(combat.budget.canAttack ? "1/1" : "0/1")   ·   Bonus Action \(combat.canUseBonusAction ? "1/1" : "0/1")   ·   Movement \(move) ft"
+            : "Enemy Turn"
     }
 
     func showTooltip(_ button: CombatActionButton?) {
@@ -276,12 +280,14 @@ final class CombatActionBar: SKNode {
         tooltip.isHidden = button == nil
         guard let button else { return }
         let width = min(380, availableWidth - 12)
-        tooltip.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -43, width: width, height: 86), cornerWidth: 5, cornerHeight: 5, transform: nil)
         tooltipText.preferredMaxLayoutWidth = width - 22
+        tooltipText.numberOfLines = 0
         tooltipText.text = button.titleText + "\n" + button.detail
-            + (button.alpha < 0.9 ? "\nUnavailable this turn or requirements unmet." : "")
+            + (button.unavailableReason.map { "\n" + $0 } ?? "")
+        let tooltipHeight = max(86, tooltipText.frame.height + 24)
+        tooltip.path = CGPath(roundedRect: CGRect(x: -width / 2, y: -tooltipHeight / 2, width: width, height: tooltipHeight), cornerWidth: 5, cornerHeight: 5, transform: nil)
         tooltip.position = CGPoint(x: max(-availableWidth / 2 + width / 2 + 6,
-            min(availableWidth / 2 - width / 2 - 6, button.position.x)), y: height / 2 + 52)
+            min(availableWidth / 2 - width / 2 - 6, button.position.x)), y: height / 2 + 9 + tooltipHeight / 2)
     }
 
     func refreshTooltip() {

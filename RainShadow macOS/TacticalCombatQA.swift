@@ -454,7 +454,10 @@ import SpriteKit
                     actors[targetIndex].position = site
                     actors[1].combatFacing = ActorFacing.orient(from: origin, to: site).rawValue
                     var model = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue, actors: actors, seed: 42)
-                    if mode == "hidden" { _ = model.hide(observed: false) }
+                    if mode == "hidden" {
+                        _ = model.hide(observed: false)
+                        _ = model.endTurn(); _ = model.endTurn()
+                    }
                     equipment = ["weapon1": .init(id: mode == "bow" ? "elven-court-bow" : "lantern-shortsword", quantity: 1)]
                     if mode == "bow" { equipment["quiver1"] = .init(id: "elven-court-arrow", quantity: 1) }
                     if mode == "armored" || enemyActs { equipment["coat"] = .init(id: "splint-mail", quantity: 1); equipment["fedora"] = .init(id: "iron-helmet", quantity: 1) }
@@ -1356,7 +1359,7 @@ import SpriteKit
                         try check((condition?.weakened == true) == (technique == .feintingCut)
                             && (condition?.slowed == true) == (technique == .pinningShot), "\(label): correct condition is applied")
                         if technique.ranged { try check(director.rangedShot?.fire.parent == nil, "\(label): technique uses an ordinary arrow") }
-                        if technique == .aimedShot { try check(accepted.budget.availableMovement(speed: 240) == 0, "\(label): aimed shot uses the full turn") }
+                        if technique == .aimedShot { try check(accepted.budget.availableMovement(speed: 240) == 240, "\(label): aimed shot preserves movement") }
                         try capture(label + "-impact")
                         try await wait { (director.hitReactions[victim.id]?.elapsed ?? 0) >= 0.08 }
                         let recoil = director.hitReactions[victim.id]!

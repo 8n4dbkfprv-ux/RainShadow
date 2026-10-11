@@ -17,8 +17,8 @@ final class TacticalCombatDirector {
     let initiativeBar = CombatInitiativeBar()
     let actionBar = CombatActionBar()
     private(set) var startBanner: CombatStartBanner?
-    private let message = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let history = SKLabelNode(fontNamed: "AvenirNext-Regular")
+    private let message = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
+    private let history = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private let panel = SKShapeNode()
     private let turnPanel = SKShapeNode()
     private var buttons: [CombatActionButton] = []
@@ -179,20 +179,20 @@ final class TacticalCombatDirector {
             label.fontColor = .white; label.verticalAlignmentMode = .center
             hud.addChild(label)
         }
-        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End turn [Space / Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
+        let commands = [("combat.bladeWard", "Blade Ward [1]"), ("combat.end", "End Turn [Space / Enter]"), ("combat.flee", "Flee Combat [3]"), ("combat.bear", "Bear Form [4]"), ("combat.ranged", "Ranged Attack [5]")]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.enumerated().map { ("combat." + $0.element.rawValue, "\($0.element.title) [\($0.offset + 6)]") }
         let glyphs = [2, 19, CombatActionButton.fleeGlyph, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 17, 15]
         let shortcuts = ["1", "Space", "3", "4", "5", "6", "7", "8", "9", "C", "R", "", "V", "", "5", "6", "F", "", "G"]
-        let details = ["Standard action. Resist physical damage for two turns.", "Finish this turn: Space / Enter. Pause: Shift+Space.",
-            "Escape when every conscious enemy is at least 60 ft away.", "Standard action. Change between human and bear form.",
-            "Standard action. Select a rival or barrel; uses selected ammunition."]
+        let details = ["1 Action. Resist physical damage for two turns.", "Finish this turn: Space / Enter. Pause: Shift+Space.",
+            "Free Action. Escape when every conscious enemy is at least 60 ft away.", "1 Bonus Action. Take Bear Form. Once per combat; lasts three turns.",
+            "1 Action. Select a rival or barrel; uses selected ammunition."]
             + CombatManeuver.allCases.filter { $0 != .tripAttack }.map { "Once per fight. " + $0.detail }
-            + ["Hide outside enemy sight to gain advantage.", "Standard action. Advantage or an adjacent ally enables +1d6 damage.",
-               "Standard action. Put out the flames on yourself.", "Bonus action. Push a nearby rival away.",
-               "Standard action · once per fight. " + CombatManeuver.tripAttack.detail,
-               "Standard action. Select a nearby rival for a bear claw attack.", "Standard action · once per form. Draw nearby enemies toward the bear.",
-               "Standard action. Select a nearby rival for a sword attack. F switches melee / ranged targeting.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited.", "Action. Add your movement speed to this turn’s remaining movement. Available in human and bear form."]
-        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip attack"), ("combat.claw", "Claw attack [5]"), ("combat.roar", "Goading roar [6]"), ("combat.melee", "Melee Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash")]
+            + ["1 Bonus Action. Hide outside enemy sight to gain Advantage on your next attack.", "1 Action. Advantage or an adjacent ally enables +1d6 damage. Once per turn.",
+               "1 Action. Put out the flames on yourself.", "1 Bonus Action. Push a nearby rival away.",
+               "1 Action · once per fight. " + CombatManeuver.tripAttack.detail,
+               "1 Action. Select a nearby rival for a bear claw attack.", "1 Action · once per form. Draw nearby enemies toward the bear.",
+               "1 Action. Select a nearby rival for a sword attack. F switches melee / ranged targeting.", "Switch Normal / Fire arrows. Fire arrows consume inventory; normal arrows are unlimited.", "Action. Add your movement speed to this turn’s remaining movement. Available in human and bear form."]
+        let allCommands = commands + [("combat.hide", "Hide"), ("combat.sneak", "Sneak attack"), ("combat.extinguish", "Extinguish"), ("combat.shove", "Shove · bonus"), ("combat.tripAttack", "Trip Attack"), ("combat.claw", "Claws [5]"), ("combat.roar", "Goading Roar [6]"), ("combat.melee", "Main Hand Attack"), ("combat.ammunition", "Ammo: Normal"), ("combat.dash", "Dash")]
         for (index, entry) in allCommands.enumerated() {
             let button = CombatActionButton(name: entry.0, title: entry.1, glyph: glyphs[index], shortcut: shortcuts[index], detail: details[index])
             actionBar.addChild(button); buttons.append(button)
@@ -218,7 +218,7 @@ final class TacticalCombatDirector {
             if actor.player { scene.detective.setEntranceFacing(facing) }
             else if let node = node as? CharacterAppearanceNode { try? node.present(action: .idle, facing: facing, phase: 0) }
             if actor.player { scene.detective.syncMovablePosition(actor.position) }
-            let badge = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+            let badge = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
             badge.fontSize = 14; badge.position.y = 78; badge.zPosition = 100
             node?.addChild(badge); badges[actor.id] = badge
             let ring = SKShapeNode(ellipseOf: CGSize(width: 58, height: 43.5))
@@ -290,9 +290,8 @@ final class TacticalCombatDirector {
         let shown = presentedCombat
         initiativeBar.update(combat: shown, paused: scene.pause.isPausedByPlayer)
         actionBar.update(combat: shown)
-        let move = Int(combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current)) / 8)
         message.text = combat.isPlayerTurn
-            ? "\(feedback)  |  Strike: \(combat.budget.canAttack ? "ready" : "spent") • Move: \(move) ft"
+            ? feedback
             : "\(combat.current.name) is taking their turn…"
         if startBanner != nil { message.text = "Combat begins…" }
         history.text = presentedCombat.log.last
@@ -303,27 +302,29 @@ final class TacticalCombatDirector {
         buttons[16].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
         buttons[16].strokeColor = selectingMelee ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[0].alpha = combat.isPlayerTurn && !busy && combat.canCastBladeWard ? 1 : 0.35
-        buttons[3].titleText = combat.isBear ? "Human form [4]" : combat.bearForm == nil ? "Bear Form [4]" : "Bear Form spent"
+        buttons[3].titleText = combat.isBear ? "Dismiss Wild Shape [4]" : "Wild Shape: Bear [4]"
+        buttons[3].detail = combat.isBear ? "Free Action. Return to human form; keep your remaining Action, Bonus Action and movement."
+            : "1 Bonus Action. Take Bear Form. Once per combat; lasts three turns."
         buttons[3].setGlyph(combat.isBear ? 16 : 3)
-        buttons[3].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
+        buttons[3].alpha = !busy && (combat.canDismissWildShape || combat.canTransform) ? 1 : 0.35
         if !combat.isBear && combat.bearForm != nil { buttons[3].alpha = 0.35 }
         for (index, maneuver) in CombatManeuver.allCases.enumerated() {
             let button = buttons[maneuver == .tripAttack ? 13 : index + 5]
             let spent = (combat.current.usedManeuvers ?? []).contains(maneuver)
-            button.titleText = spent ? maneuver.title + " · spent" : maneuver == .tripAttack ? "Trip attack" : "\(maneuver.title) [\(index + 6)]"
+            button.titleText = spent ? maneuver.title + " · spent" : maneuver == .tripAttack ? "Trip Attack" : "\(maneuver.title) [\(index + 6)]"
             let gear = !maneuver.ranged || playerBowSupported
             button.alpha = combat.isPlayerTurn && !busy && gear && combat.canUse(maneuver, hasSword: playerHasSword) ? 1 : 0.35
             button.strokeColor = selectedManeuver == maneuver ? CombatActionButton.selectionColor : UITheme.Color.engraved
         }
         buttons[9].alpha = combat.isPlayerTurn && !busy && combat.canHide ? 1 : 0.35
-        buttons[9].titleText = combat.current.hidden == true ? "Hidden" : combat.current.hideUsed == true ? "Hide · spent" : "Hide"
+        buttons[9].titleText = "Cunning Action: Hide"
         buttons[10].alpha = combat.isPlayerTurn && !busy && !combat.isBear && combat.budget.canAttack && combat.current.sneakSpent != true && (playerHasSword || playerBowSupported) ? 1 : 0.35
         buttons[10].strokeColor = selectingSneakAttack ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[10].titleText = combat.current.sneakSpent == true ? "Sneak · spent" : "Sneak attack +1d6"
         buttons[11].alpha = combat.isPlayerTurn && !busy && combat.canExtinguish ? 1 : 0.35
         buttons[12].alpha = combat.isPlayerTurn && !busy && combat.canShove ? 1 : 0.35
         buttons[12].strokeColor = selectingShove ? CombatActionButton.selectionColor : UITheme.Color.engraved
-        buttons[12].titleText = combat.current.shoveSpent == true ? "Shove · spent" : "Shove · bonus"
+        buttons[12].titleText = "Shove"
         if selectedAmmunition == .fire && fireArrowCount == 0 { selectedAmmunition = .normal }
         buttons[17].titleText = selectedAmmunition == .normal
             ? "Normal · Fire ×\(fireArrowCount)" : "Fire Arrow ×\(fireArrowCount)"
@@ -336,7 +337,10 @@ final class TacticalCombatDirector {
         buttons[14].alpha = combat.isPlayerTurn && !busy && combat.budget.canAttack ? 1 : 0.35
         buttons[14].strokeColor = selectingClaw ? CombatActionButton.selectionColor : UITheme.Color.engraved
         buttons[15].alpha = combat.canGoadingRoar && !busy ? 1 : 0.35
-        buttons[15].titleText = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading roar [6]"
+        buttons[15].titleText = combat.bearForm?.roarSpent == true ? "Roar · spent" : "Goading Roar [6]"
+        for (index, button) in buttons.enumerated() {
+            button.unavailableReason = button.alpha < 0.9 ? unavailableCommandReason(index) : nil
+        }
         buttons.forEach { $0.updateSelectionAppearance() }
         actionBar.refreshTooltip()
         for actor in shown.actors {
@@ -355,6 +359,35 @@ final class TacticalCombatDirector {
                 ? (meleeUnavailableReason(actor) == nil || (cachedAttackPlan?.order.targetID == actor.id && cachedAttackPlan?.plan.reason == nil) ? .cyan : .red)
                 : actor.id == shown.current.id ? .yellow : actor.player ? .cyan : .red
         }
+    }
+    private func unavailableCommandReason(_ index: Int) -> String {
+        if !combat.isPlayerTurn { return "Not your turn." }
+        if busy { return "An action is in progress." }
+        if index == 2 { return combat.fleeUnavailableReason ?? "Cannot flee combat." }
+        if index == 3 {
+            return combat.bearForm != nil ? "No Wild Shape uses remaining this combat."
+                : "Not enough resources: Bonus Action."
+        }
+        if index == 9 {
+            if combat.current.hidden == true { return "Already Hiding." }
+            if combat.current.isBurning { return "Cannot Hide while Burning." }
+            return "Not enough resources: Bonus Action."
+        }
+        if index == 12 { return "Not enough resources: Bonus Action." }
+        if index == 17 { return "Ranged weapon required." }
+        if index == 11 && !combat.current.isBurning { return "Not Burning." }
+        if index == 11 && combat.isInFire(combat.current.position) { return "Leave the burning surface first." }
+        if index == 10 && combat.current.sneakSpent == true { return "Sneak Attack already used this turn." }
+        if index == 15 && combat.bearForm?.roarSpent == true { return "Goading Roar already used this transformation." }
+        if (5...8).contains(index) || index == 13 {
+            let maneuver = index == 13 ? CombatManeuver.tripAttack : CombatManeuver.allCases[index - 5]
+            if (combat.current.usedManeuvers ?? []).contains(maneuver) { return "Technique already used this combat." }
+            if maneuver.ranged && !playerBowSupported { return "Ranged weapon required." }
+            if !maneuver.ranged && !playerHasSword { return "Sword required." }
+        }
+        if index == 4 && !playerBowSupported { return "Ranged weapon required." }
+        if !combat.budget.canAttack { return "Not enough resources: Action." }
+        return "Requirements not met."
     }
     private func checkpoint(synchronize: Bool = true) {
         cachedAttackPlan = nil
@@ -400,26 +433,26 @@ final class TacticalCombatDirector {
         if digit == 17 {
             if selectingMelee { cancelTargeting(); return }
             guard !combat.isBear, combat.budget.canAttack else {
-                feedback = "Melee Attack needs an unspent standard action."; refresh(); return
+                feedback = "Main Hand Attack needs an unspent Action."; refresh(); return
             }
             cancelTargeting(); selectingMelee = true
-            feedback = "Melee Attack: hover a rival to preview the attack and any approach. Click to commit."
+            feedback = "Main Hand Attack: hover a rival to preview the attack and any approach. Click to commit."
             refresh(); return
         }
         if selectingMelee { cancelTargeting() }
         if digit == 15 {
             guard combat.isBear, combat.budget.canAttack else { return }
             let wasSelected = selectingClaw; cancelTargeting(); selectingClaw = !wasSelected
-            feedback = selectingClaw ? "Claw Attack: choose a nearby rival • 5–8 damage • standard action." : "Click ground to move • Click a rival to claw"
+            feedback = selectingClaw ? "Claws: choose a nearby rival • 5–8 damage • Action." : "Click ground to move • Click a rival to claw"
             refresh(); return
         }
         if digit == 16 { performRoar(); return }
         selectingClaw = false
         if digit == 13 {
             if selectingShove { cancelTargeting(); refresh(); return }
-            guard combat.canShove else { feedback = combat.isBear ? "Shove requires human form." : "Shove bonus action is spent this turn."; refresh(); return }
+            guard combat.canShove else { feedback = combat.isBear ? "Shove requires human form." : "Not enough resources: Bonus Action."; refresh(); return }
             cancelTargeting(); selectingShove = true
-            feedback = "Shove: choose a nearby rival. Bonus action; keeps your attack. Hover for chance and landing."
+            feedback = "Shove: choose a nearby rival. 1 Bonus Action; keeps your attack. Hover for chance and landing."
             refresh(); return
         }
         if selectingShove { cancelTargeting() }
@@ -427,7 +460,7 @@ final class TacticalCombatDirector {
             if combat.extinguish() {
                 cancelTargeting(); feedback = "Flames extinguished. Move or end your turn."
                 updateBurning(delta: 0); checkpoint()
-            } else { feedback = combat.isInFire(combat.current.position) ? "Leave the burning oil before extinguishing." : combat.current.isBurning ? "Extinguish needs a standard action." : "You are not burning."; refresh() }
+            } else { feedback = combat.isInFire(combat.current.position) ? "Leave the burning oil before extinguishing." : combat.current.isBurning ? "Extinguish needs an Action." : "You are not burning."; refresh() }
             return
         }
         if digit == 10 {
@@ -438,7 +471,7 @@ final class TacticalCombatDirector {
                 feedback = "Hidden: attack with advantage. Sneak Attack adds +1d6. Red areas show enemy sight."
                 checkpoint()
             } else {
-                feedback = combat.canHide ? "Move outside the red sight cones or behind cover, then Hide." : combat.current.isBurning ? "Extinguish the flames before hiding." : combat.isBear ? "Hide requires human form." : "Hide is already active or spent this turn."
+                feedback = combat.canHide ? "Move outside the red sight cones or behind cover, then Hide." : combat.current.isBurning ? "Extinguish the flames before hiding." : combat.isBear ? "Hide requires human form." : combat.current.hidden == true ? "Already Hiding." : "Not enough resources: Bonus Action."
                 drawSight(); refresh()
             }
             return
@@ -470,7 +503,7 @@ final class TacticalCombatDirector {
         switch digit {
         case 1:
             if combat.canCastBladeWard { castBladeWard() }
-            else { feedback = "Blade Ward needs a standard action in human form."; refresh() }
+            else { feedback = "Blade Ward needs an Action in human form."; refresh() }
         case 2:
             endCombatTurn(); delay = 0.5; feedback = "Click ground to move • Click a rival to strike"; checkpoint()
         case 3:
@@ -479,7 +512,7 @@ final class TacticalCombatDirector {
         case 4:
             if combat.isBear {
                 if combat.revertBear() { checkpoint() }
-                else { feedback = "Reverting needs a standard action."; refresh() }
+                else { feedback = "Dismiss Wild Shape is available during your turn in Bear Form."; refresh() }
             } else if combat.canTransform {
                 guard BearFormRules.canStand(in: scene.navigation, actor: combat.current) else {
                     feedback = "Move into open space: the bear needs more room."; refresh(); return
@@ -487,7 +520,7 @@ final class TacticalCombatDirector {
                 do { try prepareBear() }
                 catch { feedback = "Bear artwork could not load."; refresh(); return }
                 if combat.transformToBear(hasClearance: true) { checkpoint() }
-            } else { feedback = combat.bearForm == nil ? "Bear Form needs a standard action." : "Bear Form is spent for this encounter."; refresh() }
+            } else { feedback = combat.bearForm == nil ? "Not enough resources: Bonus Action." : "Wild Shape: Bear is spent for this combat."; refresh() }
         case 5:
             guard aimingRangedAttack || canUsePlayerBow() else { refresh(); return }
             aimingRangedAttack.toggle()
@@ -551,7 +584,7 @@ final class TacticalCombatDirector {
         }), CGRect(x: target.position.x - 48, y: target.position.y - 20, width: 96, height: 110).contains(world) {
             requestAttack(target)
         } else if selectingMelee {
-            feedback = "Choose a rival for Melee Attack; select Melee Attack again or Escape to move."; refresh()
+            feedback = "Choose a rival for Main Hand Attack; select Main Hand Attack again or Escape to move."; refresh()
         } else if selectingClaw {
             feedback = "Choose a nearby rival, or select Claw Attack again to move."; refresh()
         } else if selectingSneakAttack {
@@ -606,7 +639,7 @@ final class TacticalCombatDirector {
         let reason = order.ranged && !playerBowSupported ? "Equip a bow in human form."
             : ammo == .fire && fireArrowCount == 0 ? "No Fire Arrows remain." : plan.reason
         let ranged = order.ranged
-        let title = selectedManeuver?.title ?? (selectingSneakAttack ? "Sneak Attack" : combat.isBear ? "Claw Attack" : ranged ? "Ranged Attack" : "Melee Attack")
+        let title = selectedManeuver?.title ?? (selectingSneakAttack ? "Sneak Attack" : combat.isBear ? "Claws" : ranged ? "Ranged Attack" : "Main Hand Attack")
         let chance = String(format: "%.2f", preview.hitChance * 100).replacingOccurrences(of: ".00", with: "")
         var lines = [title + " · " + preview.cost,
                      reason == nil ? "\(chance)% hit · \(preview.damage.lowerBound)–\(preview.damage.upperBound) damage on hit" : "Unavailable · " + reason!]
@@ -679,7 +712,7 @@ final class TacticalCombatDirector {
         if targetPanel.examining { targetPanel.clear(); return }
         guard !scene.anyOverlayIsPresented, !busy,
               let id = hoveredTargetID, let target = combat.actors.first(where: { $0.id == id && $0.hidden != true }) else { return }
-        var lines = ["Health: \(target.hp) / \(target.maximumHP) · Defence: \(combat.defence(for: target))",
+        var lines = ["Health: \(target.hp) / \(target.maximumHP) · Armour Class: \(combat.defence(for: target))",
                      "Attack bonus: \(combat.attackBonus(for: target)) · Damage: \(target.damageMin)–\(target.damageMax)",
                      "Movement: \(Int(combat.movementSpeed(for: target) / 8)) ft per turn",
                      "Weapon: \(target.rangedWeapon == .bow ? "bow (80 ft) and melee" : "melee")"]
@@ -824,7 +857,7 @@ final class TacticalCombatDirector {
         }
     }
     private func meleeUnavailableReason(_ target: Combatant) -> String? {
-        guard combat.budget.canAttack else { return "No standard action remains." }
+        guard combat.budget.canAttack else { return "Not enough resources: Action." }
         guard target.hidden != true else { return "That rival is hidden." }
         guard CombatNavigation.distance(combat.current.position, target.position) <= TacticalCombat.meleeReach else {
             return "Out of melee reach. Cancel targeting and move closer."
@@ -854,7 +887,7 @@ final class TacticalCombatDirector {
         guard let result = combat.attack(target: target.id, clearLine: line, maneuver: maneuver,
             hasSword: node?.definition.appearance.equipment.contains { $0.item == .lanternShortsword } == true,
             requireSneakAttack: requireSneakAttack, allyLine: sneakLine) else {
-            feedback = combat.budget.canAttack ? "Move closer with a clear line before striking." : "No standard action remains."
+            feedback = combat.budget.canAttack ? "Move closer with a clear line before striking." : "Not enough resources: Action."
             refresh(); return
         }
         selectingMelee = false
@@ -1071,12 +1104,12 @@ final class TacticalCombatDirector {
         routePreview.path = path; routePreview.strokeColor = preview == nil || waterLanding(end) || combat.isInFire(end) ? .red : .cyan
         hoveredTargetID = target.hidden == true ? nil : target.id
         if target.hidden != true {
-            targetPanel.show(title: target.name, lines: ["Shove · 1 bonus action",
+            targetPanel.show(title: target.name, lines: ["Shove · 1 Bonus Action",
                 preview.map { "\($0.chance)% success · \(shoveConsequence(end))" }
                     ?? ("Unavailable · " + (combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove.")),
                 "Push distance: \(Int(CombatNavigation.distance(target.position, end) / 8)) ft"])
         }
-        feedback = preview.map { "Shove \($0.chance)% · \(shoveConsequence(end)) · bonus action" }
+        feedback = preview.map { "Shove \($0.chance)% · \(shoveConsequence(end)) · Bonus Action" }
             ?? combat.shoveProblem(target: target.id, clearLine: clear, destination: end) ?? "Cannot shove."
         refresh()
     }
@@ -1152,8 +1185,8 @@ final class TacticalCombatDirector {
                 beginReaction(hit, target: shove.target, kind: shove.result.succeeded ? .fall : .hit,
                     elapsed: elapsed, source: shove.before.current.position)
             }
-            feedback = shove.result.succeeded ? "Shoved back. Your normal attack is still available if unspent." : "Shove resisted. Bonus action spent."
-            let label = SKLabelNode(fontNamed: "AvenirNext-Bold")
+            feedback = shove.result.succeeded ? "Shoved back. Your normal attack is still available if unspent." : "Shove resisted. 1 Bonus Action spent."
+            let label = SKLabelNode(fontNamed: UITheme.Font.hudVital)
             label.text = shove.result.overboard ? "OVERBOARD" : shove.result.succeeded ? "SHOVED" : "RESISTED"; label.fontSize = 20
             label.position = CGPoint(x: shove.target.position.x, y: shove.target.position.y + 90); label.zPosition = 20001
             scene.depthWorldRoot.addChild(label); label.run(.sequence([.group([.moveBy(x: 0, y: 22, duration: 0.6), .fadeOut(withDuration: 0.7)]), .removeFromParent()]))
@@ -1330,7 +1363,7 @@ final class TacticalCombatDirector {
         effect.strokeColor = result.sneakDamage > 0 ? .magenta : result.damage > 0 ? .orange : .white; effect.lineWidth = 3; effect.zPosition = 20000
         scene.depthWorldRoot.addChild(effect)
         effect.run(.sequence([.group([.scale(to: 1.8, duration: 0.3), .fadeOut(withDuration: 0.4)]), .removeFromParent()]))
-        let number = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        let number = SKLabelNode(fontNamed: UITheme.Font.hudVital)
         number.text = result.landed ? (result.damage > 0 ? "−\(result.damage)" : "WARDED") : "MISS"
         if result.landed, !result.knockedOut {
             if result.fireArrow { number.text! += " · Burning" }
@@ -1356,7 +1389,10 @@ final class TacticalCombatDirector {
             feedback = "No Fire Arrows remain."; refresh(); return
         }
         guard let result = combat.attack(target: target.id, clearLine: line, ranged: true, ammunition: ammunition, maneuver: maneuver, requireSneakAttack: requireSneakAttack, allyLine: sneakLine) else {
-            feedback = "\(maneuver?.title ?? "Ranged Attack"): needs \(maneuver == .aimedShot ? "a full turn" : "a standard action"), range beyond melee, and a clear shot."; refresh(); return
+            feedback = combat.attackUnavailableReason(target: target, clearLine: line, ranged: true,
+                ammunition: ammunition, maneuver: maneuver, hasSword: false,
+                requireSneakAttack: requireSneakAttack, allyLine: sneakLine) ?? "Ranged Attack unavailable."
+            refresh(); return
         }
         guard commitAmmunition(ammunition, before: before) else { return }
         beginBowPresentation(attacker)
@@ -1740,6 +1776,12 @@ final class TacticalCombatDirector {
     func update(at time: TimeInterval) {
         defer { lastTime = time }
         guard !finished else { return }
+        let wasBusy = busy
+        defer {
+            // Availability and its explanation must change on the same frame
+            // that a presentation releases the controls.
+            if !finished && busy != wasBusy { refresh() }
+        }
         let delta = min(0.1, max(0, time - (lastTime ?? time)))
         refresh()
         if busy || !combat.isPlayerTurn || presentationPaused {
@@ -2001,7 +2043,7 @@ final class TacticalCombatDirector {
 
     private func performRoar() {
         guard combat.canGoadingRoar else {
-            feedback = combat.isBear ? (combat.bearForm?.roarSpent == true ? "Goading Roar is spent for this transformation." : "Goading Roar needs a standard action.") : "Goading Roar requires Bear Form."
+            feedback = combat.isBear ? (combat.bearForm?.roarSpent == true ? "Goading Roar is spent for this transformation." : "Goading Roar needs an Action.") : "Goading Roar requires Bear Form."
             refresh(); return
         }
         let before = combat

@@ -65,7 +65,7 @@ struct CombatDashTests {
     @Test func bearAndSlowedActorsDashAtTheirCurrentSpeed() {
         var model = fight()
         do { let result = model.transformToBear(hasClearance: true); #expect(result) }
-        #expect(!model.canDash) // Transformation used this turn's action.
+        #expect(model.canDash && !model.canUseBonusAction) // Transformation uses the Bonus Action.
         do { let result = model.endTurn() && model.endTurn(); #expect(result) }
         #expect(model.isBear && model.canDash)
         let speed = model.movementSpeed(for: model.current)

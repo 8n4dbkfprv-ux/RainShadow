@@ -4,8 +4,8 @@ import SpriteKit
 @MainActor final class CombatTargetPanel: SKNode {
     private let plate = SKShapeNode()
     private let title = SKLabelNode(fontNamed: UITheme.Font.hudVital)
-    private let body = SKLabelNode(fontNamed: "AvenirNext-Medium")
-    private let footer = SKLabelNode(fontNamed: "AvenirNext-DemiBold")
+    private let body = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
+    private let footer = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private(set) var text = ""
     private(set) var examining = false
     var panelWidth: CGFloat = 330

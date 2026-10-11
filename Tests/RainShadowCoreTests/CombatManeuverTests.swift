@@ -62,23 +62,18 @@ struct CombatManeuverTests {
         }
         #expect(sawPowerTradeoff && sawAimBenefit && sawMiss && sawNaturalTwenty)
     }
-    @Test func fullTurnShotPreventsMovementAndCannotFollowMovement() throws {
+    @Test func aimedShotCostsOneActionAndAllowsMovementBeforeOrAfter() throws {
         var combat = fight(ranged: true)
-        let operation57 = combat.attack(target: "crew", clearLine: true, ranged: true, maneuver: .aimedShot) != nil
-        #expect(operation57)
-        #expect(!combat.budget.canAttack)
-        #expect(combat.budget.availableMovement(speed: 240) == 0)
+        let shot = combat.attack(target: "crew", clearLine: true, ranged: true, maneuver: .aimedShot)
+        #expect(shot != nil && !combat.budget.canAttack)
+        #expect(combat.budget.availableMovement(speed: 240) == 240)
         var moved = fight(ranged: true)
         let path = Path(points: [CGPoint(x: 116, y: 100)], from: moved.current.position)
-        let operation62 = moved.move(along: path)
-        #expect(operation62)
-        let before = moved
-        #expect(!moved.canUse(.aimedShot))
-        let operation65 = moved.attack(target: "crew", clearLine: true, ranged: true, maneuver: .aimedShot) == nil
-        #expect(operation65)
-        #expect(moved == before)
-        let operation67 = moved.attack(target: "crew", clearLine: true, ranged: true, maneuver: .pinningShot) != nil
-        #expect(operation67)
+        let walked = moved.move(along: path)
+        #expect(walked && moved.canUse(.aimedShot))
+        let aimed = moved.attack(target: "crew", clearLine: true, ranged: true, maneuver: .aimedShot)
+        #expect(aimed != nil && !moved.budget.canAttack)
+        #expect(moved.budget.availableMovement(speed: 240) == 224)
     }
     @Test func conditionsLastThroughAffectedTurnThenExpireAndSavesKeepUses() throws {
         for maneuver in [CombatManeuver.feintingCut, .pinningShot] {

@@ -36,9 +36,8 @@ extension TacticalCombat {
             guard maneuver.ranged == ranged, ranged || hasSword else { return "Equip the required weapon." }
             guard !(current.usedManeuvers ?? []).contains(maneuver) else { return "This technique is spent for this encounter." }
             if maneuver == .tripAttack && (target.isProne || (target.player && isBear)) { return "This target cannot be tripped." }
-            if maneuver == .aimedShot && (budget.state != 4 || budget.movementRemaining != 0) { return "Aimed Shot requires a full turn, before moving." }
         }
-        guard CombatBudget.transition(state: budget.state, cost: maneuver?.cost ?? 2) != nil else { return "No standard action remains." }
+        guard CombatBudget.transition(state: budget.state, cost: maneuver?.cost ?? 2) != nil else { return "Not enough resources: Action." }
         if requireSneakAttack {
             return sneakAttackReason(target: target, ranged: ranged, hasSword: hasSword, clearLine: clearLine, allyLine: allyLine)
         }
@@ -73,6 +72,6 @@ extension TacticalCombat {
         return CombatAttackPreview(hitChance: chance, damage: range(dice), criticalDamage: range(dice * 2), edge: edge, sneakDice: dice,
             unavailableReason: attackUnavailableReason(target: target, clearLine: clearLine, ranged: ranged, ammunition: ammunition,
                 maneuver: maneuver, hasSword: hasSword, requireSneakAttack: requireSneakAttack, allyLine: allyLine),
-            cost: maneuver == .aimedShot ? "Full turn · action + movement" : "1 standard action")
+            cost: "1 Action")
     }
 }

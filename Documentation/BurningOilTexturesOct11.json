@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "file": "burning_oil_surface_v01.png",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game VFX ground decal for a realistic isometric dark-fantasy RPG. Generate one isolated irregular pool of black burning lamp oil, viewed straight down (orthographic top view; it will be projected in game). Material detail: glossy viscous near-black oil, subtle amber reflections in tiny wrinkled ripples and bubbles, charred brown-black crust around a ragged feathered perimeter, a few tiny subdued ember fissures. Mostly dark oil, not lava. No flames: animated flames will be added separately. Compact roughly circular footprint, centered, occupying 85 percent of a square canvas with transparent margin. The oil itself remains opaque enough to read over wood and stone, with natural semi-transparent thin edges and genuinely transparent exterior. Fine painterly realism matching pre-rendered fantasy environment art, natural restrained contrast. No floor, stones, planks, scenery, shadows outside the spill, labels, frames, text or checkerboard. Export genuine RGBA transparency.",
+      "source": "/Users/laurensvanoorschot/.codex/generated_images/01a1119c-c2df-7ef0-85dc-db0b13085d3d/exec-1b4fb4cd-aeef-4b50-b796-ecf6023b50d5.png",
+      "sha256": "5fd9e0daaf5f64a6b3baeb130ebd27d67b4794c5c286245d09a26ed7fd15e47f",
+      "runtime": "RainShadow Shared/Resources/Art/Combat/burning_oil_surface_v01.png"
+    },
+    {
+      "file": "oil_fire_flame_v01.png",
+      "prompt": "Use case: stylized-concept. Asset type: transparent flame particle sprite for a realistic isometric dark-fantasy RPG. One isolated small tuft of burning lamp-oil flame with 3 connected, irregular curling tongues; narrow at its base, elegantly tapered flickering tips. Real combustion detail, golden ivory hot core transitioning through amber and orange into thin translucent deep-red margins, visible wispy internal folds and turbulent holes. Natural flame, not a smooth glow blob, not a symbol, not a torch. Restrained painterly realism suitable for pre-rendered fantasy game art. Front-facing orthographic billboard. Center the tuft in a square canvas, flame width about 65 percent, height about 85 percent, bottom of flame at 93 percent canvas height. All tongues connected at the bottom; no detached sparks, no smoke, no fuel, no ground, no black backdrop, no text or frame. Genuinely transparent RGBA exterior with fine translucent flame edges; no checkerboard.",
+      "source": "/Users/laurensvanoorschot/.codex/generated_images/01a1119c-c2df-7ef0-85dc-db0b13085d3d/exec-a4304e6d-68e5-45c4-aef0-a340913d5325.png",
+      "sha256": "3666a80580617f7f15669ea30e4a00eadf449ede4b6e7626c36df5d491d07586",
+      "runtime": "RainShadow Shared/Resources/Art/Combat/oil_fire_flame_v01.png"
+    }
+  ]
+}

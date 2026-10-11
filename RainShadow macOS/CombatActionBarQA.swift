@@ -64,7 +64,7 @@ import SpriteKit
         let before = director.combat
         let sword = try button("melee")
         director.hover(at: scene.convert(.zero, from: sword))
-        try check(director.actionBar.tooltipTitle == "Melee Attack", "Hover explains the sword icon")
+        try check(director.actionBar.tooltipTitle == "Main Hand Attack", "Hover explains the sword icon")
         try capture(scene, "action-bar-tooltip")
         try press("melee", director)
         try check(director.selectingMelee && director.combat == before, "Sword icon enters targeting without spending an action")

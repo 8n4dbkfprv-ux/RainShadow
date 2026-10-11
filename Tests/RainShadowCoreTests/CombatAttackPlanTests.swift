@@ -39,13 +39,13 @@ struct CombatAttackPlanTests {
             #expect(!model.budget.canAttack)
         }
     }
-    @Test func inRangeAttacksNeverSpendMovementAndFullTurnShotsNeverApproach() throws {
+    @Test func inRangeAttacksStayPutAndAimedShotsCanApproach() throws {
         let (near, map) = fixture(distance: 80)
         let plan = try #require(CombatAttackPlanner.plan(combat: near, order: order(), map: map))
         #expect(plan.reason == nil && plan.path == nil && plan.movement == 0)
         let (far, farMap) = fixture(distance: 700)
         let aimed = try #require(CombatAttackPlanner.plan(combat: far, order: order(ranged: true, maneuver: .aimedShot), map: farMap))
-        #expect(aimed.path == nil && aimed.reason != nil)
+        #expect(aimed.path != nil && aimed.reason == nil)
         let ordinary = try #require(CombatAttackPlanner.plan(combat: far, order: order(ranged: true), map: farMap))
         #expect(ordinary.path != nil && ordinary.reason == nil)
     }

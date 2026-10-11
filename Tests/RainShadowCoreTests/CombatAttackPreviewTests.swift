@@ -67,7 +67,7 @@ struct CombatAttackPreviewTests {
         let target = model.actors.first { !$0.player }!
         #expect(model.attackPreview(target: target, clearLine: true).unavailableReason?.contains("reach") == true)
         _ = model.dash()
-        #expect(model.attackPreview(target: target, clearLine: true, ranged: true).unavailableReason == "No standard action remains.")
+        #expect(model.attackPreview(target: target, clearLine: true, ranged: true).unavailableReason == "Not enough resources: Action.")
     }
     @Test func sneakAndWardRangesExplainCriticalAndMinimumRounding() {
         let model = fight(condition: CombatConditions(attackAdvantage: true), ward: true)
