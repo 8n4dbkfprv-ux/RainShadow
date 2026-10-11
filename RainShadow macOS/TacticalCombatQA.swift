@@ -1792,6 +1792,25 @@ import SpriteKit
             }
             let barrelFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
                 actors: barrelActors, seed: 42, barrels: beforeChromeClick.barrels ?? [])
+            for asset in ["oil_barrel_v02", "oil_barrel_debris_v02", "oil_barrel_fragments_v02"] {
+                try check(GameArt.standaloneTexture(named: asset) != nil, "Restyled barrel artwork is bundled: \(asset)")
+            }
+            let materialSheet = SKNode()
+            for (row, lighting) in [ActorSceneLighting.cityDay, .officeInterior].enumerated() {
+                for column in 0..<3 {
+                    var sample = CombatBarrel(id: "qa.material", position: CGPoint(x: column * 120, y: row * 110))
+                    sample.broken = column > 0
+                    sample.exploded = column == 2
+                    let visual = CombatBarrelVisual(barrel: sample, lighting: lighting)
+                    materialSheet.addChild(visual)
+                    try check(visual.children.compactMap { $0 as? SKSpriteNode }.contains { $0.shader != nil },
+                              "Barrel material receives the area grade: row \(row), state \(column)")
+                }
+            }
+            if let materialTexture = view.texture(from: materialSheet),
+               let data = NSBitmapImageRep(cgImage: materialTexture.cgImage()).representation(using: .png, properties: [:]) {
+                try data.write(to: output.appendingPathComponent("barrel-materials.png"))
+            }
             try check(!barrelFight.liveBarrels.isEmpty, "Gate stages targetable oil barrels on clear ground")
             barrelStore.save(SaveSnapshot(tacticalCombat: try JSONEncoder().encode(barrelFight),
                 hasSeenOpening: true, hasCompletedOfficeCaseIntro: true,
@@ -1811,6 +1830,33 @@ import SpriteKit
             let barrelPoint = CGPoint(x: barrel.position.x, y: barrel.position.y + 30)
             barrelDirector.hover(at: scene.convert(barrelPoint, from: scene.depthWorldRoot))
             try capture("barrel-preview")
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BARREL_ART_ONLY"] == "1" {
+                let visual = barrelDirector.barrelNodes[barrel.id]!
+                for explosion in [false, true] {
+                    let destruction = BarrelDestruction(barrel: barrel, explosion: explosion,
+                        impactFrom: barrelDirector.combat.current.position, searchMap: scene.navigation.searchMap)
+                    var broken = barrel
+                    broken.broken = true; broken.exploded = explosion; broken.debris = destruction.finalPoses
+                    visual.apply(broken, destruction: destruction)
+                    visual.advance(delta: 0.25)
+                    try check(visual.fragmentBodies.count == 14 && visual.fragmentBodies.contains { $0.height > 0 },
+                              "Restyled pieces animate above the floor: explosion \(explosion)")
+                    let fragments = visual.children.filter { $0.name == "combat.barrel.fragment" }
+                    try check(fragments.count == 14 && fragments.allSatisfy { root in
+                        root.children.compactMap { $0 as? SKSpriteNode }.contains { $0.shader != nil }
+                    }, "Every animated fragment receives its material grade: explosion \(explosion)")
+                    try capture(explosion ? "barrel-art-blast-airborne" : "barrel-art-break-airborne")
+                    visual.advance(delta: destruction.duration)
+                    try check(!visual.isSimulating && visual.fragmentBodies.map(\.pose) == destruction.finalPoses,
+                              "Restyled fragments settle at unchanged physics endpoints: explosion \(explosion)")
+                    try capture(explosion ? "barrel-art-blast-settled" : "barrel-art-break-settled")
+                    visual.apply(broken)
+                    try check(visual.fragmentBodies.map(\.pose) == destruction.finalPoses,
+                              "Restored fragment artwork retains saved placement: explosion \(explosion)")
+                }
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             click(scene, world: barrelPoint)
             guard let shot = barrelDirector.rangedShot else { throw Failure(message: "Player barrel shot was rejected") }
             try check(!shot.explosions.isEmpty && scene.detective.isHidden,

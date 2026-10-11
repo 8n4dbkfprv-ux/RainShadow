@@ -7,9 +7,18 @@ final class CombatBarrelVisual: SKNode {
     private(set) var fragmentBodies: [BarrelFragmentBody] = []
     private var fragmentNodes: [(root: SKNode, sprite: SKSpriteNode, shadow: SKSpriteNode)] = []
     private let shadowAlpha: CGFloat
+    private let lighting: ActorSceneLighting
     var isSimulating: Bool { destruction != nil }
+    private static func paintedTexture(_ name: String) -> SKTexture {
+        let texture = SKTexture(imageNamed: name)
+        texture.filteringMode = .linear
+        texture.usesMipmaps = true
+        return texture
+    }
+    private static let intactTexture = paintedTexture("oil_barrel_v02")
+    private static let debrisTexture = paintedTexture("oil_barrel_debris_v02")
     private static let fragmentTextures: [SKTexture] = {
-        let sheet = SKTexture(imageNamed: "oil_barrel_fragments_v01")
+        let sheet = paintedTexture("oil_barrel_fragments_v02")
         // The generated atlas is retained intact; these are texture views.
         return [(0.0, 0.5), (0.5, 0.5), (0.0, 0.0), (0.5, 0.0)].map {
             let texture = SKTexture(rect: CGRect(x: $0.0, y: $0.1, width: 0.5, height: 0.5), in: sheet)
@@ -18,6 +27,7 @@ final class CombatBarrelVisual: SKNode {
         }
     }()
     init(barrel: CombatBarrel, lighting: ActorSceneLighting = .neutral) {
+        self.lighting = lighting
         shadowAlpha = ContactShadowKind.npc.standingAlpha * lighting.contactShadowAlphaScale
         super.init()
         apply(barrel)
@@ -46,7 +56,7 @@ final class CombatBarrelVisual: SKNode {
                 let sprite = SKSpriteNode(texture: Self.fragmentTextures[pose.kind.rawValue])
                 let size: CGFloat = switch pose.kind { case .stave: 34; case .splinter: 23; case .lid: 38; case .hoop: 43 }
                 sprite.size = CGSize(width: size * pose.scale, height: size * pose.scale)
-                if barrel.exploded { sprite.color = SKColor(white: 0.2, alpha: 1); sprite.colorBlendFactor = 0.3 }
+                applyMaterial(to: sprite, scorched: barrel.exploded)
                 let width: CGFloat = switch pose.kind { case .stave: 19; case .splinter: 11; case .lid: 27; case .hoop: 30 }
                 let shadow = makeShadow(size: CGSize(width: width * pose.scale, height: width * pose.scale * 0.5))
                 root.addChild(shadow); root.addChild(sprite); addChild(root)
@@ -62,10 +72,10 @@ final class CombatBarrelVisual: SKNode {
                 : CGSize(width: 48, height: 25))
             shadow.position = CGPoint(x: 1, y: 1)
             addChild(shadow)
-            let sprite = SKSpriteNode(imageNamed: barrel.isBroken ? "oil_barrel_debris_v01" : "oil_barrel_v01")
+            let sprite = SKSpriteNode(texture: barrel.isBroken ? Self.debrisTexture : Self.intactTexture)
             sprite.size = barrel.isBroken ? CGSize(width: 100, height: 67) : CGSize(width: 60, height: 72)
             sprite.anchorPoint = CGPoint(x: 0.5, y: barrel.isBroken ? 0.5 : 0.13)
-            if barrel.exploded { sprite.color = SKColor(white: 0.2, alpha: 1); sprite.colorBlendFactor = 0.45 }
+            applyMaterial(to: sprite, scorched: barrel.exploded)
             addChild(sprite)
         }
         if !barrel.exploded {
@@ -80,6 +90,15 @@ final class CombatBarrelVisual: SKNode {
         elapsed = min(destruction.duration, elapsed + max(0, delta))
         present(destruction.sample(at: elapsed))
         if elapsed >= destruction.duration { self.destruction = nil }
+    }
+    private func applyMaterial(to sprite: SKSpriteNode, scorched: Bool) {
+        // Use the existing engine multiply, just as the neutral-baked actors do.
+        // Each fragment owns its shader; the shared port remains unchanged.
+        var flags: IEBlitFlags = .blended
+        var tint = scorched ? IEColor(180, 180, 180, 255) : .opaqueWhite
+        if scorched { flags.insert(.colorMod) }
+        IEBlit.applyGlobalTint(&tint, &flags, global: lighting.globalTint)
+        sprite.shader = IEBlitShader.make(tint: tint, flags: flags)
     }
     private func present(_ bodies: [BarrelFragmentBody]) {
         fragmentBodies = bodies

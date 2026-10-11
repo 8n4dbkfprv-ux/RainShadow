@@ -98,3 +98,35 @@ unchanged. No new artwork is required.
 Shadow verification: macOS and iOS Simulator Debug builds pass, and the existing
 41 live barrel checks pass. Intact, airborne and settled shadows were visually
 reviewed in `output/barrel-shadows-qa`; the change adds no physics or combat rules.
+
+## Barrel material consistency — October 11
+
+The V02 intact, legacy debris and fragment atlas replace the bright, densely
+scratched V01 materials with muted grey-brown oak and matte iron. Built-in Image
+Generator edits retain the original silhouettes, transparent padding and atlas
+quadrants. A faded ochre flame stencil remains on the intact cask for hazard
+recognition, alongside the existing flammable label and blast-radius preview.
+The original V01 assets remain available.
+
+Masters and complete prompts: `ArtSource/Generated/Combat/BarrelStyleOct11/`.
+Identical generated PNGs are installed in `Resources/Art/Combat/` and included
+in both Xcode app targets. Runtime textures use linear filtering and mipmaps to
+avoid noisy undersampling at the small world size. Barrel and fragment materials
+now apply the supplied area grade through the existing IEBlit multiply shader;
+previously that lighting argument affected only their contact shadows. Each
+sprite owns its shader. Scorched wood uses a darker material multiplier. The
+shader port itself, physics, collisions, damage and save structure are unchanged.
+
+Validation: macOS and iOS Simulator Debug builds passed (iOS build-only).
+Focused native art QA passed 28 checks for bundled resources, indoor/outdoor
+material grading, airborne fragments, settled endpoints and restored placement.
+Intact street placement, the warning mark, legacy piles and moving/settled pieces
+were visually reviewed in `output/barrel-style-art-oct11/`. Run with both
+`RAINSHADOW_QA_BARRELS_ONLY=1` and `RAINSHADOW_QA_BARREL_ART_ONLY=1`.
+This presentation fixture leaves damage/AI state untouched.
+
+The older full barrel encounter QA stopped at its knockback-endpoint assertion:
+the staged actors were outside the previewed blast radii, so the accepted shot
+had no displacement. Its failure report is in `output/barrel-style-oct11/`.
+That assertion and gameplay were not relaxed for this art update; the full
+encounter suite is not claimed green.
