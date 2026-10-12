@@ -101,3 +101,35 @@ also checks hover visibility, direction labels, clearing on pointer exit, Tab
 reveal/release and unchanged ascent/descent. The composited-world screenshot is
 `output/ladder-highlight-oct12-reviewed/street-ladder-approach.png`; capture waits
 for the world renderer to redraw, because the HUD updates before that raster.
+
+## Enemy ladder decisions — October 12
+
+Enemies already considered ladder links for melee pursuit between floors and
+archer high ground. They now explicitly choose Dash when a useful ladder route
+cannot fit their remaining movement and no useful ordinary action wins. After
+Dash's animation, the AI re-evaluates the route, occupancy and remaining budget;
+it never queues a free climb or attacks with the Action just spent on Dash.
+Long approaches can be completed across turns using certified ground routes.
+
+Ladder scoring includes opportunity attacks on departure, not only on the walk
+to the ladder. Burning approaches and exits are rejected; archer destinations
+must offer an in-range shot. Occupied exits remain blocked. A reaction during an
+enemy climb no longer falls through to End Turn: the reaction completes, then
+the pending climb checks the actor and destination again. All climbing uses the
+existing body/equipment animation and movement cost. No GemRB navigation code
+or map geometry changed.
+
+This is RainShadow encounter policy, not a reproduction of Larian's internal
+AI weights. Firsthand reports on the [Larian forums](https://forums.larian.com/ubbthreads.php?Number=826864&ubb=showflat)
+describe enemies climbing to reach opponents. Those Early Access reports support
+the capability; their historical movement costs and blocking quirks are not
+used as rules for this implementation.
+
+Verification: 30 elevation/AI tests pass, including both pursuit directions,
+multi-turn approaches, Dash with insufficient movement, occupied/burning exits,
+hidden targets and read-only planning. A further 50 movement, Dash, attack-plan,
+hazard, reaction and combat regression tests pass. Both macOS and iOS simulator builds pass.
+`output/enemy-ladder-oct12/report.json` passes 23 native checks, including an
+AI-selected Dash/ascent, descent/pursuit, climbing after an opportunity attack,
+subsequent attacks, turn completion and saved outcomes. Screenshots alongside
+that report capture the enemies climbing the actual painted ladder.

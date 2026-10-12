@@ -123,6 +123,77 @@ struct CombatElevationTests {
         let disengaged = safe.disengage(); #expect(disengaged)
         let noReaction = safe.ladderOpportunity(ladder, clearLine: { _, _ in true }); #expect(noReaction == nil)
     }
+    @Test func enemiesDashWhenTheLadderCostsMoreThanTheirRemainingMovement() throws {
+        let area = try AreaCatalogLoader.load(WharfLadderStory.exterior), ladder = try #require(area.ladders.first)
+        let map = area.makeNavigationMap()
+        let roof = try #require(area.elevationSurfaces.first)
+        var actors = fight().actors
+        actors[0].position = roof.point(u: 0.5, v: 0.5).rounded; actors[0].initiativeBonus = -100
+        actors[1].position = ladder.bottom.cgPoint.rounded; actors[1].initiativeBonus = 100
+        actors[1].rangedWeapon = nil; actors[1].enemyRole = .bruiser; actors[1].speed = 120
+        for actor in actors { map.registerActor(id: actor.id, kind: actor.player ? .player : .npc, at: actor.position) }
+        var game = TacticalCombat(encounterID: "roof", areaID: area.id.rawValue, actors: actors, seed: 42)
+        let before = game, occupants = map.occupancy.actors
+        if case .dashForLadder = EnemyTactics.choose(combat: game, map: map).action {} else { Issue.record("Enemy stranded at ladder instead of using Dash") }
+        #expect(game == before && map.occupancy.actors == occupants)
+        #expect({ game.dash() }())
+        if case .climb = EnemyTactics.choose(combat: game, map: map).action {} else { Issue.record("Enemy failed to reconsider ladder after Dash") }
+        #expect({ game.climb(ladder, exitClear: true) }())
+        #expect(game.current.position == ladder.top.cgPoint.rounded && !game.budget.canAttack)
+        #expect(game.budget.availableMovement(speed: game.current.speed) == 80)
+    }
+    @Test func meleePursuesAcrossTheLadderInBothDirectionsAndOverSeveralTurns() throws {
+        let area = try AreaCatalogLoader.load(WharfLadderStory.exterior), ladder = try #require(area.ladders.first)
+        let roof = try #require(area.elevationSurfaces.first)
+        for ascending in [true, false] {
+            let map = area.makeNavigationMap()
+            var actors = fight().actors
+            actors[0].position = ascending ? roof.point(u: 0.5, v: 0.5).rounded : low
+            actors[0].initiativeBonus = -100
+            actors[1].position = ascending ? low : roof.point(u: 0.5, v: 0.5).rounded
+            actors[1].initiativeBonus = 100; actors[1].rangedWeapon = nil; actors[1].enemyRole = .bruiser
+            for actor in actors { map.registerActor(id: actor.id, kind: actor.player ? .player : .npc, at: actor.position) }
+            var game = TacticalCombat(encounterID: "roof", areaID: area.id.rawValue, actors: actors, seed: 42)
+            var climbs = 0, attacked = false
+            for _ in 0..<24 {
+                if game.isPlayerTurn { _ = game.endTurn(); continue }
+                switch EnemyTactics.choose(combat: game, map: map).action {
+                case .move(let path): #expect({ game.move(along: path) }())
+                case .dash(let path):
+                    #expect({ game.dash() }()); #expect({ game.move(along: path) }())
+                case .dashForLadder: #expect({ game.dash() }())
+                case .climb(let chosen):
+                    #expect(chosen.id == ladder.id); #expect({ game.climb(chosen, exitClear: true) }()); climbs += 1
+                case .attack(let order):
+                    #expect(!order.ranged && order.targetID == TacticalCombat.playerID); attacked = true
+                case .endTurn: _ = game.endTurn()
+                default: Issue.record("Unexpected pursuit action")
+                }
+                for actor in game.actors { map.updateActor(id: actor.id, position: actor.position, isMoving: false) }
+                if attacked { break }
+            }
+            #expect(attacked && climbs == 1, "Pursuit ascending=\(ascending) should climb once then attack")
+        }
+    }
+    @Test func enemyRejectsOccupiedOrBurningLadderExitAndHiddenTargets() throws {
+        let area = try AreaCatalogLoader.load(WharfLadderStory.exterior), ladder = try #require(area.ladders.first)
+        let roof = try #require(area.elevationSurfaces.first)
+        for condition in ["occupied", "burning", "hidden", "approachFire"] {
+            let map = area.makeNavigationMap()
+            var actors = fight().actors
+            actors[0].position = roof.point(u: 0.5, v: 0.5).rounded; actors[0].initiativeBonus = -100
+            actors[0].hidden = condition == "hidden"
+            actors[1].position = condition == "approachFire" ? low : ladder.bottom.cgPoint.rounded
+            actors[1].initiativeBonus = 100; actors[1].rangedWeapon = nil; actors[1].enemyRole = .bruiser
+            if condition == "occupied" { map.registerActor(id: "blocker", kind: .npc, at: ladder.top.cgPoint.rounded) }
+            let fire = CombatBarrel(id: "oil", position: ladder.top.cgPoint.rounded, exploded: true,
+                fireCells: [condition == "approachFire" ? ladder.bottom.cgPoint.rounded : ladder.top.cgPoint.rounded], fireExpiresRound: 99)
+            let game = TacticalCombat(encounterID: "roof", areaID: area.id.rawValue, actors: actors, seed: 42,
+                barrels: condition == "burning" || condition == "approachFire" ? [fire] : [])
+            let choice = EnemyTactics.choose(combat: game, map: map)
+            if case .endTurn = choice.action {} else { Issue.record("Unsafe/unknown ladder route: \(condition), \(choice.reason)") }
+        }
+    }
     @Test func projectileRasterDistinguishesRailsWaterWallsRoofsAndActors() {
         for terrain: UInt8 in [0, 8, 10, 12, 13] {
             var cells = [UInt8](repeating: 7, count: 20*20)

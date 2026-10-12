@@ -1918,7 +1918,9 @@ final class TacticalCombatDirector {
             }
         case .climb(let ladder):
             requestClimb(ladder)
-            if climbing != nil || movingID != nil { return }
+            if busy || pendingLadder != nil { return }
+        case .dashForLadder:
+            if activateDash() { return }
         case .move(let path):
             if move(path) { return }
         case .disengage(let path):

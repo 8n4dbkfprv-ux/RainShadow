@@ -16,7 +16,7 @@ enum EnemyCombatRole: String, Codable, CaseIterable {
 
 struct EnemyDecision {
     enum Action {
-        case climb(AreaLadder), attack(CombatAttackOrder), move(Path), dash(Path), disengage(Path), barrel(String), shove(String), extinguish, endTurn
+        case climb(AreaLadder), dashForLadder, attack(CombatAttackOrder), move(Path), dash(Path), disengage(Path), barrel(String), shove(String), extinguish, endTurn
     }
     let action: Action
     let score: Double
@@ -45,6 +45,7 @@ enum EnemyTactics {
             CombatNavigation.clearLine(in: map, from: a, to: b, excluding: Array(map.occupancy.actors.keys))
         }
         var best = EnemyDecision(action: .endTurn, score: 0, reason: "Hold position")
+        var ladderFallback: EnemyDecision?
         func offer(_ action: EnemyDecision.Action, _ score: Double, _ reason: String) {
             // Stable enumeration breaks ties; small improvements do not cause shuffling.
             if score > best.score + 0.001 { best = EnemyDecision(action: action, score: score, reason: reason) }
@@ -54,13 +55,15 @@ enum EnemyTactics {
         }
         for ladder in CombatElevation.ladders(in: combat.areaID) where !actor.isProne {
             let ends = ladder.ends(from: actor.position)
-            guard ladder.exitIsClear(in: map, actorID: actor.id, from: actor.position) else { continue }
+            guard ladder.exitIsClear(in: map, actorID: actor.id, from: actor.position),
+                  !combat.isInFire(ends.exit) else { continue }
             let currentHeight = CombatElevation.feet(at: actor.position, in: combat.areaID)
             let exitHeight = CombatElevation.feet(at: ends.exit, in: combat.areaID)
             var atExit = actor; atExit.position = ends.exit
             let useful = targets.contains { target in
                 let targetHeight = CombatElevation.feet(at: target.position, in: combat.areaID)
-                return (role == .archer && exitHeight-currentHeight >= 10 && exitHeight-targetHeight >= 10 && line(atExit, target))
+                return (role == .archer && exitHeight-currentHeight >= 10 && exitHeight-targetHeight >= 10
+                        && CombatNavigation.distance(ends.exit, target.position) <= BowAttackRules.range && line(atExit, target))
                     || (role != .archer && abs(currentHeight-targetHeight) > 5 && abs(exitHeight-targetHeight) <= 5)
             }
             guard useful else { continue }
@@ -68,14 +71,35 @@ enum EnemyTactics {
             let close = CombatNavigation.distance(actor.position, ends.entry) < 24
             let approach = close ? nil : CombatNavigation.route(in: map, actor: actor, to: ends.entry)
             guard close || approach != nil else { continue }
+            guard approach.map({ !combat.crossesFire($0, from: actor.position) }) ?? true else { continue }
+            // Include leaving melee reach on the ladder itself, not just the
+            // walking approach. This segment forecasts reactions; it is never
+            // submitted to the ground navigator as a walk through the facade.
+            let traversal = Path(points: (approach?.remainingPoints ?? []) + [ends.exit], from: actor.position)
+            let risk = combat.opportunityRisk(along: traversal, clearLine: line)
+                + (approach.map { pathRisk($0, combat: combat, visible: blastLine) } ?? 0)
             let approached = approach.map { future.move(along: $0) } ?? true
             if approached, future.climb(ladder, exitClear: true) {
-                let risk = approach.map { combat.opportunityRisk(along: $0, clearLine: line) } ?? 0
                 offer(.climb(ladder), 9 - risk, role == .archer ? "Climb to a firing position" : "Reach the enemy's floor")
             } else if let approach, let leg = advance(in: map, actor: actor, full: approach,
                 limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor))),
                 !combat.crossesFire(leg, from: actor.position) {
                 offer(.move(leg), (role == .archer ? 1.5 : 4) - combat.opportunityRisk(along: leg, clearLine: line), "Approach the ladder")
+            }
+            // Spending an Action to reach another floor is a fallback after
+            // useful attacks, shoves and ordinary movement. Re-evaluate after
+            // Dash's animation rather than saving an unchecked climb command.
+            var dashed = combat
+            if dashed.dash() {
+                let reachesEntry = approach.map { dashed.move(along: $0) } ?? true
+                let score = 0.5 - risk
+                if reachesEntry, dashed.climb(ladder, exitClear: true), score > (ladderFallback?.score ?? 0) {
+                    ladderFallback = EnemyDecision(action: .dashForLadder, score: score, reason: "Dash to reach the ladder's other floor")
+                } else if let approach, let leg = advance(in: map, actor: actor, full: approach,
+                    limit: combat.budget.availableMovement(speed: combat.movementSpeed(for: actor)) + combat.movementSpeed(for: actor)),
+                    score > (ladderFallback?.score ?? 0) {
+                    ladderFallback = EnemyDecision(action: .dash(leg), score: score, reason: "Dash toward the ladder")
+                }
             }
         }
         for target in targets {
@@ -202,6 +226,7 @@ enum EnemyTactics {
             }
         }
         if best.score > 0 { return best }
+        if let ladderFallback { return ladderFallback }
         // With no useful action, close toward a visible opponent. Dash is a
         // deliberate fallback, never chosen instead of an available attack.
         for target in targets where combat.budget.canAttack {
