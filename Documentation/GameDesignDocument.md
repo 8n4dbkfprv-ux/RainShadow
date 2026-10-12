@@ -8,7 +8,7 @@
 
 ## 1. High-level vision
 
-RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence, and with **Baldur’s Gate–style real-time-with-pause combat**: authored, common once the city is open, and never a loot grind.
+RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence, and with **Baldur’s Gate–style turn-based combat**: authored, common once the city is open, and never a loot grind.
 
 The player inhabits **Harlan Voss**, a weary hired finder in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
@@ -288,7 +288,7 @@ Harborpoint sells the public a city that works. **Harlan Voss** rents an office 
 | **Wit** | Voss’s internal captions and dialogue stay dry, specific, and human. Lila matches him beat for beat. Humor comes from weary precision and character, never spoof-noir or constant purple prose. |
 | **Noir tropes** | Dame in the doorway; rain as accomplice; empty coat / missing person; double books and double lives; the honest watchman in a bad system; the “helpful” official; the river that keeps secrets; a private eye too broke to refuse the case and too stubborn to stop. Tropes are **played**, not winking pastiches. |
 | **Corruption** | Each act peels a higher institutional layer. Evidence is altered by people with badges, letterheads, and good manners—not only by street thugs. |
-| **Combat (BG-like)** | Kept floors, pressures, and set pieces use **real-time-with-pause**, tactical positioning, and a small temporary party, in the Infinity Engine spirit. Fights are frequent because the case walks through staffed rooms. Every group is authored. None of it is a loot grind. A **story-mode auto-resolve** setting lets any fight resolve without being played; its consequences still land. See §4.3.5. |
+| **Combat (BG-like)** | Kept floors, pressures, and set pieces use **turn-based** combat, tactical positioning, and a small temporary party, in the Infinity Engine spirit. Fights are frequent because the case walks through staffed rooms. Every group is authored. None of it is a loot grind. A **story-mode auto-resolve** setting lets any fight resolve without being played; its consequences still land. See §4.3.5. |
 | **Immersion** | Continuous rain beds, reactive districts, NPCs who remember, case journal that feels like Voss’s mind on paper, and environmental storytelling before exposition. |
 | **Poirot-like conclusion** | Endgame is a **summation scene**: key suspects and stakeholders gathered (office, private club, Watch-house, or warehouse made formal by force of will). Voss lays out the **full chain of deduction**—what was seen, what was lied, what the empty coat meant—before the final moral choice of who pays. |
 
@@ -601,7 +601,7 @@ Use these as **load-bearing beats**, not window dressing:
 
 #### 4.3.5 Combat — Baldur’s Gate spirit, RainShadow stakes
 
-Combat is a **designed system** inside the case. The primary loop is still observation, pressure, and a deduction the player owns. The city answers a lot of those questions with a staffed room, and a staffed room is played in **real-time with pause**.
+Combat is a **designed system** inside the case. The primary loop is still observation, pressure, and a deduction the player owns. The city answers a lot of those questions with a staffed room, and a staffed room is played **turn-based**, Baldur’s Gate style, with each action resolved by dice on the table (§5.6).
 
 Baldur’s Gate puts hostile ground between its towns and then fills each plot dungeon with the faction that owns it. Harborpoint has no wilderness, so the same density sits in the floors this case opens. The old cap — five Act I encounters, every one avoidable or shortenable by talk — is retired. A group below is one cluster of two to four people, the size of a Baldur’s Gate encounter. The tables count those groups.
 
@@ -758,7 +758,7 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 
 ##### What the combat system would need (not yet built)
 
-- A combat mode that enters and leaves cleanly from exploration: real-time with pause, auto-pause on sighting and injury, and the existing pause affordances. A quiet crossing of a kept floor uses the same mode.
+- A combat mode that enters and leaves cleanly from exploration: turn-based (already working in-game), with initiative order, combat entered on sighting, and the existing turn affordances. A quiet crossing of a kept floor uses the same mode.
 - Hostility and allegiance on actors (neutral to hostile on trigger), plus temporary allies with limited orders: hold a door, throw a lamp, follow. Lila never receives a weapon order.
 - Enemy actors with simple authored AI: advance, flank a choke point, break and flee under morale loss, surrender. Chalk crews break when their named man drops. Rest coats break when that room’s factor drops. Porters do not break for a bribe.
 - Attack resolution read from physical dice thrown onto the table (§5.6), using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed or improvised attack path (shove into seals, kick the lamp). Tune the placeholders so one night’s health can clear a core if the room is used.
@@ -847,17 +847,17 @@ Laurens decided on 12 October 2026 to move to **full tabletop**: painted miniatu
 - Buildings are scale-model kits: cardstock and plasticard façades, laser-cut windows, resin cobbles. Interiors are open-roof rooms or cutaway boxes; the roof lifts off when the player enters.
 - **Rain** is a real-world effect over the table: fine streaks with soft motion blur, droplets beading on varnished cobbles and base tops, gloss-resin puddles reflecting the lamps, low stage-fog mist.
 - **Lamplight:** each street lamp is a tiny warm practical LED on the model; the key is a cold moon/skylight from above and behind the board. Warm-against-cold is the noir signature. Long, soft-edged shadows.
-- **Day and night** are the table lighting changing (overcast window light vs lamps plus cold key); the board is painted once, replacing separately painted night plates if the renderer allows.
+- **Day and night** are the table lighting changing (overcast window light vs lamps plus cold key): one board, two baked lighting passes (§5.7).
 - **Reuse:** districts share a terrain kit (cobble tiles, lamp posts, awnings, iron stairs, crates); hero landmarks are scratch-built one-offs, one or two per area.
-- Pipeline: model in Blender (or Meshy, retopologised in Blender), hand-paint textures to §5.5, render with a shallow-depth macro-lens look.
+- Pipeline and rendering: see §5.7.
 
 The goal is the feel of a tabletop campaign, not copying any painter's miniature, published diorama, or real-world dice or terrain brand.
 
 ### 5.2 Camera and composition
 
-- **Exploration:** fixed three-quarter view looking down at about **45–50°**, keeping BG:EE-style readability and the existing 45° ground axes. Mild tilt-shift depth of field softens the far board. Pinch-to-zoom between a board-wide view and a close view roughly matching the old 100% scale.
-- **Combat:** pull back and tilt to about **55°** so the grid and dice tray are visible; a short push-in on the acting figure; dice throws frame the near table edge, then return.
-- **Inspection and dialogue:** macro close-up on the miniature and its base, background board blurred.
+- **Exploration:** locked three-quarter camera at **45°** (baked into the board plates, §5.7), keeping BG:EE-style readability and the existing 45° ground axes. Mild tilt-shift depth of field softens the far board. Pinch-to-zoom between a board-wide view and a close view roughly matching the old 100% scale.
+- **Combat:** same locked 45° board; the view pans/zooms out so the grid and dice tray are visible (the guide's ~55° tilt is dropped, as plates are pre-rendered); a short push-in on the acting figure; dice throws frame the near table edge, then return.
+- **Inspection and dialogue:** pre-rendered hero close-ups of the miniature and its base, background blurred.
 - No free-orbit camera; the fixed angle keeps rendering cost down and composition authored.
 - The office composition must read at full view and at the minimum supported iPhone view; bases and navigable floor stay in the composition-safe region across 4:3, 16:9 and wide phone ratios.
 - Exterior and interior share one distinctive warm office-window shape to motivate the transition.
@@ -887,7 +887,7 @@ Wardrobe colours carry over unchanged from the locked anchors and become miniatu
 - **Voss:** coat #653B26, shirt #D3C2A0, tie #80242A, trousers #463020, shoes #281E16, hair #8C5A30, skin #CA8F6C.
 - **Lila:** dress #265C42, coat #424A42, collar #CEC8BA, trim #242C28, shoes #302422, hair #3A261E, skin #D6A685.
 
-Palette swaps are retained (confirmed 12 October). Existing seven-region saved colour choices remain compatible. Miniatures use continuous colour and alpha from the Blender renders; palette variants recolour material regions without the BGEE indexed reduction or rendering effect.
+The seven-slot IE recolour system and indexed 12-shade ramps are retired for the art; **palette swaps for character variants stay in code** (decided 12 October 2026).
 
 Lighting rules: in the office the brass desk lamp is the warm key and the rain window the cool source; deep but readable shadows; highlights describe wetness, glass, metal and paper edges. Miniatures sit under the same table lights as the terrain and cast real shadows from their bases.
 
@@ -914,8 +914,22 @@ Lighting rules: in the office the brass desk lamp is the warm key and the rain w
 - In combat, **physical resin dice are thrown onto the table edge or board**, tumble, settle and are **read in place**; there is no hidden roll behind the animation. d20 and d6 only unless the rules need more.
 - Dice sets: Voss smoky amber with cream numerals; Lila deep-green marbled; hostiles oxblood with black numerals. A critical gets a brief lamp-flare glint, no particle fireworks.
 - A dark leather **dice tray** sits at the near table edge in combat only. A cocked or unreadable die is re-thrown, as at a real table. A setting speeds up or skips the throw.
-- The SearchMap grid may become the visible combat grid on the felt.
-- Real-time with pause (§4.3.5) remains the model for now, pausing for each throw to land and be read; the style guide's initiative tokens imply turns, so turn-based vs RTWP is open (§15). Story combat skips the dice.
+- The search map becomes the **visible combat grid on the felt**.
+- Combat is **turn-based**, Baldur’s Gate style (decided 12 October 2026; already working in-game). Each action's throw lands and is read before the turn passes; brass initiative tokens show order. Story combat skips the dice.
+
+### 5.7 Board rendering and pipeline (Option A, decided 12 October 2026)
+
+- **Board plates:** pre-rendered Blender plates built from a shared terrain kit, locked 45° camera, with a **day and a night lighting pass** per board.
+- **Live layers (SpriteKit):** rain, fog, puddle ripples and lamp flicker.
+- **Miniatures:** static Blender renders per pose (standing, seated, a few action poses) × **8 directions**. No walk cycles: a move is the short repeated hops in §5.5; a pose change is a quick crossfade or swap on the same base. Baked contact shadow, plus an optional night lamp shadow.
+- **Occlusion:** per-pixel depth pass tested in a SpriteKit shader (fallback: IE-style occluder cutouts). Miniature draw order by base Y.
+- **Sidecar maps:** search, height and light maps are kept but **baked from the same Blender scene**, plus a depth map and a puddle/gloss mask.
+- **World and streaming:** keep the 5120×3840 world and 5×5 page streaming. Masters at 2.5 px/unit, runtime about 2 px/unit. Miniatures about 2× on-screen height at maximum zoom.
+- **Hero renders** of each miniature for dialogue close-ups and portraits.
+- **Tools:** AI image tools only for concepts, paint studies and textures. Meshy for first-pass meshes, then Blender retopology, posing and painting. Never AI-overpaint a baked plate.
+- **First test:** rebuild RS0101 (Voss's office) with Voss standing and seated.
+- **Rejected:** Option B (real-time 3D miniatures on pre-rendered boards) — mismatched lighting and finish between live minis and baked boards, for extra runtime cost. Option C (full real-time 3D) — highest cost and risk for a small team, and loses the authored, painted plate quality.
+
 
 ## 6. Core gameplay loops
 
@@ -1196,7 +1210,7 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 - Branching dialogue UI and relationship thresholds.
 - Trait advancement and strain consequences.
 - Multiple connected locations, NPC schedules, save slots, localization pipeline, voice-over.
-- **Authored combat / chase systems** in the Baldur’s Gate RTWP spirit (§4.3.5): pause-friendly tactics, temporary allies, kept floors, pressures, and set pieces. The campaign encounter plan and the system requirements are listed there (no combat code exists yet), including the Story combat auto-resolve setting and ally injury.
+- **Authored combat / chase systems** in the Baldur’s Gate turn-based spirit (§4.3.5): turn-based tactics, temporary allies, kept floors, pressures, and set pieces. The campaign encounter plan and the system requirements are listed there (turn-based combat is working in-game; the rest is still to build), including the Story combat auto-resolve setting and ally injury.
 - **Side cases** (§4.3.8): ten optional cases that open from Act I–III locations and pay into the main case.
 - Full **Poirot-style summation** scene framework for the campaign finale (§4.3.7).
 
@@ -1242,9 +1256,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Sign-off on the tabletop style guide v1 values (§5): scale, bases, palette, camera angles, table-prop UI.
-- Replacement for the 5120×3840 IE page system, the search/light/height (SR/LM/HT) maps and the 64 px native body spec for board renders.
-- **Closed 12 October:** palette swaps remain available for character variants, equipment and existing saves.
-- Combat pacing with physical dice: keep real-time with pause, or move to turn-based (§5.6).
 - Save-slot presentation and cross-device strategy.
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - Can a temporary ally die? Default: injured, never killed (§4.3.5). Confirm, or allow it for some allies.
@@ -1254,6 +1265,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Lila’s day job is a Printers’ Quarter bindery (working); confirm or replace.
 - Shipped copy that predates these locks (dialogue strings, journal copy, item text, area labels: the Watch, gray overcoat, Friday/Tuesday timing, mono 3’s wound) needs a string pass with VO re-records.
 
-**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Harlan Voss and Lila March character bibles (§4.2); corruption as structural world force; RTWP authored combat intent; campaign combat cadence, the numbered shed as Act II’s first floor, and the temporary-ally roster (§4.3.5); Poirot-like finale contract; police named **the Watch**; Voss’s core wound is **Pell Street** only; Lila March in her early twenties; Lillian vanished Tuesday and the case opens **Friday** night; Lila found the key at home after the Watch returned the coat; follower in a **gray overcoat**; the drowning notice was paid copy; Lila as first temporary ally with lasting injury; the Gray Man’s one Act I line; Story combat auto-resolve; side cases (§4.3.8).
+**Closed by §4:** lead names (Harlan Voss / Lila March); missing sister **Lillian March**; first-case arrival by visitor (Lila); first case title **The Empty Coat**; Empty Coat case dossier + M01 journal contract (§4.3.2); Harborpoint world bible (§4.1); full Harlan Voss and Lila March character bibles (§4.2); corruption as structural world force; turn-based authored combat (12 October 2026); campaign combat cadence, the numbered shed as Act II’s first floor, and the temporary-ally roster (§4.3.5); Poirot-like finale contract; police named **the Watch**; Voss’s core wound is **Pell Street** only; Lila March in her early twenties; Lillian vanished Tuesday and the case opens **Friday** night; Lila found the key at home after the Watch returned the coat; follower in a **gray overcoat**; the drowning notice was paid copy; Lila as first temporary ally with lasting injury; the Gray Man’s one Act I line; Story combat auto-resolve; side cases (§4.3.8).
 
 None of the remaining open decisions blocks the opening-sequence architecture.
