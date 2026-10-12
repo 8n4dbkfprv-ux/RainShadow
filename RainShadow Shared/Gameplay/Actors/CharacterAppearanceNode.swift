@@ -634,21 +634,41 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     let entry: CGPoint
     let exit: CGPoint
     let ascending: Bool
+    private let bottom: CGPoint
+    private let top: CGPoint
+    private let climbTop: CGPoint
+    private let climbDuration = 5.6
+    private let stepDuration: Double
     private(set) var elapsed = 0.0
-    let duration = 4.8
+    var duration: Double { climbDuration + stepDuration }
     var finished: Bool { elapsed >= duration }
-    init(definition: CharacterDefinition, entry: CGPoint, exit: CGPoint) throws {
-        node = try CharacterAppearanceNode(definition: definition)
+    init(definition: CharacterDefinition, ladder: AreaLadder, entry: CGPoint, exit: CGPoint) throws {
+        var climbingDefinition = definition
+        climbingDefinition.appearance.equipment.removeAll { $0.item != .ironHelmet && $0.item != .splintMail }
+        node = try CharacterAppearanceNode(definition: climbingDefinition)
         self.entry = entry; self.exit = exit; ascending = exit.y > entry.y
+        bottom = ascending ? entry : exit; top = ascending ? exit : entry
+        climbTop = ladder.climbTop?.cgPoint ?? top
+        stepDuration = ladder.climbTop == nil ? 0 : 0.8
         try node.presentClimb(phase: 0); node.position = entry
         node.name = "ladder.climbing.actor"
     }
     func advance(_ delta: Double) {
         elapsed = min(duration, elapsed + delta)
-        let t = CGFloat(elapsed / duration)
-        node.position = CGPoint(x: entry.x+(exit.x-entry.x)*t, y: entry.y+(exit.y-entry.y)*t)
-        let phase = Int(elapsed * 12) % 16
-        try? node.presentClimb(phase: ascending ? phase : 15-phase)
+        // Reverse the same two segments on descent. The safe roof arrival point
+        // must never pull the actor sideways while their feet are on the rungs.
+        let progress = ascending ? elapsed : duration-elapsed
+        if progress <= climbDuration {
+            let t = CGFloat(progress / climbDuration)
+            node.position = CGPoint(x: bottom.x+(climbTop.x-bottom.x)*t, y: bottom.y+(climbTop.y-bottom.y)*t)
+            let phase = Int(progress * 12) % 16
+            try? node.presentClimb(phase: phase)
+        } else {
+            let t = CGFloat((progress-climbDuration) / stepDuration)
+            node.position = CGPoint(x: climbTop.x+(top.x-climbTop.x)*t, y: climbTop.y+(top.y-climbTop.y)*t)
+            try? node.advance(action: .walk, facing: ascending ? .northEast : .southWest, at: elapsed, paused: false)
+            node.setGroundShadowVisible(true)
+        }
         node.visualHeightOffset = 0
         // The ladder is on the front facade, above its ground-level cover.
         node.zPosition = 10000

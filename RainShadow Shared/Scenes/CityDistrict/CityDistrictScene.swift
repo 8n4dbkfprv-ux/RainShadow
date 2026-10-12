@@ -37,6 +37,38 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     private var hasShownArrivalHint = false
     private var ladderPresentation: LadderPresentation?
     private var ladderTime: TimeInterval?
+    private var ladderHints: [String: LadderHintNode] = [:]
+    private(set) var hoveredLadderID: String?
+
+    func showLadderHighlight(_ ladder: AreaLadder?) {
+        hoveredLadderID = ladder?.id
+        refreshLadderHints()
+    }
+
+    override func clearHoverHighlight() {
+        super.clearHoverHighlight()
+        showLadderHighlight(nil)
+    }
+
+    override func handleFocusRevealInput(isActive: Bool) {
+        super.handleFocusRevealInput(isActive: isActive)
+        refreshLadderHints()
+    }
+
+    private func refreshLadderHints() {
+        // The encounter retains its dialogue state while the combat director
+        // owns input; only an exploration dialogue should suppress this hint.
+        let blocked = anyOverlayIsPresented || (dialogueIsActive && combatDirector == nil) || ladderPresentation != nil
+            || (combatDirector.map { !$0.canShowLadderHint } ?? storyOwnsInput)
+        let actorPoint = combatDirector?.combat.current.position ?? detective.position
+        for ladder in area.ladders {
+            guard let hint = ladderHints[ladder.id] else { continue }
+            hint.isHidden = blocked || !(hoveredLadderID == ladder.id || highlightRevealAll)
+            let ends = ladder.ends(from: actorPoint)
+            hint.update(cameraScale: playCameraScale, entry: ends.entry,
+                        ascending: ends.exit.y > ends.entry.y)
+        }
+    }
     #if os(macOS)
     #if DEBUG
     private var playtestNight = false
@@ -111,6 +143,12 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         buildAreaBundle()
         buildAreaDoorVisuals()
         addModularDistrictSprites()
+        for ladder in area.ladders {
+            guard let polygon = ladder.highlightOutline, polygon.count >= 3 else { continue }
+            let hint = LadderHintNode(polygon: polygon.map(\.cgPoint))
+            hint.name = "ladder.hint." + ladder.id
+            depthWorldRoot.addChild(hint); ladderHints[ladder.id] = hint
+        }
 
         edgeExits = makeEdgeExits()
         if let districtID, districtID != .harborpointPD, !RebuiltCityAreas.districts.contains(districtID) {
@@ -188,6 +226,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     override func overlayPresentationDidChange() {
         super.overlayPresentationDidChange()
         combatDirector?.setInventoryPresented(inventoryIsPresented)
+        showLadderHighlight(nil)
     }
 
     override func handlePointerDown(_ event: GamePointerEvent) {
@@ -195,6 +234,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             guard !inventoryIsPresented else { return }
             let point = actionBar.convert(event.location, from: self)
             actionBar.beginPress(at: point)
+            portraitBar.beginUtilityPress(at: portraitBar.convert(event.location, from: self))
             return
         }
         if storyOwnsInput {
@@ -211,7 +251,8 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
 
     override func handlePointerDragged(_ event: GamePointerEvent) {
         if combatDirector != nil {
-            actionBar.updatePress(at: actionBar.convert(event.location, from: self)); return
+            actionBar.updatePress(at: actionBar.convert(event.location, from: self))
+            portraitBar.updateUtilityPress(at: portraitBar.convert(event.location, from: self)); return
         }
         if storyOwnsInput {
             if dialogueIsActive { _ = dialoguePresenter.handlePointerDragged(at: dialoguePanelPoint(for: event.location)) }
@@ -236,6 +277,9 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         }
         if let combatDirector {
             let button = actionBar.endPress(at: actionBar.convert(event.location, from: self))
+            if portraitBar.endUtilityPress(at: portraitBar.convert(event.location, from: self)) == .lantern {
+                toggleHighlightReveal(); return
+            }
             if button == .inventory || button == .character
                 || portraitBar.hitTestPortrait(portraitBar.convert(event.location, from: self)) {
                 handleInventoryInput()
@@ -316,7 +360,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
                 definition.appearance.equipment = VossArmorAppearance.allCases.compactMap {
                     $0.isEquipped(in: self.context.session.characterInventory) ? CharacterEquipmentCode(rawValue: $0.rawValue).map { .init(item: $0) } : nil
                 }
-                guard let motion = try? LadderPresentation(definition: definition, entry: ends.entry, exit: ends.exit) else { return }
+                guard let motion = try? LadderPresentation(definition: definition, ladder: ladder, entry: ends.entry, exit: ends.exit) else { return }
                 self.detective.cancelMovement(); self.detective.isHidden = true
                 self.depthWorldRoot.addChild(motion.node); self.applyAreaLighting(to: motion.node)
                 self.ladderPresentation = motion; self.ladderTime = nil
@@ -385,13 +429,15 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func handlePointerMoved(_ event: GamePointerEvent) {
+        showLadderHighlight(nil)
         if let combatDirector, !inventoryIsPresented {
             combatDirector.hover(at: event.location)
             #if os(macOS)
             let point = actionBar.convert(event.location, from: self)
             let button = actionBar.hitTest(point)
             actionBar.setHighlightedButton(button)
-            (button == .inventory || button == .character || button == .clock
+            (hoveredLadderID != nil || button == .inventory || button == .character || button == .clock
+                || portraitBar.hitTestUtility(portraitBar.convert(event.location, from: self)) == .lantern
                 || portraitBar.hitTestPortrait(portraitBar.convert(event.location, from: self))
                 ? NSCursor.pointingHand : NSCursor.arrow).set()
             #endif
@@ -451,6 +497,8 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         // Same region lookup the click uses, so the cursor cannot promise a way
         // out that the click then declines to take.
         setHighlightHoverPoint(event.location)
+        let ladder = area.ladders.first { $0.contains(event.location) }
+        showLadderHighlight(ladder)
         let region = area.region(at: event.location)
         let leaf = backgroundDoor(at: event.location)
         let closedEntrance = region.flatMap { door(matching: $0.id) }.map {
@@ -468,7 +516,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         applyWorldCursor(WorldCursorState.resolve(
             isPassable: isFloorOrderable(event.location),
             isTravel: isTravel,
-            hasInteractable: leaf != nil || region?.kind == .info
+            hasInteractable: ladder != nil || leaf != nil || region?.kind == .info
         ))
         #endif
     }
@@ -598,6 +646,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        refreshLadderHints()
         cutsceneDirector.update(currentTime)
         pause.setModal(dialogue: dialogueIsActive && !wharfStory.cinematicMode && !wharfStory.isCombatActive, overlay: anyOverlayIsPresented)
         wharfStory.update(at: currentTime)
@@ -1201,5 +1250,41 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
             pointsOfInterest: mapPoints,
             showsExplorationFog: true
         )
+    }
+}
+
+/// Authored ladder feedback, separate from the unchanged IE door/container port.
+@MainActor private final class LadderHintNode: SKNode {
+    private let outline: SKShapeNode
+    private let caption = SKNode()
+    private let plate = SKShapeNode(rectOf: CGSize(width: 86, height: 25), cornerRadius: 4)
+    private let label = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
+
+    init(polygon: [CGPoint]) {
+        let path = CGMutablePath()
+        path.addLines(between: polygon); path.closeSubpath()
+        outline = SKShapeNode(path: path)
+        super.init()
+        // Stay below actors and the fog; an unseen ladder must not shine through it.
+        zPosition = -8_000; isHidden = true; isUserInteractionEnabled = false
+        outline.strokeColor = SKColor(red: 1, green: 0.85, blue: 0.46, alpha: 1)
+        outline.fillColor = SKColor(red: 1, green: 0.78, blue: 0.32, alpha: 0.15)
+        outline.glowWidth = 2
+        addChild(outline); addChild(caption)
+        plate.fillColor = SKColor(red: 0.15, green: 0.11, blue: 0.07, alpha: 0.95)
+        plate.strokeColor = outline.strokeColor; plate.lineWidth = 1
+        caption.addChild(plate)
+        label.fontSize = 12; label.fontColor = SKColor(red: 1, green: 0.94, blue: 0.78, alpha: 1)
+        label.name = "ladder.prompt"
+        label.verticalAlignmentMode = .center; label.zPosition = 1
+        caption.addChild(label)
+    }
+    required init?(coder: NSCoder) { fatalError("Created in code") }
+    func update(cameraScale: CGFloat, entry: CGPoint, ascending: Bool) {
+        outline.lineWidth = 1.6 * cameraScale
+        outline.glowWidth = 2 * cameraScale
+        caption.setScale(cameraScale)
+        caption.position = CGPoint(x: entry.x - 64 * cameraScale, y: entry.y + 10 * cameraScale)
+        label.text = ascending ? "Climb up" : "Climb down"
     }
 }

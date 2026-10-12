@@ -116,15 +116,26 @@ struct AreaLadder: Hashable, Codable, Sendable {
     var top: AreaPoint
     var costFeet: Double
     var facing: Int
+    /// Projected foot position at the last rung, before stepping onto the roof.
+    /// Distinct from `top`, which is inset far enough for actor clearance.
+    var climbTop: AreaPoint? = nil
+    /// Silhouette projected from the model's outer rails, including handholds.
+    var highlightOutline: [AreaPoint]? = nil
     func ends(from point: CGPoint) -> (entry: CGPoint, exit: CGPoint) {
         let up = CombatNavigation.distance(point, bottom.cgPoint) < CombatNavigation.distance(point, top.cgPoint)
         return up ? (bottom.cgPoint.rounded, top.cgPoint.rounded) : (top.cgPoint.rounded, bottom.cgPoint.rounded)
     }
     func contains(_ point: CGPoint) -> Bool {
-        let a = bottom.cgPoint, b = top.cgPoint
-        let dx = b.x-a.x, dy = b.y-a.y
-        let t = min(1, max(0, ((point.x-a.x)*dx+(point.y-a.y)*dy)/(dx*dx+dy*dy)))
-        return hypot(point.x-a.x-t*dx, point.y-a.y-t*dy) < 25
+        if let highlightOutline, HighlightGeometry.contains(point, polygon: highlightOutline.map(\.cgPoint)) {
+            return true
+        }
+        let points = [bottom.cgPoint] + (climbTop.map { [$0.cgPoint] } ?? []) + [top.cgPoint]
+        return zip(points, points.dropFirst()).contains { a, b in
+            let dx = b.x-a.x, dy = b.y-a.y, lengthSquared = dx*dx+dy*dy
+            guard lengthSquared > 0 else { return hypot(point.x-a.x, point.y-a.y) < 25 }
+            let t = min(1, max(0, ((point.x-a.x)*dx+(point.y-a.y)*dy)/lengthSquared))
+            return hypot(point.x-a.x-t*dx, point.y-a.y-t*dy) < 25
+        }
     }
     func exitIsClear(in map: NavigationMap, actorID: String, from point: CGPoint) -> Bool {
         map.occupancy.withStampLifted(id: actorID) {

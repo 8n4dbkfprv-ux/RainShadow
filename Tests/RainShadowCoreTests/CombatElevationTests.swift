@@ -34,6 +34,8 @@ struct CombatElevationTests {
     @Test func roofIsDisconnectedAndLadderEndpointsHaveClearance() throws {
         let area = try AreaCatalogLoader.load(WharfLadderStory.exterior), map = area.makeNavigationMap()
         let ladder = try #require(area.ladders.first)
+        #expect(!area.elevationSurfaces.contains { $0.id == "shipping.landing" || $0.id == "shipping.steps" })
+        #expect(CombatElevation.feet(at: ladder.bottom.cgPoint, in: area.id.rawValue) == 0)
         var actor = fight().current; actor.position = low
         #expect(CombatNavigation.route(in: map, actor: actor, to: ladder.bottom.cgPoint) != nil)
         #expect(CombatNavigation.route(in: map, actor: actor, to: ladder.top.cgPoint) == nil)
@@ -65,6 +67,20 @@ struct CombatElevationTests {
         #expect({ game.dash() }()); #expect({ game.climb(ladder, exitClear: true) }())
         #expect(game.current.position == ladder.bottom.cgPoint.rounded)
         #expect(try JSONDecoder().decode(TacticalCombat.self, from: JSONEncoder().encode(game)) == game)
+    }
+    @Test func ladderHitAreaFollowsTheRungsBeforeTheRoofDismount() throws {
+        let area = try AreaCatalogLoader.load(WharfLadderStory.exterior)
+        let ladder = try #require(area.ladders.first)
+        let crest = try #require(ladder.climbTop).cgPoint
+        let bottom = ladder.bottom.cgPoint, top = ladder.top.cgPoint
+        let rung = CGPoint(x: bottom.x+(crest.x-bottom.x)*0.6, y: bottom.y+(crest.y-bottom.y)*0.6)
+        #expect(ladder.contains(rung))
+        #expect(ladder.contains(CGPoint(x: (crest.x+top.x)/2, y: (crest.y+top.y)/2)))
+        #expect(!ladder.contains(CGPoint(x: rung.x-50, y: rung.y)))
+        // An older authored ladder without a separate dismount point still loads.
+        var old = ladder; old.climbTop = nil
+        let decoded = try JSONDecoder().decode(AreaLadder.self, from: JSONEncoder().encode(old))
+        #expect(decoded.climbTop == nil && decoded.contains(bottom))
     }
     @Test func roofAttacksResolveTheSameBonusShownInPreview() throws {
         for highAttacker in [true, false] { for seed in UInt64(1)...30 {

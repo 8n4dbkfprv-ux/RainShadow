@@ -442,6 +442,11 @@ final class TacticalCombatDirector {
         }
     }
     private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented || targetPanel.examining }
+    var canShowLadderHint: Bool {
+        combat.isPlayerTurn && !busy && !presentationPaused
+            && !aimingRangedAttack && !selectingMelee && !selectingShove
+            && !selectingSneakAttack && !selectingClaw && selectedManeuver == nil
+    }
 
     func command(_ input: Int) {
         movementPreview.clear()
@@ -642,6 +647,7 @@ final class TacticalCombatDirector {
         } else { feedback = "Can't reach"; refresh() }
     }
     func hover(at scenePoint: CGPoint) {
+        scene.showLadderHighlight(nil)
         movementPreview.clear()
         if targetPanel.examining || targetPanel.containsPanelPoint(targetPanel.convert(scenePoint, from: scene)) { return }
         targetPanel.clear(); hoveredTargetID = nil
@@ -655,12 +661,14 @@ final class TacticalCombatDirector {
         let world = scene.depthWorldRoot.convert(scenePoint, from: scene)
         if !aimingRangedAttack, !selectingMelee, !selectingShove, !selectingSneakAttack, !selectingClaw, selectedManeuver == nil,
            meleeTarget(at: world) == nil, let ladder = scene.area.ladders.first(where: { $0.contains(world) }) {
+            scene.showLadderHighlight(ladder)
             let ends = ladder.ends(from: combat.current.position)
             let path = CombatNavigation.route(in: scene.navigation, actor: combat.current, to: ends.entry)
             let distance = path.map { CombatNavigation.length($0, from: combat.current.position) } ?? 0
             let enough = distance + ladder.costFeet * 8 <= combat.budget.availableMovement(speed: combat.movementSpeed(for: combat.current))
             targetPanel.show(title: "Ladder", lines: ["Climb · \(Int(ceil(distance / 8 + ladder.costFeet))) ft Movement",
-                combat.isBear ? "You cannot do this in your current form!" : !ladder.exitIsClear(in: scene.navigation, actorID: combat.current.id, from: combat.current.position) ? "Not enough space" : enough ? "" : "Not enough movement"], examining: false)
+                combat.isBear ? "You cannot do this in your current form!" : !ladder.exitIsClear(in: scene.navigation, actorID: combat.current.id, from: combat.current.position) ? "Not enough space" : enough ? "" : "Not enough movement"], examining: false,
+                footerText: "Click ladder to climb")
             return
         }
 
@@ -848,7 +856,7 @@ final class TacticalCombatDirector {
         pendingLadder = nil; pendingLadderActorID = nil
         let actor = combat.current, ends = ladder.ends(from: actor.position)
         do {
-            let presentation = try LadderPresentation(definition: combatAppearance(for: actor), entry: ends.entry, exit: ends.exit)
+            let presentation = try LadderPresentation(definition: combatAppearance(for: actor), ladder: ladder, entry: ends.entry, exit: ends.exit)
             guard combat.climb(ladder, exitClear: ladder.exitIsClear(in: scene.navigation, actorID: actor.id, from: actor.position)) else { return }
             actorNode(actor.id)?.isHidden = true; stealthNodes[actor.id]?.isHidden = true
             scene.depthWorldRoot.addChild(presentation.node); scene.applyAreaLighting(to: presentation.node)

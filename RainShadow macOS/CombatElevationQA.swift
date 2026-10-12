@@ -44,16 +44,35 @@ import SpriteKit
         scene.gameCamera.position = CGPoint(x: 2050, y: 2100)
         try await Task.sleep(for: .milliseconds(150))
         try check(scene.floorEffectRoot.childNode(withName: "wharf.loading.platform") == nil, "Detached loading platform has been removed")
+        try check(CombatElevation.feet(at: ladder.bottom.cgPoint, in: model.areaID) == 0,
+            "Ladder starts at street height without a raised landing")
         func screen(_ p: CGPoint) -> CGPoint { scene.convert(p, from: scene.depthWorldRoot) }
         director.cancelTargeting()
         director.hover(at: screen(ladder.bottom.cgPoint))
-        try capture(scene, "stairs-route")
+        let ladderHint = scene.depthWorldRoot.childNode(withName: "ladder.hint." + ladder.id)!
+        try check(!ladderHint.isHidden, "Hover outlines the ladder")
+        try check((ladderHint.childNode(withName: "//ladder.prompt") as? SKLabelNode)?.text == "Climb up", "Street hover explains how to climb up")
+        // The world is composited separately from the live HUD; let it redraw.
+        try await Task.sleep(for: .milliseconds(150))
+        try capture(scene, "street-ladder-approach")
+        director.hover(at: screen(CGPoint(x: 1700, y: 1800)))
+        try check(ladderHint.isHidden, "Moving away clears the ladder hover")
+        scene.handleFocusRevealInput(isActive: true)
+        try check(!ladderHint.isHidden, "Tab reveal also highlights the ladder")
+        scene.handleFocusRevealInput(isActive: false)
+        try check(ladderHint.isHidden, "Releasing Tab clears the revealed ladder")
         let before = director.combat
         director.pointer(at: screen(ladder.bottom.cgPoint))
         try check(director.busy, "Clicking the ladder starts a climb")
         try await Task.sleep(for: .milliseconds(1600))
         try capture(scene, "ladder-climb")
         let climber = scene.depthWorldRoot.childNode(withName: "ladder.climbing.actor")!
+        if let crest = ladder.climbTop?.cgPoint {
+            let foot = ladder.bottom.cgPoint.rounded
+            let dx = crest.x-foot.x, dy = crest.y-foot.y
+            let drift = abs((climber.position.x-foot.x)*dy-(climber.position.y-foot.y)*dx) / hypot(dx, dy)
+            try check(drift < 2, "Climbing follows the painted rails before stepping onto the roof")
+        }
         scene.handleTacticalPauseInput()
         let frozen = climber.position
         try await Task.sleep(for: .milliseconds(350))
@@ -85,10 +104,12 @@ import SpriteKit
         director.cancelTargeting()
         scene.recenterCamera(on: CGPoint(x: 2050, y: 2100)); scene.gameCamera.position = CGPoint(x: 2050, y: 2100)
         try await Task.sleep(for: .milliseconds(150))
+        director.hover(at: screen(ladder.top.cgPoint))
+        try check((ladderHint.childNode(withName: "//ladder.prompt") as? SKLabelNode)?.text == "Climb down", "Roof hover explains how to climb down")
         director.pointer(at: screen(ladder.top.cgPoint))
         try check(director.busy, "The same ladder can be climbed down")
         try await wait { !director.busy }
-        try check(director.combat.current.position == ladder.bottom.cgPoint.rounded, "Descent returns to the landing")
+        try check(director.combat.current.position == ladder.bottom.cgPoint.rounded, "Descent returns to the street")
         try capture(scene, "ladder-descent-complete")
         return checks
     }

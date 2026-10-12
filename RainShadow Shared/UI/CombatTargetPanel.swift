@@ -8,6 +8,7 @@ import SpriteKit
     private let footer = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private(set) var text = ""
     private(set) var examining = false
+    private var footerIsInteractive = true
     var panelWidth: CGFloat = 330
     private(set) var panelHeight: CGFloat = 240
 
@@ -24,10 +25,11 @@ import SpriteKit
         title.fontSize = 17; body.fontSize = 12; footer.fontSize = 11
     }
     required init?(coder: NSCoder) { fatalError("Created in code") }
-    func show(title heading: String, lines: [String], examining: Bool = false) {
+    func show(title heading: String, lines: [String], examining: Bool = false, footerText: String? = nil) {
         self.examining = examining; isHidden = false
+        footerIsInteractive = footerText == nil
         title.text = heading; body.text = lines.joined(separator: "\n")
-        footer.text = examining ? "Close [T / Esc]" : "Examine [T]"
+        footer.text = footerText ?? (examining ? "Close [T / Esc]" : "Examine [T]")
         text = ([heading] + lines + [footer.text!]).joined(separator: "\n")
         for label in [title, body, footer] { label.preferredMaxLayoutWidth = panelWidth - 44 }
         let titleHeight = max(22, title.frame.height)
@@ -39,6 +41,6 @@ import SpriteKit
         footer.position = CGPoint(x: 22, y: -panelHeight + 30)
     }
     func containsPanelPoint(_ point: CGPoint) -> Bool { !isHidden && CGRect(x: 0, y: -panelHeight, width: panelWidth, height: panelHeight).contains(point) }
-    func footerContains(_ point: CGPoint) -> Bool { containsPanelPoint(point) && point.y < -panelHeight + 40 }
+    func footerContains(_ point: CGPoint) -> Bool { footerIsInteractive && containsPanelPoint(point) && point.y < -panelHeight + 40 }
     func clear() { isHidden = true; examining = false; text = "" }
 }
