@@ -50,7 +50,7 @@ import SpriteKit
             try await Task.sleep(for: .milliseconds(350))
             check(body(voss).currentFrame!.id!.name.hasPrefix("idle_") && !voss.isDeskRegistered,
                   "Opening Voss is a rigid standing miniature, with no seated body layers")
-            check(base(voss).position == body(voss).position && base(voss).position.y == voss.visualHeightOffset,
+            check(base(voss).position == body(voss).position && abs(base(voss).position.y - voss.visualHeightOffset) < 0.001,
                   "Opening Voss base is planted at terrain height (body \(body(voss).position), base \(base(voss).position), terrain \(voss.visualHeightOffset))")
             try capture("01-office-opening")
             for _ in 0..<20 where !lila.isLocomoting {
@@ -139,17 +139,18 @@ import SpriteKit
                     let height = motion.update(position: point, at: Double(frame) / Double(fps), paused: false)
                     if frame > fps / 2 { cruise.append(height) }
                 }
-                try check(cruise.allSatisfy { $0 == TabletopMiniatureMotion.liftHeight }, "\(fps) fps: holds a single lift between navigation ticks")
+                try check(cruise.min()! == 0 && cruise.max()! > 11 && cruise.allSatisfy { $0 >= 0 && $0 <= TabletopMiniatureMotion.liftHeight }, "\(fps) fps: repeats bounded hops with planted landings between arcs")
+                let beforePause = motion.height
                 let held = motion.update(position: CGPoint(x: 120, y: 0), at: 9, paused: true)
-                try check(held == TabletopMiniatureMotion.liftHeight, "\(fps) fps: pause freezes the lift")
+                try check(held == beforePause, "\(fps) fps: pause freezes the lift")
                 try check(motion.update(position: CGPoint(x: 120, y: 0), at: 10, paused: false) == held,
                           "\(fps) fps: resume does not spend paused time")
                 var settle: [CGFloat] = []
                 for frame in 1...fps {
                     settle.append(motion.update(position: CGPoint(x: 120, y: 0), at: 10 + Double(frame) / Double(fps), paused: false))
                 }
-                try check(zip(settle, settle.dropFirst()).allSatisfy { $0 >= $1 } && settle.last == 0,
-                          "\(fps) fps: set-down is monotonic and lands exactly, without a bounce loop")
+                try check(settle.allSatisfy { $0 >= 0 && $0 <= TabletopMiniatureMotion.liftHeight } && settle.last == 0,
+                          "\(fps) fps: finishes the final hop and stays planted after arrival")
                 try check(motion.update(position: CGPoint(x: 1000, y: 0), at: 11.1, paused: false) == 0,
                           "\(fps) fps: teleport does not trigger a hop")
             }
@@ -206,13 +207,13 @@ import SpriteKit
             let detectiveBody = detective.children.compactMap { $0 as? IEAvatarNode }.first { !$0.isHidden }!
             try check(position.x > 0 && detectiveBody.currentFrame!.id!.name.hasPrefix("idle_"), "Voss moves on the real movement tick in a rigid pose")
             let detectiveBase = detective.childNode(withName: "miniature.base")!
-            try check(detectiveBody.position.y == 6 && detectiveBase.position == detectiveBody.position,
+            try check(detectiveBody.position.y > 0 && detectiveBase.position == detectiveBody.position,
                       "Voss's body, attached equipment and base lift together")
             try check(!detective.isDeskRegistered, "Lifted Voss is not mistaken for desk registration")
             detective.updateLocomotion(at: 3, worldIsPaused: true)
             detective.updateMiniatureMotion(at: 3, paused: true)
             try check(detective.position == position, "Paused tabletop movement remains stopped")
-            try check(detectiveBase.position.y == 6, "Paused Voss keeps the same visual lift")
+            try check(detectiveBase.position == detectiveBody.position && detectiveBase.position.y > 0, "Paused Voss keeps the same visual lift")
             for step in 181..<600 {
                 detective.updateLocomotion(at: Double(step)/60, worldIsPaused: false)
                 detective.updateMiniatureMotion(at: Double(step)/60, paused: false)
@@ -227,7 +228,7 @@ import SpriteKit
             }
             let clientBody = client.children.compactMap { $0 as? IEAvatarNode }.first { !$0.isHidden }!
             try check(client.position.x > 0 && clientBody.currentFrame!.id!.name.hasPrefix("idle_"), "Lila's scripted entrance slides a rigid miniature")
-            try check(clientBody.position.y == 6 && client.childNode(withName: "miniature.base")!.position == clientBody.position,
+            try check(clientBody.position.y > 0 && client.childNode(withName: "miniature.base")!.position == clientBody.position,
                       "Lila's scripted entrance lifts the whole miniature")
             for step in 50..<500 {
                 client.updateLocomotion(at: Double(step)/60, worldIsPaused: false)
@@ -238,7 +239,7 @@ import SpriteKit
                       "Lila settles fully at arrival")
             let equipped = try CharacterAppearanceNode(definition: .cityGuard)
             equipped.visualHeightOffset = 17
-            for step in 0..<40 {
+            for step in 0..<50 {
                 equipped.position.x = CGFloat(step / 4 * 4)
                 equipped.updateMiniatureMotion(at: Double(step)/60, paused: false)
             }
@@ -247,12 +248,12 @@ import SpriteKit
             try equipped.apply(recolored)
             equipped.visualHeightOffset = 21
             let equipmentLayers = equipped.children.compactMap { $0 as? IEAvatarNode }
-            try check(equipmentLayers.count > 1 && equipmentLayers.allSatisfy { $0.position.y == 27 },
+            try check(equipmentLayers.count > 1 && equipmentLayers.allSatisfy { $0.position == body(equipped).position && $0.zRotation == body(equipped).zRotation } && body(equipped).position.y > 21,
                       "Equipped NPC holds registration through paint changes and terrain height while lifted")
-            try check(equipped.childNode(withName: "miniature.base")!.position.y == 27,
+            try check(equipped.childNode(withName: "miniature.base")!.position == body(equipped).position,
                       "NPC base shares terrain plus cosmetic lift")
             let shadow = equipped.childNode(withName: "miniature.base/miniature.groundShadow")!
-            try check(shadow.convert(.zero, to: equipped).y == 16, "Lift shadow remains on the terrain under the base")
+            try check(abs(shadow.convert(.zero, to: equipped).y - 16) < 0.001, "Lift shadow remains on the terrain under the base")
             let motionStore = SaveStore(key: "RainShadow.QA.MiniatureMotion.\(UUID().uuidString)")
             defer { motionStore.reset() }
             let motionScene = BaseGameScene(context: GameContext(saveStore: motionStore), artSize: CGSize(width: 720, height: 420))
@@ -261,19 +262,19 @@ import SpriteKit
             let bearPiece = try CharacterAppearanceNode(definition: bearDefinition)
             let group = SKNode(); motionScene.depthWorldRoot.addChild(group); group.addChild(bearPiece)
             bearPiece.visualHeightOffset = 21
-            for step in 0..<40 {
+            for step in 0..<50 {
                 bearPiece.position.x = CGFloat(step / 4 * 4)
                 motionScene.updateGroundCircles(at: Double(step)/60)
                 motionScene.didFinishUpdate()
             }
-            try check(bearPiece.childNode(withName: "miniature.base")!.position.y == 27,
+            try check(bearPiece.childNode(withName: "miniature.base")!.position.y > 21,
                       "Scene finish-update lifts nested combat/bear actors without a selectable circle")
             let bearShadow = bearPiece.childNode(withName: "miniature.base/miniature.groundShadow")!
-            try check(bearShadow.convert(.zero, to: bearPiece).y == 11,
+            try check(abs(bearShadow.convert(.zero, to: bearPiece).y - 11) < 0.001,
                       "Large base shadow stays on the board despite the doubled base scale")
             motionScene.pause.setModal(dialogue: false, overlay: true)
             motionScene.updateGroundCircles(at: 6); motionScene.didFinishUpdate()
-            try check(bearPiece.childNode(withName: "miniature.base")!.position.y == 27,
+            try check(bearPiece.childNode(withName: "miniature.base")!.position.y > 21,
                       "Scene pause freezes miniature presentation")
             motionScene.pause.setModal(dialogue: false, overlay: false)
             for step in 360..<420 {
@@ -328,7 +329,7 @@ import SpriteKit
                 movingPiece.updateLocomotion(at: time, worldIsPaused: false)
                 movingPiece.updateMiniatureMotion(at: time, paused: false)
                 let lifted = movingPiece.childNode(withName: "miniature.base")!.position.y > 0
-                movementLabel.text = movingPiece.position == end ? (lifted ? "Set down" : "Placed") : (lifted ? "Lift and glide" : "Pick up the piece")
+                movementLabel.text = movingPiece.position == end ? (lifted ? "Set down" : "Placed") : (lifted ? "Rigid miniature hops" : "Pick up the piece")
                 if step % 4 == 0 {
                     let png = NSBitmapImageRep(cgImage: view.texture(from: movementScene)!.cgImage())
                         .representation(using: .png, properties: [:])!

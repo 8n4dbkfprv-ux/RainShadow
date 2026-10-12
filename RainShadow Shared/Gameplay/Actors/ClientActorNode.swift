@@ -10,6 +10,8 @@ final class ClientActorNode: SKNode, TabletopMovingActor {
         guard TabletopPresentation.enabled else { return }
         body.position = .zero
         miniatureBase.position = .zero
+        miniatureBase.zRotation = 0
+        body.zRotation = 0
         miniatureBase.presentLift(0)
     }
 
@@ -18,10 +20,12 @@ final class ClientActorNode: SKNode, TabletopMovingActor {
         let lift = miniatureMotion.update(position: position, at: time, paused: paused)
         body.position = CGPoint(x: 0, y: lift)
         miniatureBase.position = body.position
+        body.zRotation = miniatureMotion.tilt
+        miniatureBase.zRotation = miniatureMotion.tilt
         miniatureBase.presentLift(lift)
         // Keep the entrance cue alive through set-down. Otherwise its dialogue
         // continuation pauses the world with the base still in mid-air.
-        if !paused, !isLocomoting, lift == 0, let completion = miniaturePlacementCompletion {
+        if !paused, !isLocomoting, miniatureMotion.isPlaced, let completion = miniaturePlacementCompletion {
             miniaturePlacementCompletion = nil
             completion()
         }

@@ -297,7 +297,9 @@ final class MiniatureBaseNode: SKSpriteNode {
 
     /// The shadow stays on the board as the entire painted piece is lifted.
     func presentLift(_ height: CGFloat) {
-        groundShadow.position.y = -height / yScale - 5
+        let groundY = -height / yScale - 5
+        groundShadow.position = CGPoint(x: sin(zRotation) * groundY, y: cos(zRotation) * groundY)
+        groundShadow.zRotation = -zRotation
         groundShadow.alpha = 0.4 * min(1, height / TabletopMiniatureMotion.liftHeight)
     }
     enum Allegiance: String { case ally, hostile, neutral }
@@ -338,18 +340,20 @@ final class MiniatureBaseNode: SKSpriteNode {
     }
 }
 
-/// Presentation only: observe the integral navigation root, never write it.
-/// Holding between 15 Hz movement ticks avoids a hop on every engine step.
+/// Reference motion: short whole-piece hops, with a small lean and a planted
+/// beat between arcs. Navigation still owns the unchanged integral ground root.
 struct TabletopMiniatureMotion {
-    static let liftHeight: CGFloat = 6
+    static let liftHeight: CGFloat = 12
+    static let hopDuration: TimeInterval = 0.64
     private(set) var height: CGFloat = 0
+    private(set) var tilt: CGFloat = 0
     private var lastPosition: CGPoint?
     private var lastTime: TimeInterval?
     private var wasPaused = false
     private var stillTime: TimeInterval = 1
-    private var target: CGFloat = 0
-    private var startHeight: CGFloat = 0
-    private var elapsed: TimeInterval = 0
+    private var hopTime: TimeInterval?
+    private var leanDirection: CGFloat = 0
+    var isPlaced: Bool { hopTime == nil && height == 0 }
 
     mutating func reset() { self = Self() }
 
@@ -358,22 +362,33 @@ struct TabletopMiniatureMotion {
         guard let lastPosition, let lastTime else { return height }
         guard !paused, !wasPaused else { return height }
         let rawDelta = max(0, time - lastTime)
-        let distance = hypot(position.x - lastPosition.x, position.y - lastPosition.y)
-        // A relocated/reused actor or a suspended scene starts seated on its base.
+        let dx = position.x - lastPosition.x, dy = position.y - lastPosition.y
+        let distance = hypot(dx, dy)
         if distance > 64 || rawDelta > 0.5 {
             reset()
             return height
         }
         let delta = min(rawDelta, 0.1)
         stillTime = distance > 0.001 ? 0 : stillTime + delta
-        let nextTarget: CGFloat = stillTime < 0.12 ? Self.liftHeight : 0
-        if nextTarget != target {
-            startHeight = height; target = nextTarget; elapsed = 0
+        if distance > 0.001 { leanDirection = dx / distance }
+        let moving = stillTime < 0.12 // Bridge the 15 Hz navigation ticks.
+        if hopTime == nil, moving { hopTime = 0 }
+        guard let previousHopTime = hopTime else { return height }
+        var elapsed = previousHopTime + delta
+        if elapsed >= Self.hopDuration {
+            guard moving else {
+                hopTime = nil; height = 0; tilt = 0
+                return height
+            }
+            elapsed.formTruncatingRemainder(dividingBy: Self.hopDuration)
         }
-        elapsed += delta
-        let t = CGFloat(min(1, elapsed / (target > 0 ? 0.14 : 0.18)))
-        let ease = t * t * (3 - 2 * t)
-        height = startHeight + (target - startHeight) * ease
+        hopTime = elapsed
+        // 0.56 s airborne + 0.08 s planted. Complete the current arc on arrival
+        // before releasing a cutscene continuation, even if the route stopped.
+        let t = CGFloat(min(1, elapsed / 0.56))
+        let arc = 4 * t * (1 - t)
+        height = Self.liftHeight * arc
+        tilt = -0.075 * leanDirection * arc
         return height
     }
 }

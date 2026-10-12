@@ -10,13 +10,16 @@ now includes PR 36's tabletop proposal and records that palette decision.
   Walking, running, dashing, ladder traversal and stealth move the whole piece.
   Actions retain their existing gameplay/impact timing; figures do not articulate.
   Defeat tips the complete piece onto its side. Walking footsteps are suppressed.
-- Movement uses one restrained pickup/glide/set-down: 6 world units of lift,
-  0.14 s pickup and 0.18 s eased placement. A 0.12 s hold bridges the 15 Hz
-  navigation ticks so the piece never bounces with individual steps or corners.
-  The shadow remains on the terrain. Pause freezes the lift and its clock.
-  `TabletopMiniatureMotion` observes root positions after navigation/SKActions;
-  it only offsets artwork, including equipment and base. Terrain height remains
-  additive. Hidden originals share the update for combat proxy hand-offs.
+- Movement follows Laurens’s animated reference: repeated 0.64 s whole-piece
+  hops (0.56 s arc, 0.08 s planted beat), 12 world units high with up to 4.3°
+  of directional lean. No limb animation or squash/stretch. The shadow stays
+  on the terrain, counter-rotated beneath the tilted base. Pause freezes the
+  motion; arrival completes the current hop. `TabletopMiniatureMotion` observes
+  root positions after navigation/SKActions and only offsets artwork. Terrain
+  height remains additive; hidden originals share the update for proxy hand-offs.
+- Opening fix: Lila’s entrance continuation waits for final placement before
+  dialogue freezes the world. Skipping resets body, base, tilt and shadow
+  immediately, including jumps smaller than the relocation threshold.
 - Human bases are 25 mm relative to a 32 mm sculpt; Bear Form uses 50 mm.
   The Blender-rendered base has a bevelled ink-black resin rim and wet-slate top.
   Allies use a brass pin line, combat enemies oxblood, neutrals plain ink-black.
@@ -89,7 +92,7 @@ Review images and reports are under `output/tabletop-miniatures-oct12/`.
 
 Movement follow-up: macOS and iOS Simulator Debug builds pass; all four movement
 integration tests pass. The extended SpriteKit harness passes 817 checks,
-including pickup/steady glide/monotonic set-down at 30/60/120 fps, pause/resume,
+including bounded hops and planted arrival at 30/60/120 fps, pause/resume,
 teleport handling, real Voss/Lila routes, equipped terrain offsets, the large
 bear shadow and the scene's final presentation pass. It also writes
 `movement-frames/` for visual review. The rendered route preview and report are
@@ -103,3 +106,15 @@ base tops, practical-light simulation, macro dialogue portraits, physical dice,
 prop UI and a separately rendered 55° combat camera remain subsequent work.
 The current terrain plates remain placeholders as PR 36 specifies. The base's
 visual diameter does not expand the navigation collider or alter narrow routes.
+
+Reference-hop follow-up: the 817 SpriteKit checks pass with the new hop rhythm,
+and both app targets build. The actual fresh-game opening, natural Lila entrance,
+dialogue placement, departure and mid-hop skip pass all eight end-to-end checks.
+The initial Voss terrain comparison uses 0.001 world-unit tolerance for SpriteKit’s
+float-backed transform, rather than exact equality with the double height map.
+Review: `output/tabletop-hops-oct12/movement.gif` and `opening/`.
+
+Four movement integration tests and the cutscene catalog suite pass. The unchanged
+cutscene runner/action-override unit suites report 46 issues in existing cue
+completion expectations; this presentation work does not modify those sources
+or tests. The real opening is verified separately by `RAINSHADOW_QA_TABLETOP_OPENING`.

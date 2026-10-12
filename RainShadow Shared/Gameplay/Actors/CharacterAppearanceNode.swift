@@ -18,6 +18,10 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
         let height = visualHeightOffset + miniatureMotion.height
         layers.forEach { $0.position.y = height }
         miniatureBase.position.y = height
+        if TabletopPresentation.enabled {
+            layers.forEach { $0.zRotation = miniatureMotion.tilt }
+            miniatureBase.zRotation = miniatureMotion.tilt
+        }
     }
     private(set) var definition: CharacterDefinition
     private(set) var currentAction: CharacterVisualAction = .idle
@@ -658,6 +662,7 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
         for (item, node) in equipmentNodes {
             if let frame = frames.1[item] { node.apply(frame) } else { node.clear() }
         }
+        if TabletopPresentation.enabled { applyMiniatureHeight() }
         refreshLighting()
         if let stencilScene { applyWallStencil(stencil, in: stencilScene) }
     }

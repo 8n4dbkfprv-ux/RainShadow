@@ -9,6 +9,8 @@ final class DetectiveActorNode: SKNode, TabletopMovingActor {
         let lift = miniatureMotion.update(position: position, at: time, paused: paused)
         body.position = CGPoint(x: 0, y: visualHeightOffset + lift)
         miniatureBase.position = body.position
+        body.zRotation = miniatureMotion.tilt
+        miniatureBase.zRotation = miniatureMotion.tilt
         miniatureBase.presentLift(lift)
     }
     enum State {
@@ -946,6 +948,8 @@ final class DetectiveActorNode: SKNode, TabletopMovingActor {
         if TabletopPresentation.enabled {
             body.position = standingBodyPosition
             miniatureBase.position = body.position
+            miniatureBase.zRotation = 0
+            body.zRotation = 0
             miniatureBase.presentLift(0)
         }
         position = point
