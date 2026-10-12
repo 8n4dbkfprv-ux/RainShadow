@@ -10,6 +10,43 @@ import AppKit
 final class CityDistrictScene: GameAreaScene, CutsceneStage {
     private lazy var wharfStory = WharfLadderDirector(scene: self)
     var combatDirector: TacticalCombatDirector? { wharfStory.combatDirector }
+    private(set) var areaBarrels: [CombatBarrel] = []
+    private(set) var areaBarrelNodes: [String: CombatBarrelVisual] = [:]
+
+    /// Called before story staging, so the crew routes around existing scenery.
+    private func prepareAreaBarrels() {
+        guard area.id == WharfLadderStory.exterior || area.id == WharfLadderStory.interior else { return }
+        let session = context.session
+        var savedCombat = session.tacticalCombat.flatMap { AreaID($0.areaID) == area.id ? $0 : nil }
+        savedCombat?.repairShippingBarrelPlacement(in: navigation)
+        if let savedCombat, savedCombat != session.tacticalCombat { _ = session.checkpointCombat(savedCombat) }
+        let barrels = savedCombat?.barrels ?? session.savedBarrels(in: area.id)
+            ?? CombatNavigation.areaBarrels(in: area.id, map: navigation)
+        setAreaBarrels(barrels)
+        if savedCombat == nil { session.saveAreaBarrels(barrels, in: area.id) }
+    }
+
+    func setAreaBarrels(_ barrels: [CombatBarrel]) {
+        let ids = Set(barrels.map(\.id))
+        for id in Array(areaBarrelNodes.keys) where !ids.contains(id) {
+            areaBarrelNodes.removeValue(forKey: id)?.removeFromParent(); navigation.unregisterActor(id: id)
+        }
+        for barrel in barrels {
+            if let node = areaBarrelNodes[barrel.id] {
+                if areaBarrels.first(where: { $0.id == barrel.id }) != barrel { node.apply(barrel) }
+            } else {
+                let node = CombatBarrelVisual(barrel: barrel, lighting: area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
+                depthWorldRoot.addChild(node); areaBarrelNodes[barrel.id] = node
+            }
+            if let node = areaBarrelNodes[barrel.id] { updateDepth(of: node) }
+            navigation.unregisterActor(id: barrel.id)
+            if !barrel.isBroken {
+                navigation.occupancy.register(OccupyingActor(id: barrel.id, kind: .npc, position: barrel.position,
+                    radius: 20, isBumpable: false, isMoving: false, personalSpaceCells: 3))
+            }
+        }
+        areaBarrels = barrels
+    }
     private var storyOwnsInput: Bool { wharfStory.isActive }
     override var chromeIsSuppressedByScene: Bool { wharfStory.cinematicMode }
 
@@ -171,6 +208,7 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
         updateDepth(of: detective)
         depthWorldRoot.addChild(detective)
         installGroundCircleActors([detective])
+        prepareAreaBarrels()
 
         addFogOfWar()
         if districtID != nil {

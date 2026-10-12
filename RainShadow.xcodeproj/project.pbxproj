@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+        7AB1E7000000000000000011 /* Tabletop in Resources */ = {isa = PBXBuildFile; fileRef = 7AB1E7000000000000000001 /* Tabletop */; };
+        7AB1E7000000000000000021 /* Tabletop in Resources */ = {isa = PBXBuildFile; fileRef = 7AB1E7000000000000000001 /* Tabletop */; };
 		C0DE1EA00000000000000011 /* Lila in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000001 /* Lila */; };
 		C0DE1EA00000000000000012 /* Voss in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000002 /* Voss */; };
 		C0DE1EA00000000000000013 /* VossCHMF in Resources */ = {isa = PBXBuildFile; fileRef = C0DE1EA00000000000000004 /* VossCHMF */; };
@@ -172,6 +174,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+        7AB1E7000000000000000001 /* Tabletop */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Tabletop; path = "RainShadow Shared/Resources/Art/IE/Tabletop"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000001 /* Lila */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lila; path = "RainShadow Shared/Resources/Art/IE/Avatars/Lila"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000002 /* Voss */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Voss; path = "RainShadow Shared/Resources/Art/IE/Avatars/Voss"; sourceTree = SOURCE_ROOT; };
 		C0DE1EA00000000000000004 /* VossCHMF */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VossCHMF; path = "RainShadow Shared/Resources/Art/IE/Avatars/VossCHMF"; sourceTree = SOURCE_ROOT; };
@@ -3343,6 +3346,7 @@
 		C0DE1EA00000000000000003 /* Indexed Avatar Bundles */ = {
 			isa = PBXGroup;
 			children = (
+                7AB1E7000000000000000001 /* Tabletop */,
 				C0DE1EA00000000000000001 /* Lila */,
 				C0DE1EA00000000000000002 /* Voss */,
 				C0DE1EA00000000000000004 /* VossCHMF */,
@@ -3565,6 +3569,7 @@
 				C0DE1EA00000000000000012 /* Voss in Resources */,
 				C0DE1EA00000000000000013 /* VossCHMF in Resources */,
 				C0DE1EA00000000000000017 /* LilaSentinel in Resources */,
+                7AB1E7000000000000000011 /* Tabletop in Resources */,
 				C0DE1EA00000000000000016 /* VossSplintMail in Resources */,
 				C0DE1EA00000000000000015 /* VossIronHelmet in Resources */,
 				C0DE1EA00000000000000014 /* VossLanternShortsword in Resources */,
@@ -3656,6 +3661,7 @@
 				C0DE1EA00000000000000022 /* Voss in Resources */,
 				C0DE1EA00000000000000023 /* VossCHMF in Resources */,
 				C0DE1EA00000000000000027 /* LilaSentinel in Resources */,
+                7AB1E7000000000000000021 /* Tabletop in Resources */,
 				C0DE1EA00000000000000026 /* VossSplintMail in Resources */,
 				C0DE1EA00000000000000025 /* VossIronHelmet in Resources */,
 				C0DE1EA00000000000000024 /* VossLanternShortsword in Resources */,

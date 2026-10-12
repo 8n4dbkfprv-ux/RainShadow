@@ -1222,6 +1222,17 @@ enum CombatNavigation {
     /// baked desk can still put a tall prop visibly on its tabletop.
     static let shippingBarrelSeats = [CGPoint(x: 430, y: 410), CGPoint(x: 600, y: 180),
                                       CGPoint(x: 400, y: 420), CGPoint(x: 560, y: 170)]
+    /// Scenery belongs to the area, not the player's position when combat starts.
+    static func areaBarrels(in area: AreaID, map: NavigationMap) -> [CombatBarrel] {
+        let seats: [CGPoint]
+        if area == WharfLadderStory.exterior { seats = [CGPoint(x: 1840, y: 1840), CGPoint(x: 1920, y: 1810)] }
+        else if area == WharfLadderStory.interior { seats = Array(shippingBarrelSeats.prefix(1)) }
+        else { return [] }
+        return seats.enumerated().compactMap { index, point in
+            guard map.searchMap.blockedInRadiusTile(at: point, size: 2).contains(.passable) else { return nil }
+            return CombatBarrel(id: "combat.oil.\(index)", position: point)
+        }
+    }
     static func shippingBarrelSeat(in map: NavigationMap, actors: [Combatant], avoiding: [CGPoint] = []) -> CGPoint? {
         shippingBarrelSeats.first { point in
             map.searchMap.blockedInRadiusTile(at: point, size: 2).contains(.passable)

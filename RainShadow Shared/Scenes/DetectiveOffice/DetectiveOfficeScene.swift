@@ -1502,7 +1502,9 @@ final class DetectiveOfficeScene: GameAreaScene, CutsceneStage {
     private func showOfficeHintIfNeeded() {
         guard !context.session.hasSeenOfficeHint else { return }
         let hint = SKLabelNode(fontNamed: "AvenirNext-Medium")
-        hint.text = "Tap or click the floor to stand and move. Select an object to inspect it."
+        hint.text = TabletopPresentation.enabled
+            ? "Tap or click the floor to move your miniature. Select an object to inspect it."
+            : "Tap or click the floor to stand and move. Select an object to inspect it."
         hint.fontSize = 18
         hint.fontColor = SKColor(white: 0.82, alpha: 0.85)
         hint.position = CGPoint(x: 0, y: 280)

@@ -1,5 +1,17 @@
 # AGENTS
 
+## Tabletop character presentation — October 12
+
+PR 36 and the user's October 12 direction supersede the BGEE **character
+presentation** target below. Figures are rigid miniatures on bevelled bases;
+walking/running/dashing move the complete piece without skeletal playback.
+Palette swaps remain supported. `TabletopMiniatureLibrary` imports full-colour
+Blender renders with separate continuous paint data; `Resources/Art/IE/Tabletop`
+is its packaged authority. The legacy named indexed bundles and hashes remain
+intact for compatibility/reference. Tabletop display bypasses the native IE
+compositor, tint, greyscale and checkerboard cover. The navigation port is
+unchanged. See `Documentation/TabletopMiniaturesOct12.md` for scope and QA.
+
 ## Current character runtime — October 5 recovery
 
 Voss uses **VossCHMF**, the approved Rustic Warrior with the October 1 V8

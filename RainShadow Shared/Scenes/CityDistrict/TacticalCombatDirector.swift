@@ -240,6 +240,7 @@ final class TacticalCombatDirector {
         for (id, point) in repaired { self.combat.reconcilePosition(id: id, point: point) }
         for actor in self.combat.actors {
             let node = actorNode(actor.id)
+            (node as? CharacterAppearanceNode)?.miniatureAllegiance = actor.player ? .ally : .hostile
             node?.position = actor.position
             self.combat.setInitialFacing(actor.id, facing: (node as? CharacterAppearanceNode)?.currentFacing ?? .northEast)
             let facing = ActorFacing.clamped(self.combat.actors.first { $0.id == actor.id }!.combatFacing!)
@@ -251,6 +252,7 @@ final class TacticalCombatDirector {
             node?.addChild(badge); badges[actor.id] = badge
             let ring = SKShapeNode(ellipseOf: CGSize(width: 58, height: 43.5))
             ring.lineWidth = 2; ring.zPosition = -0.1
+            ring.isHidden = TabletopPresentation.enabled
             node?.addChild(ring); rings[actor.id] = ring
             if actor.conscious { scene.navigation.updateActor(id: actor.id, position: actor.position, isMoving: false) }
             else { scene.navigation.unregisterActor(id: actor.id); node?.isHidden = true }
@@ -260,15 +262,8 @@ final class TacticalCombatDirector {
             do { try prepareBear(); setDisplayedForm(true); registerPlayerFootprint() }
             catch { assertionFailure("Saved Bear Form cannot load: \(error)") }
         }
-        for barrel in combat.barrels ?? [] {
-            let node = CombatBarrelVisual(barrel: barrel,
-                lighting: scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
-            scene.depthWorldRoot.addChild(node); scene.updateDepth(of: node)
-            barrelNodes[barrel.id] = node
-            if !barrel.isBroken { scene.navigation.occupancy.register(OccupyingActor(id: barrel.id, kind: .npc,
-                position: barrel.position, radius: 20, isBumpable: false, isMoving: false,
-                personalSpaceCells: 3)) }
-        }
+        scene.setAreaBarrels(combat.barrels ?? [])
+        barrelNodes = scene.areaBarrelNodes
         for actor in combat.actors where !actor.conscious { beginDefeat(actor, restored: true) }
         updateDefeats(delta: 0)
         for actor in combat.actors where actor.isProne {
@@ -887,6 +882,7 @@ final class TacticalCombatDirector {
             do {
                 let definition = actor.player && combat.isBear ? bearNode!.definition : combatAppearance(for: actor)
                 let node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = definition.id == "voss" || definition.id == "combat.bear.visual" ? .ally : .hostile
                 try node.present(action: .run, facing: ActorFacing.clamped(actor.combatFacing ?? 0), phase: 0)
                 runner = node
             } catch { feedback = "Running artwork could not load."; refresh(); return false }
@@ -1117,6 +1113,7 @@ final class TacticalCombatDirector {
             let definition = combatAppearance(for: actor)
             do {
                 let proxy = try CharacterAppearanceNode(definition: definition)
+                proxy.miniatureAllegiance = definition.id == "voss" ? .ally : .hostile
                 try proxy.present(action: .dash, facing: facing, phase: 0)
                 node = proxy
             } catch { feedback = "Dash artwork could not load."; refresh(); return false }
@@ -1224,6 +1221,7 @@ final class TacticalCombatDirector {
             if let playerMeleeNode { try playerMeleeNode.apply(definition) }
             else {
                 let node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = definition.id == "voss" || definition.id == "combat.bear.visual" ? .ally : .hostile
                 node.isHidden = true
                 node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
                 scene.depthWorldRoot.addChild(node); playerMeleeNode = node
@@ -1296,6 +1294,7 @@ final class TacticalCombatDirector {
         let facing = ActorFacing.orient(from: actor.position, to: target.position)
         do {
             let node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = definition.id == "voss" || definition.id == "combat.bear.visual" ? .ally : .hostile
             try node.present(action: .shove, facing: facing, phase: 0)
             node.position = actor.position
             node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
@@ -1397,6 +1396,7 @@ final class TacticalCombatDirector {
             if let existing = reactionNodes[target.id] { node = existing; try node.present(action: .idle, facing: facing, phase: 0); try node.apply(definition) }
             else {
                 node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = target.player ? .ally : .hostile
                 reactionNodes[target.id] = node; scene.depthWorldRoot.addChild(node)
             }
             node.name = "combat.reaction." + target.id
@@ -1456,6 +1456,7 @@ final class TacticalCombatDirector {
         let facing = ActorFacing.clamped(actor.combatFacing ?? (actorNode(actor.id) as? CharacterAppearanceNode)?.currentFacing.rawValue ?? scene.detective.currentFacing.rawValue)
         do {
             let node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = definition.id == "voss" || definition.id == "combat.bear.visual" ? .ally : .hostile
             node.name = "combat.defeated." + actor.id
             node.position = actorNode(actor.id)?.position ?? actor.position
             node.visualHeightOffset = actor.player ? scene.detective.visualHeightOffset : (actorNode(actor.id) as? CharacterAppearanceNode)?.visualHeightOffset ?? 0
@@ -1589,6 +1590,7 @@ final class TacticalCombatDirector {
             if let playerBowNode { try playerBowNode.apply(definition) }
             else {
                 let node = try CharacterAppearanceNode(definition: definition)
+                node.miniatureAllegiance = definition.id == "voss" || definition.id == "combat.bear.visual" ? .ally : .hostile
                 node.isHidden = true
                 node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
                 scene.depthWorldRoot.addChild(node); playerBowNode = node
@@ -1814,6 +1816,7 @@ final class TacticalCombatDirector {
                     if node.definition != definition { try node.apply(definition) }
                 } else {
                     node = try CharacterAppearanceNode(definition: definition)
+                    node.miniatureAllegiance = actor.player ? .ally : .hostile
                     node.name = "combat.stealth." + actor.id
                     node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
                     stealthNodes[actor.id] = node; scene.depthWorldRoot.addChild(node)
@@ -2200,10 +2203,7 @@ final class TacticalCombatDirector {
         playerBowNode?.removeFromParent()
         meleeAttack?.stop(); meleeAttack = nil
         playerMeleeNode?.removeFromParent()
-        for (id, node) in barrelNodes {
-            if combat.barrels?.first(where: { $0.id == id })?.isBroken != true { node.removeFromParent() }
-            scene.navigation.unregisterActor(id: id)
-        }
+        scene.setAreaBarrels(scene.context.session.savedBarrels(in: scene.area.id) ?? [])
         barrelNodes.removeAll()
         blasts.forEach { $0.removeFromParent() }; blasts.removeAll()
         bearNode?.removeFromParent(); formEffect?.stop()
@@ -2286,6 +2286,7 @@ final class TacticalCombatDirector {
         guard bearNode == nil else { return }
         let node = try CharacterAppearanceNode(definition: .init(id: "combat.bear.visual",
             classID: nil, factionID: nil, appearance: .init(body: .bearGuardian)))
+        node.miniatureAllegiance = .ally
         node.isHidden = true
         node.applySceneLighting(scene.area.id == WharfLadderStory.exterior ? .cityDay : .officeInterior)
         scene.depthWorldRoot.addChild(node)

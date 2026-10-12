@@ -111,7 +111,11 @@ extension GroundCircleHosting {
     /// `Selectable::IsOver` — is the pointer inside this actor's ground circle?
     /// The point must be in the same space as `position`.
     func isOverGroundCircle(_ point: CGPoint) -> Bool {
-        GroundCircleResolver.isOverCircle(
+        if TabletopPresentation.enabled, let base = childNode(withName: "miniature.base") as? MiniatureBaseNode, let parent {
+            let local = base.convert(point, from: parent)
+            return base.containsFootprint(local)
+        }
+        return GroundCircleResolver.isOverCircle(
             point,
             center: position,
             circleSize: groundCircleState.circleSize

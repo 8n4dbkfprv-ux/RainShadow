@@ -4,6 +4,21 @@ import CoreGraphics
 @testable import RainShadowCore
 
 struct ShippingBarrelPlacementTests {
+    @Test func areaSceneryIsSeededWithoutCombatantsAndKeepsTheDoorReachable() throws {
+        for id in [WharfLadderStory.exterior, WharfLadderStory.interior] {
+            let area = try AreaCatalogLoader.load(id), map = area.makeNavigationMap()
+            let barrels = CombatNavigation.areaBarrels(in: id, map: map)
+            #expect(barrels.count == (id == WharfLadderStory.exterior ? 2 : 1))
+            let start = try #require(area.spawnPoint(entrance: nil))
+            let target = try #require(area.travelRegions.first?.approachPoint?.cgPoint)
+            for barrel in barrels {
+                map.occupancy.register(OccupyingActor(id: barrel.id, kind: .npc, position: barrel.position,
+                    radius: 20, isBumpable: false, isMoving: false, personalSpaceCells: 3))
+            }
+            let path = map.pathAvoidingActors(from: start, to: target)
+            #expect(map.searchMap.cell(for: path.destination ?? .zero) == map.searchMap.cell(for: target))
+        }
+    }
     @MainActor private func fixture() throws -> (NavigationMap, [Combatant]) {
         let map = try AreaCatalogLoader.load(WharfLadderStory.interior).makeNavigationMap()
         let origin = CGPoint(x: 487, y: 364)

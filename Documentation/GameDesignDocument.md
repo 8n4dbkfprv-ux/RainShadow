@@ -42,9 +42,9 @@ The player connects facts into hypotheses. Several hypotheses may fit the known 
 
 The tone is bruised and unsentimental, but not empty cynicism. Small acts of care, humor, dignity, and restraint make the darkness meaningful. Violence is possible, rarely clean, and never the default reward loop.
 
-### 2.5 Pre-rendered clarity
+### 2.5 Tabletop clarity
 
-Detailed pre-rendered locations and crude era-authentic 3D character meshes evoke the production logic of classic Infinity Engine games. Characters are modeled, rigged, lit, and rendered offline into directional 2D frames. Their geometry and textures remain deliberately simple, then resolve through a small native raster and restrained palette so the play-scale result is lightly pixelated without becoming hand-authored pixel art. Interactive objects remain readable through silhouette, value, controlled highlights, cursor feedback, and authored occlusion—not through modern neon outlines everywhere.
+Harborpoint is played as **painted tabletop miniatures on a diorama table on a wet night**. Every character is a painted 32 mm miniature on a base; every street and room is a terrain board lit by a few practical lamps. Combat is decided by **physical dice thrown onto the table**, read where they land. Noir comes first and toy second: light, rain and shadow carry the mood. Every figure reads at phone scale from its silhouette and base rim alone (§5).
 
 ## 3. Audience, rating, and format
 
@@ -57,7 +57,7 @@ Detailed pre-rendered locations and crude era-authentic 3D character meshes evok
 
 ## 4. World, characters, and story
 
-This section is the **narrative canon** for Harborpoint, the two established leads, and the spine of the campaign. The leads’ retired working names (footnoted under each sheet) were fully migrated to the canon names with the V6 BGEE-style character redesign: sprites, atlases, portraits, UI text, and code identifiers now all use the names below. Design, dialogue, and new writing use only these names.
+This section is the **narrative canon** for Harborpoint, the two established leads, and the spine of the campaign. The leads’ retired working names (footnoted under each sheet) were fully migrated to the canon names with the V6 BGEE-style character redesign (now legacy art, §5.0): sprites, atlases, portraits, UI text, and code identifiers now all use the names below. Design, dialogue, and new writing use only these names.
 
 ### 4.1 World — Harborpoint under the rain
 
@@ -761,7 +761,7 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 - A combat mode that enters and leaves cleanly from exploration: real-time with pause, auto-pause on sighting and injury, and the existing pause affordances. A quiet crossing of a kept floor uses the same mode.
 - Hostility and allegiance on actors (neutral to hostile on trigger), plus temporary allies with limited orders: hold a door, throw a lamp, follow. Lila never receives a weapon order.
 - Enemy actors with simple authored AI: advance, flank a choke point, break and flee under morale loss, surrender. Chalk crews break when their named man drops. Rest coats break when that room’s factor drops. Porters do not break for a bribe.
-- Attack resolution using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed or improvised attack path (shove into seals, kick the lamp). Tune the placeholders so one night’s health can clear a core if the room is used.
+- Attack resolution read from physical dice thrown onto the table (§5.6), using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed or improvised attack path (shove into seals, kick the lamp). Tune the placeholders so one night’s health can clear a core if the room is used.
 - Damage that drives `GameSession.currentHealth` and the portrait bar, with **knockout vs lethal** intent and downed-not-dead as the default for Voss (defeat is a story outcome: he loses the thing he came for, or he is thrown out and a dawn passes).
 - Rest that fills health and leaves named injuries. A bonesetter who clears one injury, at the prices above. The two-dawn clock as case state the journal can read.
 - Watch attention advanced only by witnessed violence, as above.
@@ -771,7 +771,8 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 - The Story combat setting: per-fight auto-resolve that writes the same case flags a played fight would, including injuries and attention.
 - Ally injury states (Steady / Hurt / Badly hurt) that dialogue conditions, scene availability, and the journal can read.
 - Combat-time movement from `MovementSystemRoadmap.md` Phase 6 (formation-free single hero plus ally, choke-point pathing).
-- Art and audio: combat animations for Voss (strike, shove, hit, downed); three crew bodies (chalk, porter, Rest coat) plus Sedge, the Gray Man, and a factor; impact and lamp-dim audio. Named men can wear the crew body.
+- A dice-throw system: physics dice, readable face detection, re-throw for cocked dice, skip/speed setting.
+- Art and audio: painted-miniature action poses for Voss (strike, shove, hit, downed); three crew bodies (chalk, porter, Rest coat) plus Sedge, the Gray Man, and a factor; impact, lamp-dim and dice-on-table audio. Named men can wear the crew body.
 
 #### 4.3.6 Immersion checklist
 
@@ -831,72 +832,90 @@ Fuller cards live in the design pack (`combat-sidequests/sidequest-NN-*.md`). Th
 
 ## 5. Visual direction
 
-### 5.1 Production language
+### 5.0 Direction change — full tabletop (decided 12 October 2026)
 
-The target is the production language associated with classic Infinity Engine games and their Enhanced Editions:
+Laurens decided on 12 October 2026 to move to **full tabletop**: painted miniatures on a diorama table for exploration and combat, with physical dice in combat. This replaces the former pre-rendered Baldur's Gate: EE target and the `BGEE_V1` character pipeline.
 
-- richly painted or pre-rendered static area art;
-- a fixed three-quarter isometric projection (Baldur's Gate: EE orthographic camera);
-- crude hundreds-of-triangles 3D avatar meshes rendered offline into lightly pixelated 2D sprite frames with readable clothing/equipment masses and multi-orientation animation;
-- baked environmental lighting plus selective live overlays;
-- ground-contact shadows that keep sprites attached to the room;
-- separate doors, actors, effects, and interactive props;
-- foreground cutouts and depth anchors that allow characters to pass convincingly behind furniture and architecture;
-- dense texture at the source, read through strong value shapes at play scale.
+- **Status: proposal.** This section follows Game Art Director's *Tabletop Style Guide v1* (draft). Every value below (scale, palette hexes, camera angles, UI props) is a **proposal pending Laurens's sign-off**.
+- **Legacy assets.** Existing `BGEE_V1` sprites and atlases, portraits and area plates (RS0000–RS0601, including the finished v08, v12 and v19 art) are **legacy, reference only**, kept as placeholders until replaced. `BGEEHumanoidPipeline.md`, `BGEEProjectionMasterRegen.md`, `InfinityEngineGroundProjection.md`, `NativeSpriteCameraCalibration.md` and the old `style-guide.md` are historical.
+- **Unchanged:** noir tone, rain, lamplight, Harborpoint, the wardrobe colours, and the investigation-first design.
 
-The goal is equivalent visual density and staging, not literal duplication of any copyrighted location, character, interface, or prop.
+### 5.1 Production language — a real table on a wet night
+
+- Everything looks physical: painted resin, sculpted terrain, felt and wood, lit by a few practical lamps. Nothing bright or plasticky.
+- Each area is a **modular terrain board** (sculpted foam and resin) on a **dark walnut table with an ink-blue felt mat**. Board edges show at the frame edge as cut foam and painted plywood; never a void.
+- Buildings are scale-model kits: cardstock and plasticard façades, laser-cut windows, resin cobbles. Interiors are open-roof rooms or cutaway boxes; the roof lifts off when the player enters.
+- **Rain** is a real-world effect over the table: fine streaks with soft motion blur, droplets beading on varnished cobbles and base tops, gloss-resin puddles reflecting the lamps, low stage-fog mist.
+- **Lamplight:** each street lamp is a tiny warm practical LED on the model; the key is a cold moon/skylight from above and behind the board. Warm-against-cold is the noir signature. Long, soft-edged shadows.
+- **Day and night** are the table lighting changing (overcast window light vs lamps plus cold key); the board is painted once, replacing separately painted night plates if the renderer allows.
+- **Reuse:** districts share a terrain kit (cobble tiles, lamp posts, awnings, iron stairs, crates); hero landmarks are scratch-built one-offs, one or two per area.
+- Pipeline: model in Blender (or Meshy, retopologised in Blender), hand-paint textures to §5.5, render with a shallow-depth macro-lens look.
+
+The goal is the feel of a tabletop campaign, not copying any painter's miniature, published diorama, or real-world dice or terrain brand.
 
 ### 5.2 Camera and composition
 
-- Fixed projection, targeting the Baldur's Gate: EE orthographic camera — elevation `asin(0.75)` ≈ 48.59°, azimuth 45°, ground axes at 36.87° (slopes ±0.75), height foreshortening ≈ 0.6614, nav diamond 128×96. `ie_projection.ACTIVE` is BGEE; each plate's measured runtime/staging status is recorded in `Documentation/InfinityEngineGroundProjection.md` and `Documentation/BGEEProjectionMasterRegen.md`.
-- No perspective camera rotation during play.
-- Cinematic movement is limited to slow SpriteKit camera pans, pushes, and restrained scale changes.
-- The office composition must read at full view and at the minimum supported iPhone view.
-- The detective's feet and navigable floor stay within the composition-safe region across 4:3, 16:9, and wide phone aspect ratios.
+- **Exploration:** fixed three-quarter view looking down at about **45–50°**, keeping BG:EE-style readability and the existing 45° ground axes. Mild tilt-shift depth of field softens the far board. Pinch-to-zoom between a board-wide view and a close view roughly matching the old 100% scale.
+- **Combat:** pull back and tilt to about **55°** so the grid and dice tray are visible; a short push-in on the acting figure; dice throws frame the near table edge, then return.
+- **Inspection and dialogue:** macro close-up on the miniature and its base, background board blurred.
+- No free-orbit camera; the fixed angle keeps rendering cost down and composition authored.
+- The office composition must read at full view and at the minimum supported iPhone view; bases and navigable floor stay in the composition-safe region across 4:3, 16:9 and wide phone ratios.
 - Exterior and interior share one distinctive warm office-window shape to motivate the transition.
 
-### 5.3 Palette and lighting
+### 5.3 Palette and lighting (15-colour proposal)
 
-Primary palette:
+| Role | Name | Hex |
+|---|---|---|
+| Table | Dark walnut | #2A1C14 |
+| Table | Ink-blue felt | #1C2430 |
+| Base / shadow | Ink-black | #14161A |
+| Shadow | Wet slate | #2E3640 |
+| Mid | Rain stone | #565E66 |
+| Mid | Soot brick | #5A3A30 |
+| Highlight | Wet sheen | #A9B4BE |
+| Key light | Moon blue | #6E86A8 |
+| Practical light | Lamp core | #F2B65A |
+| Practical light | Lamp falloff | #C9822E |
+| Accent | Brass | #B08A4A |
+| Accent / neon | Sign teal | #3F8F8A |
+| Danger | Oxblood | #7A1F24 |
+| UI | Case-file cream | #E6DCC4 |
+| UI | Typewriter ink | #1E1B18 |
 
-- rain black and blue-charcoal;
-- dirty plaster gray-green;
-- wet asphalt violet;
-- tobacco brown and old-paper cream;
-- oxidized metal and muted burgundy;
-- one controlled pool of nicotine amber from the desk lamp.
+Wardrobe colours carry over unchanged from the locked anchors and become miniature paint:
 
-Lighting rules:
+- **Voss:** coat #653B26, shirt #D3C2A0, tie #80242A, trousers #463020, shoes #281E16, hair #8C5A30, skin #CA8F6C.
+- **Lila:** dress #265C42, coat #424A42, collar #CEC8BA, trim #242C28, shoes #302422, hair #3A261E, skin #D6A685.
 
-- One clear warm key source in the office: the desk lamp.
-- One cool environmental source: rain-window spill.
-- Deep but readable shadows; black values retain texture on calibrated displays.
-- Highlights describe wetness, glass, metal, and paper edges rather than coating every surface.
-- Environment objects must obey the scene's fixed light direction. Actors use one consistent neutral baked sprite rig; subtle runtime tint, a lamp overlay, and the separate contact shadow integrate them without requiring per-frame scene relighting.
+Palette swaps are retained (confirmed 12 October). Existing seven-region saved colour choices remain compatible. Miniatures use continuous colour and alpha from the Blender renders; palette variants recolour material regions without the BGEE indexed reduction or rendering effect.
 
-### 5.4 Texture and detail
+Lighting rules: in the office the brass desk lamp is the warm key and the rain window the cool source; deep but readable shadows; highlights describe wetness, glass, metal and paper edges. Miniatures sit under the same table lights as the terrain and cast real shadows from their bases.
 
-- Painterly, pre-rendered realism with visible material separation: damp brick, crazed varnish, worn wood, dented metal, fogged glass, paper fibers.
-- Avoid crisp vector edges, modern physically based 3D gloss, cel shading, chunky intentional pixel art, or generic “AI fantasy” ornament.
-- Downsample from larger masters to unify texture and soften generation artifacts.
-- Assess every asset at final on-screen scale. Detail that turns into noise must be regrouped, not merely sharpened.
+### 5.4 Texture and detail budget
 
-### 5.5 Character presentation — crude era-authentic pre-rendered 3D target
+- Painted-model realism with visible material separation: damp brick, crazed varnish, worn wood, dented metal, fogged glass, paper fibres.
+- **Hero minis** (Voss, Lila, named NPCs): unique sculpt with one story-telling prop each. **Generic minis** (watchmen, dockers): one sculpt, two or three paint variants and a head swap.
+- **Terrain:** modular tiles, low clutter so figures stay readable. **Table props:** real-world scale and the most detailed things in frame, out of focus unless in use.
+- Out of bounds: bright toy-plastic colours, glossy whole figures, visible 3D-printer layering, cartoon rain, particle-heavy dice or VFX, free-orbit camera, hands or a player avatar at the table.
 
-The in-world detective and clients use the same historical production principle as the supplied Baldur's Gate references—3D source models rendered into 2D directional frames—with a restrained play-scale raster treatment that recalls the original era without imitating hand-drawn pixel art.
+### 5.5 Character presentation — painted 32 mm miniatures
 
-- Source construction must read as a crude 1998-era textured game mesh rendered offline, not as hand-painted art, polished modern low-poly concept art, or a high-detail PBR character. Prompt for the production technology explicitly: hundreds rather than thousands of triangles, broad planar faces, solid-shell hair, mitten hands, tiny diffuse maps, and primitive vertex/Gouraud lighting.
-- Proportions use simplified realistic anatomy: readable shoulders and coat masses, but ordinary-sized head, hands, and shoes rather than a top-heavy pixel-sprite silhouette.
-- At 100% play zoom, Voss's 64-row native body displays at 64 logical screen points. The camera scale is the unchanged 70.3125-unit world body divided by 64; window resizing reveals more world without enlarging him. Player zoom scales the whole scene. The old 9%-of-window target is retired; prop and door proportions remain tied to the same world body. See `NativeSpriteCameraCalibration.md` for the engine evidence and SpriteKit/Retina limits.
-- Shading uses broad baked diffuse planes, low-resolution texture maps, restrained ambient occlusion, and limited muted color ramps. Generator masters are rasterised through `BGEE_V1`: a 64-row craft body with 1-bit alpha hardened at 50%, per-material 64-entry ramps without dithering, highlight-side value expansion, and a 1.15x torso/coat width correction that leaves the head unchanged and ramps back to 1.0x through the lower body without changing height or pivot. The 64-row choice is calibrated against a representative BG humanoid BAM's measured 52–60-row crown-to-ground span and is the smallest nearby grid that preserves every authored Voss gait. The indexed plane is resolved at native size and enlarged directly into the unchanged registered body by SpriteKit's linear sampler, matching BG:EE's non-nearest creature mode without a Super-xBR prefilter. See `BGEEHumanoidPipeline.md`; V14/V15 remain historical comparisons. Avoid hand-placed pixels, coarse decorative pixel clusters, painterly brushwork, and modern pore/strand-level detail.
-- Clothing colors form large, legible zones. The coat silhouette matters more than buttons or seams.
-- Locomotion resolves to 16 facing bins. Nine source orientations—S, SSW, SW, WSW, W, WNW, NW, NNW, N—supply the remaining seven eastern orientations by horizontal mirroring, echoing the legacy BG2/BG:EE convention.
-- The detective design is kept near-bilateral at sprite scale so mirroring does not expose a swapped scabbard, lapel badge, or other continuity-breaking prop.
-- Sprite lighting is a consistent neutral baked rig suited to subtle tint adjustment, not a new scene-specific relight for every frame. The office integrates him with a lamp overlay and contact shadow.
-- A shared ground pivot sits under the midpoint between the feet. A separate soft contact-shadow sprite is not baked into each animation frame.
-- Do not bake a heavy black outline. Edge separation comes from value and material contrast; an optional outline/ring is reserved for accessibility and debug display.
+- **Scale:** 32 mm heroic; an adult human is about 30 mm from soles to eyes. Voss and Lila stand 1–2 mm taller through pose, not a bigger scale.
+- **Bases:** 25 mm round, bevelled (40 or 50 mm for large creatures and vehicles). Base tops carry wet cobble, plank or tile matching where they stand, with a gloss-varnish puddle. The base is the selection and footprint shape, replacing the IE selection circle.
+- **Movement:** lift the complete piece slightly, glide it along its route, then ease it back onto the board. Body, equipment and base remain rigid together. No walking/running cycles, repeated hopping, squash or stretch. A ground shadow marks the footprint while lifted; pause freezes the piece in place.
+- **Rim meaning:** Voss and allies ink-black with a **brass** pin line; neutrals plain ink-black; hostiles an **oxblood** pin line. The active turn gets a lamplight-glow ring in the UI, not on the base.
+- **Painted-mini finish:** zenithal highlight, wash in the recesses, edge highlights on lapels, hat brims and knuckles, matte varnish overall; selective gloss on wet shoulders, brims and cobbles; dot-painted eyes. A few tiny handmade imperfections (a mould line, a brush-stroke blend), never overdone.
+- Sculpt detail visible at 32 mm: thick folds, slightly oversized hands, hats and weapons. No hair-fine detail, texture noise or tiny printed patterns.
+- **Portraits** are painted close-ups of the miniature itself, framed like photographs.
+- **Readability rule:** on an iPhone at exploration zoom, every figure reads from silhouette and base rim alone—a pale rim light on shoulders and hat, at least one value step between figure and cobbles. Test against the darkest night board.
 
-This specification is grounded in Beamdog's description of the lost 3D character models it had planned to re-render at higher resolution in the [Baldur's Gate: Enhanced Edition postmortem](https://www.gamedeveloper.com/programming/postmortem-overhaul-games-i-baldur-s-gate-enhanced-edition-i-) and the legacy orientation/mirroring behavior documented by [IESDP](https://gibberlings3.github.io/iesdp/file_formats/ie_formats/ini_anim.htm).
+### 5.6 Combat on the table — physical dice
+
+- In combat, **physical resin dice are thrown onto the table edge or board**, tumble, settle and are **read in place**; there is no hidden roll behind the animation. d20 and d6 only unless the rules need more.
+- Dice sets: Voss smoky amber with cream numerals; Lila deep-green marbled; hostiles oxblood with black numerals. A critical gets a brief lamp-flare glint, no particle fireworks.
+- A dark leather **dice tray** sits at the near table edge in combat only. A cocked or unreadable die is re-thrown, as at a real table. A setting speeds up or skips the throw.
+- The SearchMap grid may become the visible combat grid on the felt.
+- Real-time with pause (§4.3.5) remains the model for now, pausing for each throw to land and be read; the style guide's initiative tokens imply turns, so turn-based vs RTWP is open (§15). Story combat skips the dice.
 
 ## 6. Core gameplay loops
 
@@ -1143,6 +1162,9 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 
 ## 11. UI direction
 
+**Tabletop UI (proposal, §5.0):** the UI is physical objects on the table wherever possible, with flat overlays kept minimal. Journal: a case file folder of typed pages and pasted photos. Dialogue: index cards sliding in from the near edge, speaker shown as a framed photo of their miniature. Inventory: the evidence envelope and a cigar box with prop tokens. Map and travel (and the later deduction board): a city map with pins and string. Initiative: brass tokens with miniature portraits along the top edge. Combat actions: ink-wash cards (keeps the 9 October icons). Status: poker chips or brass tokens beside the base, plus a minimal flat readout for accessibility. Text is typewriter serif in ink (#1E1B18) on cream (#E6DCC4). Table-edge props sit inside the iOS safe area. The Infinity Engine chrome below is **legacy**, in use until the tabletop UI replaces it.
+
+
 - Infinity Engine layout hierarchy is intentional: vertical left action rail, right party/portrait rail, bottom dialogue plaque, paperdoll inventory, and ledger journal.
 - Deliberately opening a searchable container uses a compact, non-modal BG2-style transfer panel. The left 3×2 grid is the persisted source; the centre identifies Voss's case bag and capacity; the right 2×2 viewport is his real carried inventory; and the far edge is the party purse. Coins bypass the bag into the purse. Ordinary items—including weapons—move bidirectionally between source and bag when capacity permits, and Take All transfers everything that can fit while leaving the remainder persisted. A recovered weapon is carried, never auto-equipped, though it can now be readied by hand from the inventory window. Closing or issuing another world command never discards contents. Quick Loot is shipped: the right-rail Search control opens a non-modal strip listing every stack lying within reach of Voss, ten to a row with page chevrons past that, and one click lifts a stack straight into the case bag. Items dropped from the inventory window land at his feet and persist there per area. Ammo and condition still wait for the weapon model.
 - Frames and the broader icon system remain original RainShadow film-noir craft (rain-slicked gunmetal, smoked leather, oxblood accents, Art Deco filigree). The opened-container Take All control deliberately reconstructs the red diamond in the user's BG2/BGII:EE screenshot with newly generated pixels; no shipped BAM or surrounding BG frame is extracted. The matching installed BG:EE `WORLD_CONTAINER` definition separately identifies that control as `ROUNDBUT` and its action as Take All. V03 chrome ships heavier BG-like bevel weight under that material lock.
@@ -1182,7 +1204,7 @@ The exterior-to-interior transition crossfades beds while preserving a shared ra
 
 - Loot grinding, random combat encounters, or level-scaled enemies.
 - Procedurally generated cases replacing authored mystery logic.
-- Fully rotatable 3D environments.
+- Fully rotatable 3D environments or a free-orbit table camera.
 - Pixel-perfect copying of existing game assets or interface frames.
 
 ## 13. Accessibility and usability baseline
@@ -1219,7 +1241,10 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Romance-branch density and Act II+ casting notes for **Lila March** beyond the full §4.2 canon sheet (Lillian’s employment remains Wharf Ladder shipping office per §4.3.2).
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
-- Degree of camera control in later, larger areas.
+- Sign-off on the tabletop style guide v1 values (§5): scale, bases, palette, camera angles, table-prop UI.
+- Replacement for the 5120×3840 IE page system, the search/light/height (SR/LM/HT) maps and the 64 px native body spec for board renders.
+- **Closed 12 October:** palette swaps remain available for character variants, equipment and existing saves.
+- Combat pacing with physical dice: keep real-time with pause, or move to turn-based (§5.6).
 - Save-slot presentation and cross-device strategy.
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - Can a temporary ally die? Default: injured, never killed (§4.3.5). Confirm, or allow it for some allies.

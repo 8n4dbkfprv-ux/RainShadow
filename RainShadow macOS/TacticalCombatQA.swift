@@ -101,6 +101,16 @@ import SpriteKit
             context.router.travel(to: WharfLadderStory.exterior, entrance: "from.portal.shippingOffice")
             try await wait { (view.scene as? GameAreaScene)?.area.id == WharfLadderStory.exterior && !context.router.isTransitioning }
             var scene = view.scene as! CityDistrictScene
+            let scenery = scene.areaBarrels, sceneryNodes = scene.areaBarrelNodes
+            try check(scenery.count == 2 && scene.combatDirector == nil,
+                      "Oil barrels are present on arrival before the crew appears")
+            try check(scenery.allSatisfy { scene.navigation.occupancy.actors[$0.id]?.position == $0.position },
+                      "Pre-combat barrels already block walking")
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BARREL_SCENERY_ONLY"] == "1" {
+                scene.setZoomStep(20); scene.recenterCamera(on: CGPoint(x: 1980, y: 1940))
+                scene.gameCamera.position = CGPoint(x: 1980, y: 1940)
+                try await Task.sleep(for: .milliseconds(200)); try capture("barrels-before-enemies")
+            }
             let portal = scene.area.travelRegions.first!
             if let door = scene.door(matching: portal.id) { scene.openDoor(door) }
             var target = CGPoint(x: portal.boundingBox.midX, y: portal.boundingBox.midY)
@@ -114,12 +124,54 @@ import SpriteKit
             }
             click(scene, world: target)
             try await wait { scene.dialoguePresenter.isPresenting }
+            try check(scene.areaBarrels == scenery && sceneryNodes.allSatisfy { scene.areaBarrelNodes[$0.key] === $0.value },
+                      "Dialogue and enemy staging keep the original barrel nodes and positions")
             let dialogueDeadline = ProcessInfo.processInfo.systemUptime + 30
             while scene.combatDirector == nil {
                 if ProcessInfo.processInfo.systemUptime > dialogueDeadline { throw Failure(message: "Dialogue did not dispatch combat") }
                 driveDialogue(scene); try await Task.sleep(for: .milliseconds(300))
             }
             try check(!scene.cutsceneDirector.isPlaying, "Dialogue starts playable combat without auto-resolution")
+            try check(scene.combatDirector!.combat.barrels == scenery && sceneryNodes.allSatisfy { scene.combatDirector!.barrelNodes[$0.key] === $0.value },
+                      "Combat adopts the same scenery without spawning or relocating barrels")
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BARREL_SCENERY_ONLY"] == "1" {
+                try capture("barrels-at-combat-start")
+                var remains = scenery
+                remains[0].broken = true
+                remains[1].exploded = true; remains[1].fireCells = [remains[1].position]; remains[1].fireExpiresRound = 99
+                var actors = scene.combatDirector!.combat.actors
+                for index in actors.indices { actors[index].initiativeBonus = actors[index].player ? 1000 : -1000 }
+                var saved = TacticalCombat(encounterID: "gate", areaID: scene.area.id.rawValue, actors: actors, seed: 42, barrels: remains)
+                _ = context.session.checkpointCombat(saved)
+                context = GameContext(saveStore: store); context.router.start(in: view)
+                try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? CityDistrictScene)?.combatDirector?.busy == false }
+                scene = view.scene as! CityDistrictScene
+                try check(scene.areaBarrels == remains && scene.areaBarrelNodes.count == 2,
+                          "Reload restores broken and exploded barrels without intact duplicates")
+                try check(remains.allSatisfy { scene.navigation.occupancy.actors[$0.id] == nil },
+                          "Broken barrels have no solid occupancy on reload")
+                saved.reconcilePosition(id: TacticalCombat.playerID, point: CGPoint(x: 4000, y: 1000))
+                try check(saved.flee(), "Scenery fixture completes combat through Flee")
+                context.session.finishCombat(saved)
+                remains = remains.map { barrel in var value = barrel; value.fireCells = nil; value.fireExpiresRound = nil; return value }
+                try check(GameSession(saveStore: store).savedBarrels(in: WharfLadderStory.exterior) == remains,
+                          "Combat completion preserves destruction and expires combat-round fire")
+                context = GameContext(saveStore: store); context.router.start(in: view)
+                context.router.travel(to: WharfLadderStory.exterior, entrance: "from.portal.shippingOffice")
+                try await wait { (view.scene as? CityDistrictScene)?.context === context && (view.scene as? GameAreaScene)?.area.id == WharfLadderStory.exterior && !context.router.isTransitioning }
+                scene = view.scene as! CityDistrictScene
+                try check(scene.combatDirector == nil && scene.areaBarrels == remains,
+                          "Returning during exploration does not respawn destroyed barrels")
+                context.router.travel(to: WharfLadderStory.interior, entrance: "from.street")
+                try await wait { (view.scene as? CityDistrictScene)?.area.id == WharfLadderStory.interior && !context.router.isTransitioning }
+                scene = view.scene as! CityDistrictScene
+                try check(scene.combatDirector == nil && scene.areaBarrels.count == 1,
+                          "Shipping-room barrel is present before its encounter starts")
+                try check(scene.areaBarrels[0].position == CGPoint(x: 430, y: 410), "Indoor barrel stays on its reviewed floor seat")
+                try capture("shipping-barrel-before-combat")
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
             if ProcessInfo.processInfo.environment["RAINSHADOW_QA_BANNER_ONLY"] == "1" {
                 let director = scene.combatDirector!
                 let banner = try require(director.startBanner, "New encounter must show its combat banner")
@@ -1790,6 +1842,31 @@ import SpriteKit
                 barrelActors[i].hp = barrelActors[i].maximumHP
                 barrelActors[i].initiativeBonus = barrelActors[i].player ? 100 : -100
             }
+            // Barrels are fixed scenery now. Stage a blast target explicitly;
+            // the encounter no longer manufactures barrels beside an enemy.
+            let blastMap = try AreaCatalogLoader.load(WharfLadderStory.exterior).makeNavigationMap()
+            let blastBarrels = beforeChromeClick.barrels ?? []
+            guard let blastSite = blastBarrels.first,
+                  let lookout = barrelActors.firstIndex(where: { !$0.player && $0.rangedWeapon == .bow }) else {
+                throw Failure(message: "Missing barrel blast target")
+            }
+            let blastCandidates = (0..<24).map { i in
+                let angle = CGFloat(i) * .pi / 12 + .pi
+                return CGPoint(x: blastSite.position.x + cos(angle) * 80,
+                               y: blastSite.position.y + sin(angle) * 60).rounded
+            }
+            guard let blastTarget = blastCandidates.first(where: { point in
+                var target = barrelActors[lookout]; target.position = point
+                var staged = barrelActors; staged[lookout] = target
+                let pushed = CombatNavigation.knockbackDestination(in: blastMap, actor: target,
+                    awayFrom: blastSite.position, actors: staged, destroyedBarrels: blastBarrels.map(\.id))
+                return CombatNavigation.distance(point, pushed) >= 60
+                    && blastMap.searchMap.blockedInRadiusTile(at: point, size: blastMap.circleSize).contains(.passable)
+                    && blastBarrels.allSatisfy { CombatNavigation.distance(point, $0.position) >= 65 }
+                    && barrelActors.enumerated().allSatisfy { $0.offset == lookout || CombatNavigation.distance(point, $0.element.position) >= 65 }
+                    && CombatNavigation.clearLine(in: blastMap, from: blastSite.position, to: point)
+            }) else { throw Failure(message: "No certified blast target beside fixed scenery") }
+            barrelActors[lookout].position = blastTarget
             let barrelFight = TacticalCombat(encounterID: "gate", areaID: WharfLadderStory.exterior.rawValue,
                 actors: barrelActors, seed: 42, barrels: beforeChromeClick.barrels ?? [])
             for asset in ["oil_barrel_v02", "oil_barrel_debris_v02", "oil_barrel_fragments_v02"] {
@@ -1876,11 +1953,11 @@ import SpriteKit
             try await wait { shot.elapsed > BowAttackRules.releaseTime + 0.04 }
             try capture("player-fire-arrow")
             try await wait { barrelDirector.blasts.first.map { $0.elapsed > 0.12 } == true }
+            scene.handleTacticalPauseInput()
             try capture("barrel-explosion")
             try check(barrelDirector.debrisMoving
                 && barrelDirector.barrelNodes.values.contains { $0.fragmentBodies.contains { $0.height > 15 } },
                 "Impact launches separate fragments above their ground shadows")
-            scene.handleTacticalPauseInput()
             let blastTimes = barrelDirector.blasts.map(\.elapsed)
             let fragmentTimes = barrelDirector.barrelNodes.mapValues(\.elapsed)
             let fragmentBodies = barrelDirector.barrelNodes.mapValues(\.fragmentBodies)

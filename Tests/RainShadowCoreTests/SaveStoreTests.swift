@@ -4,6 +4,14 @@ import Testing
 
 @MainActor
 struct SaveStoreTests {
+    @Test func areaSceneryPayloadRoundTripsAndOlderSavesDefaultToUnseeded() throws {
+        let payload = Data("[{\"id\":\"combat.oil.0\",\"broken\":true}]".utf8)
+        let expected = SaveSnapshot(areaBarrels: ["RS0200": payload, "RS0201": Data("[]".utf8)])
+        let decoded = try JSONDecoder().decode(SaveSnapshot.self, from: JSONEncoder().encode(expected))
+        #expect(decoded.areaBarrels == expected.areaBarrels)
+        let legacy = try JSONDecoder().decode(SaveSnapshot.self, from: Data("{\"schemaVersion\":1}".utf8))
+        #expect(legacy.areaBarrels.isEmpty)
+    }
     @Test func persistsAndRestoresMilestoneProgress() throws {
         let suiteName = "RainShadowTests.\(UUID().uuidString)"
         let defaults = try #require(UserDefaults(suiteName: suiteName))

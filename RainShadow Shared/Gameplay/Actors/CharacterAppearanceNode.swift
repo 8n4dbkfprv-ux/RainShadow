@@ -4,7 +4,21 @@ import SpriteKit
 /// Movable's facing and stance; class, AI, movement and hostility stay outside.
 /// Frames are loaded lazily and retain their authored registration in every layer.
 @MainActor
-final class CharacterAppearanceNode: SKNode, WallStencilledActor {
+final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
+    private var miniatureMotion = TabletopMiniatureMotion()
+
+    func updateMiniatureMotion(at time: TimeInterval, paused: Bool) {
+        guard TabletopPresentation.enabled else { return }
+        let lift = miniatureMotion.update(position: position, at: time, paused: paused)
+        applyMiniatureHeight()
+        miniatureBase.presentLift(lift)
+    }
+
+    private func applyMiniatureHeight() {
+        let height = visualHeightOffset + miniatureMotion.height
+        layers.forEach { $0.position.y = height }
+        miniatureBase.position.y = height
+    }
     private(set) var definition: CharacterDefinition
     private(set) var currentAction: CharacterVisualAction = .idle
     private(set) var currentFacing: ActorFacing = .south
@@ -17,9 +31,13 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     private var equipmentNodes: [CharacterEquipmentCode: IEAvatarNode] = [:]
     private var resources: Resources
     private var attackTrail: IEAvatarNode?
-    func setCombatRecoil(_ angle: CGFloat) { layers.forEach { $0.zRotation = angle } }
+    func setCombatRecoil(_ angle: CGFloat) { if !TabletopPresentation.enabled { layers.forEach { $0.zRotation = angle } } }
 
     private let contactShadow = ContactShadowFactory.make(kind: .npc)
+    private let miniatureBase = MiniatureBaseNode()
+    var miniatureAllegiance: MiniatureBaseNode.Allegiance = .neutral {
+        didSet { miniatureBase.apply(miniatureAllegiance) }
+    }
     func setGroundShadowVisible(_ visible: Bool) { contactShadow.isHidden = !visible }
     private var sceneLighting: ActorSceneLighting = .neutral
     private var footLight: AreaLightSample?
@@ -27,7 +45,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     private weak var stencilScene: SKScene?
 
     var visualHeightOffset: CGFloat = 0 {
-        didSet { layers.forEach { $0.position.y = visualHeightOffset } }
+        didSet { applyMiniatureHeight() }
     }
 
     private var layers: [IEAvatarNode] { [body] + Array(equipmentNodes.values) + [attackTrail].compactMap { $0 } }
@@ -35,6 +53,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     /// Transient sword motion is a separate layer, sharing actor registration,
     /// lighting and per-layer stencil handling without changing the sprite art.
     func setAttackTrail(_ layer: IEAvatarNode?) {
+        guard !TabletopPresentation.enabled else { return }
         attackTrail?.removeFromParent(); attackTrail = layer
         if let layer {
             layer.zPosition = -0.01
@@ -99,6 +118,37 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
                     colors: layer.colors?.applying(to: base.colors) ?? base.colors)
             }
             self.equipment = equipment
+            if TabletopPresentation.enabled {
+                bowShot = nil
+                bowEquipment = [:]
+                tripBody = nil
+                tripEquipment = [:]
+                wardBody = nil
+                wardEquipment = [:]
+                runBody = nil
+                runEquipment = [:]
+                dashBody = nil
+                dashEquipment = [:]
+                shoveBody = nil
+                shoveEquipment = [:]
+                defeatBody = nil
+                defeatEquipment = [:]
+                stealthBody = nil
+                stealthBow = nil
+                stealthEquipment = [:]
+                knockbackBody = nil
+                knockbackEquipment = [:]
+                tripReactionBody = nil
+                tripReactionEquipment = [:]
+                reactionBody = nil
+                reactionEquipment = [:]
+                meleeBody = nil
+                techniqueBody = nil
+                pinningShot = nil
+                techniqueEquipment = [:]
+                meleeEquipment = [:]
+                return
+            }
             if appearance.body == .humanMale01 || appearance.body == .bearGuardian {
                 let character = appearance.body == .bearGuardian ? RunAnimationSet.bear : RunAnimationSet.body
                 let run = try IEAvatarFrameLibrary.shared(character: character, colors: body.colors)
@@ -467,6 +517,10 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         name = definition.id
         contactShadow.isHidden = resources.body.sprite.hasEmbeddedShadow
         addChild(contactShadow)
+        addChild(miniatureBase)
+        miniatureAllegiance = definition.id == "voss" || definition.id == "lila" ? .ally : .neutral
+        miniatureBase.apply(miniatureAllegiance)
+        miniatureBase.setScale(definition.appearance.body == .bearGuardian ? 2 : 1)
         addChild(body)
         body.name = "appearance.body"
         body.setScale(OfficeInteriorScale.ActorDisplay.spriteScale)
@@ -488,13 +542,16 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
         let changedBody = definition.appearance.body != self.definition.appearance.body
         let phase = changedBody ? 0 : currentPhase
         let frames: (IEAvatarVisualFrame, [CharacterEquipmentCode: IEAvatarVisualFrame])
-        if !changedBody, let currentStealth {
+        if TabletopPresentation.enabled {
+            frames = try replacement.frames(appearance: definition.appearance, action: .idle, facing: currentFacing, phase: 0)
+        } else if !changedBody, let currentStealth {
             frames = try replacement.stealthFrames(currentStealth, facing: currentFacing, phase: phase)
         } else {
             frames = try replacement.frames(appearance: definition.appearance, action: currentAction,
                                             facing: currentFacing, phase: phase, technique: currentTechnique)
         }
         resources = replacement
+        miniatureBase.setScale(definition.appearance.body == .bearGuardian ? 2 : 1)
         self.definition = definition
         name = definition.id
         if changedBody { playback = IEActorAnimationPlayback() }
@@ -507,6 +564,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     /// Explicit phase access also supports non-looping authored chair transitions.
     /// Authored ladder cycle, with free hands and the same armour/palette layers.
     func presentClimb(phase: Int) throws {
+        if TabletopPresentation.enabled { try present(action: .idle, facing: .northEast, phase: 0); return }
         let name = String(format: "climb_ne_%02d.png", phase % 16)
         func frame(_ character: String, colors: [UInt32]) throws -> IEAvatarVisualFrame {
             let library = try IEAvatarFrameLibrary.shared(character: character, colors: colors)
@@ -525,6 +583,13 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     func present(action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
+        if TabletopPresentation.enabled {
+            let frames = try resources.frames(appearance: definition.appearance, action: .idle, facing: facing, phase: 0)
+            currentAction = action; currentFacing = facing; currentPhase = 0
+            currentStealth = nil; currentReaction = nil; currentTechnique = nil
+            zRotation = action == .die ? -.pi / 2 : 0
+            install(frames); return
+        }
         let frames = try resources.frames(appearance: definition.appearance,
                                            action: action, facing: facing, phase: phase)
         currentStealth = nil
@@ -535,6 +600,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     func presentTechnique(_ technique: CombatManeuver?, action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
+        if TabletopPresentation.enabled { try present(action: action, facing: facing, phase: 0); return }
         let frames = try resources.frames(appearance: definition.appearance, action: action, facing: facing, phase: phase, technique: technique)
         currentStealth = nil
         currentReaction = nil
@@ -543,6 +609,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     func presentStealth(_ clip: StealthClip, facing: ActorFacing, phase: Int) throws {
+        if TabletopPresentation.enabled { try present(action: .idle, facing: facing, phase: 0); return }
         let frames = try resources.stealthFrames(clip, facing: facing, phase: phase)
         currentStealth = clip; currentReaction = nil; currentTechnique = nil
         currentAction = clip.action; currentFacing = facing; currentPhase = phase
@@ -550,6 +617,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     func presentReaction(_ kind: CombatReactionKind, facing: ActorFacing, phase: Int) throws {
+        if TabletopPresentation.enabled { try present(action: .idle, facing: facing, phase: 0); return }
         let frames = try resources.reactionFrames(kind, facing: facing, phase: phase)
         currentStealth = nil
         currentReaction = kind; currentTechnique = nil
@@ -561,6 +629,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     /// stances enter this API; transition endpoints belong to the caller.
     func advance(action: CharacterVisualAction, facing: ActorFacing,
                  at time: TimeInterval, paused: Bool) throws {
+        if TabletopPresentation.enabled { try present(action: action, facing: facing, phase: 0); return }
         guard action == .idle || action == .walk || action == .seatedIdle else {
             throw CharacterAppearanceError.unsupportedAction(definition.appearance.body, action)
         }
@@ -578,7 +647,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
             node.name = "appearance." + item.rawValue
             node.zPosition = CGFloat(item.layerOrder) * 0.01
             node.setScale(OfficeInteriorScale.ActorDisplay.spriteScale)
-            node.position.y = visualHeightOffset
+            node.position.y = visualHeightOffset + miniatureMotion.height
             equipmentNodes[item] = node
             addChild(node)
         }
@@ -605,6 +674,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
 
     /// Uses the existing engine tint operations without changing their arithmetic.
     private func refreshLighting() {
+        if TabletopPresentation.enabled { TabletopMiniatureLibrary.light(layers); return }
         var flags: IEBlitFlags = .blended
         var tint = IEColor.opaqueWhite
         if let footLight { flags.insert(.colorMod); tint = footLight.ieColor }
@@ -619,6 +689,7 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     }
 
     func applyWallStencil(_ stencil: WallStencilTexture?, in scene: SKScene) {
+        miniatureBase.applyWallStencil(stencil, in: scene)
         self.stencil = stencil
         stencilScene = scene
         for layer in layers {
@@ -644,7 +715,9 @@ final class CharacterAppearanceNode: SKNode, WallStencilledActor {
     var finished: Bool { elapsed >= duration }
     init(definition: CharacterDefinition, ladder: AreaLadder, entry: CGPoint, exit: CGPoint) throws {
         var climbingDefinition = definition
-        climbingDefinition.appearance.equipment.removeAll { $0.item != .ironHelmet && $0.item != .splintMail }
+        if !TabletopPresentation.enabled {
+            climbingDefinition.appearance.equipment.removeAll { $0.item != .ironHelmet && $0.item != .splintMail }
+        }
         node = try CharacterAppearanceNode(definition: climbingDefinition)
         self.entry = entry; self.exit = exit; ascending = exit.y > entry.y
         bottom = ascending ? entry : exit; top = ascending ? exit : entry

@@ -16,7 +16,7 @@ Minimum targets are iOS/iPadOS 18.0 and macOS 15.0. The legacy tvOS template tar
 
 Lamp Ward and the Lamphouse are connected to normal city travel. For direct macOS access, open [Play Lamp Ward.command](Play%20Lamp%20Ward.command); it starts at the Lamphouse forecourt with a separate save. Click the doorway to enter and the narrow interior entrance strip to leave. See [the integration record](Documentation/LampWardRuntimeIntegrationV12.md) for asset sources and verification.
 
-Voss uses the current Baldur’s Gate reference character in every area, including his explicit southwest seated poses. See [the character authority and regression checks](Documentation/VossCurrentRuntime.md).
+Characters now display as rigid tabletop miniatures on bevelled bases, with smooth Blender-rendered colour, equipment and palette swaps. See [the tabletop character cutover](Documentation/TabletopMiniaturesOct12.md). The [legacy character bundle authorities](Documentation/VossCurrentRuntime.md) remain preserved.
 
 Playable nonlethal Wharf Ladder combat is available through normal city travel.
 For direct access, open [Play Combat.command](Play%20Combat.command); it uses a

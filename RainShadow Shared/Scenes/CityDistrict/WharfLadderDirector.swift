@@ -141,11 +141,9 @@ final class WharfLadderDirector {
         if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil { seed = 42 }
         #endif
         var model = restored ?? TacticalCombat(encounterID: encounter.rawValue, areaID: scene.area.id.rawValue,
-            actors: actors, seed: seed, barrels: scene.area.id == WharfLadderStory.interior
-                ? CombatNavigation.shippingBarrels(in: scene.navigation, actors: actors)
-                : encounter == .gate ? CombatNavigation.gateBarrels(in: scene.navigation, actors: actors) : [])
+            actors: actors, seed: seed, barrels: scene.areaBarrels)
         if scene.area.id == WharfLadderStory.interior, (model.barrels ?? []).isEmpty {
-            model.seedMissingBarrels(CombatNavigation.shippingBarrels(in: scene.navigation, actors: model.actors))
+            model.seedMissingBarrels(scene.areaBarrels)
         }
         model.repairShippingBarrelPlacement(in: scene.navigation)
         model.assignEnemyRoles()

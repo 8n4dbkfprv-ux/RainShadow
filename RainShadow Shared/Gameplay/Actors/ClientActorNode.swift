@@ -1,11 +1,36 @@
 import SpriteKit
 
 @MainActor
-final class ClientActorNode: SKNode, WallStencilledActor {
+final class ClientActorNode: SKNode, TabletopMovingActor {
+    private var miniatureMotion = TabletopMiniatureMotion()
+    private var miniaturePlacementCompletion: (() -> Void)?
+
+    private func resetMiniaturePlacement() {
+        miniatureMotion.reset()
+        guard TabletopPresentation.enabled else { return }
+        body.position = .zero
+        miniatureBase.position = .zero
+        miniatureBase.presentLift(0)
+    }
+
+    func updateMiniatureMotion(at time: TimeInterval, paused: Bool) {
+        guard TabletopPresentation.enabled else { return }
+        let lift = miniatureMotion.update(position: position, at: time, paused: paused)
+        body.position = CGPoint(x: 0, y: lift)
+        miniatureBase.position = body.position
+        miniatureBase.presentLift(lift)
+        // Keep the entrance cue alive through set-down. Otherwise its dialogue
+        // continuation pauses the world with the base still in mid-air.
+        if !paused, !isLocomoting, lift == 0, let completion = miniaturePlacementCompletion {
+            miniaturePlacementCompletion = nil
+            completion()
+        }
+    }
 
     private let contactShadow: SKSpriteNode
     private let contactShadowKind: ContactShadowKind = .npc
     private let groundCircle = GroundCircleNode()
+    private let miniatureBase = MiniatureBaseNode(allegiance: .ally)
     /// `Selectable`'s ground-circle state. Lila is an ordinary neutral, so she
     /// falls to GemRB's `default:` case and draws cyan — and at the engine's
     /// default feedback level she is circled only under the pointer.
@@ -111,6 +136,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         name = "client.lilaMarch"
         addChild(contactShadow)
         addChild(groundCircle)
+        addChild(miniatureBase)
         addChild(body)
         applySceneLighting(.officeInterior)
         isHidden = true
@@ -143,8 +169,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// masks only the pixels the wall actually overlaps, so a character
     /// half-behind a pillar keeps their exposed half opaque.
     func applyWallStencil(_ stencil: WallStencilTexture?, in scene: SKScene) {
+        miniatureBase.applyWallStencil(stencil, in: scene)
         for layer in tintedLayers {
-            guard layer.shader === layer.blitShader else { continue }
+            guard TabletopPresentation.enabled || layer.shader === layer.blitShader else { continue }
             if let stencil {
                 stencil.apply(to: layer, in: scene)
             } else {
@@ -171,6 +198,11 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// ``DetectiveActorNode/applyBodyTint()`` for the quoted upstream and for
     /// why the `colorBlendFactor` lerp this replaces was the wrong operation.
     private func applyBodyTint() {
+        if TabletopPresentation.enabled {
+            TabletopMiniatureLibrary.light(tintedLayers)
+            miniatureBase.position = body.position
+            return
+        }
         var flags: IEBlitFlags = .blended
         var tint = IEColor.opaqueWhite
         if let footLight {
@@ -210,6 +242,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     func relocateForDoor(to point: CGPoint) {
+        resetMiniaturePlacement()
         position = point
         syncMovablePosition()
         movable.impedeBumping()
@@ -231,6 +264,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
     /// BG:EE-style walk used for scripted moves.
     func walk(path: [CGPoint], completion: (() -> Void)? = nil) {
+        miniaturePlacementCompletion = nil
         guard let start = path.first else {
             completion?()
             return
@@ -257,6 +291,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     func performEntrance(along points: [CGPoint], completion: @escaping () -> Void) {
+        miniaturePlacementCompletion = nil
+        resetMiniaturePlacement()
         guard let start = points.first else {
             completion()
             return
@@ -339,6 +375,8 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     func performExit(along points: [CGPoint], completion: @escaping () -> Void) {
+        miniaturePlacementCompletion = nil
+        resetMiniaturePlacement()
         guard let start = points.first else {
             completion()
             return
@@ -383,6 +421,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     }
 
     func stopScriptedMovement() {
+        miniaturePlacementCompletion = nil
         idleFacing = movable.orientation
         bumpRequest = nil
         movementCompletion = nil
@@ -399,6 +438,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
     func jumpForCutscene(to point: CGPoint, style: CutsceneWalkStyle) {
         stopScriptedMovement()
+        resetMiniaturePlacement()
         position = point.rounded
         syncMovablePosition()
         alpha = 1
@@ -409,7 +449,10 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// Skip-safe snap to the authored entrance end state, then fires the same
     /// completion as a natural path finish (idle pose at last path point).
     func completeEntranceImmediately() {
-        guard locomotionMode == .entrance || movementCompletion != nil else { return }
+        guard locomotionMode == .entrance || movementCompletion != nil || miniaturePlacementCompletion != nil else { return }
+        movementCompletion = movementCompletion ?? miniaturePlacementCompletion
+        miniaturePlacementCompletion = nil
+        resetMiniaturePlacement()
         // Prefer the live route path; fall back if already clearing.
         let end = activePath.last ?? position
         removeAllActions()
@@ -421,12 +464,15 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         alpha = 1
         isHidden = false
         locomotionMode = .entrance
-        finishLocomotion()
+        finishLocomotion(immediately: true)
     }
 
     /// Skip-safe snap to the authored exit end state (hidden past the door),
     /// then fires the same completion as a natural exit finish.
     func completeExitImmediately() {
+        movementCompletion = movementCompletion ?? miniaturePlacementCompletion
+        miniaturePlacementCompletion = nil
+        resetMiniaturePlacement()
         let end = activePath.last ?? position
         removeAllActions()
         body.removeAllActions()
@@ -438,7 +484,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         isHidden = true
         alpha = 1
         locomotionMode = .exit
-        finishLocomotion()
+        finishLocomotion(immediately: true)
     }
 
     /// Advances RouteFollower locomotion from the scene clock (BG P-regulator).
@@ -515,6 +561,11 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// Authored frames follow DoStep's current orientation and the independent
     /// engine animation clock, using all ten walking phases without mirroring.
     private func updateMovementAnimation(at time: TimeInterval, paused: Bool) {
+        if TabletopPresentation.enabled {
+            let facing = locomotionMode != .idle ? movable.orientation : idleFacing
+            if let frame = directionalIdleFrames[facing]?.first { body.apply(frame) }
+            return
+        }
         let walking = locomotionMode != .idle && movable.isInMovingStance
         let facing: ActorFacing = locomotionMode != .idle ? movable.orientation : idleFacing
         let key = (walking ? "walk." : "idle.") + LilaAnimationSet.direction(facing)
@@ -534,6 +585,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
     /// BG:EE `Actor::PlayWalkSound`, on the non-party channel. See
     /// `FootstepCadence` for why this is gated on clip length.
     private func playFootstepIfDue() {
+        guard !TabletopPresentation.enabled else { return }
         let now = CACurrentMediaTime()
         guard footsteps.allowsStep(at: now, isWalking: true, silenced: isAudioSilenced) else {
             return
@@ -546,7 +598,7 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         footsteps.noteStepStarted(at: now, clipDuration: clip)
     }
 
-    private func finishLocomotion() {
+    private func finishLocomotion(immediately: Bool = false) {
         footsteps.reset()
         let completion = movementCompletion
         movementCompletion = nil
@@ -568,7 +620,9 @@ final class ClientActorNode: SKNode, WallStencilledActor {
         case .idle:
             break
         }
-        completion?()
+        if TabletopPresentation.enabled, !immediately, !isHidden {
+            miniaturePlacementCompletion = completion
+        } else { completion?() }
     }
 
     private func departureFrames(for bin: ClientDepartureFacing) -> [IEAvatarVisualFrame] {
@@ -595,6 +649,12 @@ final class ClientActorNode: SKNode, WallStencilledActor {
 
 extension ClientActorNode: GroundCircleHosting {
     func applyGroundCircle(cameraScale: CGFloat, milliseconds: UInt64) {
+        if TabletopPresentation.enabled {
+            groundCircle.isHidden = true
+            miniatureBase.position = body.position
+            miniatureBase.apply(groundCircleState.enmity == .enemy ? .hostile : .ally)
+            return
+        }
         // Centred on the node origin — `Pos` — as the detective's is. Lila never
         // sits, so nothing ever displaces her body from it and she needs none of
         // the seated suppression either.

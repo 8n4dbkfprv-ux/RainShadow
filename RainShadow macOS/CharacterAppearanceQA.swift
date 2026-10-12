@@ -8,6 +8,7 @@ import SpriteKit
     struct Failure: Error { let message: String }
 
     static func run(in view: SKView, output: URL) {
+        if TabletopPresentation.enabled { TabletopMiniatureQA.run(in: view, output: output); return }
         var checks: [String] = []
         func check(_ condition: Bool, _ message: String) throws {
             guard condition else { throw Failure(message: message) }

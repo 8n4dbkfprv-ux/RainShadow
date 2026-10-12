@@ -1,7 +1,16 @@
 import SpriteKit
 
 @MainActor
-final class DetectiveActorNode: SKNode, WallStencilledActor {
+final class DetectiveActorNode: SKNode, TabletopMovingActor {
+    private var miniatureMotion = TabletopMiniatureMotion()
+
+    func updateMiniatureMotion(at time: TimeInterval, paused: Bool) {
+        guard TabletopPresentation.enabled else { return }
+        let lift = miniatureMotion.update(position: position, at: time, paused: paused)
+        body.position = CGPoint(x: 0, y: visualHeightOffset + lift)
+        miniatureBase.position = body.position
+        miniatureBase.presentLift(lift)
+    }
     enum State {
         case seatedIdle
         case standingUp
@@ -39,12 +48,13 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     private let contactShadow: SKSpriteNode
     private let contactShadowKind: ContactShadowKind = .party
     private let groundCircle = GroundCircleNode()
+    private let miniatureBase = MiniatureBaseNode(allegiance: .ally)
     /// `Selectable`'s ground-circle state. The detective is the party, so she is
     /// `EA_PC` and selected from the start (GemRB `Game::SelectActor`); there is
     /// no second party member to hand the selection to yet.
     var groundCircleState = GroundCircleState(enmity: .pc, isPC: true, isSelected: true)
     /// Equipment is parented to the body and inherits this cosmetic lean.
-    func setCombatRecoil(_ angle: CGFloat) { body.zRotation = angle }
+    func setCombatRecoil(_ angle: CGFloat) { if !TabletopPresentation.enabled { body.zRotation = angle } }
 
     /// Standing, transition, and full chairless seated body.
     private let body: IEAvatarNode
@@ -143,6 +153,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// transition, or seat egress). Keeps apron depth and above-apron body z so
     /// the full-body stand-up strip does not bury behind the SW apron.
     var isDeskRegistered: Bool {
+        if TabletopPresentation.enabled { return false }
         switch state {
         case .seatedIdle, .sittingDown, .standingUp:
             return true
@@ -207,6 +218,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
         facing = seatVisualDirection.facing
         addChild(contactShadow)
         addChild(groundCircle)
+        addChild(miniatureBase)
         addChild(lowerBody)
         addChild(body)
         // The rendered overlay already masks the fingers and torso. Parenting
@@ -330,6 +342,11 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// multiply and can only ever darken, which is what seats a character in an
     /// unlit room rather than floating them over it.
     private func applyBodyTint() {
+        if TabletopPresentation.enabled {
+            TabletopMiniatureLibrary.light(tintedLayers)
+            miniatureBase.position = body.position
+            return
+        }
         var flags: IEBlitFlags = .blended
         var tint = IEColor.opaqueWhite
         if let footLight {
@@ -372,7 +389,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// `visualHeightOffset` is the standing `y`, not zero: on a height map the
     /// sprite rides the slope while the feet keep their ground point.
     private var standingBodyPosition: CGPoint {
-        CGPoint(x: 0, y: visualHeightOffset)
+        CGPoint(x: 0, y: visualHeightOffset + miniatureMotion.height)
     }
 
     private func applyVisualHeightOffset(delta: CGFloat) {
@@ -393,8 +410,9 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// masks only the pixels the wall actually overlaps, so a character
     /// half-behind a pillar keeps their exposed half opaque.
     func applyWallStencil(_ stencil: WallStencilTexture?, in scene: SKScene) {
+        miniatureBase.applyWallStencil(stencil, in: scene)
         for layer in tintedLayers {
-            guard layer.shader === layer.blitShader else { continue }
+            guard TabletopPresentation.enabled || layer.shader === layer.blitShader else { continue }
             if let stencil {
                 stencil.apply(to: layer, in: scene)
             } else {
@@ -825,6 +843,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// BG:EE `Actor::PlayWalkSound` — see `FootstepCadence` for why this is gated
     /// on the previous clip finishing rather than on a contact frame.
     func playFootstepIfDue() {
+        guard !TabletopPresentation.enabled else { return }
         let now = CACurrentMediaTime()
         guard footsteps.allowsStep(at: now, isWalking: true, silenced: isAudioSilenced) else {
             return
@@ -840,6 +859,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// BG:EE `Actor::IdleActions`: on its own 16-tick script pass, a standing
     /// creature has one chance in 25 of glancing around. See `IdleBehaviourClock`.
     private func advanceIdleBehaviourTick() {
+        guard !TabletopPresentation.enabled else { return }
         // Actor::IdleActions: "don't mess with cutscenes".
         guard (scene as? BaseGameScene)?.cutsceneDirector.isCutsceneMode != true else { return }
         guard idleClock.advanceTickRunsScript() else { return }
@@ -922,6 +942,12 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     func relocateForDoor(to point: CGPoint) {
+        miniatureMotion.reset()
+        if TabletopPresentation.enabled {
+            body.position = standingBodyPosition
+            miniatureBase.position = body.position
+            miniatureBase.presentLift(0)
+        }
         position = point
         syncMovablePosition()
         movable.impedeBumping()
@@ -967,6 +993,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// planted, immediately controllable actor without replaying that office-only
     /// transition or leaving a desk-registered shadow on the pavement.
     func beginOpenWorldStanding() {
+        if TabletopPresentation.enabled { miniatureMotion.reset() }
         releasesScriptedMoveWhenStopped = false
         removeAllActions()
         body.removeAllActions()
@@ -1062,6 +1089,11 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func ensureStanding(completion: @escaping () -> Void) {
+        if TabletopPresentation.enabled {
+            state = .standingIdle; needsSeatEgress = false
+            body.position = standingBodyPosition; applyStandingIdleTexture()
+            completion(); return
+        }
         guard state == .seatedIdle else {
             completion()
             return
@@ -1112,6 +1144,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// idle. A walk order issued mid-sit queues and replays the stand-up chain
     /// once the actor has settled.
     func sitDown(completion: (() -> Void)? = nil) {
+        if TabletopPresentation.enabled { completion?(); return }
         guard state == .standingIdle else {
             completion?()
             return
@@ -1286,6 +1319,12 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func applySeatedPose(animated: Bool) {
+        if TabletopPresentation.enabled {
+            state = .standingIdle; needsSeatEgress = false
+            body.position = standingBodyPosition; applyStandingIdleTexture()
+            hideLowerBody(); foregroundArms.isHidden = true
+            return
+        }
         let upperSeat = seatBodyOffset
         // The full seated cell owns Voss only; the separate world prop owns the
         // chair throughout idle, transitions, egress, and walking. The legacy
@@ -1325,6 +1364,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func startSeatedIdle() {
+        guard !TabletopPresentation.enabled else { return }
         let animate = animateFrames(on: body, frames: seatedIdleFrames,
                                     timePerFrame: VossAnimationSet.idleSecondsPerFrame)
         body.run(.repeatForever(animate), withKey: "seatedIdle")
@@ -1338,6 +1378,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     /// Actor::AdvanceAnimations advances the cached stance/orientation animation;
     /// DrawActorSprite then reads CurrentFrame, not NextFrame's earlier return.
     private func updateLocomotionAnimation(at time: TimeInterval, paused: Bool) {
+        if TabletopPresentation.enabled { applyStandingIdleTexture(); return }
         guard state == .walking || state == .standingIdle else { return }
         let walking = state == .walking && movable.isInMovingStance
         let key = (walking ? "walk." : "idle.") + String(facing.rawValue)
@@ -1360,6 +1401,7 @@ final class DetectiveActorNode: SKNode, WallStencilledActor {
     }
 
     private func applyWalkTexture() {
+        if TabletopPresentation.enabled { applyStandingIdleTexture(); return }
         applySpriteScale()
         body.zRotation = 0
         guard let frames = walkFrames[facing], !frames.isEmpty else { return }
@@ -1408,6 +1450,12 @@ extension DetectiveActorNode: GroundCircleHosting {
     }
 
     func applyGroundCircle(cameraScale: CGFloat, milliseconds: UInt64) {
+        if TabletopPresentation.enabled {
+            groundCircle.isHidden = true
+            miniatureBase.position = body.position
+            miniatureBase.apply(groundCircleState.enmity == .enemy ? .hostile : .ally)
+            return
+        }
         // `DrawCircle` centres the ellipse on `Pos`, and `Pos` is this node's
         // origin: what navigation moves, what the sprite's foot pivot registers
         // to, and what `isOverGroundCircle` hit-tests against. The circle never

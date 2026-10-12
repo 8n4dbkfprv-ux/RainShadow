@@ -141,3 +141,37 @@ including `barrel-aftermath.png`, `barrel-spill.png`, and
 physical break and spill ignition, paused movement, matching visible/movement/
 raster endpoints, and active-combat reload. The earlier 60/65/19 counts above
 record the original fire-arrow release before this extension.
+# Area scenery lifecycle — October 12
+
+Oil barrels load with Wharf Ladder and the shipping-office interior, before
+dialogue or enemy staging. The exterior uses fixed street seats at (1840,1840)
+and (1920,1810); the interior retains the reviewed (430,410) floor position.
+Actors route around their occupancy from the moment the scene is built.
+Combat adopts those same nodes and states rather than spawning new barrels
+around whichever position the player happened to approach from.
+
+`CityDistrictScene` owns the scenery; `TacticalCombatDirector` borrows its nodes
+for targeting and destruction. Combat completion returns the settled states to
+the scene without removing intact barrels. `SaveSnapshot.areaBarrels` stores
+area-keyed core payloads, alongside the tactical checkpoint, so destroyed props
+stay destroyed after fleeing, finishing combat, loading or re-entering an area.
+Round-based fire expires when combat ends, as before; wood and spilled oil remain.
+Older saves default to unseeded scenery, and an active combat checkpoint takes
+precedence over the area's stored state. Existing indoor placement repair runs
+before the scenery is installed so its own occupancy cannot move it again.
+
+Verification: 46 placement, persistence, explosion, debris and hazard tests pass.
+Both macOS and iOS simulator builds pass. The native scenery test passes 12
+checks covering arrival, dialogue, identical node handoff, destruction reload,
+combat completion and return visits. Reviewed before/after images and the report
+are in `output/barrel-scenery-oct12`.
+
+The extended native destruction run is not fully verified. Its old fixture
+assumed combat-generated barrels beside an enemy; the revised fixture explicitly
+places a target beside fixed scenery with a certified knockback lane. The first
+run confirmed fire-arrow impact, saved fragment endpoints, airborne debris and
+reaction animation, but sampled a terrain-shortened shove after it stopped.
+After correcting that fixture and pausing before the screenshot, two subsequent
+launches timed out at initial area loading (before any checks). See
+`output/barrel-scenery-destruction-oct12-complete/report.json`. No explosion or
+knockback runtime was changed to accommodate the fixture.

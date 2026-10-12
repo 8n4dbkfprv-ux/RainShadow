@@ -244,6 +244,8 @@ struct SaveSnapshot: Codable, Equatable {
     var lilaLayoutRevision = 1
     /// Versioned tactical checkpoint; decoded by the combat core, which depends on persistence.
     var tacticalCombat: Data? = nil
+    /// Area scenery state, encoded by the combat core without a dependency cycle.
+    var areaBarrels: [String: Data] = [:]
     var currentHealth: Int = 12
     var hasReceivedFireArrows = false
     var schemaVersion = SaveSnapshot.currentSchemaVersion
@@ -307,6 +309,7 @@ struct SaveSnapshot: Codable, Equatable {
     init(
         schemaVersion: Int = SaveSnapshot.currentSchemaVersion,
         tacticalCombat: Data? = nil,
+        areaBarrels: [String: Data] = [:],
         currentHealth: Int = 12,
         hasReceivedFireArrows: Bool = false,
         hasSeenOpening: Bool = false,
@@ -335,6 +338,7 @@ struct SaveSnapshot: Codable, Equatable {
     ) {
         self.schemaVersion = schemaVersion
         self.tacticalCombat = tacticalCombat
+        self.areaBarrels = areaBarrels
         self.currentHealth = currentHealth
         self.hasReceivedFireArrows = hasReceivedFireArrows
         self.hasSeenOpening = hasSeenOpening
@@ -365,6 +369,7 @@ struct SaveSnapshot: Codable, Equatable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         tacticalCombat = try container.decodeIfPresent(Data.self, forKey: .tacticalCombat)
+        areaBarrels = try container.decodeIfPresent([String: Data].self, forKey: .areaBarrels) ?? [:]
         currentHealth = try container.decodeIfPresent(Int.self, forKey: .currentHealth) ?? 12
         hasReceivedFireArrows = try container.decodeIfPresent(Bool.self, forKey: .hasReceivedFireArrows) ?? false
         cityLayoutRevision = try container.decodeIfPresent(Int.self, forKey: .cityLayoutRevision) ?? 0

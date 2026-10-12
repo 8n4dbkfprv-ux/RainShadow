@@ -14,6 +14,7 @@ final class GameSession {
     /// Dialogue/case flags and queued journal fragments (flags persist in save).
     private(set) var caseState: CaseState
     private(set) var tacticalCombat: TacticalCombat?
+    private var areaBarrels: [String: Data]
     private(set) var isCityTravelOpen = false
     private(set) var currentCityDistrict: CityDistrictID = .sableRow
     /// Area-scoped variables, the way Baldur's Gate keeps them in the `.ARE`.
@@ -89,6 +90,7 @@ final class GameSession {
     init(saveStore: SaveStore) {
         self.saveStore = saveStore
         let snapshot = saveStore.load()
+        areaBarrels = snapshot.areaBarrels
         currentHealth = min(max(0, snapshot.currentHealth), maximumHealth)
         if let data = snapshot.tacticalCombat,
            let combat = try? JSONDecoder().decode(TacticalCombat.self, from: data), combat.isValid,
@@ -212,6 +214,7 @@ final class GameSession {
         if consumingFireArrow && !inventory.consumeFireArrow() { return false }
         characterInventory = inventory
         tacticalCombat = combat
+        if let barrels = combat.barrels { recordAreaBarrels(barrels, in: AreaID(combat.areaID)) }
         persist() // Inventory and accepted shot share one save transaction.
         return true
     }
@@ -228,7 +231,23 @@ final class GameSession {
             WharfLadderStory.resolve(encounter, outcome: result == .won ? .won : .lost, in: &caseState)
         }
         tacticalCombat = nil
+        // Surface lifetimes use combat rounds. Keep the wood/oil, but do not
+        // restart an old fire when another encounter begins at round one.
+        recordAreaBarrels((combat.barrels ?? []).map { barrel in
+            var settled = barrel; settled.fireCells = nil; settled.fireExpiresRound = nil; return settled
+        }, in: AreaID(combat.areaID))
         persist()
+    }
+
+    func savedBarrels(in area: AreaID) -> [CombatBarrel]? {
+        guard let data = areaBarrels[area.rawValue] else { return nil }
+        return try? JSONDecoder().decode([CombatBarrel].self, from: data)
+    }
+    func saveAreaBarrels(_ barrels: [CombatBarrel], in area: AreaID) {
+        recordAreaBarrels(barrels, in: area); persist()
+    }
+    private func recordAreaBarrels(_ barrels: [CombatBarrel], in area: AreaID) {
+        areaBarrels[area.rawValue] = try? JSONEncoder().encode(barrels)
     }
 
     /// Merge dialogue outcomes into the live case (flags, knowledge, evidence, counters,
@@ -729,6 +748,7 @@ final class GameSession {
         fogPersistTask = nil
         saveStore.save(SaveSnapshot(
             tacticalCombat: tacticalCombat.flatMap { try? JSONEncoder().encode($0) },
+            areaBarrels: areaBarrels,
             currentHealth: currentHealth,
             hasReceivedFireArrows: hasReceivedFireArrows,
             hasSeenOpening: hasSeenOpening,

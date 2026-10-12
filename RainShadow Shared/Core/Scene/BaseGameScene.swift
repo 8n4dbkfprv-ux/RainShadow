@@ -32,7 +32,7 @@ class BaseGameScene: SKScene {
     private var attemptedNativeRenderer = false
     private var hasReportedFirstNativeFrame = false
     /// Rollback switch affects presentation only; indexed resources are shared.
-    private let nativeWorldEnabled = ProcessInfo.processInfo.environment["RAINSHADOW_NATIVE_WORLD"] != "0"
+    private let nativeWorldEnabled = !TabletopPresentation.enabled && ProcessInfo.processInfo.environment["RAINSHADOW_NATIVE_WORLD"] != "0"
     var nativeWorldRoots: [SKNode] {
         [backgroundRoot, floorEffectRoot, highlightOutlineLayer, rearFixtureRoot,
          depthWorldRoot, occlusionRoot, weatherRoot]
@@ -54,6 +54,7 @@ class BaseGameScene: SKScene {
     private(set) var hoveredHighlightID: String?
 
     private var hasBuiltScene = false
+    private var miniaturePresentationTime: TimeInterval?
     private var isPerformingLayout = false
     /// Camera scale at 100% zoom. Kept as the *base* rather than the live scale
     /// because `CutsceneDirector` multiplies authored framing against it, and an
@@ -137,6 +138,9 @@ class BaseGameScene: SKScene {
 
     override func didFinishUpdate() {
         super.didFinishUpdate()
+        if TabletopPresentation.enabled, let time = miniaturePresentationTime {
+            updateMiniatureMotion(in: depthWorldRoot, at: time)
+        }
         guard areaRuntime != nil, nativeWorldEnabled else { return }
         if !attemptedNativeRenderer {
             attemptedNativeRenderer = true
@@ -911,12 +915,30 @@ class BaseGameScene: SKScene {
     /// The world-level flags every circle shares are stamped here; scene-level
     /// ones (`isCutscene`, `isDialogueTarget`) are the scene's to set.
     func updateGroundCircles(at currentTime: TimeInterval) {
+        miniaturePresentationTime = currentTime
         let milliseconds = UInt64(max(0, currentTime) * 1000)
         let scale = playCameraScale
         let frozen = pause.isPaused
         for actor in groundCircleActors {
             actor.groundCircleState.worldIsFrozen = frozen
             actor.applyGroundCircle(cameraScale: scale, milliseconds: milliseconds)
+        }
+    }
+
+    /// Sample after both navigation and SKActions have moved their roots. This
+    /// includes combat/run/stealth/ladder proxies, not just selectable actors.
+    /// Hidden originals keep the same clock for seamless proxy hand-offs.
+    private func updateMiniatureMotion(in root: SKNode, at time: TimeInterval) {
+        for node in root.children {
+            if let actor = node as? TabletopMovingActor {
+                actor.updateMiniatureMotion(at: time, paused: pause.isPaused)
+                // The sprite rectangles changed with the lift; refresh the
+                // mask without applying the actor's depth lift a second time.
+                let covered = areaRuntime?.isCovered(node.position) ?? false
+                actor.applyWallStencil(covered ? wallStencil : nil, in: self)
+            } else {
+                updateMiniatureMotion(in: node, at: time)
+            }
         }
     }
 
@@ -1137,6 +1159,7 @@ class BaseGameScene: SKScene {
     /// `CIFilter` saturation of zero is a *different, lighter* image and is not
     /// a substitute. See ``IEBlit/shaderGreyscale(_:)``.
     private func syncWorldGreyscale(_ grey: Bool) {
+        guard !TabletopPresentation.enabled else { return }
         guard grey != isWorldGreyed else { return }
         isWorldGreyed = grey
         // Set before the walk, because an object that owns its own blit reads

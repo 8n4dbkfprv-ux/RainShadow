@@ -113,6 +113,10 @@ final class IEAvatarFrameLibrary {
     }
 
     func frame(atlas: String, name: String) -> IEAvatarVisualFrame? {
+        if TabletopPresentation.enabled,
+           TabletopMiniatureLibrary.supports(sprite.character) {
+            return tabletopFrame(atlas: atlas, name: name)
+        }
         guard let indexed = sprite.frame(atlas: atlas, name: name) else { return nil }
         if let cached = cache[indexed.id] { return cached }
 
@@ -154,7 +158,7 @@ final class IEAvatarFrameLibrary {
         return visual
     }
 
-    private static func makeTexture(
+    fileprivate static func makeTexture(
         rgba: [UInt8],
         width: Int,
         height: Int
@@ -184,6 +188,201 @@ final class IEAvatarFrameLibrary {
     }
 }
 
+/// The tabletop cutover is presentation policy, independent of navigation and
+/// the preserved, byte-exact legacy asset authorities.
+enum TabletopPresentation {
+    static let enabled = true
+}
+
+@MainActor
+private extension IEAvatarFrameLibrary {
+    func tabletopFrame(atlas: String, name: String) -> IEAvatarVisualFrame? {
+        let parts = name.replacingOccurrences(of: ".png", with: "").split(separator: "_")
+        guard parts.count >= 3 else { return nil }
+        let direction = parts[parts.count - 2]
+        let key = (name.hasPrefix("unarmored_") ? "unarmored_" : "") + "idle_\(direction)_00"
+        let id = IEIndexedSprite.FrameID(atlas: atlas, name: key + ".png")
+        if let cached = cache[id] { return cached }
+        do {
+            let frame = try TabletopMiniatureLibrary.frame(character: sprite.character, key: key, colors: colors, id: id)
+            cache[id] = frame
+            return frame
+        } catch {
+            fatalError("Tabletop miniature installation is incomplete: \(error)")
+        }
+    }
+}
+
+/// Full resolution Blender colour plus an independent material/continuous-shade
+/// plane. Only overridden paint regions are recoloured; alpha and geometry stay
+/// byte-identical. No indexed quantisation or native framebuffer is involved.
+@MainActor
+enum TabletopMiniatureLibrary {
+    struct Spec: Decodable {
+        let width: Int, height: Int
+        let pivot: [Double]
+        let display: [Double]
+        let colors: [UInt32]
+    }
+    static let directory: URL = {
+        if let bundled = Bundle.main.url(forResource: "Tabletop", withExtension: nil) { return bundled }
+        if let bundled = Bundle.main.resourceURL?.appendingPathComponent("IE/Tabletop"),
+           FileManager.default.fileExists(atPath: bundled.path) { return bundled }
+        return IEGradientTables.developmentDirectory.appendingPathComponent("Tabletop")
+    }()
+    private static let specs: [String: Spec] = {
+        do { return try JSONDecoder().decode([String: Spec].self, from: Data(contentsOf: directory.appendingPathComponent("miniatures.json"))) }
+        catch { fatalError("Missing tabletop miniature manifest: \(error)") }
+    }()
+    private static let gradients = try! IEGradientTables.load()
+    static func supports(_ character: String) -> Bool { specs[character + "/idle_s_00"] != nil }
+
+    static func frame(character: String, key: String, colors: [UInt32], id: IEIndexedSprite.FrameID) throws -> IEAvatarVisualFrame {
+        guard let spec = specs[character + "/" + key] else { throw CocoaError(.fileReadNoSuchFile) }
+        let url = directory.appendingPathComponent(character).appendingPathComponent(key)
+        var rgba = [UInt8](try Data(contentsOf: url.appendingPathExtension("rgba")))
+        let paint = [UInt8](try Data(contentsOf: url.appendingPathExtension("paint")))
+        guard rgba.count == spec.width * spec.height * 4, paint.count == rgba.count,
+              colors.count == 7, spec.colors.count == 7 else { throw CocoaError(.fileReadCorruptFile) }
+        let ramps = colors.map { Array(gradients.palette16(Int($0)).prefix(12)) }
+        for i in stride(from: 0, to: rgba.count, by: 4) {
+            let slot = Int(paint[i]) - 1
+            if (0..<7).contains(slot), colors[slot] != spec.colors[slot] {
+                let shade = Double(paint[i+1]) * 11 / 255
+                let lo = Int(shade), hi = min(11, lo+1), t = shade-Double(lo)
+                let a = ramps[slot][lo], b = ramps[slot][hi]
+                for (c, values) in [(a.r,b.r),(a.g,b.g),(a.b,b.b)].enumerated() {
+                    rgba[i+c] = UInt8(clamping: Int((Double(values.0)*(1-t)+Double(values.1)*t).rounded()))
+                }
+            }
+            // CGImage's premultiplied contract; source files retain straight RGB.
+            for c in 0..<3 { rgba[i+c] = UInt8((Int(rgba[i+c])*Int(rgba[i+3])+127)/255) }
+        }
+        guard let texture = IEAvatarFrameLibrary.makeTexture(rgba: rgba, width: spec.width, height: spec.height) else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+        texture.filteringMode = .linear
+        return IEAvatarVisualFrame(texture: texture, displaySize: CGSize(width: spec.display[0], height: spec.display[1]),
+            anchorPoint: CGPoint(x: spec.pivot[0], y: spec.pivot[1]), id: id, isEmpty: false)
+    }
+
+    /// Smooth source colour with per-pixel wall cover, without IE tint/grey or
+    /// checkerboard dithering. Uniform names preserve the area-mask adapter.
+    static func shader() -> SKShader {
+        SKShader(source: """
+        void main() {
+            vec4 c = texture2D(u_texture, v_tex_coord) * v_color_mix.a;
+            if (u_ie_stencil_on > 0.5) {
+                vec2 uv = u_ie_stencil_map.xy + v_tex_coord * u_ie_stencil_map.zw;
+                if (uv.x >= 0.0 && uv.x < 1.0 && uv.y >= 0.0 && uv.y < 1.0) {
+                    vec4 mask = texture2D(u_ie_stencil, uv);
+                    if (mask.g > 0.0) c *= mask.r > 0.75 ? 0.0 : 0.45;
+                }
+            }
+            gl_FragColor = c;
+        }
+        """, uniforms: [SKUniform(name: "u_ie_stencil", texture: IEBlitShader.blankStencil),
+            SKUniform(name: "u_ie_stencil_on", float: 0),
+            SKUniform(name: "u_ie_stencil_map", vectorFloat4: SIMD4<Float>(0,0,1,1))])
+    }
+
+    static func light(_ layers: [IEAvatarNode]) {
+        for layer in layers { layer.shader = layer.miniatureShader; layer.colorBlendFactor = 0 }
+    }
+}
+
+@MainActor
+final class MiniatureBaseNode: SKSpriteNode {
+    private let groundShadow = SKSpriteNode(texture: ContactShadowFactory.softTexture())
+
+    /// The shadow stays on the board as the entire painted piece is lifted.
+    func presentLift(_ height: CGFloat) {
+        groundShadow.position.y = -height / yScale - 5
+        groundShadow.alpha = 0.4 * min(1, height / TabletopMiniatureMotion.liftHeight)
+    }
+    enum Allegiance: String { case ally, hostile, neutral }
+    private var allegiance: Allegiance?
+    init(allegiance: Allegiance = .neutral, large: Bool = false) {
+        // Match the approved 1.72 m body at 32 mm. The base render has a 30 mm
+        // camera window around a 25 mm disc; include that overscan in its size.
+        let bodyUnits = 1024 * 0.07465790639916813 * (140.625 / 128)
+        let canvas = bodyUnits * 30 / 32 * (large ? 2 : 1)
+        super.init(texture: nil, color: .clear, size: CGSize(width: canvas, height: canvas))
+        name = "miniature.base"; zPosition = -0.1; shader = TabletopMiniatureLibrary.shader()
+        anchorPoint = CGPoint(x: 0.5, y: 0.5 + 2.5 * sqrt(1 - 0.75 * 0.75) / 30)
+        groundShadow.name = "miniature.groundShadow"
+        groundShadow.size = CGSize(width: canvas * 1.2, height: canvas * 0.9)
+        groundShadow.zPosition = -1
+        groundShadow.shader = TabletopMiniatureLibrary.shader()
+        addChild(groundShadow)
+        presentLift(0)
+        apply(allegiance)
+    }
+    required init?(coder: NSCoder) { fatalError("Programmatic miniature base") }
+    func applyWallStencil(_ stencil: WallStencilTexture?, in scene: SKScene) {
+        for layer in [self, groundShadow] {
+            if let stencil { stencil.apply(to: layer, in: scene) }
+            else { WallStencilTexture.clear(on: layer) }
+        }
+    }
+    func containsFootprint(_ point: CGPoint) -> Bool {
+        let radius = size.width * 25 / 30 / 2
+        let x = point.x / radius, y = point.y / (radius * 0.75)
+        return x*x + y*y <= 1
+    }
+    func apply(_ allegiance: Allegiance) {
+        guard self.allegiance != allegiance else { return }
+        self.allegiance = allegiance
+        texture = SKTexture(imageNamed: TabletopMiniatureLibrary.directory.appendingPathComponent("base_\(allegiance.rawValue).png").path)
+        texture?.filteringMode = .linear
+    }
+}
+
+/// Presentation only: observe the integral navigation root, never write it.
+/// Holding between 15 Hz movement ticks avoids a hop on every engine step.
+struct TabletopMiniatureMotion {
+    static let liftHeight: CGFloat = 6
+    private(set) var height: CGFloat = 0
+    private var lastPosition: CGPoint?
+    private var lastTime: TimeInterval?
+    private var wasPaused = false
+    private var stillTime: TimeInterval = 1
+    private var target: CGFloat = 0
+    private var startHeight: CGFloat = 0
+    private var elapsed: TimeInterval = 0
+
+    mutating func reset() { self = Self() }
+
+    mutating func update(position: CGPoint, at time: TimeInterval, paused: Bool) -> CGFloat {
+        defer { self.lastPosition = position; self.lastTime = time; wasPaused = paused }
+        guard let lastPosition, let lastTime else { return height }
+        guard !paused, !wasPaused else { return height }
+        let rawDelta = max(0, time - lastTime)
+        let distance = hypot(position.x - lastPosition.x, position.y - lastPosition.y)
+        // A relocated/reused actor or a suspended scene starts seated on its base.
+        if distance > 64 || rawDelta > 0.5 {
+            reset()
+            return height
+        }
+        let delta = min(rawDelta, 0.1)
+        stillTime = distance > 0.001 ? 0 : stillTime + delta
+        let nextTarget: CGFloat = stillTime < 0.12 ? Self.liftHeight : 0
+        if nextTarget != target {
+            startHeight = height; target = nextTarget; elapsed = 0
+        }
+        elapsed += delta
+        let t = CGFloat(min(1, elapsed / (target > 0 ? 0.14 : 0.18)))
+        let ease = t * t * (3 - 2 * t)
+        height = startHeight + (target - startHeight) * ease
+        return height
+    }
+}
+
+@MainActor
+protocol TabletopMovingActor: WallStencilledActor {
+    func updateMiniatureMotion(at time: TimeInterval, paused: Bool)
+}
+
 /// Sprite node whose frame setter changes texture, crop size and pivot together.
 @MainActor
 final class IEAvatarNode: SKSpriteNode {
@@ -198,6 +397,7 @@ final class IEAvatarNode: SKSpriteNode {
     /// all three at whichever layer wrote the uniform last. The tint is still one
     /// answer per actor — `applyBodyTint` writes the same values to every layer.
     lazy var blitShader = IEBlitShader.make(tint: .opaqueWhite, flags: .blended)
+    lazy var miniatureShader = TabletopMiniatureLibrary.shader()
 
     convenience init(frame: IEAvatarVisualFrame?) {
         self.init(texture: nil, color: .clear, size: .zero)
