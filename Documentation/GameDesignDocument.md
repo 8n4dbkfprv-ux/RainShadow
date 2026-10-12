@@ -837,7 +837,7 @@ Fuller cards live in the design pack (`combat-sidequests/sidequest-NN-*.md`). Th
 Laurens decided on 12 October 2026 to move to **full tabletop**: painted miniatures on a diorama table for exploration and combat, with physical dice in combat. This replaces the former pre-rendered Baldur's Gate: EE target and the `BGEE_V1` character pipeline.
 
 - **Status: proposal.** This section follows Game Art Director's *Tabletop Style Guide v1* (draft). Every value below (scale, palette hexes, camera angles, UI props) is a **proposal pending Laurens's sign-off**.
-- **Legacy assets.** Existing `BGEE_V1` sprites and atlases, portraits and area plates (RS0000–RS0601, including the finished v08, v12 and v19 art) are **legacy, reference only**, kept as placeholders until replaced. `BGEEHumanoidPipeline.md`, `BGEEProjectionMasterRegen.md`, `InfinityEngineGroundProjection.md`, `NativeSpriteCameraCalibration.md` and the old `style-guide.md` are historical.
+- **Legacy assets (decided 12 October 2026).** Existing area plates (RS0000–RS0601, including the finished v08, v12 and v19 art), `BGEE_V1` sprite sheets, atlases and portraits are **reference only but stay in the repo; nothing is deleted**. They remain the **live in-game art** until each area's tabletop board replaces it. Migration is **one area at a time, starting with RS0101 (Voss's office)**, so the build never breaks. The old plates serve as layout and mood reference for the Blender boards. `BGEEHumanoidPipeline.md`, `BGEEProjectionMasterRegen.md`, `InfinityEngineGroundProjection.md`, `NativeSpriteCameraCalibration.md` and the old `style-guide.md` are historical.
 - **Unchanged:** noir tone, rain, lamplight, Harborpoint, the wardrobe colours, and the investigation-first design.
 
 ### 5.1 Production language — a real table on a wet night
@@ -927,7 +927,7 @@ Lighting rules: in the office the brass desk lamp is the warm key and the rain w
 - **World and streaming:** keep the 5120×3840 world and 5×5 page streaming. Masters at 2.5 px/unit, runtime about 2 px/unit. Miniatures about 2× on-screen height at maximum zoom.
 - **Hero renders** of each miniature for dialogue close-ups and portraits.
 - **Tools:** AI image tools only for concepts, paint studies and textures. Meshy for first-pass meshes, then Blender retopology, posing and painting. Never AI-overpaint a baked plate.
-- **First test:** rebuild RS0101 (Voss's office) with Voss standing and seated.
+- **First test:** rebuild RS0101 (Voss's office) with Voss standing and seated. This is also the first area migrated; the others follow one at a time, each keeping its legacy plate live until its board ships (§5.0).
 - **Rejected:** Option B (real-time 3D miniatures on pre-rendered boards) — mismatched lighting and finish between live minis and baked boards, for extra runtime cost. Option C (full real-time 3D) — highest cost and risk for a small team, and loses the authored, painted plate quality.
 
 
