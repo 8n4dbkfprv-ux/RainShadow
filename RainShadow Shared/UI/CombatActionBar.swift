@@ -185,7 +185,7 @@ final class CombatActionBar: SKNode {
     private let plate = SKSpriteNode()
     private let plateMount = SKNode()
     private let portrait = SKSpriteNode()
-    private let portraitFrame = SKSpriteNode(texture: GameArt.texture(named: "initiative_portrait_frame_v01"))
+    private let portraitFrame = SKSpriteNode(texture: CombatDicePresentation.tokenTexture())
     private let health = SKLabelNode(fontNamed: UITheme.Font.hudVital)
     private let resources = SKLabelNode(fontNamed: UITheme.Font.overlayBodyBold)
     private let tooltip = SKShapeNode()
@@ -211,7 +211,10 @@ final class CombatActionBar: SKNode {
         plateMount.name = "combat.actionBar.chrome"
         plateMount.setScale(0.5)
         plateMount.zPosition = -2; addChild(plateMount); plateMount.addChild(plate)
-        portrait.size = CGSize(width: 66, height: 66)
+        portrait.size = CGSize(width: 60, height: 60)
+        portrait.shader = SKShader(source: """
+        void main() { vec4 c = texture2D(u_texture, v_tex_coord); gl_FragColor = c * (1.0 - smoothstep(0.48, 0.5, distance(v_tex_coord, vec2(0.5)))); }
+        """)
         portraitFrame.size = CGSize(width: 84, height: 84)
         for node in [portrait, portraitFrame, health, resources, tooltip] { addChild(node) }
         health.fontSize = 14; health.fontColor = UITheme.Color.ink

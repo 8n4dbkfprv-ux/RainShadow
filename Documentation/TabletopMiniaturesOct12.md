@@ -102,8 +102,10 @@ in `output/tabletop-movement-oct12/` (`movement.gif`, `report.json`).
 
 This is the character cutover using existing approved sculpts. New wardrobe
 sculpts/textures, area terrain boards, walnut/felt surroundings, board-specific
-base tops, practical-light simulation, macro dialogue portraits, physical dice,
+base tops, practical-light simulation, macro dialogue portraits, the remaining noncombat
 prop UI and a separately rendered 55° combat camera remain subsequent work.
+World-space physical dice and combat prop UI are implemented in
+`TabletopCombatOct12.md`.
 The current terrain plates remain placeholders as PR 36 specifies. The base's
 visual diameter does not expand the navigation collider or alter narrow routes.
 

@@ -13,6 +13,15 @@ final class GamePreferences {
     /// silently reset the player's display options.
     static let zoomLockKey = "RainShadow.Preferences.ZoomLock.v1"
 
+    var combatDiceSpeed: String {
+        get { defaults.string(forKey: "RainShadow.Preferences.CombatDiceSpeed.v1") ?? "normal" }
+        set { defaults.set(newValue, forKey: "RainShadow.Preferences.CombatDiceSpeed.v1") }
+    }
+    var combatDiceMuted: Bool {
+        get { defaults.bool(forKey: "RainShadow.Preferences.CombatDiceMuted.v1") }
+        set { defaults.set(newValue, forKey: "RainShadow.Preferences.CombatDiceMuted.v1") }
+    }
+
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {

@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-12",
+  "authoring": "Live Blender MCP; isolated RainShadow_CombatDice_Oct12 scene",
+  "local_blender_source": "ArtSource/Blender/tabletop_combat_dice_oct12.blend",
+  "source_policy": "ArtSource stays local per repository policy; packaged meshes are runtime authority.",
+  "coordinate_space": "Blender z-up; runtime maps (x,y,z) to (x,z,-y).",
+  "dice": {
+    "d20": "bevelled icosahedron; opposite faces sum to 21; dotted 6 and 9",
+    "d6": "bevelled cube; opposite faces sum to 7",
+    "d3": "cube numbered 1\u20133 twice",
+    "d4": "octahedron numbered 1\u20134 twice"
+  },
+  "props": "Generated prop atlas; only brass bezel at crop (576,590,384,384) is used. Dice have no tray.",
+  "sha256": {
+    "meshes.json": "476f606415a3ab12a89ee1f13c9ae3d26013f794ff2cb8d0120e1b4cca22b8f2",
+    "table-props.png": "ac4f7d9521e085c153c9d9737b6a293985ca0ea63a9d244e2f486dc7ef6cd0b4",
+    "resin-marble-v1.png": "d55b8d6cd9a6173b2902adc2b7609fba89d40467dc594ada65d0948e7b6a9ece",
+    "resin-texture-v1.json": "074e9c9a793fab7ab5fbb8e9df7842fee1aefe8769b311ef45de0547ed06cd51"
+  },
+  "local_textured_blender_source": "ArtSource/Blender/tabletop_combat_dice_textured_oct12.blend",
+  "texture": "resin-texture-v1.json"
+}

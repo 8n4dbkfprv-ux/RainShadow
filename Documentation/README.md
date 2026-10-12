@@ -8,6 +8,8 @@ This package defines the creative and technical baseline for RainShadow's first 
 
 ## Documents
 
+- [Tabletop combat — October 12](TabletopCombatOct12.md) — Blender dice thrown into the area, rules-first results, rigid combat poses and combat props.
+
 - [Fantasy UI and October 5 recovery](FantasyFolioUI.md#runtime-recovery--october-5) — restored session artwork, runtime wiring, sidebar geometry, inventory and scrollbars.
 - [October 5 character recovery](CharacterRuntimeRecoveryOct05.md) — restored Rustic Voss, Desert Sentinel Lila, equipment and appearance codes, with runtime identity checks.
 - [Shared character appearances](CharacterAppearanceSystem.md) — body and palette codes, compatible equipment and NPC rendering integration.
@@ -45,7 +47,7 @@ This package defines the creative and technical baseline for RainShadow's first 
 
 ## Decisions frozen for Milestone 01
 
-- Runtime presentation is two-dimensional SpriteKit. There is no SceneKit, 3D runtime, Unity, or custom Metal renderer.
+- Area and character presentation remain two-dimensional SpriteKit. The October 12 combat dice use an isolated SceneKit mesh renderer composited into world-space sprites; this supersedes the original no-SceneKit restriction for dice only.
 - The visual target is a late-1990s/early-2000s pre-rendered isometric CRPG production language: painterly area plates, crude era-authentic textured 3D meshes rendered into lightly pixelated 2D frames, fixed projection, baked chiaroscuro, authored foreground occlusion, and restrained live effects.
 - Exterior is a short non-interactive establishing scene. The office becomes playable after the cinematic transition.
 - The V18 office plate bakes only fixed architecture: floor/brick, two

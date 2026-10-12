@@ -21,6 +21,7 @@ final class TacticalCombatDirector {
     private var cachedAttackPlan: (combat: TacticalCombat, order: CombatAttackOrder, plan: CombatAttackPlan)?
     let initiativeBar = CombatInitiativeBar()
     let actionBar = CombatActionBar()
+    let dicePresentation = CombatDicePresentation()
     private(set) var startBanner: CombatStartBanner?
     private let message = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
     private let history = SKLabelNode(fontNamed: UITheme.Font.overlayBody)
@@ -39,6 +40,7 @@ final class TacticalCombatDirector {
     private(set) var selectingMelee = false
     var targetingFeedback: String { feedback }
     private(set) var selectingSneakAttack = false
+    private var chipStates: [String: String] = [:]
     private var badges: [String: SKLabelNode] = [:]
     private var rings: [String: SKShapeNode] = [:]
     private(set) var defeatNodes: [String: CharacterAppearanceNode] = [:]
@@ -177,7 +179,7 @@ final class TacticalCombatDirector {
                 && reaction.kind == .tripFall && reaction.elapsed >= ProneMotion.holdTime)
         }
     }
-    var busy: Bool { climbing != nil || movementInterrupt != nil || movementContinuation != nil || runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
+    var busy: Bool { dicePresentation.isRolling || climbing != nil || movementInterrupt != nil || movementContinuation != nil || runPresentation != nil || startBanner != nil || dashPresentation != nil || wardCast != nil || bearAbility != nil || bearAction != nil || shovePresentation != nil || defeatsAnimating || !hideTransitions.isEmpty || movingID != nil || delay > 0 || formTransition != nil || rangedShot != nil || meleeAttack != nil || !blasts.isEmpty || !knockbacks.isEmpty || debrisMoving || reactionsAnimating }
     func isWalking(_ id: String) -> Bool { movingID == id }
 
     init(scene: CityDistrictScene, combat: TacticalCombat, crew: [CharacterAppearanceNode], isNewEncounter: Bool, completion: @escaping () -> Void) {
@@ -194,6 +196,15 @@ final class TacticalCombatDirector {
         turnPanel.fillColor = .clear; turnPanel.strokeColor = .clear
         panel.fillColor = .clear; panel.strokeColor = .clear
         hud.addChild(actionBar)
+        hud.addChild(dicePresentation)
+        scene.depthWorldRoot.addChild(dicePresentation.worldNode)
+        dicePresentation.playbackSpeed = CombatDiceSpeed(rawValue: scene.context.preferences.combatDiceSpeed) ?? .normal
+        dicePresentation.muted = scene.context.preferences.combatDiceMuted
+        dicePresentation.onPreferencesChanged = { [weak self] in
+            guard let self else { return }
+            self.scene.context.preferences.combatDiceSpeed = self.dicePresentation.playbackSpeed.rawValue
+            self.scene.context.preferences.combatDiceMuted = self.dicePresentation.muted
+        }
         hud.addChild(targetPanel)
         hud.addChild(initiativeBar)
         if isNewEncounter, combat.outcome == nil {
@@ -288,6 +299,8 @@ final class TacticalCombatDirector {
         hud.position.x = (left - right) / 2
         actionBar.layout(width: width, buttons: visible)
         let height = actionBar.height
+        dicePresentation.layout(width: width)
+        dicePresentation.position.y = -scene.size.height / 2 + height + 42
         actionBar.position.y = -scene.size.height / 2 + height / 2 + 12
         panel.path = CGPath(rect: CGRect(x: -width / 2, y: -height / 2, width: width, height: height + 70), transform: nil)
         panel.position = actionBar.position
@@ -296,8 +309,8 @@ final class TacticalCombatDirector {
         initiativeBar.position = turnPanel.position
         initiativeBar.layout(width: width)
         startBanner?.layout(width: max(1, scene.size.width - left - right - 24), sceneHeight: scene.size.height)
-        message.position.y = panel.position.y + height / 2 + 42
-        history.position.y = panel.position.y + height / 2 + 13
+        message.position.y = panel.position.y + height / 2 + 156
+        history.position.y = panel.position.y + height / 2 + 132
         message.fontSize = 12; history.fontSize = 10
         for label in [message, history] { label.preferredMaxLayoutWidth = width - 24; label.numberOfLines = 2 }
         targetPanel.panelWidth = min(330, width)
@@ -318,6 +331,8 @@ final class TacticalCombatDirector {
             : "")
         if startBanner != nil { message.text = nil }
         history.text = presentedCombat.displayedLog.last
+        dicePresentation.recentLog = combat.displayedLog
+        actionBar.isHidden = false
         buttons.forEach { $0.alpha = combat.isPlayerTurn && !busy ? 1 : 0.45 }
         buttons[18].alpha = combat.isPlayerTurn && !busy && combat.canDash ? 1 : 0.35
         buttons[18].badge.text = "Dash"
@@ -379,6 +394,19 @@ final class TacticalCombatDirector {
                 badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · " + condition.label
             }
             if actor.isBurning { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Burning \(actor.burningTurns!)t" }
+            let chips = [actor.isProne ? "P" : nil, actor.isBurning ? "F" : nil, actor.hasBladeWard ? "W" : nil].compactMap { $0 }
+            let chipKey = chips.joined()
+            if chipStates[actor.id] != chipKey, let badge = badges[actor.id] {
+                chipStates[actor.id] = chipKey
+                badge.children.filter { $0.name == "combat.status.chip" }.forEach { $0.removeFromParent() }
+                for (index, text) in chips.enumerated() {
+                    let chip = SKSpriteNode(texture: CombatDicePresentation.tokenTexture(), size: CGSize(width: 24, height: 24))
+                    chip.name = "combat.status.chip"; chip.position = CGPoint(x: 42 + index * 25, y: -70)
+                    let label = SKLabelNode(fontNamed: "AmericanTypewriter-Bold"); label.text = text
+                    label.fontSize = 12; label.fontColor = .white; label.verticalAlignmentMode = .center
+                    chip.addChild(label); badge.addChild(chip)
+                }
+            }
             if actor.hidden == true { badges[actor.id]?.text = (badges[actor.id]?.text ?? "") + " · Hidden" }
             badges[actor.id]?.fontColor = actor.player ? .cyan : SKColor(red: 1, green: 0.7, blue: 0.55, alpha: 1)
             rings[actor.id]?.strokeColor = selectingMelee && !actor.player && actor.conscious
@@ -436,7 +464,7 @@ final class TacticalCombatDirector {
             checkpoint()
         }
     }
-    private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented || targetPanel.examining }
+    private var presentationPaused: Bool { scene.pause.isPausedByPlayer || scene.anyOverlayIsPresented || targetPanel.examining || dicePresentation.logOpen }
     var canShowLadderHint: Bool {
         combat.isPlayerTurn && !busy && !presentationPaused
             && !aimingRangedAttack && !selectingMelee && !selectingShove
@@ -591,6 +619,7 @@ final class TacticalCombatDirector {
     }
     func pointer(at scenePoint: CGPoint) {
         guard !scene.anyOverlayIsPresented else { return }
+        if dicePresentation.pointer(at: dicePresentation.convert(scenePoint, from: scene)) { refresh(); return }
         let targetPoint = targetPanel.convert(scenePoint, from: scene)
         if targetPanel.footerContains(targetPoint) { toggleExamine(); return }
         if targetPanel.containsPanelPoint(targetPoint) || targetPanel.examining { return }
@@ -985,6 +1014,7 @@ final class TacticalCombatDirector {
               let attacker = before.actors.first(where: { $0.id == result.attacker }),
               let target = before.actors.first(where: { $0.id == result.target }) else { return }
         movementInterrupt = nil
+        presentDice(result, before: before)
         // A claw order belongs to the form in which it was selected. Losing
         // Wild Shape during the approach must not silently substitute a sword.
         if before.isBear != combat.isBear { pendingAttack = nil }
@@ -1047,6 +1077,7 @@ final class TacticalCombatDirector {
             feedback = combat.budget.canAttack ? "Target is blocked!" : "Not enough resources: Action."
             refresh(); return
         }
+        presentDice(result, before: before)
         selectingMelee = false
         selectingSneakAttack = false
         selectingClaw = false
@@ -1076,6 +1107,44 @@ final class TacticalCombatDirector {
             presentImpact(result, target: target)
         }
     }
+    private func presentDice(_ strike: TacticalCombat.Strike, before: TacticalCombat) {
+        guard let actor = before.actors.first(where: { $0.id == strike.attacker }) else { return }
+        // Keep the throw on open area ground near the acting miniature. Query
+        // the existing raster; dice are cosmetic and never stamp occupancy.
+        let target = before.actors.first { $0.id == strike.target }?.position ?? scene.detective.position
+        let center = CGPoint(x: (actor.position.x + target.x) / 2, y: (actor.position.y + target.y) / 2)
+        let offsets: [CGPoint] = [CGPoint(x: 0, y: -85), CGPoint(x: 100, y: -55), CGPoint(x: -100, y: -55),
+            CGPoint(x: 0, y: 90), CGPoint(x: 150, y: 0), CGPoint(x: -150, y: 0)]
+        let candidates = [center, scene.detective.position].flatMap { origin in
+            offsets.compactMap { offset in
+                scene.navigation.nearestWalkablePoint(to: CGPoint(x: origin.x + offset.x, y: origin.y + offset.y))
+            }
+        }
+        let count = min(5, strike.dicePresentation.map { $0.dice.count }.max() ?? 1)
+        let halfWidth = (CGFloat(max(0, count - 1)) * 16.2 + 16) * CombatDicePresentation.areaScale
+        let halfHeight = 18 * CombatDicePresentation.areaScale
+        let visibleCandidates = candidates.filter { point in
+            let screen = scene.gameCamera.convert(point, from: scene.depthWorldRoot)
+            let margin = halfWidth / scene.playCameraScale
+            let left = -scene.size.width / 2 + HUDChromeLayout.leftRailClearance(for: scene.size) + margin
+            let right = scene.size.width / 2 - HUDChromeLayout.rightRailClearance(for: scene.size) - margin
+            let bottom = -scene.size.height / 2 + actionBar.height + 170
+            return screen.x >= left && screen.x <= right && screen.y > bottom && screen.y < scene.size.height / 2 - 160
+                && scene.isVisibleGround(at: point)
+        }
+        let anchor = visibleCandidates.first { point in
+            [-halfWidth, 0, halfWidth].allSatisfy { dx in
+                [-halfHeight, 0, halfHeight].allSatisfy { dy in
+                    let sample = CGPoint(x: point.x + dx, y: point.y + dy)
+                    return scene.navigation.isOrderableFloor(sample) && scene.isVisibleGround(at: sample) && !(scene.areaRuntime?.isCovered(sample) ?? false)
+                }
+            }
+        } ?? visibleCandidates.first ?? scene.detective.position
+        dicePresentation.worldNode.position = anchor
+        scene.updateDepth(of: dicePresentation.worldNode, bias: 1)
+        dicePresentation.present(strike.dicePresentation, speaker: actor.name, paint: actor.player ? .amber : .oxblood)
+    }
+
     private func beginMeleePresentation(_ actor: Combatant, node: CharacterAppearanceNode) {
         guard actor.player else { return }
         scene.detective.isHidden = true; node.isHidden = false
@@ -1556,6 +1625,7 @@ final class TacticalCombatDirector {
             refresh(); return
         }
         guard commitAmmunition(ammunition, before: before) else { return }
+        presentDice(result, before: before)
         beginBowPresentation(attacker)
         rangedShot = BowShotPresentation(before: before, result: result, target: target, actor: node,
             parent: scene.depthWorldRoot, targetHeight: (before.isBear ? 30 : 54) + scene.detective.visualHeightOffset)
@@ -1964,7 +2034,8 @@ final class TacticalCombatDirector {
             if abs(roarSound.currentTime - ability.elapsed) > 0.1 { roarSound.currentTime = ability.elapsed }
             if !roarSound.isPlaying { roarSound.play() }
         }
-        guard !presentationPaused else { return }
+        dicePresentation.advance(delta: delta, paused: presentationPaused)
+        guard !presentationPaused, !dicePresentation.isRolling else { return }
         if climbing != nil { updateClimb(delta: delta); return }
         if let startBanner {
             startBanner.advance(delta: delta)
@@ -2177,6 +2248,8 @@ final class TacticalCombatDirector {
     func finish() {
         guard !finished, !defeatsAnimating, combat.outcome != nil else { return }
         finished = true
+        dicePresentation.stop()
+        dicePresentation.worldNode.removeFromParent()
         startBanner?.removeFromParent(); startBanner = nil
         scene.detective.setCombatRecoil(0)
         crew.forEach { $0.setCombatRecoil(0) }; bearNode?.setCombatRecoil(0)

@@ -12,6 +12,9 @@ import SpriteKit
         func check(_ value: Bool, _ message: String) throws {
             guard value else { throw Failure(message: message) }
             if !checks.contains(message) { checks.append(message) }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_DICE_INTEGRATION"] == "1" {
+                try? message.write(to: output.appendingPathComponent("progress.txt"), atomically: true, encoding: .utf8)
+            }
         }
         func require<T>(_ value: T?, _ message: String) throws -> T {
             guard let value else { throw Failure(message: message) }; return value
@@ -169,6 +172,39 @@ import SpriteKit
                           "Shipping-room barrel is present before its encounter starts")
                 try check(scene.areaBarrels[0].position == CGPoint(x: 430, y: 410), "Indoor barrel stays on its reviewed floor seat")
                 try capture("shipping-barrel-before-combat")
+                try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
+                NSApp.terminate(nil); return
+            }
+            if ProcessInfo.processInfo.environment["RAINSHADOW_QA_DICE_INTEGRATION"] == "1" {
+                let director = scene.combatDirector!
+                director.dicePresentation.playbackSpeed = .normal
+                scene.recenterCamera(on: scene.detective.position)
+                scene.gameCamera.position = scene.detective.position
+                try await wait { director.dicePresentation.isRolling || (director.combat.isPlayerTurn && !director.busy) }
+                if !director.dicePresentation.isRolling { director.command(2) }
+                try await wait { director.dicePresentation.isRolling }
+                try check(director.dicePresentation.worldNode.parent === scene.depthWorldRoot, "Dice are attached to area ground, not the HUD")
+                try check(scene.navigation.isOrderableFloor(director.dicePresentation.worldNode.position), "Dice land on traversable area ground")
+                try check(scene.isVisibleGround(at: director.dicePresentation.worldNode.position), "Dice land inside visible ground")
+                try check(director.dicePresentation.worldNode.xScale == 2.5, "Area dice match the reference scale")
+                try await wait { director.dicePresentation.pieces.allSatisfy { $0.motion.finished } }
+                try await Task.sleep(for: .milliseconds(80))
+                try capture("combat-dice-visible")
+                let accepted = director.combat
+                try check(GameSession(saveStore: store).tacticalCombat == accepted, "Dice start only after the accepted result is saved")
+                try check(director.presentedCombat != accepted, "Dice defer the visual impact, not rule resolution")
+                let positions = director.dicePresentation.pieces.map { $0.motion.position }
+                scene.handleTacticalPauseInput()
+                try await Task.sleep(for: .milliseconds(200))
+                try check(director.dicePresentation.pieces.map { $0.motion.position } == positions && director.combat == accepted, "Tactical pause freezes dice and preserves the accepted result")
+                try capture("combat-dice-paused")
+                scene.handleTacticalPauseInput()
+                director.dicePresentation.skip()
+                try check(director.combat == accepted, "Skipping an actual combat throw changes no health, budget, or RNG")
+                try await wait { director.meleeAttack == nil && director.rangedShot == nil && director.bearAbility == nil }
+                try capture("combat-after-dice")
+                let restored = GameSession(saveStore: store).tacticalCombat
+                try check(restored?.randomState == director.combat.randomState, "Reload retains the same next gameplay roll")
                 try JSONSerialization.data(withJSONObject: ["passed": true, "checks": checks], options: [.prettyPrinted, .sortedKeys]).write(to: output.appendingPathComponent("report.json"))
                 NSApp.terminate(nil); return
             }

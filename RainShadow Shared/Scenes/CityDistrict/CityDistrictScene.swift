@@ -70,6 +70,8 @@ final class CityDistrictScene: GameAreaScene, CutsceneStage {
     /// a district identity.
     private let districtID: CityDistrictID?
     private var fogOfWar: FogOfWarNode?
+    /// Cosmetic area props must be seated in a cell the player can currently see.
+    func isVisibleGround(at point: CGPoint) -> Bool { fogOfWar?.isVisible(point) ?? true }
     private var edgeExits: [EdgeExit] = []
     private var hasShownArrivalHint = false
     private var ladderPresentation: LadderPresentation?

@@ -36,8 +36,8 @@ saves with space, and do not refill on reload. Normal arrows break oil barrels;
 fire arrows ignite them. Bow attacks also support Voss’s equipped splint mail and
 iron helmet, including Aimed Shot, Pinning Shot and ranged Sneak Attack.
 
-Combat turn order appears as a portrait initiative bar. Blue borders identify
-Voss, red borders identify enemies, and a gold marker identifies the active
+Combat turn order appears as a portrait initiative bar. Brass borders identify
+Voss, oxblood borders identify enemies, and a gold marker identifies the active
 turn. Completed turns dim until the next round; defeated combatants leave the
 bar. Portraits show rolled initiative, health and current conditions, and Voss's
 portrait changes with Bear Form. The bar uses the presented combat state so
@@ -54,6 +54,14 @@ of the caster's second following turn. Burning and barrel fire damage are unchan
 The hand gesture forms a ward at its midpoint; the persistent shimmer flashes on
 blocked hits, pauses with combat/inventory, and ends with the condition. A ward
 can carry into Bear Form, but the bear cannot cast it. Existing saves remain readable.
+
+Combat dice are Blender-authored resin pieces thrown onto the playable area.
+Attack and damage rolls appear visibly; minor checks go straight to **Roll log**.
+The **Dice: Normal / Fast / Skip** and **Dice sound** controls persist between
+sessions. **Skip throw** ends the current presentation immediately; the rules
+and save have already resolved, so it cannot change an outcome. Opening the log
+pauses combat; its Older/Newer controls show the retained roll history.
+See [tabletop combat](Documentation/TabletopCombatOct12.md).
 
 ## Verification
 

@@ -238,7 +238,11 @@ struct TacticalCombat: Codable, Equatable {
         self.encounterID = encounterID; self.areaID = areaID; self.actors = actors
         self.barrels = barrels.isEmpty ? nil : barrels
         randomState = seed
-        for i in self.actors.indices { self.actors[i].initiative = roll(20) + self.actors[i].initiativeBonus }
+        for i in self.actors.indices {
+            let die = roll(20)
+            self.actors[i].initiative = die + self.actors[i].initiativeBonus
+            note("Roll · \(self.actors[i].name) initiative: d20 \(die) + \(self.actors[i].initiativeBonus) = \(self.actors[i].initiative)")
+        }
         // Explicit adaptation: stable IDs break remaining ties (no engine object registry).
         self.actors.sort {
             if $0.initiative != $1.initiative { return $0.initiative > $1.initiative }
@@ -285,7 +289,7 @@ struct TacticalCombat: Codable, Equatable {
         return Int((randomState >> 32) % UInt64(sides)) + 1
     }
     var displayedLog: [String] {
-        log.filter { CombatEventText.isVerified($0, names: actors.map(\.name) + (barrels ?? []).map(\.name)) }
+        log.filter { $0.hasPrefix("Roll · ") || CombatEventText.isVerified($0, names: actors.map(\.name) + (barrels ?? []).map(\.name)) }
     }
     private mutating func note(_ text: String) {
         log.append(text)
@@ -296,6 +300,7 @@ struct TacticalCombat: Codable, Equatable {
         if isInFire(current.position) { catchFire(turn) }
         if current.isBurning {
             let damage = roll(4)
+            note("Roll · \(current.name) burning: d4 \(damage)")
             var injury = damage
             if current.player, isBear {
                 let absorbed = min(injury, bearForm!.temporaryHP)
@@ -407,6 +412,7 @@ struct TacticalCombat: Codable, Equatable {
             } else if isInFire(destination) { catchFire(index) }
         }
         note("\(attacker.name) used Shove on \(target.name).")
+        if !allied { note("Roll · \(attacker.name) shove: d20 \(first)\(second.map { ", \($0)" } ?? "") + \(preview.bonus) vs \(preview.dc) · \(success ? "Success" : "Failure")") }
         return Shove(attacker: attacker.id, target: id, roll: first, secondRoll: second, succeeded: success, preview: preview,
             displacement: success ? .init(id: id, from: target.position, to: destination) : nil, overboard: success && intoWater)
     }
@@ -605,6 +611,9 @@ struct TacticalCombat: Codable, Equatable {
         var sneakDamage = 0
         var requestedSneakAttack = false
         var attackRolls: [Int] = []
+        var damageDice: [CombatDie] = []
+        var attackModifier = 0
+        var targetDefence = 0
         var fireArrow = false
         var wardAbsorbed = 0
         var opportunityAttack = false
@@ -709,7 +718,9 @@ struct TacticalCombat: Codable, Equatable {
             for index in actors.indices where actors[index].conscious {
                 guard CombatNavigation.distance(barrel.position, actors[index].position) <= CombatBarrel.blastRadius,
                       visible(barrel.position, actors[index].position) else { continue }
-                let damage = 2 + roll(3)
+                let die = roll(3)
+                let damage = 2 + die
+                note("Roll · \(actors[index].name) blast damage: d3 \(die) + 2 = \(damage)")
                 var injury = damage
                 if actors[index].player, isBear {
                     let absorbed = min(injury, bearForm!.temporaryHP)
@@ -895,10 +906,18 @@ struct TacticalCombat: Codable, Equatable {
         let defence = defence(for: actors[target])
         let hit = Self.attackHits(die: die, bonus: attackBonus, defence: defence)
         let band = weaponDamageRange
-        var damage = hit ? Self.weaponDamage(band.lowerBound + roll(band.upperBound - band.lowerBound + 1) - 1, maneuver: maneuver) : 0
+        var damageDice: [CombatDie] = []
+        let damageSides = band.upperBound - band.lowerBound + 1
+        let weaponRoll = hit ? roll(damageSides) : 0
+        if hit { damageDice.append(CombatDie(sides: damageSides, value: weaponRoll)) }
+        var damage = hit ? Self.weaponDamage(band.lowerBound + weaponRoll - 1, maneuver: maneuver) : 0
         var sneakDamage = 0
         if hit && sneakEligible {
-            for _ in 0..<(current.sneakDamageDice * (die == 20 ? 2 : 1)) { sneakDamage += roll(6) }
+            for _ in 0..<(current.sneakDamageDice * (die == 20 ? 2 : 1)) {
+                let value = roll(6)
+                damageDice.append(CombatDie(sides: 6, value: value))
+                sneakDamage += value
+            }
             damage += sneakDamage; actors[turn].sneakSpent = true
         }
         let wardAbsorbed = actors[target].hasBladeWard ? damage - damage / 2 : 0
@@ -933,10 +952,11 @@ struct TacticalCombat: Codable, Equatable {
         }
         if !actors[target].conscious { actors[target].burningTurns = nil }
         let result = Strike(attacker: current.id, target: id, roll: die, damage: damage,
-                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed, opportunityAttack: opportunity)
+                            knockedOut: !actors[target].conscious, maneuver: maneuver, sneakDamage: sneakDamage, requestedSneakAttack: requireSneakAttack, attackRolls: attackRolls, damageDice: damageDice, attackModifier: attackBonus, targetDefence: defence, fireArrow: fireArrow, wardAbsorbed: wardAbsorbed, opportunityAttack: opportunity)
         if let action = result.actionName(ranged: ranged, bear: current.player && isBear) {
             note("\(current.name) used \(action) on \(actors[target].name).")
         }
+        for receipt in result.dicePresentation { note("Roll · " + receipt.caption) }
         for condition in result.appliedConditions {
             note("\(actors[target].name) received Condition: \(condition).")
         }

@@ -14,7 +14,8 @@ class GameViewController: NSViewController {
         super.viewDidLoad()
         let skView = self.view as! SKView
         #if DEBUG
-        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil
+        if ProcessInfo.processInfo.environment["RAINSHADOW_QA_DICE"] != nil
+            || ProcessInfo.processInfo.environment["RAINSHADOW_QA_COMBAT"] != nil
             || ProcessInfo.processInfo.environment["RAINSHADOW_QA_WHARF"] != nil
             || ProcessInfo.processInfo.environment["RAINSHADOW_QA_APPEARANCE"] != nil
             || ProcessInfo.processInfo.environment["RAINSHADOW_QA_TABLETOP"] != nil
@@ -31,6 +32,10 @@ class GameViewController: NSViewController {
         applyReviewCaptureSizeIfRequested()
         syncSceneToViewBounds()
         #if DEBUG
+        if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_DICE"], let skView = view as? SKView {
+            Task { @MainActor in await CombatDiceQA.run(in: skView, output: URL(fileURLWithPath: output)) }
+            return
+        }
         if let output = ProcessInfo.processInfo.environment["RAINSHADOW_QA_TABLETOP_OPENING"], let skView = view as? SKView {
             Task { @MainActor in await TabletopMiniatureQA.runOpening(in: skView, output: URL(fileURLWithPath: output)) }
             return
