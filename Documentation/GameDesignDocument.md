@@ -601,7 +601,7 @@ Use these as **load-bearing beats**, not window dressing:
 
 #### 4.3.5 Combat — Baldur’s Gate spirit, RainShadow stakes
 
-Combat is a **designed system** inside the case. The primary loop is still observation, pressure, and a deduction the player owns. The city answers a lot of those questions with a staffed room, and a staffed room is played **turn-based**, Baldur’s Gate style, with each action resolved by dice on the table (§5.6).
+Combat is a **designed system** inside the case. The primary loop is still observation, pressure, and a deduction the player owns. The city answers a lot of those questions with a staffed room, and a staffed room is played **turn-based**, Baldur’s Gate style, with attack and damage shown as dice thrown on the table (§5.6).
 
 Baldur’s Gate puts hostile ground between its towns and then fills each plot dungeon with the faction that owns it. Harborpoint has no wilderness, so the same density sits in the floors this case opens. The old cap — five Act I encounters, every one avoidable or shortenable by talk — is retired. A group below is one cluster of two to four people, the size of a Baldur’s Gate encounter. The tables count those groups.
 
@@ -761,7 +761,7 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 - A combat mode that enters and leaves cleanly from exploration: turn-based (already working in-game), with initiative order, combat entered on sighting, and the existing turn affordances. A quiet crossing of a kept floor uses the same mode.
 - Hostility and allegiance on actors (neutral to hostile on trigger), plus temporary allies with limited orders: hold a door, throw a lamp, follow. Lila never receives a weapon order.
 - Enemy actors with simple authored AI: advance, flank a choke point, break and flee under morale loss, surrender. Chalk crews break when their named man drops. Rest coats break when that room’s factor drops. Porters do not break for a bribe.
-- Attack resolution read from physical dice thrown onto the table (§5.6), using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed or improvised attack path (shove into seals, kick the lamp). Tune the placeholders so one night’s health can clear a core if the room is used.
+- Attack resolution by the rules, displayed by physical dice thrown onto the table (§5.6), using the equipped weapon's `damageBand`, defence from worn gear, and hit/miss feedback; an unarmed or improvised attack path (shove into seals, kick the lamp). Tune the placeholders so one night’s health can clear a core if the room is used.
 - Damage that drives `GameSession.currentHealth` and the portrait bar, with **knockout vs lethal** intent and downed-not-dead as the default for Voss (defeat is a story outcome: he loses the thing he came for, or he is thrown out and a dawn passes).
 - Rest that fills health and leaves named injuries. A bonesetter who clears one injury, at the prices above. The two-dawn clock as case state the journal can read.
 - Watch attention advanced only by witnessed violence, as above.
@@ -771,7 +771,7 @@ An accessibility setting, **Story combat**, lets any fight resolve without being
 - The Story combat setting: per-fight auto-resolve that writes the same case flags a played fight would, including injuries and attention.
 - Ally injury states (Steady / Hurt / Badly hurt) that dialogue conditions, scene availability, and the journal can read.
 - Combat-time movement from `MovementSystemRoadmap.md` Phase 6 (formation-free single hero plus ally, choke-point pathing).
-- A dice-throw system: physics dice, readable face detection, re-throw for cocked dice, skip/speed setting.
+- A dice-throw system: physics dice steered to land on the rules' pre-resolved result, visible only for attack, damage and story-critical rolls, minor rolls to the combat log, and a skip/fast-forward setting.
 - Art and audio: painted-miniature action poses for Voss (strike, shove, hit, downed); three crew bodies (chalk, porter, Rest coat) plus Sedge, the Gray Man, and a factor; impact, lamp-dim and dice-on-table audio. Named men can wear the crew body.
 
 #### 4.3.6 Immersion checklist
@@ -911,11 +911,14 @@ Lighting rules: in the office the brass desk lamp is the warm key and the rain w
 
 ### 5.6 Combat on the table — physical dice
 
-- In combat, **physical resin dice are thrown onto the table edge or board**, tumble, settle and are **read in place**; there is no hidden roll behind the animation. d20 and d6 only unless the rules need more.
+- **Big rolls are thrown on the table.** Attack and damage rolls (and any check this GDD marks as story-critical) are shown as **physical 3D resin dice thrown onto the table edge or board**, tumbling and settling in the game world. d20 and d6 only unless the rules need more.
+- **Minor rolls are silent.** Passive saves, routine skill checks, initiative and similar minor checks roll without dice on the table; their results appear in the **combat log**.
+- **Rules first, dice second.** Every roll is resolved by the rules before any animation plays; the physics dice are steered to land showing that result. An options setting **skips or fast-forwards the dice animation**, and outcomes are identical with it on or off. A die that settles cocked is simply re-thrown visually; the result does not change.
 - Dice sets: Voss smoky amber with cream numerals; Lila deep-green marbled; hostiles oxblood with black numerals. A critical gets a brief lamp-flare glint, no particle fireworks.
-- A dark leather **dice tray** sits at the near table edge in combat only. A cocked or unreadable die is re-thrown, as at a real table. A setting speeds up or skips the throw.
+- A dark leather **dice tray** sits at the near table edge in combat only.
 - The search map becomes the **visible combat grid on the felt**.
-- Combat is **turn-based**, Baldur’s Gate style (decided 12 October 2026; already working in-game). Each action's throw lands and is read before the turn passes; brass initiative tokens show order. Story combat skips the dice.
+- Combat is **turn-based**, Baldur’s Gate style (decided 12 October 2026; already working in-game). An attacker's throw lands and its result is shown before the turn passes; brass initiative tokens show order. Story combat skips the dice.
+- *Reference:* Ossian's in-development *Pathfinder: The Dragon's Demand* CRPG (PC Gamer preview, 11 October 2024) uses physics-simulated 3D dice for attack and damage rolls that land in the game world, with the animation optional and rules resolving identically.
 
 ### 5.7 Board rendering and pipeline (Option A, decided 12 October 2026)
 
