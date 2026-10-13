@@ -8,7 +8,7 @@
 
 ## 1. High-level vision
 
-RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence, and with **Baldur’s Gate–style real-time-with-pause combat**: authored, common once the city is open, and never a loot grind.
+RainShadow is a film-noir detective role-playing game built around close observation, human pressure, incomplete evidence, and deductions the player must be willing to own. It combines the tactile clarity of a point-and-click investigation with light RPG expression in dialogue, temperament, and consequence, and with **Baldur’s Gate–style turn-based combat**: authored, common once the city is open, and never a loot grind.
 
 The player inhabits **Harlan Voss**, a weary hired finder in his early thirties: capable, broke, observant, and carrying the accumulated damage of cases that did not end cleanly. The city is not a puzzle box waiting for the correct answer. It is a wet, **structurally corrupt** place where evidence can be true but incomplete, people can lie for defensible reasons, institutions protect themselves first, and the player's chosen interpretation matters.
 
@@ -837,7 +837,7 @@ Fuller cards live in the design pack (`combat-sidequests/sidequest-NN-*.md`). Th
 Laurens decided on 12 October 2026 to move to **full tabletop**: painted miniatures on a diorama table for exploration and combat, with physical dice in combat. This replaces the former pre-rendered Baldur's Gate: EE target and the `BGEE_V1` character pipeline.
 
 - **Status: proposal.** This section follows Game Art Director's *Tabletop Style Guide v1* (draft). Every value below (scale, palette hexes, camera angles, UI props) is a **proposal pending Laurens's sign-off**.
-- **Legacy assets.** Existing `BGEE_V1` sprites and atlases, portraits and area plates (RS0000–RS0601, including the finished v08, v12 and v19 art) are **legacy, reference only**, kept as placeholders until replaced. `BGEEHumanoidPipeline.md`, `BGEEProjectionMasterRegen.md`, `InfinityEngineGroundProjection.md`, `NativeSpriteCameraCalibration.md` and the old `style-guide.md` are historical.
+- **Legacy assets (decided 12 October 2026).** Existing `BGEE_V1` sprites and atlases, portraits and area plates (RS0000–RS0601, including the finished v08, v12 and v19 art) are **legacy, reference only**, but **stay in the repo; nothing is deleted**. They remain the **live in-game art** until each area's tabletop board replaces it. Migration is **one area at a time, starting with RS0101 (Voss's office)**, so the build never breaks; the old plates serve as layout and mood reference for the Blender boards. `BGEEHumanoidPipeline.md`, `BGEEProjectionMasterRegen.md`, `InfinityEngineGroundProjection.md`, `NativeSpriteCameraCalibration.md` and the old `style-guide.md` are historical.
 - **Unchanged:** noir tone, rain, lamplight, Harborpoint, the wardrobe colours, and the investigation-first design.
 
 ### 5.1 Production language — a real table on a wet night
@@ -849,7 +849,7 @@ Laurens decided on 12 October 2026 to move to **full tabletop**: painted miniatu
 - **Lamplight:** each street lamp is a tiny warm practical LED on the model; the key is a cold moon/skylight from above and behind the board. Warm-against-cold is the noir signature. Long, soft-edged shadows.
 - **Day and night** are the table lighting changing (overcast window light vs lamps plus cold key); the board is painted once, replacing separately painted night plates if the renderer allows.
 - **Reuse:** districts share a terrain kit (cobble tiles, lamp posts, awnings, iron stairs, crates); hero landmarks are scratch-built one-offs, one or two per area.
-- Pipeline: model in Blender (or Meshy, retopologised in Blender), hand-paint textures to §5.5, render with a shallow-depth macro-lens look.
+- Pipeline: model in Blender (or Meshy, retopologised in Blender), hand-paint textures to §5.5, render with a shallow-depth macro-lens look. Board rendering: see §5.7.
 
 The goal is the feel of a tabletop campaign, not copying any painter's miniature, published diorama, or real-world dice or terrain brand.
 
@@ -916,8 +916,22 @@ Lighting rules: in the office the brass desk lamp is the warm key and the rain w
 - Resin dice are **thrown directly into the playable area**, tumbling and bouncing on the ground among the miniatures and scenery, then settle with the resolved face readable in place. d20 and d6 are the main dice; the existing damage bands also need d3 and d4. These use twice-numbered six/eight-face resin pieces. Advantage/disadvantage displays both actual d20 values; damage displays the actual weapon and sneak dice, with modifiers and applied damage in text.
 - Dice sets: Voss smoky amber; Lila deep green; hostiles oxblood. All sets use light ivory numerals for readability. The runtime reader validates the upper face. An unreadable visual gets at most one cosmetic retry with the same result, then a guaranteed readable settle. A restrained critical glint is optional; no particle fireworks.
 - Persistent **Normal / Fast / Skip** and independent dice sound On/Off controls sit beside **Roll log**. A throw can also be skipped immediately. Text retains the result for accessibility. Story combat skips the dice entirely.
-- **Turn-based combat is confirmed (12 October)**. Dice presentation locks further orders until read or skipped, without advancing the combat turn. Pause and inventory freeze presentation. Existing SearchMap navigation and camera projection remain unchanged; a visible grid and a separately authored 55° combat view are subsequent board work.
+- **Turn-based combat is confirmed (12 October)**. Dice presentation locks further orders until read or skipped, without advancing the combat turn. Pause and inventory freeze presentation. Existing SearchMap navigation and camera projection remain unchanged. The visible combat grid and **55° combat view** use the separate combat plate set in §5.7 (decided 13 October).
 - Presentation inspiration: Ossian's *Pathfinder: The Dragon's Demand*, [PC Gamer preview, 11 October 2024](https://www.pcgamer.com/games/rpg/thats-what-were-trying-to-do-be-a-dm-that-enables-any-players-play-style-check-out-the-upcoming-rpg-thats-trying-to-do-baldurs-gate-3-in-miniature-in-more-ways-than-one/). The rules-first/skip contract above is RainShadow's explicit implementation choice.
+
+### 5.7 Board rendering and pipeline (Option A, decided 12 October 2026)
+
+- **Board plates:** pre-rendered Blender plates built from a shared terrain kit, locked 45° exploration camera, with a **day and a night lighting pass** per board. 
+- **Separate combat plates (decided 13 October 2026):** each board gets two plate sets from two locked Blender cameras — a **45° exploration set** and a **55° combat set** (§5.4). Each set has its own baked passes: beauty (day and night), depth, search/combat grid, height, light and puddle mask. Miniatures are rendered at both angles: 8 directions per pose per angle. Entering or leaving combat transitions or cuts between the two sets. This roughly **doubles render and baking cost per board**.
+- **Live layers (SpriteKit):** rain, fog, puddle ripples and lamp flicker.
+- **Miniatures:** static Blender renders per pose (standing, seated, a few action poses) × **8 directions**. No walk cycles: movement is the rigid whole-piece hop in §5.5; a pose change is a quick crossfade or swap on the same base. Baked contact shadow, plus an optional night lamp shadow.
+- **Occlusion:** per-pixel depth pass tested in a SpriteKit shader (fallback: IE-style occluder cutouts). Miniature draw order by base Y.
+- **Sidecar maps:** search, height and light maps are kept but **baked from the same Blender scene**, plus a depth map and a puddle/gloss mask.
+- **World and streaming:** keep the 5120×3840 world and 5×5 page streaming. Masters at 2.5 px/unit, runtime about 2 px/unit. Miniatures about 2× on-screen height at maximum zoom.
+- **Hero renders** of each miniature for dialogue close-ups and portraits.
+- **Tools:** AI image tools only for concepts, paint studies and textures. Meshy for first-pass meshes, then Blender retopology, posing and painting. Never AI-overpaint a baked plate.
+- **First test:** rebuild RS0101 (Voss's office) with Voss standing and seated. This is also the first area migrated; the others follow one at a time, each keeping its legacy plate live until its board ships (§5.0).
+- **Rejected:** Option B (real-time 3D miniatures on pre-rendered boards) — mismatched lighting and finish between live minis and baked boards, for extra runtime cost. Option C (full real-time 3D) — highest cost and risk for a small team, and loses the authored, painted plate quality.
 
 ## 6. Core gameplay loops
 
@@ -1244,9 +1258,10 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Exact trait names and whether strain is visible numerically.
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Sign-off on the tabletop style guide v1 values (§5): scale, bases, palette, camera angles, table-prop UI.
-- Replacement for the 5120×3840 IE page system, the search/light/height (SR/LM/HT) maps and the 64 px native body spec for board renders.
+- **Closed 12 October:** board rendering is Option A (§5.7): the 5120×3840 page system and 5×5 streaming are kept, SR/LM/HT maps are re-baked from Blender, and minis are rendered per pose × 8 directions, replacing the 64 px body spec.
 - **Closed 12 October:** palette swaps remain available for character variants, equipment and existing saves.
 - **Closed 12 October:** keep the current turn-based combat. Visible dice are reserved for attack/damage and story-critical rolls; minor rolls are logged silently. Rules resolve first, so skip/fast-forward never changes outcomes (§5.6).
+- **Closed 13 October:** each board gets a separate **55° combat plate** set (§5.7), not a reuse of the 45° exploration plates.
 - Save-slot presentation and cross-device strategy.
 - Which physical room hosts the campaign’s Poirot summation by default (and which player failures force a harsher venue).
 - Can a temporary ally die? Default: injured, never killed (§4.3.5). Confirm, or allow it for some allies.
