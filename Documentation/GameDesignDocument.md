@@ -921,7 +921,8 @@ Lighting rules: in the office the brass desk lamp is the warm key and the rain w
 
 ### 5.7 Board rendering and pipeline (Option A, decided 12 October 2026)
 
-- **Board plates:** pre-rendered Blender plates built from a shared terrain kit, locked 45° exploration camera, with a **day and a night lighting pass** per board. The ~55° combat view (§5.4) needs its own plate render per board; this is open (§15).
+- **Board plates:** pre-rendered Blender plates built from a shared terrain kit, locked 45° exploration camera, with a **day and a night lighting pass** per board. 
+- **Separate combat plates (decided 13 October 2026):** each board gets two plate sets from two locked Blender cameras — a **45° exploration set** and a **55° combat set** (§5.4). Each set has its own baked passes: beauty (day and night), depth, search/combat grid, height, light and puddle mask. Miniatures are rendered at both angles: 8 directions per pose per angle. Entering or leaving combat transitions or cuts between the two sets. This roughly **doubles render and baking cost per board**.
 - **Live layers (SpriteKit):** rain, fog, puddle ripples and lamp flicker.
 - **Miniatures:** static Blender renders per pose (standing, seated, a few action poses) × **8 directions**. No walk cycles: movement is the rigid whole-piece hop in §5.5; a pose change is a quick crossfade or swap on the same base. Baked contact shadow, plus an optional night lamp shadow.
 - **Occlusion:** per-pixel depth pass tested in a SpriteKit shader (fallback: IE-style occluder cutouts). Miniature draw order by base Y.
@@ -1258,7 +1259,6 @@ The art gate is qualitative but strict: at final display scale, the office must 
 - Case-board visual metaphor for the later deduction board (desk papers vs wall board); M01 case surface is the journal.
 - Sign-off on the tabletop style guide v1 values (§5): scale, bases, palette, camera angles, table-prop UI.
 - **Closed 12 October:** board rendering is Option A (§5.7): the 5120×3840 page system and 5×5 streaming are kept, SR/LM/HT maps are re-baked from Blender, and minis are rendered per pose × 8 directions, replacing the 64 px body spec.
-- Whether the ~55° combat view (§5.4) gets its own plate render per board, or combat stays on the 45° exploration plates.
 - **Closed 12 October:** palette swaps remain available for character variants, equipment and existing saves.
 - **Closed 12 October:** keep the current turn-based combat. Visible dice are reserved for attack/damage and story-critical rolls; minor rolls are logged silently. Rules resolve first, so skip/fast-forward never changes outcomes (§5.6).
 - Save-slot presentation and cross-device strategy.
