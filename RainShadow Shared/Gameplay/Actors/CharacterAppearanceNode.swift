@@ -6,6 +6,8 @@ import SpriteKit
 @MainActor
 final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
     private var miniatureMotion = TabletopMiniatureMotion()
+    private var combatPoseAngle: CGFloat = 0
+    private var combatPoseOffset: CGFloat = 0
 
     func updateMiniatureMotion(at time: TimeInterval, paused: Bool) {
         guard TabletopPresentation.enabled else { return }
@@ -16,11 +18,11 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
 
     private func applyMiniatureHeight() {
         let height = visualHeightOffset + miniatureMotion.height
-        layers.forEach { $0.position.y = height }
-        miniatureBase.position.y = height
+        layers.forEach { $0.position = CGPoint(x: combatPoseOffset, y: height) }
+        miniatureBase.position = CGPoint(x: combatPoseOffset, y: height)
         if TabletopPresentation.enabled {
-            layers.forEach { $0.zRotation = miniatureMotion.tilt }
-            miniatureBase.zRotation = miniatureMotion.tilt
+            layers.forEach { $0.zRotation = miniatureMotion.tilt + combatPoseAngle }
+            miniatureBase.zRotation = miniatureMotion.tilt + combatPoseAngle
         }
     }
     private(set) var definition: CharacterDefinition
@@ -591,8 +593,16 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
             let frames = try resources.frames(appearance: definition.appearance, action: .idle, facing: facing, phase: 0)
             currentAction = action; currentFacing = facing; currentPhase = 0
             currentStealth = nil; currentReaction = nil; currentTechnique = nil
-            zRotation = action == .die ? -.pi / 2 : 0
-            install(frames); return
+            zRotation = 0
+            let progress = CGFloat(min(1, max(0, Double(phase) / 17)))
+            let pulse = sin(progress * .pi)
+            switch action {
+            case .attack, .shove, .shoot: combatPoseAngle = -0.13 * pulse; combatPoseOffset = 7 * pulse
+            case .hit: combatPoseAngle = 0.16 * pulse; combatPoseOffset = -4 * pulse
+            case .die: combatPoseAngle = -.pi / 2 * min(1, progress * 2); combatPoseOffset = 0
+            default: combatPoseAngle = 0; combatPoseOffset = 0
+            }
+            install(frames); applyMiniatureHeight(); return
         }
         let frames = try resources.frames(appearance: definition.appearance,
                                            action: action, facing: facing, phase: phase)
@@ -604,7 +614,7 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
     }
 
     func presentTechnique(_ technique: CombatManeuver?, action: CharacterVisualAction, facing: ActorFacing, phase: Int) throws {
-        if TabletopPresentation.enabled { try present(action: action, facing: facing, phase: 0); return }
+        if TabletopPresentation.enabled { try present(action: action, facing: facing, phase: phase); return }
         let frames = try resources.frames(appearance: definition.appearance, action: action, facing: facing, phase: phase, technique: technique)
         currentStealth = nil
         currentReaction = nil
@@ -613,7 +623,7 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
     }
 
     func presentStealth(_ clip: StealthClip, facing: ActorFacing, phase: Int) throws {
-        if TabletopPresentation.enabled { try present(action: .idle, facing: facing, phase: 0); return }
+        if TabletopPresentation.enabled { try present(action: clip == .sneakstab ? .attack : .idle, facing: facing, phase: phase); return }
         let frames = try resources.stealthFrames(clip, facing: facing, phase: phase)
         currentStealth = clip; currentReaction = nil; currentTechnique = nil
         currentAction = clip.action; currentFacing = facing; currentPhase = phase
@@ -621,7 +631,17 @@ final class CharacterAppearanceNode: SKNode, TabletopMovingActor {
     }
 
     func presentReaction(_ kind: CombatReactionKind, facing: ActorFacing, phase: Int) throws {
-        if TabletopPresentation.enabled { try present(action: .idle, facing: facing, phase: 0); return }
+        if TabletopPresentation.enabled {
+            try present(action: .idle, facing: facing, phase: 0)
+            currentReaction = kind
+            let t = CGFloat(min(1, max(0, Double(phase) / Double(max(1, kind.frames - 1)))))
+            if kind == .tripFall {
+                combatPoseAngle = -.pi / 2 * min(1, CGFloat(phase) / CGFloat(max(1, ProneMotion.holdPhase)))
+            } else if kind.isKnockback { combatPoseAngle = -.pi / 3 * sin(t * .pi) }
+            else { combatPoseAngle = 0.18 * sin(t * .pi) }
+            combatPoseOffset = -4 * sin(t * .pi)
+            applyMiniatureHeight(); return
+        }
         let frames = try resources.reactionFrames(kind, facing: facing, phase: phase)
         currentStealth = nil
         currentReaction = kind; currentTechnique = nil

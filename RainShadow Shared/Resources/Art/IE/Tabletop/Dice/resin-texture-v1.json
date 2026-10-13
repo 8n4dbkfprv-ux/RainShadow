@@ -1,0 +1,9 @@
+{
+  "generator": "Built-in image_gen",
+  "date": "2026-10-12",
+  "prompt": "Use case: photorealistic-natural. Asset type: seamless square albedo texture for the surface of hand-cast tabletop resin dice, intended to be wrapped onto existing 3D meshes and tinted amber, deep green or oxblood in a game. Create a flat, edge-to-edge, evenly lit material scan, NOT a picture of a die. Pearl-white and pale neutral gray smoky resin, translucent-looking cloudy swirls suspended inside the resin, soft flowing broad marbling with a few finer wisps, subtle hand-polished surface grain. Restrained medium contrast: mostly light ivory-white with some silver-gray cloudy ribbons; no deep black. Detail must remain legible when mapped onto small dice faces, so favor broad organic swirls over tiny noise. Seamlessly tileable on all edges. No lighting gradients, no baked reflections or highlights, no cast shadows, no perspective, no bevels, no objects, no numbers, no lettering, no grid, no border, no watermark. Single square texture only.",
+  "source": "exec-d15b0800-b5c7-422b-904e-b0d69b166bb7.png",
+  "asset": "resin-marble-v1.png",
+  "usage": "Diffuse albedo, tinted with the existing amber/green/oxblood paint families; numerals remain separate geometry.",
+  "mapping": "Blender face-planar ResinSurface UVs, interpolated through bevels. No geometry/normal/face/number changes."
+}

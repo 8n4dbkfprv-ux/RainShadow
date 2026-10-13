@@ -94,9 +94,9 @@ final class CombatInitiativeBar: SKNode {
             root.alpha = entry.acted ? 0.57 : 1
             cards.addChild(root)
 
-            let team = entry.allied ? SKColor(red: 0.19, green: 0.65, blue: 0.94, alpha: 1)
+            let team = entry.allied ? SKColor(red: 0.75, green: 0.60, blue: 0.31, alpha: 1)
                                    : SKColor(red: 0.85, green: 0.24, blue: 0.22, alpha: 1)
-            let well = SKShapeNode(rectOf: CGSize(width: 59, height: 59), cornerRadius: 2)
+            let well = SKShapeNode(circleOfRadius: 29.5)
             well.fillColor = SKColor(white: 0.035, alpha: 0.98)
             well.strokeColor = team
             well.lineWidth = 3
@@ -105,13 +105,16 @@ final class CombatInitiativeBar: SKNode {
             let portrait = SKSpriteNode(texture: texture(entry.portrait), size: CGSize(width: 54, height: 54))
             portrait.name = "combat.initiative.portrait"
             portrait.zPosition = 1
-            root.addChild(portrait)
+            let portraitMask = SKShapeNode(circleOfRadius: 27)
+            portraitMask.fillColor = .white; portraitMask.strokeColor = .clear
+            let portraitCrop = SKCropNode(); portraitCrop.maskNode = portraitMask
+            portraitCrop.addChild(portrait); root.addChild(portraitCrop)
 
-            let frame = SKSpriteNode(texture: texture("initiative_portrait_frame_v01"), size: CGSize(width: 72, height: 72))
+            let frame = SKSpriteNode(texture: CombatDicePresentation.tokenTexture(), size: CGSize(width: 72, height: 72))
             frame.zPosition = 2
             root.addChild(frame)
 
-            let outline = SKShapeNode(rectOf: CGSize(width: 65, height: 65), cornerRadius: 2)
+            let outline = SKShapeNode(circleOfRadius: 34)
             outline.strokeColor = entry.active ? SKColor(red: 1, green: 0.86, blue: 0.43, alpha: 1) : team
             outline.lineWidth = entry.active ? 2.5 : 1.5
             outline.glowWidth = entry.active ? 2 : 0
